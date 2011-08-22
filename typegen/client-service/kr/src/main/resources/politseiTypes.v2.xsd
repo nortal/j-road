@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://producers.kr.xtee.riik.ee/producer/kr"
+	xmlns:xtee="http://x-tee.riik.ee/xsd/xtee.xsd"
+	xmlns:ns1="http://schemas.xmlsoap.org/soap/encoding/"
+	xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+	xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	targetNamespace="http://producers.kr.xtee.riik.ee/producer/kr"
+	elementFormDefault="unqualified" attributeFormDefault="unqualified"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+	<import namespace="http://schemas.xmlsoap.org/soap/encoding/"
+		schemaLocation="http://schemas.xmlsoap.org/soap/encoding/" />
+
+	<import namespace="http://x-tee.riik.ee/xsd/xtee.xsd"
+		schemaLocation="http://x-tee.riik.ee/xsd/xtee.xsd" />
+
+	<complexType name="kinnistu_jada_item">
+		<all>
+			<element name="kinnistu_id" type="integer">
+				<annotation>
+					<appinfo>
+						<xtee:title>
+							Kinnistu id, kasutatakse kinnistusregistri
+							päringu sisendina
+						</xtee:title>
+					</appinfo>
+				</annotation>
+			</element>
+
+			<element name="kinnistu_nr" type="integer">
+				<annotation>
+					<appinfo>
+						<xtee:title>
+							Kinnistu registriosa number
+						</xtee:title>
+					</appinfo>
+				</annotation>
+			</element>
+
+			<element name="kinnistusjaoskond" type="string">
+				<annotation>
+					<appinfo>
+						<xtee:title>
+							Kinnistusjaoskonna nimetus
+						</xtee:title>
+					</appinfo>
+				</annotation>
+			</element>
+
+			<element name="kinnistu_liik" type="string">
+				<annotation>
+					<appinfo>
+						<xtee:title>Kinnistu liigi nimi</xtee:title>
+					</appinfo>
+				</annotation>
+			</element>
+
+			<element name="digitaalne_toimik" type="boolean">
+				<annotation>
+					<appinfo>
+						<xtee:title>Digitaalne toimik</xtee:title>
+					</appinfo>
+				</annotation>
+			</element>
+
+			<element name="katastritunnus_jada">
+				<annotation>
+					<appinfo>
+						<xtee:title>katastritunnused</xtee:title>
+					</appinfo>
+				</annotation>
+
+				<complexType>
+					<complexContent>
+						<restriction base="SOAP-ENC:Array">
+							<sequence>
+								<element name="item"
+									type="tns:katastritunnus_jada_item" minOccurs="0"
+									maxOccurs="unbounded" />
+							</sequence>
+						</restriction>
+					</complexContent>
+				</complexType>
+			</element>
+
+			<element name="korter" type="string">
+				<annotation>
+					<appinfo>
+						<xtee:title>Korteri number</xtee:title>
+					</appinfo>
+				</annotation>
+			</element>
+		</all>
+	</complexType>
+
+	<complexType name="katastritunnus_jada_item">
+		<all>
+			<element name="katastritunnus" type="string">
+				<annotation>
+					<appinfo>
+						<xtee:title>katastritunnus</xtee:title>
+					</appinfo>
+				</annotation>
+			</element>
+
+			<element name="sihtotstarve" type="string">
+				<annotation>
+					<appinfo>
+						<xtee:title>
+							Sihtotstarbed (täispikk nimetus) loeteluna
+						</xtee:title>
+					</appinfo>
+				</annotation>
+			</element>
+
+			<element name="asukoht" type="string">
+				<annotation>
+					<appinfo>
+						<xtee:title>
+							Katastriüksuse asukoha madalaim tase EHAK
+							koodina
+						</xtee:title>
+					</appinfo>
+				</annotation>
+			</element>
+
+			<element name="aadress" type="string">
+				<annotation>
+					<appinfo>
+						<xtee:title>
+							Aadress (Tänav, maja nr/maaüksus)
+						</xtee:title>
+					</appinfo>
+				</annotation>
+			</element>
+		</all>
+	</complexType>
+</xsd:schema>

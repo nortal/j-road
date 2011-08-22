@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://producers.kr.xtee.riik.ee/producer/kr"
+	targetNamespace="http://producers.kr.xtee.riik.ee/producer/kr"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+	xmlns:xtee="http://x-tee.riik.ee/xsd/xtee.xsd">
+
+	<include schemaLocation="ads_types.xsd" />	
+
+	<import namespace="http://schemas.xmlsoap.org/soap/encoding/"
+		schemaLocation="http://schemas.xmlsoap.org/soap/encoding/" />
+
+	<complexType name="kodanik_kinnistud_vastus">
+		<all>
+			<element name="teade" nillable="false" minOccurs="0"
+				type="string">
+				<annotation>
+					<appinfo>
+						<xtee:title>Teade</xtee:title>
+					</appinfo>
+				</annotation>
+			</element>
+
+			<element name="kinnistu_jada">
+				<annotation>
+					<appinfo>
+						<xtee:title>Kinnistud</xtee:title>
+					</appinfo>
+				</annotation>
+
+				<complexType>
+					<complexContent>
+						<restriction base="SOAP-ENC:Array">
+							<sequence>
+								<element name="item" minOccurs="0"
+									maxOccurs="unbounded">
+									<complexType>
+										<all>
+											<element
+												name="kinnistu_number" type="integer">
+												<annotation>
+													<appinfo>
+														<xtee:title>
+															Kinnistu_number
+														</xtee:title>
+													</appinfo>
+												</annotation>
+											</element>
+
+											<element
+												name="kinnistusjaoskond" type="string">
+												<annotation>
+													<appinfo>
+														<xtee:title>
+															Kinnistusjaoskond
+														</xtee:title>
+													</appinfo>
+												</annotation>
+											</element>
+
+											<element
+												name="kinnistu_nimi" type="string">
+												<annotation>
+													<appinfo>
+														<xtee:title>
+															Kinnistu_nimi
+														</xtee:title>
+													</appinfo>
+												</annotation>
+											</element>
+
+											<element name="kinnistu_id"
+												type="integer">
+												<annotation>
+													<appinfo>
+														<xtee:visibility>
+															0
+														</xtee:visibility>
+													</appinfo>
+												</annotation>
+											</element>
+											
+											<element name="digitaalne_toimik"
+												type="boolean">
+												<annotation>
+													<appinfo>
+														<xtee:title>
+															Digitaalne toimik
+														</xtee:title>
+													</appinfo>
+												</annotation>
+											</element>
+											
+											<element
+												name="katastritunnus_jada">
+												<annotation>
+													<appinfo>
+														<xtee:title>
+															Katastritunnused
+														</xtee:title>
+													</appinfo>
+												</annotation>
+
+												<complexType>
+													<complexContent>
+														<restriction
+															base="SOAP-ENC:Array">
+															<sequence>
+																<element
+																	name="item" minOccurs="0" maxOccurs="unbounded">
+																	<complexType>
+																		<all>
+																			<element
+																				name="katastritunnus" type="string">
+																				<annotation>
+																					<appinfo>
+																						<xtee:title>
+																							Katastritunnus
+																						</xtee:title>
+																					</appinfo>
+																				</annotation>
+																			</element>
+
+																			<element
+																				name="asukoht" type="string">
+																				<annotation>
+																					<appinfo>
+																						<xtee:title>
+																							Asukoht
+																						</xtee:title>
+																					</appinfo>
+																				</annotation>
+																			</element>
+																			<element name="aadressobjekt" type="tns:aadressobjektType" minOccurs="0" maxOccurs="1"/>
+																		</all>
+																	</complexType>
+																</element>
+															</sequence>
+														</restriction>
+													</complexContent>
+												</complexType>
+											</element>
+										</all>
+									</complexType>
+								</element>
+							</sequence>
+						</restriction>
+					</complexContent>
+				</complexType>
+			</element>
+		</all>
+	</complexType>
+
+</xsd:schema>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>xtee-client-kmais</artifactId>
+  <name>kmais client services</name>
+
+  <parent>
+    <groupId>ee.webmedia.xtee</groupId>
+    <artifactId>xtee-client-service</artifactId>
+ 	<version>2.1.1.45</version>
+  </parent>
+
+  <properties>
+    <package>kmais</package>
+  </properties>
+
+</project>

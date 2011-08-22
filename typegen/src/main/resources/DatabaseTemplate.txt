@@ -1,0 +1,19 @@
+package ${databaseClass.packageName};
+
+import ee.webmedia.xtee.client.exception.XTeeServiceConsumptionException;
+
+/**
+ * <code>${databaseClass.database}</code> X-tee database.
+ */
+public interface ${databaseClass.interfaceName} {
+<#list databaseClass.methods as method>
+<#list method.versions as version>
+
+  /**
+   * <code>${databaseClass.database}.${method.name}.v${version.version}</code> X-tee service.
+   */
+  ${method.outputClass} ${version.name}(${method.inputClass} input) throws XTeeServiceConsumptionException;
+</#list>
+</#list>
+
+}

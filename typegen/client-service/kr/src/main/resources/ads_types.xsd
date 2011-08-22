@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://producers.kr.xtee.riik.ee/producer/kr"
+	targetNamespace="http://producers.kr.xtee.riik.ee/producer/kr"
+	elementFormDefault="unqualified" attributeFormDefault="unqualified"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+	xmlns:xtee="http://x-tee.riik.ee/xsd/xtee.xsd">
+
+	<import namespace="http://schemas.xmlsoap.org/soap/encoding/"
+		schemaLocation="http://schemas.xmlsoap.org/soap/encoding/" />
+
+	<complexType name="aadressobjektType">
+		<sequence>
+			<element name="ads_oid" type="string" nillable="true" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<appinfo>
+						<xtee:title>Aadressobjekti identifikaator</xtee:title> 
+						<xtee:notes>Kui ADS'iga seos olemas, siis viit aadressiandmete ssteemi objektile</xtee:notes> 
+					</appinfo>
+				</annotation>
+			</element>
+			<element name="taisaadress" type="string" nillable="true" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<appinfo>
+						<xtee:title>Objekti aadress</xtee:title> 
+						<xtee:notes>Objekti tisaadress optimeeritud normaliseeritud kujul. Kui objektil normaliseeritud aadressid puuduvad, siis sellisel kujul nagu infossteemis on salvestatud</xtee:notes> 
+					</appinfo>
+				</annotation>
+			</element>
+			<element name="objekti_aadressid">
+				<annotation>
+					<appinfo>
+						<xtee:title>Objekti aadressid</xtee:title> 
+						<xtee:notes>Objekti aadressid paralleelaadresside kaupa</xtee:notes> 
+					</appinfo>
+				</annotation>
+				<complexType>
+					<complexContent>
+						<restriction base="SOAP-ENC:Array">
+							<sequence>
+								<element name="item" minOccurs="0" maxOccurs="unbounded">
+									<complexType>
+										<all>
+											<element name="yksaadress" type="tns:objekti_aadressidType" nillable="true" minOccurs="1"/>
+										</all>
+									</complexType>
+								</element>
+							</sequence>
+						</restriction>
+					</complexContent>
+				</complexType>
+			</element>
+		</sequence>
+	</complexType>
+
+	<complexType name="objekti_aadressidType">
+		<sequence>
+			<element name="koodaadress" type="string" nillable="true" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<appinfo>
+						<xtee:title>Koodaadress</xtee:title> 
+						<xtee:notes>Koodaadress ADS-is mis on seotud konkreetse aadressiga</xtee:notes> 
+					</appinfo>
+				</annotation>
+			</element>
+			<element name="taisaadress" type="string" nillable="true" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<appinfo>
+						<xtee:title>Täisaadress</xtee:title> 
+						<xtee:notes>Aadress normaliseeritud kujul. 
+         Kui normaliseeritud aadress puudub, siis sellisel kujul nagu infossteemis on salvestatud</xtee:notes>
+					</appinfo>
+				</annotation>
+			</element>
+			<element name="adr_id" type="string" nillable="true" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<appinfo>
+						<xtee:title>ADR_ID</xtee:title> 
+						<xtee:notes>Viit ADS-i aadressi kirjele</xtee:notes>
+					</appinfo>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+
+</xsd:schema>
