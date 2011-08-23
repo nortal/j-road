@@ -1,20 +1,22 @@
 package ee.webmedia.xtee.client.ads;
 
+import ee.webmedia.xtee.client.ads.database.AdsXTeeDatabase;
 import ee.webmedia.xtee.client.ads.types.ee.maaamet.ADSkompklassifParingType;
+import ee.webmedia.xtee.client.ads.types.ee.maaamet.ADSkompklassifParingType.KlassifParam;
 import ee.webmedia.xtee.client.ads.types.ee.maaamet.ADSkompklassifVastusType;
 import ee.webmedia.xtee.client.ads.types.ee.maaamet.ADSmuudatusedParingType;
-import ee.webmedia.xtee.client.ads.types.ee.maaamet.ADSmuudatusedVastusType;
-import ee.webmedia.xtee.client.ads.types.ee.maaamet.ADSkompklassifParingType.KlassifParam;
 import ee.webmedia.xtee.client.ads.types.ee.maaamet.ADSmuudatusedParingType.MuudatusedParam;
+import ee.webmedia.xtee.client.ads.types.ee.maaamet.ADSmuudatusedVastusType;
 import ee.webmedia.xtee.client.exception.XTeeServiceConsumptionException;
 import ee.webmedia.xtee.client.service.XTeeDatabaseService;
-import ee.webmedia.xtee.model.XTeeMessage;
-import ee.webmedia.xtee.model.XmlBeansXTeeMessage;
+import javax.annotation.Resource;
+import org.springframework.stereotype.Service;
 
+@Service("adsXTeeService")
 public class AdsXTeeServiceImpl extends XTeeDatabaseService implements AdsXTeeService {
 
-  private static final String ADS_KOMPKLASSIF = "ADSkompklassif";
-  private static final String ADS_MUUDATUSED = "ADSmuudatused";
+  @Resource
+  private AdsXTeeDatabase adsXTeeDatabase;
 
   public ADSkompklassifVastusType kompklassifV1(KlassifParamCallback callback) throws XTeeServiceConsumptionException {
     if (callback == null)
@@ -26,10 +28,7 @@ public class AdsXTeeServiceImpl extends XTeeDatabaseService implements AdsXTeeSe
     callback.populate(kp);
     request.setKlassifParam(kp);
 
-    XTeeMessage<ADSkompklassifVastusType> response =
-        send(new XmlBeansXTeeMessage<ADSkompklassifParingType>(request), ADS_KOMPKLASSIF, "v1");
-
-    return response.getContent();
+    return adsXTeeDatabase.adSkompklassifV1(request);
   }
 
   public ADSmuudatusedVastusType muudatusedV1(MuudatusedParamCallback callback) throws XTeeServiceConsumptionException {
@@ -42,10 +41,12 @@ public class AdsXTeeServiceImpl extends XTeeDatabaseService implements AdsXTeeSe
     callback.populate(mp);
     request.setMuudatusedParam(mp);
 
-    XTeeMessage<ADSmuudatusedVastusType> response =
-        send(new XmlBeansXTeeMessage<ADSmuudatusedParingType>(request), ADS_MUUDATUSED, "v1");
+    return adsXTeeDatabase.adSmuudatusedV1(request);
+  }
 
-    return response.getContent();
+
+  public void setAdsXTeeDatabase(AdsXTeeDatabase adsXTeeDatabase) {
+    this.adsXTeeDatabase = adsXTeeDatabase;
   }
 
 }
