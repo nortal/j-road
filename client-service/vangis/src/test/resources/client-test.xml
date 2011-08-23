@@ -5,7 +5,4 @@
 
   <import resource="classpath:client-test-common.xml" />
 
-  <bean id="vangisXTeeServiceImpl" class="ee.webmedia.xtee.client.vangis.VangisXTeeServiceImpl"
-    parent="xteeDatabaseService" />
-
 </beans>
