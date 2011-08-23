@@ -2,7 +2,6 @@ package ee.webmedia.xtee.client.viisaregister;
 
 import ee.webmedia.xtee.client.exception.XTeeServiceConsumptionException;
 import ee.webmedia.xtee.client.service.XTeeDatabaseService;
-import ee.webmedia.xtee.client.viisaregister.database.ViisaregisterXTeeDatabase;
 import ee.webmedia.xtee.client.viisaregister.types.ee.riik.xtee.viisaregister.producers.producer.viisaregister.StruktIsikSuguMK;
 import ee.webmedia.xtee.client.viisaregister.types.ee.riik.xtee.viisaregister.producers.producer.viisaregister.TaotluseAndmedIsikReisidokSisend;
 import ee.webmedia.xtee.client.viisaregister.types.ee.riik.xtee.viisaregister.producers.producer.viisaregister.TaotluseAndmedNrLiikSisend;
@@ -19,9 +18,6 @@ public class ViisaregisterXTeeServiceImpl extends XTeeDatabaseService implements
 
   @Resource
   private ViisaregisterXTeeDatabase viisaregisterXTeeDatabase;
-
-	private static final String TAOTLUSE_ANDMED_ISIK_REISIDOKUMENT_PARING = "taotl_andmed_isik_reisidok_paring";
-	private static final String TAOTLUSE_ANDMED_NR_LIIK_PARING = "taotl_andmed_nr_liik_paring";
 
 	public TaotlusteNimistuVastus taotluseAndmedIsikReisidokumentParing(String eesnimi, String perenimi, Calendar synniaeg, String sugu, String reisiDokLiik, String reisiDokNr, Calendar reisiDokValjastamisKuup, String toimik) throws XTeeServiceConsumptionException {
 		TaotluseAndmedIsikReisidokSisend paring = TaotluseAndmedIsikReisidokSisend.Factory.newInstance();
