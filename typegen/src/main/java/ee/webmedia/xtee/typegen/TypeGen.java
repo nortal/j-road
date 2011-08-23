@@ -38,7 +38,7 @@ import freemarker.template.TemplateException;
 
 /**
  * XMLBeans types generator
- *
+ * 
  * @author Dmitri Danilkin
  */
 public class TypeGen {
@@ -54,11 +54,12 @@ public class TypeGen {
   private static final String BASE_PACKAGE = "basepackage";
   private static final String DB_CLASSES_PACKAGE = "dbclassespackage";
 
-
   static Map<String, String> argMap = new HashMap<String, String>();
   private static Map<String, XmlBeansXTeeMetadata> metadata = new HashMap<String, XmlBeansXTeeMetadata>();
   private static List<XmlObject> schemas = new ArrayList<XmlObject>();
   private static File curWsdl;
+  private static File hashFile;
+  private static byte[] computedHash;
 
   public static void main(String[] args) throws Exception {
     System.out.println("Starting source generation...");
@@ -77,37 +78,47 @@ public class TypeGen {
         timer.start();
         loadWsdlSchemasAndGenerateMetadata(wsdls);
         System.out.println("WSDL files parsed, time taken: " + timer.finishStr());
-  
+
         System.out.println("Generating sources to " + outputdir + ", base package is: " + argMap.get(BASE_PACKAGE));
         timer.start();
         generateSource(outputdir, argMap.get(XSB_DIR), argMap.get(BASE_PACKAGE));
         System.out.println("Sources generated, time taken: " + timer.finishStr());
-  
+
         System.out.println("Post-processing sources for attachment support...");
         timer.start();
         AttachmentPostprocessor.process(argMap.get(BASE_PACKAGE), new File(outputdir));
         System.out.println("Post-processing completed, time taken: " + timer.finishStr());
-  
+
         System.out.println("Serializing metadata...");
         timer.start();
         saveMetadata(argMap.get(XSB_DIR));
         System.out.println("Metadata serialized, time taken: " + timer.finishStr());
-  
+
         if (argMap.get(DB_CLASSES_PACKAGE) != null) {
           System.out.println("Generating database classes...");
           timer.start();
           generateDatabaseClasses(outputdir);
           System.out.println("Database classes generated, time taken: " + timer.finishStr());
         }
+
+        writeHash();
       }
     }
     System.out.println("All done, total time taken: " + timer2.finishStr());
   }
 
+  private static void writeHash() throws Exception {
+    hashFile.delete();
+    hashFile.getParentFile().mkdirs();
+    hashFile.createNewFile();
+    FileOutputStream fos = new FileOutputStream(hashFile);
+    fos.write(computedHash);
+    fos.close();
+  }
 
   /**
    * Serializes metadata to specified directory.
-   *
+   * 
    * @param dir
    */
   private static void saveMetadata(String dir) throws Exception {
@@ -122,13 +133,14 @@ public class TypeGen {
 
   /**
    * Generates the XMLBeans source files.
-   *
+   * 
    * @param outputdir
    * @param basepackage
    * @throws XmlException
- * @throws URISyntaxException
+   * @throws URISyntaxException
    */
-  private static void generateSource(String outputdir, String xsbdir, String basepackage) throws XmlException, URISyntaxException {
+  private static void generateSource(String outputdir, String xsbdir, String basepackage) throws XmlException,
+      URISyntaxException {
 
     XmlObject[] schemasarr = new XmlObject[schemas.size()];
     schemas.toArray(schemasarr);
@@ -150,7 +162,7 @@ public class TypeGen {
 
   /**
    * Parses command line arguments to a map
-   *
+   * 
    * @param args
    */
   private static void parseArgs(String[] args) {
@@ -162,7 +174,7 @@ public class TypeGen {
 
   /**
    * Gets all WSDL files in a directory and returns them as an array
-   *
+   * 
    * @param dir
    * @return File array
    */
@@ -183,28 +195,19 @@ public class TypeGen {
         }
       }
 
-      byte[] wsdlHash = md.digest();
+      computedHash = md.digest();
 
-      File hashfile =
+      hashFile =
           new File(outputDir + File.separator + argMap.get(BASE_PACKAGE).replace('.', File.separatorChar)
               + File.separator + "hash.md5");
 
-      if (hashfile.exists()) {
-        byte[] readHash = FileUtil.getBytes(hashfile);
+      if (hashFile.exists()) {
+        byte[] readHash = FileUtil.getBytes(hashFile);
 
-        if (Arrays.equals(readHash, wsdlHash)) {
+        if (Arrays.equals(readHash, computedHash)) {
           System.out.println("Skipping generation, files not changed.");
           files.clear();
         }
-      } 
-      
-      if (!hashfile.exists() || !files.isEmpty()) {
-        hashfile.delete();
-        hashfile.getParentFile().mkdirs();
-        hashfile.createNewFile();
-        FileOutputStream fos = new FileOutputStream(hashfile);
-        fos.write(wsdlHash);
-        fos.close();
       }
     }
 
@@ -215,7 +218,7 @@ public class TypeGen {
 
   /**
    * Parse WSDL files - extract types (schemas) and generate metadata for marshalling XmlBeans objects to XTee queries.
-   *
+   * 
    * @param wsdls
    * @throws Exception
    */
@@ -225,19 +228,21 @@ public class TypeGen {
     fac.setValidating(false);
 
     DocumentBuilder builder = fac.newDocumentBuilder();
- 
+
     for (File wsdl : wsdls) {
       System.out.println(wsdl.getName());
       Document xmlWsdl = builder.parse(wsdl);
       curWsdl = wsdl;
-      schemas.addAll(getSchemas(xmlWsdl.getElementsByTagNameNS(WSDL_NS, "types").item(0), getNamespaces(xmlWsdl), wsdl.getParent()));
+      schemas.addAll(getSchemas(xmlWsdl.getElementsByTagNameNS(WSDL_NS, "types").item(0),
+                                getNamespaces(xmlWsdl),
+                                wsdl.getParent()));
       createMetadata(xmlWsdl);
     }
   }
 
   /**
    * Creates a map of the namespaces from the WSDL definitions element for XmlBeans
-   *
+   * 
    * @param wsdlDoc
    */
   private static Map<String, String> getNamespaces(Document wsdlDoc) {
@@ -254,13 +259,14 @@ public class TypeGen {
 
   /**
    * Return the schemas contained in the given wsdl:types node.
-   *
+   * 
    * @param typesNode
    * @param additionalNs
    * @return A collection of schemas found under the Node
    * @throws Exception
    */
-  private static Collection<XmlObject> getSchemas(Node typesNode, Map<String, String> additionalNs, String schemaPath) throws Exception {
+  private static Collection<XmlObject> getSchemas(Node typesNode, Map<String, String> additionalNs, String schemaPath)
+      throws Exception {
     List<XmlObject> schemas = new ArrayList<XmlObject>();
     NodeList schemaNodes = typesNode.getChildNodes();
     XmlOptions options = new XmlOptions();
@@ -268,9 +274,9 @@ public class TypeGen {
     for (int i = 0; i < schemaNodes.getLength(); i++) {
       Node schemaNode = schemaNodes.item(i);
       if (SCHEMA_NS.equals(schemaNode.getNamespaceURI()) && "schema".equals(schemaNode.getLocalName())) {
-    	  XmlObject schema = XmlObject.Factory.parse(schemaNode, options);
-    	  schema.documentProperties().setSourceName("file://" + schemaPath.replace(File.separator, "/") + "/");
-    	  schemas.add(schema);
+        XmlObject schema = XmlObject.Factory.parse(schemaNode, options);
+        schema.documentProperties().setSourceName("file://" + schemaPath.replace(File.separator, "/") + "/");
+        schemas.add(schema);
       } else if (schemaNode.getNodeType() != Node.TEXT_NODE && schemaNode.getNodeType() != Node.COMMENT_NODE) {
         // TODO: Add xs:import support outside schemas.
         throw new IllegalStateException("Encountered unsupported element in WSDL types definition: ({"
@@ -281,10 +287,9 @@ public class TypeGen {
     return schemas;
   }
 
-
   /**
    * Creates metadata needed to marshal XmlBeans objects to valid XTee requests.
-   *
+   * 
    * @param wsdlDoc
    * @throws Exception
    */
@@ -300,10 +305,10 @@ public class TypeGen {
       database = opNs.substring(opNs.lastIndexOf("/") + 1);
     } else {
       // WSDL does not follow X-tee convention, warn and use WSDL name as database
-      System.out.println("WARNING: WSDL namespace does not match X-tee convention (found: " + opNs + "), setting database name from WSDL filename!");
+      System.out.println("WARNING: WSDL namespace does not match X-tee convention (found: " + opNs
+          + "), setting database name from WSDL filename!");
       database = curWsdl.getName().substring(0, curWsdl.getName().toLowerCase().indexOf(".wsdl"));
     }
-
 
     Node binding = wsdlDoc.getElementsByTagNameNS(WSDL_NS, "binding").item(0);
     NodeList bindingChildren = binding.getChildNodes();
@@ -339,12 +344,10 @@ public class TypeGen {
       }
     }
 
-
     Node portType = wsdlDoc.getElementsByTagNameNS(WSDL_NS, "portType").item(0);
     NodeList portTypeChildren = portType.getChildNodes();
 
-    mainLoop:
-    for (int i = 0; i < portTypeChildren.getLength(); i++) {
+    mainLoop: for (int i = 0; i < portTypeChildren.getLength(); i++) {
       Node portTypeChild = portTypeChildren.item(i);
 
       if (WSDL_NS.equals(portTypeChild.getNamespaceURI()) && "operation".equals(portTypeChild.getLocalName())) {
@@ -366,8 +369,7 @@ public class TypeGen {
           Node operationChild = operationChildren.item(j);
 
           if (WSDL_NS.equals(operationChild.getNamespaceURI())
-              && ("input".equals(operationChild.getLocalName())
-                   || "output".equals(operationChild.getLocalName()))) {
+              && ("input".equals(operationChild.getLocalName()) || "output".equals(operationChild.getLocalName()))) {
 
             String message = operationChild.getAttributes().getNamedItem("message").getNodeValue().split(":", 2)[1];
             QName elementQName = messageMap.get(message);
@@ -408,7 +410,7 @@ public class TypeGen {
 
   /**
    * Creates a map between message names and their response elements.
-   *
+   * 
    * @param wsdlDoc
    * @return
    */
@@ -436,8 +438,6 @@ public class TypeGen {
     return messageMap;
   }
 
-
-
   private static void generateDatabaseClasses(String outputdir) throws IOException, TemplateException {
     DatabaseClasses classes = new DatabaseClasses(argMap.get(XSB_DIR), argMap.get(DB_CLASSES_PACKAGE));
 
@@ -452,7 +452,6 @@ public class TypeGen {
 
     DatabaseGenerator.generate(classes, outputdir);
   }
-
 
   private static class Timer {
     private double start;
