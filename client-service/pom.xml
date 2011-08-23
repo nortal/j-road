@@ -16,18 +16,18 @@
     <dependency>
       <groupId>ee.webmedia.xtee</groupId>
       <artifactId>xtee-client-transport</artifactId>
-      <version>${pom.version}</version>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>ee.webmedia.xtee</groupId>
       <artifactId>xtee-typegen</artifactId>
-      <version>${pom.version}</version>
+      <version>${project.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>ee.webmedia.xtee</groupId>
       <artifactId>xtee-client-test</artifactId>
-      <version>${pom.version}</version>
+      <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

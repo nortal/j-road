@@ -70,7 +70,7 @@
 		<dependency>
 			<groupId>ee.webmedia.xtee</groupId>
 			<artifactId>xtee-common</artifactId>
-			<version>${pom.version}</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.sun.xml.bind</groupId>

@@ -1,17 +1,21 @@
 package ee.webmedia.xtee.client.viisaregister;
 
+import java.util.Calendar;
+
+import javax.annotation.Resource;
+import javax.xml.namespace.QName;
+
+import org.apache.xmlbeans.XmlCursor;
+import org.springframework.stereotype.Service;
+
 import ee.webmedia.xtee.client.exception.XTeeServiceConsumptionException;
 import ee.webmedia.xtee.client.service.XTeeDatabaseService;
+import ee.webmedia.xtee.client.viisaregister.database.ViisaregisterXTeeDatabase;
 import ee.webmedia.xtee.client.viisaregister.types.ee.riik.xtee.viisaregister.producers.producer.viisaregister.StruktIsikSuguMK;
 import ee.webmedia.xtee.client.viisaregister.types.ee.riik.xtee.viisaregister.producers.producer.viisaregister.TaotluseAndmedIsikReisidokSisend;
 import ee.webmedia.xtee.client.viisaregister.types.ee.riik.xtee.viisaregister.producers.producer.viisaregister.TaotluseAndmedNrLiikSisend;
 import ee.webmedia.xtee.client.viisaregister.types.ee.riik.xtee.viisaregister.producers.producer.viisaregister.TaotluseAndmedVastus;
 import ee.webmedia.xtee.client.viisaregister.types.ee.riik.xtee.viisaregister.producers.producer.viisaregister.TaotlusteNimistuVastus;
-import java.util.Calendar;
-import javax.annotation.Resource;
-import javax.xml.namespace.QName;
-import org.apache.xmlbeans.XmlCursor;
-import org.springframework.stereotype.Service;
 
 @Service("viisaregisterXTeeService")
 public class ViisaregisterXTeeServiceImpl extends XTeeDatabaseService implements ViisaregisterXTeeService {
