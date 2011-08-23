@@ -5,7 +5,4 @@
 
   <import resource="classpath:client-test-common.xml" />
 
-  <bean id="mteenusXTeeService" class="ee.webmedia.xtee.client.mteenus.MteenusXTeeServiceImpl"
-    parent="xteeDatabaseService" />
-
 </beans>

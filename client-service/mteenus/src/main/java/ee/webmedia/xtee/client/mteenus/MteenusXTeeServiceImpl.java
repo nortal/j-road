@@ -1,16 +1,21 @@
 package ee.webmedia.xtee.client.mteenus;
 
 import ee.webmedia.xtee.client.exception.XTeeServiceConsumptionException;
+import ee.webmedia.xtee.client.mteenus.database.MteenusXTeeDatabase;
 import ee.webmedia.xtee.client.mteenus.types.ee.riik.xtee.mteenus.producers.producer.mteenus.TeavitusSisu;
 import ee.webmedia.xtee.client.mteenus.types.ee.riik.xtee.mteenus.producers.producer.mteenus.TeavitusVastus;
 import ee.webmedia.xtee.client.service.XTeeDatabaseService;
-import ee.webmedia.xtee.model.XTeeMessage;
-import ee.webmedia.xtee.model.XmlBeansXTeeMessage;
+import javax.annotation.Resource;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Aleksandr.Koltakov
  */
+@Service("mteenusXTeeService")
 public class MteenusXTeeServiceImpl extends XTeeDatabaseService implements MteenusXTeeService {
+
+  @Resource
+  private MteenusXTeeDatabase mteenusXTeeDatabase;
 
   public TeavitusVastus send(Sms sms) throws XTeeServiceConsumptionException {
 
@@ -22,7 +27,10 @@ public class MteenusXTeeServiceImpl extends XTeeDatabaseService implements Mteen
     sisu.setKinnitus(sms.isKinnitus());
     sisu.setSaadaWap(sms.isSaadaWap());
 
-    XTeeMessage<TeavitusVastus> response = send(new XmlBeansXTeeMessage<TeavitusSisu>(sisu), "SMSteavitus");
-    return response.getContent();
+    return mteenusXTeeDatabase.smSteavitusV1(sisu);
+  }
+
+  public void setMteenusXTeeDatabase(MteenusXTeeDatabase mteenusXTeeDatabase) {
+    this.mteenusXTeeDatabase = mteenusXTeeDatabase;
   }
 }
