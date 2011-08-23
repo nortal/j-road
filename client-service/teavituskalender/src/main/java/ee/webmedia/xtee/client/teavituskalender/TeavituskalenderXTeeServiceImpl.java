@@ -1,22 +1,27 @@
 package ee.webmedia.xtee.client.teavituskalender;
 
-import org.apache.xmlbeans.XmlOptions;
 import ee.webmedia.xtee.client.exception.XTeeServiceConsumptionException;
 import ee.webmedia.xtee.client.service.XTeeDatabaseService;
-import ee.webmedia.xtee.client.teavituskalender.types.ee.riik.xtee.teavituskalender.producers.producer.teavituskalender.LisaSyndmusVastus;
+import ee.webmedia.xtee.client.teavituskalender.database.TeavituskalenderXTeeDatabase;
 import ee.webmedia.xtee.client.teavituskalender.types.ee.riik.xtee.teavituskalender.producers.producer.teavituskalender.LisaSyndmusParing;
 import ee.webmedia.xtee.client.teavituskalender.types.ee.riik.xtee.teavituskalender.producers.producer.teavituskalender.LisaSyndmusParing.Lugejad;
 import ee.webmedia.xtee.client.teavituskalender.types.ee.riik.xtee.teavituskalender.producers.producer.teavituskalender.LisaSyndmusParing.Lugejad.Item;
-import ee.webmedia.xtee.model.XTeeMessage;
-import ee.webmedia.xtee.model.XmlBeansXTeeMessage;
+import ee.webmedia.xtee.client.teavituskalender.types.ee.riik.xtee.teavituskalender.producers.producer.teavituskalender.LisaSyndmusVastus;
+import javax.annotation.Resource;
+import org.apache.xmlbeans.XmlOptions;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Aleksandr.Koltakov
  */
+@Service("teavituskalenderXTeeService")
 public class TeavituskalenderXTeeServiceImpl extends XTeeDatabaseService implements TeavituskalenderXTeeService {
 
   private static final String TYPE = "xsd:anyType[1]";
   private static final String OFFSET = "[0]";
+
+  @Resource
+  private TeavituskalenderXTeeDatabase teavituskalenderXTeeDatabase;
 
   public LisaSyndmusVastus lisaSyndmus(Syndmus syndmus) throws XTeeServiceConsumptionException {
 
@@ -50,7 +55,11 @@ public class TeavituskalenderXTeeServiceImpl extends XTeeDatabaseService impleme
     lugejad.setItemArray(kasutajad);
     paring.setLugejad(lugejad);
 
-    XTeeMessage<LisaSyndmusVastus> response = send(new XmlBeansXTeeMessage<LisaSyndmusParing>(paring), "lisaSyndmus");
-    return response.getContent();
+    return teavituskalenderXTeeDatabase.lisaSyndmusV1(paring);
+  }
+
+
+  public void setTeavituskalenderXTeeDatabase(TeavituskalenderXTeeDatabase teavituskalenderXTeeDatabase) {
+    this.teavituskalenderXTeeDatabase = teavituskalenderXTeeDatabase;
   }
 }
