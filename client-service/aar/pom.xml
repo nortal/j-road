@@ -13,4 +13,33 @@
   <properties>
     <package>aar</package>
   </properties>
+
+  <build>
+    <plugins>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.1.1</version>
+        <executions>
+        <execution>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>java</goal>
+            </goals>
+            <inherited>true</inherited>
+            <configuration>
+              <mainClass>ee.webmedia.xtee.typegen.TypeGen</mainClass>
+              <arguments>
+                <argument>wsdldir=${basedir}/src/main/resources</argument>
+                <argument>sourcedir=${basedir}/src/main/java</argument>
+                <argument>xsbdir=${basedir}/target/classes</argument>
+                <argument>basepackage=ee.webmedia.xtee.client.${package}.types</argument>
+              </arguments>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 </project>

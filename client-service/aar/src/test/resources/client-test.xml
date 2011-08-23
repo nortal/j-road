@@ -5,7 +5,4 @@
 
   <import resource="classpath:client-test-common.xml" />
 
-  <bean id="aarXTeeService" class="ee.webmedia.xtee.client.aar.AarXTeeServiceImpl"
-    parent="xteeDatabaseService" />
-
 </beans>
