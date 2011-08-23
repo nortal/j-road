@@ -5,7 +5,4 @@
 
   <import resource="classpath:client-test-common.xml" />
 
-  <bean id="viisaregisterXTeeServiceImpl" class="ee.webmedia.xtee.client.viisaregister.ViisaregisterXTeeServiceImpl"
-    parent="xteeDatabaseService" />
-
 </beans>

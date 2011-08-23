@@ -1,26 +1,28 @@
 package ee.webmedia.xtee.client.viisaregister;
 
-import java.util.Calendar;
-
-import javax.xml.namespace.QName;
-
-import org.apache.xmlbeans.XmlCursor;
-
 import ee.webmedia.xtee.client.exception.XTeeServiceConsumptionException;
 import ee.webmedia.xtee.client.service.XTeeDatabaseService;
+import ee.webmedia.xtee.client.viisaregister.database.ViisaregisterXTeeDatabase;
 import ee.webmedia.xtee.client.viisaregister.types.ee.riik.xtee.viisaregister.producers.producer.viisaregister.StruktIsikSuguMK;
 import ee.webmedia.xtee.client.viisaregister.types.ee.riik.xtee.viisaregister.producers.producer.viisaregister.TaotluseAndmedIsikReisidokSisend;
 import ee.webmedia.xtee.client.viisaregister.types.ee.riik.xtee.viisaregister.producers.producer.viisaregister.TaotluseAndmedNrLiikSisend;
 import ee.webmedia.xtee.client.viisaregister.types.ee.riik.xtee.viisaregister.producers.producer.viisaregister.TaotluseAndmedVastus;
 import ee.webmedia.xtee.client.viisaregister.types.ee.riik.xtee.viisaregister.producers.producer.viisaregister.TaotlusteNimistuVastus;
-import ee.webmedia.xtee.model.XTeeMessage;
-import ee.webmedia.xtee.model.XmlBeansXTeeMessage;
+import java.util.Calendar;
+import javax.annotation.Resource;
+import javax.xml.namespace.QName;
+import org.apache.xmlbeans.XmlCursor;
+import org.springframework.stereotype.Service;
 
+@Service("viisaregisterXTeeService")
 public class ViisaregisterXTeeServiceImpl extends XTeeDatabaseService implements ViisaregisterXTeeService {
+
+  @Resource
+  private ViisaregisterXTeeDatabase viisaregisterXTeeDatabase;
 
 	private static final String TAOTLUSE_ANDMED_ISIK_REISIDOKUMENT_PARING = "taotl_andmed_isik_reisidok_paring";
 	private static final String TAOTLUSE_ANDMED_NR_LIIK_PARING = "taotl_andmed_nr_liik_paring";
-	
+
 	public TaotlusteNimistuVastus taotluseAndmedIsikReisidokumentParing(String eesnimi, String perenimi, Calendar synniaeg, String sugu, String reisiDokLiik, String reisiDokNr, Calendar reisiDokValjastamisKuup, String toimik) throws XTeeServiceConsumptionException {
 		TaotluseAndmedIsikReisidokSisend paring = TaotluseAndmedIsikReisidokSisend.Factory.newInstance();
 		if (eesnimi != null || perenimi != null || synniaeg != null || sugu != null) {
@@ -31,12 +33,12 @@ public class ViisaregisterXTeeServiceImpl extends XTeeDatabaseService implements
 			ee.webmedia.xtee.client.viisaregister.types.ee.riik.xtee.viisaregister.producers.producer.viisaregister.Sugu.Enum suguEnum = ee.webmedia.xtee.client.viisaregister.types.ee.riik.xtee.viisaregister.producers.producer.viisaregister.Sugu.Enum.forString(sugu);
 			isik.setSugu(suguEnum);
 		}
-		
+
 		ee.webmedia.xtee.client.viisaregister.types.ee.riik.xtee.viisaregister.producers.producer.viisaregister.ReisiDokLiik.Enum reisiDokLiikEnum = ee.webmedia.xtee.client.viisaregister.types.ee.riik.xtee.viisaregister.producers.producer.viisaregister.ReisiDokLiik.Enum.forString(reisiDokLiik);
 		paring.setReisiDokLiik(reisiDokLiikEnum);
 		paring.setReisiDokNr(reisiDokNr);
 		paring.setReisiDokValjastamisKuup(reisiDokValjastamisKuup);
-		
+
 		//Kuna viisaregister tahab kindlasti oma xsi:type atribuute näha, siis paneme need käsitsi külge
 		XmlCursor cursor = paring.newCursor();
 		while (!cursor.isEnddoc()) {
@@ -74,16 +76,15 @@ public class ViisaregisterXTeeServiceImpl extends XTeeDatabaseService implements
 			}
 			cursor.toNextToken();
 		}
-		
-		XTeeMessage<TaotlusteNimistuVastus> response = send(new XmlBeansXTeeMessage<TaotluseAndmedIsikReisidokSisend>(paring), TAOTLUSE_ANDMED_ISIK_REISIDOKUMENT_PARING, "v1");
-		return response.getContent();
+
+		return viisaregisterXTeeDatabase.taotlAndmedIsikReisidokParingV1(paring);
 	}
-	
+
 	public TaotluseAndmedVastus taotluseAndmedNrLiikParing(String taotluseLiik, String taotluseNr) throws XTeeServiceConsumptionException {
 		TaotluseAndmedNrLiikSisend paring = TaotluseAndmedNrLiikSisend.Factory.newInstance();
 		paring.setTaotluseLiik(ee.webmedia.xtee.client.viisaregister.types.ee.riik.xtee.viisaregister.producers.producer.viisaregister.TaotluseLiik.Enum.forString(taotluseLiik));
 		paring.setTaotluseNr(taotluseNr);
-		
+
 		//Kuna viisaregister tahab kindlasti oma xsi:type atribuute näha, siis paneme need käsitsi külge
 		XmlCursor cursor = paring.newCursor();
 		while (!cursor.isEnddoc()) {
@@ -97,9 +98,13 @@ public class ViisaregisterXTeeServiceImpl extends XTeeDatabaseService implements
 			}
 			cursor.toNextToken();
 		}
-		
-		XTeeMessage<TaotluseAndmedVastus> response = send(new XmlBeansXTeeMessage<TaotluseAndmedNrLiikSisend>(paring), TAOTLUSE_ANDMED_NR_LIIK_PARING, "v1");
-		return response.getContent();
+
+		return viisaregisterXTeeDatabase.taotlAndmedNrLiikParingV1(paring);
 	}
-	
+
+
+  public void setViisaregisterXTeeDatabase(ViisaregisterXTeeDatabase viisaregisterXTeeDatabase) {
+    this.viisaregisterXTeeDatabase = viisaregisterXTeeDatabase;
+  }
+
 }
