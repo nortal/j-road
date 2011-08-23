@@ -32,27 +32,35 @@
     </dependency>
   </dependencies>
   <modules>
+    <module>aar</module>
+    <module>ads</module>
     <module>arireg</module>
+    <module>dhl</module>
     <module>ehis</module>
-    <module>esis</module>
     <module>ehr</module>
     <module>emta</module>
+    <module>epria</module>
+    <module>esis</module>
     <module>karis</module>
     <module>kirst</module>
+    <module>kmais</module>
     <module>koodikeskus</module>
     <module>kr</module>
     <module>liiklusregister</module>
     <module>ljvis</module>
+    <module>lkf</module>
+    <module>lkf3</module>
+    <module>mteenus</module>
     <module>pkr</module>
+    <module>polis</module>
     <module>rets</module>
     <module>rmrk</module>
     <module>rr</module>
     <module>teavituskalender</module>
-    <module>kmais</module>
-    <module>lkf</module>
+    <module>test</module>
     <module>trelvaregister</module>
     <module>vangis</module>
-    <module>test</module>
+    <module>viisaregister</module>
   </modules>
 
   <build>
