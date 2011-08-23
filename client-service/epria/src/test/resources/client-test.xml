@@ -5,7 +5,4 @@
 
   <import resource="classpath:client-test-common.xml" />
 
-  <bean id="epriaXTeeService" class="ee.webmedia.xtee.client.tosjuht.EpriaXTeeServiceImpl"
-    parent="xteeDatabaseService" />
-
 </beans>
