@@ -5,18 +5,4 @@
 
   <import resource="classpath:client-test-common.xml" />
 
-    <bean id="karisXTeeServiceImpl" class="ee.webmedia.xtee.client.karis.KarisXTeeServiceImpl">
-		<property name="xTeeServiceConfigurationProvider" ref="karisXTeeServiceConfigurationProvider" />
-		<property name="xTeeConsumer" ref="xTeeConsumer"/>
-	</bean>
-	
-
-	<bean id="karisXTeeServiceConfigurationProvider"
-		class="ee.webmedia.xtee.client.service.configuration.provider.PropertiesBasedXTeeServiceConfigurationProvider">
-		<property name="resource" value="xtee-service.properties" />
-	</bean>
-
-	
-	
-	
 </beans>
