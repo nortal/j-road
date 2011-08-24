@@ -6,7 +6,7 @@
   <artifactId>xtee-root</artifactId>
   <packaging>pom</packaging>
   <name>x-tee root</name>
-  <version>3.0-SNAPSHOT</version>
+  <version>3.0.0-SNAPSHOT</version>
 
   <parent>
     <groupId>org.sonatype.oss</groupId>
