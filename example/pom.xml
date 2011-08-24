@@ -7,24 +7,24 @@
   <name>x-tee library usage example</name>
   <description>Web application providing X-tee service</description>
   <parent>
-    <groupId>ee.webmedia.xtee</groupId>
+    <groupId>com.googlecode.j-road</groupId>
     <artifactId>xtee-root</artifactId>
  	<version>3.0-SNAPSHOT</version>
   </parent>
 
   <dependencies>
     <dependency>
-      <groupId>ee.webmedia.xtee</groupId>
+      <groupId>com.googlecode.j-road</groupId>
       <artifactId>xtee-server</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
-    	<groupId>ee.webmedia.xtee</groupId>
+    	<groupId>com.googlecode.j-road</groupId>
     	<artifactId>xtee-client-transport</artifactId>
     	<version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>ee.webmedia.xtee</groupId>
+      <groupId>com.googlecode.j-road</groupId>
       <artifactId>xtee-typegen</artifactId>
       <version>${project.version}</version>
       <scope>compile</scope>
