@@ -96,7 +96,7 @@ public class XTeeMessageCallback implements WebServiceMessageCallback {
     if(serviceConfiguration.useDeprecatedApi()) {
       SOAPElement pametnik = header.addChildElement("ametnik", "ns4");
       pametnik.addAttribute(env.createName("xsi:type"), "xsd:string");
-      pametnik.addTextNode(serviceConfiguration.getIdCode().substring(2));
+      pametnik.addTextNode(serviceConfiguration.getIdCode());
     }
   }
 
