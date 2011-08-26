@@ -43,7 +43,7 @@
     <module>esis</module>
     <module>karis</module>
     <module>kirst</module>
-    <module>kmais</module>
+<!--     <module>kmais</module> -->
     <module>koodikeskus</module>
     <module>kr</module>
     <module>liiklusregister</module>
