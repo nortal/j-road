@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PORX_IN010380UV ITSVersion="XML_1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:hl7-org:v3" xmlns:ext="urn:hl7-EE-DL-Ext:v1" xsi:schemaLocation="
+   urn:hl7-org:v3 
+   ..\HL7-ORG-V3-2007-05\processable\multicacheschemas\PORX_IN010380UV.xsd
+   urn:hl7-EE-DL-Ext:v1
+..\HL7-ORG-V3-2007-05-EE-DL-Ext-V1\processable\multicacheschemas\PORX_IN010380UV_Extension.xsd">
+	<!-- Viide standardi template Id peale-->
+	<templateId root="1.3.6.1.4.1.28284.6.1.1" extension="1.3.6.1.4.1.28284.6.1.1.136.1"/>
+	<!--Sõnumi unikaalne identifikaator -->
+	<id root="TTOMaaratudSonumiOIDnr" extension="eHL.111111111AAAA"/>
+	<!-- Sõnumi loomise aeg -->
+	<creationTime value="20071122114322.123"/>
+	<!-- Kasutatav HL7 versioon -->
+	<versionCode code="V3-2007-05"/>
+	<!-- Sündmuse identifikaator -->
+	<interactionId root="2.16.840.1.113883" extension="PORX_IN010380UV"/>
+	<!-- Saatmise re?iim: P (production), T (training), D (debugging)  -->
+	<processingCode code="T"/>
+	<!-- Saatmise viis: A (Archive), I (Initial load), R (Restore from Archive), T (Current processing) -->
+	<processingModeCode code="T"/>
+	<!-- Vastusesõnumi saatmine: AL (Always), NE (Never), ER (Error, reject only) -->
+	<acceptAckCode code="AL"/>
+	<!-- Sõnumi järjekorranumber. -->
+	<sequenceNumber value="123"/>
+	<!-- Sõnumi saaja (saajad) -->
+	<receiver typeCode="RCV">
+		<device classCode="DEV" determinerCode="INSTANCE">
+			<id root="1.3.6.1.4.1.28284.6.2.2.18.2" extension="RK"/>
+		</device>
+	</receiver>
+	<!-- Sõnumi saatja -->
+	<sender typeCode="SND">
+		<device classCode="DEV" determinerCode="INSTANCE">
+			<id root="TTOMaaratudSaajaSaatjaSystOIDnr" extension="HAIGLA1"/>
+			<softwareName>Tarkvara nimetus</softwareName>
+		</device>
+	</sender>
+	<!-- Act moodCode: INT intent, PRP proposal, RMD recommendation, APT appointment, ARQ appointment request, PRMS promise, RQO request, EVN event (occurrence) -->
+	<controlActProcess moodCode="EVN">
+		<subject typeCode="SUBJ">
+			<combinedMedicationRequest classCode="SBADM" moodCode="RQO">
+				<!-- tellija poolne retsepti tellimuse id või paberretsepti number-->
+				<id root="1.3.6.1.4.1.28284.6.2.4.51" extension="32874283748"/>
+				<!-- tellimuse id, kui ei ole tegemist paberretseptiga -->
+				<!-- <id root="TTOMaaratudTellimuseIdOIDnr" extension="32164723647"/> -->
+				<!-- staatus: 
+				      new - soodustuse küsimisel
+					  active -retsepti kinnitamisel
+				-->
+				<statusCode code="new"/>
+				<!-- retsepti konfidentsiaalsus (väljaostmiseks vajalik volitusliik)
+				public - avalik
+				private - privaatne
+				-->
+				<confidentialityCode code="public" codeSystem="1.3.6.1.4.1.28284.6.2.2.43.1" codeSystemName="Volituse liik"/>
+				<!-- patsiendi andmed-->
+				<subject typeCode="SBJ">
+					<patient classCode="PAT">
+						<!-- patsiendi isikukood, tundmatu isiku kood või välismaalase dokumendi number -->
+						<!-- OID sõltub, kas tegu on tundmatu isikuga, Eesti isikukoodi omava isiku või välisriigi isikuga-->
+						<id root="1.3.6.1.4.1.28284.6.2.2.1" extension="48905059995"/>
+						<!-- muud tellijapoolsed isikuga seotud identifikaatorid-->
+						<id root="TTOMaaratudIsikuIdOIDnr" extension="237483283"/>
+						<!-- aadress -->
+						<addr>
+							<!-- riigi kood -->
+							<country>EST</country>
+							<county>Kernu vald</county>
+							<city>Haiba küla</city>
+							<!-- streetAddressLine kasutatakse ka mitte-struktureeritud aadressi korral-->
+							<streetAddressLine>Haiba 100-25</streetAddressLine>
+							<streetName>Haiba</streetName>
+							<houseNumber>100</houseNumber>
+							<additionalLocator>25</additionalLocator>
+							<!-- EHAK klassifikaatori kood-->
+							<unitID>1720</unitID>
+							<postalCode>50706</postalCode>
+						</addr>
+						<!-- kohustuslik väli. patsiendi andmete staatus:: kehtiv kirje-->
+						<statusCode code="active"/>
+						<!-- patsiendi detailandmed-->
+						<patientPerson classCode="PSN">
+							<!-- patsiendi nimi -->
+							<name>
+								<!-- eesnimi -->
+								<given>Ly</given>
+								<!-- perenimi -->
+								<family>Cuusk</family>
+							</name>
+							<!-- sugu-->
+							<administrativeGenderCode code="N" codeSystem="2.16.840.1.113883.5.1" codeSystemName="Sugu" displayName="naine"/>
+							<!-- sünniaeg-->
+							<birthTime value="19890505"/>
+							<!-- kodakonduse info -->
+							<asCitizen classCode="CIT">
+								<politicalOrganization classCode="NAT" determinerCode="INSTANCE">
+									<!-- ISO 3166-1-alpha3 riigi kood-->
+									<id root="2.16.1" extension="EST"/>
+								</politicalOrganization>
+							</asCitizen>
+							<!-- tavategevusala (vanadus/töövõimetuspensioni staatus)-->
+							<asMember classCode="MBR">
+								<groupEntity classCode="ORG" determinerCode="INSTANCE">
+									<!-- väärtus 6,7,8- tunnus selle kohta, et tegemist on pensionäriga-->
+									<!-- 6. töövõimetuspensionär
+										 7. vanaduspensionär
+										 8. muu pensionär		-->
+									<id extension="7" root="1.3.6.1.4.1.28284.6.2.3.9.1"/>
+								</groupEntity>
+							</asMember>
+							<!-- kindlustatuse info -->
+							<asCoveredParty classCode="COVPTY">
+								<id/>
+								<!-- patsiendi tüüp-  määrang lähtuvalt kindlustajast: 
+									EV kindlustatu - VALID_EE, 
+									EL kindlustatu - VALID_EU, 
+									mittekindlustatud - NOT_VALID , 
+									välismaalane - VALID_NON-EU
+								.-->
+								<code code="VALID_EE"/>
+								<!-- HK kindluastatuse kontrolli teostamise aeg / kindlustust tõendava dokumendi väljastamise aeg-->
+								<effectiveTime value="20071112"/>
+								<beneficiaryOf typeCode="BEN">
+									<policyOrAccount classCode="COV" moodCode="EVN">
+										<!-- EHIC dokumendi number-->
+										<id root="1.3.6.1.4.1.28284.6.2.4.49" extension="EU-3999 22"/>
+										<code>
+											<!-- Kindlustatust tõendava dokumendi liigid: EHIC, Exxx, RPC, ... -->
+											<translation code="EHIC" codeSystem="1.3.6.1.4.1.28284.6.2.2.42.1" codeSystemName="Kindlustatust tõendava dokumendi liik"/>
+										</code>
+										<!-- kindlustatuse staatus -->
+										<statusCode code="VALID"/>
+										<!-- kindlustatuse kehtivuse aeg-->
+										<effectiveTime>
+											<low value="20060322084745"/>
+											<high value="20070731000000"/>
+										</effectiveTime>
+										<!-- kindlustaja info -->
+										<author typeCode="AUT">
+											<carrierRole classCode="UNDWRT">
+												<!-- kindlustaja asutuse (pädeva asutuse) id/kood-->
+												<id root="1.3.6.1.4.1.28284.6.2.4.1" extension="1271837183278"/>
+												<!-- Kindlustaja asutse nimi -->
+												<underwritingCarrierOrganization classCode="ORG" xsi:type="ext:PORX_IN010380UV_Extension.COCT_MT500000UV02.CarrierOrganization" ext:HL7-ClassName="ORG" ext:HL7-Domain="COCT_RM150001" ext:realmCode="EE">
+													<name>AS Ergo Kindlustus</name>
+													<!-- kindlustuse väljastanud riik-->
+													<!-- LAIENDAMINE ALGUS -->
+													<ext:representedOrganization classCode="NAT">
+														<!-- ISO 3166-1-alpha3 riigi kood-->
+														<ext:id root="2.16.1" extension="EST"/>
+													</ext:representedOrganization>
+													<!-- LAIENDAMINE LÕPP -->
+												</underwritingCarrierOrganization>
+											</carrierRole>
+										</author>
+									</policyOrAccount>
+								</beneficiaryOf>
+							</asCoveredParty>
+						</patientPerson>
+					</patient>
+				</subject>
+				<!-- ravimpreparaadi ja toimeaine / meditsiiniseadme info-->
+				<!-- laiendamiseks vajalik tüübi täpsustus-->
+				<directTarget typeCode="DIR" xsi:type="ext:PORX_MT010120UV_Extension.PORX_MT010120UV.DirectTarget" ext:HL7-ClassName="DEV" ext:HL7-Domain="COCT_RM140000" ext:realmCode="EE">
+					<!-- ravimipreparaadi ja toimeaine andmed -->
+					<medication classCode="ADMM">
+						<administerableMedicine determinerCode="INSTANCE" classCode="MMAT">
+							<!-- ravimpreparaadi kood ja nimetus-->
+							<!-- toimeaine põhisel retseptil jäetakse element tühjaks ??? -->
+							<code code="1233" codeSystem="1.3.6.1.4.1.28284.6.2.4.44" codeSystemName="Ravimipreparaadi kood" displayName="Peniciline Forte 23 ">
+								<!-- ekstemporaalse ravimi kirjeldus-->
+								<originalText>Ekstemporaalne ravim on arstiretsepti või tellimislehe alusel apteegis valmistatud ravim. Ravimiseadus §4.</originalText>
+							</code>
+							<!-- selgitus-->
+							<desc>Ravi andmete selgitav tekst</desc>
+							<!-- ravimvorm -->
+							<formCode code="tbl" codeSystem="1.3.6.1.4.1.28284.6.2.1.12.1" codeSystemName="Ravimvorm" displayName="tabletid"/>
+							<!-- pakendi andmed -->
+							<asContent classCode="CONT">
+								<containerPackagedMedicine determinerCode="INSTANCE" classCode="CONT">
+									<!-- ühikute koguhulk/kogus pakendis. ntx: tablettide ar, kodeerimissüsteem: ER_Ühikud -->
+									<capacityQuantity unit="TK" value="20"/>
+									<!-- ühe ühiku suurus ja suuruse mõõtühik. ntx: tabelti kaal grammides -->
+									<subContent classCode="CONT">
+										<quantity>
+											<numerator xsi:type="PQ" unit="ml" value="3"/>
+											<denominator xsi:type="PQ" value="1"/>
+										</quantity>
+									</subContent>
+								</containerPackagedMedicine>
+							</asContent>
+							<!-- toimeaine plokk-->
+							<ingredient classCode="INGR">
+								<!-- toimeaine sisaldus ühikus, kui sisaldus ühikus ei ole määratud toimeaine tasemeli -->
+								<quantity>
+									<!-- toimeaine kogus + mõõtühik -->
+									<numerator xsi:type="PQ" unit="mg" value="23"/>
+									<!-- ühiksuuruse kogus + mõõtühik-->
+									<denominator xsi:type="PQ" unit="ml" value="3"/>
+								</quantity>
+								<!-- toimeaine ja alamtoimeainete andmed-->
+								<ingredient determinerCode="INSTANCE" classCode="MMAT">
+									<!-- toimeaine ATC kood ja nimetus-->
+									<code code="223" codeSystem="2.16.840.1.113883.6.73" codeSystemName="ATC" displayName="penitsiliin"/>
+									<!-- alamtoimeaine 1-->
+									<subIngredient classCode="INGR" xsi:type="ext:PORX_MT010120UV_Extension.COCT_MT220100UV.SubIngredient" ext:HL7-ClassName="ENT" ext:HL7-Domain="COCT_RM220000" ext:realmCode="EE">
+										<!-- toimeaine sisaldus mõõtühikus -->
+										<quantity>
+											<!-- toimeaine kogus + mõõtühik -->
+											<numerator xsi:type="PQ" unit="mg" value="23"/>
+											<!-- ühiksuuruse kogus + mõõtühik-->
+											<denominator xsi:type="PQ" unit="ml" value="3"/>
+										</quantity>
+										<ingredient determinerCode="INSTANCE" classCode="MMAT">
+											<!-- toimeaine kood ja nimetus-->
+											<code code="00000000000000011371" codeSystem="1.3.6.1.4.1.28284.6.2.4.46" codeSystemName="Toimeaine kood" displayName="simvastatiin"/>
+										</ingredient>
+										<!-- alamtoimeaine järjekorra number -->
+										<!-- LAIENDAMINE ALGUS -->
+										<ext:sequenceNumber value="1"/>
+										<!-- LAIENDAMINE LÕPP-->
+									</subIngredient>
+									<!-- alamtoimeaine 2 -->
+									<subIngredient classCode="INGR" xsi:type="ext:PORX_MT010120UV_Extension.COCT_MT220100UV.SubIngredient" ext:HL7-ClassName="ENT" ext:HL7-Domain="COCT_RM220000" ext:realmCode="EE">
+										<quantity>
+											<!-- toimeaine kogus + mõõtühik -->
+											<numerator xsi:type="PQ" unit="mg" value="23"/>
+											<!-- ühiksuuruse kogus + mõõtühik-->
+											<denominator xsi:type="PQ" unit="ml" value="3"/>
+										</quantity>
+										<ingredient determinerCode="INSTANCE" classCode="MMAT">
+											<!-- toimeaine kood ja nimetus-->
+											<code code="00000000000000011372" codeSystem="1.3.6.1.4.1.28284.6.2.4.46" codeSystemName="Toimeaine kood" displayName="penitsiliin"/>
+										</ingredient>
+										<!-- alamtoimeaine järjekorra number -->
+										<!-- LAIENDAMINE ALGUS -->
+										<ext:sequenceNumber value="2"/>
+										<!-- LAIENDAMINE LÕPP-->
+									</subIngredient>
+								</ingredient>
+							</ingredient>
+						</administerableMedicine>
+						<!-- kohustuslik väli -->
+						<subjectOf3>
+							<observationGoal/>
+						</subjectOf3>
+					</medication>
+					<!-- meditsiiniseadme andmed -->
+					<!-- LAIENDAMINE ALGUS -->
+					<ext:medicalDevice ext:HL7-ClassName="DEV" ext:HL7-Domain="COCT_RM140000UV" ext:realmCode="EE">
+						<ext:effectiveTime>
+							<!-- meditsiiniseadme kaardi limiidi kestvuse algus  -->
+							<ext:low value="20070130"/>
+							<!-- meditsiiniseadme kaardi limiidi kestvuse lõpp  -->
+							<ext:high value="20081231"/>
+						</ext:effectiveTime>
+						<ext:expectedUseTime>
+							<!-- kaardi kehivuse perioodi algus   -->
+							<ext:low value="20070130"/>
+							<!-- kaardi kehivuse perioodi lõpp  -->
+							<ext:high value="20081231"/>
+						</ext:expectedUseTime>
+						<!-- limiitkogus-->
+						<ext:quantity value="12" unit="tükk"/>
+						<!-- limiitkoguse tüüp (ühekordne, poolaasta, kalendriaasta)-->
+						<ext:typeCode code="1" codeSystem="1.3.6.1.4.1.28284.6.2.2.48.1" codeSystemName="MS lubatud koguse tüüp" displayName="ühekordne"/>
+						<ext:assignedDevice classCode="DEV" determinerCode="INSTANCE">
+							<!-- -seadme kood ja nimetus -->
+							<ext:code code="k1" codeSystem="1.3.6.1.4.1.28284.6.2.1.84.1" codeSystemName="Meditsiiniseade" displayName="seadme nimetus"/>
+						</ext:assignedDevice>
+					</ext:medicalDevice>
+					<!-- LAIENDAMINE LÕPP -->
+				</directTarget>
+				<!-- retsepti tellija (vastutav koostaja) ja koostamise andmed-->
+				<author typeCode="AUT">
+					<!-- retsepti koostamise aeg-->
+					<time value="20071112235959"/>
+					<assignedEntity classCode="ASSIGNED">
+						<!-- arsti kood-->
+						<id root="1.3.6.1.4.1.28284.6.2.4.9" extension="D02488"/>
+						<!-- tervishoiutöötaja tüüp (tehniline kood)-->
+						<code code="DOCTOR" codeSystem="1.3.6.1.4.1.28284.6.2.2.15.1" codeSystemName="Tervishoiutöötajate tüüp" displayName="arst"/>
+						<!-- arsti kontakttelefon-->
+						<telecom use="WP" value="+3726912345"/>
+						<!-- töötaja eriala andmed-->
+						<assignedPerson classCode="PSN" determinerCode="INSTANCE">
+							<!-- kohustuslik väli: töötaja nimi-->
+							<name>
+								<!-- eesnimi -->
+								<given>Anneli</given>
+								<!-- perenimi -->
+								<family>Vaher</family>
+							</name>
+							<asLicensedEntity classCode="LIC">
+								<!-- suunaja eriala kood ja nimetus-->
+								<id root="1.3.6.1.4.1.28284.6.2.1.4.1" extension="E260" assigningAuthorityName="ortopeedia"/>
+							</asLicensedEntity>
+						</assignedPerson>
+						<representedOrganization classCode="ORG">
+							<!-- tervishoiuteenuse osutaja id-->
+							<id root="1.3.6.1.4.1.28284.4" extension="324234234"/>
+						</representedOrganization>
+					</assignedEntity>
+				</author>
+				<!-- kohustuslik element: andmete sisestaja-->
+				<dataEnterer typeCode="ENT">
+					<assignedEntity classCode="ASSIGNED">
+						<!-- andmete sisestja kood, võib kattuda retsepti tellijaga -->
+						<id root="1.3.6.1.4.1.28284.6.2.4.9" extension="M12345"/>
+						<!-- esindatava asutuse info -->
+						<representedOrganization classCode="ORG">
+							<id root="1.3.6.1.4.1.28284.4" extension="324234234"/>
+						</representedOrganization>
+					</assignedEntity>
+				</dataEnterer>
+				<!-- retsepti liik -->
+				<definition typeCode="INST">
+					<substanceAdministrationDefinition classCode="SBADM" moodCode="DEF">
+						<!-- retsepti liik: Tavaline, narkootilise ravimi retsept, meditsiiniseadme retsept. -->
+						<id root="1.3.6.1.4.1.28284.6.2.2.41.1" extension="1"/>
+					</substanceAdministrationDefinition>
+				</definition>
+				<!-- retsepti koostamise põhjus/diagnoos (DR raames lubatud maksimaalselt üks)-->
+				<reason typeCode="DIAG">
+					<!-- määratud diagnoos -->
+					<observationGeneral classCode="OBS" moodCode="EVN">
+						<!-- eristab mis liiki Observation kirjega on tegemist (tehniline)-->
+						<code code="DGN" codeSystem="1.3.6.1.4.1.28284.6.2.2.5.1" codeSystemName="Observation liik" displayName="Diagnoos"/>
+						<!-- staatus: lõplik-->
+						<statusCode code="completed"/>
+						<!-- diagnoosi RHK-10 kood ja diagnoosi nimetus RHK-10 järgi -->
+						<value code="M17.1" codeSystem="1.3.6.1.4.1.28284.6.2.1.13.1" codeSystemName="RHK-10" displayName="Muud esmased gonartroosid" xsi:type="CD"/>
+					</observationGeneral>
+				</reason>
+				<!-- retsepti asendatavus/asendamatus-->
+				<component1 typeCode="COMP">
+					<substitution moodCode="DEF" classCode="SUBST">
+						<!-- G (generic) - asendamine lubatud
+					          N (none) - asendamine ei ole lubatud-->
+						<code code="N" codeSystemName="SubstanceAdminSubstitution" codeSystem="2.16.840.1.113883.5.1070"/>
+						<!-- asendamatuse põhjus kodeeritud-->
+						<reasonCode code="PAT" codeSystemName="ActReason" codeSystem="2.16.840.1.113883.5.8">
+							<originalText>Asendamatuse põhjuse vabatekst</originalText>
+						</reasonCode>
+					</substitution>
+				</component1>
+				<!-- retsepti kättetoimetamise/kehtivuse andmed-->
+				<component2 typeCode="COMP">
+					<supplyRequest classCode="SPLY" moodCode="RQO">
+						<!-- tellimuse kättetoimetamise id (võib olla sama, mis tellimusel)-->
+						<id root="TTOMaaratudTellimuseIdOIDnr" extension="32164723647"/>
+						<!-- retsepti kordsus 1...3 -->
+						<repeatNumber value="3"/>
+						<!-- ravimpreparaatide arv -->
+						<quantity unit="tükk" value="2"/>
+						<!-- retsepti kehtivuse aeg -->
+						<expectedUseTime>
+							<!-- soovi korral: kehtivuse algus -->
+							<low value="20071113"/>
+							<!-- mõõtühik ja kestvus-->
+							<width unit="päev" value="90"/>
+						</expectedUseTime>
+						<!-- kohustuslik väli:: ORG- tellija asukoht/asutus-->
+						<location typeCode="ORG">
+							<assignedOrganization classCode="ASSIGNED">
+								<!-- tervishoiuteenuse osutaja id-->
+								<id root="1.3.6.1.4.1.28284.4" extension="324234234"/>
+							</assignedOrganization>
+						</location>
+					</supplyRequest>
+				</component2>
+				<!-- retsepti ravimi annustamise andmed-->
+				<component3 typeCode="COMP">
+					<substanceAdministrationRequest classCode="SBADM" moodCode="RQO">
+						<!-- annustamise kirjeldus -->
+						<text>annustamise kirjeldus</text>
+						<!-- ravikuuri pikkus-->
+						<effectiveTime xsi:type="IVL_TS">
+							<!-- soovi korral: ravikuuri algus -->
+							<low value="20071113"/>
+							<!-- mõõtühik ja kestvus-->
+							<width unit="päev" value="2"/>
+						</effectiveTime>
+						<!-- ühekordne annus (mitu tükki)-->
+						<doseQuantity value="100" unit="mg"/>
+						<!-- manustamiskordade arv ajaühikus : 3x päevas (mitu korda)-->
+						<rateQuantity value="3" unit="päev"/>
+					</substanceAdministrationRequest>
+				</component3>
+			</combinedMedicationRequest>
+		</subject>
+	</controlActProcess>
+</PORX_IN010380UV>

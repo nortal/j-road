@@ -1,0 +1,1580 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus" xmlns:xtee="http://x-tee.riik.ee/xsd/xtee.xsd" xmlns="http://schemas.xmlsoap.org/wsdl/" name="koodikeskus" targetNamespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus">
+	<wsdl:types>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus">
+			<import namespace="http://schemas.xmlsoap.org/soap/encoding/" schemaLocation="http://schemas.xmlsoap.org/soap/encoding/"/>
+			<import namespace="http://x-tee.riik.ee/xsd/xtee.xsd" schemaLocation="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			<simpleType name="Currency">
+				<restriction base="xsd:decimal">
+					<fractionDigits value="2"/>
+					<totalDigits value="13"/>
+				</restriction>
+			</simpleType>
+			<simpleType name="CharRequired">
+				<restriction base="xsd:string">
+					<minLength value="1"/>
+					<whiteSpace value="collapse"/>
+				</restriction>
+			</simpleType>
+			<simpleType name="NumRequired">
+				<restriction base="xsd:integer">
+				</restriction>
+			</simpleType>
+			<simpleType name="DateRequired">
+				<restriction base="xsd:date">
+				</restriction>
+			</simpleType>
+			<complexType name="DateNotRequired">
+				<choice>
+					<element name="kuupaev" type="xsd:date" minOccurs="0"/>
+				</choice>
+			</complexType>
+			<complexType name="ArrayOfString">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<sequence>
+							<element name="Item" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="xsd:string[]"/>
+					</restriction>
+				</complexContent>
+			</complexType>
+			<simpleType name="TAkuuluvus">
+				<restriction base="xsd:string">
+					<enumeration value="maaramata"/>
+					<enumeration value="narkootiline"/>
+					<enumeration value="psuhhotroopne"/>
+				</restriction>
+			</simpleType>
+			<simpleType name="RavimiLiik">
+				<restriction base="xsd:string">
+					<enumeration value="inim"/>
+					<enumeration value="veterinaar"/>
+				</restriction>
+			</simpleType>
+			<simpleType name="RetseptinoueLiik">
+				<restriction base="xsd:string">
+					<enumeration value="retseptiravim"/>
+					<enumeration value="haiglapakend"/>
+					<enumeration value="kasimuugiravim"/>
+					<enumeration value="kxik"/>
+				</restriction>
+			</simpleType>
+			<complexType name="PakendidRequest">
+				<all>
+					<element name="muudatusedAlates" type="tns:DateNotRequired">
+						<annotation>
+							<appinfo>
+								<xtee:title>
+									Muudatused alates
+								</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="ravimiLiik" type="tns:RavimiLiik" minOccurs="1">
+						<annotation>
+							<appinfo>
+								<xtee:title>
+									Ravimi liik
+								</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="retseptinoueLiik" type="tns:RetseptinoueLiik" minOccurs="1">
+						<annotation>
+							<appinfo>
+								<xtee:title>
+									Retsepti nõude liik
+								</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</all>
+			</complexType>
+			<complexType name="MuudatusteVahemikRequest">
+				<all>
+					<element name="muudatusedAlates" type="xsd:date">
+						<annotation>
+							<appinfo>
+								<xtee:title>
+									Muudatused alates
+								</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="muudatusedKuni" type="xsd:date" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>
+									Muudatused kuni
+								</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</all>
+			</complexType>
+			<complexType name="MedSeadmePiirhindRequest">
+				<all>
+					<element name="muudatusedAlates" type="xsd:date">
+						<annotation>
+							<appinfo>
+								<xtee:title>
+									Muudatused alates
+								</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="muudatusedKuni" type="xsd:date" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>
+									Muudatused kuni
+								</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="piirhinnaKood" type="xsd:string" >
+						<annotation>
+							<appinfo>
+								<xtee:title>
+									Piihinna kood
+								</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="medSeadmeKood" type="xsd:string">
+						<annotation>
+							<appinfo>
+								<xtee:title>
+									Meditsiiniseadme kood
+								</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</all>
+			</complexType>
+			<complexType name="MedseadmePiirhind">
+				<all>
+					<element name="kood" type="xsd:integer">
+						<annotation>
+							<appinfo>
+								<xtee:title>
+									Kood
+								</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="piirhinnaKood" type="xsd:string" >
+						<annotation>
+							<appinfo>
+								<xtee:title>
+									Piirhinna kood
+								</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="meditsiiniseadmeKood" type="xsd:string" >				
+						<annotation>
+							<appinfo>
+								<xtee:title>
+									Meditsiiniseadme kood
+								</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="meditsiiniseadmePakendipiirhind" type="tns:Currency" >
+					<annotation>
+						<appinfo>
+							<xtee:title>
+								Meditsiiniseadme pakendi piirhind
+							</xtee:title>
+						</appinfo>
+					</annotation>
+					</element>
+					<element name="kehtivAlates" type="xsd:dateTime">
+						<annotation>
+							<appinfo>
+								<xtee:title>
+									Kehtiv alates
+								</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="kehtivKuni" type="xsd:dateTime" minOccurs="0" >
+						<annotation>
+							<appinfo>
+								<xtee:title>
+									Kehtiv kuni
+								</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</all>
+			</complexType>
+			<complexType name="HyvitamiseTingimus">
+				<all>
+					<element name="kood" type="xsd:integer">
+						<annotation>
+							<appinfo>
+								<xtee:title>
+									Kood
+								</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="hyvitamiseTingimuseKood" type="xsd:string">
+						<annotation>
+							<appinfo>
+								<xtee:title>
+									Hüvitamise tingimuse kood
+								</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="kehtivAlates" type="xsd:dateTime">
+						<annotation>
+							<appinfo>
+								<xtee:title>
+									Kehtiv alates
+								</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="kehtivKuni" type="xsd:dateTime" minOccurs="0" >
+						<annotation>
+							<appinfo>
+								<xtee:title>
+									Kehtiv kuni
+								</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="vanusAlates" type="xsd:decimal"  minOccurs="0" >
+						<annotation>
+							<appinfo>
+								<xtee:title>
+									Vanus alates
+								</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="vanusKuni" type="xsd:decimal"  minOccurs="0" >
+						<annotation>
+							<appinfo>
+								<xtee:title>
+									Vanus kuni
+								</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="hyvitamiseTingimuseNimetus" type="xsd:string" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>
+									Hüvitamise tingimuse nimetus
+								</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="lubatudKogus" type="xsd:integer" minOccurs="0" >
+						<annotation>
+							<appinfo>
+								<xtee:title>
+									Lubatud kogus tükkides perioodi kohta
+								</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="lubatudKoguseHyvitamisePerioodiPikkusKuudes" type="xsd:integer"  minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>
+									Lubatud koguse hüvitamise perioodi pikkus kuudes
+								</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="limiitkogusePerioodiKordsus" type="xsd:string"  minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>
+									Limiitkoguse perioodi kordsus
+								</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</all>
+			</complexType>
+			<complexType name="MedseadeRyhm">
+				<all>
+					<element name="kood" type="xsd:integer">
+						<annotation>
+							<appinfo>
+								<xtee:title>
+									Kood
+								</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="meditsiiniseadmeRyhmaNimetuseKood" type="xsd:string">
+						<annotation>
+							<appinfo>
+								<xtee:title>
+									Meditsiiniseadme rühma nimetuse kood
+								</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="meditsiiniseadmeRyhmaNimetus" type="xsd:string">
+						<annotation>
+							<appinfo>
+								<xtee:title>
+									Meditsiiniseadme rühma nimetus
+								</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="kehtivAlates" type="xsd:dateTime" >
+						<annotation>
+							<appinfo>
+								<xtee:title>
+									Kehtiv alates
+								</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="kehtivKuni" type="xsd:dateTime" minOccurs="0" >
+						<annotation>
+							<appinfo>
+								<xtee:title>
+									Kehtiv kuni
+								</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</all>
+			</complexType>
+			<complexType name="Medseade">
+				<all>
+					<element name="kood" type="xsd:integer">
+						<annotation>
+							<appinfo>
+								<xtee:title>
+									Kood
+								</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="kehtivAlates" type="xsd:dateTime" >
+						<annotation>
+							<appinfo>
+								<xtee:title>
+									Kehtiv alates
+								</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="kehtivKuni" type="xsd:dateTime" minOccurs="0" >
+						<annotation>
+							<appinfo>
+								<xtee:title>
+									Kehtiv kuni
+								</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="meditsiiniseadmeKood" type="xsd:string" >
+						<annotation>
+							<appinfo>
+								<xtee:title>
+									Meditsiiniseadme kood
+								</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="meditsiiniseadmeRyhmaNimetuseKood" type="xsd:string">
+						<annotation>
+							<appinfo>
+								<xtee:title>
+									Meditsiiniseadme rühma nimetuse kood
+								</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="soodusmaar" type="xsd:integer"  minOccurs="0" >
+						<annotation>
+							<appinfo>
+								<xtee:title>
+									Soodusmäär
+								</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="hyvitamiseTingimuseKood" type="xsd:string" >
+						<annotation>
+							<appinfo>
+								<xtee:title>
+									Hüvitamise tingimuse kood
+								</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="meditsiiniseadmePakendiNimetus" type="xsd:string"  minOccurs="0" >
+						<annotation>
+							<appinfo>
+								<xtee:title>
+									Meditsiiniseadme pakendi nimetus
+								</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="kogusPakendis" type="xsd:integer"  minOccurs="0" >
+						<annotation>
+							<appinfo>
+								<xtee:title>
+									Kogus pakendis
+								</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="kogusPakendisyhik" type="xsd:string"  minOccurs="0" >
+						<annotation>
+							<appinfo>
+								<xtee:title>
+									Kogus pakendis ühik
+								</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</all>
+			</complexType>
+			<complexType name="ArrayOfMedseadmePiirhind">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<sequence>
+							<element name="Item" type="tns:MedseadmePiirhind" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="ArrayOfHyvitamiseTingimus">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<sequence>
+							<element name="Item" type="tns:HyvitamiseTingimus" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="ArrayOfMedseadeRyhm">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<sequence>
+							<element name="Item" type="tns:MedseadeRyhm" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="ArrayOfMedseade">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<sequence>
+							<element name="Item" type="tns:Medseade" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="Ravimvorm">
+				<all>
+					<element name="id" type="xsd:integer"/>
+					<element name="koodEesti" type="xsd:string" minOccurs="0">
+					</element>
+					<element name="nimiEesti">
+						<simpleType>
+							<restriction base="tns:CharRequired">
+								<maxLength value="150"/>
+							</restriction>
+						</simpleType>
+					</element>
+					<element name="koodInglise" type="xsd:string" minOccurs="0"/>
+					<element name="nimiInglise" type="xsd:string" minOccurs="0"/>
+				</all>
+			</complexType>
+			<complexType name="ArrayOfRavimvorm">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<sequence>
+							<element name="Item" type="tns:Ravimvorm" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="Myygiluba">
+				<all>
+					<!-- Retseptikeskuses tuleb Pakendile vastavad Müügiload leida läbi ravimikaardi seoste-->
+					<element name="id" type="tns:CharRequired"/>
+					<element name="ravimikaartID" type="xsd:integer"/>
+					<element name="number" minOccurs="0">
+						<simpleType>
+							<restriction base="xsd:string">
+								<maxLength value="20"/>
+							</restriction>
+						</simpleType>
+					</element>
+					<element name="valjastamiseAeg" type="xsd:dateTime" minOccurs="0"/>
+					<element name="loppemiseAeg" type="xsd:dateTime" minOccurs="0"/>
+				</all>
+			</complexType>
+			<complexType name="ArrayOfMyygiluba">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<sequence>
+							<element name="Item" type="tns:Myygiluba" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="Toimeaine">
+				<all>
+					<element name="id" type="xsd:integer"/>
+					<element name="nimiEesti">
+						<simpleType>
+							<restriction base="tns:CharRequired">
+								<maxLength value="500"/>
+							</restriction>
+						</simpleType>
+					</element>
+					<element name="nimiInglise">
+						<simpleType>
+							<restriction base="xsd:string">
+								<maxLength value="500"/>
+							</restriction>
+						</simpleType>
+					</element>
+					<element name="nimiLadina">
+						<simpleType>
+							<restriction base="xsd:string">
+								<maxLength value="500"/>
+							</restriction>
+						</simpleType>
+					</element>
+					<element name="liik" type="tns:TAkuuluvus"/>
+					<element name="kordsus" type="xsd:boolean"/>
+				</all>
+			</complexType>
+			<complexType name="ArrayOfToimeaine">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<sequence>
+							<element name="Item" type="tns:Toimeaine" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="ATCToimeaine">
+				<all>
+					<element name="toimeaineID" type="xsd:integer"/>
+					<element name="jarjekorraNr" type="xsd:integer"/>
+				</all>
+			</complexType>
+			<complexType name="ArrayOfATCToimeaine">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<sequence>
+							<element name="Item" type="tns:ATCToimeaine" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="ATCKlassifikaator">
+				<all>
+					<element name="kood">
+						<simpleType>
+							<restriction base="tns:CharRequired">
+								<maxLength value="8"/>
+							</restriction>
+						</simpleType>
+					</element>
+					<element name="nimiEesti">
+						<simpleType>
+							<restriction base="tns:CharRequired">
+								<maxLength value="500"/>
+							</restriction>
+						</simpleType>
+					</element>
+					<element name="nimiInglise" minOccurs="0">
+						<simpleType>
+							<restriction base="xsd:string">
+								<maxLength value="500"/>
+							</restriction>
+						</simpleType>
+					</element>
+					<element name="nimiLadina" minOccurs="0">
+						<simpleType>
+							<restriction base="xsd:string">
+								<maxLength value="500"/>
+							</restriction>
+						</simpleType>
+					</element>
+					<element name="toimeained" type="tns:ArrayOfATCToimeaine"/>
+				</all>
+			</complexType>
+			<complexType name="ArrayOfATCKlassifikaator">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<sequence>
+							<element name="Item" type="tns:ATCKlassifikaator" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="Piirhind">
+				<all>
+					<element name="id" type="xsd:integer"/>
+					<element name="pakendiKood" type="xsd:string"/>
+					<element name="hind" type="tns:Currency"/>
+					<element name="kehtibAlates" type="xsd:dateTime"/>
+					<element name="kehtibKuni" type="xsd:dateTime" minOccurs="0"/>
+				</all>
+			</complexType>
+			<complexType name="ArrayOfPiirhind">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<sequence>
+							<element name="Item" type="tns:Piirhind" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="Hinnakokkulepe">
+				<all>
+					<element name="id" type="xsd:integer"/>
+					<element name="pakendiKood" type="xsd:string"/>
+					<element name="hind" type="tns:Currency"/>
+					<element name="kehtibAlates" type="xsd:dateTime"/>
+					<element name="kehtibKuni" type="xsd:dateTime" minOccurs="0"/>
+				</all>
+			</complexType>
+			<complexType name="ArrayOfHinnakokkulepe">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<sequence>
+							<element name="Item" type="tns:Hinnakokkulepe" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="Arstieriala">
+				<all>
+					<element name="kood" type="xsd:string"/>
+					<element name="nimi" type="xsd:string"/>
+				</all>
+			</complexType>
+			<complexType name="ArrayOfArstieriala">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<sequence>
+							<element name="Item" type="tns:Arstieriala" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="Diagnoos">
+				<all>
+					<element name="kood" type="xsd:string"/>
+					<element name="nimi" type="xsd:string"/>
+				</all>
+			</complexType>
+			<complexType name="ArrayOfDiagnoos">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<sequence>
+							<element name="Item" type="tns:Diagnoos" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="SoodustusDiagnoos">
+				<all>
+					<element name="koodAlates" type="xsd:string"/>
+					<element name="koodKuni" type="xsd:string"/>
+				</all>
+			</complexType>
+			<complexType name="ArrayOfSoodustusDiagnoos">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<sequence>
+							<element name="Item" type="tns:SoodustusDiagnoos" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="Haigus">
+				<all>
+					<element name="diagnoosid" type="tns:ArrayOfSoodustusDiagnoos"/>
+					<element name="kood" type="xsd:string"/>
+				</all>
+			</complexType>
+			<complexType name="ArrayOfHaigus">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<sequence>
+							<element name="Item" type="tns:Haigus" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="Soodustus">
+				<all>
+					<element name="id" type="xsd:integer"/>
+					<element name="pakendiKood" type="xsd:string"/>
+					<element name="protsent" type="xsd:string"/>
+					<element name="kehtibAlates" type="xsd:dateTime"/>
+					<element name="kehtibKuni" type="xsd:dateTime" minOccurs="0"/>
+					<element name="haigus" type="xsd:integer"/>
+					<element name="vanusAlates" type="xsd:string" minOccurs="0"/>
+					<element name="vanusKuni" type="xsd:string" minOccurs="0"/>
+					<element name="arstierialad" type="tns:ArrayOfArstieriala"/>
+					<element name="esmane" type="xsd:boolean"/>
+					<element name="markused" type="xsd:string"/>
+					<element name="tingitudToovoimetusest" type="xsd:boolean"/>
+					<element name="tingitudVanaduspensionist" type="xsd:boolean"/>
+					<element name="soodusaluseKood" type="xsd:string" minOccurs="0"/>
+				</all>
+			</complexType>
+			<complexType name="ArrayOfSoodustus">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<sequence>
+							<element name="Item" type="tns:Soodustus" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="PakendATCKood">
+				<all>
+					<element name="kood" type="tns:CharRequired"/>
+				</all>
+			</complexType>
+			<complexType name="ArrayOfPakendATCKood">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<sequence>
+							<element name="Item" type="tns:PakendATCKood" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="PakendToimeaine">
+				<all>
+					<element name="jarjekorraNr" type="xsd:integer"/>
+					<element name="toimeaineID" type="xsd:integer"/>
+					<element name="toimeaineYhikus" type="xsd:decimal" minOccurs="0"/>
+					<element name="toimeaineYhikusYhik" type="xsd:string" minOccurs="0"/>
+					<element name="yhikusuurus" type="xsd:decimal" minOccurs="0"/>
+					<element name="yhikusuurusYhik" type="xsd:string" minOccurs="0"/>
+				</all>
+			</complexType>
+			<complexType name="ArrayOfPakendToimeaine">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<sequence>
+							<element name="Item" type="tns:PakendToimeaine" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="PakendManustamisviis">
+				<all>
+					<element name="manustamisviisID" type="xsd:integer"/>
+					<element name="manustamisviisKood" type="xsd:string"/>
+					<element name="paevadoos" type="xsd:decimal" minOccurs="0"/>
+					<element name="paevadoosYhik" type="xsd:string" minOccurs="0"/>
+				</all>
+			</complexType>
+			<complexType name="ArrayOfPakendManustamisviis">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<sequence>
+							<element name="Item" type="tns:PakendManustamisviis" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="PakendSisu">
+				<all>
+					<element name="PakendKood" type="xsd:string"/>
+					<element name="TykkideArv" type="xsd:decimal"/>
+					<element name="TykkideArvuYhik" type="xsd:string" minOccurs="0"/>
+					<element name="TykiSuurus" type="xsd:decimal" minOccurs="0"/>
+					<element name="TykiSuurusYhik" type="xsd:string" minOccurs="0"/>
+					<element name="Kirjeldus" type="xsd:string"/>
+				</all>
+			</complexType>
+			<complexType name="ArrayOfPakendSisu">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<sequence>
+							<element name="Item" type="tns:PakendSisu" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="Pakend">
+				<all>
+					<element name="kood" type="xsd:string"/>
+					<!-- Retseptikeskuses tuleb Pakendile vastavad Müügiload leida läbi ravimikaardi seoste-->
+					<element name="ravimikaartID" type="xsd:integer"/>
+					<element name="nimetus">
+						<simpleType>
+							<restriction base="tns:CharRequired">
+								<maxLength value="250"/>
+							</restriction>
+						</simpleType>
+					</element>
+					<element name="takuuluvus" type="tns:TAkuuluvus"/>
+					<element name="ATCkoodid" type="tns:ArrayOfPakendATCKood"/>
+					<element name="ravimvorm" type="tns:Ravimvorm"/>
+					<element name="kogusPakendis" type="xsd:string" minOccurs="0"/>
+					<element name="toimeained" type="tns:ArrayOfPakendToimeaine"/>
+					<element name="pakendisisu" type="tns:ArrayOfPakendSisu"/>
+					<!-- Lubatud väljastada ainult narkootilise ravimi retsepti alusel -->
+					<element name="valjastNarkRetseptiga" type="xsd:boolean" minOccurs="0"/>
+					<element name="valjastRetseptiga" type="xsd:boolean" minOccurs="0"/>
+					<!-- Loetakse narkootiliseks alates kogusest -->
+					<element name="valjastNarkMaxKogus" minOccurs="0">
+						<simpleType>
+							<restriction base="xsd:string">
+								<maxLength value="50"/>
+							</restriction>
+						</simpleType>
+					</element>
+					<!-- Kogus, millest rohkem korraga välja kirjutada ei tohi -->
+					<element name="valjastMaxKogus" minOccurs="0">
+						<simpleType>
+							<restriction base="xsd:string">
+								<maxLength value="50"/>
+							</restriction>
+						</simpleType>
+					</element>
+					<!-- Väljastamisel kehtib koguseline piirang -->
+					<element name="valjastKogusePiirang" type="xsd:boolean" minOccurs="0"/>
+					<element name="maaletoomiseTaotluseLiik" minOccurs="0">
+						<simpleType>
+							<restriction base="xsd:string">
+								<enumeration value="maaramata"/>
+								<enumeration value="veterinaararstiTaotlus"/>
+								<enumeration value="raviarstiTaotlus"/>
+								<enumeration value="hulgimuujaTaotlus"/>
+								<enumeration value="tervishoiuasutuseTaotlus"/>
+								<enumeration value="naidisteMTLtaotlus"/>
+								<enumeration value="erialaseltsiTaotlus"/>
+							</restriction>
+						</simpleType>
+					</element>
+					<element name="PakendiLiik">
+						<simpleType>
+							<restriction base="xsd:string">
+								<enumeration value="ApteegisJaendatavaRavimiPakend"/>
+								<enumeration value="ApteegisExTemporeValmistatudRavimiPakend"/>
+								<enumeration value="EritoiduPakend"/>
+								<enumeration value="MeditsiiniseadmePakend"/>
+								<enumeration value="ApteegisSeeriaviisiliseltValmistatudRavimiPakend"/>
+								<enumeration value="MyygiloaPakend"/>
+								<enumeration value="Maaletoomis-JaKasutusloagaPakend"/>
+							</restriction>
+						</simpleType>
+					</element>
+				</all>
+			</complexType>
+			<complexType name="ArrayOfPakend">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<sequence>
+							<element name="Item" type="tns:Pakend" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="MeditsiiniseadmeteRyhm">
+				<all>
+					<element name="kood">
+						<simpleType>
+							<restriction base="tns:CharRequired">
+								<maxLength value="10"/>
+							</restriction>
+						</simpleType>
+					</element>
+					<element name="nimetus">
+						<simpleType>
+							<restriction base="tns:CharRequired">
+								<maxLength value="20"/>
+							</restriction>
+						</simpleType>
+					</element>
+				</all>
+			</complexType>
+			<complexType name="ArrayOfMeditsiiniseadmeteRyhm">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<sequence>
+							<element name="Item" type="tns:MeditsiiniseadmeteRyhm" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="Meditsiiniseade">
+				<all>
+					<element name="kood">
+						<simpleType>
+							<restriction base="tns:CharRequired">
+								<maxLength value="10"/>
+							</restriction>
+						</simpleType>
+					</element>
+					<element name="nimetus">
+						<simpleType>
+							<restriction base="tns:CharRequired">
+								<maxLength value="250"/>
+							</restriction>
+						</simpleType>
+					</element>
+					<element name="ryhmaKood">
+						<simpleType>
+							<restriction base="xsd:string">
+								<maxLength value="10"/>
+							</restriction>
+						</simpleType>
+					</element>
+					<element name="kogusPakendis">
+						<simpleType>
+							<restriction base="xsd:string">
+								<maxLength value="100"/>
+							</restriction>
+						</simpleType>
+					</element>
+					<element name="pakendisisu" type="tns:ArrayOfPakendSisu"/>
+				</all>
+			</complexType>
+			<complexType name="ArrayOfMeditsiiniseade">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<sequence>
+							<element name="Item" type="tns:Meditsiiniseade" minOccurs="0" maxOccurs="unbounded"/>
+						</sequence>
+					</restriction>
+				</complexContent>
+			</complexType>
+		</schema>
+	</wsdl:types>
+	<message name="standardpais">
+		<part name="pais" type="xtee:hdrstd"/>
+	</message>
+	<message name="MuudatusedAlatesRequest">
+		<part name="keha" type="tns:DateNotRequired"/>
+	</message>
+	<message name="PakendidRequest">
+		<part name="keha" type="tns:PakendidRequest"/>
+	</message>
+	<message name="PakendidResponse">
+		<part name="paring" type="tns:PakendidRequest"/>
+		<part name="keha" type="tns:ArrayOfString"/>
+	</message>
+	<message name="IdArrayRequest">
+		<part name="keha" type="tns:ArrayOfString"/>
+	</message>
+	<message name="IdArrayResponse">
+		<part name="paring" type="tns:DateNotRequired"/>
+		<part name="keha" type="tns:ArrayOfString"/>
+	</message>
+	<message name="IdArrayMedSeadmedResponse">
+		<part name="paring" type="tns:MuudatusteVahemikRequest"/>
+		<part name="keha" type="tns:ArrayOfString"/>
+	</message>
+	<message name="IdArrayMedSeadmePiirhinnadResponse">
+		<part name="paring" type="tns:MedSeadmePiirhindRequest"/>
+		<part name="keha" type="tns:ArrayOfString"/>
+	</message>
+	<message name="ATCKlassifikaatoridResponse">
+		<part name="paring" type="tns:ArrayOfString"/>
+		<part name="keha" type="tns:ArrayOfATCKlassifikaator"/>
+	</message>
+	<message name="ToimeainedResponse">
+		<part name="paring" type="tns:ArrayOfString"/>
+		<part name="keha" type="tns:ArrayOfToimeaine"/>
+	</message>
+	<message name="RavimvormidResponse">
+		<part name="paring" type="tns:ArrayOfString"/>
+		<part name="keha" type="tns:ArrayOfRavimvorm"/>
+	</message>
+	<message name="PakendidByIDArrayResponse">
+		<part name="paring" type="tns:ArrayOfString"/>
+		<part name="keha" type="tns:ArrayOfPakend"/>
+	</message>
+	<message name="MyygiloadResponse">
+		<part name="paring" type="tns:ArrayOfString"/>
+		<part name="keha" type="tns:ArrayOfMyygiluba"/>
+	</message>
+	<message name="PiirhinnadResponse">
+		<part name="paring" type="tns:ArrayOfString"/>
+		<part name="keha" type="tns:ArrayOfPiirhind"/>
+	</message>
+	<message name="HinnakokkuleppedResponse">
+		<part name="paring" type="tns:ArrayOfString"/>
+		<part name="keha" type="tns:ArrayOfHinnakokkulepe"/>
+	</message>
+	<message name="HaigusedResponse">
+		<part name="paring" type="tns:ArrayOfString"/>
+		<part name="keha" type="tns:ArrayOfHaigus"/>
+	</message>
+	<message name="SoodustusedResponse">
+		<part name="paring" type="tns:ArrayOfString"/>
+		<part name="keha" type="tns:ArrayOfSoodustus"/>
+	</message>
+	<message name="DiagnoosidResponse">
+		<part name="paring" type="tns:ArrayOfString"/>
+		<part name="keha" type="tns:ArrayOfDiagnoos"/>
+	</message>
+	<message name="MeditsiiniseadmeteRyhmadResponse">
+		<part name="paring" type="tns:ArrayOfString"/>
+		<part name="keha" type="tns:ArrayOfMeditsiiniseadmeteRyhm"/>
+	</message>
+	<message name="MeditsiiniseadmedResponse">
+		<part name="paring" type="tns:ArrayOfString"/>
+		<part name="keha" type="tns:ArrayOfMeditsiiniseade"/>
+	</message>
+	<message name="MuudatusteVahemikRequest">
+		<part name="keha" type="tns:MuudatusteVahemikRequest"/>
+	</message>
+	<message name="MedSeadmePiirhindRequest">
+		<part name="keha" type="tns:MedSeadmePiirhindRequest"/>
+	</message>
+	<message name="MedSeadmedResponse">
+		<part name="paring" type="tns:ArrayOfString"/>
+		<part name="keha" type="tns:ArrayOfMedseade"/>
+	</message>
+	<message name="MedSeadmeRyhmadResponse">
+		<part name="paring" type="tns:ArrayOfString"/>
+		<part name="keha" type="tns:ArrayOfMedseadeRyhm"/>
+	</message>
+	<message name="HyvitamisTingimusedResponse">
+		<part name="paring" type="tns:ArrayOfString"/>
+		<part name="keha" type="tns:ArrayOfHyvitamiseTingimus"/>
+	</message>
+	<message name="MedSeadmePiirhinnadResponse">
+		<part name="paring" type="tns:ArrayOfString"/>
+		<part name="keha" type="tns:ArrayOfMedseadmePiirhind"/>
+	</message>
+	<portType name="koodikeskusPortType">
+		<operation name="ATCKlassifikaatorid">
+			<documentation><xtee:title>ATC Klassifikaatori koodid</xtee:title><xtee:notes>Päring tagastab ATC klassifikaatori koodide loetelu, kui kuupaev ei ole  tühi, siis tagastab ainult muudetud alates sellest kuupäevast kirjed</xtee:notes></documentation>
+			<input message="tns:MuudatusedAlatesRequest"/>
+			<output message="tns:IdArrayResponse"/>
+		</operation>
+		<operation name="ATCKlassifikaatoridByIDArray">
+			<documentation><xtee:title>ATC Klassifikaatorite loend</xtee:title><xtee:notes>Päring tagastab  ATC Klassifikaatorite loendi</xtee:notes></documentation>
+			<input message="tns:IdArrayRequest"/>
+			<output message="tns:ATCKlassifikaatoridResponse"/>
+		</operation>
+		<operation name="toimeained">
+			<documentation><xtee:title>Toimeaine koodide loetelu</xtee:title><xtee:notes>Päring tagastab toimeainete koodide loetelu, kui kuupaev ei ole  tühi, siis tagastab ainult muudetud alates sellest kuupäevast kirjed</xtee:notes></documentation>
+			<input message="tns:MuudatusedAlatesRequest"/>
+			<output message="tns:IdArrayResponse"/>
+		</operation>
+		<operation name="toimeainedByIDArray">
+			<documentation><xtee:title>Toimeainete loend</xtee:title><xtee:notes>Päring tagastab  toimeainete loendi</xtee:notes></documentation>
+			<input message="tns:IdArrayRequest"/>
+			<output message="tns:ToimeainedResponse"/>
+		</operation>
+		<operation name="ravimvormid">
+			<documentation><xtee:title>Ravimvormide koodide loend</xtee:title><xtee:notes>Päring tagastab ravimvormide koodide loendi, juhul kui kuupaev ei ole  tühi, siis ainult muudetud alates sellest kuupäevast ravimvormide koodid</xtee:notes></documentation>
+			<input message="tns:MuudatusedAlatesRequest"/>
+			<output message="tns:IdArrayResponse"/>
+		</operation>
+		<operation name="ravimvormidByIDArray">
+			<documentation><xtee:title>Ravimvormide loend</xtee:title><xtee:notes>Päring tagastab ravimvormide loendi</xtee:notes></documentation>
+			<input message="tns:IdArrayRequest"/>
+			<output message="tns:RavimvormidResponse"/>
+		</operation>
+		<operation name="pakendid">
+			<documentation><xtee:title>Pakendite koodid</xtee:title><xtee:notes>Päring tagastab pakendi koodide loendi, kui muudatusedAlates ei ole tühi, siis tagastab ainult muudetud alates sellest kuupäevast kirjed</xtee:notes></documentation>
+			<input message="tns:PakendidRequest"/>
+			<output message="tns:PakendidResponse"/>
+		</operation>
+		<operation name="pakendidByIDArray">
+			<documentation><xtee:title>Pakendite loend</xtee:title><xtee:notes>Päring tagastab  pakendite loendi</xtee:notes></documentation>
+			<input message="tns:IdArrayRequest"/>
+			<output message="tns:PakendidByIDArrayResponse"/>
+		</operation>
+		<operation name="myygiload">
+			<documentation><xtee:title>Müügilubade koodide loend</xtee:title><xtee:notes>Päring tagastab müügilubade koodide loendi, kui kuupaev ei ole  tühi, siis tagastab ainult muudetud alates sellest kuupäevast kirjed</xtee:notes></documentation>
+			<input message="tns:MuudatusedAlatesRequest"/>
+			<output message="tns:IdArrayResponse"/>
+		</operation>
+		<operation name="myygiloadByIDArray">
+			<documentation><xtee:title>Müügilubade loend</xtee:title><xtee:notes>Päring tagastab müügilubade loendi</xtee:notes></documentation>
+			<input message="tns:IdArrayRequest"/>
+			<output message="tns:MyygiloadResponse"/>
+		</operation>
+		<operation name="piirhinnad">
+			<documentation><xtee:title>Piirhindade koodide loend</xtee:title><xtee:notes>Päring tagastab piirhindade koodide loendi, kui kuupaev ei ole  tühi, siis tagastab ainult muudetud alates sellest kuupäevast kirjed</xtee:notes></documentation>
+			<input message="tns:MuudatusedAlatesRequest"/>
+			<output message="tns:IdArrayResponse"/>
+		</operation>
+		<operation name="piirhinnadByIDArray">
+			<documentation><xtee:title>Piirhindade loend</xtee:title><xtee:notes>Päring tagastab piirhindade loendi</xtee:notes></documentation>
+			<input message="tns:IdArrayRequest"/>
+			<output message="tns:PiirhinnadResponse"/>
+		</operation>
+		<operation name="hinnakokkulepped">
+			<documentation><xtee:title>Hinnakokkulepete koodide loend</xtee:title><xtee:notes>Päring tagastab hinnakokkulepete koodide loendi, kui kuupaev ei ole  tühi, siis tagastab ainult muudetud alates sellest kuupäevast kirjed</xtee:notes></documentation>
+			<input message="tns:MuudatusedAlatesRequest"/>
+			<output message="tns:IdArrayResponse"/>
+		</operation>
+		<operation name="hinnakokkuleppedByIDArray">
+			<documentation><xtee:title>Hinnakokkulepete loend</xtee:title><xtee:notes>Päring tagastab hinnakokkulepete loendi</xtee:notes></documentation>
+			<input message="tns:IdArrayRequest"/>
+			<output message="tns:HinnakokkuleppedResponse"/>
+		</operation>
+		<operation name="haigused">
+			<documentation><xtee:title>Haiguste koodide loend</xtee:title><xtee:notes>Päring tagastab haiguste koodide loendi, kui kuupaev ei ole  tühi, siis tagastab ainult muudetud alates sellest kuupäevast kirjed</xtee:notes></documentation>
+			<input message="tns:MuudatusedAlatesRequest"/>
+			<output message="tns:IdArrayResponse"/>
+		</operation>
+		<operation name="haigusedByIDArray">
+			<documentation><xtee:title>Haiguste loend</xtee:title><xtee:notes>Päring tagastab haiguste loendi</xtee:notes></documentation>
+			<input message="tns:IdArrayRequest"/>
+			<output message="tns:HaigusedResponse"/>
+		</operation>
+		<operation name="soodustused">
+			<documentation><xtee:title>Soodustuste koodide loend</xtee:title><xtee:notes>Päring tagastab soodustuste koodide loendi, kui kuupaev ei ole  tühi, siis tagastab ainult muudetud alates sellest kuupäevast kirjed</xtee:notes></documentation>
+			<input message="tns:MuudatusedAlatesRequest"/>
+			<output message="tns:IdArrayResponse"/>
+		</operation>
+		<operation name="soodustusedByIDArray">
+			<documentation><xtee:title>Soodustuste loend</xtee:title><xtee:notes>Päring tagastab soodustuste loendi</xtee:notes></documentation>
+			<input message="tns:IdArrayRequest"/>
+			<output message="tns:SoodustusedResponse"/>
+		</operation>
+		<operation name="diagnoosid">
+			<documentation><xtee:title>Diagnooside koodide loend</xtee:title><xtee:notes>Päring tagastab diagnooside koodide loendi, kui kuupaev ei ole  tühi, siis tagastab ainult muudetud alates sellest kuupäevast kirjed</xtee:notes></documentation>
+			<input message="tns:MuudatusedAlatesRequest"/>
+			<output message="tns:IdArrayResponse"/>
+		</operation>
+		<operation name="diagnoosidByIDArray">
+			<documentation><xtee:title>Diagnooside loend</xtee:title><xtee:notes>Päring tagastab diagnooside loendi</xtee:notes></documentation>
+			<input message="tns:IdArrayRequest"/>
+			<output message="tns:DiagnoosidResponse"/>
+		</operation>
+		<operation name="medSeadmed">
+			<documentation>
+				<xtee:title>Meditsiiniseadmete koodide loend</xtee:title>
+				<xtee:notes>Päring tagastab meditsiinseadmete koodide loendi</xtee:notes>
+			</documentation>
+			<input message="tns:MuudatusteVahemikRequest"/>
+			<output message="tns:IdArrayMedSeadmedResponse"/>
+		</operation>
+		<operation name="medSeadmeRyhmad">
+			<documentation>
+				<xtee:title>Meditsiiniseadme rühmade koodide loend</xtee:title>
+				<xtee:notes>Päring tagastab meditsiinseadme rühmade koodide loendi</xtee:notes>
+			</documentation>
+			<input message="tns:MuudatusteVahemikRequest"/>
+			<output message="tns:IdArrayMedSeadmedResponse"/>
+		</operation>
+		<operation name="hyvitamisTingimused">
+			<documentation>
+				<xtee:title>Meditsiiniseadme hüvitamistingimuste koodide loend</xtee:title>
+				<xtee:notes>Päring tagastab meditsiiniseadme hüvitamistingimuste koodide loendi</xtee:notes>
+			</documentation>
+			<input message="tns:MuudatusteVahemikRequest"/>
+			<output message="tns:IdArrayMedSeadmedResponse"/>
+		</operation>
+		<operation name="medSeadmePiirhinnad">
+			<documentation>
+				<xtee:title>Meditsiiniseadme piirhindade koodide loend</xtee:title>
+				<xtee:notes>Päring tagastab meditsiiniseadmete piirhindade koodide loendi</xtee:notes>
+			</documentation>
+			<input message="tns:MedSeadmePiirhindRequest"/>
+			<output message="tns:IdArrayMedSeadmePiirhinnadResponse"/>
+		</operation>		
+		<operation name="medSeadmedByIDArray">
+			<documentation>
+				<xtee:title>Meditsiiniseadmete loend</xtee:title>
+				<xtee:notes>Päring tagastab meditsiiniseadmete loendi</xtee:notes>
+			</documentation>
+			<input message="tns:IdArrayRequest"/>
+			<output message="tns:MedSeadmedResponse"/>
+		</operation>
+		<operation name="medSeadmeRyhmadByIDArray">
+			<documentation>
+				<xtee:title>Meditsiiniseadme rühmade loend</xtee:title>
+				<xtee:notes>Päring tagastab meditsiiniseadme rühmade loendi</xtee:notes>
+			</documentation>
+			<input message="tns:IdArrayRequest"/>
+			<output message="tns:MedSeadmeRyhmadResponse"/>
+		</operation>
+		<operation name="hyvitamisTingimusedByIDArray">
+			<documentation>
+				<xtee:title>Meditsiiniseadme hüvitamistingimuste loend</xtee:title>
+				<xtee:notes>Päring tagastab meditsiiniseadme hüvitamistingimuste loendi</xtee:notes>
+			</documentation>
+			<input message="tns:IdArrayRequest"/>
+			<output message="tns:HyvitamisTingimusedResponse"/>
+		</operation>
+		<operation name="medSeadmePiirhinnadByIDArray">
+			<documentation>
+				<xtee:title>Meditsiiniseadme piirhindade loend</xtee:title>
+				<xtee:notes>Päring tagastab meditsiiniseadme piirhindade loendi</xtee:notes>
+			</documentation>
+			<input message="tns:IdArrayRequest"/>
+			<output message="tns:MedSeadmePiirhinnadResponse"/>
+		</operation>
+	</portType>
+	<binding name="koodikeskusBinding" type="tns:koodikeskusPortType">
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="ATCKlassifikaatorid">
+			<soap:operation soapAction=""/>
+			<xtee:version>v1</xtee:version>
+			<input>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</input>
+			<output>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</output>
+		</operation>
+		<operation name="ATCKlassifikaatoridByIDArray">
+			<soap:operation soapAction=""/>
+			<xtee:version>v1</xtee:version>
+			<input>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</input>
+			<output>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</output>
+		</operation>
+		<operation name="toimeained">
+			<soap:operation soapAction=""/>
+			<xtee:version>v1</xtee:version>
+			<input>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</input>
+			<output>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</output>
+		</operation>
+		<operation name="toimeainedByIDArray">
+			<soap:operation soapAction=""/>
+			<xtee:version>v1</xtee:version>
+			<input>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</input>
+			<output>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</output>
+		</operation>
+		<operation name="ravimvormid">
+			<soap:operation soapAction=""/>
+			<xtee:version>v1</xtee:version>
+			<input>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</input>
+			<output>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</output>
+		</operation>
+		<operation name="ravimvormidByIDArray">
+			<soap:operation soapAction=""/>
+			<xtee:version>v1</xtee:version>
+			<input>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</input>
+			<output>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</output>
+		</operation>
+		<operation name="pakendid">
+			<soap:operation soapAction=""/>
+			<xtee:version>v1</xtee:version>
+			<input>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</input>
+			<output>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</output>
+		</operation>
+		<operation name="pakendidByIDArray">
+			<soap:operation soapAction=""/>
+			<xtee:version>v1</xtee:version>
+			<input>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</input>
+			<output>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</output>
+		</operation>
+		<operation name="myygiload">
+			<soap:operation soapAction=""/>
+			<xtee:version>v1</xtee:version>
+			<input>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</input>
+			<output>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</output>
+		</operation>
+		<operation name="myygiloadByIDArray">
+			<soap:operation soapAction=""/>
+			<xtee:version>v1</xtee:version>
+			<input>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</input>
+			<output>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</output>
+		</operation>
+		<operation name="piirhinnad">
+			<soap:operation soapAction=""/>
+			<xtee:version>v1</xtee:version>
+			<input>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</input>
+			<output>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</output>
+		</operation>
+		<operation name="piirhinnadByIDArray">
+			<soap:operation soapAction=""/>
+			<xtee:version>v1</xtee:version>
+			<input>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</input>
+			<output>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</output>
+		</operation>
+		<operation name="hinnakokkulepped">
+			<soap:operation soapAction=""/>
+			<xtee:version>v1</xtee:version>
+			<input>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</input>
+			<output>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</output>
+		</operation>
+		<operation name="hinnakokkuleppedByIDArray">
+			<soap:operation soapAction=""/>
+			<xtee:version>v1</xtee:version>
+			<input>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</input>
+			<output>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</output>
+		</operation>
+		<operation name="haigused">
+			<soap:operation soapAction=""/>
+			<xtee:version>v1</xtee:version>
+			<input>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</input>
+			<output>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</output>
+		</operation>
+		<operation name="haigusedByIDArray">
+			<soap:operation soapAction=""/>
+			<xtee:version>v1</xtee:version>
+			<input>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</input>
+			<output>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</output>
+		</operation>
+		<operation name="soodustused">
+			<soap:operation soapAction=""/>
+			<xtee:version>v1</xtee:version>
+			<input>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</input>
+			<output>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</output>
+		</operation>
+		<operation name="soodustusedByIDArray">
+			<soap:operation soapAction=""/>
+			<xtee:version>v1</xtee:version>
+			<input>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</input>
+			<output>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</output>
+		</operation>
+		<operation name="diagnoosid">
+			<soap:operation soapAction=""/>
+			<xtee:version>v1</xtee:version>
+			<input>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</input>
+			<output>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</output>
+		</operation>
+		<operation name="diagnoosidByIDArray">
+			<soap:operation soapAction=""/>
+			<xtee:version>v1</xtee:version>
+			<input>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</input>
+			<output>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</output>
+		</operation>		
+		<operation name="medSeadmed">
+			<soap:operation soapAction=""/>
+			<xtee:version>v1</xtee:version>
+			<input>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</input>
+			<output>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</output>
+		</operation>
+		<operation name="medSeadmeRyhmad">
+			<soap:operation soapAction=""/>
+			<xtee:version>v1</xtee:version>
+			<input>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</input>
+			<output>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</output>
+		</operation>
+		<operation name="hyvitamisTingimused">
+			<soap:operation soapAction=""/>
+			<xtee:version>v1</xtee:version>
+			<input>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</input>
+			<output>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</output>
+		</operation>
+		<operation name="medSeadmePiirhinnad">
+			<soap:operation soapAction=""/>
+			<xtee:version>v1</xtee:version>
+			<input>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</input>
+			<output>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</output>
+		</operation>
+		<operation name="medSeadmedByIDArray">
+			<soap:operation soapAction=""/>
+			<xtee:version>v1</xtee:version>
+			<input>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</input>
+			<output>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</output>
+		</operation>
+		<operation name="medSeadmeRyhmadByIDArray">
+			<soap:operation soapAction=""/>
+			<xtee:version>v1</xtee:version>
+			<input>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</input>
+			<output>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</output>
+		</operation>
+		<operation name="hyvitamisTingimusedByIDArray">
+			<soap:operation soapAction=""/>
+			<xtee:version>v1</xtee:version>
+			<input>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</input>
+			<output>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</output>
+		</operation>
+		<operation name="medSeadmePiirhinnadByIDArray">
+			<soap:operation soapAction=""/>
+			<xtee:version>v1</xtee:version>
+			<input>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</input>
+			<output>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.koodikeskus.xtee.riik.ee/producer/koodikeskus"/>
+				<soap:header message="tns:standardpais" part="pais" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="koodikeskus">
+		<port name="koodikeskusPort" binding="tns:koodikeskusBinding">
+			<soap:address location="http://TURVASERVER/cgi-bin/consumer_proxy"/>
+			<xtee:title>Koodikeskus</xtee:title>
+			<xtee:address producer="koodikeskus"/>
+		</port>
+	</service>
+</definitions>

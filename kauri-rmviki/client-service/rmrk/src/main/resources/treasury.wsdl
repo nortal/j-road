@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="TreasuryWSDefinition" targetNamespace="http://producers.treasury.xtee.riik.ee/producer/treasury" xmlns:tns="http://producers.treasury.xtee.riik.ee/producer/treasury" xmlns:xtee="http://x-tee.riik.ee/xsd/xtee.xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+    <wsdl:types>
+        <xs:schema targetNamespace="http://producers.treasury.xtee.riik.ee/producer/treasury" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+            <xs:import namespace="http://x-tee.riik.ee/xsd/xtee.xsd" schemaLocation="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+            <xs:annotation>
+                <xs:documentation>Riigikassa maksüsteemipoolsete teenuste skeem</xs:documentation>
+            </xs:annotation>
+            <!-- listMethods (X-tee spetsiifiline) -->
+            <xs:complexType name="listMethods">
+                <xs:complexContent>
+                    <xs:restriction base="SOAP-ENC:Array">
+                        <xs:sequence>
+                            <xs:element name="item" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                        </xs:sequence>
+                    </xs:restriction>
+                </xs:complexContent>
+            </xs:complexType>
+            <!-- Moka päringu vastus -->
+            <xs:complexType name="sendDocumentResponseType">
+                <xs:sequence>
+                    <xs:element name="Message" type="xs:string" nillable="true">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <xtee:title>Teade</xtee:title>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Code" type="xs:int">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <xtee:title>Vastuskood: 0 - ok, ülejäänud märgivad viga.</xtee:title>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <!-- DigiDoc formaadis Dokumendi saatmise sõnum -->
+            <xs:complexType name="sendDocumentRequestType">
+                <xs:annotation>
+                    <xs:documentation>Signeeritud dokumendi vastuvõtmise formaat.</xs:documentation>
+                </xs:annotation>
+                <xs:sequence>
+                    <xs:element name="UniqueId" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Dokumendi unikaalne ID, tehniline viide. Peab asutuse kehtiva lepingu
+                                piires olema unikaalne.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Type" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Signeeritud dokumendis oleva(te) faili(d)e tüüp. P - Payments
+                                (maksekorraldused).</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Manus" type="xs:base64Binary">
+                        <xs:annotation>
+                            <xs:documentation>Viide manusele</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <!-- ================= -->  <!-- ==== MESSAGES === -->  <!-- ================= -->  <!-- X-tee listMethods sõnum -->
+    <wsdl:message name="listMethodsInput"/>
+    <!-- X-tee listMethods sõnumi vastus -->
+    <wsdl:message name="listMethodsOutput">
+        <wsdl:part name="keha" type="tns:listMethods"/>
+    </wsdl:message>
+    <wsdl:message name="standardpais">
+        <wsdl:part name="asutus" element="xtee:asutus"/>
+        <wsdl:part name="andmekogu" element="xtee:andmekogu"/>
+        <wsdl:part name="isikukood" element="xtee:isikukood"/>
+        <wsdl:part name="id" element="xtee:id"/>
+        <wsdl:part name="nimi" element="xtee:nimi"/>
+        <wsdl:part name="toimik" element="xtee:toimik"/>
+    </wsdl:message>
+    <wsdl:message name="sendDocumentInput">
+        <wsdl:part name="keha" type="tns:sendDocumentRequestType"/>
+        <wsdl:part name="p1" type="xs:base64Binary"/>
+    </wsdl:message>
+    <wsdl:message name="sendDocumentOutput">
+        <wsdl:part name="paring" type="tns:sendDocumentRequestType"/>
+        <wsdl:part name="keha" type="tns:sendDocumentResponseType"/>
+        <wsdl:part name="p2" type="xs:base64Binary"/>
+    </wsdl:message>
+    <!-- ================ -->  <!-- == PORT TYPE  == -->  <!-- ================ -->
+    <wsdl:portType name="TreasuryServicePortType">
+        <!-- X-tee teenuse meetodite päringu teenus -->
+        <wsdl:operation name="listMethods">
+            <wsdl:documentation>
+                <xtee:title>Meetodite nimekiri</xtee:title>
+            </wsdl:documentation>
+            <wsdl:input message="tns:listMethodsInput"/>
+            <wsdl:output message="tns:listMethodsOutput"/>
+        </wsdl:operation>
+        <!-- Riigikassa signeeritud dokumentide (maksefailide) "push" teenus -->
+        <wsdl:operation name="sendDocument">
+            <wsdl:documentation>
+                <xtee:title>Signeeritud dokumentide vastuvõtmine.</xtee:title>
+            </wsdl:documentation>
+            <wsdl:input message="tns:sendDocumentInput"/>
+            <wsdl:output message="tns:sendDocumentOutput"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <!-- ================= -->  <!-- ==== BINDINGS === -->  <!-- ================= -->
+    <wsdl:binding name="TreasuryServiceBinding" type="tns:TreasuryServicePortType">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="listMethods">
+            <xtee:version>v1</xtee:version>
+            <wsdl:input>
+                <soap:body use="encoded" namespace="http://producers.treasury.xtee.riik.ee/producer/treasury" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="encoded" namespace="http://producers.treasury.xtee.riik.ee/producer/treasury" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="sendDocument">
+            <xtee:version>v1</xtee:version>
+            <wsdl:input>
+                <mime:multipartRelated>
+                    <mime:part>
+                        <soap:header message="tns:standardpais" part="asutus" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+                        <soap:header message="tns:standardpais" part="andmekogu" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+                        <soap:header message="tns:standardpais" part="isikukood" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+                        <soap:header message="tns:standardpais" part="id" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+                        <soap:header message="tns:standardpais" part="nimi" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+                        <soap:header message="tns:standardpais" part="toimik" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+                        <soap:body use="encoded" namespace="http://producers.treasury.xtee.riik.ee/producer/treasury" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+                    </mime:part>
+                    <mime:part>
+                        <mime:content part="p1" type="application/octet-stream"/>
+                    </mime:part>
+                </mime:multipartRelated>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:multipartRelated>
+                    <mime:part>
+                        <soap:header message="tns:standardpais" part="asutus" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+                        <soap:header message="tns:standardpais" part="andmekogu" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+                        <soap:header message="tns:standardpais" part="isikukood" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+                        <soap:header message="tns:standardpais" part="id" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+                        <soap:header message="tns:standardpais" part="nimi" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+                        <soap:header message="tns:standardpais" part="toimik" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+                        <soap:body use="encoded" namespace="http://producers.treasury.xtee.riik.ee/producer/treasury" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+                    </mime:part>
+                    <mime:part>
+                        <mime:content part="p2" type="application/octet-stream"/>
+                    </mime:part>
+                </mime:multipartRelated>
+
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <!-- ================= -->  <!-- ==== SERVICES === -->  <!-- ================= -->
+    <wsdl:service name="TreasuryMessagingService">
+        <wsdl:port name="TreasuryWS" binding="tns:TreasuryServiceBinding">
+            <soap:address location="http://turvaserver/cgi-bin/TreasuryWS/services/TreasuryWS"/>
+            <xtee:title>Riigikassa kiirteavitusteenus</xtee:title>
+            <xtee:title xml:lang="en">Treasury services</xtee:title>
+            <xtee:address producer="treasury"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

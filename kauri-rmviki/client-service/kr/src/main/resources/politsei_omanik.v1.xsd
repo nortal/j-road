@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://producers.kr.xtee.riik.ee/producer/kr"
+	targetNamespace="http://producers.kr.xtee.riik.ee/producer/kr"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+	xmlns:xtee="http://x-tee.riik.ee/xsd/xtee.xsd">
+
+	<import namespace="http://schemas.xmlsoap.org/soap/encoding/"
+		schemaLocation="http://schemas.xmlsoap.org/soap/encoding/" />
+
+	<complexType name="politsei_omanik_paring">
+		<all>
+			<element name="kinnistu_id" type="string">
+				<annotation>
+					<appinfo>
+						<xtee:title>Kinnistu ID</xtee:title>
+					</appinfo>
+				</annotation>
+			</element>
+
+			<element name="kehtivus" type="string">
+				<annotation>
+					<appinfo>
+						<xtee:title>
+							1-kehtiv; 0-kehtetu; 2-kehtiv ja kehtetu
+						</xtee:title>
+					</appinfo>
+				</annotation>
+			</element>
+		</all>
+	</complexType>
+
+	<complexType name="politsei_omanik_vastus">
+		<all>
+			<element name="teade" nillable="false" minOccurs="0"
+				type="string">
+				<annotation>
+					<appinfo>
+						<xtee:title>Teade</xtee:title>
+					</appinfo>
+				</annotation>
+			</element>
+
+			<element name="isik_jada">
+				<annotation>
+					<appinfo>
+						<xtee:title>Isikud</xtee:title>
+					</appinfo>
+				</annotation>
+
+				<complexType>
+					<complexContent>
+						<restriction base="SOAP-ENC:Array">
+							<sequence>
+								<element name="item" minOccurs="0"
+									maxOccurs="unbounded">
+									<complexType>
+										<all>
+											<element name="eesnimi"
+												type="string">
+												<annotation>
+													<appinfo>
+														<xtee:title>
+															Füüsilise
+															isiku
+															eesnimi
+														</xtee:title>
+													</appinfo>
+												</annotation>
+											</element>
+
+											<element name="nimi"
+												type="string">
+												<annotation>
+													<appinfo>
+														<xtee:title>
+															Juriidilise
+															isiku nimi/
+															Füüsilise
+															isiku
+															perekonnanimi
+														</xtee:title>
+													</appinfo>
+												</annotation>
+											</element>
+
+											<element name="koodi_liik"
+												type="string">
+												<annotation>
+													<appinfo>
+														<xtee:title>
+															1-isikukood;
+															2-registrikood)
+														</xtee:title>
+													</appinfo>
+												</annotation>
+											</element>
+
+											<element name="kood"
+												type="string">
+												<annotation>
+													<appinfo>
+														<xtee:title>
+															Isikukood
+															või
+															registrikood
+														</xtee:title>
+													</appinfo>
+												</annotation>
+											</element>
+
+											<element name="koodi_riik"
+												type="string">
+												<annotation>
+													<appinfo>
+														<xtee:title>
+															Riigi
+															klassifikaatori
+															kood
+														</xtee:title>
+													</appinfo>
+												</annotation>
+											</element>
+
+											<element name="synniaeg"
+												type="date">
+												<annotation>
+													<appinfo>
+														<xtee:title>
+															Sünniaeg
+															(Füüsiliste
+															isikute
+															puhul, kui
+															eksisteerib
+															baasis;
+															teiste
+															isikute
+															puhul null)
+														</xtee:title>
+													</appinfo>
+												</annotation>
+											</element>
+
+											<element name="omandi_liik"
+												type="string">
+												<annotation>
+													<appinfo>
+														<xtee:title>
+															Omandi liik
+															(Kaasomand,
+															ühisomand,ainuomand)
+														</xtee:title>
+													</appinfo>
+												</annotation>
+											</element>
+
+											<element name="omandiosa"
+												type="string">
+												<annotation>
+													<appinfo>
+														<xtee:title>
+															Omandiosa_suurus
+															(kaasomandiosa
+															suurus
+															murruna;
+															ainuomandil
+															1;
+															ühisomandil
+															null)
+														</xtee:title>
+													</appinfo>
+												</annotation>
+											</element>
+
+											<element name="kehtivus"
+												type="string">
+												<annotation>
+													<appinfo>
+														<xtee:title>
+															Omandi
+															kehtivuse
+															tunnus
+															(1-kehtiv;
+															0-kehtetu)
+														</xtee:title>
+													</appinfo>
+												</annotation>
+											</element>
+
+											<element name="algus"
+												type="date">
+												<annotation>
+													<appinfo>
+														<xtee:title>
+															Omandi
+															alguskuupäev
+														</xtee:title>
+													</appinfo>
+												</annotation>
+											</element>
+
+											<element name="lopp"
+												type="date">
+												<annotation>
+													<appinfo>
+														<xtee:title>
+															Omandi
+															lopukuupäev
+														</xtee:title>
+													</appinfo>
+												</annotation>
+											</element>
+										</all>
+									</complexType>
+								</element>
+							</sequence>
+						</restriction>
+					</complexContent>
+				</complexType>
+			</element>
+		</all>
+	</complexType>
+
+</xsd:schema>

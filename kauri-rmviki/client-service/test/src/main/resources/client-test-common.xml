@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+	<context:annotation-config />
+
+  <context:component-scan base-package="ee.webmedia.xtee.client" />
+
+	<bean id="webServiceTemplate" class="org.springframework.ws.client.core.WebServiceTemplate" />
+
+	<bean id="xTeeConsumer"
+		class="ee.webmedia.xtee.client.service.consumer.StandardXTeeConsumer">
+		<property name="webServiceTemplate" ref="webServiceTemplate" />
+	</bean>
+
+	<bean id="xTeeServiceConfigurationProvider"
+		class="ee.webmedia.xtee.client.service.configuration.provider.PropertiesBasedXTeeServiceConfigurationProvider">
+		<property name="resource" value="xtee-service.properties" />
+	</bean>
+
+
+	<bean id="xteeDatabaseService" abstract="true"
+		class="ee.webmedia.xtee.client.service.XTeeDatabaseService">
+		<property name="xTeeServiceConfigurationProvider" ref="xTeeServiceConfigurationProvider" />
+		<property name="xTeeConsumer" ref="xTeeConsumer" />
+	</bean>
+
+</beans>
