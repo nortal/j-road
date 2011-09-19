@@ -2733,8 +2733,12 @@ public final class XteeSchemaCodePrinter implements SchemaCodePrinter {
 	private Node findFirstNode(final NodeList nodeList, final String elementName){
 		return findFirstNode(nodeList, elementName, null);
 	}
-	
+
 	private Node findFirstNode(final NodeList nodeList, final String elementName, final String name){
+		return findFirstNode(nodeList, elementName, name, true);
+	}
+
+	private Node findFirstNode(final NodeList nodeList, final String elementName, final String name, boolean processChildElements){
 		
 		for(int i = 0; i<nodeList.getLength();i++){
 			Node nNode = nodeList.item(i).cloneNode(true);
@@ -2751,8 +2755,11 @@ public final class XteeSchemaCodePrinter implements SchemaCodePrinter {
 					}
 				}
 			}
+			if (!processChildElements && "element".equals(localName)) {
+				continue;
+			}
 			if(nNode.hasChildNodes()){
-				nNode = findFirstNode(nNode.getChildNodes(), elementName, name);
+				nNode = findFirstNode(nNode.getChildNodes(), elementName, name, processChildElements);
 				if(nNode!=null){
 					return nNode;
 				}
@@ -2791,7 +2798,10 @@ public final class XteeSchemaCodePrinter implements SchemaCodePrinter {
 				node = findFirstNode(node.getChildNodes(), "element", localPart);
 			}
 			if(node!=null){
-				xteeTitle = clearString(getXmlObjectValue(findFirstNode(node.getChildNodes(), "title")));
+				xteeTitle = clearString(getXmlObjectValue(findFirstNode(node.getChildNodes(), "title", null, false)));
+				if (xteeTitle == null) {
+					xteeTitle = StringUtils.capitalize(node.getAttributes().getNamedItem("name").getNodeValue());
+				}
 			}
 		} catch (Exception e) {
 			throw new IOException(e);
