@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://producers.kr.xtee.riik.ee/producer/kr"
+	xmlns:xtee="http://x-tee.riik.ee/xsd/xtee.xsd"
+	targetNamespace="http://producers.kr.xtee.riik.ee/producer/kr"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+	<import namespace="http://schemas.xmlsoap.org/soap/encoding/"
+		schemaLocation="http://schemas.xmlsoap.org/soap/encoding/" />
+
+	<import namespace="http://x-tee.riik.ee/xsd/xtee.xsd"
+		schemaLocation="http://x-tee.riik.ee/xsd/xtee.xsd" />
+
+	<simpleType name="kehtivus_type">
+		<annotation>
+			<appinfo>
+				<xtee:title>Kehtivus</xtee:title>
+			</appinfo>
+		</annotation>
+
+		<restriction base="string">
+			<enumeration value="V">
+				<annotation>
+					<appinfo>
+						<xtee:title>Kehtiv</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+
+			<enumeration value="I">
+				<annotation>
+					<appinfo>
+						<xtee:title>Kehtetu</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+
+			<enumeration value="A">
+				<annotation>
+					<appinfo>
+						<xtee:title>Kõik</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="oiguseliik_type">
+		<annotation>
+			<appinfo>
+				<xtee:title>Õiguse liik</xtee:title>
+			</appinfo>
+		</annotation>
+
+		<restriction base="string">
+			<enumeration value="-3J-">
+				<annotation>
+					<appinfo>
+						<xtee:title>Kolmas jagu</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+
+			<enumeration value="-4J-">
+				<annotation>
+					<appinfo>
+						<xtee:title>Neljas jagu</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+
+			<enumeration value="-HO-">
+				<annotation>
+					<appinfo>
+						<xtee:title>Hoonestusõigus</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+
+			<enumeration value="-KHO-">
+				<annotation>
+					<appinfo>
+						<xtee:title>Korterihoonestusõigus</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+
+			<enumeration value="-IS_K-">
+				<annotation>
+					<appinfo>
+						<xtee:title>Iseseisev keelumärge</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+
+			<enumeration value="-IS_M-">
+				<annotation>
+					<appinfo>
+						<xtee:title>Iseseisev märkus</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+
+			<enumeration value="-IK-">
+				<annotation>
+					<appinfo>
+						<xtee:title>Isiklik kasutusõigus</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+
+			<enumeration value="-KV-">
+				<annotation>
+					<appinfo>
+						<xtee:title>Kasutusvaldus</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+
+			<enumeration value="-OE-">
+				<annotation>
+					<appinfo>
+						<xtee:title>Ostueesõigus</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+
+			<enumeration value="-RK-">
+				<annotation>
+					<appinfo>
+						<xtee:title>Reaalkoormatis</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+
+			<enumeration value="-RS-">
+				<annotation>
+					<appinfo>
+						<xtee:title>Reaalservituut</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+
+			<enumeration value="-VV-">
+				<annotation>
+					<appinfo>
+						<xtee:title>Vastuväide</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+
+			<enumeration value="-OK-">
+				<annotation>
+					<appinfo>
+						<xtee:title>Õiguse keelumärge</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+
+			<enumeration value="-O_MARK-">
+				<annotation>
+					<appinfo>
+						<xtee:title>Õiguse märkus</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+
+			<enumeration value="-OMAND-">
+				<annotation>
+					<appinfo>
+						<xtee:title>Omand</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+
+			<enumeration value="-HYP-">
+				<annotation>
+					<appinfo>
+						<xtee:title>Hüpoteek</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+
+			<enumeration value="-NA-">
+				<annotation>
+					<appinfo>
+						<xtee:title>Määramata</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="isik_type">
+		<annotation>
+			<appinfo>
+				<xtee:title>Isiku liik</xtee:title>
+			</appinfo>
+		</annotation>
+
+		<restriction base="string">
+			<enumeration value="F">
+				<annotation>
+					<appinfo>
+						<xtee:title>Füüsiline isik</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+
+			<enumeration value="AY">
+				<annotation>
+					<appinfo>
+						<xtee:title>Äriühing</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+
+			<enumeration value="MTY">
+				<annotation>
+					<appinfo>
+						<xtee:title>Mittetulundusühing</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+
+			<enumeration value="N">
+				<annotation>
+					<appinfo>
+						<xtee:title>Notar</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+
+			<enumeration value="T">
+				<annotation>
+					<appinfo>
+						<xtee:title>Täitur</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+
+			<enumeration value="AS">
+				<annotation>
+					<appinfo>
+						<xtee:title>Aktsiaselts</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+
+			<enumeration value="OY">
+				<annotation>
+					<appinfo>
+						<xtee:title>Osaühing</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+
+			<enumeration value="TY">
+				<annotation>
+					<appinfo>
+						<xtee:title>Täisühing</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+
+			<enumeration value="UY">
+				<annotation>
+					<appinfo>
+						<xtee:title>Usaldusühing</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+
+			<enumeration value="TUL">
+				<annotation>
+					<appinfo>
+						<xtee:title>Tulundusühistu</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+
+			<enumeration value="SA">
+				<annotation>
+					<appinfo>
+						<xtee:title>Sihtasutus</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+
+			<enumeration value="FIL">
+				<annotation>
+					<appinfo>
+						<xtee:title>
+							Välismaa äriühingu filiaal
+						</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+
+			<enumeration value="MJ">
+				<annotation>
+					<appinfo>
+						<xtee:title>Muu juriidiline isik</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+
+			<enumeration value="OV">
+				<annotation>
+					<appinfo>
+						<xtee:title>Kohalik omavalitsus</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+
+			<enumeration value="RA">
+				<annotation>
+					<appinfo>
+						<xtee:title>Riigiasutus</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+
+			<enumeration value="EY">
+				<annotation>
+					<appinfo>
+						<xtee:title>Elamuühistu</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+
+			<enumeration value="MAO">
+				<annotation>
+					<appinfo>
+						<xtee:title>
+							Muu avalik-õiguslik isik
+						</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+
+			<enumeration value="FIE">
+				<annotation>
+					<appinfo>
+						<xtee:title>
+							Füüsilisest isikust ettevõtja
+						</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+
+			<enumeration value="R">
+				<annotation>
+					<appinfo>
+						<xtee:title>Riik</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+
+
+	<simpleType name="x_kinnistusjaoskond">
+		<restriction base="string">
+			<enumeration value="01">
+				<annotation>
+					<appinfo>
+						<xtee:title>Tallinna</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="02">
+				<annotation>
+					<appinfo>
+						<xtee:title>Harju</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="03">
+				<annotation>
+					<appinfo>
+						<xtee:title>Tartu</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="04">
+				<annotation>
+					<appinfo>
+						<xtee:title>Tartu maakonna</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="05">
+				<annotation>
+					<appinfo>
+						<xtee:title>Pärnu linna</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="06">
+				<annotation>
+					<appinfo>
+						<xtee:title>Pärnu maakonna</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="07">
+				<annotation>
+					<appinfo>
+						<xtee:title>Kohtla-Järve</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="08">
+				<annotation>
+					<appinfo>
+						<xtee:title>Ida-Viru</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="09">
+				<annotation>
+					<appinfo>
+						<xtee:title>Narva</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="31">
+				<annotation>
+					<appinfo>
+						<xtee:title>Lääne-Viru</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="32">
+				<annotation>
+					<appinfo>
+						<xtee:title>Lääne</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="33">
+				<annotation>
+					<appinfo>
+						<xtee:title>Hiiu</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="34">
+				<annotation>
+					<appinfo>
+						<xtee:title>Saare</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="35">
+				<annotation>
+					<appinfo>
+						<xtee:title>Jõgeva</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="36">
+				<annotation>
+					<appinfo>
+						<xtee:title>Järva</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="37">
+				<annotation>
+					<appinfo>
+						<xtee:title>Rapla</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="38">
+				<annotation>
+					<appinfo>
+						<xtee:title>Põlva</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="39">
+				<annotation>
+					<appinfo>
+						<xtee:title>Viljandi</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="40">
+				<annotation>
+					<appinfo>
+						<xtee:title>Valga</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="41">
+				<annotation>
+					<appinfo>
+						<xtee:title>Võru</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="026">
+				<annotation>
+					<appinfo>
+						<xtee:title>Test</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="x_kehtivus">
+		<restriction base="string">
+			<enumeration value="0">
+				<annotation>
+					<appinfo>
+						<xtee:title>Kehtiv</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+			<enumeration value="1">
+				<annotation>
+					<appinfo>
+						<xtee:title>Kehtetu</xtee:title>
+					</appinfo>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+</xsd:schema>

@@ -1,0 +1,562 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" 
+			 xmlns:xtee="http://x-tee.riik.ee/xsd/xtee.xsd" 
+			 xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+			 xmlns:maa="http://www.maaamet.ee/"
+			 xmlns:ads="http://producers.ads.xtee.riik.ee/producer/ads" 
+			 targetNamespace="http://producers.ads.xtee.riik.ee/producer/ads">
+	<types>
+		<schema elementFormDefault="unqualified" targetNamespace="http://producers.ads.xtee.riik.ee/producer/ads" xmlns="http://www.w3.org/2001/XMLSchema">
+			<import namespace="http://www.maaamet.ee/"/>			
+		</schema>
+		
+		<schema elementFormDefault="unqualified" targetNamespace="http://www.maaamet.ee/" xmlns="http://www.w3.org/2001/XMLSchema">
+		  <include schemaLocation="http://www.maaamet.ee/schemas/xTeenused/maa_klassifikaatorid.xsd" />
+		  <include schemaLocation="http://www.maaamet.ee/schemas/xTeenused/maa_types.xsd" />
+		  <element name="ADSkompklassif" type="maa:ADSkompklassifParingIseType">
+				<annotation>
+					<appinfo>
+						<xtee:title>Aadressikomponentide klassifikaatori muudatuste päring</xtee:title>
+					</appinfo>
+				</annotation>
+			</element>
+			<element name="ADSkompklassifResponse" type="maa:ADSkompklassifVastusIseType" />
+			<complexType name="ADSkompklassifParingIseType">
+				<sequence>
+					<element name="keha" type="maa:ADSkompklassifParingType" />
+				</sequence>
+			</complexType>
+			<complexType name="ADSkompklassifVastusIseType">
+				<sequence>
+					<element name="paring" type="maa:ADSkompklassifParingType" />
+					<element name="keha" type="maa:ADSkompklassifVastusType" />
+				</sequence>
+			</complexType>
+			<complexType name="ADSkompklassifParingType">
+				<annotation>
+					<appinfo>
+						<xtee:title>Aadressikomponentide klassifikaatori muudatuste päring</xtee:title>
+					</appinfo>
+				</annotation>
+				<sequence>
+					<element minOccurs="0" maxOccurs="1" name="KlassifParam">
+						<complexType>
+							<sequence>
+								<element name="muudetudAlates" minOccurs="0" type="date">
+									<annotation>
+										<appinfo>
+											<xtee:title>Muudetud alates</xtee:title>
+											<xtee:notes>Kuupäev alates millest (k.a.) registreeritud muudatusi soovitakse leida</xtee:notes>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="muudetudKuni" minOccurs="0" type="date">
+									<annotation>
+										<appinfo>
+											<xtee:title>Muudetud kuni</xtee:title>
+											<xtee:notes>Kuupäev kuni milleni (v.a.) registreeritud muudatusi soovitakse leida</xtee:notes>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="objektiLiik" minOccurs="0" type="maa:adsobjliikKlassifikaator">
+									<annotation>
+										<appinfo>
+											<xtee:title>Objekti liik</xtee:title>
+											<xtee:notes>Muudatuse põhjustanud aadressiobjekti liik</xtee:notes>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="minTase" minOccurs="0" type="maa:adstasemedKlassifikaator">
+									<annotation>
+										<appinfo>
+											<xtee:title>Min. tase</xtee:title>
+											<xtee:notes>Minimaalne tase (üldisemast täpsema suunas), mille muudatused vastusesse tulevad</xtee:notes>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="maxTase" minOccurs="0" type="maa:adstasemedKlassifikaator">
+									<annotation>
+										<appinfo>
+											<xtee:title>Max. tase</xtee:title>
+											<xtee:notes>Maksimaalne tase (üldisemast täpsema suunas), mille muudatused vastusesse tulevad</xtee:notes>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="logId" type="integer" minOccurs="0">
+									<annotation>
+										<appinfo>
+											<xtee:title>LogId</xtee:title>
+											<xtee:notes>Millisest LogId väärtusest suuremaid kirjeid otsitakse</xtee:notes>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="maxarv" type="integer" minOccurs="0">
+									<annotation>
+										<appinfo>
+											<xtee:title>Maksimaalne tagastavate kirjete arv</xtee:title>
+										</appinfo>
+									</annotation>
+								</element>
+							</sequence>
+						</complexType>
+					</element>
+				</sequence>
+			</complexType>
+			<complexType name="ADSkompklassifVastusType">
+				<sequence>
+					<element name="ADSkompklassifResult" type="maa:ADSkompklassifResultType" />
+				</sequence>
+			</complexType>
+			<complexType name="ADSkompklassifResultType">
+				<sequence minOccurs="0" maxOccurs="unbounded">
+					<element name="klassifTulem">
+						<complexType>
+							<sequence>
+								<element name="logId" type="integer">
+									<annotation>
+										<appinfo>
+											<xtee:title>Logikirje ID</xtee:title>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="logStamp" type="dateTime">
+									<annotation>
+										<appinfo>
+											<xtee:title>Logikirje tekkimise aeg</xtee:title>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="syndmus" type="maa:adsSyndmusType">
+									<annotation>
+										<appinfo>
+											<xtee:title>Sündmus</xtee:title>
+											<xtee:notes>I (insert) - komponent lisandus, U (update) - komponenti versiooniti, D (delete) - komponendi viimane versioon muudeti kehtetuks</xtee:notes>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="tase" type="integer">
+									<annotation>
+										<appinfo>
+											<xtee:title>Aadressikomponendi tase</xtee:title>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="kood" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Aadressikomponendi kood</xtee:title>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="nimetus" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Nimetus</xtee:title>
+											<xtee:notes>Aadressikomponendi nimi ilma liigisõnata</xtee:notes>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="nimetusLiigiga" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Nimetus liigiga</xtee:title>
+											<xtee:notes>Aadressikomponendi nimi koos liigisõnaga</xtee:notes>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="ylemTase" type="integer">
+									<annotation>
+										<appinfo>
+											<xtee:title>Ülem-komponendi tase</xtee:title>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="ylemKood" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Ülem-komponendi Kood</xtee:title>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="adsOID" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Initsialiseerivate objektide ADS_OID väärtused</xtee:title>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="synonyymid" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Sünonüümid</xtee:title>
+											<xtee:notes>Komponendi sünonüümid, mis ei lange kokku komponendi ametlike nimekujudega</xtee:notes>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="vanaNimetus" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Vana nimetus</xtee:title>
+											<xtee:notes>Aadressikomponendi vana nimi ilma liigisõnata komponendi muutmise korral</xtee:notes>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="vanaNimetusLiigiga" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Vana nimetus liigiga</xtee:title>
+											<xtee:notes>Aadressikomponendi vana nimi koos liigisõnaga komponendi muutmise korral</xtee:notes>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="MuutjaAdsOID" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Muudatuse põhjustanud objekti ADS_OID</xtee:title>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="oiguslikAlus" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Muudatuse põhjustanud objekti õiguslik alus</xtee:title>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="aluseKuup" type="date">
+									<annotation>
+										<appinfo>
+											<xtee:title>Muudatuse põhjustanud objekti õigusliku aluse kuupäev</xtee:title>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="eellased" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Komponendi võimalikeks eellasteks olevate sama taseme tühistatud komponentide loetelu</xtee:title>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="jarglased" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Komponendi võimalikeks järglaseks olevate sama taseme komponentide loetelu</xtee:title>
+										</appinfo>
+									</annotation>
+								</element>
+							</sequence>
+						</complexType>
+					</element>
+				</sequence>
+			</complexType>
+			
+			<element name="ADSmuudatused" type="maa:ADSmuudatusedParingIseType">
+				<annotation>
+					<appinfo>
+						<xtee:title>Aadressi muudatuste päring</xtee:title>
+					</appinfo>
+				</annotation>
+			</element>
+			<element name="ADSmuudatusedResponse" type="maa:ADSmuudatusedVastusIseType" />
+			<complexType name="ADSmuudatusedParingIseType">
+				<sequence>
+					<element name="keha" type="maa:ADSmuudatusedParingType" />
+				</sequence>
+			</complexType>
+			<complexType name="ADSmuudatusedVastusIseType">
+				<sequence>
+					<element name="paring" type="maa:ADSmuudatusedParingType" />
+					<element name="keha" type="maa:ADSmuudatusedVastusType" />
+				</sequence>
+			</complexType>
+			<complexType name="ADSmuudatusedParingType">
+				<annotation>
+					<appinfo>
+						<xtee:title>Aadressi muudatuste päring</xtee:title>
+					</appinfo>
+				</annotation>
+				<sequence>
+					<element minOccurs="0" maxOccurs="1" name="MuudatusedParam">
+						<complexType>
+							<sequence>
+								<element name="muudetudAlates" minOccurs="0" type="date">
+									<annotation>
+										<appinfo>
+											<xtee:title>Muudetud alates</xtee:title>
+											<xtee:notes>Kuupäev alates millest (k.a) registreeritud muudatusi soovitakse leida</xtee:notes>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="muudetudKuni" minOccurs="0" type="date">
+									<annotation>
+										<appinfo>
+											<xtee:title>Muudetud kuni</xtee:title>
+											<xtee:notes>Kuupäev kuni milleni (v.a.) registreeritud muudatusi soovitakse leida</xtee:notes>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="objektiLiik" minOccurs="0" type="maa:adsobjliikKlassifikaator">
+									<annotation>
+										<appinfo>
+											<xtee:title>Objekti liik</xtee:title>
+											<xtee:notes>Muudatuse põhjustanud aadressiobjekti liik</xtee:notes>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="logId" type="integer" minOccurs="0">
+									<annotation>
+										<appinfo>
+											<xtee:title>LogId</xtee:title>
+											<xtee:notes>Millisest LogId väärtusest suuremaid kirjeid otsitakse</xtee:notes>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="maxarv" type="integer" minOccurs="0">
+									<annotation>
+										<appinfo>
+											<xtee:title>Maksimaalne tagastavate kirjete arv</xtee:title>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="objekt" type="boolean" minOccurs="0" default="false">
+									<annotation>
+										<appinfo>
+											<xtee:title>Objekt</xtee:title>
+											<xtee:notes>Kas tagastatakse ka muudatuse põhjustanud aadressiobjekti andmed.</xtee:notes>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="seosed" type="boolean" minOccurs="0" default="false">
+									<annotation>
+										<appinfo>
+											<xtee:title>Seosobjektid</xtee:title>
+											<xtee:notes>Kas tagastatakse ka muudatuse hetkel aadressiga seotud kehtivad objektid.</xtee:notes>
+										</appinfo>
+									</annotation>
+								</element>
+							</sequence>
+						</complexType>
+					</element>
+				</sequence>
+			</complexType>
+			<complexType name="ADSmuudatusedVastusType">
+				<sequence>
+					<element name="ADSmuudatusedResult" type="maa:ADSmuudatusedResultType" />
+				</sequence>
+			</complexType>
+			<complexType name="ADSmuudatusedResultType">
+				<sequence minOccurs="0" maxOccurs="unbounded">
+					<element name="muudatusedTulem">
+						<complexType>
+							<sequence>
+								<element name="logId" type="integer">
+									<annotation>
+										<appinfo>
+											<xtee:title>Logikirje ID</xtee:title>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="logStamp" type="dateTime">
+									<annotation>
+										<appinfo>
+											<xtee:title>Logikirje tekkimise aeg</xtee:title>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="syndmus" minOccurs="0" type="maa:adsSyndmusType">
+									<annotation>
+										<appinfo>
+											<xtee:title>Sündmus</xtee:title>
+											<xtee:notes>I (insert) - komponent lisandus, U (update) - komponenti versiooniti, D (delete) - komponendi viimane versioon muudeti kehtetuks, R(restore) - komponent taastati</xtee:notes>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="koodAadress" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Koodaadress</xtee:title>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="adrId" type="integer">
+									<annotation>
+										<appinfo>
+											<xtee:title>Aadressi unikaalne võti(ADR_ID)</xtee:title>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="taisAadress" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Normaliseeritud aadressitekst(täisaadress)</xtee:title>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="lahiAadress" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Normaliseeritud lähiaadress</xtee:title>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="vanaAdrId" type="integer">
+									<annotation>
+										<appinfo>
+											<xtee:title>Aadressi eelmise versiooni number muutmise korral(Vana_ADR_ID)</xtee:title>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="vanaTaisAadress" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Aadressi eelmine täielik nimekuju muutmise korral(eelmine täisaadress)</xtee:title>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="vanaLahiAadress" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Eelmine lähiaadress muutmise korral</xtee:title>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="objektiLiik" type="maa:adsobjliikKlassifikaator">
+									<annotation>
+										<appinfo>
+											<xtee:title>Objekti liik</xtee:title>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="adsOid" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Objekti ADS süsteemi kood(ADS_OID)</xtee:title>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="adobId" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Objekti versioonitunnus ADS süsteemis(Adob_id)</xtee:title>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="origTunnus" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Objekti tunnus originaalregistris</xtee:title>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="punktX" type="string" minOccurs="0">
+									<annotation>
+										<appinfo>
+											<xtee:title>Objekti tsentroidipunkti x-koordinaat</xtee:title>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="punktY" type="string" minOccurs="0">
+									<annotation>
+										<appinfo>
+											<xtee:title>Objekti tsentroidipunkti y-koordinaat</xtee:title>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="oiguslikAlus" type="string" minOccurs="0">
+									<annotation>
+										<appinfo>
+											<xtee:title>Muudatuse põhjustamise õigusliku aluse tekst</xtee:title>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="aluseKuup" type="date" minOccurs="0">
+									<annotation>
+										<appinfo>
+											<xtee:title>Muudatuse põhjustamise õigusliku aluse kuupäev</xtee:title>
+										</appinfo>
+									</annotation>
+								</element>
+								<element name="seosOID" type="string" minOccurs="0">
+									<annotation>
+										<appinfo>
+											<xtee:title>Aadressiga seotud kehtivate aadressiobjektide ADS_OID loetelu</xtee:title>
+										</appinfo>
+									</annotation>
+								</element>
+							</sequence>
+						</complexType>
+					</element>
+				</sequence>
+			</complexType>
+			
+		</schema>
+
+		
+		
+	</types>
+	<message name="ADSkompklassifIn">
+		<part name="keha" type="maa:ADSkompklassifParingType"/>
+	</message>
+	<message name="ADSkompklassifResponseOut">
+		<part name="paring" type="maa:ADSkompklassifParingType"/>
+		<part name="keha" type="maa:ADSkompklassifVastusType"/>
+	</message>	
+	<message name="ADSmuudatusedIn">
+		<part name="keha" type="maa:ADSmuudatusedParingType"/>
+	</message>
+	<message name="ADSmuudatusedResponseOut">
+		<part name="paring" type="maa:ADSmuudatusedParingType"/>
+		<part name="keha" type="maa:ADSmuudatusedVastusType"/>
+	</message>	
+	
+	<portType name="kysiSoapPort"> 
+		<operation name="ADSkompklassif">
+			<documentation>
+				<xtee:title>Aadresskomponentide klassifikaatori muudatuste päring</xtee:title>
+			</documentation>
+			<input message="ads:ADSkompklassifIn"/>
+			<output message="ads:ADSkompklassifResponseOut"/>
+		</operation>		
+		<operation name="ADSmuudatused">
+			<documentation>
+				<xtee:title>Aadresside muudatuste päring</xtee:title>
+			</documentation>
+			<input message="ads:ADSmuudatusedIn"/>
+			<output message="ads:ADSmuudatusedResponseOut"/>
+		</operation>							
+    </portType>
+	<binding name="kysiSoapBinding" type="ads:kysiSoapPort">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>		
+		<operation name="ADSkompklassif">
+			<xtee:version>v1</xtee:version>
+			<xtee:requirecontent>true</xtee:requirecontent>
+			<input>
+				<soap:body use="literal"/>
+				<soap:header message="ads:standardpais" part="pais" use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+				<soap:header message="ads:standardpais" part="pais" use="literal"/>
+			</output>
+		</operation>				
+		<operation name="ADSmuudatused">
+			<xtee:version>v1</xtee:version>
+			<xtee:requirecontent>true</xtee:requirecontent>
+			<input>
+				<soap:body use="literal"/>
+				<soap:header message="ads:standardpais" part="pais" use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+				<soap:header message="ads:standardpais" part="pais" use="literal"/>
+			</output>
+		</operation>					
+	</binding>
+	<service name="aadrTeenused">
+		<port name="kysiSoapPort" binding="ads:kysiSoapBinding">
+			<soap:address location="http://TURVASERVER/cgi-bin/consumer_proxy"/>
+			<xtee:title>Aadress-süsteemi teenused</xtee:title>
+			<xtee:address producer="ads"/>
+		</port>
+	</service>
+</definitions>

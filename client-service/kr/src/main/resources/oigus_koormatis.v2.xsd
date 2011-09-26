@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://producers.kr.xtee.riik.ee/producer/kr"
+	targetNamespace="http://producers.kr.xtee.riik.ee/producer/kr"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+	xmlns:xtee="http://x-tee.riik.ee/xsd/xtee.xsd">
+	<include schemaLocation="kr.klassifikaator.xsd" />
+	<import namespace="http://schemas.xmlsoap.org/soap/encoding/"
+		schemaLocation="http://schemas.xmlsoap.org/soap/encoding/" />
+	<complexType name="oigus_koormatis_paring">
+		<sequence>
+			<element name="registriosa_nr" type="integer" maxOccurs="1"
+				minOccurs="0" nillable="false">
+				<annotation>
+					<appinfo>
+						<xtee:title>Registriosa number</xtee:title>
+					</appinfo>
+				</annotation>
+			</element>
+			<element name="katastritunnus" type="string" maxOccurs="1"
+				minOccurs="0" nillable="false">
+				<annotation>
+					<appinfo>
+						<xtee:title>Katastritunnus</xtee:title>
+					</appinfo>
+				</annotation>
+			</element>
+			<element name="vana_registriosa" type="integer" maxOccurs="1"
+				minOccurs="0" nillable="false">
+				<annotation>
+					<appinfo>
+						<xtee:title>Registriosa number vanal kujul</xtee:title>
+						<xtee:notes>Kohustuslik, kui on antud kinnistusjaoskond.
+						</xtee:notes>
+					</appinfo>
+				</annotation>
+			</element>
+			<element name="kinnistusjaoskond" type="string" maxOccurs="1"
+				minOccurs="0" nillable="false">
+				<annotation>
+					<appinfo>
+						<xtee:title>Kinnistusjaoskonna identifikaator</xtee:title>
+						<xtee:notes>Kohustuslik, kui on antud registriosa number vanal
+							kujul.</xtee:notes>
+					</appinfo>
+				</annotation>
+			</element>
+			<element name="kehtivus" type="tns:kehtivus_type" maxOccurs="1"
+				minOccurs="1">
+				<annotation>
+					<appinfo>
+						<xtee:title>Kehtivus</xtee:title>
+					</appinfo>
+				</annotation>
+			</element>
+			<element name="kehtib_alates_kp" type="date" maxOccurs="1"
+				minOccurs="0" nillable="false">
+				<annotation>
+					<appinfo>
+						<xtee:title>Sissekantud alates kuupäev</xtee:title>
+						<xtee:notes>Kuupäev, millest alates sissekantud
+							õigused/koormatised huvi pakuvad.</xtee:notes>
+					</appinfo>
+				</annotation>
+			</element>
+			<element name="kehtib_kuni_kp" type="date" maxOccurs="1"
+				minOccurs="0" nillable="false">
+				<annotation>
+					<appinfo>
+						<xtee:title>Sissekantud kuni kuupäev</xtee:title>
+						<xtee:notes>Kuupäev, milleni sissekantud õigused/koormatised huvi
+							pakuvad.</xtee:notes>
+					</appinfo>
+				</annotation>
+			</element>
+			<element name="oigused" minOccurs="0" nillable="false">
+				<annotation>
+					<appinfo>
+						<xtee:title>Otsitavad õigused</xtee:title>
+					</appinfo>
+				</annotation>
+				<complexType>
+					<complexContent>
+						<restriction base="SOAP-ENC:Array">
+							<sequence>
+								<element name="item" minOccurs="0" maxOccurs="unbounded"
+									type="tns:oiguseliik_type" />
+							</sequence>
+						</restriction>
+					</complexContent>
+				</complexType>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="oigus_koormatis_vastus">
+		<all>
+			<element name="registriosa_jada">
+				<annotation>
+					<appinfo>
+						<xtee:title>Registriosad</xtee:title>
+					</appinfo>
+				</annotation>
+				<complexType>
+					<complexContent>
+						<restriction base="SOAP-ENC:Array">
+							<sequence>
+								<element name="item" minOccurs="0" maxOccurs="unbounded">
+									<complexType>
+										<all>
+											<element name="registriosa_nr" type="integer">
+												<annotation>
+													<appinfo>
+														<xtee:title>Registriosa nr</xtee:title>
+													</appinfo>
+												</annotation>
+											</element>
+											<element name="digitaalne_toimik" type="boolean">
+												<annotation>
+													<appinfo>
+														<xtee:title>Digitaalne toimik</xtee:title>
+													</appinfo>
+												</annotation>
+											</element>
+											<element name="kanded_jada">
+												<annotation>
+													<appinfo>
+														<xtee:title>Kanded</xtee:title>
+													</appinfo>
+												</annotation>
+												<complexType>
+													<complexContent>
+														<restriction base="SOAP-ENC:Array">
+															<sequence>
+																<element name="item" minOccurs="0" maxOccurs="unbounded">
+																	<complexType>
+																		<all>
+																			<element name="jao_nr" type="integer">
+																				<annotation>
+																					<appinfo>
+																						<xtee:title>Jao nr</xtee:title>
+																					</appinfo>
+																				</annotation>
+																			</element>
+																			<element name="kande_nr" type="string">
+																				<annotation>
+																					<appinfo>
+																						<xtee:title>Kande nr</xtee:title>
+																					</appinfo>
+																				</annotation>
+																			</element>
+																			<element name="oiguse_liik_kl" type="tns:oiguseliik_type">
+																				<annotation>
+																					<appinfo>
+																						<xtee:title>Õiguse liigi klassifikaator
+																						</xtee:title>
+																					</appinfo>
+																				</annotation>
+																			</element>
+																			<element name="oiguse_liik" type="string"
+																				minOccurs="0" nillable="false">
+																				<annotation>
+																					<appinfo>
+																						<xtee:title>Õiguse liik</xtee:title>
+																					</appinfo>
+																				</annotation>
+																			</element>
+																			<element name="oiguse_alamliik_kl" type="string"
+																				minOccurs="0" nillable="false">
+																				<annotation>
+																					<appinfo>
+																						<xtee:title>Õiguse alamliik</xtee:title>
+																					</appinfo>
+																				</annotation>
+																			</element>
+																			<element name="kehtivus" type="tns:kehtivus_type">
+																				<annotation>
+																					<appinfo>
+																						<xtee:title>Kehtivus</xtee:title>
+																					</appinfo>
+																				</annotation>
+																			</element>
+																			<element name="algus_kp" type="date">
+																				<annotation>
+																					<appinfo>
+																						<xtee:title>Kehtivuse algus</xtee:title>
+																					</appinfo>
+																				</annotation>
+																			</element>
+																			<element name="lopp_kp" type="date"
+																				minOccurs="0" nillable="false">
+																				<annotation>
+																					<appinfo>
+																						<xtee:title>Kehtivuse lõpp</xtee:title>
+																					</appinfo>
+																				</annotation>
+																			</element>
+																			<element name="kande_tekst" type="string"
+																				minOccurs="0" nillable="false">
+																				<annotation>
+																					<appinfo>
+																						<xtee:title>Kande tekst</xtee:title>
+																					</appinfo>
+																				</annotation>
+																			</element>
+																			<element name="kande_alus" type="string"
+																				minOccurs="0" nillable="false">
+																				<annotation>
+																					<appinfo>
+																						<xtee:title>Kande alus</xtee:title>
+																					</appinfo>
+																				</annotation>
+																			</element>
+																			<element name="isik_jada">
+																				<annotation>
+																					<appinfo>
+																						<xtee:title>Õigustatud isikud</xtee:title>
+																					</appinfo>
+																				</annotation>
+																				<complexType>
+																					<complexContent>
+																						<restriction base="SOAP-ENC:Array">
+																							<sequence>
+																								<element name="item" minOccurs="0"
+																									maxOccurs="unbounded">
+																									<complexType>
+																										<all>
+																											<element name="nimi" type="string">
+																												<annotation>
+																													<appinfo>
+																														<xtee:title>Füüsilise isiku
+																															perenimi/juriidilise isiku nimi
+																														</xtee:title>
+																													</appinfo>
+																												</annotation>
+																											</element>
+																											<element name="eesnimi" type="string"
+																												minOccurs="0" nillable="false">
+																												<annotation>
+																													<appinfo>
+																														<xtee:title>Füüsilise isiku eesnimi
+																														</xtee:title>
+																													</appinfo>
+																												</annotation>
+																											</element>
+																											<element name="liik" type="tns:isik_type">
+																												<annotation>
+																													<appinfo>
+																														<xtee:title>Isiku liik</xtee:title>
+																													</appinfo>
+																												</annotation>
+																											</element>
+																											<element name="kood_jada">
+																												<annotation>
+																													<appinfo>
+																														<xtee:title>Isiku koodid</xtee:title>
+																													</appinfo>
+																												</annotation>
+																												<complexType>
+																													<complexContent>
+																														<restriction base="SOAP-ENC:Array">
+																															<sequence>
+																																<element name="item" minOccurs="0"
+																																	maxOccurs="unbounded">
+																																	<complexType>
+																																		<all>
+																																			<element name="isikukoodriikid"
+																																				type="string">
+																																				<annotation>
+																																					<appinfo>
+																																						<xtee:title>Isikukoodi välja
+																																							andnud riigi kolmekohaline ID
+																																							vastavalt Statistikaameti Riikide
+																																							ja territooriumide
+																																							klassifikaatorile</xtee:title>
+																																					</appinfo>
+																																				</annotation>
+																																			</element>
+																																			<element name="isikuid" type="string">
+																																				<annotation>
+																																					<appinfo>
+																																						<xtee:title>Õigustatud isiku
+																																							identiteet (isikukood,
+																																							registrikood)</xtee:title>
+																																					</appinfo>
+																																				</annotation>
+																																			</element>
+																																		</all>
+																																	</complexType>
+																																</element>
+																															</sequence>
+																														</restriction>
+																													</complexContent>
+																												</complexType>
+																											</element>
+																										</all>
+																									</complexType>
+																								</element>
+																							</sequence>
+																						</restriction>
+																					</complexContent>
+																				</complexType>
+																			</element>
+																			<element name="summa" type="decimal"
+																				minOccurs="0" nillable="false">
+																				<annotation>
+																					<appinfo>
+																						<xtee:title>Koormatise rahaline väärtus
+																						</xtee:title>
+																					</appinfo>
+																				</annotation>
+																			</element>
+																			<element name="summaValuuta" type="string"
+																				minOccurs="0" nillable="false">
+																				<annotation>
+																					<appinfo>
+																						<xtee:title>Koormatise rahalise väärtuse valuuta
+																						</xtee:title>
+																					</appinfo>
+																				</annotation>
+																			</element>
+																			<element name="tahtaeg_aasta" type="integer"
+																				minOccurs="0" nillable="false">
+																				<annotation>
+																					<appinfo>
+																						<xtee:title>Koormatise tähtaeg aastates
+																						</xtee:title>
+																					</appinfo>
+																				</annotation>
+																			</element>
+																			<element name="tahtaeg_kuu" type="integer"
+																				minOccurs="0" nillable="false">
+																				<annotation>
+																					<appinfo>
+																						<xtee:title>Koormatise tähtaeg kuudes</xtee:title>
+																					</appinfo>
+																				</annotation>
+																			</element>
+																			<element name="tahtaeg_kp" type="date"
+																				minOccurs="0" nillable="false">
+																				<annotation>
+																					<appinfo>
+																						<xtee:title>Koormatise tähtaeg kuupäevana
+																						</xtee:title>
+																					</appinfo>
+																				</annotation>
+																			</element>
+																		</all>
+																	</complexType>
+																</element>
+															</sequence>
+														</restriction>
+													</complexContent>
+												</complexType>
+											</element>
+										</all>
+									</complexType>
+								</element>
+							</sequence>
+						</restriction>
+					</complexContent>
+				</complexType>
+			</element>
+		</all>
+	</complexType>
+</xsd:schema>

@@ -1,0 +1,1068 @@
+<?xml version="1.0"  encoding="UTF-8"?>
+<definitions name="mydef"
+	targetNamespace="http://producers.kr.xtee.riik.ee/producer/kr"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://producers.kr.xtee.riik.ee/producer/kr"
+	xmlns:xtee="http://x-tee.riik.ee/xsd/xtee.xsd"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+	xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+
+
+	<types>
+		<schema targetNamespace="http://producers.kr.xtee.riik.ee/producer/kr"
+			xmlns="http://www.w3.org/2001/XMLSchema"
+			xmlns:pref="http://klassifikaatorid">
+
+			<xsd:import namespace="http://x-tee.riik.ee/xsd/xtee.xsd" schemaLocation="http://x-tee.riik.ee/xsd/xtee.xsd" />
+			<xsd:import namespace="http://klassifikaatorid" schemaLocation="klassifikaator.xsd" />						
+			<!-- ei ole olemas
+			<xsd:include schemaLocation="http://www.rik.ee/schemas/xtee/kr/Paring.xsd" />
+			-->
+			<xsd:include schemaLocation="kr.klassifikaator.xsd"/>
+			<xsd:include schemaLocation="muudatused.v1.xsd"/>
+			<xsd:include schemaLocation="kinnistu_detail_ma.v2.xsd"/>
+			<xsd:include schemaLocation="oigus_koormatis.v2.xsd"/>
+			<xsd:include schemaLocation="koosseis_omand_kehtiv.v2.xsd"/>
+			<xsd:include schemaLocation="koosseis_omand_muudatused.v2.xsd"/>
+			<xsd:include schemaLocation="kinnistu.v2.xsd"/>
+			<xsd:include schemaLocation="mis_koormatis.v2.xsd"/>
+			<xsd:include schemaLocation="htr_koormatis.v2.xsd"/>
+			
+			<xsd:include schemaLocation="politsei_ehak.v2.xsd"/>
+			<xsd:include schemaLocation="politsei_omanik.v1.xsd"/>
+			<xsd:include schemaLocation="politsei_nimed.v1.xsd"/>
+			
+			<xsd:include schemaLocation="politsei_kin_om.v2.xsd"/>
+			<xsd:include schemaLocation="kodanik_kinnistud.v2.xsd"/>
+			<xsd:include schemaLocation="menetlusinfo.v1.xsd"/>
+			<xsd:include schemaLocation="notar_paring.v2.xsd"/>
+			<xsd:include schemaLocation="kinnistu_detail.v2.xsd"/>
+			<xsd:include schemaLocation="kinnistu_detail_muinas.v2.xsd"/>
+			<xsd:include schemaLocation="notar_dokumendid.v2.xsd"/>
+			<xsd:include schemaLocation="notar_dokument_id.v2.xsd"/>
+			<xsd:include schemaLocation="puudutatud_isiku_teadete_paring.v1.xsd"/>
+			<xsd:include schemaLocation="kinnistu_paring_isiku_jargi.v2.xsd" />
+			<xsd:include schemaLocation="minu_kinnistustoimikud.xsd" />
+			<xsd:include schemaLocation="registriosa_dokumendid.xsd" />
+			<xsd:include schemaLocation="digitaliseeritud_toimikud.xsd" />
+			<xsd:include schemaLocation="telli_digitaliseerimine.v1.xsd" />
+
+		</schema>
+	</types>
+
+
+	<portType name="myporttype">
+
+		<operation name="kinnistu">
+			<documentation>
+				<xtee:title>
+					Kinnistu andmed ehitisregistrile
+				</xtee:title>
+			</documentation>
+
+			<input message="tns:kinnistu" />
+
+			<output message="tns:kinnistuResponse" />
+		</operation>
+
+		<operation name="muudatused">
+			<documentation>
+				<xtee:title>
+					Kinnistusraamatu muudatuste päring
+				</xtee:title>
+			</documentation>
+			<input message="tns:muudatused"/>
+			<output message="tns:muudatusedResponse"/>
+		</operation>
+
+		<operation name="notar_dokumendid">
+			<documentation>
+				<xtee:title>Dokumentide nimekiri E-Notarile</xtee:title>
+			</documentation>
+			<input message="tns:notar_dokumendid"/>
+			<output message="tns:notar_dokumendidResponse"/>
+		</operation>
+
+		<operation name="notar_dokument_id">
+			<documentation>
+				<xtee:title>Dokumendi päring E-Notarile (ID järgi)</xtee:title>
+			</documentation>
+			<input message="tns:notar_dokument_id"/>
+			<output message="tns:notar_dokument_idResponse"/>
+		</operation>
+
+		<operation name="mis_koormatis">
+			<documentation>
+				<xtee:title>
+					Kinnistusraamatu päring maainfosüsteemile
+				</xtee:title>
+			</documentation>
+
+			<input message="tns:mis_koormatis" />
+
+			<output message="tns:mis_koormatisResponse" />
+		</operation>
+
+		<operation name="htr_koormatis">
+			<documentation>
+				<xtee:title>
+					Kinnistusraamatu päring Hindamis- ja Tehinguregistrile
+				</xtee:title>
+			</documentation>
+
+			<input message="tns:htr_koormatis" />
+
+			<output message="tns:htr_koormatisResponse" />
+		</operation>
+
+		<operation name="politsei_ehak">
+			<documentation>
+				<xtee:title>
+					Politsei kinnistu andmete päring kinnistu asukoha järgi
+				</xtee:title>
+			</documentation>
+
+			<input message="tns:politsei_ehak" />
+
+			<output message="tns:politsei_ehakResponse" />
+		</operation>
+
+		<operation name="politsei_omanik">
+			<documentation>
+				<xtee:title>
+					Politsei omanike päring kinnistu id järgi
+				</xtee:title>
+			</documentation>
+
+			<input message="tns:politsei_omanik" />
+
+			<output message="tns:politsei_omanikResponse" />
+		</operation>
+
+		<operation name="politsei_nimed">
+			<documentation>
+				<xtee:title>Politsei isiku nime päring</xtee:title>
+			</documentation>
+
+			<input message="tns:politsei_nimed" />
+
+			<output message="tns:politsei_nimedResponse" />
+		</operation>
+
+		<operation name="politsei_kin_om">
+			<documentation>
+				<xtee:title>
+					Politsei kinnistu andmete päring kinnistu omaniku järgi
+				</xtee:title>
+			</documentation>
+
+			<input message="tns:politsei_kin_om" />
+
+			<output message="tns:politsei_kin_omResponse" />
+		</operation>
+
+		<operation name="kodanik_kinnistud">
+			<documentation>
+				<xtee:title>Isiku kinnistu andmed</xtee:title>
+			</documentation>
+
+			<input message="tns:kodanik_kinnistud" />
+
+			<output message="tns:kodanik_kinnistudResponse" />
+		</operation>
+
+		<operation name="paring_notar">
+			<documentation>
+				<xtee:title>
+					Kinnistusraamatu päring E-Notarile
+				</xtee:title>
+			</documentation>
+			<input message="tns:paring_notar"/>
+			<output message="tns:paring_notarResponse"/>
+		</operation>
+
+		<operation name="kinnistu_detail">
+			<documentation>
+				<xtee:title>
+					Kinnistu detailpäring E-Notarile
+				</xtee:title>
+			</documentation>
+			<input message="tns:kinnistu_detail"/>
+			<output message="tns:kinnistu_detailResponse"/>
+		</operation>
+
+		<operation name="kinnistu_detail_muinas">
+			<documentation>
+				<xtee:title>
+					Kinnistu detailandmed Muinsuskaitseametile
+				</xtee:title>
+			</documentation>
+			<input message="tns:kinnistu_detail_muinas"/>
+			<output message="tns:kinnistu_detail_muinasResponse"/>
+		</operation>
+
+		<operation name="kinnistu_detail_ma">
+			<documentation>
+				<xtee:title>
+					Kinnistu detailandmed Maa-ametile
+				</xtee:title>
+			</documentation>
+			<input message="tns:kinnistu_detail_ma"/>
+			<output message="tns:kinnistu_detail_maResponse"/>
+		</operation>
+
+		<operation name="kinnistu_paring_isiku_jargi">
+			<documentation>
+				<xtee:title>
+					Kinnistu päring isiku andmete järgi
+				</xtee:title>
+			</documentation>
+			<input message="tns:kinnistu_paring_isiku_jargi"/>
+			<output message="tns:kinnistu_paring_isiku_jargiResponse"/>
+		</operation>
+
+		<operation name="puudutatud_isiku_teadete_paring">
+			<documentation>
+				<xtee:title>
+					Puudutatud isiku teadete paring
+				</xtee:title>
+
+				<xtee:notes>
+						Kuvatakse alates 01.01.2008 saadetud teated.
+				</xtee:notes>
+
+			</documentation>
+			<input message="tns:puudutatud_isiku_teadete_paring"/>
+			<output message="tns:puudutatud_isiku_teadete_paringResponse"/>
+		</operation>
+
+		<operation name="legacyK">
+			<documentation>
+				<xtee:title>Suunamine kinnistusregistrisse</xtee:title>
+			</documentation>
+
+			<input message="tns:legacyK" />
+			<output message="tns:legacyKResponse" />
+		</operation>
+
+		<operation name="menetlusinfo">
+			<documentation>
+				<xtee:title>
+					Mind puudutavad menetluses olevad kinnistamisavaldused
+				</xtee:title>
+
+				<xtee:notes>
+					Kinnistusraamatus registreeritud avaldused, mis on
+					registreeritud või menetluses ja kus isik on
+					märgitud puudutatud isikuna.
+				</xtee:notes>
+			</documentation>
+
+			<input message="tns:menetlusinfo" />
+			<output message="tns:menetlusinfoResponse" />
+		</operation>
+
+		<operation name="koosseis_omand_kehtiv">
+			<documentation>
+				<xtee:title>
+					Kinnistu kehtivate kooseisu ja omandiandmete päring
+				</xtee:title>
+			</documentation>
+
+			<input message="tns:koosomandkehtiv" />
+			<output message="tns:koosomandkehtivResponse" />
+		</operation>
+
+		<operation name="koosseis_omand_muudatus">
+			<documentation>
+				<xtee:title>
+					Kinnistu koosseisu ja omandiandmete muudatuste päring
+				</xtee:title>
+			</documentation>
+
+			<input message="tns:koosomandmuudatus" />
+			<output message="tns:koosomandmuudatusResponse" />
+		</operation>
+
+		<operation name="oigus_koormatis">
+			<documentation>
+				<xtee:title>
+					Kinnistusraamatu 3. ja 4. jao andmed
+				</xtee:title>
+			</documentation>
+
+			<input message="tns:oigus_koormatis" />
+			<output message="tns:oigus_koormatisResponse" />
+		</operation>
+
+        <operation name="minu_kinnistustoimikud">
+            <documentation>
+                <xtee:title>
+                    Minu kinnistustoimikud päring
+                </xtee:title>
+            </documentation>
+
+            <input message="tns:minu_kinnistustoimikud" />
+
+            <output message="tns:minu_kinnistustoimikudResponse" />
+        </operation>
+
+        <operation name="registriosa_dokumendid">
+            <documentation>
+                <xtee:title>
+                    Registriosa dokumentide päring
+                </xtee:title>
+                <xtee:notes>
+                    Seda kasutab Minu kinnistustoimikud päring
+                </xtee:notes>
+            </documentation>
+
+            <input message="tns:registriosa_dokumendid" />
+
+            <output message="tns:registriosa_dokumendidResponse" />
+        </operation>
+        
+        <operation name="digitaliseeritud_toimikud">
+            <documentation>
+                <xtee:title>
+                    Digitaliseeritud toimikute päring
+                </xtee:title>
+            </documentation>
+
+            <input message="tns:digitaliseeritud_toimikud" />
+
+            <output message="tns:digitaliseeritud_toimikudResponse" />
+        </operation>
+        
+		<operation name="telli_digitaliseerimine">
+            <documentation>
+                <xtee:title>
+                    Digitaliseerimise tellimine
+                </xtee:title>
+            </documentation>
+
+            <input message="tns:telli_digitaliseerimine" />
+
+            <output message="tns:telli_digitaliseerimineResponse" />
+        </operation>
+
+	</portType>
+
+	<!-- rpc/encoded teenused -->
+	<binding name="mybinding" type="tns:myporttype">
+		<soap:binding style="rpc"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		
+		<operation name="notar_dokumendid">
+			<xtee:version>v2</xtee:version>
+			<xtee:requirecontent>true</xtee:requirecontent>
+
+			<soap:operation
+				soapAction="http://producers.kr.xtee.riik.ee/producer/kr/notar_dokumendid" />
+			<input>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+
+		<operation name="notar_dokument_id">
+			<xtee:version>v2</xtee:version>
+			<xtee:requirecontent>true</xtee:requirecontent>
+
+			<soap:operation
+				soapAction="http://producers.kr.xtee.riik.ee/producer/kr/notar_dokument_id" />
+			<input>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+
+		<operation name="kinnistu">
+			<xtee:version>v2</xtee:version>
+
+			<soap:operation
+				soapAction="http://producers.kr.xtee.riik.ee/producer/kr/kinnistu" />
+			<input>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+
+		<operation name="mis_koormatis">
+			<xtee:version>v2</xtee:version>
+			<xtee:requirecontent>false</xtee:requirecontent>
+
+			<soap:operation
+				soapAction="http://producers.kr.xtee.riik.ee/producer/kr/mis_koormatis" />
+			<input>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+
+		<operation name="htr_koormatis">
+			<xtee:version>v2</xtee:version>
+
+			<soap:operation
+				soapAction="http://producers.kr.xtee.riik.ee/producer/kr/htr_koormatis" />
+			<input>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+
+		<operation name="politsei_ehak">
+			<xtee:version>v2</xtee:version>
+
+			<soap:operation
+				soapAction="http://producers.kr.xtee.riik.ee/producer/kr/politsei_ehak" />
+			<input>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+
+		<operation name="politsei_omanik">
+			<xtee:version>v1</xtee:version>
+
+			<soap:operation
+				soapAction="http://producers.kr.xtee.riik.ee/producer/kr/politsei_omanik" />
+			<input>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+
+		<operation name="politsei_nimed">
+			<xtee:version>v1</xtee:version>
+
+			<soap:operation
+				soapAction="http://producers.kr.xtee.riik.ee/producer/kr/politsei_nimed" />
+			<input>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+
+		<operation name="politsei_kin_om">
+			<xtee:version>v2</xtee:version>
+
+			<soap:operation
+				soapAction="http://producers.kr.xtee.riik.ee/producer/kr/politsei_kin_om" />
+			<input>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+
+		<operation name="kodanik_kinnistud">
+			<xtee:version>v2</xtee:version>
+
+			<soap:operation
+				soapAction="http://producers.kr.xtee.riik.ee/producer/kr/kodanik_kinnistud" />
+			<input>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+
+		<operation name="menetlusinfo">
+			<xtee:version>v1</xtee:version>
+
+			<soap:operation
+				soapAction="http://producers.kr.xtee.riik.ee/producer/kr/menetlusinfo" />
+			<input>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>	
+		</operation>
+
+		<operation name="koosseis_omand_kehtiv">
+			<xtee:version>v2</xtee:version>
+			<xtee:nocontent>null</xtee:nocontent>
+			<xtee:requirecontent>true</xtee:requirecontent>
+
+			<soap:operation
+				soapAction="http://producers.kr.xtee.riik.ee/producer/kr/koosseis_omand_kehtiv" />
+			<input>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>			
+		</operation>
+
+		<operation name="koosseis_omand_muudatus">
+			<xtee:version>v2</xtee:version>
+			<xtee:nocontent>null</xtee:nocontent>
+			<xtee:requirecontent>true</xtee:requirecontent>
+
+			<soap:operation
+				soapAction="http://producers.kr.xtee.riik.ee/producer/kr/koosseis_omand_muudatus" />
+			<input>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+
+		<operation name="oigus_koormatis">
+			<xtee:version>v2</xtee:version>
+			<xtee:nocontent>null</xtee:nocontent>
+			<xtee:requirecontent>true</xtee:requirecontent>
+
+			<soap:operation
+				soapAction="http://producers.kr.xtee.riik.ee/producer/kr/oigus_koormatis" />
+			<input>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+
+        <operation name="minu_kinnistustoimikud">
+            <xtee:version>v1</xtee:version>
+            
+            <soap:operation
+                soapAction="http://producers.kr.xtee.riik.ee/producer/kr/minu_kinnistustoimikud" />
+            <input>
+                <soap:body use="encoded"
+                    namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body use="encoded"
+                    namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+
+        <operation name="registriosa_dokumendid">
+            <xtee:version>v1</xtee:version>
+            
+            <soap:operation
+                soapAction="http://producers.kr.xtee.riik.ee/producer/kr/registriosa_dokumendid" />
+            <input>
+                <soap:body use="encoded"
+                    namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body use="encoded"
+                    namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+
+        <operation name="digitaliseeritud_toimikud">
+            <xtee:version>v1</xtee:version>
+            
+            <soap:operation
+                soapAction="http://producers.kr.xtee.riik.ee/producer/kr/digitaliseeritud_toimikud" />
+            <input>
+                <soap:body use="encoded"
+                    namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body use="encoded"
+                    namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+
+		<operation name="muudatused">
+			<xtee:version>v1</xtee:version>
+			<xtee:nocontent>null</xtee:nocontent>
+			<xtee:requirecontent>true</xtee:requirecontent>
+			<soap:operation
+				soapAction="http://producers.kr.xtee.riik.ee/producer/kr/paring_notar" />
+			<input>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+
+		<operation name="paring_notar">
+			<xtee:version>v2</xtee:version>
+			<soap:operation
+				soapAction="http://producers.kr.xtee.riik.ee/producer/kr/paring_notar" />
+			<input>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+
+		<operation name="kinnistu_detail">
+			<xtee:version>v2</xtee:version>
+			<soap:operation
+				soapAction="http://producers.kr.xtee.riik.ee/producer/kr/kinnistu_detail" />
+			<input>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+
+		<operation name="kinnistu_detail_muinas">
+			<xtee:version>v2</xtee:version>
+			<xtee:nocontent>null</xtee:nocontent>
+			<xtee:requirecontent>true</xtee:requirecontent>
+			<soap:operation
+				soapAction="http://producers.kr.xtee.riik.ee/producer/kr/kinnistu_detail_muinas" />
+			<input>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+
+		<operation name="kinnistu_detail_ma">
+			<xtee:version>v2</xtee:version>
+			<xtee:nocontent>null</xtee:nocontent>
+			<xtee:requirecontent>true</xtee:requirecontent>
+			<soap:operation
+				soapAction="http://producers.kr.xtee.riik.ee/producer/kr/kinnistu_detail_ma" />
+			<input>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+
+		<operation name="kinnistu_paring_isiku_jargi">
+			<xtee:version>v2</xtee:version>
+			<xtee:nocontent>null</xtee:nocontent>
+			<xtee:requirecontent>true</xtee:requirecontent>
+			<soap:operation
+				soapAction="http://producers.kr.xtee.riik.ee/producer/kr/kinnistu_paring_isiku_jargi" />
+			<input>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+
+
+		<operation name="puudutatud_isiku_teadete_paring">
+			<xtee:version>v1</xtee:version>
+			<xtee:nocontent>null</xtee:nocontent>
+			<xtee:requirecontent>true</xtee:requirecontent>
+			<soap:operation
+				soapAction="http://producers.kr.xtee.riik.ee/producer/kr/puudutatud_isiku_teadete_paring" />
+			<input>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body use="encoded"
+					namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+
+		<operation name="telli_digitaliseerimine">
+            <xtee:version>v1</xtee:version>
+            
+            <soap:operation
+                soapAction="http://producers.kr.xtee.riik.ee/producer/kr/telli_digitaliseerimine" />
+            <input>
+                <soap:body use="encoded"
+                    namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body use="encoded"
+                    namespace="http://producers.kr.xtee.riik.ee/producer/kr"
+                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+
+	</binding>
+
+
+	<message name="muudatused">
+		<part name="keha" type="tns:muudatused_paring"/>
+	</message>
+
+	<message name="muudatusedResponse">
+		<part name="paring" type="tns:muudatused_paring"/>
+		<part name="keha" type="tns:muudatused_vastus"/>
+	</message>
+
+	<message name="notar_dokumendid">
+		<part name="keha" type="tns:notar_dokumendid_paring"/>
+	</message>
+
+	<message name="notar_dokumendidResponse">
+		<part name="paring" type="tns:notar_dokumendid_paring"/>
+		<part name="keha" type="tns:notar_dokumendid_vastus"/>
+	</message>
+
+	<message name="notar_dokument_id">
+		<part name="keha" type="tns:notar_dokument_id_paring"/>
+	</message>
+
+	<message name="notar_dokument_idResponse">
+		<part name="paring" type="tns:notar_dokument_id_paring"/>
+		<part name="keha" type="tns:notar_dokument_id_vastus"/>
+	</message>
+
+	<message name="kinnistu_detail">
+		<part name="keha" type="tns:kinnistu_detail_paring"/>
+	</message>
+
+	<message name="kinnistu_detailResponse">
+		<part name="paring" type="tns:kinnistu_detail_paring"/>
+		<part name="keha" type="tns:kinnistu_detail_vastus"/>
+	</message>
+
+	<message name="paring_notar">
+		<part name="keha" type="tns:paring_notar_paring"/>
+	</message>
+
+	<message name="paring_notarResponse">
+		<part name="paring" type="tns:paring_notar_paring"/>
+		<part name="keha" type="tns:paring_notar_vastus"/>
+	</message>
+
+	<message name="kinnistu_detail_muinas">
+		<part name="keha" type="tns:kinnistu_detail_muinas_paring"/>
+	</message>
+
+	<message name="kinnistu_detail_muinasResponse">
+		<part name="paring" type="tns:kinnistu_detail_muinas_paring"/>
+		<part name="keha" type="tns:kinnistu_detail_muinas_vastus"/>
+	</message>
+
+	<message name="kinnistu_detail_ma">
+		<part name="keha" type="tns:kinnistu_detail_ma_paring"/>
+	</message>
+
+	<message name="kinnistu_detail_maResponse">
+		<part name="paring" type="tns:kinnistu_detail_ma_paring"/>
+		<part name="keha" type="tns:kinnistu_detail_ma_vastus"/>
+	</message>
+
+	<message name="kinnistu_paring_isiku_jargi">
+		<part name="keha" type="tns:kpij_paring"/>
+	</message>
+
+	<message name="kinnistu_paring_isiku_jargiResponse">
+		<part name="paring" type="tns:kpij_paring"/>
+		<part name="keha" type="tns:kpij_vastus"/>
+	</message>
+
+	<message name="puudutatud_isiku_teadete_paring">
+		<part name="keha" type="xsd:string" />
+	</message>
+
+	<message name="puudutatud_isiku_teadete_paringResponse">
+		<part name="paring" type="xsd:string" />
+		<part name="keha" type="tns:pit_vastus"/>
+	</message>
+
+	<message name="kinnistu">
+		<part name="keha" type="tns:kinnistu_paring" />
+	</message>
+
+	<message name="kinnistuResponse">
+		<part name="paring" type="tns:kinnistu_paring" />
+
+		<part name="keha" type="tns:kinnistu_vastus" />
+	</message>
+
+	<message name="mis_koormatis">
+		<part name="keha" type="tns:mis_koormatis_paring" />
+	</message>
+
+	<message name="mis_koormatisResponse">
+		<part name="paring" type="tns:mis_koormatis_paring" />
+
+		<part name="keha" type="tns:mis_koormatis_vastus" />
+	</message>
+
+	<message name="htr_koormatis">
+		<part name="keha" type="tns:htr_koormatis_paring" />
+	</message>
+
+	<message name="htr_koormatisResponse">
+		<part name="paring" type="tns:htr_koormatis_paring" />
+
+		<part name="keha" type="tns:htr_koormatis_vastus" />
+	</message>
+
+	<message name="politsei_ehak">
+		<part name="keha" type="tns:politsei_ehak_paring" />
+	</message>
+
+	<message name="politsei_ehakResponse">
+		<part name="paring" type="tns:politsei_ehak_paring" />
+
+		<part name="keha" type="tns:politsei_ehak_vastus" />
+	</message>
+
+	<message name="politsei_omanik">
+		<part name="keha" type="tns:politsei_omanik_paring" />
+	</message>
+
+	<message name="politsei_omanikResponse">
+		<part name="paring" type="tns:politsei_omanik_paring" />
+
+		<part name="keha" type="tns:politsei_omanik_vastus" />
+	</message>
+
+	<message name="politsei_nimed">
+		<part name="keha" type="tns:politsei_nimed_paring" />
+	</message>
+
+	<message name="politsei_nimedResponse">
+		<part name="paring" type="tns:politsei_nimed_paring" />
+
+		<part name="keha" type="tns:politsei_nimed_vastus" />
+	</message>
+
+	<message name="politsei_kin_om">
+		<part name="keha" type="tns:politsei_kin_om_paring" />
+	</message>
+
+	<message name="politsei_kin_omResponse">
+		<part name="paring" type="tns:politsei_kin_om_paring" />
+
+		<part name="keha" type="tns:politsei_kin_om_vastus" />
+	</message>
+
+	<message name="kodanik_kinnistud">
+		<part name="keha" type="xsd:string" />
+	</message>
+
+	<message name="kodanik_kinnistudResponse">
+		<part name="paring" type="xsd:string" />
+
+		<part name="keha" type="tns:kodanik_kinnistud_vastus" />
+	</message>
+
+	<message name="menetlusinfo">
+		<part name="keha" type="xsd:string" />
+	</message>
+
+	<message name="menetlusinfoResponse">
+		<part name="paring" type="xsd:string" />
+
+		<part name="keha" type="tns:menetlusinfo_vastus" />
+	</message>
+
+	<message name="koosomandkehtiv">
+		<part name="keha" type="tns:koosomand_kehtiv_paring" />
+	</message>
+
+	<message name="koosomandkehtivResponse">
+		<part name="paring" type="tns:koosomand_kehtiv_paring" />
+
+		<part name="keha" type="tns:koosomand_kehtiv_vastus" />
+	</message>
+
+	<message name="koosomandmuudatus">
+		<part name="keha" type="tns:koosomand_muudatused_paring" />
+	</message>
+
+	<message name="koosomandmuudatusResponse">
+		<part name="paring" type="tns:koosomand_muudatused_paring" />
+
+		<part name="keha" type="tns:koosomand_muudatused_vastus" />
+	</message>
+
+	<message name="oigus_koormatis">
+		<part name="keha" type="tns:oigus_koormatis_paring" />
+	</message>
+
+	<message name="oigus_koormatisResponse">
+		<part name="paring" type="tns:oigus_koormatis_paring" />
+
+		<part name="keha" type="tns:oigus_koormatis_vastus" />
+	</message>
+
+	<message name="legacyKResponse">
+		<part name="paring" type="xtee:ArrayOfString" />
+
+		<part name="keha" type="xtee:legacy_response" />
+	</message>
+
+	<message name="legacyK">
+		<part name="keha" type="xtee:ArrayOfString" />
+	</message>
+
+    <message name="minu_kinnistustoimikud">
+        <part name="keha" type="xsd:string" />
+    </message>
+    
+    <message name="minu_kinnistustoimikudResponse">
+        <part name="paring" type="xsd:string" />
+
+        <part name="keha" type="tns:minu_kinnistustoimikud_vastus" />
+    </message>
+
+    <message name="registriosa_dokumendid">
+        <part name="keha" type="tns:registriosa_dokumendid_paring" />
+    </message>
+    
+    <message name="registriosa_dokumendidResponse">
+        <part name="paring" type="tns:registriosa_dokumendid_paring" />
+
+        <part name="keha" type="tns:registriosa_dokumendid_vastus" />
+    </message>
+
+    <message name="digitaliseeritud_toimikud">
+        <part name="keha" type="tns:digitaliseeritud_toimikud_paring" />
+    </message>
+    
+    <message name="digitaliseeritud_toimikudResponse">
+        <part name="paring" type="tns:digitaliseeritud_toimikud_paring" />
+
+        <part name="keha" type="tns:digitaliseeritud_toimikud_vastus" />
+    </message>
+	
+    <message name="telli_digitaliseerimine">
+        <part name="keha" type="tns:telli_digitaliseerimine_paring" />
+    </message>
+    
+    <message name="telli_digitaliseerimineResponse">
+        <part name="paring" type="tns:telli_digitaliseerimine_paring" />
+
+        <part name="keha" type="tns:telli_digitaliseerimine_vastus" />
+    </message>
+		
+	<message name="listMethods">
+		<part name="keha" type="xsd:string" />
+	</message>
+
+	<message name="standardpais">
+		<part name="pais" type="xtee:hdrstd" />
+	</message>
+
+	<service name="kr">
+		<port name="krport" binding="tns:mybinding">
+			<soap:address
+				location="http://TURVASERVER/cgi-bin/consumer_proxy" />
+			<xtee:title>Kinnistusregistri andmekogu</xtee:title>
+			<xtee:address producer="kr" />
+		</port>
+	</service>
+</definitions>
+

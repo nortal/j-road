@@ -1,0 +1,2918 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions targetNamespace="http://producers.teavituskalender.xtee.riik.ee/producer/teavituskalender"
+             xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:xtee="http://x-tee.riik.ee/xsd/xtee.xsd"
+             xmlns:xs="http://www.w3.org/2001/XMLSchema"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+             xmlns:tns="http://producers.teavituskalender.xtee.riik.ee/producer/teavituskalender"
+             xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <types>
+    <xs:schema targetNamespace="http://producers.teavituskalender.xtee.riik.ee/producer/teavituskalender">
+      <xs:import namespace="http://x-tee.riik.ee/xsd/xtee.xsd"
+             schemaLocation="http://x-tee.riik.ee/xsd/xtee.xsd" />
+      <xs:import namespace="http://schemas.xmlsoap.org/soap/encoding/"
+             schemaLocation="http://schemas.xmlsoap.org/soap/encoding/" />
+
+      <xs:complexType name="lisaSyndmusParing">
+        <xs:all>
+          <xs:element name="lisaKasutajad" type="xs:boolean" default="false" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Lisa isikud ja asutused, kes ei ole veel teavituskalendri kasutajad</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="nahtavOmanikule" type="xs:boolean" default="false" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Sündmus on hallatav veebi interfeisist</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="kirjeldus" type="xs:string" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Sündmuse kirjeldus</xtee:title>
+                <xtee:fieldtype>textarea</xtee:fieldtype>
+                <xtee:fieldrows>15</xtee:fieldrows>
+                <xtee:fieldcols>50</xtee:fieldcols>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="aktiivneTeavitus" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Eelseisva sündmuse teavitus</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="aegunudTeavitus" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Möödunud tähtajaga sündmuse teavitus</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="tahtsus" default="keskmine" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Sündmuse tähtsus</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="madal">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Madal</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+                <xs:enumeration value="keskmine">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Keskmine</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+                <xs:enumeration value="korge">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Kõrge</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element name="syndmuseTyyp" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Sündmuse tüüp</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="isiklik">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Isiklik</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+                <xs:enumeration value="liigis">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Tellitav, liigis</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+                <xs:enumeration value="kohustuslik">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Kohustuslik, liigis</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element name="liik" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Sündmuse liik</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="algus" type="xs:string" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Sündmuse alguse aeg</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="lopp" type="xs:string" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Sündmuse lõppu aeg</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="teavitusAlgus" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Teavitus on nähtav alates</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="teavitusLopp" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Teavitus on nähtav kuni</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="aegumine" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Sündmuse kustutamise aeg</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="lugejad" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Sündmuse lugejad</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:complexContent>
+                <xs:restriction base="SOAP-ENC:Array">
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="1" name="item">
+                      <xs:complexType>
+                        <xs:all>
+                          <xs:element name="kood" type="xs:string" minOccurs="1">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Lugeja kood</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="kasutajaTyyp" minOccurs="1">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Lugeja tüüp</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:enumeration value="isik">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Eraisik</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="ametnik">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Ametnik</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="asutus">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Asutus</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                        </xs:all>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:restriction>
+              </xs:complexContent>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="sugu" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Sündmuse lugeja sugu</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="m">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Mees</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+                <xs:enumeration value="n">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Naine</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element name="syndinudAlgus" type="xs:date" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Sündmuse lugeja on sündinud alates</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="syndinudLopp" type="xs:date" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Sündmuse lugeja on sündinud kuni</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="kasutajaTyyp" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Sündmuse lugeja tüüp</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="isik">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Eraisik</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+                <xs:enumeration value="ametnik">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Ametnik</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+                <xs:enumeration value="asutus">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Asutus</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="lisaSyndmusVastus">
+        <xs:all>
+          <xs:element name="tulemus" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Päringu tulemus</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:all>
+                <xs:element name="tulemuseKood" type="xs:integer" minOccurs="1">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Tulemuse kood</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:element>
+                <xs:element name="tulemuseTekst" type="xs:string" minOccurs="1">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Tulemuse tekst</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:element>
+              </xs:all>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="syndmusId" type="xs:integer">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Loodud sündmuse primaarvõti</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="lisaSyndmusedParing">
+        <xs:all>
+          <xs:element name="lisaKasutajad" type="xs:boolean" default="false" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Lisa isikud ja asutused, kes ei ole veel teavituskalendri kasutajad</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="syndmused" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Sündmused</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:complexContent>
+                <xs:restriction base="SOAP-ENC:Array">
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="1" name="syndmus">
+                      <xs:complexType>
+                        <xs:all>
+                          <xs:element name="remoteSyndmusId" type="xs:integer"  minOccurs="1">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Sündmuse välisvõti</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="nahtavOmanikule" type="xs:boolean" default="false" minOccurs="1">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Sündmus on hallatav veebi interfeisist</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="kirjeldus" type="xs:string" minOccurs="1">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Sündmuse kirjeldus</xtee:title>
+                                <xtee:fieldtype>textarea</xtee:fieldtype>
+                                <xtee:fieldrows>15</xtee:fieldrows>
+                                <xtee:fieldcols>50</xtee:fieldcols>
+                              </xs:appinfo>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="aktiivneTeavitus" type="xs:string" minOccurs="0">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Eelseisva sündmuse teavitus</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="aegunudTeavitus" type="xs:string" minOccurs="0">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Möödunud tähtajaga sündmuse teavitus</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="tahtsus" default="keskmine" minOccurs="1">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Sündmuse tähtsus</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:enumeration value="madal">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Madal</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="keskmine">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Keskmine</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="korge">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Kõrge</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="syndmuseTyyp" minOccurs="1">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Sündmuse tüüp</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:enumeration value="isiklik">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Isiklik</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="liigis">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Tellitav, liigis</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="kohustuslik">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Kohustuslik, liigis</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="liik" type="xs:string" minOccurs="0">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Sündmuse liik</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="algus" type="xs:dateTime" minOccurs="1">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Sündmuse alguse aeg</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="lopp" type="xs:dateTime" minOccurs="1">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Sündmuse lõppu aeg</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="teavitusAlgus" type="xs:date" minOccurs="0">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Teavitus on nähtav alates</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="teavitusLopp" type="xs:date" minOccurs="0">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Teavitus on nähtav kuni</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="aegumine" type="xs:date" minOccurs="0">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Sündmuse kustutamise aeg</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="lugejad" minOccurs="0">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Sündmuse lugejad</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                            <xs:complexType>
+                              <xs:complexContent>
+                                <xs:restriction base="SOAP-ENC:Array">
+                                  <xs:sequence>
+                                    <xs:element maxOccurs="unbounded" minOccurs="1" name="kasutaja">
+                                      <xs:complexType>
+                                        <xs:all>
+                                          <xs:element name="kood" type="xs:string" minOccurs="1">
+                                            <xs:annotation>
+                                              <xs:appinfo>
+                                                <xtee:title>Lugeja kood</xtee:title>
+                                              </xs:appinfo>
+                                            </xs:annotation>
+                                          </xs:element>
+                                          <xs:element name="kasutajaTyyp" minOccurs="1">
+                                            <xs:annotation>
+                                              <xs:appinfo>
+                                                <xtee:title>Lugeja tüüp</xtee:title>
+                                              </xs:appinfo>
+                                            </xs:annotation>
+                                            <xs:simpleType>
+                                              <xs:restriction base="xs:string">
+                                                <xs:enumeration value="isik">
+                                                  <xs:annotation>
+                                                    <xs:appinfo>
+                                                      <xtee:title>Eraisik</xtee:title>
+                                                    </xs:appinfo>
+                                                  </xs:annotation>
+                                                </xs:enumeration>
+                                                <xs:enumeration value="ametnik">
+                                                  <xs:annotation>
+                                                    <xs:appinfo>
+                                                      <xtee:title>Ametnik</xtee:title>
+                                                    </xs:appinfo>
+                                                  </xs:annotation>
+                                                </xs:enumeration>
+                                                <xs:enumeration value="asutus">
+                                                  <xs:annotation>
+                                                    <xs:appinfo>
+                                                      <xtee:title>Asutus</xtee:title>
+                                                    </xs:appinfo>
+                                                  </xs:annotation>
+                                                </xs:enumeration>
+                                              </xs:restriction>
+                                            </xs:simpleType>
+                                          </xs:element>
+                                        </xs:all>
+                                      </xs:complexType>
+                                    </xs:element>
+                                  </xs:sequence>
+                                </xs:restriction>
+                              </xs:complexContent>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="sugu" minOccurs="0">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Sündmuse lugeja sugu</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:enumeration value="m">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Mees</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="n">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Naine</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="syndinudAlgus" type="xs:date" minOccurs="0">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Sündmuse lugeja on sündinud alates</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="syndinudLopp" type="xs:date" minOccurs="0">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Sündmuse lugeja on sündinud kuni</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="kasutajaTyyp" minOccurs="0">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Sündmuse lugeja tüüp</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:enumeration value="isik">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Eraisik</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="ametnik">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Ametnik</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="asutus">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Asutus</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                        </xs:all>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:restriction>
+              </xs:complexContent>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="lisaSyndmusedVastus">
+        <xs:all>
+          <xs:element name="tulemus" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Päringu tulemus</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:all>
+                <xs:element name="tulemuseKood" type="xs:integer" minOccurs="1">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Tulemuse kood</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:element>
+                <xs:element name="tulemuseTekst" type="xs:string" minOccurs="1">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Tulemuse tekst</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:element>
+              </xs:all>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="syndmused" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Lisatud sündmused</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:complexContent>
+                <xs:restriction base="SOAP-ENC:Array">
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="syndmus">
+                      <xs:complexType>
+                        <xs:all>
+                          <xs:element name="syndmusId" type="xs:integer" minOccurs="1">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Loodud sündmuse primaarvõti</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="remoteSyndmusId" type="xs:integer" minOccurs="1">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Loodud sündmuse välisvõti</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                          </xs:element>
+                        </xs:all>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:restriction>
+              </xs:complexContent>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="muudaSyndmusParing">
+        <xs:all>
+          <xs:element name="lisaKasutajad" type="xs:boolean" default="false" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Lisa isikud ja asutused, kes ei ole veel teavituskalendri kasutajad</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="syndmusId" type="xs:integer" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Muudetava sündmuse primaarvõti</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="kirjeldus" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Sündmuse kirjeldus</xtee:title>
+                <xtee:fieldtype>textarea</xtee:fieldtype>
+                <xtee:fieldrows>15</xtee:fieldrows>
+                <xtee:fieldcols>50</xtee:fieldcols>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="aktiivneTeavitus" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Eelseisva sündmuse teavitus</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="aegunudTeavitus" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Möödunud tähtajaga sündmuse teavitus</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="tahtsus" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Sündmuse tähtsus</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="madal">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Madal</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+                <xs:enumeration value="keskmine">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Keskmine</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+                <xs:enumeration value="korge">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Kõrge</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element name="algus" type="xs:dateTime" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Sündmuse alguse aeg</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="lopp" type="xs:dateTime" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Sündmuse lõppu aeg</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="teavitusAlgus" type="xs:date" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Teavitus on nähtav alates</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="teavitusLopp" type="xs:date" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Teavitus on nähtav kuni</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="aegumine" type="xs:date" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Sündmuse kustutamise aeg</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="lugejad" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Sündmuse lugejad</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:complexContent>
+                <xs:restriction base="SOAP-ENC:Array">
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="1" name="kasutaja">
+                      <xs:complexType>
+                        <xs:all>
+                          <xs:element name="kood" type="xs:string" minOccurs="1">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Lugeja kood</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="kasutajaTyyp" minOccurs="1">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Lugeja tüüp</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:enumeration value="isik">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Eraisik</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="ametnik">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Ametnik</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="asutus">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Asutus</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                        </xs:all>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:restriction>
+              </xs:complexContent>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="sugu" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Sündmuse lugeja sugu</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="m">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Mees</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+                <xs:enumeration value="n">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Naine</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element name="syndinudAlgus" type="xs:date" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Sündmuse lugeja on sündinud alates</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="syndinudLopp" type="xs:date" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Sündmuse lugeja on sündinud kuni</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="kasutajaTyyp" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Sündmuse lugeja tüüp</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="isik">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Eraisik</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+                <xs:enumeration value="ametnik">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Ametnik</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+                <xs:enumeration value="asutus">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Asutus</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="muudaSyndmusVastus">
+        <xs:all>
+          <xs:element name="tulemus" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Päringu tulemus</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:all>
+                <xs:element name="tulemuseKood" type="xs:integer" minOccurs="1">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Tulemuse kood</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:element>
+                <xs:element name="tulemuseTekst" type="xs:string" minOccurs="1">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Tulemuse tekst</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:element>
+              </xs:all>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="kustutaSyndmusParing">
+        <xs:all>
+          <xs:element name="syndmusId" type="xs:integer" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Kustutava sündmuse primaarvõti</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="kustutaSyndmusVastus">
+        <xs:all>
+          <xs:element name="tulemus" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Päringu tulemus</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:all>
+                <xs:element name="tulemuseKood" type="xs:integer" minOccurs="1">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Tulemuse kood</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:element>
+                <xs:element name="tulemuseTekst" type="xs:string" minOccurs="1">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Tulemuse tekst</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:element>
+              </xs:all>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="kustutaSyndmusedParing">
+        <xs:all>
+          <xs:element name="syndmused" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Sündmuste primaarvõtmed</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:complexContent>
+                <xs:restriction base="SOAP-ENC:Array">
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="1" name="syndmusId" type="xs:integer" />
+                  </xs:sequence>
+                </xs:restriction>
+              </xs:complexContent>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="kustutaSyndmusedVastus">
+        <xs:all>
+          <xs:element name="tulemus" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Päringu tulemus</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:all>
+                <xs:element name="tulemuseKood" type="xs:integer" minOccurs="1">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Tulemuse kood</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:element>
+                <xs:element name="tulemuseTekst" type="xs:string" minOccurs="1">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Tulemuse tekst</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:element>
+              </xs:all>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="syndmused" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Kustutatud sündmuste primaarvõtmed</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:complexContent>
+                <xs:restriction base="SOAP-ENC:Array">
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" name="syndmusId" type="xs:integer" />
+                  </xs:sequence>
+                </xs:restriction>
+              </xs:complexContent>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="otsiSyndmusParing">
+        <xs:all>
+          <xs:element name="naitaAndmed" type="xs:boolean" default="false" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Näidata sündmuse andmed</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="limit" type="xs:integer" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Näita mitte rohkem kui N tulemust</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="offset" type="xs:integer" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Jäta vahele esimesed N tulemust</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="syndmusIdArray" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Sündmuste primaarvõtmed</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:complexContent>
+                <xs:restriction base="SOAP-ENC:Array">
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="1" name="syndmusId" type="xs:integer" />
+                  </xs:sequence>
+                </xs:restriction>
+              </xs:complexContent>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="nahtavOmanikule" type="xs:boolean" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Sündmus on hallatav veebi interfeisist</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="kirjelduseOsa" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Otsitava sündmuse kirjelduse alamstring</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="tahtsus" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Otsitava sündmuse tähtsus</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="madal">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Madal</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+                <xs:enumeration value="keskmine">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Keskmine</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+                <xs:enumeration value="korge">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Kõrge</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element name="liik" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Otsitava sündmuse liik</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="syndmuseTyyp" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Otsitava sündmuse tüüp</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="isiklik">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Isiklik</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+                <xs:enumeration value="liigis">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Tellitav, liigis</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+                <xs:enumeration value="kohustuslik">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Kohustuslik, liigis</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element name="algusStart" type="xs:dateTime" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Otsitava sündmuse alguse aeg on alates</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="algusEnd" type="xs:dateTime" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Otsitava sündmuse alguse aeg on kuni</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="loppStart" type="xs:dateTime" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Otsitava sündmuse lõppu aeg on alates</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="loppEnd" type="xs:dateTime" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Otsitava sündmuse lõppu aeg on kuni</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="teavitusAlgusStart" type="xs:date" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Otsitava sündmuse teavituse nähtavuse aeg on alates</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="teavitusAlgusEnd" type="xs:date" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Otsitava sündmuse teavituse nähtavuse aeg on kuni</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="teavitusLoppStart" type="xs:date" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Otsitava sündmuse teavituse peitmise aeg on alates</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="teavitusLoppEnd" type="xs:date" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Otsitava sündmuse teavituse peitmise aeg on kuni</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="aegumineStart" type="xs:date" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Otsitava sündmuse kustutamise aeg on alates</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="aegumineEnd" type="xs:date" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Otsitava sündmuse kustutamise aeg on kuni</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="otsiSyndmusVastus">
+        <xs:all>
+          <xs:element name="tulemus" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Päringu tulemus</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:all>
+                <xs:element name="tulemuseKood" type="xs:integer" minOccurs="1">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Tulemuse kood</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:element>
+                <xs:element name="tulemuseTekst" type="xs:string" minOccurs="1">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Tulemuse tekst</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:element>
+              </xs:all>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="leitudArv" type="xs:integer" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Leitud tulemuste arv</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="valjastatudArv" type="xs:integer" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Valjastatud tulemuste arv</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="syndmused">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Leitud sündmused</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:complexContent>
+                <xs:restriction base="SOAP-ENC:Array">
+                  <xs:sequence>
+                    <xs:element name="syndmus" maxOccurs="unbounded" minOccurs="0">
+                      <xs:complexType>
+                        <xs:all>
+                          <xs:element name="syndmusId" type="xs:integer" minOccurs="1">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Sündmuse primaarvõti</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="nahtavOmanikule" type="xs:boolean" minOccurs="0">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Sündmus on hallatav veebi interfeisist</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="kirjeldus" type="xs:string" minOccurs="0">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Sündmuse kirjeldus</xtee:title>
+                                <xtee:fieldtype>textarea</xtee:fieldtype>
+                                <xtee:fieldrows>15</xtee:fieldrows>
+                                <xtee:fieldcols>50</xtee:fieldcols>
+                              </xs:appinfo>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="aktiivneTeavitus" type="xs:string" minOccurs="0">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Eelseisva sündmuse teavitus</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="aegunudTeavitus" type="xs:string" minOccurs="0">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Möödunud tähtajaga sündmuse teavitus</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="tahtsus" minOccurs="0">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Sündmuse tähtsus</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:enumeration value="madal">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Madal</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="keskmine">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Keskmine</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="korge">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Kõrge</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="syndmuseTyyp" minOccurs="0">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Sündmuse tüüp</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:enumeration value="isiklik">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Isiklik</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="liigis">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Tellitav, liigis</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="kohustuslik">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Kohustuslik, liigis</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="liik" type="xs:string" minOccurs="0">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Sündmuse liik</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="algus" type="xs:dateTime" minOccurs="0">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Sündmuse alguse aeg</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="lopp" type="xs:dateTime" minOccurs="0">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Sündmuse lõppu aeg</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="teavitusAlgus" type="xs:date" minOccurs="0">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Teavitus on nähtav alates</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="teavitusLopp" type="xs:date" minOccurs="0">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Teavitus on nähtav kuni</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="aegumine" type="xs:date" minOccurs="0">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Sündmuse kustutamise aeg</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="lugejad" minOccurs="0">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Sündmuse lugejad</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                            <xs:complexType>
+                              <xs:complexContent>
+                                <xs:restriction base="SOAP-ENC:Array">
+                                  <xs:sequence>
+                                    <xs:element name="kasutaja" minOccurs="1" maxOccurs="unbounded">
+                                      <xs:complexType>
+                                        <xs:all>
+                                          <xs:element name="kood" type="xs:string" minOccurs="1">
+                                            <xs:annotation>
+                                              <xs:appinfo>
+                                                <xtee:title>Lugeja kood</xtee:title>
+                                              </xs:appinfo>
+                                            </xs:annotation>
+                                          </xs:element>
+                                          <xs:element name="kasutajaTyyp" minOccurs="1">
+                                            <xs:annotation>
+                                              <xs:appinfo>
+                                                <xtee:title>Lugeja tüüp</xtee:title>
+                                              </xs:appinfo>
+                                            </xs:annotation>
+                                            <xs:simpleType>
+                                              <xs:restriction base="xs:string">
+                                                <xs:enumeration value="isik">
+                                                  <xs:annotation>
+                                                    <xs:appinfo>
+                                                      <xtee:title>Eraisik</xtee:title>
+                                                    </xs:appinfo>
+                                                  </xs:annotation>
+                                                </xs:enumeration>
+                                                <xs:enumeration value="ametnik">
+                                                  <xs:annotation>
+                                                    <xs:appinfo>
+                                                      <xtee:title>Ametnik</xtee:title>
+                                                    </xs:appinfo>
+                                                  </xs:annotation>
+                                                </xs:enumeration>
+                                                <xs:enumeration value="asutus">
+                                                  <xs:annotation>
+                                                    <xs:appinfo>
+                                                      <xtee:title>Asutus</xtee:title>
+                                                    </xs:appinfo>
+                                                  </xs:annotation>
+                                                </xs:enumeration>
+                                              </xs:restriction>
+                                            </xs:simpleType>
+                                          </xs:element>
+                                        </xs:all>
+                                      </xs:complexType>
+                                    </xs:element>
+                                  </xs:sequence>
+                                </xs:restriction>
+                              </xs:complexContent>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="sugu" minOccurs="0">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Sündmuse lugeja sugu</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:enumeration value="m">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Mees</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="n">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Naine</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="syndinudAlgus" type="xs:date" minOccurs="0">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Sündmuse lugeja on sündinud alates</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="syndinudLopp" type="xs:date" minOccurs="0">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Sündmuse lugeja on sündinud kuni</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="kasutajaTyyp" minOccurs="0">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Sündmuse lugeja tüüp</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:enumeration value="isik">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Eraisik</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="ametnik">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Ametnik</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="asutus">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Asutus</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                        </xs:all>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:restriction>
+              </xs:complexContent>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="naitaLiigidParing">
+        <xs:all>
+          <xs:element name="limit" type="xs:integer" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Näita mitte rohkem kui N tulemust</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="offset" type="xs:integer" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Jäta vahele esimesed N tulemust</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="naitaLiigidVastus">
+        <xs:all>
+          <xs:element name="tulemus" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Päringu tulemus</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:all>
+                <xs:element name="tulemuseKood" type="xs:integer" minOccurs="1">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Tulemuse kood</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:element>
+                <xs:element name="tulemuseTekst" type="xs:string" minOccurs="1">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Tulemuse tekst</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:element>
+              </xs:all>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="leitudArv" type="xs:integer">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Leitud tulemuste arv</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="valjastatudArv" type="xs:integer">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Valjastatud tulemuste arv</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="liigid" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Sündmuste liigid</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:complexContent>
+                <xs:restriction base="SOAP-ENC:Array">
+                  <xs:sequence>
+                    <xs:element name="liik" maxOccurs="unbounded" minOccurs="0">
+                      <xs:complexType>
+                        <xs:all>
+                          <xs:element name="nimetus" type="xs:string" minOccurs="1">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Liigi nimetus</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="kohustuslikLubatud" type="xs:boolean" minOccurs="1">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Liik võib olla kohustuslik</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                          </xs:element>
+                        </xs:all>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:restriction>
+              </xs:complexContent>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="syndmuseLugejadParing">
+        <xs:all>
+          <xs:element name="syndmusId" type="xs:integer" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Sündmuse primaarvõti</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="lugejaStaatus" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Sündmuse lugeja staatus</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="blocked">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Sündmus on blokeeritud</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+                <xs:enumeration value="tehtud">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Sündmus on tehtud</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+                <xs:enumeration value="kustutatud">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Sündmus on kustutatud, kuid ei ole tehtud</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+                <xs:enumeration value="loetud">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Sündmus on loetud</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+                <xs:enumeration value="saadetud">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Sündmus on kasutajale saadetud</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element name="kood" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Lugeja kood</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="kasutajaTyyp" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Lugeja tüüp</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="isik">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Eraisik</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+                <xs:enumeration value="ametnik">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Ametnik</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+                <xs:enumeration value="asutus">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Asutus</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element name="limit" type="xs:integer" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Näita mitte rohkem kui N tulemust</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="offset" type="xs:integer" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Jäta vahele esimesed N tulemust</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="syndmuseLugejadVastus">
+        <xs:all>
+          <xs:element name="tulemus" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Päringu tulemus</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:all>
+                <xs:element name="tulemuseKood" type="xs:integer" minOccurs="1">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Tulemuse kood</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:element>
+                <xs:element name="tulemuseTekst" type="xs:string" minOccurs="1">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Tulemuse tekst</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:element>
+              </xs:all>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="leitudArv" type="xs:integer">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Leitud tulemuste arv</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="valjastatudArv" type="xs:integer">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Valjastatud tulemuste arv</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="syndmusId" type="xs:integer" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Sündmuse primaarvõti</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="lugejateStaatused" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Sündmuse lugejate staatused</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:complexContent>
+                <xs:restriction base="SOAP-ENC:Array">
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="1" name="kasutaja">
+                      <xs:complexType>
+                        <xs:all>
+                          <xs:element name="kood" type="xs:string" minOccurs="1">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Lugeja kood</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="kasutajaTyyp" minOccurs="1">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Lugeja tüüp</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:enumeration value="isik">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Eraisik</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="ametnik">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Ametnik</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="asutus">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Asutus</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                          <xs:element name="emailSaadetud" type="xs:boolean" minOccurs="1">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Email teavitus saadetud</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="smsSaadetud" type="xs:boolean" minOccurs="1">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>SMS teavitus saadetud</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="lugejaStaatus" minOccurs="1">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Lugeja staatus</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:enumeration value="blocked">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Sündmus on blokeeritud</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="tehtud">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Sündmus on tehtud</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="kustutatud">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Sündmus on kustutatud, kuid ei ole tehtud</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="loetud">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Sündmus on loetud</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="saadetud">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Sündmus on kasutajale saadetud</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                        </xs:all>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:restriction>
+              </xs:complexContent>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="otsiKasutajadParing">
+        <xs:all>
+          <xs:element name="kasutajad" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Teavituskalendri kasutajad</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:complexContent>
+                <xs:restriction base="SOAP-ENC:Array">
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="1" name="kasutaja">
+                      <xs:complexType>
+                        <xs:all>
+                          <xs:element name="kood" type="xs:string" minOccurs="1">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Kasutaja kood</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="kasutajaTyyp" minOccurs="1">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Kasutaja tüüp</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:enumeration value="isik">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Eraisik</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="ametnik">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Ametnik</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="asutus">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Asutus</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                        </xs:all>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:restriction>
+              </xs:complexContent>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="otsiKasutajadVastus">
+        <xs:all>
+          <xs:element name="tulemus" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Päringu tulemus</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:all>
+                <xs:element name="tulemuseKood" type="xs:integer" minOccurs="1">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Tulemuse kood</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:element>
+                <xs:element name="tulemuseTekst" type="xs:string" minOccurs="1">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Tulemuse tekst</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:element>
+              </xs:all>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="leitudArv" type="xs:integer">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Leitud tulemuste arv</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="valjastatudArv" type="xs:integer">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Valjastatud tulemuste arv</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="kasutajad" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Teavituskalendri kasutajad</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:complexContent>
+                <xs:restriction base="SOAP-ENC:Array">
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="1" name="kasutaja">
+                      <xs:complexType>
+                        <xs:all>
+                          <xs:element name="kood" type="xs:string" minOccurs="1">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Kasutaja kood</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="kasutajaTyyp" minOccurs="1">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Kasutaja tüüp</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:enumeration value="isik">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Eraisik</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="ametnik">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Ametnik</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="asutus">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Asutus</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                        </xs:all>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:restriction>
+              </xs:complexContent>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="liigiTellijadParing">
+        <xs:all>
+          <xs:element name="liik" type="xs:string" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Sündmuse liik</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="kood" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Lugeja kood</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="kasutajaTyyp" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Lugeja tüüp</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="isik">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Eraisik</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+                <xs:enumeration value="ametnik">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Ametnik</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+                <xs:enumeration value="asutus">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Asutus</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:enumeration>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element name="limit" type="xs:integer" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Näita mitte rohkem kui N tulemust</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="offset" type="xs:integer" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Jäta vahele esimesed N tulemust</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+      <xs:complexType name="liigiTellijadVastus">
+        <xs:all>
+          <xs:element name="tulemus" minOccurs="1">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Päringu tulemus</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:all>
+                <xs:element name="tulemuseKood" type="xs:integer" minOccurs="1">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Tulemuse kood</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:element>
+                <xs:element name="tulemuseTekst" type="xs:string" minOccurs="1">
+                  <xs:annotation>
+                    <xs:appinfo>
+                      <xtee:title>Tulemuse tekst</xtee:title>
+                    </xs:appinfo>
+                  </xs:annotation>
+                </xs:element>
+              </xs:all>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="leitudArv" type="xs:integer">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Leitud tulemuste arv</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="valjastatudArv" type="xs:integer">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Valjastatud tulemuste arv</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="liik" type="xs:string" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Sündmuse liik</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="kasutajad" minOccurs="0">
+            <xs:annotation>
+              <xs:appinfo>
+                <xtee:title>Teavituskalendri kasutajad</xtee:title>
+              </xs:appinfo>
+            </xs:annotation>
+            <xs:complexType>
+              <xs:complexContent>
+                <xs:restriction base="SOAP-ENC:Array">
+                  <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="1" name="kasutaja">
+                      <xs:complexType>
+                        <xs:all>
+                          <xs:element name="kood" type="xs:string" minOccurs="1">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Kasutaja kood</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                          </xs:element>
+                          <xs:element name="kasutajaTyyp" minOccurs="1">
+                            <xs:annotation>
+                              <xs:appinfo>
+                                <xtee:title>Kasutaja tüüp</xtee:title>
+                              </xs:appinfo>
+                            </xs:annotation>
+                            <xs:simpleType>
+                              <xs:restriction base="xs:string">
+                                <xs:enumeration value="isik">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Eraisik</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="ametnik">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Ametnik</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                                <xs:enumeration value="asutus">
+                                  <xs:annotation>
+                                    <xs:appinfo>
+                                      <xtee:title>Asutus</xtee:title>
+                                    </xs:appinfo>
+                                  </xs:annotation>
+                                </xs:enumeration>
+                              </xs:restriction>
+                            </xs:simpleType>
+                          </xs:element>
+                        </xs:all>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:restriction>
+              </xs:complexContent>
+            </xs:complexType>
+          </xs:element>
+        </xs:all>
+      </xs:complexType>
+
+    </xs:schema>
+  </types>
+
+  <message name="pais">
+    <part name="asutus" element="xtee:asutus" />
+    <part name="andmekogu" element="xtee:andmekogu" />
+    <part name="isikukood" element="xtee:isikukood" />
+    <part name="id" element="xtee:id" />
+    <part name="nimi" element="xtee:nimi" />
+  </message>
+
+  <message name="lisaSyndmusRequest">
+    <part name="keha" type="tns:lisaSyndmusParing" />
+  </message>
+
+  <message name="lisaSyndmusResponse">
+    <part name="paring" type="tns:lisaSyndmusParing" />
+    <part name="keha" type="tns:lisaSyndmusVastus" />
+  </message>
+
+  <message name="lisaSyndmusedRequest">
+    <part name="keha" type="tns:lisaSyndmusedParing" />
+  </message>
+
+  <message name="lisaSyndmusedResponse">
+    <part name="paring" type="tns:lisaSyndmusedParing" />
+    <part name="keha" type="tns:lisaSyndmusedVastus" />
+  </message>
+
+  <message name="muudaSyndmusRequest">
+    <part name="keha" type="tns:muudaSyndmusParing" />
+  </message>
+
+  <message name="muudaSyndmusResponse">
+    <part name="paring" type="tns:muudaSyndmusParing" />
+    <part name="keha" type="tns:muudaSyndmusVastus" />
+  </message>
+
+  <message name="kustutaSyndmusRequest">
+    <part name="keha" type="tns:kustutaSyndmusParing" />
+  </message>
+
+  <message name="kustutaSyndmusResponse">
+    <part name="paring" type="tns:kustutaSyndmusParing" />
+    <part name="keha" type="tns:kustutaSyndmusVastus" />
+  </message>
+
+  <message name="kustutaSyndmusedRequest">
+    <part name="keha" type="tns:kustutaSyndmusedParing" />
+  </message>
+
+  <message name="kustutaSyndmusedResponse">
+    <part name="paring" type="tns:kustutaSyndmusedParing" />
+    <part name="keha" type="tns:kustutaSyndmusedVastus" />
+  </message>
+
+  <message name="otsiSyndmusRequest">
+    <part name="keha" type="tns:otsiSyndmusParing" />
+  </message>
+
+  <message name="otsiSyndmusResponse">
+    <part name="paring" type="tns:otsiSyndmusParing" />
+    <part name="keha" type="tns:otsiSyndmusVastus" />
+  </message>
+
+  <message name="naitaLiigidRequest">
+    <part name="keha" type="tns:naitaLiigidParing" />
+  </message>
+
+  <message name="naitaLiigidResponse">
+    <part name="paring" type="tns:naitaLiigidParing" />
+    <part name="keha" type="tns:naitaLiigidVastus" />
+  </message>
+
+  <message name="syndmuseLugejadRequest">
+    <part name="keha" type="tns:syndmuseLugejadParing" />
+  </message>
+
+  <message name="syndmuseLugejadResponse">
+    <part name="paring" type="tns:syndmuseLugejadParing" />
+    <part name="keha" type="tns:syndmuseLugejadVastus" />
+  </message>
+
+  <message name="otsiKasutajadRequest">
+    <part name="keha" type="tns:otsiKasutajadParing" />
+  </message>
+
+  <message name="otsiKasutajadResponse">
+    <part name="paring" type="tns:otsiKasutajadParing" />
+    <part name="keha" type="tns:otsiKasutajadVastus" />
+  </message>
+
+  <message name="liigiTellijadRequest">
+    <part name="keha" type="tns:liigiTellijadParing" />
+  </message>
+
+  <message name="liigiTellijadResponse">
+    <part name="paring" type="tns:liigiTellijadParing" />
+    <part name="keha" type="tns:liigiTellijadVastus" />
+  </message>
+
+  <portType name="teavituskalender">
+
+    <operation name="lisaSyndmus">
+      <documentation>
+        <xtee:title>Teavituskalendri sündmuse lisamine</xtee:title>
+      </documentation>
+      <input message="tns:lisaSyndmusRequest" />
+      <output message="tns:lisaSyndmusResponse" />
+    </operation>
+
+    <operation name="lisaSyndmused">
+      <documentation>
+        <xtee:title>Teavituskalendri sündmuste lisamine</xtee:title>
+      </documentation>
+      <input message="tns:lisaSyndmusedRequest" />
+      <output message="tns:lisaSyndmusedResponse" />
+    </operation>
+
+    <operation name="muudaSyndmus">
+      <documentation>
+        <xtee:title>Teavituskalendri sündmuse muutmine</xtee:title>
+      </documentation>
+      <input message="tns:muudaSyndmusRequest" />
+      <output message="tns:muudaSyndmusResponse" />
+    </operation>
+
+    <operation name="kustutaSyndmus">
+      <documentation>
+        <xtee:title>Teavituskalendri sündmuse kustutamine</xtee:title>
+      </documentation>
+      <input message="tns:kustutaSyndmusRequest" />
+      <output message="tns:kustutaSyndmusResponse" />
+    </operation>
+
+    <operation name="kustutaSyndmused">
+      <documentation>
+        <xtee:title>Teavituskalendri sündmuste kustutamine</xtee:title>
+      </documentation>
+      <input message="tns:kustutaSyndmusedRequest" />
+      <output message="tns:kustutaSyndmusedResponse" />
+    </operation>
+
+    <operation name="otsiSyndmus">
+      <documentation>
+        <xtee:title>Teavituskalendri sündmuse otsing</xtee:title>
+      </documentation>
+      <input message="tns:otsiSyndmusRequest" />
+      <output message="tns:otsiSyndmusResponse" />
+    </operation>
+
+    <operation name="naitaLiigid">
+      <documentation>
+        <xtee:title>Sündmuste liikide näitamine</xtee:title>
+      </documentation>
+      <input message="tns:naitaLiigidRequest" />
+      <output message="tns:naitaLiigidResponse" />
+    </operation>
+
+    <operation name="syndmuseLugejad">
+      <documentation>
+        <xtee:title>Sündmuste lugejate näitamine</xtee:title>
+      </documentation>
+      <input message="tns:syndmuseLugejadRequest" />
+      <output message="tns:syndmuseLugejadResponse" />
+    </operation>
+
+    <operation name="otsiKasutajad">
+      <documentation>
+        <xtee:title>Teavituskelendri kasutajate otsing</xtee:title>
+      </documentation>
+      <input message="tns:otsiKasutajadRequest" />
+      <output message="tns:otsiKasutajadResponse" />
+    </operation>
+
+    <operation name="liigiTellijad">
+      <documentation>
+        <xtee:title>Teavituskelendri liigi tellijate otsing</xtee:title>
+      </documentation>
+      <input message="tns:liigiTellijadRequest" />
+      <output message="tns:liigiTellijadResponse" />
+    </operation>
+
+  </portType>
+
+  <binding name="teavituskalender_soapbinding" type="tns:teavituskalender">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+
+    <operation name="lisaSyndmus">
+      <xtee:version>v1</xtee:version>
+      <soap:operation />
+      <input>
+        <soap:body parts="keha" 
+               encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+               namespace="http://producers.teavituskalender.xtee.riik.ee/producer/teavituskalender"
+               use="encoded" />
+        <soap:header message="tns:pais" part="asutus" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="andmekogu" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="isikukood" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="nimi" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="id" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+      </input>
+      <output>
+        <soap:body parts="keha" 
+               encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+               namespace="http://producers.teavituskalender.xtee.riik.ee/producer/teavituskalender"
+               use="encoded" />
+        <soap:header message="tns:pais" part="asutus" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="andmekogu" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="isikukood" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="nimi" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="id" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+      </output>
+    </operation>
+
+    <operation name="lisaSyndmused">
+      <xtee:version>v1</xtee:version>
+      <soap:operation />
+      <input>
+        <soap:body parts="keha" 
+               encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+               namespace="http://producers.teavituskalender.xtee.riik.ee/producer/teavituskalender"
+               use="encoded" />
+        <soap:header message="tns:pais" part="asutus" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="andmekogu" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="isikukood" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="nimi" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="id" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+      </input>
+      <output>
+        <soap:body parts="keha" 
+               encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+               namespace="http://producers.teavituskalender.xtee.riik.ee/producer/teavituskalender"
+               use="encoded" />
+        <soap:header message="tns:pais" part="asutus" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="andmekogu" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="isikukood" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="nimi" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="id" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+      </output>
+    </operation>
+
+    <operation name="muudaSyndmus">
+      <xtee:version>v1</xtee:version>
+      <soap:operation />
+      <input>
+        <soap:body parts="keha" 
+               encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+               namespace="http://producers.teavituskalender.xtee.riik.ee/producer/teavituskalender"
+               use="encoded" />
+        <soap:header message="tns:pais" part="asutus" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="andmekogu" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="isikukood" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="nimi" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="id" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+      </input>
+      <output>
+        <soap:body parts="keha" 
+               encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+               namespace="http://producers.teavituskalender.xtee.riik.ee/producer/teavituskalender"
+               use="encoded" />
+        <soap:header message="tns:pais" part="asutus" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="andmekogu" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="isikukood" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="nimi" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="id" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+      </output>
+    </operation>
+
+    <operation name="kustutaSyndmus">
+      <xtee:version>v1</xtee:version>
+      <soap:operation />
+      <input>
+        <soap:body parts="keha" 
+               encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+               namespace="http://producers.teavituskalender.xtee.riik.ee/producer/teavituskalender"
+               use="encoded" />
+        <soap:header message="tns:pais" part="asutus" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="andmekogu" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="isikukood" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="nimi" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="id" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+      </input>
+      <output>
+        <soap:body parts="keha" 
+               encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+               namespace="http://producers.teavituskalender.xtee.riik.ee/producer/teavituskalender"
+               use="encoded" />
+        <soap:header message="tns:pais" part="asutus" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="andmekogu" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="isikukood" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="nimi" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="id" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+      </output>
+    </operation>
+
+    <operation name="kustutaSyndmused">
+      <xtee:version>v1</xtee:version>
+      <soap:operation />
+      <input>
+        <soap:body parts="keha" 
+               encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+               namespace="http://producers.teavituskalender.xtee.riik.ee/producer/teavituskalender"
+               use="encoded" />
+        <soap:header message="tns:pais" part="asutus" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="andmekogu" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="isikukood" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="nimi" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="id" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+      </input>
+      <output>
+        <soap:body parts="keha" 
+               encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+               namespace="http://producers.teavituskalender.xtee.riik.ee/producer/teavituskalender"
+               use="encoded" />
+        <soap:header message="tns:pais" part="asutus" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="andmekogu" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="isikukood" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="nimi" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="id" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+      </output>
+    </operation>
+
+    <operation name="otsiSyndmus">
+      <xtee:version>v1</xtee:version>
+      <soap:operation />
+      <input>
+        <soap:body parts="keha" 
+               encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+               namespace="http://producers.teavituskalender.xtee.riik.ee/producer/teavituskalender"
+               use="encoded" />
+        <soap:header message="tns:pais" part="asutus" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="andmekogu" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="isikukood" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="nimi" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="id" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+      </input>
+      <output>
+        <soap:body parts="keha" 
+               encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+               namespace="http://producers.teavituskalender.xtee.riik.ee/producer/teavituskalender"
+               use="encoded" />
+        <soap:header message="tns:pais" part="asutus" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="andmekogu" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="isikukood" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="nimi" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="id" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+      </output>
+    </operation>
+
+    <operation name="naitaLiigid">
+      <xtee:version>v1</xtee:version>
+      <soap:operation />
+      <input>
+        <soap:body parts="keha" 
+               encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+               namespace="http://producers.teavituskalender.xtee.riik.ee/producer/teavituskalender"
+               use="encoded" />
+        <soap:header message="tns:pais" part="asutus" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="andmekogu" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="isikukood" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="nimi" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="id" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+      </input>
+      <output>
+        <soap:body parts="keha" 
+               encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+               namespace="http://producers.teavituskalender.xtee.riik.ee/producer/teavituskalender"
+               use="encoded" />
+        <soap:header message="tns:pais" part="asutus" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="andmekogu" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="isikukood" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="nimi" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="id" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+      </output>
+    </operation>
+
+    <operation name="syndmuseLugejad">
+      <xtee:version>v1</xtee:version>
+      <soap:operation />
+      <input>
+        <soap:body parts="keha" 
+               encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+               namespace="http://producers.teavituskalender.xtee.riik.ee/producer/teavituskalender"
+               use="encoded" />
+        <soap:header message="tns:pais" part="asutus" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="andmekogu" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="isikukood" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="nimi" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="id" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+      </input>
+      <output>
+        <soap:body parts="keha" 
+               encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+               namespace="http://producers.teavituskalender.xtee.riik.ee/producer/teavituskalender"
+               use="encoded" />
+        <soap:header message="tns:pais" part="asutus" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="andmekogu" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="isikukood" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="nimi" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="id" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+      </output>
+    </operation>
+
+    <operation name="otsiKasutajad">
+      <xtee:version>v1</xtee:version>
+      <soap:operation />
+      <input>
+        <soap:body parts="keha" 
+               encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+               namespace="http://producers.teavituskalender.xtee.riik.ee/producer/teavituskalender"
+               use="encoded" />
+        <soap:header message="tns:pais" part="asutus" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="andmekogu" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="isikukood" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="nimi" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="id" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+      </input>
+      <output>
+        <soap:body parts="keha" 
+               encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+               namespace="http://producers.teavituskalender.xtee.riik.ee/producer/teavituskalender"
+               use="encoded" />
+        <soap:header message="tns:pais" part="asutus" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="andmekogu" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="isikukood" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="nimi" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="id" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+      </output>
+    </operation>
+
+    <operation name="liigiTellijad">
+      <xtee:version>v1</xtee:version>
+      <soap:operation />
+      <input>
+        <soap:body parts="keha" 
+               encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+               namespace="http://producers.teavituskalender.xtee.riik.ee/producer/teavituskalender"
+               use="encoded" />
+        <soap:header message="tns:pais" part="asutus" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="andmekogu" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="isikukood" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="nimi" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="id" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+      </input>
+      <output>
+        <soap:body parts="keha" 
+               encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+               namespace="http://producers.teavituskalender.xtee.riik.ee/producer/teavituskalender"
+               use="encoded" />
+        <soap:header message="tns:pais" part="asutus" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="andmekogu" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="isikukood" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="nimi" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+        <soap:header message="tns:pais" part="id" use="encoded" 
+            encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+      </output>
+    </operation>
+
+  </binding>
+
+  <service name="teavituskalender">
+    <port binding="tns:teavituskalender_soapbinding" name="teavituskalender">
+      <soap:address location="http://TURVASERVER/cgi-bin/consumer_proxy" />
+      <xtee:address producer="teavituskalender" />
+      <xtee:title>Teavituskalender</xtee:title>
+    </port>
+  </service>
+
+</definitions>

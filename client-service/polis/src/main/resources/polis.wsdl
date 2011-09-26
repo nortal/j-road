@@ -1,0 +1,2475 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:tns="http://producers.polis.xtee.riik.ee/producer/polis"
+	xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xtee="http://x-tee.riik.ee/xsd/xtee.xsd"
+	xmlns:ns="http://schemas.xmlsoap.org/soap/encoding/" xmlns:ns1="http://www.w3.org/2005/05/xmlmime"
+	xmlns:ns2="http://www.w3.org/1999/xlink" targetNamespace="http://producers.polis.xtee.riik.ee/producer/polis">
+	<types>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="http://producers.polis.xtee.riik.ee/producer/polis">
+			<import namespace="http://x-tee.riik.ee/xsd/xtee.xsd"
+				schemaLocation="http://x-tee.riik.ee/xsd/xtee.xsd" />
+			<import namespace="http://www.w3.org/2005/05/xmlmime"
+				schemaLocation="http://www.w3.org/2005/05/xmlmime" />
+			<annotation>
+				<documentation>Päringud</documentation>
+			</annotation>
+			<element name="kuupaev" type="date">
+				<annotation>
+					<appinfo>
+						<xtee:title>Kuupäev</xtee:title>
+					</appinfo>
+					<documentation>Kuupäeva element</documentation>
+				</annotation>
+			</element>
+			<complexType name="aegVahemik">
+				<annotation>
+					<documentation>Ajavahemiku komplekstüüp</documentation>
+				</annotation>
+				<sequence>
+					<element name="alg" type="dateTime">
+						<annotation>
+							<appinfo>
+								<xtee:title>Kirje muutmise algaeg [DD.MM.YYYY HH:MM:SS]</xtee:title>
+							</appinfo>
+							<documentation>Aja algus: kuupäev ja kellaeg. [DD.MM.YYYY HH:MM:SS]</documentation>
+						</annotation>
+					</element>
+					<element name="lopp" type="dateTime" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>Kirje muutmise lõppaeg [DD.MM.YYYY HH:MM:SS]</xtee:title>
+							</appinfo>
+							<documentation>Aja lõpp: kuupäev ja kellaeg. [DD.MM.YYYY HH:MM:SS]</documentation>
+						</annotation>
+					</element>
+					<element name="aktiivsed" type="boolean">
+						<annotation>
+							<appinfo>
+								<xtee:title>Aktiivne</xtee:title>
+							</appinfo>
+							<documentation>Kui TRUE, siis kuvatakse tulemusena ainult lõpetamata tagaotsimisi</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+			<element name="tagaOtsiAeg" type="tns:aegVahemik">
+				<annotation>
+					<documentation>Tagaotsimise ajavahemik</documentation>
+				</annotation>
+			</element>
+			<complexType name="isikud">
+				<sequence>
+					<element name="isik" minOccurs="0" maxOccurs="unbounded">
+						<complexType>
+							<sequence>
+								<element name="isikId" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Isiku id</xtee:title>
+										</appinfo>
+										<documentation></documentation>
+									</annotation>
+								</element>
+								<element name="seoseLiik" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Seose Liik</xtee:title>
+										</appinfo>
+										<documentation></documentation>
+									</annotation>
+								</element>
+								<element name="seoseLiikKL" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Seose Liik KL</xtee:title>
+										</appinfo>
+										<documentation></documentation>
+									</annotation>
+								</element>
+								<element name="isikukood" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Isikukood</xtee:title>
+										</appinfo>
+										<documentation></documentation>
+									</annotation>
+								</element>
+								<element name="elukohaRiik" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Elukoha riik</xtee:title>
+										</appinfo>
+										<documentation></documentation>
+									</annotation>
+								</element>
+								<element name="kodakondsus" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Kodakondsus</xtee:title>
+										</appinfo>
+										<documentation></documentation>
+									</annotation>
+								</element>
+								<element name="synnikuupaev" type="date">
+									<annotation>
+										<appinfo>
+											<xtee:title>Sünnikuupäev</xtee:title>
+										</appinfo>
+										<documentation></documentation>
+									</annotation>
+								</element>
+								<element name="sugu" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Sugu</xtee:title>
+										</appinfo>
+										<documentation></documentation>
+									</annotation>
+								</element>
+								<element name="eesnimi" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Eesnimi</xtee:title>
+										</appinfo>
+										<documentation></documentation>
+									</annotation>
+								</element>
+								<element name="perenimi" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Perenimi</xtee:title>
+										</appinfo>
+										<documentation></documentation>
+									</annotation>
+								</element>
+								<element name="elukoht" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Elukoht</xtee:title>
+										</appinfo>
+										<documentation></documentation>
+									</annotation>
+								</element>
+								<element name="asukohtID" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Asukoha id</xtee:title>
+										</appinfo>
+										<documentation></documentation>
+									</annotation>
+								</element>
+								<element name="elukohtTanav" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Tänav</xtee:title>
+										</appinfo>
+										<documentation></documentation>
+									</annotation>
+								</element>
+								<element name="elukohtMajaNr" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Maja nr</xtee:title>
+										</appinfo>
+										<documentation></documentation>
+									</annotation>
+								</element>
+								<element name="elukohtKorterNr" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Korteri nr</xtee:title>
+										</appinfo>
+										<documentation></documentation>
+									</annotation>
+								</element>
+								<element name="medSeisund" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Meditsiiniline seisund</xtee:title>
+										</appinfo>
+										<documentation>Meditsiiniline seisund (joobeseisundi tuvastamine)</documentation>
+									</annotation>
+								</element>
+								<element name="medSeisundKL" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Meditsiiniline seisund KL</xtee:title>
+										</appinfo>
+										<documentation>Meditsiiniline seisund (joobeseisundi tuvastamine) KL</documentation>
+									</annotation>
+								</element>
+								<element name="isikuSeisund" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Osaleja seisund</xtee:title>
+										</appinfo>
+										<documentation>Osaleja seisund (hukkunud, vigastatud)</documentation>
+									</annotation>
+								</element>
+								<element name="isikuSeisundKL" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Osaleja seisund KL</xtee:title>
+										</appinfo>
+										<documentation>Osaleja seisund (hukkunud, vigastatud) KL</documentation>
+									</annotation>
+								</element>
+								<element name="rollLiikluses" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Roll liikluses</xtee:title>
+										</appinfo>
+										<documentation></documentation>
+									</annotation>
+								</element>
+								<element name="rollLiiklusesKL" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Roll liikluses KL</xtee:title>
+										</appinfo>
+										<documentation></documentation>
+									</annotation>
+								</element>
+								<element name="turvavarustus" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Turvavarustus</xtee:title>
+										</appinfo>
+										<documentation></documentation>
+									</annotation>
+								</element>
+								<element name="turvavarustusKL" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Turvavarustus KL</xtee:title>
+										</appinfo>
+										<documentation></documentation>
+									</annotation>
+								</element>
+								<element name="roolisolekuAeg" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Roolisoleku aeg</xtee:title>
+										</appinfo>
+										<documentation>juhi sõiduaeg</documentation>
+									</annotation>
+								</element>
+							</sequence>
+						</complexType>
+					</element>
+				</sequence>
+			</complexType>
+			<element name="isikud" type="tns:isikud" />
+			<complexType name="soidukid">
+				<sequence>
+					<element name="soiduk" minOccurs="0" maxOccurs="unbounded">
+						<complexType>
+							<sequence>
+								<element name="soidukId" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Sõiduki id</xtee:title>
+										</appinfo>
+										<documentation>soiduki ID väärtus</documentation>
+									</annotation>
+								</element>
+								<element name="regNum" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Reg nr</xtee:title>
+										</appinfo>
+										<documentation></documentation>
+									</annotation>
+								</element>
+								<element name="vinKood" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Vin</xtee:title>
+										</appinfo>
+										<documentation></documentation>
+									</annotation>
+								</element>
+								<element name="mark" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Mark</xtee:title>
+										</appinfo>
+										<documentation></documentation>
+									</annotation>
+								</element>
+								<element name="markKL" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Mark KL</xtee:title>
+										</appinfo>
+										<documentation></documentation>
+									</annotation>
+								</element>
+								<element name="mudel" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Mudel</xtee:title>
+										</appinfo>
+										<documentation></documentation>
+									</annotation>
+								</element>
+								<element name="mudelKL" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Mudel KL</xtee:title>
+										</appinfo>
+										<documentation></documentation>
+									</annotation>
+								</element>
+								<element name="juhiIsikuId" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Juhi isiku id</xtee:title>
+										</appinfo>
+										<documentation></documentation>
+									</annotation>
+								</element>
+								<element name="lahkusSyndmuskohalt" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Lahkus sündmuskohalt</xtee:title>
+										</appinfo>
+										<documentation></documentation>
+									</annotation>
+								</element>
+								<element name="soiduKiirus" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Sõidu kiirus</xtee:title>
+										</appinfo>
+										<documentation></documentation>
+									</annotation>
+								</element>
+								<element name="soidukisIsikuteArv" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Sõidukis isikute arv</xtee:title>
+										</appinfo>
+										<documentation></documentation>
+									</annotation>
+								</element>
+							</sequence>
+						</complexType>
+					</element>
+				</sequence>
+			</complexType>
+			<element name="soidukid" type="tns:soidukid" />
+			<complexType name="dokumendid">
+				<sequence>
+					<element name="dokument" minOccurs="0" maxOccurs="unbounded">
+						<complexType>
+							<sequence>
+								<element name="dokNr" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Dok nr</xtee:title>
+										</appinfo>
+										<documentation></documentation>
+									</annotation>
+								</element>
+								<element name="liik" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Liik</xtee:title>
+										</appinfo>
+										<documentation></documentation>
+									</annotation>
+								</element>
+								<element name="liikKL" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Liik KL</xtee:title>
+										</appinfo>
+										<documentation></documentation>
+									</annotation>
+								</element>
+								<element name="juhiloaKat" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Juhiloa kat</xtee:title>
+										</appinfo>
+										<documentation></documentation>
+									</annotation>
+								</element>
+								<element name="kehtivusAegLopp" type="date">
+									<annotation>
+										<appinfo>
+											<xtee:title>Kehtivuse lõpp</xtee:title>
+										</appinfo>
+										<documentation></documentation>
+									</annotation>
+								</element>
+								<element name="isikuID" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Isiku ID</xtee:title>
+										</appinfo>
+										<documentation>Seotud isiku ID väärtus</documentation>
+									</annotation>
+								</element>
+							</sequence>
+						</complexType>
+					</element>
+				</sequence>
+			</complexType>
+			<element name="dokumendid" type="tns:dokumendid" />
+			<complexType name="juhtum">
+				<sequence>
+					<element name="ID" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Juhtumi id</xtee:title>
+							</appinfo>
+							<documentation>Juhtumi id</documentation>
+						</annotation>
+					</element>
+					<element name="juhtumNr" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Juhtumi nr</xtee:title>
+							</appinfo>
+							<documentation>Unikaalne teate number</documentation>
+						</annotation>
+					</element>
+					<element name="aktNr" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Akti nr</xtee:title>
+							</appinfo>
+							<documentation>Liiklusõnnetuse akti number</documentation>
+						</annotation>
+					</element>
+					<element name="toimAeg" type="date">
+						<annotation>
+							<appinfo>
+								<xtee:title>Toimumise kuupäev</xtee:title>
+							</appinfo>
+							<documentation>Liiklusõnnetuse toimumise kuupäev</documentation>
+						</annotation>
+					</element>
+					<element name="liik" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Liiklusõnnetuseliik</xtee:title>
+							</appinfo>
+							<documentation>Liiklusõnnetuseliik</documentation>
+						</annotation>
+					</element>
+					<element name="liikKL" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Liiklusõnnetuseliik KL</xtee:title>
+							</appinfo>
+							<documentation>Liiklusõnnetuseliik KL</documentation>
+						</annotation>
+					</element>
+					<element name="soidukOsalesArv" type="int">
+						<annotation>
+							<appinfo>
+								<xtee:title>Osales</xtee:title>
+							</appinfo>
+							<documentation></documentation>
+						</annotation>
+					</element>
+					<element name="hukkunudArv" type="int">
+						<annotation>
+							<appinfo>
+								<xtee:title>Hukkunuid</xtee:title>
+							</appinfo>
+							<documentation></documentation>
+						</annotation>
+					</element>
+					<element name="vigastatudArv" type="int">
+						<annotation>
+							<appinfo>
+								<xtee:title>Vigastatuid</xtee:title>
+							</appinfo>
+							<documentation></documentation>
+						</annotation>
+					</element>
+					<element name="faabula" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Faabula</xtee:title>
+							</appinfo>
+							<documentation></documentation>
+						</annotation>
+					</element>
+					<element name="pohjused" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Põhjused</xtee:title>
+							</appinfo>
+							<documentation></documentation>
+						</annotation>
+					</element>
+					<element name="pohjustaja" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Põhjustaja</xtee:title>
+							</appinfo>
+							<documentation></documentation>
+						</annotation>
+					</element>
+					<element name="taitKuupaev" type="dateTime">
+						<annotation>
+							<appinfo>
+								<xtee:title>Täitmise kuupäev</xtee:title>
+							</appinfo>
+							<documentation></documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+			<element name="juhtum" type="tns:juhtum" />
+			<complexType name="asukoht">
+				<sequence>
+					<element name="ilmastik" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Ilmastik</xtee:title>
+							</appinfo>
+							<documentation>Andmed ilmastikutingimuste kohta</documentation>
+						</annotation>
+					</element>
+					<element name="ilmastikKL" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Ilmastik KL</xtee:title>
+							</appinfo>
+							<documentation>Andmed ilmastikutingimuste kohta KL</documentation>
+						</annotation>
+					</element>
+					<element name="valgustus" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Valgustus</xtee:title>
+							</appinfo>
+							<documentation>Toimumiskoha vastuse andmed (pimeda aeg, valge aeg)	</documentation>
+						</annotation>
+					</element>
+					<element name="valgustusKL" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Valgustus KL</xtee:title>
+							</appinfo>
+							<documentation>Toimumiskoha vastuse andmed (pimeda aeg, valge aeg)KL</documentation>
+						</annotation>
+					</element>
+					<element name="toimumisekoht" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Toimumise koht</xtee:title>
+							</appinfo>
+							<documentation>maakond, vald ja linn, asulas tänava nimi ja lähedal asuva maja number või nimi</documentation>
+						</annotation>
+					</element>
+					<element name="teeLiik" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Tee liik</xtee:title>
+							</appinfo>
+							<documentation>asustuse kohta andmed: (tee liik)</documentation>
+						</annotation>
+					</element>
+					<element name="teeLiikKL" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Tee liik KL</xtee:title>
+							</appinfo>
+							<documentation>asustuse kohta andmed: (tee liik) KL</documentation>
+						</annotation>
+					</element>
+					<element name="teeKood" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Tee kood</xtee:title>
+							</appinfo>
+							<documentation>tee nimi, maantee number (kui see on olemas) vastavalt teeregistrile</documentation>
+						</annotation>
+					</element>
+					<element name="kmNr" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Km nr</xtee:title>
+							</appinfo>
+							<documentation>koht teel (kilomeeter)</documentation>
+						</annotation>
+					</element>
+					<element name="gpsX" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>gps X</xtee:title>
+							</appinfo>
+							<documentation></documentation>
+						</annotation>
+					</element>
+					<element name="gpsY" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>gps Y</xtee:title>
+							</appinfo>
+							<documentation></documentation>
+						</annotation>
+					</element>
+					<element name="asulaOlemasolu" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Asula olemasolu</xtee:title>
+							</appinfo>
+							<documentation>asustatuse kohta andmed: asula olemasolu (liikluseeskirja seisukohast)</documentation>
+						</annotation>
+					</element>
+					<element name="tanav" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Tänav</xtee:title>
+							</appinfo>
+							<documentation>(asulas tänava nimi)</documentation>
+						</annotation>
+					</element>
+					<element name="ristTanav" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Rist tänav</xtee:title>
+							</appinfo>
+							<documentation>toimumise koht: (asulas tänava nimi)</documentation>
+						</annotation>
+					</element>
+					<element name="majaNr" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Maja nr</xtee:title>
+							</appinfo>
+							<documentation>lähedal asuva maja number</documentation>
+						</annotation>
+					</element>
+					<element name="asukohaLiik" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Asukoha liik</xtee:title>
+							</appinfo>
+							<documentation>liiklusõnnetuse sündmuskoha liikluskorralduse kohta</documentation>
+						</annotation>
+					</element>
+					<element name="asukohaLiikKL" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Asukoha liik KL</xtee:title>
+							</appinfo>
+							<documentation>liiklusõnnetuse sündmuskoha liikluskorralduse kohta KL</documentation>
+						</annotation>
+					</element>
+					<element name="lubatudKiirus" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Lubatud kiirus</xtee:title>
+							</appinfo>
+							<documentation>liiklusõnnetuse sündmuskoha kiirusrežiimi kohta</documentation>
+						</annotation>
+					</element>
+					<element name="tyypskeem" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Tüüpskeem</xtee:title>
+							</appinfo>
+							<documentation>LO tüüpskeemi kirjeldus</documentation>
+						</annotation>
+					</element>
+					<element name="tyypskeemKL" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Tüüpskeem KL</xtee:title>
+							</appinfo>
+							<documentation>LO tüüpskeemi kirjeldus KL</documentation>
+						</annotation>
+					</element>
+					<element name="teeElement" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Element</xtee:title>
+							</appinfo>
+							<documentation></documentation>
+						</annotation>
+					</element>
+					<element name="teeElementKL" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Element KL</xtee:title>
+							</appinfo>
+							<documentation></documentation>
+						</annotation>
+					</element>
+					<element name="teeRajatis" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Rajatis</xtee:title>
+							</appinfo>
+							<documentation></documentation>
+						</annotation>
+					</element>
+					<element name="teeRajatisKL" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Rajatis KL</xtee:title>
+							</appinfo>
+							<documentation></documentation>
+						</annotation>
+					</element>
+					<element name="teeKurvilisus" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Kurvilisus</xtee:title>
+							</appinfo>
+							<documentation></documentation>
+						</annotation>
+					</element>
+					<element name="teeKurvilisusKL" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Kurvilisus KL</xtee:title>
+							</appinfo>
+							<documentation></documentation>
+						</annotation>
+					</element>
+					<element name="teeMagisus">
+						<annotation>
+							<appinfo>
+								<xtee:title>Magisus</xtee:title>
+							</appinfo>
+							<documentation>Tee mägisus</documentation>
+						</annotation>
+					</element>
+					<element name="teeMagisusKL">
+						<annotation>
+							<appinfo>
+								<xtee:title>Magisus KL</xtee:title>
+							</appinfo>
+							<documentation>Tee mägisus KL</documentation>
+						</annotation>
+					</element>
+					<element name="teeTingimused" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Tee tingimused</xtee:title>
+							</appinfo>
+							<documentation></documentation>
+						</annotation>
+					</element>
+					<element name="teeTingimusedKL" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Tee tingimused KL</xtee:title>
+							</appinfo>
+							<documentation></documentation>
+						</annotation>
+					</element>
+					<element name="teeKatteLiik" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Teekatte liik</xtee:title>
+							</appinfo>
+							<documentation></documentation>
+						</annotation>
+					</element>
+					<element name="teeKatteLiikKL" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Teekatte liik KL</xtee:title>
+							</appinfo>
+							<documentation></documentation>
+						</annotation>
+					</element>
+					<element name="teeKatteSeisund" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Teekatte seisund</xtee:title>
+							</appinfo>
+							<documentation></documentation>
+						</annotation>
+					</element>
+					<element name="teeKatteSeisundKL" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Teekatte seisund KL</xtee:title>
+							</appinfo>
+							<documentation></documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+			<element name="asukoht" type="tns:asukoht" />
+			<complexType name="soiduk">
+				<sequence>
+					<element name="regNr">
+						<annotation>
+							<appinfo>
+								<xtee:title>Sõiduki registreerimise number</xtee:title>
+							</appinfo>
+							<documentation>Sõiduki registreerimise number</documentation>
+						</annotation>
+						<simpleType>
+							<restriction base="string">
+								<minLength value="1" />
+							</restriction>
+						</simpleType>
+					</element>
+					<element name="riik" default="EST" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>Sõiduki registreerimise riik [EST]</xtee:title>
+							</appinfo>
+							<documentation>Vaikimisi väärtus on EST</documentation>
+						</annotation>
+						<simpleType>
+							<restriction base="string">
+								<length value="3" />
+							</restriction>
+						</simpleType>
+					</element>
+					<element name="vin" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>Sõiduki VIN kood</xtee:title>
+							</appinfo>
+							<documentation>Sõiduki VIN kood</documentation>
+						</annotation>
+						<simpleType>
+							<restriction base="string">
+								<minLength value="1" />
+							</restriction>
+						</simpleType>
+					</element>
+				</sequence>
+			</complexType>
+			<complexType name="soidukOtsiSoidukDetailid">
+				<annotation>
+					<documentation>Sõidukiga tagaotsimisega seotud sõidukiandmed</documentation>
+				</annotation>
+				<sequence>
+					<element name="soidukId" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Sõiduki ID</xtee:title>
+							</appinfo>
+							<documentation>Sõiduki ID</documentation>
+						</annotation>
+					</element>
+					<element name="regNum" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Sõiduki registreerimisnumber</xtee:title>
+							</appinfo>
+							<documentation>Sõiduki registreerimisnumber</documentation>
+						</annotation>
+					</element>
+					<element name="vin" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Sõiduki VIN kood</xtee:title>
+							</appinfo>
+							<documentation>Sõiduki VIN kood</documentation>
+						</annotation>
+					</element>
+					<element name="mark" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Sõiduki mark</xtee:title>
+							</appinfo>
+							<documentation>Sõiduki mark</documentation>
+						</annotation>
+					</element>
+					<element name="markKL" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Sõiduki mark KL</xtee:title>
+							</appinfo>
+							<documentation>Sõiduki mark KL</documentation>
+						</annotation>
+					</element>
+					<element name="mudel" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Sõiduki mudel</xtee:title>
+							</appinfo>
+							<documentation>Sõiduki mudel</documentation>
+						</annotation>
+					</element>
+					<element name="mudelKL" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Sõiduki mudel KL</xtee:title>
+							</appinfo>
+							<documentation>Sõiduki mudel KL</documentation>
+						</annotation>
+					</element>
+					<element name="varv" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Sõiduki värv</xtee:title>
+							</appinfo>
+							<documentation>Sõiduki värv</documentation>
+						</annotation>
+					</element>
+					<element name="varvKL" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Sõiduki värv KL</xtee:title>
+							</appinfo>
+							<documentation>Sõiduki värv KL</documentation>
+						</annotation>
+					</element>
+
+					<element name="riik" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Sõiduki registreerimise riik</xtee:title>
+							</appinfo>
+							<documentation>Sõiduki registreerimise riik</documentation>
+						</annotation>
+					</element>
+					<element name="riikKL" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Sõiduki registreerimise riik KL</xtee:title>
+							</appinfo>
+							<documentation>Sõiduki registreerimise riik KL</documentation>
+						</annotation>
+					</element>
+					<element name="vlAasta" type="gYear">
+						<annotation>
+							<appinfo>
+								<xtee:title>Sõiduki väljalaskeaasta</xtee:title>
+							</appinfo>
+							<documentation>Sõiduki väljalaskeaasta</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+			<complexType name="soidukOtsiDetailid">
+				<annotation>
+					<appinfo>
+						<xtee:title>Sõiduki tagaotsimisega seotud tagaotsimisedetailid</xtee:title>
+					</appinfo>
+					<documentation>Sõiduki tagaotsimisega seotud tagaotsimisedetailid
+					</documentation>
+				</annotation>
+				<sequence>
+					<element name="tagaotsiId">
+						<annotation>
+							<appinfo>
+								<xtee:title>Tagaotsimise ID</xtee:title>
+							</appinfo>
+							<documentation>Tagaotsimise ID</documentation>
+						</annotation>
+					</element>
+					<element name="algKuupaev" type="dateTime">
+						<annotation>
+							<appinfo>
+								<xtee:title>Tagaotsimise alustamise kuupäev</xtee:title>
+							</appinfo>
+							<documentation>Tagaotsimise alustamise kuupäev</documentation>
+						</annotation>
+					</element>
+					<element name="algPohjus">
+						<annotation>
+							<appinfo>
+								<xtee:title>Tagaotsimise alustamise põhjus</xtee:title>
+							</appinfo>
+							<documentation>Tagaotsimise alustamise põhjus</documentation>
+						</annotation>
+					</element>
+					<element name="algPohjus">
+						<annotation>
+							<appinfo>
+								<xtee:title>Tagaotsimise alustamise põhjus KL</xtee:title>
+							</appinfo>
+							<documentation>Tagaotsimise alustamise põhjus KL</documentation>
+						</annotation>
+					</element>
+					<element name="loppKuupaev" type="dateTime">
+						<annotation>
+							<appinfo>
+								<xtee:title>Tagaotsimise lõpetamise kuupäev</xtee:title>
+							</appinfo>
+							<documentation>Tagaotsimise lõpetamise kuupäev</documentation>
+						</annotation>
+					</element>
+					<element name="loppPohjus" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Tagaotsimise lõpetamise põhjus</xtee:title>
+							</appinfo>
+							<documentation>Tagaotsimise lõpetamise põhjus</documentation>
+						</annotation>
+					</element>
+					<element name="loppPohjusKL" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Tagaotsimise lõpetamise põhjus KL</xtee:title>
+							</appinfo>
+							<documentation>Tagaotsimise lõpetamise põhjus KL</documentation>
+						</annotation>
+					</element>
+					<element name="asutus" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Tagaotsiv asutus</xtee:title>
+							</appinfo>
+							<documentation>Tagaotsiv asutus</documentation>
+						</annotation>
+					</element>
+					<element name="initsiaator" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Initsiaator</xtee:title>
+							</appinfo>
+							<documentation>Initsiaator</documentation>
+						</annotation>
+					</element>
+					<element name="kontakt" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Initsiaatori kontakttelefon</xtee:title>
+							</appinfo>
+							<documentation>Initsiaatori kontakttelefon</documentation>
+						</annotation>
+					</element>
+					<element name="tegevusLeidmisel" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Tegevus leidmisel</xtee:title>
+							</appinfo>
+							<documentation>Tegevus leidmisel</documentation>
+						</annotation>
+					</element>
+					<element name="tegevusLeidmiselKL" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Tegevus leidmisel KL</xtee:title>
+							</appinfo>
+							<documentation>Tegevus leidmisel KL</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+			<complexType name="soidukTagaotsiKeha">
+				<annotation>
+					<appinfo>
+						<xtee:title>Sõidukite tagaotsimise päringu tulemus</xtee:title>
+					</appinfo>
+					<documentation>Sõidukite tagaotsimise päringu tulemus</documentation>
+				</annotation>
+				<sequence>
+					<element name="soidukid">
+						<annotation>
+							<appinfo>
+								<xtee:title>Sõidukid</xtee:title>
+							</appinfo>
+							<documentation>Sõidukid</documentation>
+						</annotation>
+						<complexType>
+							<sequence>
+								<element name="soiduk" minOccurs="0" maxOccurs="unbounded">
+									<annotation>
+										<appinfo>
+											<xtee:title>Sõiduk</xtee:title>
+										</appinfo>
+										<documentation>Sõiduk</documentation>
+									</annotation>
+									<complexType>
+										<sequence>
+											<element name="soidukDetailid" type="tns:soidukOtsiSoidukDetailid">
+												<annotation>
+													<appinfo>
+														<xtee:title>Sõidukiga seotud andmed</xtee:title>
+													</appinfo>
+													<documentation>Sõidukiga seotud andmed</documentation>
+												</annotation>
+											</element>
+											<element name="tagaotsimineDetailid" type="tns:soidukOtsiDetailid">
+												<annotation>
+													<appinfo>
+														<xtee:title>Sõiduki tagaotsimise või lõpetamisega seotud andmed</xtee:title>
+													</appinfo>
+													<documentation>Sõiduki tagaotsimise või lõpetamisega seotud andmed</documentation>
+												</annotation>
+											</element>
+										</sequence>
+									</complexType>
+								</element>
+							</sequence>
+						</complexType>
+					</element>
+					<element name="faultString" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>Veateade</xtee:title>
+							</appinfo>
+							<documentation>Veatede</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+			<element name="soidukTagaotsiKeha" type="tns:soidukTagaotsiKeha" />
+			<complexType name="SoidukTagaotsimineAjaVahemik">
+				<annotation>
+					<appinfo>
+						<xtee:title>Sõiduki tagaotsimise päring ajavahemiku alusel</xtee:title>
+					</appinfo>
+					<documentation>Sõiduki tagaotsimise andmete päring ajavahemiku alusel</documentation>
+				</annotation>
+				<sequence>
+					<element name="keha" type="tns:aegVahemik" />
+				</sequence>
+			</complexType>
+			<element name="SoidukTagaotsimineAjaVahemik" type="tns:SoidukTagaotsimineAjaVahemik">
+				<annotation>
+					<appinfo>
+						<xtee:title>Sõiduki tagaotsimise päring ajavahemiku alusel</xtee:title>
+					</appinfo>
+					<documentation>Sõiduki tagaotsimise andmete päring ajavahemiku alusel</documentation>
+				</annotation>
+			</element>
+			<complexType name="SoidukTagaotsimineAjaVahemikResponse">
+				<annotation>
+					<appinfo>
+						<xtee:title>Sõiduki tagaotsimise tulemus ajavahemiku alusel</xtee:title>
+					</appinfo>
+					<documentation>Sõiduki tagaotsimise andmete tulemus ajavahemiku alusel</documentation>
+				</annotation>
+				<sequence>
+					<element name="paring" type="tns:aegVahemik">
+						<annotation>
+							<appinfo>
+								<xtee:title>Päring</xtee:title>
+							</appinfo>
+							<documentation>Päring</documentation>
+						</annotation>
+					</element>
+					<element name="keha" type="tns:soidukTagaotsiKeha">
+						<annotation>
+							<appinfo>
+								<xtee:title>Vastus</xtee:title>
+							</appinfo>
+							<documentation>Vastus</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+			<element name="SoidukTagaotsimineAjaVahemikResponse" type="tns:SoidukTagaotsimineAjaVahemikResponse">
+				<annotation>
+					<appinfo>
+						<xtee:title>Sõiduki tagaotsimise vastus ajavahemiku alusel</xtee:title>
+					</appinfo>
+					<documentation>Sõiduki tagaotsimise andmete tulemus ajavahemiku järgi</documentation>
+				</annotation>
+			</element>
+			<complexType name="SoidukTagaotsimineSoiduk">
+				<annotation>
+					<appinfo>
+						<xtee:title>Sõiduki tagaotsimise päring sõiduki andmete alusel</xtee:title>
+					</appinfo>
+					<documentation>Sõiduki tagaotsimise päring sõiduki andmete alusel</documentation>
+				</annotation>
+				<sequence>
+					<element name="keha" type="tns:soiduk" />
+				</sequence>
+			</complexType>
+			<element name="SoidukTagaotsimineSoiduk" type="tns:SoidukTagaotsimineSoiduk">
+				<annotation>
+					<appinfo>
+						<xtee:title>Sõiduki tagaotsimise päring sõiduki andmete alusel</xtee:title>
+					</appinfo>
+					<documentation>Sõiduki tagaotsimise päring sõiduki andmete alusel</documentation>
+				</annotation>
+			</element>
+			<complexType name="SoidukTagaotsimineSoidukResponse">
+				<sequence>
+					<element name="paring" type="tns:soiduk">
+						<annotation>
+							<appinfo>
+								<xtee:title>Päring</xtee:title>
+							</appinfo>
+							<documentation>Päring</documentation>
+						</annotation>
+					</element>
+					<element name="keha" type="tns:soidukTagaotsiKeha">
+						<annotation>
+							<appinfo>
+								<xtee:title>Vastus</xtee:title>
+							</appinfo>
+							<documentation>Vastus</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+			<element name="SoidukTagaotsimineSoidukResponse" type="tns:SoidukTagaotsimineSoidukResponse">
+				<annotation>
+					<documentation>Sõiduki tagaotsimise tulemus</documentation>
+				</annotation>
+			</element>
+			<complexType name="isikOtsiIsikDetailid">
+				<annotation>
+					<appinfo>
+						<xtee:title>Isiku detailid</xtee:title>
+					</appinfo>
+					<documentation>Isiku detailid</documentation>
+				</annotation>
+				<sequence>
+					<element name="isikukood" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Isikukood</xtee:title>
+							</appinfo>
+							<documentation></documentation>
+						</annotation>
+					</element>
+					<element name="eesnimi" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Eesnimi</xtee:title>
+							</appinfo>
+							<documentation></documentation>
+						</annotation>
+					</element>
+					<element name="perenimi" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Perenimi</xtee:title>
+							</appinfo>
+							<documentation></documentation>
+						</annotation>
+					</element>
+					<element name="synnikuupaev" type="date">
+						<annotation>
+							<appinfo>
+								<xtee:title>Sünnikuupäev</xtee:title>
+							</appinfo>
+							<documentation></documentation>
+						</annotation>
+					</element>
+					<element name="sugu" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Sugu</xtee:title>
+							</appinfo>
+							<documentation></documentation>
+						</annotation>
+					</element>
+					<element name="suguKL" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Sugu KL</xtee:title>
+							</appinfo>
+							<documentation></documentation>
+						</annotation>
+					</element>
+					<element name="kodakondsus" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Kodakondsus</xtee:title>
+							</appinfo>
+							<documentation></documentation>
+						</annotation>
+					</element>
+					<element name="kodakondsusKL" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Kodakondsus KL</xtee:title>
+							</appinfo>
+							<documentation></documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+			<complexType name="isikOtsiDetailid">
+				<annotation>
+					<appinfo>
+						<xtee:title>Isiku tagaotsimisega seotud tagaotsimisedetailid</xtee:title>
+					</appinfo>
+					<documentation>Isiku tagaotsimisega seotud tagaotsimisedetailid</documentation>
+				</annotation>
+				<sequence>
+					<element name="algKuupaev" type="dateTime">
+						<annotation>
+							<appinfo>
+								<xtee:title>Tagaotsimise alustamise kuupäev</xtee:title>
+							</appinfo>
+							<documentation>Tagaotsimise alustamise kuupäev</documentation>
+						</annotation>
+					</element>
+					<element name="algPohjus">
+						<annotation>
+							<appinfo>
+								<xtee:title>Tagaotsimise alustamise põhjus</xtee:title>
+							</appinfo>
+							<documentation>Tagaotsimise alustamise põhjus</documentation>
+						</annotation>
+					</element>
+					<element name="loppKuupaev" type="dateTime">
+						<annotation>
+							<appinfo>
+								<xtee:title>Tagaotsimise lõpetamise kuupäev</xtee:title>
+							</appinfo>
+							<documentation>Tagaotsimise lõpetamise kuupäev</documentation>
+						</annotation>
+					</element>
+					<element name="loppPohjus" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Tagaotsimise lõpetamise põhjus</xtee:title>
+							</appinfo>
+							<documentation>Tagaotsimise lõpetamise põhjus</documentation>
+						</annotation>
+					</element>
+					<element name="oigusorg" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Tagaotsiv asutus</xtee:title>
+							</appinfo>
+							<documentation>Tagaotsiv asutus</documentation>
+						</annotation>
+					</element>
+					<element name="initsiaator" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Initsiaator</xtee:title>
+							</appinfo>
+							<documentation>Initsiaator</documentation>
+						</annotation>
+					</element>
+					<element name="kontakt" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Initsiaatori kontakttelefon</xtee:title>
+							</appinfo>
+							<documentation>Initsiaatori kontakttelefon</documentation>
+						</annotation>
+					</element>
+					<element name="tegevusLeidmiselKL" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Tegevus leidmisel kood</xtee:title>
+							</appinfo>
+							<documentation>Tegevus leidmisel kood</documentation>
+						</annotation>
+					</element>
+					<element name="tegevusLeidmisel" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Tegevus leidmisel</xtee:title>
+							</appinfo>
+							<documentation>Tegevus leidmisel</documentation>
+						</annotation>
+					</element>
+					<element name="lisainfo" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Lisainfo</xtee:title>
+							</appinfo>
+							<documentation>Lisainfo</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+			<complexType name="isikOtsiDokumendid">
+				<sequence>
+					<element name="dokument" minOccurs="0" maxOccurs="unbounded">
+						<complexType>
+							<sequence>
+								<element name="ID" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Dokumendi ID väärtus</xtee:title>
+										</appinfo>
+										<documentation>Dokumendi ID väärtus</documentation>
+									</annotation>
+								</element>
+								<element name="dokNr" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Dokumendi nr</xtee:title>
+										</appinfo>
+										<documentation>Dokumendi nr</documentation>
+									</annotation>
+								</element>
+								<element name="liik" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Dokumendi liik</xtee:title>
+										</appinfo>
+										<documentation>Dokumendi liik</documentation>
+									</annotation>
+								</element>
+								<element name="riik" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Dokumendi riik</xtee:title>
+										</appinfo>
+										<documentation>Dokumendi riik</documentation>
+									</annotation>
+								</element>
+							</sequence>
+						</complexType>
+					</element>
+				</sequence>
+			</complexType>
+			<complexType name="isikTagaotsiKeha">
+				<annotation>
+					<documentation>Isikute tagaotsimise päringu tulemus</documentation>
+				</annotation>
+				<sequence>
+					<element name="isikud">
+						<complexType>
+							<sequence>
+								<element name="isik" minOccurs="0" maxOccurs="unbounded">
+									<annotation>
+										<appinfo>
+											<xtee:title>Isik</xtee:title>
+										</appinfo>
+										<documentation>Isik</documentation>
+									</annotation>
+									<complexType>
+										<sequence>
+											<element name="isikDetailid" type="tns:isikOtsiIsikDetailid">
+												<annotation>
+													<appinfo>
+														<xtee:title>Isikuga seotud andmed</xtee:title>
+													</appinfo>
+													<documentation>Isikuga seotud andmed</documentation>
+												</annotation>
+											</element>
+											<element name="tagaotsimineDetailid" type="tns:isikOtsiDetailid">
+												<annotation>
+													<appinfo>
+														<xtee:title>Isiku tagaotsimise või lõpetamisega seotud andmed</xtee:title>
+													</appinfo>
+													<documentation>Isiku tagaotsimise või lõpetamisega seotud andmed</documentation>
+												</annotation>
+											</element>
+											<element name="dokumendid" type="tns:isikOtsiDokumendid">
+												<annotation>
+													<appinfo>
+														<xtee:title>Isiku tagaotsimise või lõpetamisega seotud andmed</xtee:title>
+													</appinfo>
+													<documentation>Isiku tagaotsimise või lõpetamisega seotud andmed</documentation>
+												</annotation>
+											</element>
+										</sequence>
+									</complexType>
+								</element>
+							</sequence>
+						</complexType>
+					</element>
+				</sequence>
+			</complexType>
+			<element name="isikTagaotsiKeha" type="tns:isikTagaotsiKeha">
+				<annotation>
+					<documentation>Isikute tagaotsimise päringu tulemus</documentation>
+				</annotation>
+			</element>
+			<complexType name="IsikTagaotsimineParing">
+				<choice>
+					<element name="isik" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>Isiku andmed</xtee:title>
+							</appinfo>
+							<documentation>Isiku andmed</documentation>
+						</annotation>
+						<complexType>
+							<sequence>
+								<element name="eesnimi" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Tagaotsitava eesnimi [2...64 char]</xtee:title>
+										</appinfo>
+										<documentation>Tagaotsitava eesnimi [2...64 char]</documentation>
+									</annotation>
+								</element>
+								<element name="perenimi" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Tagaotsitava perenimi [2...64 char]</xtee:title>
+										</appinfo>
+										<documentation>Tagaotsitava perenimi [2...64 char]</documentation>
+									</annotation>
+								</element>
+								<element name="synniKp" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Tagaotsitava sünnikuupäev [DD.MM.YYYY]</xtee:title>
+										</appinfo>
+										<documentation>Tagaotsitava sünnikuupäev [DD.MM.YYYY]</documentation>
+									</annotation>
+								</element>
+							</sequence>
+						</complexType>
+					</element>
+					<element name="dokument" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>Dokumendi andmed</xtee:title>
+							</appinfo>
+							<documentation>Dokument</documentation>
+						</annotation>
+						<complexType>
+							<sequence>
+								<element name="riik">
+									<annotation>
+										<appinfo>
+											<xtee:title>Dokumendi riik [3 char]</xtee:title>
+										</appinfo>
+										<documentation>Dokumendi riik [3 char]</documentation>
+									</annotation>
+									<simpleType>
+										<restriction base="string">
+											<length value="3" />
+										</restriction>
+									</simpleType>
+								</element>
+								<element name="dokNr" type="string">
+									<annotation>
+										<appinfo>
+											<xtee:title>Dokumendi number</xtee:title>
+										</appinfo>
+										<documentation>Dokumendi number</documentation>
+									</annotation>
+								</element>
+							</sequence>
+						</complexType>
+					</element>
+				</choice>
+			</complexType>
+			<element name="IsikTagaotsimineParing" type="tns:IsikTagaotsimineParing" />
+			<complexType name="IsikTagaotsimineIsik">
+				<annotation>
+					<documentation>Isikute tagaotsimise andmete päring isiku andmete alusel</documentation>
+				</annotation>
+				<sequence>
+					<element name="keha" type="tns:IsikTagaotsimineParing" />
+				</sequence>
+			</complexType>
+			<element name="IsikTagaotsimineIsik" type="tns:IsikTagaotsimineIsik">
+				<annotation>
+					<documentation>Isikute tagaotsimise andmete päring isiku andmete alusel</documentation>
+				</annotation>
+			</element>
+			<complexType name="IsikTagaotsimineIsikResponse">
+				<annotation>
+					<documentation>Isikute tagaotsimise andmete tulemus isiku andmete alusel</documentation>
+				</annotation>
+				<sequence>
+					<element name="paring" type="tns:IsikTagaotsimineParing">
+						<annotation>
+							<appinfo>
+								<xtee:title>Päring</xtee:title>
+							</appinfo>
+							<documentation>Päring</documentation>
+						</annotation>
+					</element>
+					<element name="keha" type="tns:isikTagaotsiKeha">
+						<annotation>
+							<appinfo>
+								<xtee:title>Vastus</xtee:title>
+							</appinfo>
+							<documentation>Vastus</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+			<element name="IsikTagaotsimineIsikResponse" type="tns:IsikTagaotsimineIsikResponse">
+				<annotation>
+					<documentation>Isikute tagaotsimise andmete tulemus isiku andmete alusel</documentation>
+				</annotation>
+			</element>
+			<complexType name="IsikTagaotsimineAjaVahemik">
+				<annotation>
+					<documentation>Isikute tagaotsimise andmete päring ajavahemiku alusel </documentation>
+				</annotation>
+				<sequence>
+					<element name="keha" type="tns:aegVahemik" />
+				</sequence>
+			</complexType>
+			<element name="IsikTagaotsimineAjaVahemik" type="tns:IsikTagaotsimineAjaVahemik">
+				<annotation>
+					<documentation>Isikute tagaotsimise andmete päring ajavahemiku alusel</documentation>
+				</annotation>
+			</element>
+			<complexType name="IsikTagaotsimineAjaVahemikResponse">
+				<annotation>
+					<documentation>Isikute tagaotsimise andmete tulemus ajavahemiku alusel</documentation>
+				</annotation>
+				<sequence>
+					<element name="paring" type="tns:aegVahemik">
+						<annotation>
+							<appinfo>
+								<xtee:title>Päring</xtee:title>
+							</appinfo>
+							<documentation>Päring</documentation>
+						</annotation>
+					</element>
+					<element name="keha" type="tns:isikTagaotsiKeha">
+						<annotation>
+							<appinfo>
+								<xtee:title>Vastus</xtee:title>
+							</appinfo>
+							<documentation>Vastus</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+			<element name="IsikTagaotsimineAjaVahemikResponse" type="tns:IsikTagaotsimineAjaVahemikResponse">
+				<annotation>
+					<documentation>Isikute tagaotsimise andmete tulemus ajavahemiku alusel</documentation>
+				</annotation>
+			</element>
+			<complexType name="JuhtAraParing">
+				<annotation>
+					<appinfo>
+						<xtee:title>Juhtimiseäravõtmise päring isikuandmete alusel</xtee:title>
+					</appinfo>
+					<documentation>Juhtimiseäravõtmise päring isikuandmete alusel</documentation>
+				</annotation>
+				<sequence>
+					<choice>
+						<element name="kuupaev" type="tns:aegVahemik" minOccurs="0">
+							<annotation>
+								<appinfo>
+									<xtee:title>Kuupäeva vahemik</xtee:title>
+								</appinfo>
+								<documentation>Kuupäeva vahemik</documentation>
+							</annotation>
+						</element>
+						<element name="isikukood" minOccurs="0">
+							<annotation>
+								<appinfo>
+									<xtee:title>Isikukood [min 7]</xtee:title>
+								</appinfo>
+								<documentation>min pikkus on 7 ja max 64</documentation>
+							</annotation>
+							<simpleType>
+								<restriction base="string">
+									<minLength value="7" />
+									<maxLength value="11" />
+								</restriction>
+							</simpleType>
+						</element>
+						<element name="isik" minOccurs="0">
+							<complexType>
+								<sequence>
+									<element name="paringTyyp" default="1">
+										<annotation>
+											<appinfo>
+												<xtee:title>Päringu tüüp[1 - täpne, 2- algusosa alusel]</xtee:title>
+											</appinfo>
+											<documentation>1 - täpne, 2- LIKE lõpuga</documentation>
+										</annotation>
+										<simpleType>
+											<restriction base="string">
+												<length value="1" />
+											</restriction>
+										</simpleType>
+									</element>
+									<element name="eesnimi">
+										<annotation>
+											<appinfo>
+												<xtee:title>Eesnimi [min 2]</xtee:title>
+											</appinfo>
+											<documentation>min pikkus 2 tähemärk</documentation>
+										</annotation>
+										<simpleType>
+											<restriction base="string">
+												<minLength value="2" />
+											</restriction>
+										</simpleType>
+									</element>
+									<element name="perenimi">
+										<annotation>
+											<appinfo>
+												<xtee:title>Perenimi [min 2]</xtee:title>
+											</appinfo>
+											<documentation>min pikkus 2 tähemärk </documentation>
+										</annotation>
+										<simpleType>
+											<restriction base="string">
+												<minLength value="2" />
+											</restriction>
+										</simpleType>
+									</element>
+									<element name="synniaeg" type="date">
+										<annotation>
+											<appinfo>
+												<xtee:title>Sünniaeg [DD.MM.YYYY]</xtee:title>
+											</appinfo>
+											<documentation>DD.MM.YYYY</documentation>
+										</annotation>
+									</element>
+								</sequence>
+							</complexType>
+						</element>
+					</choice>
+				</sequence>
+			</complexType>
+			<complexType name="JuhtAraResponse">
+				<annotation>
+					<appinfo>
+						<xtee:title>Juhtimiseäravõtmise päringu tulemus isikuandmete alusel</xtee:title>
+					</appinfo>
+					<documentation>Juhtimiseäravõtmise päringu tulemus isikuandmete alusel</documentation>
+				</annotation>
+				<sequence>
+								<element name="isikud">
+									<annotation>
+										<appinfo>
+											<xtee:title>Isikud</xtee:title>
+										</appinfo>
+										<documentation>Isikud</documentation>
+									</annotation>
+									<complexType>
+										<sequence>
+											<element name="isik" minOccurs="0" maxOccurs="unbounded">
+												<annotation>
+													<appinfo>
+														<xtee:title>Isik</xtee:title>
+													</appinfo>
+													<documentation>Isik</documentation>
+												</annotation>
+												<complexType>
+													<sequence>
+														<element name="isikDetailid">
+															<annotation>
+																<appinfo>
+																	<xtee:title>Isiku detailid</xtee:title>
+																</appinfo>
+																<documentation>Isiku detailid</documentation>
+															</annotation>
+															<complexType>
+																<sequence>
+																	<element name="isikukood" type="string">
+																		<annotation>
+																			<appinfo>
+																				<xtee:title>Isikukood</xtee:title>
+																			</appinfo>
+																			<documentation></documentation>
+																		</annotation>
+																	</element>
+																	<element name="eesnimi" type="string">
+																		<annotation>
+																			<appinfo>
+																				<xtee:title>Eesnimi</xtee:title>
+																			</appinfo>
+																			<documentation></documentation>
+																		</annotation>
+																	</element>
+																	<element name="perenimi" type="string">
+																		<annotation>
+																			<appinfo>
+																				<xtee:title>Perenimi</xtee:title>
+																			</appinfo>
+																			<documentation></documentation>
+																		</annotation>
+																	</element>
+																	<element name="synnikuupaev" type="string">
+																		<annotation>
+																			<appinfo>
+																				<xtee:title>Sünnikuupäev</xtee:title>
+																			</appinfo>
+																			<documentation></documentation>
+																		</annotation>
+																	</element>
+																	<element name="kodakondsus" type="string">
+																		<annotation>
+																			<appinfo>
+																				<xtee:title>Kodakondsus</xtee:title>
+																			</appinfo>
+																			<documentation></documentation>
+																		</annotation>
+																	</element>
+																</sequence>
+															</complexType>
+														</element>
+														<element name="aadress">
+															<annotation>
+																<appinfo>
+																	<xtee:title>Aadressi detailid</xtee:title>
+																</appinfo>
+																<documentation>Aadress detailid</documentation>
+															</annotation>
+															<complexType>
+																<sequence>
+																	<element name="ehak" type="string">
+																		<annotation>
+																			<appinfo>
+																				<xtee:title>EHAK</xtee:title>
+																			</appinfo>
+																			<documentation></documentation>
+																		</annotation>
+																	</element>
+																	<element name="tanavaKood" type="string">
+																		<annotation>
+																			<appinfo>
+																				<xtee:title>Tänava kood</xtee:title>
+																			</appinfo>
+																			<documentation></documentation>
+																		</annotation>
+																	</element>
+																	<element name="majaNrKrunt" type="string">
+																		<annotation>
+																			<appinfo>
+																				<xtee:title>Maja nr/krunt</xtee:title>
+																			</appinfo>
+																			<documentation></documentation>
+																		</annotation>
+																	</element>
+																	<element name="taluKorter" type="string">
+																		<annotation>
+																			<appinfo>
+																				<xtee:title>Talu/Korter</xtee:title>
+																			</appinfo>
+																			<documentation></documentation>
+																		</annotation>
+																	</element>
+																	<element name="postiindeks" type="string">
+																		<annotation>
+																			<appinfo>
+																				<xtee:title>Postiindeks</xtee:title>
+																			</appinfo>
+																			<documentation></documentation>
+																		</annotation>
+																	</element>
+																</sequence>
+															</complexType>
+														</element>
+														<element name="menetlus">
+															<annotation>
+																<appinfo>
+																	<xtee:title>Menetluse detailid</xtee:title>
+																</appinfo>
+																<documentation>Menetluse detailid</documentation>
+															</annotation>
+															<complexType>
+																<sequence>
+																	<element name="otsusNr" type="string">
+																		<annotation>
+																			<appinfo>
+																				<xtee:title>Otsuse nr</xtee:title>
+																			</appinfo>
+																			<documentation>Menetluse otsuse number
+																			</documentation>
+																		</annotation>
+																	</element>
+																	<element name="otsusKuupaev" type="string">
+																		<annotation>
+																			<appinfo>
+																				<xtee:title>Otsuse kuupäev </xtee:title>
+																			</appinfo>
+																			<documentation>Otsuse kuupäev ja kellaeg
+																			</documentation>
+																		</annotation>
+																	</element>
+																	<element name="otsusJoustunud" type="string">
+																		<annotation>
+																			<appinfo>
+																				<xtee:title>Otsuse jõustumise kuupäev</xtee:title>
+																			</appinfo>
+																			<documentation>Otsuse jõustumise kuupäev
+																			</documentation>
+																		</annotation>
+																	</element>
+																	<element name="otsusAsutus" type="string">
+																		<annotation>
+																			<appinfo>
+																				<xtee:title>Otsuse teinud asutus</xtee:title>
+																			</appinfo>
+																			<documentation>Otsuse teinud asutus</documentation>
+																		</annotation>
+																	</element>
+																	<element name="araTahtaeg" type="string">
+																		<annotation>
+																			<appinfo>
+																				<xtee:title>Äravõtmise tähaeg</xtee:title>
+																			</appinfo>
+																			<documentation>Äravõtmise tähaeg</documentation>
+																		</annotation>
+																	</element>
+																	<element name="araAlgKuupaev" type="string">
+																		<annotation>
+																			<appinfo>
+																				<xtee:title>Äravõtmise algus kuupäev</xtee:title>
+																			</appinfo>
+																			<documentation></documentation>
+																		</annotation>
+																	</element>
+																	<element name="araLoppKuupaev" type="string">
+																		<annotation>
+																			<appinfo>
+																				<xtee:title>Äravõtmise lõpp kuupäev</xtee:title>
+																			</appinfo>
+																			<documentation></documentation>
+																		</annotation>
+																	</element>
+																	<element name="paragrahv" type="string">
+																		<annotation>
+																			<appinfo>
+																				<xtee:title>Paragrahv</xtee:title>
+																			</appinfo>
+																			<documentation>Paragrafid, mille alusel juhtimisõigus
+																				ära võeti</documentation>
+																		</annotation>
+																	</element>
+																</sequence>
+															</complexType>
+														</element>
+													</sequence>
+												</complexType>
+											</element>
+										</sequence>
+									</complexType>
+								</element>
+								<element name="faultString" minOccurs="0">
+									<annotation>
+										<appinfo>
+											<xtee:title>Veateade</xtee:title>
+										</appinfo>
+										<documentation>Veateade</documentation>
+									</annotation>
+								</element>
+				</sequence>
+			</complexType>
+			<complexType name="LoAndmed">
+				<annotation>
+					<appinfo>
+						<xtee:title>Juhtumitest liiklusõnnetuste andmete päring</xtee:title>
+					</appinfo>
+					<documentation>Juhtumitest liiklusõnnetuste andmete päring</documentation>
+				</annotation>
+				<sequence>
+					<element name="keha" type="tns:LoAndmedParing" />
+				</sequence>
+			</complexType>
+			<element name="LoAndmed" type="tns:LoAndmed">
+				<annotation>
+					<appinfo>
+						<xtee:title>Juhtumitest liiklusõnnetuste andmete päring</xtee:title>
+					</appinfo>
+					<documentation>Juhtumitest liiklusõnnetuste andmete päring
+					</documentation>
+				</annotation>
+			</element>
+			<complexType name="LoAndmedParing">
+				<annotation>
+					<appinfo>
+						<xtee:title>Juhtumitest liiklusõnnetuste andmete päring</xtee:title>
+					</appinfo>
+					<documentation>Juhtumitest liiklusõnnetuste andmete päring</documentation>
+				</annotation>
+				<sequence>
+					<element name="kuupaev" type="tns:aegVahemik" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>Kuupäeva vahemik</xtee:title>
+							</appinfo>
+							<documentation>Kuupäeva vahemik</documentation>
+						</annotation>
+					</element>
+					<element name="juhtumNr" type="string" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>Juhtumi Nr</xtee:title>
+							</appinfo>
+							<documentation>Juhtumi Nr</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+			<element name="LoAndmedParing" type="tns:LoAndmedParing">
+				<annotation>
+					<appinfo>
+						<xtee:title>Juhtumitest liiklusõnnetuste andmete päring</xtee:title>
+					</appinfo>
+					<documentation>Juhtumitest liiklusõnnetuste andmete päring</documentation>
+				</annotation>
+			</element>
+			<complexType name="LoAndmedResponse">
+				<annotation>
+					<appinfo>
+						<xtee:title>Juhtumitest liiklusõnnetuste andmete tulemus</xtee:title>
+					</appinfo>
+					<documentation>Juhtumitest liiklusõnnetuste andmete tulemus</documentation>
+				</annotation>
+				<sequence>
+					<element name="paring" type="tns:LoAndmedParing">
+						<annotation>
+							<appinfo>
+								<xtee:title>Juhtumitest liiklusõnnetuste andmete päring</xtee:title>
+							</appinfo>
+							<documentation>Juhtumitest liiklusõnnetuste andmete päring</documentation>
+						</annotation>
+					</element>
+					<element name="keha">
+						<complexType>
+							<sequence>
+								<element name="liiklusonnetused">
+									<annotation>
+										<appinfo>
+											<xtee:title>Liiklusõnnetused</xtee:title>
+										</appinfo>
+										<documentation>Liiklusõnnetused</documentation>
+									</annotation>
+									<complexType>
+										<sequence>
+											<element name="liiklusonnetus" minOccurs="0" maxOccurs="unbounded">
+												<annotation>
+													<appinfo>
+														<xtee:title>Liiklusõnnetus</xtee:title>
+													</appinfo>
+													<documentation>Liiklusõnnetus</documentation>
+												</annotation>
+												<complexType>
+													<sequence>
+														<element name="juhtum" type="tns:juhtum">
+															<annotation>
+																<appinfo>
+																	<xtee:title>Juhtumi andmed</xtee:title>
+																</appinfo>
+																<documentation>Juhtumi andmed</documentation>
+															</annotation>
+														</element>
+														<element name="asukoht" type="tns:asukoht">
+															<annotation>
+																<appinfo>
+																	<xtee:title>Asukoha andmed</xtee:title>
+																</appinfo>
+																<documentation>Asukoha andmed</documentation>
+															</annotation>
+														</element>
+														<element name="isikud" type="tns:isikud">
+															<annotation>
+																<appinfo>
+																	<xtee:title>Seotud isikud</xtee:title>
+																</appinfo>
+																<documentation>Seotud isikud</documentation>
+															</annotation>
+														</element>
+														<element name="soidukid" type="tns:soidukid">
+															<annotation>
+																<appinfo>
+																	<xtee:title>Seotud sõidukid</xtee:title>
+																</appinfo>
+																<documentation>Seotud sõidukid</documentation>
+															</annotation>
+														</element>
+														<element name="dokumendid" type="tns:dokumendid">
+															<annotation>
+																<appinfo>
+																	<xtee:title>Seotud dokumendid</xtee:title>
+																</appinfo>
+																<documentation>Seotud dokumendid</documentation>
+															</annotation>
+														</element>
+													</sequence>
+												</complexType>
+											</element>
+										</sequence>
+									</complexType>
+								</element>
+								<element name="faultString" minOccurs="0">
+									<annotation>
+										<appinfo>
+											<xtee:title>Veateade</xtee:title>
+										</appinfo>
+										<documentation>Veatede</documentation>
+									</annotation>
+								</element>
+							</sequence>
+						</complexType>
+					</element>
+				</sequence>
+			</complexType>
+			<element name="LoAndmedResponse" type="tns:LoAndmedResponse">
+				<annotation>
+					<appinfo>
+						<xtee:title>Juhtumitest liiklusõnnetuste andmete tulemus
+						</xtee:title>
+					</appinfo>
+					<documentation>Juhtumitest liiklusõnnetuste andmete tulemus
+					</documentation>
+				</annotation>
+			</element>
+		</schema>
+	</types>
+	<message name="SoidukTagaotsimineAjaVahemikRequest">
+		<part name="keha" element="tns:SoidukTagaotsimineAjaVahemik" />
+	</message>
+	<message name="SoidukTagaotsimineAjaVahemikResponse">
+		<part name="keha" element="tns:SoidukTagaotsimineAjaVahemikResponse" />
+	</message>
+	<message name="LoAndmedRequest">
+		<part name="keha" element="tns:LoAndmed" />
+	</message>
+	<message name="LoAndmedResponse">
+		<part name="keha" element="tns:LoAndmedResponse" />
+	</message>
+	<message name="JuhtAraRequestMessage">
+		<part name="keha" element="tns:JuhtAraRequest" />
+	</message>
+	<message name="JuhtAraResponseMessage">
+		<part name="paring" type="tns:JuhtAraRequest"/>
+		<part name="keha" element="tns:JuhtAraResponse" />
+	</message>
+	<message name="SoidukTagaotsimineSoidukRequest">
+		<part name="keha" element="tns:SoidukTagaotsimineSoiduk" />
+	</message>
+	<message name="SoidukTagaotsimineSoidukResponse">
+		<part name="keha" element="tns:SoidukTagaotsimineSoidukResponse" />
+	</message>
+	<message name="standardpais">
+		<part name="asutus" element="xtee:asutus" />
+		<part name="andmekogu" element="xtee:andmekogu" />
+		<part name="isikukood" element="xtee:isikukood" />
+		<part name="nimi" element="xtee:nimi" />
+		<part name="id" element="xtee:id" />
+		<part name="toimik" element="xtee:toimik" />
+		<part name="ametnik" element="xtee:ametnik" />
+	</message>
+	<message name="listMethods">
+		<part name="listMethods" element="xtee:listMethods" />
+	</message>
+	<message name="listMethodsResponse">
+		<part name="keha" element="xtee:listMethodsResponse" />
+	</message>
+	<message name="IsikTagaotsimineAjaVahemikRequest">
+		<part name="keha" element="tns:IsikTagaotsimineAjaVahemik" />
+	</message>
+	<message name="IsikTagaotsimineAjaVahemikResponse">
+		<part name="keha" element="tns:IsikTagaotsimineAjaVahemikResponse" />
+	</message>
+	<message name="IsikTagaotsimineIsikRequest">
+		<part name="keha" element="tns:IsikTagaotsimineIsik" />
+	</message>
+	<message name="IsikTagaotsimineIsikResponse">
+		<part name="keha" element="tns:IsikTagaotsimineIsikResponse" />
+	</message>
+	<portType name="polisporttype">
+		<operation name="SoidukTagaotsimineAjaVahemik">
+			<documentation>
+				<xtee:title>Sõidukite tagaotsimine ajavahemiku alusel.</xtee:title>
+			</documentation>
+			<input name="SoidukTagaotsimineAjaVahemik" message="tns:SoidukTagaotsimineAjaVahemikRequest" />
+			<output name="SoidukTagaotsimineAjaVahemikResponse" message="tns:SoidukTagaotsimineAjaVahemikResponse" />
+		</operation>
+		<operation name="SoidukTagaotsimineSoiduk">
+			<documentation>
+				<xtee:title>Sõidukite tagaotsimine sõiduki alusel.</xtee:title>
+			</documentation>
+			<input name="SoidukTagaotsimineSoiduk" message="tns:SoidukTagaotsimineSoidukRequest" />
+			<output name="SoidukTagaotsimineSoidukResponse" message="tns:SoidukTagaotsimineSoidukResponse" />
+		</operation>
+		<operation name="LoAndmed">
+			<documentation>
+				<xtee:title>Liiklusõnnetuste andmed.</xtee:title>
+			</documentation>
+			<input name="LoAndmed" message="tns:LoAndmedRequest" />
+			<output name="LoAndmedResponse" message="tns:LoAndmedResponse" />
+		</operation>
+		<operation name="JuhtAra">
+			<documentation>
+				<xtee:title>Juhtimisõiguse äravõtmine.</xtee:title>
+			</documentation>
+			<input name="JuhtAra" message="tns:JuhtAraRequestMessage" />
+			<output name="JuhtAraResponse" message="tns:JuhtAraResponseMessage" />
+		</operation>
+		<operation name="IsikTagaotsimineAjaVahemik">
+			<documentation>
+				<xtee:title>Isikute tagaotsimine ajavahemiku alusel.</xtee:title>
+			</documentation>
+			<input name="IsikTagaotsimineAjaVahemik" message="tns:IsikTagaotsimineAjaVahemikRequest" />
+			<output name="IsikTagaotsimineAjaVahemikResponse" message="tns:IsikTagaotsimineAjaVahemikResponse" />
+		</operation>
+		<operation name="IsikTagaotsimineIsik">
+			<documentation>
+				<xtee:title>Isikute tagaotsimine isiku alusel.</xtee:title>
+			</documentation>
+			<input name="IsikTagaotsimineIsik" message="tns:IsikTagaotsimineIsikRequest" />
+			<output name="IsikTagaotsimineIsikResponse" message="tns:IsikTagaotsimineIsikResponse" />
+		</operation>
+		<operation name="listMethods">
+			<documentation>
+				<xtee:title>listMethods</xtee:title>
+			</documentation>
+			<input message="tns:listMethods" />
+			<output message="tns:listMethodsResponse" />
+		</operation>
+	</portType>
+	<binding name="polisbinding" type="tns:polisporttype">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<operation name="SoidukTagaotsimineAjaVahemik">
+			<soap:operation soapAction="" style="document" />
+			<xtee:version>v1</xtee:version>
+			<input>
+				<soap:header message="tns:standardpais" part="asutus"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="andmekogu"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="isikukood"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="id" use="literal"
+					namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="nimi" use="literal"
+					namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="toimik"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="ametnik"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:body parts="keha" use="literal"
+					namespace="http://producers.polis.xtee.riik.ee/producer/polis" />
+			</input>
+			<output>
+				<soap:header message="tns:standardpais" part="asutus"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="andmekogu"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="isikukood"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="id" use="literal"
+					namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="nimi" use="literal"
+					namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="toimik"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="ametnik"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:body parts="keha" use="literal"
+					namespace="http://producers.polis.xtee.riik.ee/producer/polis" />
+			</output>
+		</operation>
+		<operation name="SoidukTagaotsimineSoiduk">
+			<soap:operation soapAction="" style="document" />
+			<xtee:version>v1</xtee:version>
+			<input>
+				<soap:header message="tns:standardpais" part="asutus"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="andmekogu"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="isikukood"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="id" use="literal"
+					namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="nimi" use="literal"
+					namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="toimik"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="ametnik"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:body parts="keha" use="literal"
+					namespace="http://producers.polis.xtee.riik.ee/producer/polis" />
+			</input>
+			<output>
+				<soap:header message="tns:standardpais" part="asutus"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="andmekogu"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="isikukood"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="id" use="literal"
+					namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="nimi" use="literal"
+					namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="toimik"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="ametnik"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:body parts="keha" use="literal"
+					namespace="http://producers.polis.xtee.riik.ee/producer/polis" />
+			</output>
+		</operation>
+		<operation name="LoAndmed">
+			<soap:operation soapAction="" style="document" />
+			<xtee:version>v1</xtee:version>
+			<input>
+				<soap:header message="tns:standardpais" part="asutus"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="andmekogu"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="isikukood"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="id" use="literal"
+					namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="nimi" use="literal"
+					namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="toimik"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="ametnik"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:body parts="keha" use="literal"
+					namespace="http://producers.polis.xtee.riik.ee/producer/polis" />
+			</input>
+			<output>
+				<soap:header message="tns:standardpais" part="asutus"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="andmekogu"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="isikukood"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="id" use="literal"
+					namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="nimi" use="literal"
+					namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="toimik"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="ametnik"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:body parts="keha" use="literal"
+					namespace="http://producers.polis.xtee.riik.ee/producer/polis" />
+			</output>
+		</operation>
+		<operation name="JuhtAra">
+			<soap:operation soapAction="" style="document" />
+			<xtee:version>v1</xtee:version>
+			<input>
+				<soap:header message="tns:standardpais" part="asutus"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="andmekogu"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="isikukood"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="id" use="literal"
+					namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="nimi" use="literal"
+					namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="toimik"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="ametnik"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:body parts="keha" use="literal"
+					namespace="http://producers.polis.xtee.riik.ee/producer/polis" />
+			</input>
+			<output>
+				<soap:header message="tns:standardpais" part="asutus"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="andmekogu"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="isikukood"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="id" use="literal"
+					namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="nimi" use="literal"
+					namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="toimik"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="ametnik"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:body parts="keha" use="literal"
+					namespace="http://producers.polis.xtee.riik.ee/producer/polis" />
+			</output>
+		</operation>
+		<operation name="IsikTagaotsimineAjaVahemik">
+			<soap:operation soapAction="" style="document" />
+			<xtee:version>v1</xtee:version>
+			<input>
+				<soap:header message="tns:standardpais" part="asutus"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="andmekogu"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="isikukood"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="id" use="literal"
+					namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="nimi" use="literal"
+					namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="toimik"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="ametnik"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:body parts="keha" use="literal"
+					namespace="http://producers.polis.xtee.riik.ee/producer/polis" />
+			</input>
+			<output>
+				<soap:header message="tns:standardpais" part="asutus"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="andmekogu"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="isikukood"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="id" use="literal"
+					namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="nimi" use="literal"
+					namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="toimik"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="ametnik"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:body parts="keha" use="literal"
+					namespace="http://producers.polis.xtee.riik.ee/producer/polis" />
+			</output>
+		</operation>
+		<operation name="IsikTagaotsimineIsik">
+			<soap:operation soapAction="" style="document" />
+			<xtee:version>v1</xtee:version>
+			<input>
+				<soap:header message="tns:standardpais" part="asutus"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="andmekogu"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="isikukood"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="id" use="literal"
+					namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="nimi" use="literal"
+					namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="toimik"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="ametnik"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:body parts="keha" use="literal"
+					namespace="http://producers.polis.xtee.riik.ee/producer/polis" />
+			</input>
+			<output>
+				<soap:header message="tns:standardpais" part="asutus"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="andmekogu"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="isikukood"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="id" use="literal"
+					namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="nimi" use="literal"
+					namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="toimik"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:header message="tns:standardpais" part="ametnik"
+					use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+				<soap:body parts="keha" use="literal"
+					namespace="http://producers.polis.xtee.riik.ee/producer/polis" />
+			</output>
+		</operation>
+		<operation name="listMethods">
+			<soap:operation soapAction="http://TURVASERVER.XTEE/cgi-bin/consumer_proxy"
+				style="document" />
+			<xtee:version>v1</xtee:version>
+			<input>
+				<soap:body use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+			</input>
+			<output>
+				<soap:body parts="keha" use="literal"
+					namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+			</output>
+		</operation>
+	</binding>
+	<service name="polis">
+		<port name="polis" binding="tns:polisbinding">
+			<soap:address location="http://TURVASERVER/cgi-bin/consumer_proxy" />
+			<xtee:title>Politseiameti andmekogu</xtee:title>
+			<xtee:address producer="polis" />
+		</port>
+	</service>
+</definitions>

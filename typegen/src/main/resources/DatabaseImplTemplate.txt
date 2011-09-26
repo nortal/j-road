@@ -1,0 +1,28 @@
+package ${databaseClass.packageName};
+
+import ee.webmedia.xtee.client.exception.XTeeServiceConsumptionException;
+import ee.webmedia.xtee.client.service.XTeeDatabaseService;
+import ee.webmedia.xtee.model.XTeeMessage;
+import ee.webmedia.xtee.model.XmlBeansXTeeMessage;
+import org.springframework.stereotype.Service;
+
+/**
+ * <code>${databaseClass.database}</code> X-tee database implementation.
+ */
+@Service("${databaseClass.interfaceNameDecapitalized}")
+public class ${databaseClass.implementationName} extends XTeeDatabaseService implements ${databaseClass.interfaceName} {
+<#list databaseClass.methods as method>
+<#list method.versions as version>
+
+  /**
+   * <code>${databaseClass.database}.${method.name}.v${version.version}</code> X-tee service implementation.
+   */
+  public ${method.outputClass} ${version.name}(${method.inputClass} input) throws XTeeServiceConsumptionException {
+    XTeeMessage<${method.outputClass}> response = send(new XmlBeansXTeeMessage<${method.inputClass}>(input), "${method.name}", "v${version.version}");
+
+    return response.getContent();
+  }
+</#list>
+</#list>
+
+}
