@@ -47,6 +47,10 @@ public interface LiiklusregisterXTeeService {
 
   VlaevTunnVastus findVlaevTunnistused(String tunnistusNr, String isikukood, String eesnimi, String perenimi) throws XTeeServiceConsumptionException;
   
+  /**
+   * <code>liiklusregister.pol_juhtoigus.v1</code> X-tee service implementation.
+   */
+  PolJuhtoigusVastus polJuhtoigus(String isikukood) throws XTeeServiceConsumptionException;
   
   public interface PolSoidukParingCallback {
     void populate(PolSoidukParing paring);
