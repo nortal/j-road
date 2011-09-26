@@ -1969,6 +1969,13 @@
           </sequence>
         </complexType>
       </element>
+      <element name="isikud">
+        <complexType>
+          <sequence>
+            <element maxOccurs="unbounded" minOccurs="0" name="isikud" type="liiklusregister:pol_isik"/>
+          </sequence>
+        </complexType>
+      </element>
     </all>
 
   </complexType>
