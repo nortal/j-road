@@ -19,4 +19,8 @@
 		<constructor-arg value="naidis" />
 	</bean>
 	
+	<bean id="axisContextHelper" class="ee.webmedia.xtee.endpoint.helper.AxisContextHelper">
+		<constructor-arg type="java.lang.Class" value="ee.riik.xtee.naidis.producers.producer.naidis.MyportSoap11Stub" />
+	</bean>
+	
 </beans>

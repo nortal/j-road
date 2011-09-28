@@ -85,6 +85,12 @@
           </filesets>
         </configuration>
       </plugin>
+      
+      <plugin>
+      	<groupId>org.mortbay.jetty</groupId>
+      	<artifactId>jetty-maven-plugin</artifactId>
+      	<version>8.0.1.v20110908</version>
+      </plugin>
     </plugins>
   </build>
 
