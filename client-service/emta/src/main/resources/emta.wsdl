@@ -201,7 +201,7 @@ Tööandjad Ja Sotsm        </xtee:title>
 
                                              <xsd:sequence>
 
-                                                  <xsd:element maxOccurs="unbounded" minOccurs="0" name="item" type="tns:isikuTooandjaJaSotsm"/>
+                                                  <xsd:element maxOccurs="unbounded" minOccurs="0" name="tooandjadJaSotsmJada" type="tns:isikuTooandjaJaSotsm"/>
 
                                              </xsd:sequence>
 

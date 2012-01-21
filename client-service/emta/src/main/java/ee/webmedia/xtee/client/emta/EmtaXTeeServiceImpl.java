@@ -2,6 +2,8 @@ package ee.webmedia.xtee.client.emta;
 
 import ee.webmedia.xtee.client.emta.database.EmtaXTeeDatabase;
 import ee.webmedia.xtee.client.emta.types.ee.riik.xtee.emta.producers.producer.emta.EmtaFieAndmedParing;
+import ee.webmedia.xtee.client.emta.types.ee.riik.xtee.emta.producers.producer.emta.EmtaFieTooandjadJaSotsmParing;
+import ee.webmedia.xtee.client.emta.types.ee.riik.xtee.emta.producers.producer.emta.EmtaFieTooandjadJaSotsmVastus;
 import ee.webmedia.xtee.client.emta.types.ee.riik.xtee.emta.producers.producer.emta.EmtaKindlustusParing;
 import ee.webmedia.xtee.client.emta.types.ee.riik.xtee.emta.producers.producer.emta.FieIsikAndmed;
 import ee.webmedia.xtee.client.emta.types.ee.riik.xtee.emta.producers.producer.emta.Periood;
@@ -66,6 +68,18 @@ public class EmtaXTeeServiceImpl implements EmtaXTeeService {
 	 return emtaXTeeDatabase.vptV1(request);
   }
 
+  public EmtaFieTooandjadJaSotsmVastus findXteeFieTooandjadJaSotsm(String isikukood, Date algkuup, Date loppkuup) throws XTeeServiceConsumptionException {
+
+    EmtaFieTooandjadJaSotsmParing request = EmtaFieTooandjadJaSotsmParing.Factory.newInstance();
+
+    DateFormat monthYearDateFormatter = new SimpleDateFormat("MM.yyyy");
+
+    request.setIsikukood(isikukood);
+    request.setAlgkuup(monthYearDateFormatter.format(algkuup));
+    request.setLoppkuup(monthYearDateFormatter.format(loppkuup));
+
+    return emtaXTeeDatabase.xteeFieTooandjadJaSotsmV1(request);
+  }
 
   public void setEmtaXTeeDatabase(EmtaXTeeDatabase emtaXTeeDatabase) {
     this.emtaXTeeDatabase = emtaXTeeDatabase;

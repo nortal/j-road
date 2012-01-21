@@ -1,5 +1,6 @@
 package ee.webmedia.xtee.client.emta;
 
+import ee.webmedia.xtee.client.emta.types.ee.riik.xtee.emta.producers.producer.emta.EmtaFieTooandjadJaSotsmVastus;
 import ee.webmedia.xtee.client.emta.types.ee.riik.xtee.emta.producers.producer.emta.FieIsikAndmed;
 import ee.webmedia.xtee.client.emta.types.ee.riik.xtee.emta.producers.producer.emta.Periood;
 import ee.webmedia.xtee.client.emta.types.ee.riik.xtee.emta.producers.producer.emta.SissetulekResponse;
@@ -38,4 +39,9 @@ public interface EmtaXTeeService {
    * <code>emta.vpt.v1</code> service.
    */
   VptValjund findXteeVpt(String kood, Calendar millal) throws XTeeServiceConsumptionException;
+  
+  /**
+   * <code>emta.xteeFieTooandjadJaSotsm.v1</code> service.
+   */
+  EmtaFieTooandjadJaSotsmVastus findXteeFieTooandjadJaSotsm(String isikukood, Date algkuup, Date loppkuup) throws XTeeServiceConsumptionException;
 }
