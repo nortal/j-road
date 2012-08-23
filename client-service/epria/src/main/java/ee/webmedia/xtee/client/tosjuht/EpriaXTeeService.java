@@ -18,14 +18,25 @@ import ee.webmedia.xtee.client.exception.XTeeServiceConsumptionException;
  * @date 10.09.2010
  */
 public interface EpriaXTeeService {
+	
   /**
-   * @param kandeNumber
-   * @param digiDok
+   * @param xml
+   * @param securityServer
+   * @param isikukood
    * @return
    * @throws XTeeServiceConsumptionException
    */
-  VastuseKood saadaTaotluseDigiDok(String kandeNumber, ManusModel digiDok) throws XTeeServiceConsumptionException;	
+  public String epria(String xml, String securityServer, String isikukood) throws XTeeServiceConsumptionException;
 
+  /**
+   * @param xml
+   * @param securityServer
+   * @param isikukood
+   * @return
+   * @throws XTeeServiceConsumptionException
+   */
+  String epriaParingManusega(String xml, String securityServer, String isikukood) throws XTeeServiceConsumptionException;
+  
   /**
    * @param kandeNumber
    * @return
@@ -46,17 +57,19 @@ public interface EpriaXTeeService {
   /**
    * @param kandeNumber Taotluse kande number
    * @param portaaliId Manuse id ePria portaalis
+   * @param sisuFailId Kanderaamatu id
    * @return {@link DhVaataTaotluseManusResponse}
    * @throws XTeeServiceConsumptionException
    */
-  DhsVaataTaotluseManusResponse vaataTatoluseManus(Long portaaliId) throws XTeeServiceConsumptionException;
+  DhsVaataTaotluseManusResponse vaataTatoluseManus(String kandeNumber, String portaaliId, String sisuFailId, String vaataja, Integer priaRoll) throws XTeeServiceConsumptionException;
   
   /**
    * @param kandeNumber
+   * @param digiDoc
    * @param pdf
    * @param manused
    * @return
    * @throws XTeeServiceConsumptionException
-  */
-  VastuseKood saadaTaotlus(String kandeNumber, ManusModel pdf, List<ManusModel> manused) throws XTeeServiceConsumptionException;
+   */
+  VastuseKood saadaTaotlus(String kandeNumber, ManusModel digiDoc, ManusModel pdf, List<ManusModel> manused) throws XTeeServiceConsumptionException;
 }

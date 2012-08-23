@@ -4,215 +4,242 @@
 	
 	<import namespace="http://ws-i.org/profiles/basic/1.1/xsd" schemaLocation="http://ws-i.org/profiles/basic/1.1/swaref.xsd"/>
 
-	<!-- Epria andmepäring -->	
 	<element name="epriaRequest" type="string"/>
-	<element name="epriaResponse" type="tns:epriaResponse"/>
-    
-    <complexType name="epriaRequest">
-    	<sequence>
+	<element name="epriaResponse" type="string"/>
 
-    		<any/>
-    	</sequence>
-    </complexType>
+	<!-- Epria andmepäring -->	
+	<element name="epriaManusegaRequest" type="tns:epriaManusegaRequest"/>
+	<element name="epriaManusegaResponse" type="tns:epriaManusegaResponse"/>
 
-    <complexType name="epriaResponse">
-    	<sequence>
-    		<any/>
-    	</sequence>
-    </complexType>
-
-    
-    <!-- Esitatud taotluse digidokumendi saatmsie päring -->
-    <element name="dhsSaadaTaotluseDigiDokRequest" type="tns:dhsSaadaTaotluseDigiDokRequest"/>
-	<element name="dhsSaadaTaotluseDigiDokResponse" type="tns:vastuseKood"/>
-
-    <complexType name="dhsSaadaTaotluseDigiDokRequest">
-    	<sequence>
-    		<element maxOccurs="1" minOccurs="1" name="kandeNumber" type="string">
+	<complexType name="epriaManusegaRequest">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="paringXml" type="tns:BinaarfailNest">
 				<annotation>
-					<documentation>Kandenumber</documentation>
-
+					<documentation>Päringu fail</documentation>
 				</annotation>
 			</element>
-			<element name="digiDok" type="tns:BinaarfailNest"/>
-    	</sequence>
-    </complexType>
-    
-    <!-- Vaata esitatud taotluse pdfi päring -->	
-    <element name="dhsVaataTaotluseDigiDokRequest" type="tns:dhsVaataTaotluseDigiDokRequest"/>
+		</sequence>
+
+	</complexType>
+
+	<complexType name="epriaManusegaResponse">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="vastusXml" type="tns:BinaarfailNest">
+				<annotation>
+					<documentation>Vastuse fail</documentation>
+				</annotation>
+			</element>
+
+		</sequence>
+	</complexType>
+
+	<!-- Esitatud taotluse saatmsie päring -->
+	<element name="dhsSaadaTaotlusRequest" type="tns:dhsSaadaTaotlusRequest"/>
+	<element name="dhsSaadaTaotlusResponse" type="tns:vastuseKood"/>
+	
+	<complexType name="dhsSaadaTaotlusRequest">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="kandeNumber" type="string">
+
+				<annotation>
+					<documentation>Kandenumber</documentation>
+				</annotation>
+			</element>
+			<element name="taotluseDigiDoc" type="tns:Manus"/>
+			<element name="taotlusePdf" type="tns:Manus"/>
+			<element maxOccurs="unbounded" minOccurs="1" name="manus" type="tns:Manus"/>
+		</sequence>
+
+	</complexType>
+	
+
+	<!-- Vaata esitatud taotluse digidoc päring -->	
+	<element name="dhsVaataTaotluseDigiDokRequest" type="tns:dhsVaataTaotluseDigiDokRequest"/>
 	<element name="dhsVaataTaotluseDigiDokResponse" type="tns:dhsVaataTaotluseDigiDokResponse"/>
 
-    <complexType name="dhsVaataTaotluseDigiDokRequest">
-
-    	<sequence>
-    		<element maxOccurs="1" minOccurs="1" name="kandeNumber" type="string">
-				<annotation>
-					<documentation>Kandenumber</documentation>
-				</annotation>
-			</element>
-    	</sequence>
-    </complexType>
-
-    <complexType name="dhsVaataTaotluseDigiDokResponse">
-    	<sequence>
-    		<element name="digiDok" type="tns:BinaarfailNest"/>
-    	</sequence>
-    </complexType>
-    
-    <!-- Esitatud taotluse saatmsie päring -->
-    <element name="dhsSaadaTaotlusRequest" type="tns:dhsSaadaTaotlusRequest"/>
-	<element name="dhsSaadaTaotlusResponse" type="tns:vastuseKood"/>
-
-	
-    <complexType name="dhsSaadaTaotlusRequest">
-    	<sequence>
-    		<element maxOccurs="1" minOccurs="1" name="kandeNumber" type="string">
-				<annotation>
-					<documentation>Kandenumber</documentation>
-				</annotation>
-			</element>
-			<element name="taotlusePdf" type="tns:Manus"/>
-
-			<element maxOccurs="unbounded" minOccurs="1" name="manus" type="tns:Manus"/>
-    	</sequence>
-    </complexType>
-    
-    <!-- Vaata esitatud taotluse pdfi päring -->	
-    <element name="dhsVaataTaotlusePdfRequest" type="tns:dhsVaataTaotlusePdfRequest"/>
-	<element name="dhsVaataTaotlusePdfResponse" type="tns:dhsVaataTaotlusePdfResponse"/>
-
-    <complexType name="dhsVaataTaotlusePdfRequest">
-    	<sequence>
-    		<element maxOccurs="1" minOccurs="1" name="kandeNumber" type="string">
-
-				<annotation>
-					<documentation>Kandenumber</documentation>
-				</annotation>
-			</element>
-    	</sequence>
-    </complexType>
-
-    <complexType name="dhsVaataTaotlusePdfResponse">
-    	<sequence>
-
-    		<element name="pdf" type="tns:Manus"/>
-    	</sequence>
-    </complexType>
-
-	<!-- Vaata esitatud taotluse manust päring -->	
-    <element name="dhsVaataTaotluseManusRequest" type="tns:dhsVaataTaotluseManusRequest"/>
-	<element name="dhsVaataTaotluseManusResponse" type="tns:dhsVaataTaotluseManusResponse"/>
-
-    <complexType name="dhsVaataTaotluseManusRequest">
-    	<sequence>
-
-    		<element maxOccurs="1" minOccurs="1" name="manuseId" type="string">
-				<annotation>
-					<documentation>Manuse id</documentation>
-				</annotation>
-			</element>
-    	</sequence>
-    </complexType>
-    
-	<complexType name="dhsVaataTaotluseManusResponse">
-
+	<complexType name="dhsVaataTaotluseDigiDokRequest">
 		<sequence>
-			<element maxOccurs="1" minOccurs="1" name="manus" type="tns:Manus">
+			<element maxOccurs="1" minOccurs="1" name="kandeNumber" type="string">
 				<annotation>
-					<documentation>Manuse</documentation>
+					<documentation>Kandenumber</documentation>
+
 				</annotation>
 			</element>
 		</sequence>
 	</complexType>
 
+	<complexType name="dhsVaataTaotluseDigiDokResponse">
+		<sequence>
+			<element name="digiDok" type="tns:Manus"/>
+		</sequence>
+
+	</complexType>
+
+	<!-- Vaata esitatud taotluse pdfi päring -->	
+	<element name="dhsVaataTaotlusePdfRequest" type="tns:dhsVaataTaotlusePdfRequest"/>
+	<element name="dhsVaataTaotlusePdfResponse" type="tns:dhsVaataTaotlusePdfResponse"/>
+
+	<complexType name="dhsVaataTaotlusePdfRequest">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="kandeNumber" type="string">
+				<annotation>
+
+					<documentation>Kandenumber</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+
+	<complexType name="dhsVaataTaotlusePdfResponse">
+		<sequence>
+			<element name="pdf" type="tns:Manus"/>
+
+		</sequence>
+	</complexType>
+
+	<!-- Vaata esitatud taotluse manust päring -->	
+	<element name="dhsVaataTaotluseManusRequest" type="tns:dhsVaataTaotluseManusRequest"/>
+	<element name="dhsVaataTaotluseManusResponse" type="tns:dhsVaataTaotluseManusResponse"/>
+
+	<complexType name="dhsVaataTaotluseManusRequest">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="kandeNumber" type="string">
+
+				<annotation>
+					<documentation>Kandenumber</documentation>
+				</annotation>
+			</element>		
+			<element maxOccurs="1" minOccurs="1" name="manuseId" type="string">
+				<annotation>
+					<documentation>Manuse id</documentation>
+				</annotation>
+
+			</element>
+			<element maxOccurs="1" minOccurs="1" name="sisuFailId" type="string">
+				<annotation>
+					<documentation>Sisufail id</documentation>
+				</annotation>
+			</element>
+			<element maxOccurs="1" minOccurs="1" name="vaataja" type="string">
+				<annotation>
+
+					<documentation>Dokumendi avaja</documentation>
+				</annotation>
+			</element>
+			<element maxOccurs="1" minOccurs="1" name="priaRoll" type="string">
+				<annotation>
+					<documentation>Kas dokument avatakse pria rollis</documentation>
+				</annotation>
+			</element>
+
+		</sequence>
+	</complexType>
+
+	<complexType name="dhsVaataTaotluseManusResponse">
+		<sequence>
+			<element maxOccurs="1" minOccurs="1" name="manus" type="tns:Manus">
+				<annotation>
+					<documentation>Manuse</documentation>
+				</annotation>
+
+			</element>
+		</sequence>
+	</complexType>
 	
 	<complexType name="Manus">
 		<sequence>
 			<element maxOccurs="1" minOccurs="1" name="manuseId" type="string">
 				<annotation>
 					<documentation>Manuse id portaalis</documentation>
+
 				</annotation>
 			</element>	
 			<element maxOccurs="1" minOccurs="1" name="manuseNimi" type="string">
 				<annotation>
-
 					<documentation>Manuse nimi</documentation>
 				</annotation>
 			</element>
 			<element maxOccurs="1" minOccurs="1" name="sisu" type="tns:BinaarfailNest">
 				<annotation>
+
 					<documentation>Manuse fail</documentation>
 				</annotation>
 			</element>
-
-    	</sequence>
-    </complexType>
-
-    <complexType name="BinaarfailNest">
-    	<sequence>
-			<element name="Attachment" type="ref:swaRef"/>
 		</sequence>
-    </complexType>
-    
-    <complexType name="vastuseKood">
+	</complexType>
 
-    	<sequence>
+	<complexType name="BinaarfailNest">
+		<sequence>
+			<element name="Attachment" type="ref:swaRef"/>
+
+		</sequence>
+	</complexType>
+
+	<complexType name="vastuseKood">
+		<sequence>
 			<element maxOccurs="1" minOccurs="1" name="VastuseKood">
 				<simpleType>
 					<annotation>
 						<documentation>Vastuse kood</documentation>
+
 					</annotation>
 					<restriction base="string">
 						<enumeration value="OK"/>
-
 						<enumeration value="VIGA"/>
 					</restriction>
 				</simpleType>
 			</element>
 		</sequence>
     </complexType>
+
 </schema>
   </wsdl:types>
   <wsdl:message name="epriaRequest">
-
     <wsdl:part name="keha" type="xns1:string">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="epriaResponse">
     <wsdl:part name="paring" type="xns1:string">
     </wsdl:part>
-    <wsdl:part name="keha" type="tns:epriaResponse">
+
+    <wsdl:part name="keha" type="xns1:string">
     </wsdl:part>
   </wsdl:message>
-
   <wsdl:message name="dhsSaadaTaotlusRequest">
     <wsdl:part name="keha" type="tns:dhsSaadaTaotlusRequest">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="dhsVaataTaotluseDigiDokResponse">
     <wsdl:part name="paring" type="tns:dhsVaataTaotluseDigiDokRequest">
+
     </wsdl:part>
     <wsdl:part name="keha" type="tns:dhsVaataTaotluseDigiDokResponse">
     </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="epriaManusegaRequest">
+    <wsdl:part name="keha" type="tns:epriaManusegaRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="epriaManusegaResponse">
 
+    <wsdl:part name="paring" type="tns:epriaManusegaRequest">
+    </wsdl:part>
+    <wsdl:part name="keha" type="tns:epriaManusegaResponse">
+    </wsdl:part>
   </wsdl:message>
   <wsdl:message name="dhsVaataTaotluseManusResponse">
     <wsdl:part name="paring" type="tns:dhsVaataTaotluseManusRequest">
     </wsdl:part>
     <wsdl:part name="keha" type="tns:dhsVaataTaotluseManusResponse">
+
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="dhsVaataTaotluseDigiDokRequest">
     <wsdl:part name="keha" type="tns:dhsVaataTaotluseDigiDokRequest">
-
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="dhsVaataTaotlusePdfRequest">
     <wsdl:part name="keha" type="tns:dhsVaataTaotlusePdfRequest">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="dhsSaadaTaotluseDigiDokRequest">
-    <wsdl:part name="keha" type="tns:dhsSaadaTaotluseDigiDokRequest">
     </wsdl:part>
 
   </wsdl:message>
@@ -231,134 +258,94 @@
     <wsdl:part element="xtee:ametnik" name="ametnik">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="dhsSaadaTaotluseDigiDokResponse">
-    <wsdl:part name="paring" type="tns:dhsSaadaTaotluseDigiDokRequest">
-    </wsdl:part>
-
-    <wsdl:part name="keha" type="tns:vastuseKood">
-    </wsdl:part>
-  </wsdl:message>
   <wsdl:message name="dhsSaadaTaotlusResponse">
     <wsdl:part name="paring" type="tns:dhsSaadaTaotlusRequest">
     </wsdl:part>
+
     <wsdl:part name="keha" type="tns:vastuseKood">
     </wsdl:part>
   </wsdl:message>
-
   <wsdl:message name="dhsVaataTaotlusePdfResponse">
     <wsdl:part name="paring" type="tns:dhsVaataTaotlusePdfRequest">
     </wsdl:part>
     <wsdl:part name="keha" type="tns:dhsVaataTaotlusePdfResponse">
     </wsdl:part>
   </wsdl:message>
+
   <wsdl:message name="dhsVaataTaotluseManusRequest">
     <wsdl:part name="keha" type="tns:dhsVaataTaotluseManusRequest">
     </wsdl:part>
-
   </wsdl:message>
   <wsdl:portType name="epria">
     <wsdl:operation name="dhsSaadaTaotlus">
 <wsdl:documentation><xtee:title>ePria portaali taotluste teenus</xtee:title></wsdl:documentation>
       <wsdl:input message="tns:dhsSaadaTaotlusRequest" name="dhsSaadaTaotlusRequest">
     </wsdl:input>
-      <wsdl:output message="tns:dhsSaadaTaotlusResponse" name="dhsSaadaTaotlusResponse">
-    </wsdl:output>
-    </wsdl:operation>
 
-    <wsdl:operation name="dhsSaadaTaotluseDigiDok">
-<wsdl:documentation><xtee:title>ePria portaali taotluse digidokumendi saatmise teenus</xtee:title></wsdl:documentation>
-      <wsdl:input message="tns:dhsSaadaTaotluseDigiDokRequest" name="dhsSaadaTaotluseDigiDokRequest">
-    </wsdl:input>
-      <wsdl:output message="tns:dhsSaadaTaotluseDigiDokResponse" name="dhsSaadaTaotluseDigiDokResponse">
+      <wsdl:output message="tns:dhsSaadaTaotlusResponse" name="dhsSaadaTaotlusResponse">
     </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="dhsVaataTaotluseDigiDok">
 <wsdl:documentation><xtee:title>ePria portaali taotluse digidokumendi vaatamise teenus</xtee:title></wsdl:documentation>
-
       <wsdl:input message="tns:dhsVaataTaotluseDigiDokRequest" name="dhsVaataTaotluseDigiDokRequest">
     </wsdl:input>
       <wsdl:output message="tns:dhsVaataTaotluseDigiDokResponse" name="dhsVaataTaotluseDigiDokResponse">
     </wsdl:output>
+
     </wsdl:operation>
     <wsdl:operation name="epria">
-<wsdl:documentation><xtee:title>epria</xtee:title></wsdl:documentation>
+<wsdl:documentation><xtee:title>Epria tosjuht service</xtee:title></wsdl:documentation>
       <wsdl:input message="tns:epriaRequest" name="epriaRequest">
     </wsdl:input>
-
       <wsdl:output message="tns:epriaResponse" name="epriaResponse">
     </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="dhsVaataTaotlusePdf">
+
 <wsdl:documentation><xtee:title>DHS Vaata esitatud pdf teenus</xtee:title></wsdl:documentation>
       <wsdl:input message="tns:dhsVaataTaotlusePdfRequest" name="dhsVaataTaotlusePdfRequest">
     </wsdl:input>
       <wsdl:output message="tns:dhsVaataTaotlusePdfResponse" name="dhsVaataTaotlusePdfResponse">
     </wsdl:output>
-
     </wsdl:operation>
     <wsdl:operation name="dhsVaataTaotluseManus">
 <wsdl:documentation><xtee:title>DHS Vaata taotlsue manust</xtee:title></wsdl:documentation>
       <wsdl:input message="tns:dhsVaataTaotluseManusRequest" name="dhsVaataTaotluseManusRequest">
+
     </wsdl:input>
       <wsdl:output message="tns:dhsVaataTaotluseManusResponse" name="dhsVaataTaotluseManusResponse">
     </wsdl:output>
     </wsdl:operation>
-  </wsdl:portType>
+    <wsdl:operation name="epriaManusega">
+<wsdl:documentation><xtee:title>Epria tosjuht service</xtee:title></wsdl:documentation>
+      <wsdl:input message="tns:epriaManusegaRequest" name="epriaManusegaRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:epriaManusegaResponse" name="epriaManusegaResponse">
 
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
   <wsdl:binding name="epriaSoap11" type="tns:epria">
     <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsdl:operation name="dhsSaadaTaotlus">
       <soap:operation soapAction=""/>
         <xtee:version>v1</xtee:version>
+
       <wsdl:input name="dhsSaadaTaotlusRequest">
         <soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="asutus" use="literal">
         </soap:header>
-
         <soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="andmekogu" use="literal">
         </soap:header>
         <soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="isikukood" use="literal">
         </soap:header>
         <soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="id" use="literal">
         </soap:header>
+
         <soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="nimi" use="literal">
         </soap:header>
         <soap:body namespace="http://producers.epria.xtee.riik.ee/producer/epria" use="literal"/>
-
       </wsdl:input>
       <wsdl:output name="dhsSaadaTaotlusResponse">
-        <soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="asutus" use="literal">
-        </soap:header>
-        <soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="andmekogu" use="literal">
-        </soap:header>
-        <soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="isikukood" use="literal">
-        </soap:header>
-        <soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="id" use="literal">
-
-        </soap:header>
-        <soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="nimi" use="literal">
-        </soap:header>
-        <soap:body namespace="http://producers.epria.xtee.riik.ee/producer/epria" use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="dhsSaadaTaotluseDigiDok">
-      <soap:operation soapAction=""/>
-        <xtee:version>v1</xtee:version>
-
-      <wsdl:input name="dhsSaadaTaotluseDigiDokRequest">
-        <soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="asutus" use="literal">
-        </soap:header>
-        <soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="andmekogu" use="literal">
-        </soap:header>
-        <soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="isikukood" use="literal">
-        </soap:header>
-        <soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="id" use="literal">
-        </soap:header>
-
-        <soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="nimi" use="literal">
-        </soap:header>
-        <soap:body namespace="http://producers.epria.xtee.riik.ee/producer/epria" use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="dhsSaadaTaotluseDigiDokResponse">
         <soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="asutus" use="literal">
         </soap:header>
         <soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="andmekogu" use="literal">
@@ -507,12 +494,46 @@
         <soap:body namespace="http://producers.epria.xtee.riik.ee/producer/epria" use="literal"/>
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="epriaManusega">
+      <soap:operation soapAction=""/>
+
+        <xtee:version>v1</xtee:version>
+      <wsdl:input name="epriaManusegaRequest">
+        <soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="asutus" use="literal">
+        </soap:header>
+        <soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="andmekogu" use="literal">
+        </soap:header>
+        <soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="isikukood" use="literal">
+        </soap:header>
+
+        <soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="id" use="literal">
+        </soap:header>
+        <soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="nimi" use="literal">
+        </soap:header>
+        <soap:body namespace="http://producers.epria.xtee.riik.ee/producer/epria" use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="epriaManusegaResponse">
+        <soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="asutus" use="literal">
+        </soap:header>
+
+        <soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="andmekogu" use="literal">
+        </soap:header>
+        <soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="isikukood" use="literal">
+        </soap:header>
+        <soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="id" use="literal">
+        </soap:header>
+        <soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="nimi" use="literal">
+        </soap:header>
+        <soap:body namespace="http://producers.epria.xtee.riik.ee/producer/epria" use="literal"/>
+
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="epriaService">
-
     <wsdl:port binding="tns:epriaSoap11" name="epriaSoap11">
       <soap:address location="http://TURVASERVER/cgi-bin/consumer_proxy"/>
     <xtee:address producer="epria"/>
     </wsdl:port>
   </wsdl:service>
+
 </wsdl:definitions>

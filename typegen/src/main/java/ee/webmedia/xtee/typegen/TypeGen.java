@@ -445,7 +445,7 @@ public class TypeGen {
       XmlBeansXTeeMetadata serviceMetadata = entry.getValue();
 
       String key = entry.getKey();
-      String database = key.substring(0, key.indexOf(serviceMetadata.getOperationName().toLowerCase()));
+      String database = key.substring(0, key.lastIndexOf(serviceMetadata.getOperationName().toLowerCase()));
 
       classes.add(database, serviceMetadata);
     }
