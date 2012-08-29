@@ -3,6 +3,8 @@ package ee.webmedia.xtee.client.tosjuht;
 import ee.webmedia.xtee.client.exception.NonTechnicalFaultException;
 import ee.webmedia.xtee.client.exception.XTeeServiceConsumptionException;
 import ee.webmedia.xtee.client.service.XTeeDatabaseService;
+import ee.webmedia.xtee.client.service.configuration.DelegatingXTeeServiceConfiguration;
+import ee.webmedia.xtee.client.service.configuration.XTeeServiceConfiguration;
 import ee.webmedia.xtee.client.tosjuht.database.EpriaXTeeDatabase;
 import ee.webmedia.xtee.client.tosjuht.model.ManusModel;
 import ee.webmedia.xtee.client.tosjuht.types.ee.riik.xtee.epria.producers.producer.epria.BinaarfailNest;
@@ -39,10 +41,28 @@ import org.springframework.stereotype.Service;
  * @date 10.09.2010
  */
 @Service("epriaXTeeService")
-public class EpriaXTeeServiceImpl extends EpriaXTeeDatabaseService implements EpriaXTeeService {
+public class EpriaXTeeServiceImpl extends XTeeDatabaseService implements EpriaXTeeService {
 
   @Resource
   private EpriaXTeeDatabase epriaXTeeDatabase;
+  
+  private <I, O> XTeeMessage<O> send(XTeeMessage<I> input, String method, String version, final String idCode, final String securityServer) throws XTeeServiceConsumptionException {
+    final XTeeServiceConfiguration xteeConfiguration = xTeeServiceConfigurationProvider.createConfiguration(getDatabase(), getDatabase(), method, version);
+    
+    DelegatingXTeeServiceConfiguration configuration = new DelegatingXTeeServiceConfiguration(xteeConfiguration) {
+      @Override
+      public String getIdCode() {
+        return idCode != null ? idCode : super.getIdCode();
+      }
+      @Override
+      public String getSecurityServer(){
+        return securityServer != null ? securityServer : super.getSecurityServer();
+      }
+    };
+    
+    XTeeMessage<O> result = xTeeConsumer.sendRequest(input, configuration);
+    return result;
+  }
 
   @Override
   public String epria(String xml, String securityServer, String isikukood) throws XTeeServiceConsumptionException {
