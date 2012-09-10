@@ -10,12 +10,9 @@
 package ee.webmedia.xtee.client.service.callback;
 
 import java.util.Collection;
-import java.util.Random;
 
-import javax.xml.soap.SOAPElement;
 import javax.xml.soap.SOAPEnvelope;
 import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPHeader;
 import javax.xml.soap.SOAPMessage;
 
 import org.springframework.ws.WebServiceMessage;
@@ -26,101 +23,46 @@ import ee.webmedia.xtee.client.service.configuration.XTeeServiceConfiguration;
 import ee.webmedia.xtee.model.XTeeAttachment;
 
 /**
- * <code>WebServiceMessageCallback</code> implementation that sets envelope namespaces for SOAP envelope, adds XTee
- * query header elements ('asutus', 'andmekogu', 'isikukood', etc -- as specified by {@link XTeeServiceConfiguration})
- * and adds the attachments to message.
- * 
+ * <code>WebServiceMessageCallback</code> implementation that sets envelope
+ * namespaces for SOAP envelope.
+ *
  * @author Rando Mihkelsaar
+ * @author Kait Kasak (kait.kasak@nortal.com)
  */
 public class XTeeMessageCallback implements WebServiceMessageCallback {
 
-  protected Random random = new Random(System.currentTimeMillis());
+	private final Collection<XTeeAttachment> attachments;
+	private final XTeeServiceConfiguration serviceConfiguration;
+	private MessageCallbackNamespaceStrategy namespaceStrategy;
 
-  private final XTeeServiceConfiguration serviceConfiguration;
-  private final Collection<XTeeAttachment> attachments;
+	public XTeeMessageCallback(XTeeServiceConfiguration serviceConfiguration, Collection<XTeeAttachment> attachments,
+	        MessageCallbackNamespaceStrategy namespaceStrategy) {
+		this.serviceConfiguration = serviceConfiguration;
+		this.attachments = attachments;
+		this.namespaceStrategy = namespaceStrategy;
+	}
 
-  public XTeeMessageCallback(XTeeServiceConfiguration serviceConfiguration, Collection<XTeeAttachment> attachments) {
-    this.serviceConfiguration = serviceConfiguration;
-    this.attachments = attachments;
-  }
+	public void doWithMessage(WebServiceMessage message) {
+		SaajSoapMessage saajMessage = (SaajSoapMessage) message;
+		try {
+			// Add attachments
+			if (attachments != null) {
+				for (XTeeAttachment attachment : attachments) {
+					saajMessage.addAttachment("<" + attachment.getCid() + ">", attachment, attachment.getContentType());
+				}
+			}
+			SOAPMessage soapmess = saajMessage.getSaajMessage();
+			SOAPEnvelope env = soapmess.getSOAPPart().getEnvelope();
 
-  public void doWithMessage(WebServiceMessage message) {
-    SaajSoapMessage saajMessage = (SaajSoapMessage) message;
-    try {
-      // Add attachments
-      if (attachments != null) {
-        for (XTeeAttachment attachment : attachments) {
-          saajMessage.addAttachment("<" + attachment.getCid() + ">", attachment, attachment.getContentType());
-        }
-      }
-      SOAPMessage soapmess = saajMessage.getSaajMessage();
-      SOAPEnvelope env = soapmess.getSOAPPart().getEnvelope();
+			namespaceStrategy.addNamespaces(env);
+			namespaceStrategy.addXTeeHeaderElements(env, serviceConfiguration);
+		} catch (SOAPException e) {
+			throw new RuntimeException(e);
+		}
+	}
 
-      addNamespaces(env);
-      addXTeeHeaderElements(env);
-    } catch (SOAPException e) {
-      throw new RuntimeException(e);
-    }
-  }
-
-  private void addXTeeHeaderElements(SOAPEnvelope env) throws SOAPException {
-    SOAPHeader header = env.getHeader();
-    SOAPElement pasutus = header.addChildElement("asutus", "ns4");
-    SOAPElement pandmekogu = header.addChildElement("andmekogu", "ns4");
-    SOAPElement ikood = header.addChildElement("isikukood", "ns4");
-    SOAPElement id = header.addChildElement("id", "ns4");
-    SOAPElement pnimi = header.addChildElement("nimi", "ns4");
-    String toimik = serviceConfiguration.getFile();
-    if (toimik != null) {
-      SOAPElement toimikEl = header.addChildElement("toimik", "ns4");
-      toimikEl.addTextNode(toimik);
-    }
-
-    pasutus.addAttribute(env.createName("xsi:type"), "xsd:string");
-    pandmekogu.addAttribute(env.createName("xsi:type"), "xsd:string");
-    ikood.addAttribute(env.createName("xsi:type"), "xsd:string");
-    id.addAttribute(env.createName("xsi:type"), "xsd:string");
-    pnimi.addAttribute(env.createName("xsi:type"), "xsd:string");
-    pasutus.addTextNode(serviceConfiguration.getInstitution());
-    pandmekogu.addTextNode(serviceConfiguration.getDatabase());
-    ikood.addTextNode(serviceConfiguration.getIdCode());
-    id.addTextNode(generateUniqueMessageId());
-    StringBuilder sb = new StringBuilder(serviceConfiguration.getDatabase());
-    sb.append(".");
-    sb.append(serviceConfiguration.getMethod());
-    sb.append(".");
-    sb.append(serviceConfiguration.getVersion() == null ? "v1" : serviceConfiguration.getVersion());
-    pnimi.addTextNode(sb.toString());
-
-//  deprecated: http://ftp.ria.ee/pub/x-tee/doc/nouded_infosysteemidele.pdf
-    if(serviceConfiguration.useDeprecatedApi()) {
-      SOAPElement pametnik = header.addChildElement("ametnik", "ns4");
-      pametnik.addAttribute(env.createName("xsi:type"), "xsd:string");
-      pametnik.addTextNode(serviceConfiguration.getIdCode());
-    }
-  }
-
-  /**
-   * Unique identifier for service invocation, consisting of numbers and letters of the Latin alphabet. The identifier
-   * is generated by service invoker, who must guarantee that the identifier is globally unique.
-   */
-  private String generateUniqueMessageId() {
-    return Long.toHexString(System.currentTimeMillis()) + serviceConfiguration.getInstitution() + random.nextInt();
-  }
-
-  /**
-   * sets envelope namespaces to SOAP envelope
-   */
-  private void addNamespaces(SOAPEnvelope env) throws SOAPException {
-    env.addNamespaceDeclaration("xsd", "http://www.w3.org/2001/XMLSchema");
-    env.addNamespaceDeclaration("xsi", "http://www.w3.org/2001/XMLSchema-instance");
-    env.addNamespaceDeclaration("SOAP-ENC", "http://schemas.xmlsoap.org/soap/encoding/");
-    env.addNamespaceDeclaration("ns4", "http://x-tee.riik.ee/xsd/xtee.xsd");
-    env.setEncodingStyle("http://schemas.xmlsoap.org/soap/encoding/");
-  }
-
-  public XTeeServiceConfiguration getServiceConfiguration() {
-    return serviceConfiguration;
-  }
+	public XTeeServiceConfiguration getServiceConfiguration() {
+		return serviceConfiguration;
+	}
 
 }

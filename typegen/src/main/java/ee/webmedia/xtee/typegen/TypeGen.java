@@ -12,6 +12,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
@@ -38,7 +40,7 @@ import freemarker.template.TemplateException;
 
 /**
  * XMLBeans types generator
- * 
+ *
  * @author Dmitri Danilkin
  */
 public class TypeGen {
@@ -60,6 +62,7 @@ public class TypeGen {
   private static File curWsdl;
   private static File hashFile;
   private static byte[] computedHash;
+  private static boolean useXRoadNamespace;
 
   public static void main(String[] args) throws Exception {
     System.out.println("Starting source generation...");
@@ -118,7 +121,7 @@ public class TypeGen {
 
   /**
    * Serializes metadata to specified directory.
-   * 
+   *
    * @param dir
    */
   private static void saveMetadata(String dir) throws Exception {
@@ -133,7 +136,7 @@ public class TypeGen {
 
   /**
    * Generates the XMLBeans source files.
-   * 
+   *
    * @param outputdir
    * @param basepackage
    * @throws XmlException
@@ -162,7 +165,7 @@ public class TypeGen {
 
   /**
    * Parses command line arguments to a map
-   * 
+   *
    * @param args
    */
   private static void parseArgs(String[] args) {
@@ -174,7 +177,7 @@ public class TypeGen {
 
   /**
    * Gets all WSDL files in a directory and returns them as an array
-   * 
+   *
    * @param dir
    * @return File array
    */
@@ -218,7 +221,7 @@ public class TypeGen {
 
   /**
    * Parse WSDL files - extract types (schemas) and generate metadata for marshalling XmlBeans objects to XTee queries.
-   * 
+   *
    * @param wsdls
    * @throws Exception
    */
@@ -242,7 +245,7 @@ public class TypeGen {
 
   /**
    * Creates a map of the namespaces from the WSDL definitions element for XmlBeans
-   * 
+   *
    * @param wsdlDoc
    */
   private static Map<String, String> getNamespaces(Document wsdlDoc) {
@@ -259,7 +262,7 @@ public class TypeGen {
 
   /**
    * Return the schemas contained in the given wsdl:types node.
-   * 
+   *
    * @param typesNode
    * @param additionalNs
    * @return A collection of schemas found under the Node
@@ -289,7 +292,7 @@ public class TypeGen {
 
   /**
    * Creates metadata needed to marshal XmlBeans objects to valid XTee requests.
-   * 
+   *
    * @param wsdlDoc
    * @throws Exception
    */
@@ -301,14 +304,24 @@ public class TypeGen {
         wsdlDoc.getElementsByTagNameNS(WSDL_NS, "definitions").item(0).getAttributes().getNamedItem("targetNamespace").getNodeValue().toLowerCase();
 
     String database;
-    if (opNs.matches("http://producers\\..+?\\.xtee\\.riik\\.ee/producer/.+?$")) {
-      database = opNs.substring(opNs.lastIndexOf("/") + 1);
-    } else {
-      // WSDL does not follow X-tee convention, warn and use WSDL name as database
-      System.out.println("WARNING: WSDL namespace does not match X-tee convention (found: " + opNs
-          + "), setting database name from WSDL filename!");
-      database = curWsdl.getName().substring(0, curWsdl.getName().toLowerCase().indexOf(".wsdl"));
-    }
+		Pattern p = Pattern.compile("http://producers\\..+?\\.xtee\\.riik\\.ee/producer/.+?$");
+		Matcher m = p.matcher(opNs);
+		if (m.matches()) {
+			database = opNs.substring(opNs.lastIndexOf("/") + 1);
+		} else {
+			p = Pattern.compile("http://(.+?)\\.ee\\.x-rd\\.net/producer[/]??$");
+			m = p.matcher(opNs);
+			if (m.matches()) {
+				useXRoadNamespace = true;
+				database = m.group(1);
+			} else {
+				// WSDL does not follow X-tee convention, warn and use WSDL name
+				// as database
+				System.out.println("WARNING: WSDL namespace does not match X-tee convention (found: " + opNs
+				        + "), setting database name from WSDL filename!");
+				database = curWsdl.getName().substring(0, curWsdl.getName().toLowerCase().indexOf(".wsdl"));
+			}
+		}
 
     Node binding = wsdlDoc.getElementsByTagNameNS(WSDL_NS, "binding").item(0);
     NodeList bindingChildren = binding.getChildNodes();
@@ -328,7 +341,8 @@ public class TypeGen {
         for (int j = 0; j < operationChildren.getLength(); j++) {
           Node operationChild = operationChildren.item(j);
 
-          if (XTeeUtil.XTEE_NS_URI.equals(operationChild.getNamespaceURI())
+          String namespaceURI = operationChild.getNamespaceURI();
+		if ((XTeeUtil.XTEE_NS_URI.equals(namespaceURI) || XTeeUtil.XTEEV5_NS_URI.equals(namespaceURI))
               && "version".equals(operationChild.getLocalName())) {
             version = SOAPUtil.getTextContent(operationChild);
             break;
@@ -410,7 +424,7 @@ public class TypeGen {
 
   /**
    * Creates a map between message names and their response elements.
-   * 
+   *
    * @param wsdlDoc
    * @return
    */
@@ -422,8 +436,10 @@ public class TypeGen {
       NodeList parts = message.getChildNodes();
       for (int j = 0; j < parts.getLength(); j++) {
         Node part = parts.item(j);
-        if (WSDL_NS.equals(part.getNamespaceURI()) && "part".equals(part.getLocalName())
-            && "keha".equals(part.getAttributes().getNamedItem("name").getNodeValue())) {
+				if (WSDL_NS.equals(part.getNamespaceURI())
+				        && "part".equals(part.getLocalName())
+				        && ("keha".equals(part.getAttributes().getNamedItem("name").getNodeValue()) ||
+				        	"body".equals(part.getAttributes().getNamedItem("name").getNodeValue()))) {
           Node element = part.getAttributes().getNamedItem("element");
           String[] type =
               element == null
@@ -439,8 +455,8 @@ public class TypeGen {
   }
 
   private static void generateDatabaseClasses(String outputdir) throws IOException, TemplateException {
-    DatabaseClasses classes = new DatabaseClasses(argMap.get(XSB_DIR), argMap.get(DB_CLASSES_PACKAGE));
-
+	DatabaseClasses classes = new DatabaseClasses(argMap.get(XSB_DIR), argMap.get(DB_CLASSES_PACKAGE),
+		        useXRoadNamespace);
     for (Map.Entry<String, XmlBeansXTeeMetadata> entry : metadata.entrySet()) {
       XmlBeansXTeeMetadata serviceMetadata = entry.getValue();
 

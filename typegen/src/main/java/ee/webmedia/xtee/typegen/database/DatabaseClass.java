@@ -3,6 +3,7 @@ package ee.webmedia.xtee.typegen.database;
 import java.beans.Introspector;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.xmlbeans.impl.common.NameUtil;
 
 /**
@@ -10,56 +11,69 @@ import org.apache.xmlbeans.impl.common.NameUtil;
  */
 public class DatabaseClass {
 
-  private static final String DATABASE_CLASS_NAME_SUFFIX = "XTeeDatabase";
-  private static final String DATABASE_IMPL_CLASS_NAME_SUFFIX = "XTeeDatabaseImpl";
+	private static final String DATABASE_CLASS_NAME_SUFFIX = "XTeeDatabase";
+	private static final String DATABASE_IMPL_CLASS_NAME_SUFFIX = "XTeeDatabaseImpl";
 
-  private String packageName;
-  private String interfaceName;
-  private String implementationName;
-  private List<DatabaseServiceMethod> methods = new ArrayList<DatabaseServiceMethod>();
-  private final String database;
+	private static final String XTEE_BASE_IMPL_CLASS_NAME = "XTeeDatabaseService";
+	private static final String XROAD_BASE_IMPL_CLASS_NAME = "XRoadDatabaseService";
 
-  public DatabaseClass(String database, String packageName) {
-    this.database = database;
-    this.packageName = packageName;
+	private String packageName;
+	private String interfaceName;
+	private String implementationName;
+	private String baseImplementationName;
+	private List<DatabaseServiceMethod> methods = new ArrayList<DatabaseServiceMethod>();
+	private final String database;
 
-    interfaceName = NameUtil.upperCamelCase(database) + DATABASE_CLASS_NAME_SUFFIX;
-    implementationName = NameUtil.upperCamelCase(database) + DATABASE_IMPL_CLASS_NAME_SUFFIX;
-  }
+	public DatabaseClass(String database, String packageName, boolean useXroadServiceImpl) {
+		this.database = database;
+		this.packageName = packageName;
 
-  void add(DatabaseServiceMethod method) {
-    methods.add(method);
-  }
+		interfaceName = NameUtil.upperCamelCase(database) + DATABASE_CLASS_NAME_SUFFIX;
+		implementationName = NameUtil.upperCamelCase(database) + DATABASE_IMPL_CLASS_NAME_SUFFIX;
+		baseImplementationName = useXroadServiceImpl ? XROAD_BASE_IMPL_CLASS_NAME : XTEE_BASE_IMPL_CLASS_NAME;
+	}
 
-  public String getDatabase() {
-    return database;
-  }
+	void add(DatabaseServiceMethod method) {
+		methods.add(method);
+	}
 
-  public String getPackageName() {
-    return packageName;
-  }
+	public String getDatabase() {
+		return database;
+	}
 
-  public String getInterfaceName() {
-    return interfaceName;
-  }
+	public String getPackageName() {
+		return packageName;
+	}
 
-  public String getInterfaceNameDecapitalized() {
-    return Introspector.decapitalize(interfaceName);
-  }
+	public String getInterfaceName() {
+		return interfaceName;
+	}
 
-  public String getImplementationName() {
-    return implementationName;
-  }
+	public String getInterfaceNameDecapitalized() {
+		return Introspector.decapitalize(interfaceName);
+	}
 
-  public String getQualifiedInterfaceName() {
-    return packageName + "." + interfaceName;
-  }
+	public String getImplementationName() {
+		return implementationName;
+	}
 
-  public String getQualifiedImplementationName() {
-    return packageName + "." + implementationName;
-  }
+	public String getBaseImplementationName() {
+		return baseImplementationName;
+	}
 
-  public List<DatabaseServiceMethod> getMethods() {
-    return methods;
-  }
+	public void setBaseImplementationName(String baseImplementationName) {
+		this.baseImplementationName = baseImplementationName;
+	}
+
+	public String getQualifiedInterfaceName() {
+		return packageName + "." + interfaceName;
+	}
+
+	public String getQualifiedImplementationName() {
+		return packageName + "." + implementationName;
+	}
+
+	public List<DatabaseServiceMethod> getMethods() {
+		return methods;
+	}
 }

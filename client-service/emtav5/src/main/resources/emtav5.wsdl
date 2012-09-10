@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://emtav5.ee.x-rd.net/producer" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xrd="http://x-rd.net/xsd/xroad.xsd"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	targetNamespace="http://emtav5.ee.x-rd.net/producer">
+	<types>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema"
+			elementFormDefault="unqualified"
+			targetNamespace="http://emtav5.ee.x-rd.net/producer">
+			<import namespace="http://x-rd.net/xsd/xroad.xsd"
+				schemaLocation="http://x-rd.net/xsd/xroad.xsd" />
+			<import namespace="http://www.w3.org/2005/05/xmlmime"
+				schemaLocation="http://www.w3.org/2005/05/xmlmime" />
+			<element name="xteeFIEAK" type="tns:SpouseCheckRequestType" />
+			<element name="xteeFIEAKResponse" type="tns:SpouseCheckResponseType" />
+			<complexType name="SpouseCheckRequestType">
+				<sequence>
+					<element name="request" type="tns:SpouseCheckCommonRequestType" />
+				</sequence>
+				
+			</complexType>
+			<complexType name="SpouseCheckResponseType">
+				<sequence>
+					<element name="request" type="tns:SpouseCheckCommonRequestType" />
+					<element name="response">
+						<annotation>
+							<documentation>Tagastatakse andmed, kui isik etteantud perioodis
+								(algus ja lõpp kaasa arvatud)
+								oli FIE abikaasana registrisse kantud vähemalt 1 päeva
+							</documentation>
+						</annotation>
+						<complexType>
+							<sequence>
+								<element maxOccurs="unbounded" minOccurs="0" name="period">
+									<complexType>
+										<sequence>
+											<element name="start" type="date">
+												<annotation>
+													<documentation>Abikaasana registreerituse alguskuupäev
+													</documentation>
+												</annotation>
+											</element>
+											<element name="end" type="date">
+												<annotation>
+													<documentation>Abikaasana registreerituse lõppkuupäev
+													</documentation>
+												</annotation>
+											</element>
+											<element name="code" type="string">
+												<annotation>
+													<documentation>Seotud FIE registrikood</documentation>
+												</annotation>
+											</element>
+											<element name="name" type="string">
+												<annotation>
+													<documentation>Seotud FIE nimi</documentation>
+												</annotation>
+											</element>
+										</sequence>
+									</complexType>
+								</element>
+							</sequence>
+						</complexType>
+					</element>
+				</sequence>
+			</complexType>
+			<complexType name="SpouseCheckCommonRequestType">
+				<sequence>
+					<element name="id" type="string">
+						<annotation>
+							<documentation>Isiku unikaalne tunnus, 11-kohaline number
+							</documentation>
+						</annotation>
+					</element>
+					<element name="start" type="date">
+						<annotation>
+							<documentation>Perioodi alguskuupäev</documentation>
+						</annotation>
+					</element>
+					<element name="end" type="date">
+						<annotation>
+							<documentation>Perioodi lõppkuupäev</documentation>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+		</schema>
+	</types>
+	<message name="xrdHeader">
+		<part element="xrd:consumer" name="consumer" />
+		<part element="xrd:producer" name="producer" />
+		<part element="xrd:userId" name="userId" />
+		<part element="xrd:service" name="service" />
+		<part element="xrd:id" name="id" />
+		<part element="xrd:issue" name="issue" />
+	</message>
+	<message name="spouseCheckOutputMessage">
+		<part type="tns:SpouseCheckResponseType" name="body" />
+	</message>
+	<message name="spouseCheckInputMessage">
+		<part type="tns:SpouseCheckRequestType" name="body" />
+	</message>
+	<portType name="emtav5port">
+		<operation name="xteeFIEAK">
+			<documentation>
+				<xrd:title>FIE abikaasana registreerituse kontroll</xrd:title>
+			</documentation>
+			<input message="tns:spouseCheckInputMessage" />
+			<output message="tns:spouseCheckOutputMessage" />
+		</operation>
+	</portType>
+	<binding name="emtav5bind" type="tns:emtav5port">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<operation name="xteeFIEAK">
+			<soap:operation soapAction="" />
+			<xrd:version>v1</xrd:version>
+			<input>
+				<soap:header message="tns:xrdHeader" part="consumer"
+					use="literal" />
+				<soap:header message="tns:xrdHeader" part="producer"
+					use="literal" />
+				<soap:header message="tns:xrdHeader" part="userId" use="literal" />
+				<soap:header message="tns:xrdHeader" part="id" use="literal" />
+				<soap:header message="tns:xrdHeader" part="service" use="literal" />
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:header message="tns:xrdHeader" part="consumer"
+					use="literal" />
+				<soap:header message="tns:xrdHeader" part="producer"
+					use="literal" />
+				<soap:header message="tns:xrdHeader" part="userId" use="literal" />
+				<soap:header message="tns:xrdHeader" part="id" use="literal" />
+				<soap:header message="tns:xrdHeader" part="service" use="literal" />
+				<soap:body use="literal" />
+			</output>
+		</operation>
+	</binding>
+	<service name="emtav5service">
+		<port binding="tns:emtav5bind" name="emtav5port">
+			<soap:address location="http://tempuri.org/services/" />
+			<xrd:title>Maksu- ja Tolliameti X-tee ver5 teenused</xrd:title>
+			<xrd:address producer="emtav5" />
+		</port>
+	</service>
+</definitions>

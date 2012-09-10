@@ -55,6 +55,9 @@ public class StandardXTeeConsumerMessageExtractor implements WebServiceMessageEx
       SOAPMessage mes = message.getSaajMessage();
       Element body = mes.getSOAPBody();
       NodeList kehaNodes = body.getElementsByTagName("keha");
+	  if (kehaNodes.getLength() == 0) {
+	    kehaNodes = body.getChildNodes();
+	  }
       kehaNode = kehaNodes.item(0);
       if (kehaNodes.getLength() > 1) {
         // In case of multiple elements take the first one that matches specified hierarchy
@@ -64,7 +67,7 @@ public class StandardXTeeConsumerMessageExtractor implements WebServiceMessageEx
             break;
           }
         }
-      } 
+      }
     } catch (SOAPException e) {
       throw new RuntimeException(e);
     }

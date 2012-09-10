@@ -16,7 +16,7 @@ import javax.xml.soap.SOAPMessage;
 
 /**
  * Utility methods for deducing canonical service names and XML namespaces,
- * 
+ *
  * @author Roman Tekhov
  * @author Dmitri Danilkin
  */
@@ -24,6 +24,8 @@ public class XTeeUtil {
 
   public static final String XTEE_NS_PREFIX = "xtee";
   public static final String XTEE_NS_URI = "http://x-tee.riik.ee/xsd/xtee.xsd";
+  public static final String XTEEV5_NS_PREFIX = "xrd";
+  public static final String XTEEV5_NS_URI = "http://x-rd.net/xsd/xroad.xsd";
 
   /**
    * Returns the input string with &quot;/cgi-bin/consumer_proxy&quot; concatenated to it.
@@ -42,7 +44,7 @@ public class XTeeUtil {
   /**
    * Returns namespace for database -- that is, returns namespace in the form
    * <code>http://producers.database.xtee.riik.ee/producer/database</code>.
-   * 
+   *
    * @param dbName database ("andmekogu") name
    * @return namespace for data services in a database, in the form
    *         <code>http://producers.dbName.xtee.riik.ee/producer/dbName</code>
@@ -54,7 +56,7 @@ public class XTeeUtil {
   /**
    * Adds a X-Tee header element with given value and using correct namespace, element type is set to
    * <code>xsd:string</code>.
-   * 
+   *
    * @param header Header of the <code>SOAPMessage</code>
    * @param name Header element name
    * @param value Header element value
@@ -69,7 +71,7 @@ public class XTeeUtil {
 
   /**
    * Adds X-Tee namespace to a <code>SOAPMessage</code>.
-   * 
+   *
    * @param message Message to add the namespace to.
    */
   public static void addXteeNamespace(SOAPMessage message) throws SOAPException {

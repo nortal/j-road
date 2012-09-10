@@ -1,7 +1,7 @@
 package ${databaseClass.packageName};
 
 import ee.webmedia.xtee.client.exception.XTeeServiceConsumptionException;
-import ee.webmedia.xtee.client.service.XTeeDatabaseService;
+import ee.webmedia.xtee.client.service.${databaseClass.baseImplementationName};
 import ee.webmedia.xtee.model.XTeeMessage;
 import ee.webmedia.xtee.model.XmlBeansXTeeMessage;
 import org.springframework.stereotype.Service;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
  * <code>${databaseClass.database}</code> X-tee database implementation.
  */
 @Service("${databaseClass.interfaceNameDecapitalized}")
-public class ${databaseClass.implementationName} extends XTeeDatabaseService implements ${databaseClass.interfaceName} {
+public class ${databaseClass.implementationName} extends ${databaseClass.baseImplementationName}  implements ${databaseClass.interfaceName} {
 <#list databaseClass.methods as method>
 <#list method.versions as version>
 

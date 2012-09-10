@@ -32,6 +32,7 @@ import ee.webmedia.xtee.client.exception.XTeeServiceConsumptionException;
 import ee.webmedia.xtee.client.service.callback.CustomCallback;
 import ee.webmedia.xtee.client.service.callback.StandardXTeeConsumerCallback;
 import ee.webmedia.xtee.client.service.callback.XTeeMessageCallback;
+import ee.webmedia.xtee.client.service.callback.XteeMessageCallbackNamespaceStrategy;
 import ee.webmedia.xtee.client.service.configuration.XTeeServiceConfiguration;
 import ee.webmedia.xtee.client.service.extractor.CustomExtractor;
 import ee.webmedia.xtee.client.service.extractor.StandardXTeeConsumerMessageExtractor;
@@ -44,7 +45,7 @@ import ee.webmedia.xtee.util.AttachmentUtil;
 
 /**
  * Standard {@link XTeeConsumer} implementation.
- * 
+ *
  * @author Dmitri Danilkin
  * @author Roman Tekhov
  * @author Rando Mihkelsaar
@@ -86,12 +87,14 @@ public class StandardXTeeConsumer extends WebServiceGatewaySupport implements XT
                                                 CustomCallback callback,
                                                 CustomExtractor extractor) throws XTeeServiceConsumptionException {
 
-    XmlOptions options =
-        ((XmlBeansMarshaller) getMarshaller()).getXmlOptions() == null
-                                                                      ? new XmlOptions()
-                                                                      : ((XmlBeansMarshaller) getMarshaller()).getXmlOptions();
-    options.setSaveSyntheticDocumentElement(new QName("keha"));
-    ((XmlBeansMarshaller) getMarshaller()).setXmlOptions(options);
+	if(isKehaElementNeeded()) {
+	    XmlOptions options =
+	        ((XmlBeansMarshaller) getMarshaller()).getXmlOptions() == null
+	                                                                      ? new XmlOptions()
+	                                                                      : ((XmlBeansMarshaller) getMarshaller()).getXmlOptions();
+	    options.setSaveSyntheticDocumentElement(new QName("keha"));
+	    ((XmlBeansMarshaller) getMarshaller()).setXmlOptions(options);
+	}
 
     try {
       // Add any swaref attachments...
@@ -123,18 +126,14 @@ public class StandardXTeeConsumer extends WebServiceGatewaySupport implements XT
       XmlBeansXTeeMetadata curdata =
           metadata.get(xteeServiceConfiguration.getWsdlDatabase().toLowerCase()
               + xteeServiceConfiguration.getMethod().toLowerCase());
-      
+
       if (curdata == null) {
         throw new IllegalStateException(String.format("Could not find metadata for %s.%s! Most likely the method name has been specified incorrectly.",
                                                       xteeServiceConfiguration.getWsdlDatabase().toLowerCase(),
                                                       xteeServiceConfiguration.getMethod().toLowerCase()));
       }
-      
-      WebServiceMessageCallback originalCallback =
-          new StandardXTeeConsumerCallback(input.getContent(),
-                                           new XTeeMessageCallback(xteeServiceConfiguration, input.getAttachments()),
-                                           getMarshaller(),
-                                           curdata);
+
+	  WebServiceMessageCallback originalCallback = getNewConsumerCallback(input, xteeServiceConfiguration, curdata);
       WebServiceMessageExtractor originalExtractor = new StandardXTeeConsumerMessageExtractor(curdata);
 
       if (callback != null) {
@@ -161,6 +160,23 @@ public class StandardXTeeConsumer extends WebServiceGatewaySupport implements XT
       throw new NestableRuntimeException(e);
     }
 
+  }
+
+
+  protected boolean isKehaElementNeeded() {
+	  return true;
+  }
+
+  protected <I> StandardXTeeConsumerCallback getNewConsumerCallback(XTeeMessage<I> input,
+        XTeeServiceConfiguration xteeServiceConfiguration, XmlBeansXTeeMetadata curdata) {
+	  return new StandardXTeeConsumerCallback(input.getContent(), getNewMessageCallback(input,
+	        xteeServiceConfiguration), getMarshaller(), curdata, false);
+  }
+
+  protected <I> XTeeMessageCallback getNewMessageCallback(XTeeMessage<I> input,
+       XTeeServiceConfiguration xteeServiceConfiguration) {
+	  return new XTeeMessageCallback(xteeServiceConfiguration, input.getAttachments(),
+			  new XteeMessageCallbackNamespaceStrategy());
   }
 
   private XTeeServiceConsumptionException resolveException(Exception e,

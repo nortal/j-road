@@ -7,15 +7,15 @@ import ee.webmedia.xtee.client.service.extractor.CustomExtractor;
 import ee.webmedia.xtee.model.XTeeMessage;
 
 /**
- * Service consumer which actas as a high level abstraction for X-tee data exchange processes.
- * 
+ * Service consumer which act as as a high level abstraction for X-tee data exchange processes.
+ *
  * @author Roman Tekhov
  */
 public interface XTeeConsumer {
 
   /**
    * Performs an invocation of some X-tee service.
-   * 
+   *
    * @param <I> input object type
    * @param <O> output object type
    * @param input Java object representing the request
@@ -27,7 +27,7 @@ public interface XTeeConsumer {
 
   /**
    * Performs an invocation of some X-tee service.
-   * 
+   *
    * @param <I> input object type
    * @param <O> output object type
    * @param input Java object representing the request
