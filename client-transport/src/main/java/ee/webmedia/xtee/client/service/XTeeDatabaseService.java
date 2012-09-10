@@ -15,7 +15,7 @@ import ee.webmedia.xtee.client.service.consumer.XTeeConsumer;
 public abstract class XTeeDatabaseService extends BaseXTeeDatabaseService {
 
 	@Resource
-	private XTeeConsumer xTeeConsumer;
+	protected XTeeConsumer xTeeConsumer;
 
 	@Override
 	protected XTeeConsumer getXTeeConsumer() {
