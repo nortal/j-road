@@ -1,6 +1,6 @@
 package ee.webmedia.xtee.client.emtav5;
 
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import ee.webmedia.xtee.client.emtav5.types.net.x_rd.ee.emtav5.producer.SpouseCheckResponseType.Response.Period;
@@ -16,6 +16,6 @@ public interface Emtav5XTeeService {
 	/**
 	 * <code>emta.xteeFIEAK.v1</code> service.
 	 */
-	List<Period> xteeFIEAKV1(String id, Calendar start, Calendar end) throws XTeeServiceConsumptionException;
+	List<Period> xteeFIEAKV1(String id, Date start, Date end) throws XTeeServiceConsumptionException;
 
 }

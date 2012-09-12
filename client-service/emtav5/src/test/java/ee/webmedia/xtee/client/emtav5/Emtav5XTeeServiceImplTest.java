@@ -30,8 +30,8 @@ public class Emtav5XTeeServiceImplTest extends BaseXTeeServiceImplTest {
 
 	@Test
 	public void xteeFIEAKV1() throws ParseException, XTeeServiceConsumptionException {
-		List<Period> periodList = emtav5xTeeServiceImpl.xteeFIEAKV1(CODE, getCalendar("01.08.2012"),
-		        getCalendar("05.09.2012"));
+		List<Period> periodList = emtav5xTeeServiceImpl.xteeFIEAKV1(CODE, dateFormat.parse("01.08.2012"),
+				dateFormat.parse("05.09.2012"));
 		Assert.assertNotNull(periodList);
 		Assert.assertTrue(periodList.size() == 1);
 		Period period = periodList.get(0);

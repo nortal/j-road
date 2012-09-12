@@ -1,6 +1,7 @@
 package ee.webmedia.xtee.client.emtav5;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -24,17 +25,21 @@ public class Emtav5XTeeServiceImpl implements Emtav5XTeeService {
 	@Resource
 	private Emtav5XTeeDatabase emtav5XTeeDatabase;
 
-	public List<Period> xteeFIEAKV1(String id, Calendar start, Calendar end) throws XTeeServiceConsumptionException {
-
+	public List<Period> xteeFIEAKV1(String id, Date start, Date end) throws XTeeServiceConsumptionException {
 		SpouseCheckRequestType request = SpouseCheckRequestType.Factory.newInstance();
 		SpouseCheckCommonRequestType commonRequest = request.addNewRequest();
 		commonRequest.setId(id);
-		commonRequest.setStart(start);
-		commonRequest.setEnd(end);
+		commonRequest.setStart(getCalendar(start));
+		commonRequest.setEnd(getCalendar(end));
 		SpouseCheckResponseType xteeFIEAKV1 = emtav5XTeeDatabase.xteeFIEAKV1(request);
 		Response response = xteeFIEAKV1.getResponse();
-		List<Period> periodList = response.getPeriodList();
-		return periodList;
+		return response.getPeriodList();
 	}
+
+	private Calendar getCalendar(Date date) {
+	    Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		return calendar;
+    }
 
 }
