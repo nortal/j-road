@@ -1,0 +1,695 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions name="kutseregister"
+	targetNamespace="http://producers.kutseregister.xtee.riik.ee/producer/kutseregister"
+	xmlns:tns="http://producers.kutseregister.xtee.riik.ee/producer/kutseregister" 
+	xmlns:xtee="http://x-tee.riik.ee/xsd/xtee.xsd"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+	xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+
+	<types>
+		<schema targetNamespace="http://producers.kutseregister.xtee.riik.ee/producer/kutseregister" xmlns="http://www.w3.org/2001/XMLSchema" >
+			<import namespace="http://x-tee.riik.ee/xsd/xtee.xsd" schemaLocation="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+
+			<!--Kutsetunnistuste otsingu sisend-->
+			<complexType name="KutsetunnistusParing">
+				<annotation>
+					<documentation>Kutseregistri kutsetunnistuste otsingu sisendparameetrid</documentation>
+				</annotation>
+				<all>
+					<element name="registrinumber" type="string" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>Registrinumber</xtee:title>
+								<xtee:notes>Kutsetunnistuse registrinumber</xtee:notes>
+								<xtee:technotes>NB! Alati otsitakse täpset vastet!</xtee:technotes>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="nimi" type="string" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>Isiku nimi</xtee:title>
+								<xtee:notes>Isiku nimi</xtee:notes>
+								<xtee:technotes>NB! Alati otsitakse täpset vastet!</xtee:technotes>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="isikukood" type="string" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>Isikukood</xtee:title>
+								<xtee:notes>Kutsetunnistuse omaniku isikukood</xtee:notes>
+								<xtee:technotes>NB! Alati otsitakse täpset vastet!</xtee:technotes>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="tyyp" type="tns:tunnistuseTyypType" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>Tunnistuse tüüp</xtee:title>
+								<xtee:notes>Tunnistuse tüüp</xtee:notes>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="kutsestandard" type="string" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>Kutsestandardi või spetsialiseerumise nimetus</xtee:title>
+								<xtee:notes>Kutsestandardi või spetsialiseerumise nimetus või selle osa</xtee:notes>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="osakutse" type="string" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>Osakutse nimetus</xtee:title>
+								<xtee:notes>Osakutse nimetus või selle osa</xtee:notes>
+								<xtee:technotes>Kui sisendparameetrites on tunnistuse tüübiks määratud "kutsetunnistus" või "esmane kutse", siis seda parameetrit ignoreeritakse</xtee:technotes>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="ekrtase" type="tns:taseType" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>EKR tase</xtee:title>
+								<xtee:notes>EKR tase</xtee:notes>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="eqftase" type="tns:taseType" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>EQF tase</xtee:title>
+								<xtee:notes>EQF tase</xtee:notes>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="valjastaja" type="string" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>Kutsetunnistuse väljastaja</xtee:title>
+								<xtee:notes>Kutsetunnistuse väljaandnud asutuse nimetus või selle osa</xtee:notes>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="kehtibalatesalgus" type="date" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>"Kehtib alates" vahemiku algus</xtee:title>
+								<xtee:notes>Kutsetunnistuse kehtima hakkamise vahemiku algus</xtee:notes>
+								<xtee:technotes>Alguskuupäev päeva täpsusega. Täpsustatud kuupäeval kehtima hakanud kutsetunnistused on tulemustesse kaasa arvatud</xtee:technotes>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="kehtibalateslopp" type="date" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>"Kehtib alates" vahemiku lõpp</xtee:title>
+								<xtee:notes>Kutsetunnistuse kehtima hakkamise vahemiku lõpp</xtee:notes>
+								<xtee:technotes>Lõpukuupäev päeva täpsusega. Täpsustatud kuupäeval kehtima hakanud kutsetunnistused on tulemustesse kaasa arvatud</xtee:technotes>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="kehtibkunialgus" type="date" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>"Kehtib kuni" vahemiku algus</xtee:title>
+								<xtee:notes>Kutsetunnistuse kehtivuse lõppemise vahemiku algus</xtee:notes>
+								<xtee:technotes>Alguskuupäev päeva täpsusega. Täpsustatud kuupäeval lõppevad kutsetunnistused on tulemustesse kaasa arvatud</xtee:technotes>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="kehtibkunilopp" type="date" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>"Kehtib kuni" vahemiku lõpp</xtee:title>
+								<xtee:notes>Kutsetunnistuse kehtivuse lõppemise vahemiku lõpp</xtee:notes>
+								<xtee:technotes>Lõpukuupäev päeva täpsusega. Täpsustatud kuupäeval lõppevad kutsetunnistused on tulemustesse kaasa arvatud</xtee:technotes>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="kirjetearv" type="tns:kirjeteArvType" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>Tagastatav kutsetunnistuste arv</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</all>
+			</complexType>
+
+			<!-- kutsetunnistuste päring kodaniku päringuportaalile -->
+			<complexType name="KodanikKutsetunnistusParing">
+				<annotation>
+					<documentation>Kodaniku kutsetunnistuste otsingu sisendparameetrid</documentation>
+				</annotation>
+				<all>
+					<element name="kehtetud" type="boolean" minOccurs="0" default="false">
+						<annotation>
+							<appinfo>
+								<xtee:title>Näita ka kehtetuid tunnistusi</xtee:title>
+								<xtee:notes>Otsingutulemuses tagastatakse ka kehtetud tunnistused</xtee:notes>
+							</appinfo>
+						</annotation>
+					</element>
+				</all>
+			</complexType>
+			
+			<!-- Tunnistuse tüübi tüüp -->
+			<simpleType name="tunnistuseTyypType">
+				<restriction base="integer">
+					<enumeration value="1">
+						<annotation>
+							<appinfo>
+								<xtee:title>Kutsetunnistus</xtee:title>
+							</appinfo>
+						</annotation>
+					</enumeration>
+					<enumeration value="2">
+						<annotation>
+							<appinfo>
+								<xtee:title>Osakutsetunnistus</xtee:title>
+							</appinfo>
+						</annotation>
+					</enumeration>
+					<enumeration value="3">
+						<annotation>
+							<appinfo>
+								<xtee:title>Esmane kutse</xtee:title>
+							</appinfo>
+						</annotation>
+					</enumeration>
+				</restriction>
+			</simpleType>
+
+			<!-- Taseme tüüp -->
+			<simpleType name="taseType">
+				<restriction base="integer">
+					<enumeration value="1">
+						<annotation>
+							<appinfo>
+								<xtee:title>1</xtee:title>
+							</appinfo>
+						</annotation>
+					</enumeration>
+					<enumeration value="2">
+						<annotation>
+							<appinfo>
+								<xtee:title>2</xtee:title>
+							</appinfo>
+						</annotation>
+					</enumeration>
+					<enumeration value="3">
+						<annotation>
+							<appinfo>
+								<xtee:title>3</xtee:title>
+							</appinfo>
+						</annotation>
+					</enumeration>
+					<enumeration value="4">
+						<annotation>
+							<appinfo>
+								<xtee:title>4</xtee:title>
+							</appinfo>
+						</annotation>
+					</enumeration>
+					<enumeration value="5">
+						<annotation>
+							<appinfo>
+								<xtee:title>5</xtee:title>
+							</appinfo>
+						</annotation>
+					</enumeration>
+					<enumeration value="6">
+						<annotation>
+							<appinfo>
+								<xtee:title>6</xtee:title>
+							</appinfo>
+						</annotation>
+					</enumeration>
+					<enumeration value="7">
+						<annotation>
+							<appinfo>
+								<xtee:title>7</xtee:title>
+							</appinfo>
+						</annotation>
+					</enumeration>
+					<enumeration value="8">
+						<annotation>
+							<appinfo>
+								<xtee:title>8</xtee:title>
+							</appinfo>
+						</annotation>
+					</enumeration>
+				</restriction>
+			</simpleType>
+
+			<!-- Kirjete arvu tüüp -->
+			<simpleType name="kirjeteArvType">
+				<restriction base="integer">
+					<enumeration value="10">
+						<annotation>
+							<appinfo>
+								<xtee:title>10</xtee:title>
+							</appinfo>
+						</annotation>
+					</enumeration>
+					<enumeration value="30">
+						<annotation>
+							<appinfo>
+								<xtee:title>30</xtee:title>
+							</appinfo>
+						</annotation>
+					</enumeration>
+					<enumeration value="50">
+						<annotation>
+							<appinfo>
+								<xtee:title>50</xtee:title>
+							</appinfo>
+						</annotation>
+					</enumeration>
+					<enumeration value="100">
+						<annotation>
+							<appinfo>
+								<xtee:title>100</xtee:title>
+							</appinfo>
+						</annotation>
+					</enumeration>
+				</restriction>
+			</simpleType>
+
+			<!-- Kutsetunnistus V2 Type -->
+			<complexType name="kutsetunnistusV2Type">
+				<sequence>
+					<element name="registrinumber" type="string" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>Registrinumber</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="nimi" type="string" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>Nimi</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="isikukood" type="string" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>Isikukood</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="synniaeg" type="date" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>Sünniaeg</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="tyyp" type="string" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>Tüüp</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="standard" type="string" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>Kutsestandard</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="ekrtase" type="integer" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>EKR tase</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="eqftase" type="integer" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>EQF tase</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="spetsialiseerumine" type="string" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>Spetsialiseerumine</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="osakutse" type="string" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>Osakutse</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="lisavali" type="string" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>Lisaväli</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="kompetentsid" type="string"  minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>Valitud kompetentsid</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="valdkond" type="string" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>Valdkond</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="kutseala" type="string" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>Kutseala</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="hariduslikkval" type="string" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>Hariduslik kvalifikatsioon</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="keel" type="string" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>Kutseeksami keel</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="valjastaja" type="string" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>Väljastaja</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="valjaantud" type="date" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>Välja antud</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="kehtibalates" type="date" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>Kehtib alates</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="kehtibkuni" type="date" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>Kehtib kuni</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="isco" type="string" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>Ametite (ISCO) klassifikaator</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="duplikaat" type="boolean" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>On duplikaat</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="kehtetu" type="boolean" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>On kehtetu</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="reaid" type="string" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>Rea ID</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="kustutatud" type="boolean" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:notes>Kas sellise rea ID-ga kirje on kustutatud</xtee:notes>
+							</appinfo>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>			
+
+			<!-- Kutsetunnistuste otsingute väljund-->
+			<complexType name="KutsetunnistusVastus">
+				<sequence>
+					<element name="teade" type="string" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>Teade</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="kutsetunnistused" minOccurs="0">
+						<complexType>
+							<sequence>
+								<element name="kutsetunnistus" type="tns:kutsetunnistusV2Type" minOccurs="0" maxOccurs="unbounded"/>
+							</sequence>
+						</complexType>
+					</element>
+					<element name="kirjeid" type="integer" minOccurs="0">
+						<annotation>
+							<appinfo>
+								<xtee:title>Kirjete arv</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+
+			<!--listMethods jaoks vastus-->
+			<complexType name="listMethods_vastus">
+				<complexContent>
+					<restriction base="SOAP-ENC:Array">
+						<sequence>
+							<element name="item" type="string" minOccurs="0" maxOccurs="unbounded" />
+						</sequence>
+					</restriction>
+				</complexContent>
+			</complexType>
+      
+      		<!-- Kutsetunnistuste muudatuste päring -->
+			<complexType name="kutsetunnistusteMuudatusedParing">
+				<annotation>
+					<documentation>Kutsetunnistuste muudatuste päringu sisendparameetrid</documentation>
+				</annotation>
+				<all>
+					<element name="aasta" type="integer">
+						<annotation>
+							<appinfo>
+								<xtee:title>Aasta</xtee:title>
+								<xtee:notes>Aasta peab jääma vahemikku 2012 - käesolev aasta.</xtee:notes>
+							</appinfo>
+						</annotation>
+					</element>
+				</all>
+			</complexType>
+
+		</schema>
+	</types>
+
+	<message name="kutsetunnistus">
+		<part name="keha" type="tns:KutsetunnistusParing"/>
+	</message>
+
+	<message name="kutsetunnistusResponse">
+		<part name="paring" type="tns:KutsetunnistusParing"/>
+		<part name="keha" type="tns:KutsetunnistusVastus"/>
+	</message>
+
+	<message name="kodanikKutsetunnistus">
+		<part name="keha" type="tns:KodanikKutsetunnistusParing"/>
+	</message>
+
+	<message name="kodanikKutsetunnistusResponse">
+		<part name="paring" type="tns:KodanikKutsetunnistusParing"/>
+		<part name="keha" type="tns:KutsetunnistusVastus"/>
+	</message>
+
+	<message name="kutsetunnistusteMuudatused">
+		<part name="keha" type="tns:kutsetunnistusteMuudatusedParing"/>
+	</message>
+
+	<message name="kutsetunnistusteMuudatusedResponse">
+		<part name="paring" type="tns:kutsetunnistusteMuudatusedParing"/>
+		<part name="keha" type="tns:KutsetunnistusVastus"/>
+	</message>
+
+	<!--listMethodi küsimine-->
+	<message name="listMethodsRequest">
+	</message>
+
+	<!--listMethodi vastus-->
+	<message name="listMethodsResponse">
+		<part name="keha" type="tns:listMethods_vastus" />
+	</message>
+
+	<message name="pais">
+		<part name="asutus" element="xtee:asutus"/>
+		<part name="andmekogu" element="xtee:andmekogu"/>
+		<part name="ametnik" element="xtee:ametnik"/>
+		<part name="isikukood" element="xtee:isikukood"/>
+		<part name="id" element="xtee:id"/>
+		<part name="nimi" element="xtee:nimi"/>
+		<part name="toimik" element="xtee:toimik"/>
+	</message>
+
+	<portType name="xteeport">
+		<operation name="kutsetunnistus">
+			<documentation>
+				<xtee:title>Kutsetunnistuste otsing</xtee:title>
+			</documentation>
+			<input message="tns:kutsetunnistus"/>
+			<output message="tns:kutsetunnistusResponse"/>
+		</operation>
+		<operation name="kodanikKutsetunnistus">
+			<documentation>
+				<xtee:title>Minu kutsetunnistused</xtee:title>
+			</documentation>
+			<input message="tns:kodanikKutsetunnistus"/>
+			<output message="tns:kodanikKutsetunnistusResponse"/>
+		</operation>
+		<operation name="kutsetunnistusteMuudatused">
+			<documentation>
+				<xtee:title>Kutsetunnistuste muudatused</xtee:title>
+			</documentation>
+			<input message="tns:kutsetunnistusteMuudatused"/>
+			<output message="tns:kutsetunnistusteMuudatusedResponse"/>
+		</operation>
+		<operation name="listMethods">
+			<documentation>
+				<xtee:title>listMethods</xtee:title>
+			</documentation>
+			<input message="tns:listMethodsRequest" />
+			<output message="tns:listMethodsResponse" />
+		</operation>
+	</portType>
+
+	<binding name="xteebinding" type="tns:xteeport">
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="kutsetunnistus">
+			<xtee:version>v2</xtee:version>
+			<soap:operation soapAction="urn:#kutsetunnistus"/>
+			<input>
+				<soap:body use="literal"/>
+				<soap:header message="tns:pais" part="asutus" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+				<soap:header message="tns:pais" part="andmekogu" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+				<soap:header message="tns:pais" part="ametnik" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+				<soap:header message="tns:pais" part="isikukood" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+				<soap:header message="tns:pais" part="id" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+				<soap:header message="tns:pais" part="nimi" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+				<soap:header message="tns:pais" part="toimik" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</input>
+			<output>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.kutseregister.xtee.riik.ee/producer/kutseregister"/>
+				<soap:header message="tns:pais" part="asutus" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+				<soap:header message="tns:pais" part="andmekogu" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+				<soap:header message="tns:pais" part="ametnik" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+				<soap:header message="tns:pais" part="isikukood" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+				<soap:header message="tns:pais" part="id" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+				<soap:header message="tns:pais" part="nimi" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+				<soap:header message="tns:pais" part="toimik" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</output>
+		</operation>
+		<operation name="kodanikKutsetunnistus">
+			<xtee:version>v2</xtee:version>
+			<soap:operation soapAction="urn:#kodanikKutsetunnistus"/>
+			<input>
+				<soap:body use="literal"/>
+				<soap:header message="tns:pais" part="asutus" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+				<soap:header message="tns:pais" part="andmekogu" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+				<soap:header message="tns:pais" part="ametnik" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+				<soap:header message="tns:pais" part="isikukood" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+				<soap:header message="tns:pais" part="id" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+				<soap:header message="tns:pais" part="nimi" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+				<soap:header message="tns:pais" part="toimik" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</input>
+			<output>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.kutseregister.xtee.riik.ee/producer/kutseregister"/>
+				<soap:header message="tns:pais" part="asutus" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+				<soap:header message="tns:pais" part="andmekogu" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+				<soap:header message="tns:pais" part="ametnik" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+				<soap:header message="tns:pais" part="isikukood" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+				<soap:header message="tns:pais" part="id" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+				<soap:header message="tns:pais" part="nimi" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+				<soap:header message="tns:pais" part="toimik" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</output>
+		</operation>
+		<operation name="kutsetunnistusteMuudatused">
+			<xtee:version>v1</xtee:version>
+			<soap:operation soapAction="urn:#kutsetunnistusteMuudatused"/>
+			<input>
+				<soap:body use="literal"/>
+				<soap:header message="tns:pais" part="asutus" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+				<soap:header message="tns:pais" part="andmekogu" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+				<soap:header message="tns:pais" part="ametnik" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+				<soap:header message="tns:pais" part="isikukood" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+				<soap:header message="tns:pais" part="id" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+				<soap:header message="tns:pais" part="nimi" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+				<soap:header message="tns:pais" part="toimik" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</input>
+			<output>
+				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.kutseregister.xtee.riik.ee/producer/kutseregister"/>
+				<soap:header message="tns:pais" part="asutus" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+				<soap:header message="tns:pais" part="andmekogu" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+				<soap:header message="tns:pais" part="ametnik" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+				<soap:header message="tns:pais" part="isikukood" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+				<soap:header message="tns:pais" part="id" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+				<soap:header message="tns:pais" part="nimi" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+				<soap:header message="tns:pais" part="toimik" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</output>
+		</operation>
+		<operation name="listMethods">
+			<xtee:version>v1</xtee:version>
+			<soap:operation soapAction="" />
+			<input>
+				<soap:body use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"  />
+			</input>
+			<output>
+				<soap:body use="literal" parts="keha" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"  />
+			</output>
+		</operation>
+	</binding>
+
+	<service name="kutseregister">
+		<port name="xteeport" binding="tns:xteebinding">
+			<soap:address location="http://xtee.kutsekoda.ee/kutseregister"/>
+			<xtee:address producer="kutseregister"/>
+			<xtee:title>Kutseregister</xtee:title>
+		</port>
+	</service>
+
+</definitions>
