@@ -1,25 +1,29 @@
 package ee.webmedia.xtee.client.arireg;
 
+import java.util.Date;
+import java.util.List;
+
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.DetailandmedV3Ettevotja;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.DetailandmedV4Ettevotja;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.DetailandmedV4Query;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.Detailandmedv2Ettevotja;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.Detailandmedv2Query;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingarikeeludKeeld;
+import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingesindusEttevote;
+import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingesindusV2Ettevote;
+import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingesindusV3Ettevote;
 import ee.webmedia.xtee.client.exception.XTeeServiceConsumptionException;
-import java.util.Date;
-import java.util.List;
 
 /**
  * <code>arireg</code> (Äriregister) database X-tee service.
- *
+ * 
  * @author Roman Tekhov
  */
 public interface AriregXTeeService {
 
   /**
    * <code>arireg.detailandmedv2.v1</code> service.
-   *
+   * 
    * @Deprecated use {@link #findDetailandmedv3(int, boolean, boolean, boolean, boolean)}
    */
   @Deprecated
@@ -32,7 +36,7 @@ public interface AriregXTeeService {
 
   /**
    * <code>arireg.detailandmedv2.v1</code> service.
-   *
+   * 
    * @Deprecated use {@link #findDetailandmedv3(String, boolean, boolean, boolean, boolean)}
    */
   @Deprecated
@@ -45,14 +49,12 @@ public interface AriregXTeeService {
 
   /**
    * <code>arireg.detailandmedv2.v1</code> service.
-   *
+   * 
    * @Deprecated use {@link #findDetailandmedv3(Detailandmedv2KehaPopulatingCallback)}
    */
   @Deprecated
   List<Detailandmedv2Ettevotja> findDetailandmedv2(Detailandmedv2KehaPopulatingCallback callback)
       throws XTeeServiceConsumptionException;
-
-
 
   /**
    * <code>arireg.detailandmedv3.v1</code> service.
@@ -83,8 +85,8 @@ public interface AriregXTeeService {
   /**
    * <code>arireg.paringarikeelud.v1</code> service.
    */
-  List<ParingarikeeludKeeld> findArikeelud(String isikukood, String eesnimi, String perenimi, Date synniaeg) throws XTeeServiceConsumptionException;
-
+  List<ParingarikeeludKeeld> findArikeelud(String isikukood, String eesnimi, String perenimi, Date synniaeg)
+      throws XTeeServiceConsumptionException;
 
   /**
    * Callback responsible for populating the keha element of <code>arireg.detailandmedv2.v1</code> service.
@@ -160,7 +162,6 @@ public interface AriregXTeeService {
   List<DetailandmedV4Ettevotja> findDetailandmedv4(Detailandmedv4KehaPopulatingCallback callback)
       throws XTeeServiceConsumptionException;
 
-
   /**
    * Callback responsible for populating the keha element of <code>arireg.detailandmedv4.v1</code> service.
    */
@@ -192,7 +193,7 @@ public interface AriregXTeeService {
       this.isikuandmed = isikuandmed;
       this.menetlusesAvaldused = menetlusesAvaldused;
       this.kommertspandiandmed = kommertspandiandmed;
-      this.maarused=maarused;
+      this.maarused = maarused;
       this.maksValjundArv = maksValjundArv;
     }
 
@@ -207,6 +208,35 @@ public interface AriregXTeeService {
     }
 
     protected abstract void doPopulate(DetailandmedV4Query query);
-
   }
+
+  /**
+   * <code>arireg.paringesindus_v1.v1</code> service.
+   */
+  List<ParingesindusEttevote> findParingesindusV1(Integer ariregistriKood,
+                                                  String fyysiliseIsikuKood,
+                                                  String fyysiliseIsikuEesnimi,
+                                                  String fyysiliseIsikuPerenimi) throws XTeeServiceConsumptionException;
+
+  /**
+   * <code>arireg.paringesindus_v2.v1</code> service.
+   */
+  List<ParingesindusV2Ettevote> findParingesindusV2V1(Integer ariregistriKood,
+                                                      String fyysiliseIsikuKood,
+                                                      String fyysiliseIsikuEesnimi,
+                                                      String fyysiliseIsikuPerenimi)
+      throws XTeeServiceConsumptionException;
+
+  /**
+   * <code>arireg.paringesindus_v3.v1</code> service.
+   */
+  List<ParingesindusV3Ettevote> findParingesindusV3V1(String ariregisterKasutajanimi,
+                                                      String ariregisterParool,
+                                                      String ariregisterSessioon,
+                                                      String ariregisterValjundiFormaat,
+                                                      Integer ariregistriKood,
+                                                      String fyysiliseIsikuKood,
+                                                      String fyysiliseIsikuEesnimi,
+                                                      String fyysiliseIsikuPerenimi)
+      throws XTeeServiceConsumptionException;
 }

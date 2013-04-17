@@ -1,5 +1,13 @@
 package ee.webmedia.xtee.client.arireg;
 
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import junit.framework.Assert;
+
+import org.junit.Test;
+
 import ee.webmedia.xtee.client.arireg.AriregXTeeService.Detailandmedv2KehaPopulatingCallback;
 import ee.webmedia.xtee.client.arireg.AriregXTeeService.Detailandmedv4KehaPopulatingCallback;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.DetailandmedKaardileKantudIsik;
@@ -13,12 +21,10 @@ import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.produc
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.DetailandmedV4Query;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.Detailandmedv2Query;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingarikeeludKeeld;
+import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingesindusEttevote;
+import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingesindusV2Ettevote;
 import ee.webmedia.xtee.client.exception.XTeeServiceConsumptionException;
 import ee.webmedia.xtee.client.test.BaseXTeeServiceImplTest;
-import java.util.List;
-import javax.annotation.Resource;
-import junit.framework.Assert;
-import org.junit.Test;
 
 /**
  * @author Roman Tekhov
@@ -171,6 +177,23 @@ public class AriregXTeeServiceImplTest extends BaseXTeeServiceImplTest {
     Assert.assertTrue(ettevotja.getYldandmed().getArinimed().getItemList().get(0).getSisu().toUpperCase().contains(TEST_ARINIMI.toUpperCase()));
   }
 
+  @Test
+  public void findParingesindusV1() throws XTeeServiceConsumptionException {
+    List<ParingesindusEttevote> items = ariregXTeeServiceImpl.findParingesindusV1(null, TEST_ISIKUKOOD, null, null);
+    Assert.assertTrue(!items.isEmpty());
+  }
+
+  @Test
+  public void findParingesindusV2V1() throws XTeeServiceConsumptionException {
+    List<ParingesindusV2Ettevote> items = ariregXTeeServiceImpl.findParingesindusV2V1(null, TEST_ISIKUKOOD, null, null);
+    Assert.assertTrue(!items.isEmpty());
+  }
+
+  @Test
+  public void findParingesindusV3V1() throws XTeeServiceConsumptionException {
+    // Add implementation when we get access to this service method
+    Assert.assertTrue(true);
+  }
 
   public void setAriregXTeeServiceImpl(AriregXTeeServiceImpl ariregXTeeServiceImpl) {
     this.ariregXTeeServiceImpl = ariregXTeeServiceImpl;

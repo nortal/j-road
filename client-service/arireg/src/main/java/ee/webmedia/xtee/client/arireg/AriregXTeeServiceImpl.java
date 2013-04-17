@@ -1,5 +1,13 @@
 package ee.webmedia.xtee.client.arireg;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
 import ee.webmedia.xtee.client.arireg.database.AriregXTeeDatabase;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.DetailandmedV3Ettevotja;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.DetailandmedV4Ettevotja;
@@ -8,12 +16,13 @@ import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.produc
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.Detailandmedv2Query;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingarikeeludKeeld;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingarikeeludParing;
+import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingesindusEttevote;
+import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingesindusParing;
+import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingesindusV2Ettevote;
+import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingesindusV2Paring;
+import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingesindusV3Ettevote;
+import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingesindusV3Paring;
 import ee.webmedia.xtee.client.exception.XTeeServiceConsumptionException;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import javax.annotation.Resource;
-import org.springframework.stereotype.Service;
 
 /**
  * @author Roman Tekhov
@@ -30,8 +39,7 @@ public class AriregXTeeServiceImpl implements AriregXTeeService {
                                                           boolean isikuandmed,
                                                           boolean menetlusesAvaldused,
                                                           boolean kommertspandiandmed,
-                                                          int maksValjundArv)
-      throws XTeeServiceConsumptionException {
+                                                          int maksValjundArv) throws XTeeServiceConsumptionException {
 
     return findDetailandmedv2(new Detailandmedv2ReturnedDataSettingCallback(yldandmed,
                                                                             isikuandmed,
@@ -51,8 +59,7 @@ public class AriregXTeeServiceImpl implements AriregXTeeService {
                                                           boolean isikuandmed,
                                                           boolean menetlusesAvaldused,
                                                           boolean kommertspandiandmed,
-                                                          int maksValjundArv)
-      throws XTeeServiceConsumptionException {
+                                                          int maksValjundArv) throws XTeeServiceConsumptionException {
 
     return findDetailandmedv2(new Detailandmedv2ReturnedDataSettingCallback(yldandmed,
                                                                             isikuandmed,
@@ -77,14 +84,12 @@ public class AriregXTeeServiceImpl implements AriregXTeeService {
     return ariregXTeeDatabase.detailandmedv2V1(requestDocument).getEttevotjad().getItemList();
   }
 
-
   public List<DetailandmedV3Ettevotja> findDetailandmedv3(final int ariregistriKood,
                                                           boolean yldandmed,
                                                           boolean isikuandmed,
                                                           boolean menetlusesAvaldused,
                                                           boolean kommertspandiandmed,
-                                                          int maksValjundArv)
-      throws XTeeServiceConsumptionException {
+                                                          int maksValjundArv) throws XTeeServiceConsumptionException {
 
     return findDetailandmedv3(new Detailandmedv2ReturnedDataSettingCallback(yldandmed,
                                                                             isikuandmed,
@@ -103,8 +108,7 @@ public class AriregXTeeServiceImpl implements AriregXTeeService {
                                                           boolean isikuandmed,
                                                           boolean menetlusesAvaldused,
                                                           boolean kommertspandiandmed,
-                                                          int maksValjundArv)
-      throws XTeeServiceConsumptionException {
+                                                          int maksValjundArv) throws XTeeServiceConsumptionException {
 
     return findDetailandmedv3(new Detailandmedv2ReturnedDataSettingCallback(yldandmed,
                                                                             isikuandmed,
@@ -146,12 +150,12 @@ public class AriregXTeeServiceImpl implements AriregXTeeService {
   }
 
   public List<DetailandmedV4Ettevotja> findDetailandmedv4(final int ariregistriKood,
-                                                           boolean yldandmed,
-                                                           boolean isikuandmed,
-                                                           boolean menetlusesAvaldused,
-                                                           boolean kommertspandiandmed,
-                                                           boolean maarused,
-                                                           int maksValjundArv) throws XTeeServiceConsumptionException {
+                                                          boolean yldandmed,
+                                                          boolean isikuandmed,
+                                                          boolean menetlusesAvaldused,
+                                                          boolean kommertspandiandmed,
+                                                          boolean maarused,
+                                                          int maksValjundArv) throws XTeeServiceConsumptionException {
     return findDetailandmedv4(new Detailandmedv4ReturnedDataSettingCallback(yldandmed,
                                                                             isikuandmed,
                                                                             menetlusesAvaldused,
@@ -195,4 +199,84 @@ public class AriregXTeeServiceImpl implements AriregXTeeService {
     return ariregXTeeDatabase.detailandmedV4V1(requestDocument).getEttevotjad().getItemList();
   }
 
+  public List<ParingesindusEttevote> findParingesindusV1(Integer ariregistriKood,
+                                                         String fyysiliseIsikuKood,
+                                                         String fyysiliseIsikuEesnimi,
+                                                         String fyysiliseIsikuPerenimi)
+      throws XTeeServiceConsumptionException {
+    ParingesindusParing paring = ParingesindusParing.Factory.newInstance();
+    if (ariregistriKood != null) {
+      paring.setAriregistriKood(ariregistriKood);
+    }
+    if (fyysiliseIsikuKood != null) {
+      paring.setFyysiliseIsikuKood(fyysiliseIsikuKood);
+    }
+    if (fyysiliseIsikuEesnimi != null) {
+      paring.setFyysiliseIsikuEesnimi(fyysiliseIsikuEesnimi);
+    }
+    if (fyysiliseIsikuPerenimi != null) {
+      paring.setFyysiliseIsikuPerenimi(fyysiliseIsikuPerenimi);
+    }
+    return ariregXTeeDatabase.paringesindusV1(paring).getEttevotjad().getItemList();
+  }
+
+  public List<ParingesindusV2Ettevote> findParingesindusV2V1(Integer ariregistriKood,
+                                                             String fyysiliseIsikuKood,
+                                                             String fyysiliseIsikuEesnimi,
+                                                             String fyysiliseIsikuPerenimi)
+      throws XTeeServiceConsumptionException {
+
+    ParingesindusV2Paring paring = ParingesindusV2Paring.Factory.newInstance();
+    if (ariregistriKood != null) {
+      paring.setAriregistriKood(ariregistriKood);
+    }
+    if (fyysiliseIsikuKood != null) {
+      paring.setFyysiliseIsikuKood(fyysiliseIsikuKood);
+    }
+    if (fyysiliseIsikuEesnimi != null) {
+      paring.setFyysiliseIsikuEesnimi(fyysiliseIsikuEesnimi);
+    }
+    if (fyysiliseIsikuPerenimi != null) {
+      paring.setFyysiliseIsikuPerenimi(fyysiliseIsikuPerenimi);
+    }
+    return ariregXTeeDatabase.paringesindusV2V1(paring).getEttevotjad().getItemList();
+  }
+
+  public List<ParingesindusV3Ettevote> findParingesindusV3V1(String ariregisterKasutajanimi,
+                                                             String ariregisterParool,
+                                                             String ariregisterSessioon,
+                                                             String ariregisterValjundiFormaat,
+                                                             Integer ariregistriKood,
+                                                             String fyysiliseIsikuKood,
+                                                             String fyysiliseIsikuEesnimi,
+                                                             String fyysiliseIsikuPerenimi)
+      throws XTeeServiceConsumptionException {
+    ParingesindusV3Paring paring = ParingesindusV3Paring.Factory.newInstance();
+
+    if (ariregisterKasutajanimi != null) {
+      paring.setAriregisterKasutajanimi(ariregisterKasutajanimi);
+    }
+    if (ariregisterParool != null) {
+      paring.setAriregisterParool(ariregisterParool);
+    }
+    if (ariregisterSessioon != null) {
+      paring.setAriregisterSessioon(ariregisterSessioon);
+    }
+    if (ariregisterValjundiFormaat != null) {
+      paring.setAriregisterValjundiFormaat(ariregisterValjundiFormaat);
+    }
+    if (ariregistriKood != null) {
+      paring.setAriregistriKood(ariregistriKood);
+    }
+    if (fyysiliseIsikuKood != null) {
+      paring.setFyysiliseIsikuKood(fyysiliseIsikuKood);
+    }
+    if (fyysiliseIsikuEesnimi != null) {
+      paring.setFyysiliseIsikuEesnimi(fyysiliseIsikuEesnimi);
+    }
+    if (fyysiliseIsikuPerenimi != null) {
+      paring.setFyysiliseIsikuPerenimi(fyysiliseIsikuPerenimi);
+    }
+    return ariregXTeeDatabase.paringesindusV3V1(paring).getEttevotjad().getItemList();
+  }
 }
