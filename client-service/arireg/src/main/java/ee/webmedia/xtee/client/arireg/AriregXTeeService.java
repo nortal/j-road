@@ -1,11 +1,13 @@
 package ee.webmedia.xtee.client.arireg;
 
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.DetailandmedV3Ettevotja;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.DetailandmedV4Ettevotja;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.DetailandmedV4Query;
+import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.DetailandmedV5Query;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.Detailandmedv2Ettevotja;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.Detailandmedv2Query;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingarikeeludKeeld;
@@ -211,6 +213,58 @@ public interface AriregXTeeService {
   }
 
   /**
+   * Callback responsible for populating the keha element of <code>arireg.detailandmedv5.v1</code> service.
+   */
+  interface DetailandmedV5KehaPopulatingCallback {
+
+    void populate(DetailandmedV5Query query);
+  }
+
+  /**
+   * {@link DetailandmedV5KehaPopulatingCallback} implementation concerned with setting the data to be returned by
+   * <code>arireg.detailandmedv5.v1</code> service.
+   */
+  public abstract class DetailandmedV5ReturnedDataSettingCallback implements DetailandmedV5KehaPopulatingCallback {
+
+    private boolean yldandmed;
+    private boolean isikuandmed;
+    private boolean menetlusesAvaldused;
+    private boolean kommertspandiandmed;
+    private boolean maarused;
+    private boolean ainultKehtivad;
+    private long maksValjundArv;
+
+    public DetailandmedV5ReturnedDataSettingCallback(boolean yldandmed,
+                                                     boolean isikuandmed,
+                                                     boolean menetlusesAvaldused,
+                                                     boolean kommertspandiandmed,
+                                                     boolean maarused,
+                                                     boolean ainultKehtivad,
+                                                     long maksValjundArv) {
+      this.yldandmed = yldandmed;
+      this.isikuandmed = isikuandmed;
+      this.menetlusesAvaldused = menetlusesAvaldused;
+      this.kommertspandiandmed = kommertspandiandmed;
+      this.maarused = maarused;
+      this.ainultKehtivad = ainultKehtivad;
+      this.maksValjundArv = maksValjundArv;
+    }
+
+    public void populate(DetailandmedV5Query query) {
+      query.setYandmed(yldandmed);
+      query.setIandmed(isikuandmed);
+      query.setDandmed(menetlusesAvaldused);
+      query.setKandmed(kommertspandiandmed);
+      query.setMaarused(maarused);
+      query.setEvarv(BigInteger.valueOf(maksValjundArv));
+      query.setAinultKehtivad(ainultKehtivad);
+      doPopulate(query);
+    }
+
+    protected abstract void doPopulate(DetailandmedV5Query query);
+  }
+
+  /**
    * <code>arireg.paringesindus_v1.v1</code> service.
    */
   List<ParingesindusEttevote> findParingesindusV1(Integer ariregistriKood,
@@ -221,22 +275,19 @@ public interface AriregXTeeService {
   /**
    * <code>arireg.paringesindus_v2.v1</code> service.
    */
-  List<ParingesindusV2Ettevote> findParingesindusV2V1(Integer ariregistriKood,
-                                                      String fyysiliseIsikuKood,
-                                                      String fyysiliseIsikuEesnimi,
-                                                      String fyysiliseIsikuPerenimi)
+  List<ParingesindusV2Ettevote> findParingesindusV2(Integer ariregistriKood,
+                                                    String fyysiliseIsikuKood,
+                                                    String fyysiliseIsikuEesnimi,
+                                                    String fyysiliseIsikuPerenimi)
       throws XTeeServiceConsumptionException;
 
   /**
    * <code>arireg.paringesindus_v3.v1</code> service.
    */
-  List<ParingesindusV3Ettevote> findParingesindusV3V1(String ariregisterKasutajanimi,
-                                                      String ariregisterParool,
-                                                      String ariregisterSessioon,
-                                                      String ariregisterValjundiFormaat,
-                                                      Integer ariregistriKood,
-                                                      String fyysiliseIsikuKood,
-                                                      String fyysiliseIsikuEesnimi,
-                                                      String fyysiliseIsikuPerenimi)
+  List<ParingesindusV3Ettevote> findParingesindusV3(Integer ariregistriKood,
+                                                    String fyysiliseIsikuKood,
+                                                    String fyysiliseIsikuEesnimi,
+                                                    String fyysiliseIsikuPerenimi,
+                                                    String ariregisterValjundiFormaat)
       throws XTeeServiceConsumptionException;
 }
