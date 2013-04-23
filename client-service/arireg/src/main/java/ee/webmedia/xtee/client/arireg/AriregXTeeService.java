@@ -7,6 +7,7 @@ import java.util.List;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.DetailandmedV3Ettevotja;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.DetailandmedV4Ettevotja;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.DetailandmedV4Query;
+import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.DetailandmedV5Ettevotja;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.DetailandmedV5Query;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.Detailandmedv2Ettevotja;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.Detailandmedv2Query;
@@ -211,6 +212,24 @@ public interface AriregXTeeService {
 
     protected abstract void doPopulate(DetailandmedV4Query query);
   }
+
+  /**
+   * <code>arireg.detailandmed_v5.v1</code> service.
+   */
+  List<DetailandmedV5Ettevotja> findDetailandmedV5(long ariregistriKood,
+                                                   boolean yldandmed,
+                                                   boolean isikuandmed,
+                                                   boolean menetlusesAvaldused,
+                                                   boolean kommertspandiandmed,
+                                                   boolean maarused,
+                                                   boolean ainultKehtivad,
+                                                   long maksValjundArv) throws XTeeServiceConsumptionException;
+
+  /**
+   * <code>arireg.detailandmed_v5.v1</code> service.
+   */
+  List<DetailandmedV5Ettevotja> findDetailandmedV5(DetailandmedV5KehaPopulatingCallback callback)
+      throws XTeeServiceConsumptionException;
 
   /**
    * Callback responsible for populating the keha element of <code>arireg.detailandmedv5.v1</code> service.
