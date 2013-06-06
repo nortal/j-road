@@ -8647,7 +8647,8 @@
 								<xs:restriction base="SOAP-ENC:Array">
 									<xs:sequence>
 										<!-- jada milles on struktuurid (tabeli ridadest) -->
-										<xs:element name="ttKoodid " minOccurs="0"
+										<!-- Lauri Lättemäe: elemendi nimetus muudetud ttKoodid > item  -->
+										<xs:element name="item " minOccurs="0"
 											maxOccurs="unbounded">
 											<xs:complexType>
 												<xs:sequence>
