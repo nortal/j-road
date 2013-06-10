@@ -3,13 +3,17 @@ package ee.webmedia.xtee.client.koodikeskus;
 import ee.webmedia.xtee.client.exception.XTeeServiceConsumptionException;
 import ee.webmedia.xtee.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.ATCKlassifikaator;
 import ee.webmedia.xtee.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.Haigus;
+import ee.webmedia.xtee.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.Hinnakokkulepe;
+import ee.webmedia.xtee.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.Myygiluba;
 import ee.webmedia.xtee.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.Pakend;
+import ee.webmedia.xtee.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.Piirhind;
 import ee.webmedia.xtee.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.Ravimvorm;
 import ee.webmedia.xtee.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.Soodustus;
 import ee.webmedia.xtee.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.Toimeaine;
 import ee.webmedia.xtee.client.test.BaseXTeeServiceImplTest;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import javax.annotation.Resource;
 import junit.framework.Assert;
@@ -142,5 +146,56 @@ public class KoodikeskusXTeeServiceImplTest extends BaseXTeeServiceImplTest {
     Assert.assertTrue(items.size() == 1);
     Toimeaine toimeaine = items.get(0);
     Assert.assertTrue(toimeaineKood.equals(toimeaine.getId().toString()));
+  }
+
+  @Test
+  public void findPiirhinnadv1() throws XTeeServiceConsumptionException {
+    Calendar calendar = Calendar.getInstance();
+    calendar.add(Calendar.DAY_OF_MONTH, -12);
+    List<String> items = koodikeskusXTeeServiceImpl.findPiirhinnadv1(calendar.getTime());
+    Assert.assertNotNull(items);
+  }
+  
+  @Test
+  public void findPiirhinnadDetailandmedv1() throws XTeeServiceConsumptionException {
+    String piirhinnaKood = "32120";
+    List<String> koodid = Collections.singletonList(piirhinnaKood);
+    List<Piirhind> items = koodikeskusXTeeServiceImpl.findPiirhinnadDetailandmedv1(koodid);
+    Assert.assertNotNull(items);
+    Assert.assertTrue(items.size() == 1);
+  }
+  
+  @Test
+  public void findHinnakokkuleppedv1() throws XTeeServiceConsumptionException {
+    Calendar calendar = Calendar.getInstance();
+    calendar.add(Calendar.DAY_OF_MONTH, -12);
+    List<String> items = koodikeskusXTeeServiceImpl.findHinnakokkuleppedv1(calendar.getTime());
+    Assert.assertNotNull(items);
+  }
+  
+  @Test
+  public void findHinnakokkuleppedDetailandmedv1() throws XTeeServiceConsumptionException {
+    String kood = "5072";
+    List<String> koodid = Collections.singletonList(kood);
+    List<Hinnakokkulepe> items = koodikeskusXTeeServiceImpl.findHinnakokkuleppedDetailandmedv1(koodid);
+    Assert.assertNotNull(items);
+    Assert.assertTrue(items.size() == 1);
+  }
+  
+  @Test
+  public void findMyygiloadv1() throws XTeeServiceConsumptionException {
+    Calendar calendar = Calendar.getInstance();
+    calendar.add(Calendar.DAY_OF_MONTH, -12);
+    List<String> items = koodikeskusXTeeServiceImpl.findMyygiloadv1(calendar.getTime());
+    Assert.assertNotNull(items);
+  }
+  
+  @Test
+  public void findMyygiloadDetailandmedv1() throws XTeeServiceConsumptionException {
+    String kood = "697010_24085";
+    List<String> koodid = Collections.singletonList(kood);
+    List<Myygiluba> items = koodikeskusXTeeServiceImpl.findMyygiloadDetailandmedv1(koodid);
+    Assert.assertNotNull(items);
+    Assert.assertTrue(items.size() == 1);
   }
 }

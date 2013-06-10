@@ -6,7 +6,10 @@ import ee.webmedia.xtee.client.koodikeskus.types.ee.riik.xtee.koodikeskus.produc
 import ee.webmedia.xtee.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.ArrayOfString;
 import ee.webmedia.xtee.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.DateNotRequired;
 import ee.webmedia.xtee.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.Haigus;
+import ee.webmedia.xtee.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.Hinnakokkulepe;
+import ee.webmedia.xtee.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.Myygiluba;
 import ee.webmedia.xtee.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.Pakend;
+import ee.webmedia.xtee.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.Piirhind;
 import ee.webmedia.xtee.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.PakendidRequest;
 import ee.webmedia.xtee.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.RavimiLiik;
 import ee.webmedia.xtee.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.Ravimvorm;
@@ -33,11 +36,15 @@ public class KoodikeskusXTeeServiceImpl extends XTeeDatabaseService implements K
   private static final String RAVIMVORMID = "ravimvormid";
   private static final String SOODUSTUSED = "soodustused";
   private static final String TOIMEAINED = "toimeained";
+  private static final String PIIRHINNAD = "piirhinnad";
+  private static final String HINNAKOKKULEPPED = "hinnakokkulepped";
+  private static final String MYYGILOAD = "myygiload";
 
   @Resource
   private KoodikeskusXTeeDatabase koodikeskusXTeeDatabase;
 
 
+  @Override
   public List<ATCKlassifikaator> findATCKlassifikaatoridDetailandmedv1(List<String> items)
       throws XTeeServiceConsumptionException {
     ArrayOfString request = createDetailsRequest(items);
@@ -45,24 +52,29 @@ public class KoodikeskusXTeeServiceImpl extends XTeeDatabaseService implements K
     return koodikeskusXTeeDatabase.atcKlassifikaatoridByIDArrayV1(request).getItemList();
   }
 
+  @Override
   public List<String> findATCKlassifikaatoridv1(Date date) throws XTeeServiceConsumptionException {
     return makeListRequest(date, ATC_KLASSIFIKAATORID);
   }
 
+  @Override
   public List<Haigus> findHaigusedDetailandmedv1(List<String> items) throws XTeeServiceConsumptionException {
     ArrayOfString request = createDetailsRequest(items);
     return koodikeskusXTeeDatabase.haigusedByIDArrayV1(request).getItemList();
   }
 
+  @Override
   public List<String> findHaigusedv1(Date date) throws XTeeServiceConsumptionException {
     return makeListRequest(date, HAIGUSED);
   }
 
+  @Override
   public List<Pakend> findPakendidDetailandmedv1(List<String> items) throws XTeeServiceConsumptionException {
     ArrayOfString request = createDetailsRequest(items);
     return koodikeskusXTeeDatabase.pakendidByIDArrayV1(request).getItemList();
   }
 
+  @Override
   public List<String> findPakendidv1(Date date) throws XTeeServiceConsumptionException {
     PakendidRequest request = PakendidRequest.Factory.newInstance();
     DateNotRequired alatesKp = DateNotRequired.Factory.newInstance();
@@ -74,31 +86,71 @@ public class KoodikeskusXTeeServiceImpl extends XTeeDatabaseService implements K
     return koodikeskusXTeeDatabase.pakendidV1(request).getItemList();
   }
 
+  @Override
   public List<Ravimvorm> findRavimvormidDetailandmedv1(List<String> items) throws XTeeServiceConsumptionException {
     ArrayOfString request = createDetailsRequest(items);
     return koodikeskusXTeeDatabase.ravimvormidByIDArrayV1(request).getItemList();
   }
 
+  @Override
   public List<String> findRavimvormidv1(Date date) throws XTeeServiceConsumptionException {
     return makeListRequest(date, RAVIMVORMID);
   }
 
+  @Override
   public List<Soodustus> findSoodustusedDetailandmedv1(List<String> items) throws XTeeServiceConsumptionException {
     ArrayOfString request = createDetailsRequest(items);
     return koodikeskusXTeeDatabase.soodustusedByIDArrayV1(request).getItemList();
   }
 
+  @Override
   public List<String> findSoodustusedv1(Date date) throws XTeeServiceConsumptionException {
     return makeListRequest(date, SOODUSTUSED);
   }
 
+  @Override
   public List<Toimeaine> findToimeainedDetailandmedv1(List<String> items) throws XTeeServiceConsumptionException {
     ArrayOfString request = createDetailsRequest(items);
     return koodikeskusXTeeDatabase.toimeainedByIDArrayV1(request).getItemList();
   }
 
+  @Override
   public List<String> findToimeainedv1(Date date) throws XTeeServiceConsumptionException {
     return makeListRequest(date, TOIMEAINED);
+  }
+
+  @Override
+  public List<String> findPiirhinnadv1(Date date) throws XTeeServiceConsumptionException {
+    return makeListRequest(date, PIIRHINNAD);
+  }
+
+  @Override
+  public List<Piirhind> findPiirhinnadDetailandmedv1(List<String> items) throws XTeeServiceConsumptionException {
+    ArrayOfString request = createDetailsRequest(items);
+    return koodikeskusXTeeDatabase.piirhinnadByIDArrayV1(request).getItemList();
+  }
+
+  @Override
+  public List<String> findHinnakokkuleppedv1(Date date) throws XTeeServiceConsumptionException {
+    return makeListRequest(date, HINNAKOKKULEPPED);
+  }
+
+  @Override
+  public List<Hinnakokkulepe> findHinnakokkuleppedDetailandmedv1(List<String> items)
+      throws XTeeServiceConsumptionException {
+    ArrayOfString request = createDetailsRequest(items);
+    return koodikeskusXTeeDatabase.hinnakokkuleppedByIDArrayV1(request).getItemList();
+  }
+
+  @Override
+  public List<String> findMyygiloadv1(Date date) throws XTeeServiceConsumptionException {
+    return makeListRequest(date, MYYGILOAD);
+  }
+
+  @Override
+  public List<Myygiluba> findMyygiloadDetailandmedv1(List<String> items) throws XTeeServiceConsumptionException {
+    ArrayOfString request = createDetailsRequest(items);
+    return koodikeskusXTeeDatabase.myygiloadByIDArrayV1(request).getItemList();
   }
 
   private ArrayOfString createDetailsRequest(List<String> items) {
@@ -121,8 +173,6 @@ public class KoodikeskusXTeeServiceImpl extends XTeeDatabaseService implements K
       Calendar calendar = Calendar.getInstance();
       calendar.setTime(date);
       request.setKuupaev(calendar);
-    } else {
-      request.setNil();
     }
   }
 

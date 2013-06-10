@@ -3,7 +3,10 @@ package ee.webmedia.xtee.client.koodikeskus;
 import ee.webmedia.xtee.client.exception.XTeeServiceConsumptionException;
 import ee.webmedia.xtee.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.ATCKlassifikaator;
 import ee.webmedia.xtee.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.Haigus;
+import ee.webmedia.xtee.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.Hinnakokkulepe;
+import ee.webmedia.xtee.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.Myygiluba;
 import ee.webmedia.xtee.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.Pakend;
+import ee.webmedia.xtee.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.Piirhind;
 import ee.webmedia.xtee.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.Ravimvorm;
 import ee.webmedia.xtee.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.Soodustus;
 import ee.webmedia.xtee.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.Toimeaine;
@@ -78,4 +81,33 @@ public interface KoodikeskusXTeeService {
    */
   List<Soodustus> findSoodustusedDetailandmedv1(List<String> items) throws XTeeServiceConsumptionException;
 
+  /**
+   * <code>koodikeskus.piirhinnad.v1</code> service.
+   */
+  List<String> findPiirhinnadv1(Date date) throws XTeeServiceConsumptionException;
+
+  /**
+   * <code>koodikeskus.soodustusedByIDArray.v1</code> service.
+   */
+  List<Piirhind> findPiirhinnadDetailandmedv1(List<String> items) throws XTeeServiceConsumptionException;
+
+  /**
+   * <code>koodikeskus.hinnakokkulepped.v1</code> service.
+   */
+  List<String> findHinnakokkuleppedv1(Date date) throws XTeeServiceConsumptionException;
+
+  /**
+   * <code>koodikeskus.hinnakokkuleppedByIDArray.v1</code> service.
+   */
+  List<Hinnakokkulepe> findHinnakokkuleppedDetailandmedv1(List<String> items) throws XTeeServiceConsumptionException;
+
+  /**
+   * <code>koodikeskus.myygiload.v1</code> service.
+   */
+  List<String> findMyygiloadv1(Date date) throws XTeeServiceConsumptionException;
+
+  /**
+   * <code>koodikeskus.myygiloadByIDArray.v1</code> service.
+   */
+  List<Myygiluba> findMyygiloadDetailandmedv1(List<String> items) throws XTeeServiceConsumptionException;
 }

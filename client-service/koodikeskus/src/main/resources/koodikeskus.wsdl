@@ -633,6 +633,7 @@
 					<element name="id" type="xsd:integer"/>
 					<element name="pakendiKood" type="xsd:string"/>
 					<element name="hind" type="tns:Currency"/>
+					<element name="valuuta" type="xsd:string"/>
 					<element name="kehtibAlates" type="xsd:dateTime"/>
 					<element name="kehtibKuni" type="xsd:dateTime" minOccurs="0"/>
 				</all>
@@ -651,6 +652,7 @@
 					<element name="id" type="xsd:integer"/>
 					<element name="pakendiKood" type="xsd:string"/>
 					<element name="hind" type="tns:Currency"/>
+					<element name="valuuta" type="xsd:string"/>
 					<element name="kehtibAlates" type="xsd:dateTime"/>
 					<element name="kehtibKuni" type="xsd:dateTime" minOccurs="0"/>
 				</all>
@@ -840,6 +842,9 @@
 					<element name="pakendisisu" type="tns:ArrayOfPakendSisu"/>
 					<!-- Lubatud väljastada ainult narkootilise ravimi retsepti alusel -->
 					<element name="valjastNarkRetseptiga" type="xsd:boolean" minOccurs="0"/>
+					<!-- Lubatud väljastada korduvretsepti alusel -->
+					<element name="valjastKorduvRetseptiga" type="xsd:boolean" minOccurs="0"/>
+					<element name="pakendiLisand" type="xsd:string" minOccurs="0"/>
 					<element name="valjastRetseptiga" type="xsd:boolean" minOccurs="0"/>
 					<!-- Loetakse narkootiliseks alates kogusest -->
 					<element name="valjastNarkMaxKogus" minOccurs="0">
