@@ -1,5 +1,6 @@
 package ee.webmedia.xtee.client.arireg;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -10,6 +11,7 @@ import org.junit.Test;
 
 import ee.webmedia.xtee.client.arireg.AriregXTeeService.Detailandmedv2KehaPopulatingCallback;
 import ee.webmedia.xtee.client.arireg.AriregXTeeService.Detailandmedv4KehaPopulatingCallback;
+import ee.webmedia.xtee.client.arireg.AriregXTeeService.EttevotjaMuudatusedTasutaReturnedDataSettingCallback;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.DetailandmedKaardileKantudIsik;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.DetailandmedKaardileKantudIsikud;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.DetailandmedV3Ettevotja;
@@ -21,9 +23,11 @@ import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.produc
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.DetailandmedV4Query;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.DetailandmedV5Ettevotja;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.Detailandmedv2Query;
+import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.EttevotjaMuudatusedTasutaParing;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingarikeeludKeeld;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingesindusEttevote;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingesindusV2Ettevote;
+import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingesindusV3Ettevote;
 import ee.webmedia.xtee.client.exception.XTeeServiceConsumptionException;
 import ee.webmedia.xtee.client.test.BaseXTeeServiceImplTest;
 
@@ -43,20 +47,15 @@ public class AriregXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   public void findDetailandmedv31() throws XTeeServiceConsumptionException {
     List<DetailandmedV3Ettevotja> items =
         ariregXTeeServiceImpl.findDetailandmedv3(TEST_ISIKUKOOD, true, true, false, false, 10);
-
     Assert.assertNotNull(items);
     Assert.assertTrue(!items.isEmpty());
-
     DetailandmedV3Ettevotja ettevotja = items.get(0);
     DetailandmedV3Isikuandmed isikuandmed = ettevotja.getIsikuandmed();
     Assert.assertNotNull(isikuandmed);
-
     DetailandmedKaardileKantudIsikud kaardileKantudIsikud = isikuandmed.getKaardileKantudIsikud();
     Assert.assertNotNull(kaardileKantudIsikud);
-
     List<DetailandmedKaardileKantudIsik> kaardileKantudIsikList = kaardileKantudIsikud.getItemList();
     Assert.assertTrue(!kaardileKantudIsikList.isEmpty());
-
     DetailandmedKaardileKantudIsik isik = null;
     for (DetailandmedKaardileKantudIsik kaardileKantudIsik : kaardileKantudIsikList) {
       if (TEST_ISIKUKOOD.equals(kaardileKantudIsik.getIsikukoodRegistrikood())
@@ -65,7 +64,6 @@ public class AriregXTeeServiceImplTest extends BaseXTeeServiceImplTest {
         break;
       }
     }
-
     Assert.assertNotNull(isik);
   }
 
@@ -73,12 +71,9 @@ public class AriregXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   public void findDetailandmedv32() throws XTeeServiceConsumptionException {
     List<DetailandmedV3Ettevotja> items =
         ariregXTeeServiceImpl.findDetailandmedv3(TEST_ARIKOOD, true, true, false, false, 10);
-
     Assert.assertNotNull(items);
     Assert.assertTrue(!items.isEmpty());
-
     DetailandmedV3Ettevotja ettevotja = items.get(0);
-
     Assert.assertEquals(TEST_ARIKOOD, ettevotja.getAriregistriKood());
   }
 
@@ -91,24 +86,18 @@ public class AriregXTeeServiceImplTest extends BaseXTeeServiceImplTest {
             keha.setArinimi(TEST_ARINIMI);
           }
         };
-
     List<DetailandmedV3Ettevotja> items = ariregXTeeServiceImpl.findDetailandmedv3(callback);
-
     Assert.assertNotNull(items);
     Assert.assertTrue(!items.isEmpty());
-
     DetailandmedV3Ettevotja ettevotja = items.get(0);
-
     Assert.assertTrue(ettevotja.getYldandmed().getArinimed().getItemList().get(0).getSisu().toUpperCase().contains(TEST_ARINIMI.toUpperCase()));
   }
 
   @Test
   public void findArikeelud() throws XTeeServiceConsumptionException {
     List<ParingarikeeludKeeld> keelud = ariregXTeeServiceImpl.findArikeelud("38001010001", null, null, null);
-
     Assert.assertNotNull(keelud);
     Assert.assertTrue(!keelud.isEmpty());
-
     ParingarikeeludKeeld keeld = keelud.get(0);
     Assert.assertEquals(keeld.getOlek(), "J");
   }
@@ -117,20 +106,15 @@ public class AriregXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   public void findDetailandmedv41() throws XTeeServiceConsumptionException {
     List<DetailandmedV4Ettevotja> items =
         ariregXTeeServiceImpl.findDetailandmedv4(TEST_ISIKUKOOD, true, true, false, false, false, 10);
-
     Assert.assertNotNull(items);
     Assert.assertTrue(!items.isEmpty());
-
     DetailandmedV4Ettevotja ettevotja = items.get(0);
     DetailandmedV4Isikuandmed isikuandmed = ettevotja.getIsikuandmed();
     Assert.assertNotNull(isikuandmed);
-
     DetailandmedV4KaardileKantudIsikud kaardileKantudIsikud = isikuandmed.getKaardileKantudIsikud();
     Assert.assertNotNull(kaardileKantudIsikud);
-
     List<DetailandmedV4KaardileKantudIsik> kaardileKantudIsikList = kaardileKantudIsikud.getItemList();
     Assert.assertTrue(!kaardileKantudIsikList.isEmpty());
-
     DetailandmedV4KaardileKantudIsik isik = null;
     for (DetailandmedV4KaardileKantudIsik kaardileKantudIsik : kaardileKantudIsikList) {
       if (TEST_ISIKUKOOD.equals(kaardileKantudIsik.getIsikukoodRegistrikood())
@@ -139,7 +123,6 @@ public class AriregXTeeServiceImplTest extends BaseXTeeServiceImplTest {
         break;
       }
     }
-
     Assert.assertNotNull(isik);
   }
 
@@ -147,15 +130,11 @@ public class AriregXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   public void findDetailandmedv42() throws XTeeServiceConsumptionException {
     List<DetailandmedV4Ettevotja> items =
         ariregXTeeServiceImpl.findDetailandmedv4(TEST_ARIKOOD, true, true, false, false, false, 10);
-
     Assert.assertNotNull(items);
     Assert.assertTrue(!items.isEmpty());
-
     DetailandmedV4Ettevotja ettevotja = items.get(0);
-
     Assert.assertEquals(TEST_ARIKOOD, ettevotja.getAriregistriKood());
     Assert.assertEquals("Motoklubi Motosummer", ettevotja.getYldandmed().getArinimed().getItemList().get(0).getSisu());
-
   }
 
   @Test
@@ -167,14 +146,10 @@ public class AriregXTeeServiceImplTest extends BaseXTeeServiceImplTest {
             keha.setArinimi(TEST_ARINIMI);
           }
         };
-
     List<DetailandmedV4Ettevotja> items = ariregXTeeServiceImpl.findDetailandmedv4(callback);
-
     Assert.assertNotNull(items);
     Assert.assertTrue(!items.isEmpty());
-
     DetailandmedV4Ettevotja ettevotja = items.get(0);
-
     Assert.assertTrue(ettevotja.getYldandmed().getArinimed().getItemList().get(0).getSisu().toUpperCase().contains(TEST_ARINIMI.toUpperCase()));
   }
 
@@ -182,12 +157,9 @@ public class AriregXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   public void findDetailandmedV5() throws XTeeServiceConsumptionException {
     List<DetailandmedV5Ettevotja> items =
         ariregXTeeServiceImpl.findDetailandmedV5(TEST_ARIKOOD, true, true, false, false, false, false, 10);
-
     Assert.assertNotNull(items);
     Assert.assertTrue(!items.isEmpty());
-
     DetailandmedV5Ettevotja ettevotja = items.get(0);
-
     Assert.assertEquals(TEST_ARIKOOD, ettevotja.getAriregistriKood().intValue());
     Assert.assertEquals("Motoklubi Motosummer", ettevotja.getYldandmed().getArinimed().getItemList().get(0).getSisu());
   }
@@ -205,9 +177,35 @@ public class AriregXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
 
   @Test
-  public void findParingesindusV3() throws XTeeServiceConsumptionException {
-    // Add implementation when we get access to this service method
-    Assert.assertTrue(true);
+  public void findParingesindusV3() throws XTeeServiceConsumptionException { // Add implementation when we get access to
+                                                                             // this service method
+    List<ParingesindusV3Ettevote> result =
+        ariregXTeeServiceImpl.findParingesindusV3(TEST_ARIKOOD, null, null, null, null);
+    Assert.assertTrue(!result.isEmpty());
+  }
+
+  @Test
+  public void getEttevotjaMuudatusedTasutaV1() throws XTeeServiceConsumptionException {
+    try {
+      SimpleDateFormat sf = new SimpleDateFormat("dd.MM.yyyy");
+      EttevotjaMuudatusedTasutaReturnedDataSettingCallback callback =
+          new EttevotjaMuudatusedTasutaReturnedDataSettingCallback(sf.parse("01.01.2010"),
+                                                                   new String[] { "kanded" },
+                                                                   null, // new String[] { "isikud" },
+                                                                   null,
+                                                                   null,
+                                                                   null,
+                                                                   null,
+                                                                   -1) {
+
+            @Override
+            protected void doPopulate(EttevotjaMuudatusedTasutaParing query) {
+            }
+          };
+      ariregXTeeServiceImpl.findEttevotjaMuudatusedTasutaV1(callback);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   public void setAriregXTeeServiceImpl(AriregXTeeServiceImpl ariregXTeeServiceImpl) {

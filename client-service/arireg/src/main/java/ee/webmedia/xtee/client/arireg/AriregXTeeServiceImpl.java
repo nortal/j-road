@@ -17,6 +17,8 @@ import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.produc
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.DetailandmedV5Query;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.Detailandmedv2Ettevotja;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.Detailandmedv2Query;
+import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.EttevotjaMuudatusedTasutaParing;
+import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.EttevotjaMuudatusedTasutaVastus;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingarikeeludKeeld;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingarikeeludParing;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingesindusEttevote;
@@ -302,5 +304,14 @@ public class AriregXTeeServiceImpl implements AriregXTeeService {
       paring.setAriregisterValjundiFormaat(ariregisterValjundiFormaat);
     }
     return ariregXTeeDatabase.paringesindusV3V1(paring).getEttevotjad().getItemList();
+  }
+
+  public EttevotjaMuudatusedTasutaVastus findEttevotjaMuudatusedTasutaV1(EttevotjaMuudatusedTasutaReturnedDataSettingCallback callback)
+      throws XTeeServiceConsumptionException {
+    EttevotjaMuudatusedTasutaParing query = EttevotjaMuudatusedTasutaParing.Factory.newInstance();
+
+    callback.populate(query);
+
+    return ariregXTeeDatabase.ettevotjaMuudatusedTasutaV1(query);
   }
 }

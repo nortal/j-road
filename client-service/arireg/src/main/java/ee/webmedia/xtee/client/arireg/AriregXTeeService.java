@@ -1,6 +1,7 @@
 package ee.webmedia.xtee.client.arireg;
 
 import java.math.BigInteger;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -11,6 +12,8 @@ import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.produc
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.DetailandmedV5Query;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.Detailandmedv2Ettevotja;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.Detailandmedv2Query;
+import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.EttevotjaMuudatusedTasutaParing;
+import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.EttevotjaMuudatusedTasutaVastus;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingarikeeludKeeld;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingesindusEttevote;
 import ee.webmedia.xtee.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingesindusV2Ettevote;
@@ -308,5 +311,85 @@ public interface AriregXTeeService {
                                                     String fyysiliseIsikuEesnimi,
                                                     String fyysiliseIsikuPerenimi,
                                                     String ariregisterValjundiFormaat)
+      throws XTeeServiceConsumptionException;
+
+  /**
+   * Callback responsible for populating the keha element of <code>arireg.ettevotja_muudatused_tasuta.v1</code> service.
+   */
+  interface EttevotjaMuudatusedTasutaPopulatingCallback {
+
+    void populate(EttevotjaMuudatusedTasutaParing query);
+  }
+
+  /**
+   * {@link DetailandmedV5KehaPopulatingCallback} implementation concerned with setting the data to be returned by
+   * <code>arireg.detailandmedv5.v1</code> service.
+   */
+  public abstract class EttevotjaMuudatusedTasutaReturnedDataSettingCallback implements
+      EttevotjaMuudatusedTasutaPopulatingCallback {
+    private Date kuupaev;
+    private String[] muudatusteValik;
+    private String[] kandevalisedValik;
+    private int[] kandeKandeliigid;
+    private String[] kandeKandeosad;
+    private String kandeEelmineStaatus;
+    private String kandeUusStaatus;
+    private int tulemusteLk;
+
+    public EttevotjaMuudatusedTasutaReturnedDataSettingCallback(Date kuupaev,
+                                                                String[] muudatusteValik,
+                                                                String[] kandevalisedValik,
+                                                                int[] kandeKandeliigid,
+                                                                String[] kandeKandeosad,
+                                                                String kandeEelmineStaatus,
+                                                                String kandeUusStaatus,
+                                                                int tulemusteLk) {
+      this.kuupaev = kuupaev;
+      this.muudatusteValik = muudatusteValik;
+      this.kandevalisedValik = kandevalisedValik;
+      this.kandeKandeliigid = kandeKandeliigid;
+      this.kandeKandeosad = kandeKandeosad;
+      this.kandeEelmineStaatus = kandeEelmineStaatus;
+      this.kandeUusStaatus = kandeUusStaatus;
+      this.tulemusteLk = tulemusteLk;
+    }
+
+    public void populate(EttevotjaMuudatusedTasutaParing query) {
+      if (kuupaev != null) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(kuupaev);
+        query.setKuupaev(cal);
+      }
+      if (muudatusteValik != null) {
+        query.setMuudatusteValikArray(muudatusteValik);
+      }
+      if (kandevalisedValik != null) {
+        query.setKandevalisedValikArray(kandevalisedValik);
+      }
+      if (kandeKandeliigid != null) {
+        query.setKandeKandeliigidArray(kandeKandeliigid);
+      }
+      if (kandeKandeosad != null) {
+        query.setKandeKandeosadArray(kandeKandeosad);
+      }
+      if (kandeEelmineStaatus != null) {
+        query.setKandeEelmineStaatus(kandeEelmineStaatus);
+      }
+      if (kandeUusStaatus != null) {
+        query.setKandeUusStaatus(kandeUusStaatus);
+      }
+      if (tulemusteLk > 0) {
+        query.setTulemusteLk(tulemusteLk);
+      }
+      doPopulate(query);
+    }
+
+    protected abstract void doPopulate(EttevotjaMuudatusedTasutaParing query);
+  }
+
+  /**
+   * <code>arireg.ettevotja_muudatused_tasuta.v1</code> X-tee service.
+   */
+  EttevotjaMuudatusedTasutaVastus findEttevotjaMuudatusedTasutaV1(EttevotjaMuudatusedTasutaReturnedDataSettingCallback callback)
       throws XTeeServiceConsumptionException;
 }
