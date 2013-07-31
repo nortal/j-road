@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
 	xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-	xmlns:tns="http://emtav5.ee.x-rd.net/producer" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+	xmlns:tns="http://emtav5.ee.x-rd.net/producer/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
 	xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xrd="http://x-rd.net/xsd/xroad.xsd"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-	targetNamespace="http://emtav5.ee.x-rd.net/producer">
+	targetNamespace="http://emtav5.ee.x-rd.net/producer/">
 	<types>
 		<schema xmlns="http://www.w3.org/2001/XMLSchema"
 			elementFormDefault="unqualified"
-			targetNamespace="http://emtav5.ee.x-rd.net/producer">
+			targetNamespace="http://emtav5.ee.x-rd.net/producer/">
 			<import namespace="http://x-rd.net/xsd/xroad.xsd"
 				schemaLocation="http://x-rd.net/xsd/xroad.xsd" />
 			<import namespace="http://www.w3.org/2005/05/xmlmime"
