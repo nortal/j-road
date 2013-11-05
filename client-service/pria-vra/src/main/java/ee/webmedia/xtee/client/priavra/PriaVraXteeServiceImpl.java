@@ -18,6 +18,14 @@ public class PriaVraXteeServiceImpl implements PriaVraXteeService {
   @Resource
   private PriaVraXTeeDatabase priaVraXTeeDatabase;
 
+  public VtaJaakResponse vtaJaakV1ByIsikukood(String isikukood) throws XTeeServiceConsumptionException {
+    return vtaJaakV1(isikukood, null);
+  }
+
+  public VtaJaakResponse vtaJaakV1ByRegistrikood(String registrikood) throws XTeeServiceConsumptionException {
+    return vtaJaakV1(null, registrikood);
+  }
+
   public VtaJaakResponse vtaJaakV1(String isikukood, String registrikood) throws XTeeServiceConsumptionException {
     VtaJaakRequest req = VtaJaakRequest.Factory.newInstance();
     req.setIsikukood(isikukood);

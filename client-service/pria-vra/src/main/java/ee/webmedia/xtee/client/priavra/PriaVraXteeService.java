@@ -8,5 +8,9 @@ import ee.webmedia.xtee.client.priavra.types.ee.riik.xtee.pria_vra.producers.pro
  * @since 05.11.2013
  */
 public interface PriaVraXteeService {
+  VtaJaakResponse vtaJaakV1ByIsikukood(String isikukood) throws XTeeServiceConsumptionException;
+
+  VtaJaakResponse vtaJaakV1ByRegistrikood(String registrikood) throws XTeeServiceConsumptionException;
+
   VtaJaakResponse vtaJaakV1(String isikukood, String registrikood) throws XTeeServiceConsumptionException;
 }
