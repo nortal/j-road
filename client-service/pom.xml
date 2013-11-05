@@ -63,6 +63,7 @@
     <module>trelvaregister</module>
     <module>vangis</module>
     <module>viisaregister</module>
+    <module>pria-vra</module>    
   </modules>
 
   <build>

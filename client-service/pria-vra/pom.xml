@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>xtee-client-pria-vra</artifactId>
+  <name>pri-avra client services</name>
+
+  <parent>
+    <groupId>com.googlecode.j-road</groupId>
+    <artifactId>xtee-client-service</artifactId>
+ 	<version>3.0.1-SNAPSHOT</version>
+  </parent>
+
+  <properties>
+    <package>priavra</package>
+  </properties>
+</project>
