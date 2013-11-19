@@ -26,6 +26,7 @@ public class PraiVraXTeeServiceImplTest extends BaseXTeeServiceImplTest {
 
     Assert.assertNull(rsp.getPriaIsikVtaJaak());
     Assert.assertNull(rsp.getPriaEttevoteVtaJaak());
+    Assert.assertTrue(rsp.getVeakood() == -1);
 
     rsp = priaVraXteeService.vtaJaakV1("123", "xyz");
 
