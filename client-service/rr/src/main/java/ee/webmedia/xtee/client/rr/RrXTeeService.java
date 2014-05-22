@@ -14,6 +14,8 @@ import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR67Response.TtKoodid;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR72Response.TtIsikud;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR81Response;
+import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR84Request;
+import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR84Response;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR96ResponseV1;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RRExtDocumentDataRequest;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RRExtDocumentDataResponse;
@@ -92,4 +94,9 @@ public interface RrXTeeService {
 	 */
 	List<TtKoodid.Item> findRR67MuutusV1(Date algus, Date lopp,
 			String... koodid) throws XTeeServiceConsumptionException;
+
+	 /**
+   * <code>rr.RR84IsikuSeosed.v1</code> service.
+   */
+  RR84Response findRR84IsikuSeosed(String isikukood) throws XTeeServiceConsumptionException;
 }

@@ -26,6 +26,8 @@ import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR63ResponseV1;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR67Request;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR67Response;
+import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR84Request;
+import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR84Response;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR67Response.TtKoodid;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR72Request;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR72Response.TtIsikud;
@@ -188,5 +190,13 @@ public class RrXTeeServiceImpl implements RrXTeeService {
 		RR67Response rsp = rrXTeeDatabase.rr67MuutusV1(request);
 		return rsp.getTtKoodid() != null ? rsp.getTtKoodid().getItemList()
 				: new ArrayList<TtKoodid.Item>();
+	}
+
+	@Override
+	public RR84Response findRR84IsikuSeosed(String isikukood)
+	    throws XTeeServiceConsumptionException {
+	  RR84Request request = RR84Request.Factory.newInstance();
+	  request.setIsikukood(isikukood);
+	  return rrXTeeDatabase.rr84IsikuSeosedV1(request);
 	}
 }
