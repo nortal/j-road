@@ -1,0 +1,1989 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xrd="http://x-road.ee/xsd/x-road.xsd"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:tns="http://emtav5.x-road.ee/producer/" targetNamespace="http://emtav5.x-road.ee/producer/"
+                  name="tor">
+     
+	<wsdl:types>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://emtav5.x-road.ee/producer/">
+            <import namespace="http://x-road.ee/xsd/x-road.xsd" schemaLocation="http://x-road.ee/xsd/x-road.xsd" />
+
+		   <element name="TOOTREG_AMETNIK">	
+				<complexType>
+					<sequence>
+						<element name="request" type="tns:tootregAmetnikRequestType"/>
+					</sequence>
+				</complexType>
+				</element>         
+           <element name="TOOTREG_AMETNIKResponse" >								
+				<complexType>
+					<sequence>
+					    <element name="request" type="tns:tootregAmetnikRequestType"/>
+						<element name="response" type="tns:tootregAmetnikResponseType"/>
+					</sequence>
+				</complexType>	
+		   </element>
+		   
+		   <element name="TOOTREG">	
+				<complexType>
+					<sequence>
+						<element name="request" type="tns:tootregRequestType"/>
+					</sequence>
+				</complexType>
+		    </element>         
+            <element name="TOOTREGResponse" >								
+				<complexType>
+					<sequence>
+					    <element name="request" type="tns:tootregRequestType"/>
+						<element name="response" type="tns:tootregResponseType"/>
+					</sequence>
+				</complexType>	
+		    </element>
+		    
+		    <element name="TORIK">
+                <complexType>
+                    <sequence>
+                        <element name="request" type="tns:torikRequestType" />
+                    </sequence>
+                </complexType>
+            </element>
+
+            <element name="TORIKResponse">
+                <complexType>
+                    <sequence>
+                        <element name="request" type="tns:torikRequestType" />
+                        <element name="response" type="tns:torikResponseType" />
+                    </sequence>
+                </complexType>
+            </element>
+                       
+			<complexType name="tootregAmetnikRequestType">
+				<sequence>						
+					<element name="kanne_jada">
+						<complexType>
+							<sequence>	
+								<element name="item" minOccurs="0" maxOccurs = "100">
+									<complexType>
+										  <sequence>
+												<element name="toot_id" type="long" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Töötamise kande ID töötamiste registris(M ja T tüübi puhul kohustuslik)</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="kande_tyyp">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Kande tüüp</xrd:title>
+														</appinfo>
+													</annotation>
+													<simpleType>
+														<restriction base="string">
+															<enumeration value="R">
+																<annotation>
+																	<appinfo>
+																		<xrd:title>Esmane reg-ne</xrd:title>
+																	</appinfo>
+																</annotation>
+															</enumeration>
+															<enumeration value="M">
+																<annotation>
+																	<appinfo>
+																		<xrd:title>Kande muutmine</xrd:title>
+																	</appinfo>
+																</annotation>
+															</enumeration>
+															<enumeration value="T">
+																<annotation>
+																	<appinfo>
+																		<xrd:title>Kande tühistamine</xrd:title>
+																	</appinfo>
+																</annotation>
+															</enumeration>
+														</restriction>
+													</simpleType>
+												</element>				
+												<element name="kande_aeg" type="dateTime">
+													<annotation>
+														<appinfo>
+															<xrd:title>Kohustuslik kande sisetamise/muutmise aeg andmeedastaja juures</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="isikukood" type="string" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Töötava isiku isikukood RR andmete alusel</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="tootaja_synniaeg" type="date" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Kui IK ei ole, siis lisada töötaja sünniaeg</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="tootaja_perenimi" type="string" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Kui IK ei ole, siis lisada sünniajale ka töötaja perenimi</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="tootaja_eesnimi" type="string" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Kui IK ei ole, siis lisada sünniajale ka töötaja eesnimi</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="tegeliku_tooandja_kood" type="string" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Tööandja identifikaator(äriregistri kood). See väärtus on kasutusel
+															ainult valitud ministeeriumides, võib täita töötamise lõpetamise hetkel</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="tootamise_algus" type="date">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Tööle asumise aeg või VÕS puhul lepingu jõustumise aeg, 
+															R tüüpi kandes kohustuslik</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="tootamise_liik" type="int" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Töötamise liigi kood TÖR klassifikaatorist</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="leping" type="string" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Mitme samaaegselt algava samaliigilise töötamise 
+															puhul identifitseeriv väärtus</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="ameti_kood" type="int" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Ameti kood Statistikaameti Ametite klassifikaatorist</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="tootamise_asukoha_aadressi_ID" type="int" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">http://xgis.maaamet.ee/adsavalik/ads</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="tootamise_lopp" type="date" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Töötamise lõpetamise aeg</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="tootamise_lopetamise_aluse_kood" type="int" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Kood TLP klassifikaatorist</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="peatamise_perioodi_algus" type="date" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Töötamise peatamise alguse kuupäev</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="esmane_peatamise_algus" type="date" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Kasutatakse peatamise kande identifitseerimiseks, kui peatamie algust,
+															 alust või lõppu tahetakse muuta</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="peatamise_aluse_kood" type="int" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Töötamise peatamise alus klassifikaatorist</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="peatamise_perioodi_lopp" type="date" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Töötamise peatamise lõpu kuupäev</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="tvoim_markus" type="string" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Koht tööd võimaldava isikule märkuse tegemiseks kande kohta</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="mta_markus" type="string" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Tööinspektsiooni vm. ametniku jaoks</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="algkp_otsuse_liik_kood" type="int" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Klassifikaatorist OTSUSE_LIIK alguskuupäeva kohta tehtud
+															otsuse liigi kood, tööd võimaldav isik ei täida</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="algkp_otsus" type="string" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Lisaväli TVK/Kohtu otsuse numbri jaoks, 
+															tööd võimaldav isik ei täida.</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="tootliik_otsuse_liik_kood" type="int" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Klassifikaatorist OTSUSE_LIIK töötamise liigi kohta tehtud otsuse
+															liigi kood, tööd võimaldav isik ei täida</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="tootliik_otsus" type="string" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Lisaväli TVK/Kohtu otsuse numbri jaoks, 
+															tööd võimaldav isik ei täida</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="loppkp_otsuse_liik_kood" type="int" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Klassifikaatorist OTSUSE_LIIK lõpu kuupäeva kohta tehtud otsuse liigi kood,
+															tööd võimaldav isik ei täida</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="loppkp_otsus" type="string" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Lisväli TVK/Kohtu otsuse nimbri jaoks,
+															tööd võimaldav isik ei täida</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="lopalus_otsuse_liik_kood" type="int" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Klassifikaatorist OTSUSE_LIIK lõpetamise aluse kohta tehtud
+															otsuse liigi kood, tööd võimaldav isik ei täida</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="lopalus_otsus" type="string" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Lisväli TVK/Kohtu otsuse nimbri jaoks,
+															tööd võimaldav isik ei täida</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+										</sequence>
+									</complexType>	
+								</element>	
+							</sequence>
+						</complexType>
+					</element>																		
+				</sequence>
+			</complexType>	
+            
+            <complexType name="tootregAmetnikResponseType">
+               <sequence>
+                    <choice>
+                        <sequence>
+							<element name="faultCode" type="xrd:faultCode" minOccurs="0" />
+							<element name="faultString" type="xrd:faultString" minOccurs="0" />	
+					 	</sequence>
+                        <sequence>
+							<element name="kood" type="int" minOccurs="0">
+								<annotation>
+									<appinfo>
+										<xrd:title xml:lang="et">Sõnumi töötlemise kood</xrd:title>
+									</appinfo>
+								</annotation>
+							</element>	
+							<element name="teade" type="string" minOccurs="0">
+								<annotation>
+									<appinfo>
+										<xrd:title xml:lang="et">Sõnumi töötlemise tulemuse teade</xrd:title>
+									</appinfo>
+								</annotation>
+							</element>
+							<element name="ok_kannete_arv" type="int" minOccurs="0">
+								<annotation>
+									<appinfo>
+										<xrd:title xml:lang="et">Korrektselt töödeldud kannete arv</xrd:title>
+									</appinfo>
+								</annotation>
+							</element>	
+							<element name="vigaste_kannete_arv" type="int" minOccurs="0">
+								<annotation>
+									<appinfo>
+										<xrd:title xml:lang="et">Vigaste kannete arv</xrd:title>
+									</appinfo>
+								</annotation>
+							</element>								
+							<element name="vigased_kanded" minOccurs="0">
+								<annotation>
+									<appinfo>
+										<xrd:title xml:lang="et">Töötlemisel tekkinud teated: informatiivsed, hoiatused ja vead</xrd:title>
+									</appinfo>
+								</annotation>
+								<complexType>
+									<sequence>									
+										<element name="item" minOccurs="0" maxOccurs="100">
+											<complexType>
+												  <sequence>
+														<element name="toot_id" type="long" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Töötamise kande ID töötamiste registris(M ja T tüübi puhul kohustuslik)</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="kande_tyyp">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Kande tüüp</xrd:title>
+																</appinfo>
+															</annotation>
+															<simpleType>
+																<restriction base="string">
+																	<enumeration value="R">
+																		<annotation>
+																			<appinfo>
+																				<xrd:title>Esmane reg-ne</xrd:title>
+																			</appinfo>
+																		</annotation>
+																	</enumeration>
+																	<enumeration value="M">
+																		<annotation>
+																			<appinfo>
+																				<xrd:title>Kande muutmine</xrd:title>
+																			</appinfo>
+																		</annotation>
+																	</enumeration>
+																	<enumeration value="T">
+																		<annotation>
+																			<appinfo>
+																				<xrd:title>Kande tühistamine</xrd:title>
+																			</appinfo>
+																		</annotation>
+																	</enumeration>
+																</restriction>
+															</simpleType>
+														</element>
+														<element name="kande_aeg" type="dateTime">
+															<annotation>
+																<appinfo>
+																	<xrd:title>Kohustuslik kande sisetamise/muutmise aeg andmeedastaja juures</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="isikukood" type="string" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Töötava isiku isikukood RR andmete alusel</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="tootaja_synniaeg" type="date" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Kui IK ei ole, siis lisada töötaja sünniaeg</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="tootaja_perenimi" type="string" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Kui IK ei ole, siis lisada sünniajale ka töötaja perenimi</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="tootaja_eesnimi" type="string" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Kui IK ei ole, siis lisada sünniajale ka töötaja eesnimi</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="tegeliku_tooandja_kood" type="string" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Tegeliku tööandja identifikaator(äriregistri kood). See väärtus on kasutusel
+																	ainult valitud ministeeriumides, võib täita töötamise lõpetamise hetkel</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="tootamise_algus" type="date">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Tööle asumise aeg või VÕS puhul lepingu jõustumise aeg, 
+																	R tüüpi kandes kohustuslik</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="tootamise_liik" type="int" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Töötamise liigi kood TÖR klassifikaatorist</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="leping" type="string" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Mitme samaaegselt algava samaliigilise töötamise 
+																	puhul identifitseeriv väärtus</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="ameti_kood" type="int" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Ameti kood Statistikaameti Ametite klassifikaatorist</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="tootamise_asukoha_aadressi_ID" type="int" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">http://xgis.maaamet.ee/adsavalik/ads</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="tootamise_lopp" type="date" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Töötamise lõpetamise aeg</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="tootamise_lopetamise_aluse_kood" type="int" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Kood TLP klassifikaatorist</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="peatamise_perioodi_algus" type="date" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Töötamise peatamise alguse kuupäev</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="esmane_peatamise_algus" type="date" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Kasutatakse peatamise kande identifitseerimiseks, kui peatamie algust,
+																	 alust või lõppu tahetakse muuta</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="peatamise_aluse_kood" type="int" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Töötamise peatamise alus klassifikaatorist</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="peatamise_perioodi_lopp" type="date" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Töötamise peatamise lõpu kuupäev</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="tvoim_markus" type="string" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Koht tööd võimaldava isikule märkuse tegemiseks kande kohta</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="mta_markus" type="string" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Tööinspektsiooni vm. ametniku jaoks</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="algkp_otsuse_liik_kood" type="int" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Klassifikaatorist OTSUSE_LIIK alguskuupäeva kohta tehtud
+																	otsuse liigi kood, tööd võimaldav isik ei täida</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="algkp_otsus" type="string" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Lisaväli TVK/Kohtu otsuse numbri jaoks, 
+																	tööd võimaldav isik ei täida.</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="tootliik_otsuse_liik_kood" type="int" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Klassifikaatorist OTSUSE_LIIK töötamise liigi kohta tehtud otsuse
+																	liigi kood, tööd võimaldav isik ei täida</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="tootliik_otsus" type="string" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Lisaväli TVK/Kohtu otsuse numbri jaoks, 
+																	tööd võimaldav isik ei täida</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="loppkp_otsuse_liik_kood" type="int" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Klassifikaatorist OTSUSE_LIIK lõpu kuupäeva kohta tehtud otsuse liigi kood,
+																	tööd võimaldav isik ei täida</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="loppkp_otsus" type="string" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Lisväli TVK/Kohtu otsuse nimbri jaoks,
+																	tööd võimaldav isik ei täida</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="lopalus_otsuse_liik_kood" type="int" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Klassifikaatorist OTSUSE_LIIK lõpetamise aluse kohta tehtud
+																	otsuse liigi kood, tööd võimaldav isik ei täida</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="lopalus_otsus" type="string" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Lisväli TVK/Kohtu otsuse nimbri jaoks,
+																	tööd võimaldav isik ei täida</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="vigade_jada_kande_kohta">
+															<complexType>
+																<sequence>	
+																	<element name="item" minOccurs="0" maxOccurs="unbounded">																	
+																		<complexType>
+																		  <sequence>
+																				<element name="tyyp">
+																					<annotation>
+																						<appinfo>
+																							<xrd:title xml:lang="et">Teate tüüp</xrd:title>
+																						</appinfo>
+																					</annotation>
+																					<simpleType>
+																						<restriction base="string">
+																							<enumeration value="E">
+																								<annotation>
+																									<appinfo>
+																										<xrd:title>Vead</xrd:title>
+																									</appinfo>
+																								</annotation>
+																							</enumeration>
+																							<enumeration value="W">
+																								<annotation>
+																									<appinfo>
+																										<xrd:title>Hoiatused</xrd:title>
+																									</appinfo>
+																								</annotation>
+																							</enumeration>
+																						</restriction>
+																					</simpleType>
+																				</element>
+																				<element name="element_name" type="string" minOccurs="0">
+																					<annotation>
+																						<appinfo>
+																							<xrd:title xml:lang="et">Vigase välja tunnus</xrd:title>
+																						</appinfo>
+																					</annotation>
+																				</element>
+																				<element name="kood" type="string" minOccurs="0">
+																					<annotation>
+																						<appinfo>
+																							<xrd:title>Teate kood</xrd:title>
+																						</appinfo>
+																					</annotation>
+																				</element>
+																				<element name="kirjeldus" type="string" minOccurs="0">
+																					<annotation>
+																						<appinfo>
+																							<xrd:title>Teate kirjeldus</xrd:title>
+																						</appinfo>
+																					</annotation>
+																				</element>
+																			</sequence>
+																		</complexType>	
+																	</element>																	
+																</sequence>
+															</complexType>
+													   </element>
+												</sequence>
+											</complexType>	
+										</element>										
+									</sequence>
+								</complexType>
+							</element>
+							<element name="korrektsed_kanded" minOccurs="0">
+								<annotation>
+									<appinfo>
+										<xrd:title xml:lang="et">Info TÖR-i registreeritud kannete kohta</xrd:title>
+									</appinfo>
+								</annotation>
+								<complexType>
+									<sequence>											
+										<element name="item" minOccurs="0" maxOccurs="100">
+											<complexType>
+											  <sequence>
+													<element name="toot_id" type="long" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title xml:lang="et">Töötamise kande ID töötamiste registris(M ja T tüübi puhul kohustuslik)</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>
+													<element name="kande_tyyp">
+														<annotation>
+															<appinfo>
+																<xrd:title xml:lang="et">Kande tüüp</xrd:title>
+															</appinfo>
+														</annotation>
+														<simpleType>
+															<restriction base="string">
+																<enumeration value="R">
+																	<annotation>
+																		<appinfo>
+																			<xrd:title>Esmane reg-ne</xrd:title>
+																		</appinfo>
+																	</annotation>
+																</enumeration>
+																<enumeration value="M">
+																	<annotation>
+																		<appinfo>
+																			<xrd:title>Kande muutmine</xrd:title>
+																		</appinfo>
+																	</annotation>
+																</enumeration>
+																<enumeration value="T">
+																	<annotation>
+																		<appinfo>
+																			<xrd:title>Kande tühistamine</xrd:title>
+																		</appinfo>
+																	</annotation>
+																</enumeration>
+															</restriction>
+														</simpleType>					
+													</element>
+													<element name="kande_aeg" type="dateTime">
+														<annotation>
+															<appinfo>
+																<xrd:title>Kohustuslik kande sisetamise/muutmise aeg andmeedastaja juures</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>
+													<element name="isikukood" type="string" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title xml:lang="et">Töötava isiku isikukood RR andmete alusel</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>
+													<element name="tootaja_synniaeg" type="date" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title xml:lang="et">Kui IK ei ole, siis lisada töötaja sünniaeg</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>
+													<element name="tootaja_perenimi" type="string" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title xml:lang="et">Kui IK ei ole, siis lisada sünniajale ka töötaja perenimi</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>
+													<element name="tootaja_eesnimi" type="string" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title xml:lang="et">Kui IK ei ole, siis lisada sünniajale ka töötaja eesnimi</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>
+													<element name="tootamise_algus" type="date">
+														<annotation>
+															<appinfo>
+																<xrd:title xml:lang="et">Tööle asumise aeg või VÕS puhul lepingu jõustumise aeg, 
+																R tüüpi kandes kohustuslik</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>
+													<element name="tootamise_liik" type="int" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title xml:lang="et">Töötamise liigi kood TÖR klassifikaatorist</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>
+													<element name="leping" type="string" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title xml:lang="et">Mitme samaaegselt algava samaliigilise töötamise 
+																puhul identifitseeriv väärtus</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>
+											</sequence>
+										</complexType>
+									</element>
+								</sequence>
+							</complexType>
+						</element>																												
+					</sequence>
+				</choice>
+			</sequence>
+		</complexType>
+        
+        <complexType name="tootregRequestType">
+				<sequence>						
+					<element name="kanne_jada">
+						<complexType>
+							<sequence>	
+								<element name="item" minOccurs="0" maxOccurs = "100">
+									<complexType>
+										  <sequence>
+												<element name="toot_id" type="long" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Töötamise kande ID töötamiste registris(M ja T tüübi puhul kohustuslik)</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="kande_tyyp">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Kande tüüp</xrd:title>
+														</appinfo>
+													</annotation>
+													<simpleType>
+														<restriction base="string">
+															<enumeration value="R">
+																<annotation>
+																	<appinfo>
+																		<xrd:title>Esmane reg-ne</xrd:title>
+																	</appinfo>
+																</annotation>
+															</enumeration>
+															<enumeration value="M">
+																<annotation>
+																	<appinfo>
+																		<xrd:title>Kande muutmine</xrd:title>
+																	</appinfo>
+																</annotation>
+															</enumeration>
+															<enumeration value="T">
+																<annotation>
+																	<appinfo>
+																		<xrd:title>Kande tühistamine</xrd:title>
+																	</appinfo>
+																</annotation>
+															</enumeration>
+														</restriction>
+													</simpleType>
+												</element>				
+												<element name="kande_aeg" type="dateTime">
+													<annotation>
+														<appinfo>
+															<xrd:title>Kohustuslik kande sisetamise/muutmise aeg andmeedastaja juures</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="isikukood" type="string" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Töötava isiku isikukood RR andmete alusel</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="tootaja_synniaeg" type="date" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Kui IK ei ole, siis lisada töötaja sünniaeg</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="tootaja_perenimi" type="string" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Kui IK ei ole, siis lisada sünniajale ka töötaja perenimi</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="tootaja_eesnimi" type="string" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Kui IK ei ole, siis lisada sünniajale ka töötaja eesnimi</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="tegeliku_tooandja_kood" type="string" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Tööandja identifikaator(äriregistri kood). See väärtus on kasutusel
+															ainult valitud ministeeriumides, võib täita töötamise lõpetamise hetkel</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="tootamise_algus" type="date">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Tööle asumise aeg või VÕS puhul lepingu jõustumise aeg, 
+															R tüüpi kandes kohustuslik</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="tootamise_liik" type="int" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Töötamise liigi kood TÖR klassifikaatorist</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="leping" type="string" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Mitme samaaegselt algava samaliigilise töötamise 
+															puhul identifitseeriv väärtus</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="ameti_kood" type="int" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Ameti kood Statistikaameti Ametite klassifikaatorist</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="tootamise_asukoha_aadressi_ID" type="int" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">http://xgis.maaamet.ee/adsavalik/ads</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="tootamise_lopp" type="date" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Töötamise lõpetamise aeg</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="tootamise_lopetamise_aluse_kood" type="int" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Kood TLP klassifikaatorist</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="peatamise_perioodi_algus" type="date" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Töötamise peatamise alguse kuupäev</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="esmane_peatamise_algus" type="date" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Kasutatakse peatamise kande identifitseerimiseks, kui peatamie algust,
+															 alust või lõppu tahetakse muuta</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="peatamise_aluse_kood" type="int" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Töötamise peatamise alus klassifikaatorist</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="peatamise_perioodi_lopp" type="date" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Töötamise peatamise lõpu kuupäev</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+												<element name="tvoim_markus" type="string" minOccurs="0">
+													<annotation>
+														<appinfo>
+															<xrd:title xml:lang="et">Koht tööd võimaldava isikule märkuse tegemiseks kande kohta</xrd:title>
+														</appinfo>
+													</annotation>
+												</element>
+										</sequence>
+									</complexType>	
+								</element>	
+							</sequence>
+						</complexType>
+					</element>																		
+				</sequence>
+			</complexType>	
+            
+            <complexType name="tootregResponseType">
+               <sequence>
+                    <choice>
+                        <sequence>
+							<element name="faultCode" type="xrd:faultCode" minOccurs="0" />
+							<element name="faultString" type="xrd:faultString" minOccurs="0" />	
+					 	</sequence>
+                        <sequence>
+							<element name="kood" type="int" minOccurs="0">
+								<annotation>
+									<appinfo>
+										<xrd:title xml:lang="et">Sõnumi töötlemise kood</xrd:title>
+									</appinfo>
+								</annotation>
+							</element>	
+							<element name="teade" type="string" minOccurs="0">
+								<annotation>
+									<appinfo>
+										<xrd:title xml:lang="et">Sõnumi töötlemise tulemuse teade</xrd:title>
+									</appinfo>
+								</annotation>
+							</element>
+							<element name="ok_kannete_arv" type="int" minOccurs="0">
+								<annotation>
+									<appinfo>
+										<xrd:title xml:lang="et">Korrektselt töödeldud kannete arv</xrd:title>
+									</appinfo>
+								</annotation>
+							</element>	
+							<element name="vigaste_kannete_arv" type="int" minOccurs="0">
+								<annotation>
+									<appinfo>
+										<xrd:title xml:lang="et">Vigaste kannete arv</xrd:title>
+									</appinfo>
+								</annotation>
+							</element>								
+							<element name="vigased_kanded" minOccurs="0">
+								<annotation>
+									<appinfo>
+										<xrd:title xml:lang="et">Töötlemisel tekkinud teated: informatiivsed, hoiatused ja vead</xrd:title>
+									</appinfo>
+								</annotation>
+								<complexType>
+									<sequence>									
+										<element name="item" minOccurs="0" maxOccurs="100">
+											<complexType>
+												  <sequence>
+														<element name="toot_id" type="long" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Töötamise kande ID töötamiste registris(M ja T tüübi puhul kohustuslik)</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="kande_tyyp">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Kande tüüp</xrd:title>
+																</appinfo>
+															</annotation>
+															<simpleType>
+																<restriction base="string">
+																	<enumeration value="R">
+																		<annotation>
+																			<appinfo>
+																				<xrd:title>Esmane reg-ne</xrd:title>
+																			</appinfo>
+																		</annotation>
+																	</enumeration>
+																	<enumeration value="M">
+																		<annotation>
+																			<appinfo>
+																				<xrd:title>Kande muutmine</xrd:title>
+																			</appinfo>
+																		</annotation>
+																	</enumeration>
+																	<enumeration value="T">
+																		<annotation>
+																			<appinfo>
+																				<xrd:title>Kande tühistamine</xrd:title>
+																			</appinfo>
+																		</annotation>
+																	</enumeration>
+																</restriction>
+															</simpleType>
+														</element>
+														<element name="kande_aeg" type="dateTime">
+															<annotation>
+																<appinfo>
+																	<xrd:title>Kohustuslik kande sisetamise/muutmise aeg andmeedastaja juures</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="isikukood" type="string" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Töötava isiku isikukood RR andmete alusel</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="tootaja_synniaeg" type="date" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Kui IK ei ole, siis lisada töötaja sünniaeg</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="tootaja_perenimi" type="string" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Kui IK ei ole, siis lisada sünniajale ka töötaja perenimi</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="tootaja_eesnimi" type="string" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Kui IK ei ole, siis lisada sünniajale ka töötaja eesnimi</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="tegeliku_tooandja_kood" type="string" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Tegeliku tööandja identifikaator(äriregistri kood). See väärtus on kasutusel
+																	ainult valitud ministeeriumides, võib täita töötamise lõpetamise hetkel</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="tootamise_algus" type="date">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Tööle asumise aeg või VÕS puhul lepingu jõustumise aeg, 
+																	R tüüpi kandes kohustuslik</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="tootamise_liik" type="int" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Töötamise liigi kood TÖR klassifikaatorist</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="leping" type="string" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Mitme samaaegselt algava samaliigilise töötamise 
+																	puhul identifitseeriv väärtus</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="ameti_kood" type="int" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Ameti kood Statistikaameti Ametite klassifikaatorist</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="tootamise_asukoha_aadressi_ID" type="int" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">http://xgis.maaamet.ee/adsavalik/ads</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="tootamise_lopp" type="date" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Töötamise lõpetamise aeg</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="tootamise_lopetamise_aluse_kood" type="int" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Kood TLP klassifikaatorist</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="peatamise_perioodi_algus" type="date" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Töötamise peatamise alguse kuupäev</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="esmane_peatamise_algus" type="date" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Kasutatakse peatamise kande identifitseerimiseks, kui peatamie algust,
+																	 alust või lõppu tahetakse muuta</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="peatamise_aluse_kood" type="int" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Töötamise peatamise alus klassifikaatorist</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="peatamise_perioodi_lopp" type="date" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Töötamise peatamise lõpu kuupäev</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="tvoim_markus" type="string" minOccurs="0">
+															<annotation>
+																<appinfo>
+																	<xrd:title xml:lang="et">Koht tööd võimaldava isikule märkuse tegemiseks kande kohta</xrd:title>
+																</appinfo>
+															</annotation>
+														</element>
+														<element name="vigade_jada_kande_kohta">
+															<complexType>
+																<sequence>	
+																	<element name="item" minOccurs="0" maxOccurs="unbounded">																	
+																		<complexType>
+																		  <sequence>
+																				<element name="tyyp" minOccurs="0">
+																					<annotation>
+																						<appinfo>
+																							<xrd:title xml:lang="et">Teate tüüp</xrd:title>
+																						</appinfo>
+																					</annotation>
+																					<simpleType>
+																						<restriction base="string">
+																							<enumeration value="E">
+																								<annotation>
+																									<appinfo>
+																										<xrd:title>Vead</xrd:title>
+																									</appinfo>
+																								</annotation>
+																							</enumeration>
+																							<enumeration value="W">
+																								<annotation>
+																									<appinfo>
+																										<xrd:title>Hoiatused</xrd:title>
+																									</appinfo>
+																								</annotation>
+																							</enumeration>
+																						</restriction>
+																					</simpleType>
+																				</element>
+																				<element name="element_name" type="string" minOccurs="0">
+																					<annotation>
+																						<appinfo>
+																							<xrd:title xml:lang="et">Vigase välja tunnus</xrd:title>
+																						</appinfo>
+																					</annotation>
+																				</element>
+																				<element name="kood" type="string" minOccurs="0">
+																					<annotation>
+																						<appinfo>
+																							<xrd:title>Teate kood</xrd:title>
+																						</appinfo>
+																					</annotation>
+																				</element>
+																				<element name="kirjeldus" type="string" minOccurs="0">
+																					<annotation>
+																						<appinfo>
+																							<xrd:title>Teate kirjeldus</xrd:title>
+																						</appinfo>
+																					</annotation>
+																				</element>
+																			</sequence>
+																		</complexType>	
+																	</element>																	
+																</sequence>
+															</complexType>
+													   </element>
+												</sequence>
+											</complexType>	
+										</element>										
+									</sequence>
+								</complexType>
+							</element>
+							<element name="korrektsed_kanded" minOccurs="0">
+								<annotation>
+									<appinfo>
+										<xrd:title xml:lang="et">Info TÖR-i registreeritud kannete kohta</xrd:title>
+									</appinfo>
+								</annotation>
+								<complexType>
+									<sequence>											
+										<element name="item" minOccurs="0" maxOccurs="100">
+											<complexType>
+											  <sequence>
+													<element name="toot_id" type="long" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title xml:lang="et">Töötamise kande ID töötamiste registris(M ja T tüübi puhul kohustuslik)</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>
+													<element name="kande_tyyp">
+														<annotation>
+															<appinfo>
+																<xrd:title xml:lang="et">Kande tüüp</xrd:title>
+															</appinfo>
+														</annotation>
+														<simpleType>
+															<restriction base="string">
+																<enumeration value="R">
+																	<annotation>
+																		<appinfo>
+																			<xrd:title>Esmane reg-ne</xrd:title>
+																		</appinfo>
+																	</annotation>
+																</enumeration>
+																<enumeration value="M">
+																	<annotation>
+																		<appinfo>
+																			<xrd:title>Kande muutmine</xrd:title>
+																		</appinfo>
+																	</annotation>
+																</enumeration>
+																<enumeration value="T">
+																	<annotation>
+																		<appinfo>
+																			<xrd:title>Kande tühistamine</xrd:title>
+																		</appinfo>
+																	</annotation>
+																</enumeration>
+															</restriction>
+														</simpleType>					
+													</element>
+													<element name="kande_aeg" type="dateTime">
+														<annotation>
+															<appinfo>
+																<xrd:title>Kohustuslik kande sisetamise/muutmise aeg andmeedastaja juures</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>
+													<element name="isikukood" type="string" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title xml:lang="et">Töötava isiku isikukood RR andmete alusel</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>
+													<element name="tootaja_synniaeg" type="date" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title xml:lang="et">Kui IK ei ole, siis lisada töötaja sünniaeg</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>
+													<element name="tootaja_perenimi" type="string" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title xml:lang="et">Kui IK ei ole, siis lisada sünniajale ka töötaja perenimi</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>
+													<element name="tootaja_eesnimi" type="string" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title xml:lang="et">Kui IK ei ole, siis lisada sünniajale ka töötaja eesnimi</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>
+													<element name="tootamise_algus" type="date">
+														<annotation>
+															<appinfo>
+																<xrd:title xml:lang="et">Tööle asumise aeg või VÕS puhul lepingu jõustumise aeg, 
+																R tüüpi kandes kohustuslik</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>
+													<element name="tootamise_liik" type="int" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title xml:lang="et">Töötamise liigi kood TÖR klassifikaatorist</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>
+													<element name="leping" type="string" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title xml:lang="et">Mitme samaaegselt algava samaliigilise töötamise 
+																puhul identifitseeriv väärtus</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>
+												</sequence>
+											</complexType>
+										</element>
+									</sequence>
+								</complexType>
+							</element>																												
+						</sequence>
+					</choice>
+				</sequence>
+			</complexType>
+			
+			<complexType name="torikRequestType">
+                <sequence>
+                    <element name="paringu_liik">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Töötamise kood</xrd:title>
+                            </appinfo>
+                        </annotation>
+                        <simpleType>
+                            <restriction base="string">
+                                <enumeration value="A">
+                                    <annotation>
+                                        <appinfo>
+                                            <xrd:title>Tänase seisuga aktiivsed kanded</xrd:title>
+                                        </appinfo>
+                                    </annotation>
+                                </enumeration>
+                                <enumeration value="T">
+                                    <annotation>
+                                        <appinfo>
+                                            <xrd:title>Tänase seisuga kõik töötamise kanded</xrd:title>
+                                        </appinfo>
+                                    </annotation>
+                                </enumeration>
+                                <enumeration value="P">
+                                    <annotation>
+                                        <appinfo>
+                                            <xrd:title>Tööperioodil aktiivsed kanded</xrd:title>
+                                        </appinfo>
+                                    </annotation>
+                                </enumeration>
+                                <enumeration value="AM">
+                                    <annotation>
+                                        <appinfo>
+                                            <xrd:title>Tänase seisuga aktiivsed kanded koos muutuste perioodil tehtud muutustega</xrd:title>
+                                        </appinfo>
+                                    </annotation>
+                                </enumeration>
+                                <enumeration value="TM">
+                                    <annotation>
+                                        <appinfo>
+                                            <xrd:title>Tänase seisuga kõik töötamise kanded koos muutuste perioodil tehtud muutustega</xrd:title>
+                                        </appinfo>
+                                    </annotation>
+                                </enumeration>
+                                <enumeration value="PM">
+                                    <annotation>
+                                        <appinfo>
+                                            <xrd:title>Töötamisperioodil kehtinud kanded koos muutuste perioodil tehtud muutustega</xrd:title>
+                                        </appinfo>
+                                    </annotation>
+                                </enumeration>
+                            </restriction>
+                        </simpleType>
+                    </element>
+                    <element name="toot_algus" type="date" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Töötamisperioodi algus</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="toot_lopp" type="date" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Töötamisperioodi lõpp</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="muut_alg" type="date" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Muutusete perioodi algus</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="muut_lopp" type="date" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Muutuste perioodi lõpp</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="isikukoodid" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Isikukoodide loetelu, eraldajaks koma</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+
+            <complexType name="torikResponseType">
+                <sequence>
+                    <choice>
+                        <sequence>
+                            <element name="faultCode" type="xrd:faultCode" minOccurs="0"/>
+                            <element name="faultString" type="xrd:faultString" minOccurs="0"/>
+                        </sequence>
+                        <sequence>
+                            <element name="kood" type="int" minOccurs="0">
+							<annotation>
+								<appinfo>
+									<xrd:title xml:lang="et">Töötamise kood
+									</xrd:title>
+								</appinfo>
+							</annotation>
+							</element>
+							<element name="leitud_kannete_arv" type="int" minOccurs="0">
+									<annotation>
+										<appinfo>
+											<xrd:title xml:lang="et">Töötamise kood
+											</xrd:title>
+										</appinfo>
+									</annotation>
+							</element>
+                            <element name="kannete_jada" minOccurs="0">
+                                <complexType>
+                                    <sequence>
+                                        <element name="kanne" minOccurs="0" maxOccurs="1000">
+                                            <complexType>
+                                                <sequence>
+                                                    <element name="toot_id" type="long">
+														<annotation>
+															<appinfo>
+																<xrd:title>Töötamise kande ID töötamiste registris</xrd:title>
+															</appinfo>
+														</annotation>
+													</element> 
+													<element name="isikukood" type="string">
+														<annotation>
+															<appinfo>
+																<xrd:title>Isikukood</xrd:title>
+															</appinfo>
+														</annotation>
+													</element> 
+													<element name="perenimi" type="string" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title>Isikukood</xrd:title>
+															</appinfo>
+														</annotation>
+													</element> 
+													<element name="eesnimi" type="string" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title>Eesnimi</xrd:title>
+															</appinfo>
+														</annotation>
+													</element> 
+													<element name="kodakondsus_kood" type="string" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title>Kodakondsuse kood, ISO 3166-1 numeric</xrd:title>
+															</appinfo>
+														</annotation>
+													</element> 
+													<element name="kodakondsus_nimi" type="string" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title>Kodakondsuse riigi nimi</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>
+													<element name="ta_kood" type="string" >
+														<annotation>
+															<appinfo>
+																<xrd:title>Tööd võimaldava isiku identifikaator</xrd:title>
+															</appinfo>
+														</annotation>
+													</element> 
+													<element name="ta_nimi" type="string">
+														<annotation>
+															<appinfo>
+																<xrd:title>Tööd võimaldava isiku nimetus</xrd:title>
+															</appinfo>
+														</annotation>
+													</element> 
+													<element name="tegeliku_ta_kood" type="string" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title>Tegeliku tööd võimaldava isiku identifikaator</xrd:title>
+															</appinfo>
+														</annotation>
+													</element> 
+													<element name="tegeliku_ta_nimi" type="string" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title>Tegeliku tööd võimaldava isiku nimetus</xrd:title>
+															</appinfo>
+														</annotation>
+													</element> 
+													<element name="tootamise_algus" type="date">
+														<annotation>
+															<appinfo>
+																<xrd:title>Töötamise algus</xrd:title>
+															</appinfo>
+														</annotation>
+													</element> 
+													<element name="tootamise_liik_kood" type="string" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title>Töötamise liigi kood</xrd:title>
+															</appinfo>
+														</annotation>
+													</element> 	
+													<element name="tootamise_liik_nimi" type="string" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title>Töötamise liigi nimetus</xrd:title>
+															</appinfo>
+														</annotation>
+													</element> 																								
+													<element name="leping" type="string" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title>Leping</xrd:title>
+															</appinfo>
+														</annotation>
+													</element> 
+													<element name="tootamise_lopp" type="date" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title>Töötamise lõpp</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>
+													<element name="tootamise_lopetamise_alus_kood" type="string" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title>Töötamise lõpetamise aluse kood TLP klassifikaatorist</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>
+													<element name="tootamise_lopetamise_alus_nimi" type="string" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title>Töötamise lõpetamise aluse nimetus TLP klassifikaatorist</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>
+													<element name="amet_kood" type="string" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title>Ameti kood Statistika klassifikaatorist</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>
+													<element name="amet_nimi" type="string" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title>Ameti nimetus Statistika klassifikaatorist</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>
+													<element name="koht_id" type="long" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title>Töötamise_asukoha ID ADS järgi</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>
+													<element name="koht" type="string" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title>Töötamise asukoht (töö asukoha aadress) ADS järgi</xrd:title>
+															</appinfo>
+														</annotation>
+													</element> 
+                                                    <element name="peatamiste_jada" minOccurs="0">
+                                                        <complexType>
+                                                            <sequence>
+                                                                <element name="peatamine" minOccurs="0" maxOccurs="unbounded">
+                                                                    <complexType>
+                                                                        <sequence>
+                                                                            <element name="peat_id" type="long">
+																				<annotation>
+																					<appinfo>
+																						<xrd:title xml:lang="et">Töötamise peatamise ID töötamise registris</xrd:title>
+																					</appinfo>
+																				</annotation>
+																			</element>
+																			<element name="peat_algus" type="date">
+																				<annotation>
+																					<appinfo>
+																						<xrd:title xml:lang="et">Töötamise peatamise alguse kuupäev</xrd:title>
+																					</appinfo>
+																				</annotation>
+																			</element>
+																			<element name="peat_alus_kood" type="string">
+																				<annotation>
+																					<appinfo>
+																						<xrd:title xml:lang="et">Töötamise peatamise aluse kood peatamise aluste klassifikaatorist</xrd:title>
+																					</appinfo>
+																				</annotation>
+																			</element>
+																			<element name="peat_alus_nimi" type="string">
+																				<annotation>
+																					<appinfo>
+																						<xrd:title xml:lang="et">Töötamise peatamise aluse nimetus peatamise aluste klassifikaatorist</xrd:title>
+																					</appinfo>
+																				</annotation>
+																			</element>
+																			<element name="peat_lopp" type="date" minOccurs="0">
+																				<annotation>
+																					<appinfo>
+																						<xrd:title xml:lang="et">Töötamise peatamise lõpu kuupäev</xrd:title>
+																					</appinfo>
+																				</annotation>
+																			</element>
+																			<element name="peat_ehk_aeg" type="date" minOccurs="0">
+																				<annotation>
+																					<appinfo>
+																						<xrd:title xml:lang="et">Viimati EHK-sse saadetud peatamise sõnumi aeg</xrd:title>
+																					</appinfo>
+																				</annotation>
+																			</element>
+                                                                        </sequence>
+                                                                    </complexType>
+                                                                </element>
+                                                            </sequence>
+                                                        </complexType>
+                                                    </element>
+                                                    <element name="kande_olek_kood" type="string">
+														<annotation>
+															<appinfo>
+																<xrd:title>Kande oleku kood</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>
+                                                    <element name="kande_olek_nimi" type="string">
+														<annotation>
+															<appinfo>
+																<xrd:title>Kande oleku nimetus</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>		
+													<element name="ta_markus" type="string" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title>Tööd võimaldava isiku märkus</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>
+													<element name="mta_markus" type="string" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title>Ametniku märkus</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>	
+													<element name="algkp_otsuse_liik_kood" type="string" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title>Algkuupäeva kohta tehtud otsuse liigi kood klassifikaatorist</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>
+													<element name="algkp_otsuse_liik_nimi" type="string" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title>Algkuupäeva kohta tehtud otsuse liigi nimetus klassifikaatorist</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>		
+													<element name="algkp_otsus" type="string" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title>Lisaväli TVK/Kohtu otsuse numbri jaoks (alguse kuupäeva kohta)</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>	
+													<element name="tootliik_otsuse_liik_kood" type="string" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title>Töötamise liigi kohta tehtud otsuse liigi kood klassifikaatorist</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>	
+													<element name="tootliik_otsuse_liik_nimi" type="string" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title>Töötamise liigi kohta tehtud otsuse liigi nimetus klassifikaatorist</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>	
+													<element name="tootliik_otsus" type="string" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title>Lisaväli TVK/Kohtu otsuse numbri jaoks (töötamise liigi kohta)</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>	
+													<element name="loppkp_otsuse_liik_kood" type="string" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title>Lõpu kuupäeva kohta tehtud otsuse liigi kood klassifikaatorist</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>
+													<element name="loppkp_otsuse_liik_nimi" type="string" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title>Lõpu kuupäeva kohta tehtud otsuse liigi nimetus klassifikaatorist</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>
+													<element name="loppkp_otsus" type="string" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title>Lisaväli TVK/Kohtu otsuse numbri jaoks (lõpu kuupäeva kohta)</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>	
+													<element name="lopalus_otsuse_liik_kood" type="string" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title>Lõpetamise aluse kohta tehud otsuse liigi kood klassifikaatorist</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>
+													<element name="lopalus_otsuse_liik_nimi" type="string" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title>Lõpetamise aluse kohta tehud otsuse liigi nimetus klassifikaatorist</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>
+													<element name="lopalus_otsus" type="string" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title>Lisaväli TVK/Kohtu otsuse numbri jaoks (lõpetamise aluse kohta)</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>	
+													<element name="sisestamise_aeg" type="dateTime">
+														<annotation>
+															<appinfo>
+																<xrd:title>Kande sisestamise aeg</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>	
+													<element name="muutmise_aeg" type="dateTime" >
+														<annotation>
+															<appinfo>
+																<xrd:title>Kande muutmise aeg</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>	
+													<element name="reg_tel_nr" type="string" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title>Lihtsustatud registreerimisel (SMS kaudu või helistamise teel) telefoni number, millelt registreerimine tehti</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>	
+													<element name="toot_ehk_aeg" type="date" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title>Viimati EHK-sse saadetud töötamise sõnumi aeg</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>
+													<element name="toot_ehk_sonumi_liik" type="string" minOccurs="0">
+														<annotation>
+															<appinfo>
+																<xrd:title>Viimati EHK-sse saadetud töötamise sõnumi liik (K/L/I)</xrd:title>
+															</appinfo>
+														</annotation>
+													</element>
+                                                </sequence>
+                                            </complexType>
+                                        </element>
+                                    </sequence>
+                                </complexType>
+                            </element>
+                        </sequence>
+                    </choice>
+                </sequence>
+            </complexType>    
+            
+		</schema>
+	</wsdl:types>
+	
+	<wsdl:message name="XRoadHeader">
+        <wsdl:part name="consumer" element="xrd:consumer" />
+        <wsdl:part name="producer" element="xrd:producer" />
+        <wsdl:part name="userId" element="xrd:userId" />
+        <wsdl:part name="id" element="xrd:id" />
+        <wsdl:part name="service" element="xrd:service" />
+        <wsdl:part name="unit" element="xrd:unit" />
+    </wsdl:message>
+    <wsdl:message name="TOOTREG_AMETNIK">
+		<wsdl:part name="body" element="tns:TOOTREG_AMETNIK" />
+	</wsdl:message>
+	<wsdl:message name="TOOTREG_AMETNIKResponse">
+		<wsdl:part name="body" element="tns:TOOTREG_AMETNIKResponse" />
+	</wsdl:message>
+	<wsdl:message name="TOOTREG">
+		<wsdl:part name="body" element="tns:TOOTREG" />
+	</wsdl:message>
+	<wsdl:message name="TOOTREGResponse">
+		<wsdl:part name="body" element="tns:TOOTREGResponse" />
+	</wsdl:message>
+	<wsdl:message name="TORIK">
+        <wsdl:part name="body" element="tns:TORIK" />
+    </wsdl:message>
+    <wsdl:message name="TORIKResponse">
+        <wsdl:part name="body" element="tns:TORIKResponse" />
+    </wsdl:message>
+    
+    <wsdl:portType name="torPort">
+	    <wsdl:operation name="TOOTREG_AMETNIK">
+			<wsdl:documentation>
+				<xrd:title xml:lang="et">Töötamise otsimine</xrd:title>
+				<xrd:notes xml:lang="et">Töötamise informatsiooni
+					küsimine TÖR-ist.</xrd:notes>
+			</wsdl:documentation>
+			<wsdl:input message="tns:TOOTREG_AMETNIK" />
+			<wsdl:output message="tns:TOOTREG_AMETNIKResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="TOOTREG">
+				<wsdl:documentation>
+					<xrd:title xml:lang="et">Töötamise registreerimine</xrd:title>
+				</wsdl:documentation>
+				<wsdl:input message="tns:TOOTREG" />
+				<wsdl:output message="tns:TOOTREGResponse" />
+		</wsdl:operation>
+		 <wsdl:operation name="TORIK">
+            <wsdl:documentation>
+                <xrd:title>Töötamise informatsiooni küsimine TÖR-ist</xrd:title>
+            </wsdl:documentation>
+            <wsdl:input message="tns:TORIK" />
+            <wsdl:output message="tns:TORIKResponse" />
+        </wsdl:operation>
+	</wsdl:portType>
+    
+    <wsdl:binding name="torBinding" type="tns:torPort">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+        <wsdl:operation name="TOOTREG_AMETNIK">
+		   <xrd:version>v1</xrd:version>
+		   <xrd:requirecontent>true</xrd:requirecontent>			
+			<soap:operation soapAction="" style="document" />
+			<wsdl:input>
+				<soap:body parts="body" use="literal" />
+				<soap:header message="tns:XRoadHeader" part="consumer" use="literal" />
+				<soap:header message="tns:XRoadHeader" part="producer" use="literal" />
+				<soap:header message="tns:XRoadHeader" part="userId" use="literal" />
+				<soap:header message="tns:XRoadHeader" part="id" use="literal" />		
+				<soap:header message="tns:XRoadHeader" part="service" use="literal" />
+				<soap:header message="tns:XRoadHeader" part="unit" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body parts="body" use="literal" />
+				<soap:header message="tns:XRoadHeader" part="consumer" use="literal" />
+				<soap:header message="tns:XRoadHeader" part="producer" use="literal" />
+				<soap:header message="tns:XRoadHeader" part="userId" use="literal" />
+				<soap:header message="tns:XRoadHeader" part="id" use="literal" />		
+				<soap:header message="tns:XRoadHeader" part="service" use="literal" />
+				<soap:header message="tns:XRoadHeader" part="unit" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="TOOTREG">
+		   <xrd:version>v1</xrd:version>
+		   <xrd:requirecontent>true</xrd:requirecontent>			
+			<soap:operation soapAction="" style="document" />
+			<wsdl:input>
+				<soap:body parts="body" use="literal" />
+				<soap:header message="tns:XRoadHeader" part="consumer" use="literal" />
+				<soap:header message="tns:XRoadHeader" part="producer" use="literal" />
+				<soap:header message="tns:XRoadHeader" part="userId" use="literal" />
+				<soap:header message="tns:XRoadHeader" part="id" use="literal" />		
+				<soap:header message="tns:XRoadHeader" part="service" use="literal" />
+				<soap:header message="tns:XRoadHeader" part="unit" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body parts="body" use="literal" />
+				<soap:header message="tns:XRoadHeader" part="consumer" use="literal" />
+				<soap:header message="tns:XRoadHeader" part="producer" use="literal" />
+				<soap:header message="tns:XRoadHeader" part="userId" use="literal" />
+				<soap:header message="tns:XRoadHeader" part="id" use="literal" />		
+				<soap:header message="tns:XRoadHeader" part="service" use="literal" />
+				<soap:header message="tns:XRoadHeader" part="unit" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="TORIK">
+            <xrd:version>v1</xrd:version>
+            <soap:operation soapAction="" />
+            <wsdl:input>
+                <soap:body parts="body" use="literal" />
+                <soap:header message="tns:XRoadHeader" part="consumer" use="literal" />
+                <soap:header message="tns:XRoadHeader" part="producer" use="literal" />
+                <soap:header message="tns:XRoadHeader" part="userId" use="literal" />
+                <soap:header message="tns:XRoadHeader" part="id" use="literal" />
+                <soap:header message="tns:XRoadHeader" part="service" use="literal" />
+                <soap:header message="tns:XRoadHeader" part="unit" use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body parts="body" use="literal" />
+                <soap:header message="tns:XRoadHeader" part="consumer" use="literal" />
+                <soap:header message="tns:XRoadHeader" part="producer" use="literal" />
+                <soap:header message="tns:XRoadHeader" part="userId" use="literal" />
+                <soap:header message="tns:XRoadHeader" part="id" use="literal" />
+                <soap:header message="tns:XRoadHeader" part="service" use="literal" />
+                <soap:header message="tns:XRoadHeader" part="unit" use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="torService">
+        <wsdl:port name="torPort" binding="tns:torBinding">
+            <soap:address location="http://TURVASERVER/cgi-bin/consumer_proxy/" />
+            <xrd:title>Maksu- ja Tolliameti X-tee v5 teenused</xrd:title>
+            <xrd:address producer="emtav5" />
+        </wsdl:port>
+    </wsdl:service>
+
+</wsdl:definitions>
