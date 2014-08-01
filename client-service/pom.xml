@@ -32,14 +32,16 @@
     </dependency>
   </dependencies>
   <modules>
+      <module>tor</module>
+      <module>rmviki</module>
+      <module>emtav5</module>
     <module>aar</module>
     <module>ads</module>
     <module>arireg</module>
-    <module>dhl</module>
+    <!--  <module>dhl</module>-->
     <module>ehis</module>
     <module>ehr</module>
     <module>emta</module>
-    <module>emtav5</module>
     <module>kutseregister</module>    
     <module>epria</module>
     <module>esis</module>

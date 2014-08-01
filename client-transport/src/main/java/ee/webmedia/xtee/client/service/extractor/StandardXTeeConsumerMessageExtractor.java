@@ -1,5 +1,7 @@
 package ee.webmedia.xtee.client.service.extractor;
 
+import com.sun.xml.messaging.saaj.soap.impl.TextImpl;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -8,7 +10,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.soap.AttachmentPart;
@@ -16,7 +17,6 @@ import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
-
 import org.apache.xmlbeans.SchemaType;
 import org.apache.xmlbeans.SchemaTypeLoader;
 import org.apache.xmlbeans.XmlBeans;
@@ -29,7 +29,6 @@ import org.springframework.xml.transform.StringResult;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
 import ee.webmedia.xtee.client.exception.NonTechnicalFaultException;
 import ee.webmedia.xtee.client.util.XmlBeansUtil;
 import ee.webmedia.xtee.model.XTeeAttachment;
@@ -55,10 +54,13 @@ public class StandardXTeeConsumerMessageExtractor implements WebServiceMessageEx
       SOAPMessage mes = message.getSaajMessage();
       Element body = mes.getSOAPBody();
       NodeList kehaNodes = body.getElementsByTagName("keha");
-	  if (kehaNodes.getLength() == 0) {
-	    kehaNodes = body.getChildNodes();
-	  }
+      if (kehaNodes.getLength() == 0) {
+        kehaNodes = body.getChildNodes();
+      }
       kehaNode = kehaNodes.item(0);
+      if (kehaNode instanceof TextImpl) {
+        kehaNode = kehaNodes.item(1);
+      }
       if (kehaNodes.getLength() > 1) {
         // In case of multiple elements take the first one that matches specified hierarchy
         for (int i = 0; i < kehaNodes.getLength(); i++) {
@@ -98,7 +100,7 @@ public class StandardXTeeConsumerMessageExtractor implements WebServiceMessageEx
         options.setLoadReplaceDocumentElement(new QName("xml-fragment"));
         responseObj =
             XmlObject.Factory.parse(XmlObject.Factory.parse(kehaNode, options).toString(),
-                                    new XmlOptions().setDocumentType(type));
+                new XmlOptions().setDocumentType(type));
       } else {
         options.setLoadReplaceDocumentElement(responseElement);
         responseObj = XmlBeansUtil.getResponseObject(XmlObject.Factory.parse(kehaNode, options));
