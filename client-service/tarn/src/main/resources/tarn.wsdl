@@ -1,0 +1,979 @@
+<?xml version="1.0" ?>
+<definitions name="tarnDef"
+	xmlns:xrd="http://x-rd.net/xsd/xroad.xsd"
+	targetNamespace="http://producers.tarn.xtee.riik.ee/producer/tarn"
+	xmlns:tarn="http://producers.tarn.xtee.riik.ee/producer/tarn"
+	xmlns:xtee="http://x-tee.riik.ee/xsd/xtee.xsd"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+	xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+	xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+	xmlns:etoimik="http://producers.etoimik.xtee.riik.ee/producer/etoimik" >
+	<types>
+		<schema targetNamespace="http://producers.tarn.xtee.riik.ee/producer/tarn" xmlns="http://www.w3.org/2001/XMLSchema">
+			<import namespace="http://x-rd.net/xsd/xroad.xsd" schemaLocation="http://x-rd.net/xsd/xroad.xsd" />
+			<import namespace="http://schemas.xmlsoap.org/soap/encoding/" schemaLocation="http://schemas.xmlsoap.org/soap/encoding/" />
+			<complexType name="DummyTeenusSisend">
+				<sequence>
+					<element name="Message" type="string" nillable="true" />
+				</sequence>
+			</complexType>
+
+			<complexType name="DummyTeenusVastus">
+				<sequence>
+					<element name="Kellaaeg" type="string" nillable="true" />
+				</sequence>
+			</complexType>
+
+			<complexType name="Teavitus">
+				<sequence />
+			</complexType>
+
+      <complexType name="StandardTeavitus">
+        <complexContent>
+          <extension base="tarn:Teavitus">
+            <sequence>
+              <element name="Toiming" type="etoimik:Toiming" nillable="true"  />
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+
+      <complexType name="ToiminguTeavitus">
+				<complexContent>
+					<extension base="tarn:StandardTeavitus">
+						<sequence />
+					</extension>
+				</complexContent>
+			</complexType>
+
+			<complexType name="KohustiseTeavitus" abstract="true">
+				<complexContent>
+					<extension base="tarn:StandardTeavitus">
+						<sequence>
+							<element name="AsutusCSV" nillable="true" type="string" />
+							<element name="AsutusObjektID" nillable="true" type="long" />
+							<element name="IsikCSV" nillable="true" type="string" />
+							<element name="Kohustis" nillable="true" type="tarn:Object" />
+							<element name="KohustiseObjektID" nillable="false" type="long" />
+							<element name="KohustiseVersID" nillable="false" type="long" />
+						</sequence>
+					</extension>
+				</complexContent>
+			</complexType>
+
+			<complexType name="Kulu">
+				<sequence>
+					<element name="LiikKL" nillable="true" type="long" />
+					<element name="Summa" nillable="true" type="decimal" />
+					<element name="TaiendavaToiminguLiik" nillable="true" type="string" />
+
+				</sequence>
+			</complexType>
+
+			<complexType name="Object">
+				<sequence />
+			</complexType>
+
+			<complexType name="AnnaTaitmisavaldusedSisend">
+				<sequence>
+					<element name="TaitmisavalduseEsitamiseAlgKp" type="dateTime" nillable="true" />
+					<element name="TaitmisavalduseEsitamiseLoppKp" type="dateTime" nillable="true" />
+					<element name="TaiturIsikukood" type="string" nillable="true" />
+				</sequence>
+			</complexType>
+
+			<complexType name="AnnaTaitmisavaldusedVastus">
+				<sequence>
+					<element name="Avaldused" nillable="true">
+						<complexType>
+							<complexContent>
+								<restriction base="SOAP-ENC:Array">
+									<sequence>
+										<element name="item" nillable="true" type="tarn:Taitmisavaldus" minOccurs="0" maxOccurs="unbounded"></element>
+									</sequence>
+									<attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tarn:Taitmisavaldus[]"></attribute>
+								</restriction>
+							</complexContent>
+						</complexType>
+					</element>
+				</sequence>
+			</complexType>
+
+			<complexType name="TaitmisavalduseEsitamineParing">
+				<sequence>
+					<element name="teavitus" type="tarn:ToiminguTeavitus"/>
+				</sequence>
+			</complexType>
+
+			<complexType name="TaitmisavalduseEsitamineVastus">
+				<sequence>
+					<element name="TaitmisavalduseNr" type="string" nillable="true" />
+					<element name="Viga" type="string" nillable="true" />
+				</sequence>
+			</complexType>
+
+
+			<complexType name="Noue">
+				<sequence>
+					<element name="ETKohustisObjektId" type="long" nillable="true" />
+					<element name="ETOsamakseObjektId" type="long" nillable="true" />
+					<element name="LiikKL" type="long" nillable="true" />
+					<element name="Summa" type="decimal" nillable="true" />
+					<element name="Valuuta" type="long" nillable="true" />
+				</sequence>
+			</complexType>
+
+			<complexType name="JuriidilineIsik">
+				<sequence>
+					<element name="Nimi" type="string" nillable="true" />
+					<element name="Kood" type="string" nillable="true" />
+					<element name="Telefon" type="string" nillable="true" />
+					<element name="Epost" type="string" nillable="true" />
+					<element name="Aadress" type="tarn:Aadress" nillable="true" />
+				</sequence>
+			</complexType>
+
+			<complexType name="FyysilineIsik">
+				<complexContent>
+					<extension base="tarn:JuriidilineIsik">
+						<sequence>
+							<element name="Eesnimi" type="string" nillable="true" />
+							<element name="SuguKL" type="long" nillable="true" />
+							<element name="Synniaeg" type="dateTime" nillable="true" />
+						</sequence>
+					</extension>
+				</complexContent>
+			</complexType>
+
+			<complexType name="Aadress">
+				<sequence>
+					<element name="MaakondKL" type="long" nillable="true" />
+					<element name="LinnValdKL" type="long" nillable="true" />
+					<element name="AlevKylaLinnaosaKL" type="long" nillable="true" />
+					<element name="Tanav" type="string" nillable="true" />
+					<element name="HooneNr" type="string" nillable="true" />
+					<element name="HooneOsaNr" type="string" nillable="true" />
+          <element name="MaakondEHAK" type="string" nillable="true" />
+          <element name="LinnValdEHAK" type="string" nillable="true" />
+          <element name="AlevKylaLinnaosaEHAK" type="string" nillable="true" />
+				</sequence>
+			</complexType>
+
+			<complexType name="TaitemenetluseMuutmineTaSisend">
+				<sequence>
+					<element name="Liik" type="int" nillable="false" />
+					<element name="UusTaiturIsikuKood" type="string" nillable="true" />
+					<element name="UusTaiturTaitiseKood" type="string" nillable="true" />
+					<element name="UusTaiturToopiirkondKL" type="long" nillable="true" />
+					<element name="Number" type="string" nillable="true" />
+					<element name="TaitemenetluseNr" type="string" nillable="true" />
+					<element name="TaitemenetluseKp" type="dateTime" nillable="true" />
+					<element name="TaitmisteadeFail" type="SOAP-ENC:base64" nillable="true" />
+					<element name="TaitmisteadeAlgusKp" type="dateTime" nillable="true" />
+					<element name="TaitmisteadeTahtaeg" type="dateTime" nillable="true" />
+					<element name="TaitmisteateAlus" type="long" nillable="true" />
+					<element name="LabiviimiseAlgusKp" type="dateTime" nillable="true" />
+					<element name="Esindajad" nillable="true">
+						<complexType>
+							<complexContent>
+								<restriction base="SOAP-ENC:Array">
+									<sequence>
+										<element name="item" nillable="true" type="tarn:Esindaja" minOccurs="0" maxOccurs="unbounded"></element>
+									</sequence>
+									<attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tarn:Esindaja[]"></attribute>
+								</restriction>
+							</complexContent>
+						</complexType>
+					</element>
+					<element name="Kulud" nillable="true">
+						<complexType>
+							<complexContent>
+								<restriction base="SOAP-ENC:Array">
+									<sequence>
+										<element name="item" nillable="true" type="tarn:Kulu" minOccurs="0" maxOccurs="unbounded"></element>
+									</sequence>
+									<attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tarn:Kulu[]"></attribute>
+								</restriction>
+							</complexContent>
+						</complexType>
+					</element>
+					<element name="RakendamiseLoppKP" type="dateTime" nillable="true" />
+					<element name="LopetamisePohjendus" type="string" nillable="true" />
+					<element name="LopetamiseTapsustusKL" type="long" nillable="true" />
+          <element name="TaitmiseTapsustusKL" type="long" nillable="true" />
+					<element name="LopetamisOtsuseFail" type="SOAP-ENC:base64" nillable="true" />
+          <element name="PeatamisePohjendus" type="string" nillable="true" />
+          <element name="TaitemenetluseUusKp" type="dateTime" nillable="true" />
+          <element name="PeatamiseKp" type="dateTime" nillable="true" />
+				</sequence>
+			</complexType>
+
+			<complexType name="TaitemenetluseMuutmineTaVastus">
+				<sequence />
+			</complexType>
+
+			<complexType name="Taitmisavaldus">
+				<sequence>
+					<element name="Number" type="string" nillable="true" />
+					<element name="TaituriIsikukood" type="string" nillable="true" />
+					<element name="TaituriTaitiseKood" type="string" nillable="true" />
+					<element name="ToopiirkondKL" type="long" nillable="true" />
+          <element name="AsjaLiikKL" type="long" nillable="true" />
+					<element name="Esitaja" type="string" nillable="true" />
+					<element name="EsitamiseAeg" type="dateTime" nillable="true" />
+					<element name="JoustumiseKp" type="dateTime" nillable="true" />
+					<element name="LahendiKp" type="dateTime" nillable="true" />
+					<element name="LahendiLiikKL" type="long" nillable="true" />
+					<element name="LahendiTegija" type="string" nillable="true" />
+					<element name="LahendiNr" type="string" nillable="true" />
+					<element name="MakseSaaja" type="string" nillable="true" />
+					<element name="MakseSelgitus" type="string" nillable="true" />
+					<element name="Viitenumber" type="string" nillable="true" />
+					<element name="SissenoutavSumma" type="decimal" nillable="true" />
+					<element name="SissenoutavSummaValuuta" type="string" nillable="true" />
+					<element name="SolidaarseltNoutavSumma" type="decimal" nillable="true" />
+					<element name="SolidaarseltNoutavSummaValuuta" type="string" nillable="true" />
+					<element name="PerioodilineSumma" type="decimal" nillable="true" />
+					<element name="PerioodilineSummaValuuta" type="string" nillable="true" />
+					<element name="Nouded" nillable="true">
+						<complexType>
+							<complexContent>
+								<restriction base="SOAP-ENC:Array">
+									<sequence>
+										<element name="item" nillable="true" type="tarn:Noue" minOccurs="0" maxOccurs="unbounded"></element>
+									</sequence>
+									<attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tarn:Noue[]"></attribute>
+								</restriction>
+							</complexContent>
+						</complexType>
+					</element>
+					<element name="NoudeSisu" type="string" nillable="true" />
+					<element name="TaitedokumentTaiendavadSelgitused" type="string" nillable="true" />
+					<element name="Sissenoudja" type="tarn:JuriidilineIsik" nillable="true" />
+					<element name="SissenoudjaETObjektId" type="long" nillable="true" />
+					<element name="SissenoudjaAadress" type="string" nillable="true" />
+					<element name="SissenoudjaEsindaja" type="tarn:FyysilineIsik" nillable="true" />
+					<element name="SissenoudjaPangaArved" nillable="true">
+						<complexType>
+							<complexContent>
+								<restriction base="SOAP-ENC:Array">
+									<sequence>
+										<element name="item" nillable="true" type="string" minOccurs="0" maxOccurs="unbounded"></element>
+									</sequence>
+									<attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="string[]"></attribute>
+								</restriction>
+							</complexContent>
+						</complexType>
+					</element>
+					<element name="SissenoudjaKontaktisik" type="tarn:FyysilineIsik" nillable="true" />
+					<element name="Volgnik" type="tarn:JuriidilineIsik" nillable="true" />
+					<element name="VolgnikuEsindajad" nillable="true">
+						<complexType>
+							<complexContent>
+								<restriction base="SOAP-ENC:Array">
+									<sequence>
+										<element name="item" nillable="true" type="tarn:JuriidilineIsik" minOccurs="0" maxOccurs="unbounded"></element>
+									</sequence>
+									<attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tarn:JuriidilineIsik[]"></attribute>
+								</restriction>
+							</complexContent>
+						</complexType>
+					</element>
+					<element name="VolgnikuMuudAndmed" type="string" nillable="true" />
+					<element name="VolgnikuTaiendavadKontaktid" type="string" nillable="true" />
+					<element name="VolgnikuVara" type="string" nillable="true" />
+				</sequence>
+			</complexType>
+
+			<complexType name="Esindaja">
+				<sequence>
+					<element name="OsaliseObjektID" type="long" nillable="true" />
+					<element name="LiikKL" type="long" nillable="true" />
+					<element name="ToiminguosaliseLiikKL" type="long" nillable="true" />
+					<element name="Eesnimi" type="string" nillable="true" />
+					<element name="Nimi" type="string" nillable="true" />
+					<element name="Kood" type="string" nillable="true" />
+					<element name="VormKL" type="long" nillable="true" />
+					<element name="SuguKL" type="long" nillable="true" />
+					<element name="SynniKP" type="dateTime" nillable="true" />
+				</sequence>
+			</complexType>
+
+
+			<complexType name="TarnToiming">
+				<complexContent>
+					<extension base="etoimik:Toiming">
+						<sequence>
+							<element name="NoudeSisu" type="string" nillable="true" />
+              <element name="EttemaksugaNous" type="boolean" nillable="true" />
+              <element name="JataEsitamata" type="boolean" nillable="true" />
+							<element name="PoorataKinnisasjale" type="boolean" nillable="true" />
+							<element name="PoorataNoudeoigusele" type="boolean" nillable="true" />
+							<element name="PoorataVallasvarale" type="boolean" nillable="true" />
+							<element name="SolidaarsedVolgnikud" type="string" nillable="true" />
+							<element name="VolgnikuMuudAndmed" type="string" nillable="true" />
+							<element name="PerioodiliseNoudeSumma" type="decimal" nillable="true" minOccurs="0" />
+							<element name="PerioodiliseNoudeSummaValuutaKL" type="long" nillable="true"  minOccurs="0" />
+						</sequence>
+					</extension>
+				</complexContent>
+			</complexType>
+
+
+		</schema>
+
+		<schema targetNamespace="http://producers.etoimik.xtee.riik.ee/producer/etoimik" xmlns="http://www.w3.org/2001/XMLSchema">
+			<import namespace="http://x-tee.riik.ee/xsd/xtee.xsd" schemaLocation="http://x-tee.riik.ee/xsd/xtee.xsd" />
+			<import namespace="http://schemas.xmlsoap.org/soap/encoding/" schemaLocation="http://schemas.xmlsoap.org/soap/encoding/" />
+
+			<complexType name="Toiming">
+				<sequence>
+					<element name="ObjektID" nillable="false" minOccurs="0" type="long"/>
+					<element name="ToiminguNR" nillable="true" minOccurs="1" type="string"/>
+					<element name="AlgusKP" nillable="true" minOccurs="0" type="dateTime"/>
+					<element name="LiikKL" nillable="true" minOccurs="0" type="long"/>
+          <element name="AlaLiikKL" nillable="true" minOccurs="0" type="long"/>
+					<element name="PiirkondKL" nillable="true" minOccurs="1" type="long"/>
+					<element name="ToimingugaSeotudSumma" nillable="true" minOccurs="1" type="decimal"/>
+					<element name="ToimingugaSeotudSummaValuutaKL" nillable="true" minOccurs="1" type="long"/>
+					<element name="Alus" nillable="true" minOccurs="1">
+						<complexType>
+							<complexContent>
+								<restriction base="SOAP-ENC:Array">
+									<sequence>
+										<element name="item" nillable="true" type="etoimik:SeaduseSate" minOccurs="0" maxOccurs="unbounded"/>
+									</sequence>
+									<attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="etoimik:SeaduseSate[]"/>
+								</restriction>
+							</complexContent>
+						</complexType>
+					</element>
+					<element name="Toiminguosalised" nillable="true" minOccurs="0">
+						<complexType>
+							<complexContent>
+								<restriction base="SOAP-ENC:Array">
+									<sequence>
+										<element name="item" nillable="true" type="etoimik:ToiminguOsaline" minOccurs="0" maxOccurs="unbounded"/>
+									</sequence>
+									<attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="etoimik:ToiminguOsaline[]"/>
+								</restriction>
+							</complexContent>
+						</complexType>
+					</element>
+					<element name="ToiminguMenetlejad" nillable="true" minOccurs="1">
+						<complexType>
+							<complexContent>
+								<restriction base="SOAP-ENC:Array">
+									<sequence>
+										<element name="item" nillable="true" type="etoimik:ToiminguOsaline" minOccurs="0" maxOccurs="unbounded"/>
+									</sequence>
+									<attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="etoimik:ToiminguOsaline[]"/>
+								</restriction>
+							</complexContent>
+						</complexType>
+					</element>
+					<element name="SeotudToimingud" nillable="true" minOccurs="0">
+						<complexType>
+							<complexContent>
+								<restriction base="SOAP-ENC:Array">
+									<sequence>
+										<element name="item" nillable="true" type="etoimik:Toiming" minOccurs="0" maxOccurs="unbounded"/>
+									</sequence>
+									<attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="etoimik:Toiming[]"/>
+								</restriction>
+							</complexContent>
+						</complexType>
+					</element>
+					<element name="Menetlus" nillable="true" minOccurs="1" type="etoimik:Menetlus"/>
+					<element name="PohiFail" nillable="true" minOccurs="0" type="etoimik:Fail"/>
+					<element name="StaatusedKL" nillable="true" minOccurs="0">
+						<complexType>
+							<complexContent>
+								<restriction base="SOAP-ENC:Array">
+									<sequence>
+										<element name="item" nillable="true" type="etoimik:Olek" minOccurs="0" maxOccurs="unbounded"/>
+									</sequence>
+									<attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="etoimik:Olek[]"/>
+								</restriction>
+							</complexContent>
+						</complexType>
+					</element>
+					<element name="Failid" nillable="true" minOccurs="0">
+						<complexType>
+							<complexContent>
+								<restriction base="SOAP-ENC:Array">
+									<sequence>
+										<element name="item" nillable="true" type="etoimik:Fail" minOccurs="0" maxOccurs="unbounded"/>
+									</sequence>
+									<attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="etoimik:Fail[]"/>
+								</restriction>
+							</complexContent>
+						</complexType>
+					</element>
+				</sequence>
+			</complexType>
+			<complexType name="SeaduseSate">
+				<sequence>
+          <element name="SeadustikKL" nillable="true" minOccurs="1" type="long"/>
+					<element name="ObjektID" nillable="true" minOccurs="1" type="long"/>
+          <element name="Paragrahv" nillable="true" minOccurs="1" type="string"/>
+					<element name="Loige" nillable="true" minOccurs="1" type="string"/>
+					<element name="Punkt" nillable="true" minOccurs="1" type="string"/>
+					<element name="PunktPrimm" nillable="true" minOccurs="1" type="string"/>
+        
+				</sequence>
+			</complexType>
+			<complexType name="ToiminguOsaline">
+				<complexContent>
+					<extension base="etoimik:Osaline">
+						<sequence>
+							<element name="KattesaamiseKP" nillable="true" minOccurs="0" type="dateTime"/>
+							<element name="ToiminguosaliseLiikKL" nillable="true" minOccurs="1" type="long"/>
+							<element name="OsaMaksed" nillable="true" minOccurs="1">
+								<complexType>
+									<complexContent>
+										<restriction base="SOAP-ENC:Array">
+											<sequence>
+												<element name="item" nillable="true" type="etoimik:OsaMakse" minOccurs="0" maxOccurs="unbounded"/>
+											</sequence>
+											<attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="etoimik:OsaMakse[]"/>
+										</restriction>
+									</complexContent>
+								</complexType>
+							</element>
+							<element name="AllkirjastKeeldumisePohjusKL" nillable="true" minOccurs="0" type="long"/>
+
+						</sequence>
+					</extension>
+				</complexContent>
+			</complexType>
+			<complexType name="Osaline">
+				<sequence>
+					<element name="IsikCSV" nillable="true" minOccurs="0" type="string"/>
+					<element name="LiikKL" nillable="true" minOccurs="0" type="long"/>
+					<element name="LoppKP" nillable="true" minOccurs="0" type="dateTime"/>
+					<element name="Isik" nillable="true" minOccurs="1" type="etoimik:Isik"/>
+					<element name="ObjektID" nillable="false" minOccurs="0" type="long"/>
+					<element name="Esindajad" nillable="true" minOccurs="0">
+						<complexType>
+							<complexContent>
+								<restriction base="SOAP-ENC:Array">
+									<sequence>
+										<element name="item" nillable="true" type="etoimik:Osaline" minOccurs="0" maxOccurs="unbounded"/>
+									</sequence>
+									<attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="etoimik:Osaline[]"/>
+								</restriction>
+							</complexContent>
+						</complexType>
+					</element>
+					<element name="VaradeLoetelu" nillable="true" minOccurs="0" type="string"/>
+					<element name="Markused" nillable="true" minOccurs="0" type="string"/>
+					<element name="KlientsysteemiID" nillable="true" minOccurs="0" type="string"/>
+				</sequence>
+			</complexType>
+			<complexType name="Menetlus">
+				<sequence>
+					<element name="ObjektID" nillable="false" minOccurs="0" type="long"/>
+					<element name="AsjaObjektID" nillable="false" minOccurs="0" type="long"/>
+					<element name="MenetluseNR" nillable="true" minOccurs="0" type="string"/>
+					<element name="AsjaNR" nillable="true" minOccurs="1" type="string"/>
+					<element name="AsjaLiikKL" nillable="true" minOccurs="1" type="long"/>
+					<element name="MenetlemiseAlgusKP" nillable="true" minOccurs="0" type="dateTime"/>
+				</sequence>
+			</complexType>
+			<complexType name="Fail">
+				<sequence>
+					<element name="AlgusKP" nillable="true" minOccurs="0" type="dateTime"/>
+					<element name="Alustaja" nillable="true" minOccurs="0" type="string"/>
+					<element name="Failitee" nillable="true" minOccurs="0" type="string"/>
+					<element name="KlientsysteemiID" nillable="true" minOccurs="0" type="string"/>
+					<element name="Nimetus" nillable="true" minOccurs="0" type="string"/>
+					<element name="ObjektID" nillable="false" minOccurs="0" type="long"/>
+					<element name="ViimatiMuudetud" nillable="true" minOccurs="0" type="dateTime"/>
+					<element name="Sisu" nillable="true" minOccurs="0" type="SOAP-ENC:base64Binary"/>
+				</sequence>
+			</complexType>
+			<complexType name="Olek">
+				<sequence>
+					<element name="OlekKL" nillable="true" minOccurs="0" type="long"/>
+					<element name="AlgusKP" nillable="true" minOccurs="0" type="dateTime"/>
+				</sequence>
+			</complexType>
+			<complexType name="OsaMakse">
+				<sequence>
+					<element name="ObjektID" nillable="false" minOccurs="0" type="long"/>
+					<element name="Laekumised" nillable="true" minOccurs="0">
+						<complexType>
+							<complexContent>
+								<restriction base="SOAP-ENC:Array">
+									<sequence>
+										<element name="item" nillable="true" type="etoimik:Laekumine" minOccurs="0" maxOccurs="unbounded"/>
+									</sequence>
+									<attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="etoimik:Laekumine[]"/>
+								</restriction>
+							</complexContent>
+						</complexType>
+					</element>
+					<element name="Kohustis" nillable="true" minOccurs="1" type="etoimik:Kohustis"/>
+				</sequence>
+			</complexType>
+			<complexType name="Isik" abstract="true">
+				<sequence>
+					<element name="ObjektID" nillable="false" minOccurs="0" type="long"/>
+					<element name="Nimi" nillable="true" minOccurs="1" type="string"/>
+					<element name="Kood" nillable="true" minOccurs="1" type="string"/>
+					<element name="Kontaktid" nillable="true" minOccurs="1">
+						<complexType>
+							<complexContent>
+								<restriction base="SOAP-ENC:Array">
+									<sequence>
+										<element name="item" nillable="true" type="etoimik:Kontakt" minOccurs="0" maxOccurs="unbounded"/>
+									</sequence>
+									<attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="etoimik:Kontakt[]"/>
+								</restriction>
+							</complexContent>
+						</complexType>
+					</element>
+					<element name="Koosnimi" nillable="true" minOccurs="0" type="string"/>
+					<element name="KlientsysteemiID" nillable="true" minOccurs="0" type="string"/>
+					<element name="AinultPohiandmed" nillable="true" minOccurs="0" type="boolean"/>
+
+				</sequence>
+			</complexType>
+			<complexType name="FyysilineIsik">
+				<complexContent>
+					<extension base="etoimik:Isik">
+						<sequence>
+
+							<element name="Eesnimi" nillable="true" minOccurs="1" type="string"/>
+							<element name="SuguKL" nillable="true" minOccurs="0" type="long"/>
+							<element name="SynniKP" nillable="true" minOccurs="0" type="dateTime"/>
+						</sequence>
+					</extension>
+				</complexContent>
+			</complexType>
+			<complexType name="Ametnik">
+				<complexContent>
+					<extension base="etoimik:Isik">
+						<sequence>
+							<element name="Eesnimi" nillable="true" minOccurs="0" type="string"/>
+						</sequence>
+					</extension>
+				</complexContent>
+			</complexType>
+			<complexType name="Kohustis" abstract="true">
+				<sequence>
+					<element name="ObjektID" nillable="false" minOccurs="0" type="long"/>
+					<element name="MoistetudSumma" nillable="true" minOccurs="0" type="decimal"/>
+					<element name="MoistetudSummaValuutaKL" nillable="true" minOccurs="0" type="long"/>
+					<element name="MakseRekvisiidid" nillable="true" minOccurs="1">
+						<complexType>
+							<complexContent>
+								<restriction base="SOAP-ENC:Array">
+									<sequence>
+										<element name="item" nillable="true" type="etoimik:MakseRekvisiidid" minOccurs="0" maxOccurs="unbounded"/>
+									</sequence>
+									<attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="etoimik:MakseRekvisiidid[]"/>
+								</restriction>
+							</complexContent>
+						</complexType>
+					</element>
+
+				</sequence>
+			</complexType>
+			<complexType name="OsaNoue">
+				<complexContent>
+					<extension base="etoimik:Kohustis">
+						<sequence>
+							<element name="Noudeosa" nillable="true" minOccurs="1" type="etoimik:NoudeOsa"/>
+						</sequence>
+					</extension>
+				</complexContent>
+			</complexType>
+			<complexType name="Sanktsioon">
+				<complexContent>
+					<extension base="etoimik:Kohustis">
+						<sequence>
+							<element name="LiikKL" nillable="true" minOccurs="0" type="long"/>
+
+						</sequence>
+					</extension>
+				</complexContent>
+			</complexType>
+			<complexType name="Kontakt">
+				<sequence>
+          <element name="Aadress" nillable="true" minOccurs="0" type="etoimik:Aadress"/>
+          <element name="KontaktTekst" nillable="true" minOccurs="0" type="string"/>
+          <element name="LiikKL" nillable="true" minOccurs="1" type="long"/>
+				</sequence>
+			</complexType>
+			<complexType name="NoudeOsa">
+				<sequence>
+
+					<element name="JagamiseViisKL" nillable="true" minOccurs="1" type="long"/>
+					<element name="Noue" nillable="true" minOccurs="1" type="etoimik:Noue"/>
+
+				</sequence>
+			</complexType>
+			<complexType name="MakseRekvisiidid">
+				<complexContent>
+					<extension base="etoimik:Konto">
+						<sequence>
+							<element name="MakseSelgitus" nillable="true" minOccurs="1" type="string"/>
+							<element name="MakseSaaja" nillable="true" minOccurs="1" type="string"/>
+						</sequence>
+					</extension>
+				</complexContent>
+			</complexType>
+			<complexType name="Konto">
+				<sequence>
+
+					<element name="KontoNR" nillable="true" minOccurs="1" type="string"/>
+					<element name="KontoHaldur" nillable="true" minOccurs="1" type="string"/>
+
+				</sequence>
+			</complexType>
+			<complexType name="Laekumine">
+				<sequence>
+					<element name="SisestamiseKP" nillable="true" minOccurs="0" type="dateTime"/>
+					<element name="KontoNR" nillable="true" minOccurs="0" type="string"/>
+					<element name="LaekumiseKP" nillable="true" minOccurs="0" type="dateTime"/>
+					<element name="LaekumiseSumma" nillable="true" minOccurs="0" type="decimal"/>
+					<element name="LaekumiseSummaValuutaKL" nillable="true" minOccurs="0" type="long"/>
+					<element name="MakseId" nillable="true" minOccurs="0" type="string"/>
+					<element name="MaksjaNimi" nillable="true" minOccurs="0" type="string"/>
+				</sequence>
+			</complexType>
+			<complexType name="Aadress">
+				<sequence>
+					<element name="MaakondKL" nillable="true" minOccurs="0" type="long"/>
+					<element name="AlevKylaLinnaosaKL" nillable="true" minOccurs="0" type="long"/>
+					<element name="MajaKrunt" nillable="true" minOccurs="0" type="string"/>
+					<element name="Hooneosa" nillable="true" minOccurs="0" type="string"/>
+					<element name="LinnValdKL" nillable="true" minOccurs="0" type="long"/>
+					<element name="Tanav" nillable="true" minOccurs="0" type="string"/>
+          <element name="MaakondEHAK" nillable="true" minOccurs="0" type="long"/>
+          <element name="LinnValdEHAK" nillable="true" minOccurs="0" type="long"/>
+          <element name="AlevKylaLinnaosaEHAK" nillable="true" minOccurs="0" type="long"/>
+
+				</sequence>
+			</complexType>
+			<complexType name="Noue">
+				<sequence>
+					<element name="LiikKL" nillable="true" minOccurs="1" type="long"/>
+					<element name="NoudeSumma" nillable="true" minOccurs="0" type="decimal"/>
+					<element name="NoudeSummaValuutaKL" nillable="true" minOccurs="0" type="long"/>
+				</sequence>
+			</complexType>
+
+			<complexType name="TarnToiming">
+				<complexContent>
+					<extension base="etoimik:Toiming">
+						<sequence>
+							<element name="NoudeSisu" type="string" nillable="true" />
+							<element name="EttemaksugaNous" type="boolean" nillable="true" />
+							<element name="JataEsitamata" type="boolean" nillable="true" />
+							<element name="PoorataKinnisasjale" type="boolean" nillable="true" />
+							<element name="PoorataNoudeoigusele" type="boolean" nillable="true" />
+							<element name="PoorataVallasvarale" type="boolean" nillable="true" />
+							<element name="SolidaarsedVolgnikud" type="string" nillable="true" />
+							<element name="VolgnikuMuudAndmed" type="string" nillable="true" />
+							<element name="PerioodiliseNoudeSumma" type="decimal" nillable="true" minOccurs="0" />
+							<element name="PerioodiliseNoudeSummaValuutaKL" type="long" nillable="true"  minOccurs="0" />
+						</sequence>
+					</extension>
+				</complexContent>
+			</complexType>
+		</schema>
+	</types>
+	<message name="dummyteenus_paring">
+		<part name="keha" type="tarn:DummyTeenusSisend" />
+	</message>
+	<message name="dummyteenus_paring_vastus">
+		<part name="paring" type="tarn:DummyTeenusSisend" />
+		<part name="keha" type="tarn:DummyTeenusVastus" />
+	</message>
+	<message name="listMethods">
+		<part name="body" element="xrd:listMethods"/>
+	</message>
+	<message name="listMethodsResponse">
+		<part name="body" element="xrd:listMethodsResponse"/>
+	</message>
+	<message name="etteavitus_paring">
+		<part name="keha" type="tarn:ToiminguTeavitus" />
+	</message>
+	<message name="etteavitus_paring_vastus">
+		<part name="paring" type="tarn:ToiminguTeavitus" />
+		<part name="keha" type="tarn:Object" />
+	</message>
+	<message name="taitmisavalduse_esitamine_paring">
+		<part name="keha" type="tarn:TaitmisavalduseEsitamineParing" />
+	</message>
+	<message name="taitmisavalduse_esitamine_vastus">
+		<part name="paring" type="tarn:ToiminguTeavitus" />
+		<part name="keha" type="tarn:TaitmisavalduseEsitamineVastus" />
+	</message>
+	<message name="annataitmisavaldused_paring">
+		<part name="keha" type="tarn:AnnaTaitmisavaldusedSisend" />
+	</message>
+	<message name="annataitmisavaldused_vastus">
+		<part name="paring" type="tarn:AnnaTaitmisavaldusedSisend" />
+		<part name="keha" type="tarn:AnnaTaitmisavaldusedVastus" />
+	</message>
+	<message name="taitemenetlusemuutmineta_paring">
+		<part name="keha" type="tarn:TaitemenetluseMuutmineTaSisend" />
+	</message>
+	<message name="taitemenetlusemuutmineta_vastus">
+		<part name="paring" type="tarn:TaitemenetluseMuutmineTaSisend" />
+		<part name="keha" type="tarn:TaitemenetluseMuutmineTaVastus" />
+	</message>
+	<message name="standardpais">
+		<part name="asutus" element="xtee:asutus"/>
+		<part name="andmekogu" element="xtee:andmekogu"/>
+		<part name="isikukood" element="xtee:isikukood"/>
+		<part name="nimi" element="xtee:nimi"/>
+		<part name="id" element="xtee:id"/>
+		<part name="toimik" element="xtee:toimik"/>
+		<part name="ametniknimi" element="xtee:ametniknimi"/>
+		<part name="allasutus" element="xtee:allasutus"/>
+	</message>
+	<portType name="tarnporttype">
+		<operation name="DummyTeenus">
+			<documentation>
+				<xtee:title xml:lang="et">Testteenus</xtee:title>
+			</documentation>
+			<input message="tarn:dummyteenus_paring" />
+			<output message="tarn:dummyteenus_paring_vastus" />
+		</operation>
+		<operation name="listMethods">
+			<documentation>
+				<xrd:title xml:lang="en">listMethods</xrd:title>
+			</documentation>
+			<input message="tarn:listMethods"/>
+			<output message="tarn:listMethodsResponse"/>
+		</operation>
+		<operation name="ETTeavitus">
+			<documentation>
+				<xtee:title xml:lang="et">E-toimiku teavitus</xtee:title>
+			</documentation>
+			<input message="tarn:etteavitus_paring" />
+			<output message="tarn:etteavitus_paring_vastus" />
+		</operation>
+		<operation name="TaitmisavalduseEsitamine">
+			<documentation>
+				<xtee:title xml:lang="et">Sissenõudja infosüsteemist täitmisavalduse esitamiseks TARNi</xtee:title>
+			</documentation>
+			<input message="tarn:taitmisavalduse_esitamine_paring" />
+			<output message="tarn:taitmisavalduse_esitamine_vastus" />
+		</operation>
+		<operation name="AnnaTaitmisavaldused">
+			<documentation>
+				<xtee:title xml:lang="et">TÄITISe jaoks täitmisavalduste pärimiseks</xtee:title>
+			</documentation>
+			<input message="tarn:annataitmisavaldused_paring" />
+			<output message="tarn:annataitmisavaldused_vastus" />
+		</operation>
+		<operation name="TaitemenetluseMuutmineTa">
+			<documentation>
+				<xtee:title xml:lang="et">
+					Antud teenust kasutataks Täitemenetluse alustamiseks, Täitemenetluse lõpetamiseks, Täitemenetluse üleandmiseks ühelt täiturilt teisele
+				</xtee:title>
+			</documentation>
+			<input message="tarn:taitemenetlusemuutmineta_paring" />
+			<output message="tarn:taitemenetlusemuutmineta_vastus" />
+		</operation>
+	</portType>
+	<binding name="tarnbinding" type="tarn:tarnporttype">
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="DummyTeenus">
+			<xtee:version>v1</xtee:version>
+			<input>
+				<mime:multipartRelated>
+					<mime:part>
+						<soap:header message="tarn:standardpais" part="asutus" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="andmekogu" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="isikukood" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="id" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="nimi" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="toimik" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="ametniknimi" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+						<soap:header message="tarn:standardpais" part="allasutus" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+						<soap:body parts="keha" use="encoded" namespace="http://producers.tarn.xtee.riik.ee/producer/tarn" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+					</mime:part>
+				</mime:multipartRelated>
+			</input>
+			<output>
+				<mime:multipartRelated>
+					<mime:part>
+						<soap:header message="tarn:standardpais" part="asutus" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="andmekogu" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="isikukood" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="id" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="nimi" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encodiMg/" />
+						<soap:header message="tarn:standardpais" part="toimik" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="ametniknimi" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+						<soap:header message="tarn:standardpais" part="allasutus" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+						<soap:body parts="keha" use="encoded" namespace="http://producers.tarn.xtee.riik.ee/producer/tarn" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:body parts="paring" use="encoded" namespace="http://producers.tarn.xtee.riik.ee/producer/tarn" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+					</mime:part>
+				</mime:multipartRelated>
+			</output>
+		</operation>
+		<operation name="listMethods">
+			<xtee:version>v1</xtee:version>
+			<input>
+				<soap:body parts="body" use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</input>
+			<output>
+				<soap:body parts="body" use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			</output>
+		</operation>
+		<operation name="ETTeavitus">
+			<xtee:version>v2</xtee:version>
+			<input>
+				<mime:multipartRelated>
+					<mime:part>
+						<soap:header message="tarn:standardpais" part="asutus" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="andmekogu" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="isikukood" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="id" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="nimi" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="toimik" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="ametniknimi" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+						<soap:header message="tarn:standardpais" part="allasutus" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+						<soap:body parts="keha" use="encoded" namespace="http://producers.tarn.xtee.riik.ee/producer/tarn" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+					</mime:part>
+				</mime:multipartRelated>
+			</input>
+			<output>
+				<mime:multipartRelated>
+					<mime:part>
+						<soap:header message="tarn:standardpais" part="asutus" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="andmekogu" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="isikukood" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="id" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="nimi" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encodiMg/" />
+						<soap:header message="tarn:standardpais" part="toimik" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="ametniknimi" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+						<soap:header message="tarn:standardpais" part="allasutus" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+						<soap:body parts="keha" use="encoded" namespace="http://producers.tarn.xtee.riik.ee/producer/tarn" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:body parts="paring" use="encoded" namespace="http://producers.tarn.xtee.riik.ee/producer/tarn" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+					</mime:part>
+				</mime:multipartRelated>
+			</output>
+		</operation>
+		<operation name="TaitmisavalduseEsitamine">
+			<xtee:version>v1</xtee:version>
+			<input>
+				<mime:multipartRelated>
+					<mime:part>
+						<soap:header message="tarn:standardpais" part="asutus" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="andmekogu" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="isikukood" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="id" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="nimi" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="toimik" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="ametniknimi" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+						<soap:header message="tarn:standardpais" part="allasutus" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+						<soap:body parts="keha" use="encoded" namespace="http://producers.tarn.xtee.riik.ee/producer/tarn" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+					</mime:part>
+				</mime:multipartRelated>
+			</input>
+			<output>
+				<mime:multipartRelated>
+					<mime:part>
+						<soap:header message="tarn:standardpais" part="asutus" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="andmekogu" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="isikukood" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="id" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="nimi" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encodiMg/" />
+						<soap:header message="tarn:standardpais" part="toimik" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="ametniknimi" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+						<soap:header message="tarn:standardpais" part="allasutus" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+						<soap:body parts="keha" use="encoded" namespace="http://producers.tarn.xtee.riik.ee/producer/tarn" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:body parts="paring" use="encoded" namespace="http://producers.tarn.xtee.riik.ee/producer/tarn" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+					</mime:part>
+				</mime:multipartRelated>
+			</output>
+		</operation>
+		<operation name="TaitemenetluseMuutmineTa">
+			<xtee:version>v1</xtee:version>
+			<input>
+				<mime:multipartRelated>
+					<mime:part>
+						<soap:header message="tarn:standardpais" part="asutus" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="andmekogu" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="isikukood" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="id" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="nimi" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="toimik" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="ametniknimi" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+						<soap:header message="tarn:standardpais" part="allasutus" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+						<soap:body parts="keha" use="encoded" namespace="http://producers.tarn.xtee.riik.ee/producer/tarn" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+					</mime:part>
+				</mime:multipartRelated>
+			</input>
+			<output>
+				<mime:multipartRelated>
+					<mime:part>
+						<soap:header message="tarn:standardpais" part="asutus" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="andmekogu" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="isikukood" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="id" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="nimi" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encodiMg/" />
+						<soap:header message="tarn:standardpais" part="toimik" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="ametniknimi" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+						<soap:header message="tarn:standardpais" part="allasutus" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+						<soap:body parts="keha" use="encoded" namespace="http://producers.tarn.xtee.riik.ee/producer/tarn" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:body parts="paring" use="encoded" namespace="http://producers.tarn.xtee.riik.ee/producer/tarn" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+					</mime:part>
+				</mime:multipartRelated>
+			</output>
+		</operation>
+		<operation name="AnnaTaitmisavaldused">
+			<xtee:version>v1</xtee:version>
+			<input>
+				<mime:multipartRelated>
+					<mime:part>
+						<soap:header message="tarn:standardpais" part="asutus" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="andmekogu" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="isikukood" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="id" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="nimi" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="toimik" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="ametniknimi" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+						<soap:header message="tarn:standardpais" part="allasutus" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+						<soap:body parts="keha" use="encoded" namespace="http://producers.tarn.xtee.riik.ee/producer/tarn" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+					</mime:part>
+				</mime:multipartRelated>
+			</input>
+			<output>
+				<mime:multipartRelated>
+					<mime:part>
+						<soap:header message="tarn:standardpais" part="asutus" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="andmekogu" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="isikukood" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="id" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="nimi" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encodiMg/" />
+						<soap:header message="tarn:standardpais" part="toimik" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:header message="tarn:standardpais" part="ametniknimi" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+						<soap:header message="tarn:standardpais" part="allasutus" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+						<soap:body parts="keha" use="encoded" namespace="http://producers.tarn.xtee.riik.ee/producer/tarn" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+						<soap:body parts="paring" use="encoded" namespace="http://producers.tarn.xtee.riik.ee/producer/tarn" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+					</mime:part>
+				</mime:multipartRelated>
+			</output>
+		</operation>
+	</binding>
+	<service name="tarnService">
+		<documentation />
+		<port name="tarnServicePort" binding="tarn:tarnbinding">
+			<soap:address location="http://TURVASERVER.XTEE/cgi-bin/consumer_proxy"/>
+			<xtee:title>TARN</xtee:title>
+			<xtee:address producer="tarn" />
+		</port>
+	</service>
+</definitions>
