@@ -2,6 +2,7 @@ package ee.webmedia.xtee.client.tarn;
 
 import java.io.IOException;
 
+import javax.activation.DataHandler;
 import javax.annotation.Resource;
 import javax.xml.namespace.QName;
 import javax.xml.soap.SOAPEnvelope;
@@ -57,8 +58,11 @@ import ee.webmedia.xtee.client.tarn.types.ee.riik.xtee.tarn.producers.producer.t
 import ee.webmedia.xtee.client.tarn.types.ee.riik.xtee.tarn.producers.producer.tarn.TaitemenetluseMuutmineTaSisend;
 import ee.webmedia.xtee.client.tarn.types.ee.riik.xtee.tarn.producers.producer.tarn.TaitemenetluseMuutmineTaVastus;
 import ee.webmedia.xtee.client.tarn.types.org.xmlsoap.schemas.soap.encoding.Base64Binary;
+import ee.webmedia.xtee.client.util.XmlBeansUtil;
+import ee.webmedia.xtee.model.XTeeAttachment;
 import ee.webmedia.xtee.model.XTeeMessage;
 import ee.webmedia.xtee.model.XmlBeansXTeeMessage;
+import ee.webmedia.xtee.util.AttachmentUtil;
 
 /**
  * <code>TARN</code> X-tee service<br>
@@ -78,7 +82,7 @@ public class TarnXTeeServiceImpl extends XTeeDatabaseService implements TarnXTee
   }
 
   public TaitmisavalduseEsitamineVastus taitmisavalduseEsitamine(
-      TaitmisavalduseEsitamineParing input) throws XTeeServiceConsumptionException {
+      TaitmisavalduseEsitamineParing input, DataHandler dataHandler) throws XTeeServiceConsumptionException {
     XmlCursor cursor = input.newCursor();
     while (cursor.hasNextToken()) {
       cursor.toNextToken();
@@ -219,8 +223,13 @@ public class TarnXTeeServiceImpl extends XTeeDatabaseService implements TarnXTee
     }
     cursor.dispose();
     
+    XmlBeansXTeeMessage<TaitmisavalduseEsitamineParing> xteeMessage = new XmlBeansXTeeMessage<TaitmisavalduseEsitamineParing>(input);
+    String cid = AttachmentUtil.getUniqueCid();
+    input.getTeavitus().getToiming().getSeotudToimingud().getItemArray(0).getPohiFail().getSisu().setHref("cid:"+cid);
+    xteeMessage.getAttachments().add(new XTeeAttachment(cid, dataHandler));
+    
     XTeeMessage<TaitmisavalduseEsitamineVastus> response = 
-        send(new XmlBeansXTeeMessage<TaitmisavalduseEsitamineParing>(input),
+        send(xteeMessage,
              "TaitmisavalduseEsitamine",
              "v1",
              new TarnCallback(),

@@ -1,5 +1,7 @@
 package ee.webmedia.xtee.client.tarn;
 
+import javax.activation.DataHandler;
+
 import ee.webmedia.xtee.client.exception.XTeeServiceConsumptionException;
 import ee.webmedia.xtee.client.tarn.types.ee.riik.xtee.tarn.producers.producer.tarn.TaitemenetluseMuutmineTaSisend;
 import ee.webmedia.xtee.client.tarn.types.ee.riik.xtee.tarn.producers.producer.tarn.TaitemenetluseMuutmineTaVastus;
@@ -24,6 +26,6 @@ public interface TarnXTeeService {
   /**
    * <code>tarn.taitmisavalduseEsitamine.v1</code> service.
    */
-  TaitmisavalduseEsitamineVastus taitmisavalduseEsitamine(TaitmisavalduseEsitamineParing input)
+  TaitmisavalduseEsitamineVastus taitmisavalduseEsitamine(TaitmisavalduseEsitamineParing input, DataHandler dataHandler)
       throws XTeeServiceConsumptionException;
 }
