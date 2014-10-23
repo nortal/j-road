@@ -1,6 +1,7 @@
 package ee.webmedia.xtee.client.tarn;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.activation.DataHandler;
 import javax.annotation.Resource;
@@ -82,7 +83,8 @@ public class TarnXTeeServiceImpl extends XTeeDatabaseService implements TarnXTee
   }
 
   public TaitmisavalduseEsitamineVastus taitmisavalduseEsitamine(
-      TaitmisavalduseEsitamineParing input, DataHandler dataHandler) throws XTeeServiceConsumptionException {
+      TaitmisavalduseEsitamineParing input, DataHandler toimingudFail,
+      DataHandler seotudToimingudFail) throws XTeeServiceConsumptionException {
     XmlCursor cursor = input.newCursor();
     while (cursor.hasNextToken()) {
       cursor.toNextToken();
@@ -224,9 +226,15 @@ public class TarnXTeeServiceImpl extends XTeeDatabaseService implements TarnXTee
     cursor.dispose();
     
     XmlBeansXTeeMessage<TaitmisavalduseEsitamineParing> xteeMessage = new XmlBeansXTeeMessage<TaitmisavalduseEsitamineParing>(input);
-    String cid = AttachmentUtil.getUniqueCid();
-    input.getTeavitus().getToiming().getSeotudToimingud().getItemArray(0).getPohiFail().getSisu().setHref("cid:"+cid);
-    xteeMessage.getAttachments().add(new XTeeAttachment(cid, dataHandler));
+    List<XTeeAttachment> attachments = xteeMessage.getAttachments();
+    
+    String toimingudFailCid = AttachmentUtil.getUniqueCid();
+    input.getTeavitus().getToiming().getPohiFail().getSisu().setHref("cid:"+toimingudFailCid);
+    attachments.add(new XTeeAttachment(toimingudFailCid, toimingudFail));
+    
+    String seotudToimingudFailCid = AttachmentUtil.getUniqueCid();
+    input.getTeavitus().getToiming().getSeotudToimingud().getItemArray(0).getPohiFail().getSisu().setHref("cid:"+seotudToimingudFailCid);
+    attachments.add(new XTeeAttachment(seotudToimingudFailCid, seotudToimingudFail));
     
     XTeeMessage<TaitmisavalduseEsitamineVastus> response = 
         send(xteeMessage,

@@ -7,7 +7,6 @@ import ee.webmedia.xtee.client.tarn.types.ee.riik.xtee.tarn.producers.producer.t
 import ee.webmedia.xtee.client.tarn.types.ee.riik.xtee.tarn.producers.producer.tarn.TaitemenetluseMuutmineTaVastus;
 import ee.webmedia.xtee.client.tarn.types.ee.riik.xtee.tarn.producers.producer.tarn.TaitmisavalduseEsitamineParing;
 import ee.webmedia.xtee.client.tarn.types.ee.riik.xtee.tarn.producers.producer.tarn.TaitmisavalduseEsitamineVastus;
-import ee.webmedia.xtee.client.tarn.types.ee.riik.xtee.tarn.producers.producer.tarn.ToiminguTeavitus;
 
 /**
  * <code>PKR</code> or <code>TPKR</code> X-tee service
@@ -26,6 +25,7 @@ public interface TarnXTeeService {
   /**
    * <code>tarn.taitmisavalduseEsitamine.v1</code> service.
    */
-  TaitmisavalduseEsitamineVastus taitmisavalduseEsitamine(TaitmisavalduseEsitamineParing input, DataHandler dataHandler)
-      throws XTeeServiceConsumptionException;
+  TaitmisavalduseEsitamineVastus taitmisavalduseEsitamine(
+      TaitmisavalduseEsitamineParing input, DataHandler toimingudFail,
+      DataHandler seotudToimingudFail) throws XTeeServiceConsumptionException;
 }
