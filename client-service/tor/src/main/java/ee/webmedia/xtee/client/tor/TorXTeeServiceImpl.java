@@ -53,7 +53,9 @@ public class TorXTeeServiceImpl extends XRoadDatabaseService implements TorXTeeS
 
     if (ParinguLiik.Enum.forString(paringuLiik).equals(ParinguLiik.PM)) {
       request.setMuutAlg(getCalendar(tootAlgusKp));
-      request.setMuutLopp(getCalendar(new Date()));
+      Calendar loppCal = getCalendar(new Date());
+      loppCal.add(Calendar.DATE, 1);
+      request.setMuutLopp(loppCal);
     }
     request.setIsikukoodid(isikukood);
 

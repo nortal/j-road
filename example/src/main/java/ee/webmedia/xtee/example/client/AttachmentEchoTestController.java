@@ -5,14 +5,15 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.SimpleFormController;
 
 import ee.webmedia.xtee.jaxb.ByteArrayDataSource;
 
-public class AttachmentEchoTestController extends SimpleFormController {
+@Controller
+public class AttachmentEchoTestController extends {
 
   @Resource
   private NaidisXTeeService naidisXTeeService;

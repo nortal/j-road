@@ -66,4 +66,6 @@ public class WSConsumptionLoggingInterceptor implements ClientInterceptor {
     return true;
   }
 
+  public void afterCompletion(MessageContext arg0, Exception arg1) throws WebServiceClientException {}
+
 }
