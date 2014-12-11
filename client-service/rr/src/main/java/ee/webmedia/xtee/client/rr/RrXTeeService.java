@@ -6,6 +6,7 @@ import java.util.List;
 import ee.webmedia.xtee.client.exception.XTeeServiceConsumptionException;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.DokumendiTyyp;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR40Response;
+import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR41Response;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR42Request;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR42Response;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR43Response;
@@ -13,12 +14,13 @@ import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR63ResponseV1;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR67Response.TtKoodid;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR72Response.TtIsikud;
-import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR81Response;
+import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR81ResponseV1;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR84Request;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR84Response;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR96ResponseV1;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RRExtDocumentDataRequest;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RRExtDocumentDataResponse;
+import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.IsikuStaatus;
 
 /**
  * <code>rr</code> (Rahvastikuregister) database X-tee service.
@@ -43,7 +45,7 @@ public interface RrXTeeService {
 	/**
 	 * <code>rr.RR81KMAisikkontroll.v1</code> service.
 	 */
-	RR81Response getRR81KMAisikkontroll(String idCode)
+	RR81ResponseV1 getRR81KMAisikkontroll(String idCode)
 			throws XTeeServiceConsumptionException;
 
 	/**
@@ -51,7 +53,7 @@ public interface RrXTeeService {
 	 */
 	RR40Response findRR40isikTaielikIsikukood(String isikukood)
 			throws XTeeServiceConsumptionException;
-
+	
 	/**
 	 * <code>rr.RR42isikAadressKood.v1</code> service.
 	 */
@@ -99,4 +101,11 @@ public interface RrXTeeService {
    * <code>rr.RR84IsikuSeosed.v1</code> service.
    */
   RR84Response findRR84IsikuSeosed(String isikukood) throws XTeeServiceConsumptionException;
+  
+	/**
+	 * <code>rr.RR41isikPohiandmedV1.v1</code> service.
+	 */
+	RR41ResponseV1 findRR41isikPohiandmedV1(String perenimi, String eesnimi, String isikukood,
+			String vald,IsikuStaatus staatus,Long vastusteArv)
+			throws XTeeServiceConsumptionException;
 }

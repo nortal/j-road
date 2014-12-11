@@ -31,8 +31,8 @@ import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR67Response.TtKoodid;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR72Request;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR72Response.TtIsikud;
-import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR81Request;
-import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR81Response;
+import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR81RequestV1;
+import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR81ResponseV1;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR96RequestV1;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR96ResponseV1;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RRExtDocumentDataRequest;
@@ -104,15 +104,15 @@ public class RrXTeeServiceImpl implements RrXTeeService {
 		return rrXTeeDatabase.rr63IsikAadrDokV1V1(request);
 	}
 
-	public RR81Response getRR81KMAisikkontroll(String idCode)
+	public RR81ResponseV1 getRR81KMAisikkontroll(String idCode)
 			throws XTeeServiceConsumptionException {
-		RR81Request request = RR81Request.Factory.newInstance();
+		RR81RequestV1 request = RR81RequestV1.Factory.newInstance();
 
 		XmlString isikukoodElement = XmlBeansUtil
 				.getAttributedXmlString(idCode);
 		request.xsetIsikukood(isikukoodElement);
 
-		return rrXTeeDatabase.rr81KMAisikkontrollV1(request);
+		return rrXTeeDatabase.rr81KMAisikkontrollV1V1(request);
 	}
 
 	public RR52Response getRR52(String idCode, String forename, String surname)

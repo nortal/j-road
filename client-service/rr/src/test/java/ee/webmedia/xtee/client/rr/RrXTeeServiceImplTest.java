@@ -26,7 +26,7 @@ import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR63ResponseV1;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR67Response.TtKoodid;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR72Response.TtIsikud;
-import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR81Response;
+import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR81ResponseV1;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR96ResponseV1;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RRExtDocumentDataRequest;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RRExtDocumentDataRequest.Dokument;
@@ -76,7 +76,7 @@ public class RrXTeeServiceImplTest extends BaseXTeeServiceImplTest {
 
 	@Test
 	public void getRR81KMAisikkontroll() throws XTeeServiceConsumptionException {
-		RR81Response response = rrXTeeServiceImpl
+		RR81ResponseV1 response = rrXTeeServiceImpl
 				.getRR81KMAisikkontroll("37707010014");
 
 		Assert.assertNotNull(response);
