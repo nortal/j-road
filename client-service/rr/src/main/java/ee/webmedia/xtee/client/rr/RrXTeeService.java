@@ -6,7 +6,7 @@ import java.util.List;
 import ee.webmedia.xtee.client.exception.XTeeServiceConsumptionException;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.DokumendiTyyp;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR40Response;
-import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR41Response;
+import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR41ResponseV1;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR42Request;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR42Response;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR43Response;
@@ -105,7 +105,7 @@ public interface RrXTeeService {
 	/**
 	 * <code>rr.RR41isikPohiandmedV1.v1</code> service.
 	 */
-	RR41ResponseV1 findRR41isikPohiandmedV1(String perenimi, String eesnimi, String isikukood,
-			String vald,IsikuStaatus staatus,Long vastusteArv)
+  RR41ResponseV1 findRR41isikPohiandmedV1(String perenimi, String eesnimi, String isikukood,
+			String vald, IsikuStaatus staatus, Long vastusteArv)
 			throws XTeeServiceConsumptionException;
 }

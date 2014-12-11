@@ -14,8 +14,12 @@ import org.springframework.stereotype.Service;
 import ee.webmedia.xtee.client.exception.XTeeServiceConsumptionException;
 import ee.webmedia.xtee.client.rr.database.RrXTeeDatabase;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.DokumendiTyyp;
+import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.IsikuStaatus;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR40Request;
+import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR41Request;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR40Response;
+import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR41RequestV1;
+import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR41ResponseV1;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR42Request;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR42Response;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR43Request;
@@ -192,11 +196,25 @@ public class RrXTeeServiceImpl implements RrXTeeService {
 				: new ArrayList<TtKoodid.Item>();
 	}
 
-	@Override
 	public RR84Response findRR84IsikuSeosed(String isikukood)
 	    throws XTeeServiceConsumptionException {
 	  RR84Request request = RR84Request.Factory.newInstance();
 	  request.setIsikukood(isikukood);
 	  return rrXTeeDatabase.rr84IsikuSeosedV1(request);
+	}
+	
+	public RR41ResponseV1 findRR41isikPohiandmedV1(String perenimi, String eesnimi, String isikukood,
+			String vald, IsikuStaatus staatus, Long vastusteArv)
+			throws XTeeServiceConsumptionException {
+		RR41RequestV1 request = RR41RequestV1.Factory.newInstance();
+
+		request.setIsikuperenimi(perenimi);
+		request.setIsikueesnimi(eesnimi);
+		request.setIsikukood(isikukood);
+		request.setVald(vald);
+		request.xsetStaatus(staatus);
+		request.setMitu(String.valueOf(vastusteArv));
+
+		return rrXTeeDatabase.rr41IsikPohiandmedV1V1(request);
 	}
 }
