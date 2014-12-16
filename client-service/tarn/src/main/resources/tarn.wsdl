@@ -156,9 +156,9 @@
 					<element name="Tanav" type="string" nillable="true" />
 					<element name="HooneNr" type="string" nillable="true" />
 					<element name="HooneOsaNr" type="string" nillable="true" />
-          <element name="MaakondEHAK" type="string" nillable="true" />
-          <element name="LinnValdEHAK" type="string" nillable="true" />
-          <element name="AlevKylaLinnaosaEHAK" type="string" nillable="true" />
+                    <element name="MaakondEHAK" type="string" nillable="true" />
+                    <element name="LinnValdEHAK" type="string" nillable="true" />
+                    <element name="AlevKylaLinnaosaEHAK" type="string" nillable="true" />
 				</sequence>
 			</complexType>
 
@@ -655,10 +655,10 @@
 					<element name="Hooneosa" nillable="true" minOccurs="0" type="string"/>
 					<element name="LinnValdKL" nillable="true" minOccurs="0" type="long"/>
 					<element name="Tanav" nillable="true" minOccurs="0" type="string"/>
-          <element name="MaakondEHAK" nillable="true" minOccurs="0" type="long"/>
-          <element name="LinnValdEHAK" nillable="true" minOccurs="0" type="long"/>
-          <element name="AlevKylaLinnaosaEHAK" nillable="true" minOccurs="0" type="long"/>
-
+                    <element name="MaakondEHAK" nillable="true" minOccurs="0" type="long"/>
+                    <element name="LinnValdEHAK" nillable="true" minOccurs="0" type="long"/>
+                    <element name="AlevKylaLinnaosaEHAK" nillable="true" minOccurs="0" type="long"/>
+                    <element name="AadressTekst" nillable="true" minOccurs="0" type="string"/>
 				</sequence>
 			</complexType>
 			<complexType name="Noue">
