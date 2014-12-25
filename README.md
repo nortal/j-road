@@ -1,4 +1,5 @@
 # About J-road
+[![Build Status](https://travis-ci.org/nortal/j-road.svg?branch=master)](https://travis-ci.org/nortal/j-road)
 
 J-road is a Java library which simplifies the consumption and creation of Estonian X-road services through code generation and protocol implementation.
 
