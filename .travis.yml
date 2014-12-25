@@ -5,5 +5,5 @@ jdk:
 
 notifications:
   email:
-    on_success: never
-    on_failure: never
+    on_success: change
+    on_failure: always
