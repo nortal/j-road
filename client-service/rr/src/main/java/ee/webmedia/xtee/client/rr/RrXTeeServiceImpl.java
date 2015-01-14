@@ -30,6 +30,8 @@ import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR63ResponseV1;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR67Request;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR67Response;
+import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR81Request;
+import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR81Response;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR84Request;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR84Response;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR67Response.TtKoodid;
@@ -107,8 +109,19 @@ public class RrXTeeServiceImpl implements RrXTeeService {
 
 		return rrXTeeDatabase.rr63IsikAadrDokV1V1(request);
 	}
+	
+	public RR81Response getRR81KMAisikkontroll(String idCode)
+			throws XTeeServiceConsumptionException {
+		RR81Request request = RR81Request.Factory.newInstance();
 
-	public RR81ResponseV1 getRR81KMAisikkontroll(String idCode)
+		XmlString isikukoodElement = XmlBeansUtil
+				.getAttributedXmlString(idCode);
+		request.xsetIsikukood(isikukoodElement);
+
+		return rrXTeeDatabase.rr81KMAisikkontrollV1(request);
+	}
+
+	public RR81ResponseV1 getRR81KMAisikkontrollv1(String idCode)
 			throws XTeeServiceConsumptionException {
 		RR81RequestV1 request = RR81RequestV1.Factory.newInstance();
 

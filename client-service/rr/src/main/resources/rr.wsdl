@@ -11009,7 +11009,525 @@
 				</xs:sequence>
 			</xs:complexType>
 
+			<xs:element name="RR81KMAisikkontroll" type="rr:RR81Request" />
+			<xs:complexType name="RR81Request">
+				<xs:sequence>
+					<xs:element name="Isikukood" type="xs:string" minOccurs="1"
+						maxOccurs="1">
+						<xs:annotation>
+							<xs:appinfo>
+								<xtee:title>Otsitava isiku isikukood</xtee:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Eesnimi" type="xs:string" minOccurs="1"
+						maxOccurs="1">
+						<xs:annotation>
+							<xs:appinfo>
+								<xtee:title>Otsitava isiku eesnimi</xtee:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Perenimi" type="xs:string" minOccurs="1"
+						maxOccurs="1">
+						<xs:annotation>
+							<xs:appinfo>
+								<xtee:title>Otsitava isiku perenimi</xtee:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
 
+			<xs:element name="RR81KMAisikkontrollResponse" type="rr:RR81Response" />
+			<xs:complexType name="RR81Response">
+				<xs:sequence>
+					<xs:element name="Eesnimi" type="xs:string">
+						<xs:annotation>
+							<xs:appinfo>
+								<xtee:title>Eesnimi</xtee:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Perenimi" type="xs:string">
+						<xs:annotation>
+							<xs:appinfo>
+								<xtee:title>Perenimi</xtee:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Isikukood" type="xs:string">
+						<xs:annotation>
+							<xs:appinfo>
+								<xtee:title>Isikukood</xtee:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Sugu" type="xs:string">
+						<xs:annotation>
+							<xs:appinfo>
+								<xtee:title>Sugu</xtee:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Synniaeg" type="xs:string">
+						<xs:annotation>
+							<xs:appinfo>
+								<xtee:title>Sünniaeg</xtee:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Vanaeesnimi" type="xs:string">
+						<xs:annotation>
+							<xs:appinfo>
+								<xtee:title>Eelmised, muud eesnimed</xtee:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Vanaperenimi" type="xs:string">
+						<xs:annotation>
+							<xs:appinfo>
+								<xtee:title>Eelmised, muud perenimed</xtee:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Istaatuskd" type="xs:string">
+						<xs:annotation>
+							<xs:appinfo>
+								<xtee:title>Isiku oleku kood</xtee:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Istaatus" type="xs:string">
+						<xs:annotation>
+							<xs:appinfo>
+								<xtee:title>Isiku olek</xtee:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Kstaatuskd" type="xs:string">
+						<xs:annotation>
+							<xs:appinfo>
+								<xtee:title>Kirje oleku kood</xtee:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Kstaatus" type="xs:string">
+						<xs:annotation>
+							<xs:appinfo>
+								<xtee:title>Kirje olek</xtee:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Kodakondsus" type="xs:string">
+						<xs:annotation>
+							<xs:appinfo>
+								<xtee:title>Kodakondsus</xtee:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Synnikoht" type="xs:string">
+						<xs:annotation>
+							<xs:appinfo>
+								<xtee:title>Sünnikoht</xtee:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="EOkuni" type="xs:string">
+						<xs:annotation>
+							<xs:appinfo>
+								<xtee:title>Elamisõiguse kehtivus kuni</xtee:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="EOalates" type="xs:string">
+						<xs:annotation>
+							<xs:appinfo>
+								<xtee:title>Elamisõiguse kehtivus alates</xtee:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="EOstaatus" type="xs:string">
+						<xs:annotation>
+							<xs:appinfo>
+								<xtee:title>Elamisõiguse kehtivus</xtee:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Pereseis" type="xs:string">
+						<xs:annotation>
+							<xs:appinfo>
+								<xtee:title>Perekonnaseisu kood</xtee:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Pereseisukuup" type="xs:string">
+						<xs:annotation>
+							<xs:appinfo>
+								<xtee:title>Perekonnaseisu muutmise kuupäev</xtee:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Surmaaktnr" type="xs:string">
+						<xs:annotation>
+							<xs:appinfo>
+								<xtee:title>Surmaakti number</xtee:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Surmakuupaev" type="xs:string">
+						<xs:annotation>
+							<xs:appinfo>
+								<xtee:title>Surmakuupäev</xtee:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Veakood" type="xs:integer">
+						<xs:annotation>
+							<xs:appinfo>
+								<xtee:title>veakood</xtee:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Veatekst" type="xs:string">
+						<xs:annotation>
+							<xs:appinfo>
+								<xtee:title>Veatekst</xtee:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Isikudok">
+						<xs:annotation>
+							<xs:appinfo>
+								<xtee:title>Dokumentide loetelu</xtee:title>
+							</xs:appinfo>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:complexContent>
+								<xs:restriction base="SOAP-ENC:Array">
+									<xs:sequence>
+										<!-- jada milles on struktuurid (tabeli ridadest) -->
+										<xs:element name="item " minOccurs="0" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="Isikudok.Dokliik" type="xs:string">
+														<xs:annotation>
+															<xs:appinfo>
+																<xtee:title>Dokumendi nimetus</xtee:title>
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Isikudok.Doknr" type="xs:string">
+														<xs:annotation>
+															<xs:appinfo>
+																<xtee:title>Dokumendi number</xtee:title>
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+												</xs:sequence>
+												<!-- START struktuuri kirjeldus -->
+											</xs:complexType>
+										</xs:element>
+										<!-- LOPP struktuuri kirjeldus -->
+										<!-- END generate TABLE [Isikudok.] columns: 2 -->
+									</xs:sequence>
+								</xs:restriction>
+								<!-- LOPP massiivile -->
+							</xs:complexContent>
+							<!-- ############# START massiivile ########### -->
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="Seotud_isikud">
+						<xs:annotation>
+							<xs:appinfo>
+								<xtee:title>Isiku seosed</xtee:title>
+							</xs:appinfo>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:complexContent>
+								<xs:restriction base="SOAP-ENC:Array">
+									<xs:sequence>
+										<!-- jada milles on struktuurid (tabeli ridadest) -->
+										<xs:element name="item " minOccurs="0" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="Seotud_isikud.Eesnimi" type="xs:string">
+														<xs:annotation>
+															<xs:appinfo>
+																<xtee:title>Eesnimi</xtee:title>
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Seotud_isikud.Perenimi" type="xs:string">
+														<xs:annotation>
+															<xs:appinfo>
+																<xtee:title>Perenimi</xtee:title>
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Seotud_isikud.Isikukood" type="xs:string">
+														<xs:annotation>
+															<xs:appinfo>
+																<xtee:title>Isikukood</xtee:title>
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Seotud_isikud.Sugu" type="xs:string">
+														<xs:annotation>
+															<xs:appinfo>
+																<xtee:title>Isiku sugu</xtee:title>
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Seotud_isikud.Synniaeg" type="xs:string">
+														<xs:annotation>
+															<xs:appinfo>
+																<xtee:title>Sünniaeg</xtee:title>
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Seotud_isikud.IstaatusKd"
+														type="xs:string">
+														<xs:annotation>
+															<xs:appinfo>
+																<xtee:title>Isiku oleku kood</xtee:title>
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Seotud_isikud.Istaatus" type="xs:string">
+														<xs:annotation>
+															<xs:appinfo>
+																<xtee:title>Isiku olek</xtee:title>
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Seotud_isikud.Kstaatuskd"
+														type="xs:string">
+														<xs:annotation>
+															<xs:appinfo>
+																<xtee:title>Kirje oleku kood</xtee:title>
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Seotud_isikud.Kstaatus" type="xs:string">
+														<xs:annotation>
+															<xs:appinfo>
+																<xtee:title>Kirje olek</xtee:title>
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Seotud_isikud.Alates" type="xs:string">
+														<xs:annotation>
+															<xs:appinfo>
+																<xtee:title>Alates</xtee:title>
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Seotud_isikud.Kuni" type="xs:string">
+														<xs:annotation>
+															<xs:appinfo>
+																<xtee:title>Kuni</xtee:title>
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Seotud_isikud.SuheTyyp" type="xs:string">
+														<xs:annotation>
+															<xs:appinfo>
+																<xtee:title>Seose tüüp</xtee:title>
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+												</xs:sequence>
+												<!-- START struktuuri kirjeldus -->
+											</xs:complexType>
+										</xs:element>
+										<!-- LOPP struktuuri kirjeldus -->
+										<!-- END generate TABLE [Seotud_isikud.] columns: 12 -->
+									</xs:sequence>
+								</xs:restriction>
+								<!-- LOPP massiivile -->
+							</xs:complexContent>
+							<!-- ############# START massiivile ########### -->
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="Sama_aadressiga">
+						<xs:annotation>
+							<xs:appinfo>
+								<xtee:title>Samal aadressil elavad isikud</xtee:title>
+							</xs:appinfo>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:complexContent>
+								<xs:restriction base="SOAP-ENC:Array">
+									<xs:sequence>
+										<!-- jada milles on struktuurid (tabeli ridadest) -->
+										<xs:element name="item " minOccurs="0" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="Sama_aadressiga.Eesnimi" type="xs:string">
+														<xs:annotation>
+															<xs:appinfo>
+																<xtee:title>Eesnimi</xtee:title>
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Sama_aadressiga.Perenimi"
+														type="xs:string">
+														<xs:annotation>
+															<xs:appinfo>
+																<xtee:title>Perenimi</xtee:title>
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Sama_aadressiga.Isikukood"
+														type="xs:string">
+														<xs:annotation>
+															<xs:appinfo>
+																<xtee:title>Isikukood</xtee:title>
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Sama_aadressiga.Sugu" type="xs:string">
+														<xs:annotation>
+															<xs:appinfo>
+																<xtee:title>Sugu</xtee:title>
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Sama_aadressiga.Synniaeg"
+														type="xs:string">
+														<xs:annotation>
+															<xs:appinfo>
+																<xtee:title>Isiku sünniaeg</xtee:title>
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+												</xs:sequence>
+												<!-- START struktuuri kirjeldus -->
+											</xs:complexType>
+										</xs:element>
+										<!-- LOPP struktuuri kirjeldus -->
+										<!-- END generate TABLE [Sama_aadressiga.] columns: 5 -->
+									</xs:sequence>
+								</xs:restriction>
+								<!-- LOPP massiivile -->
+							</xs:complexContent>
+							<!-- ############# START massiivile ########### -->
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="Elukoht">
+						<xs:annotation>
+							<xs:appinfo>
+								<xtee:title>Põhielukoha andmed</xtee:title>
+							</xs:appinfo>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:complexContent>
+								<xs:restriction base="SOAP-ENC:Array">
+									<xs:sequence>
+										<!-- jada milles on struktuurid (tabeli ridadest) -->
+										<xs:element name="item " minOccurs="0" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="Elukoht.Riikkd" type="xs:string">
+														<xs:annotation>
+															<xs:appinfo>
+																<xtee:title>Riik</xtee:title>
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Elukoht.Maakond" type="xs:string">
+														<xs:annotation>
+															<xs:appinfo>
+																<xtee:title>Maakond</xtee:title>
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Elukoht.Linn" type="xs:string">
+														<xs:annotation>
+															<xs:appinfo>
+																<xtee:title>Vald, Linn</xtee:title>
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Elukoht.Asula" type="xs:string">
+														<xs:annotation>
+															<xs:appinfo>
+																<xtee:title>Asula, linnaosa</xtee:title>
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Elukoht.Vkoht" type="xs:string">
+														<xs:annotation>
+															<xs:appinfo>
+																<xtee:title>Väikekoht</xtee:title>
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Elukoht.Tanav" type="xs:string">
+														<xs:annotation>
+															<xs:appinfo>
+																<xtee:title>Tänav</xtee:title>
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Elukoht.Nimi" type="xs:string">
+														<xs:annotation>
+															<xs:appinfo>
+																<xtee:title>Nimi</xtee:title>
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Elukoht.Maja" type="xs:string">
+														<xs:annotation>
+															<xs:appinfo>
+																<xtee:title>Maja</xtee:title>
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Elukoht.Korter" type="xs:string">
+														<xs:annotation>
+															<xs:appinfo>
+																<xtee:title>Korter</xtee:title>
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Elukoht.Sihtnumber" type="xs:string">
+														<xs:annotation>
+															<xs:appinfo>
+																<xtee:title>Sihtnumber</xtee:title>
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Elukoht.Alates" type="xs:string">
+														<xs:annotation>
+															<xs:appinfo>
+																<xtee:title>Alates</xtee:title>
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+													<xs:element name="Elukoht.Kuni" type="xs:string">
+														<xs:annotation>
+															<xs:appinfo>
+																<xtee:title>Kuni</xtee:title>
+															</xs:appinfo>
+														</xs:annotation>
+													</xs:element>
+												</xs:sequence>
+												<!-- START struktuuri kirjeldus -->
+											</xs:complexType>
+										</xs:element>
+										<!-- LOPP struktuuri kirjeldus -->
+										<!-- END generate TABLE [Elukoht.] columns: 12 -->
+									</xs:sequence>
+								</xs:restriction>
+								<!-- LOPP massiivile -->
+							</xs:complexContent>
+							<!-- ############# START massiivile ########### -->
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
 
 			<xs:element name="RR81KMAisikkontroll_v1" type="rr:RR81Request_v1" />
 			<xs:complexType name="RR81Request_v1">
@@ -17782,6 +18300,13 @@
 		<part name="paring" type="tns:RR80Request_v1" />
 		<part name="keha" type="tns:RR80Response_v1" />
 	</message>
+	<message name="RR81RequestMessage">
+		<part name="keha" type="tns:RR81Request"></part>
+	</message>
+	<message name="RR81ResponseMessage">
+		<part name="paring" type="tns:RR81Request"></part>
+		<part name="keha" type="tns:RR81Response"></part>
+	</message>
 	<message name="RR81Request_v1Message">
 		<part name="keha" type="tns:RR81Request_v1"></part>
 	</message>
@@ -18602,6 +19127,20 @@
 			<input message="tns:RR80Request_v1Message" />
 			<output message="tns:RR80Response_v1Message" />
 		</operation>
+		<operation name="RR81KMAisikkontroll">
+			<documentation>
+				<xtee:title>RR81 - Isikuandmete, dokumentide ja suhete päring
+					isikukoodi ja nimede järgi infosüsteemi jaoks. </xtee:title>
+				<xtee:notes>RR81 - Teenus tagastab sisendis edastatud isikukoodile
+					ja/või eesnimele või algusele ja/või perenimele või algusele
+					vastava isiku põhiandmed, elamisõiguse kehtivuse andmed,
+					surmaandmed, dokumentide andmed, suhete andmed, samal aadressil
+					elavate isikute andmed, põhielukoha andmed.</xtee:notes>
+				<xtee:technotes></xtee:technotes>
+			</documentation>
+			<input message="tns:RR81RequestMessage"></input>
+			<output message="tns:RR81ResponseMessage"></output>
+		</operation>
 		<operation name="RR81KMAisikkontroll_v1">
 			<documentation>
 				<xtee:title>RR81_ADS - Isikuandmete, dokumentide ja suhete päring
@@ -19109,6 +19648,11 @@
 			<xtee:version>v1</xtee:version>
 			<input message="tns:RR80Request_v1Message" />
 			<output message="tns:RR80Response_v1Message" />
+		</operation>
+		<operation name="RR81KMAisikkontroll">
+			<xtee:version>v1</xtee:version>
+			<input message="tns:RR81RequestMessage" />
+			<output message="tns:RR81ResponseMessage" />
 		</operation>
 		<operation name="RR81KMAisikkontroll_v1">
 			<xtee:version>v1</xtee:version>
