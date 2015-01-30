@@ -14,6 +14,7 @@ import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR63ResponseV1;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR67Response.TtKoodid;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR72Response.TtIsikud;
+import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR81Response;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR81ResponseV1;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR84Request;
 import ee.webmedia.xtee.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR84Response;
@@ -41,11 +42,17 @@ public interface RrXTeeService {
 	RR63ResponseV1 findRR63IsikAadrDok(String surname, String firstName,
 			String idCode, String birthDate)
 			throws XTeeServiceConsumptionException;
-
+	
 	/**
 	 * <code>rr.RR81KMAisikkontroll.v1</code> service.
 	 */
-	RR81ResponseV1 getRR81KMAisikkontroll(String idCode)
+	RR81Response getRR81KMAisikkontroll(String idCode)
+			throws XTeeServiceConsumptionException;
+
+	/**
+	 * <code>rr.RR81KMAisikkontroll_V1.v1</code> service.
+	 */
+	RR81ResponseV1 getRR81KMAisikkontrollv1(String idCode)
 			throws XTeeServiceConsumptionException;
 
 	/**

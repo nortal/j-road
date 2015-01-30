@@ -1,0 +1,9 @@
+sudo: false
+language: java
+jdk:
+  - oraclejdk7
+
+notifications:
+  email:
+    on_success: change
+    on_failure: always

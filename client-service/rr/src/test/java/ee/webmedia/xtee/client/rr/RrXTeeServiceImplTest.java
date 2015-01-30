@@ -77,7 +77,7 @@ public class RrXTeeServiceImplTest extends BaseXTeeServiceImplTest {
 	@Test
 	public void getRR81KMAisikkontroll() throws XTeeServiceConsumptionException {
 		RR81ResponseV1 response = rrXTeeServiceImpl
-				.getRR81KMAisikkontroll("37707010014");
+				.getRR81KMAisikkontrollv1("37707010014");
 
 		Assert.assertNotNull(response);
 		Assert.assertEquals("PEKKA", response.getEesnimi());
