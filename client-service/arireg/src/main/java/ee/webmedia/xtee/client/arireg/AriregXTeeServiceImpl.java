@@ -204,6 +204,30 @@ public class AriregXTeeServiceImpl implements AriregXTeeService {
     return ariregXTeeDatabase.detailandmedV4V1(requestDocument).getEttevotjad().getItemList();
   }
 
+  public List<DetailandmedV5Ettevotja> findDetailandmedV5(final String isikukood,
+                                                          boolean yldandmed,
+                                                          boolean isikuandmed,
+                                                          boolean menetlusesAvaldused,
+                                                          boolean kommertspandiandmed,
+                                                          boolean maarused,
+                                                          boolean ainultKehtivad,
+                                                          long maksValjundArv)
+      throws XTeeServiceConsumptionException {
+    return findDetailandmedV5(new DetailandmedV5ReturnedDataSettingCallback(yldandmed,
+                                                                            isikuandmed,
+                                                                            menetlusesAvaldused,
+                                                                            kommertspandiandmed,
+                                                                            maarused,
+                                                                            ainultKehtivad,
+                                                                            maksValjundArv) {
+
+      @Override
+      protected void doPopulate(DetailandmedV5Query query) {
+        query.setFyysiliseIsikuKood(isikukood);
+      }
+    });
+  }
+  
   public List<DetailandmedV5Ettevotja> findDetailandmedV5(final long ariregistriKood,
                                                           boolean yldandmed,
                                                           boolean isikuandmed,
