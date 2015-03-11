@@ -5,7 +5,7 @@
 
   <import resource="classpath:client-test-common.xml" />
 
-  <bean id="retsXTeeService" class="ee.webmedia.xtee.client.rets.RetsXTeeServiceImpl"
+  <bean id="retsXTeeService" class="com.nortal.jroad.client.rets.RetsXTeeServiceImpl"
     parent="xteeDatabaseService" />
 
 </beans>

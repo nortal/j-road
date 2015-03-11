@@ -7,14 +7,14 @@
  * License.
  **/
 
-package ee.webmedia.xtee.example.endpoints;
+package com.nortal.jroad.example.endpoints;
 
 import org.springframework.stereotype.Component;
 
-import ee.webmedia.xtee.annotation.XTeeService;
-import ee.webmedia.xtee.endpoint.AbstractXTeeJAXBEndpoint;
-import ee.webmedia.xtee.example.model.EchoRequest;
-import ee.webmedia.xtee.example.model.EchoResponse;
+import com.nortal.jroad.annotation.XTeeService;
+import com.nortal.jroad.endpoint.AbstractXTeeJAXBEndpoint;
+import com.nortal.jroad.example.model.EchoRequest;
+import com.nortal.jroad.example.model.EchoResponse;
 
 /**
  * Sample service endpoint. {@link XTeeService} annotation is not mandatory, if it were to be omitted here, default

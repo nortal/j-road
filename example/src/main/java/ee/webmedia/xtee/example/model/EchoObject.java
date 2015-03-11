@@ -5,7 +5,7 @@
 // Generated on: 2009.01.28 at 02:04:25 PM EET
 //
 
-package ee.webmedia.xtee.example.model;
+package com.nortal.jroad.example.model;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

@@ -1,6 +1,6 @@
-package ee.webmedia.xtee.client.dhl;
+package com.nortal.jroad.client.dhl;
 
-import static ee.webmedia.xtee.client.dhl.DhlXTeeService.SendStatus.SENT;
+import static com.nortal.jroad.client.dhl.DhlXTeeService.SendStatus.SENT;
 
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
@@ -37,24 +37,24 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.xmlbeans.impl.util.Base64;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import ee.webmedia.xtee.client.dhl.DhlXTeeService.ContentToSend;
-import ee.webmedia.xtee.client.dhl.DhlXTeeService.GetDvkOrganizationsHelper;
-import ee.webmedia.xtee.client.dhl.DhlXTeeService.MetainfoHelper;
-import ee.webmedia.xtee.client.dhl.DhlXTeeService.ReceivedDocumentsWrapper;
-import ee.webmedia.xtee.client.dhl.DhlXTeeService.ReceivedDocumentsWrapper.ReceivedDocument;
-import ee.webmedia.xtee.client.dhl.DhlXTeeService.SendStatus;
-import ee.webmedia.xtee.client.dhl.types.ee.riik.schemas.dhl.AadressType;
-import ee.webmedia.xtee.client.dhl.types.ee.riik.schemas.dhl.DhlDokumentType;
-import ee.webmedia.xtee.client.dhl.types.ee.riik.schemas.dhl.EdastusDocument;
-import ee.webmedia.xtee.client.dhl.types.ee.riik.schemas.dhl.EdastusDocument.Edastus;
-import ee.webmedia.xtee.client.dhl.types.ee.riik.schemas.dhl.FaultDocument.Fault;
-import ee.webmedia.xtee.client.dhl.types.ee.riik.schemas.dhl.TagasisideType;
-import ee.webmedia.xtee.client.dhl.types.ee.riik.schemas.dhl.TransportDocument.Transport;
-import ee.webmedia.xtee.client.dhl.types.ee.riik.xtee.dhl.producers.producer.dhl.GetSendStatusResponseTypeUnencoded.Item;
-import ee.webmedia.xtee.client.dhl.types.ee.riik.xtee.dhl.producers.producer.dhl.OccupationType;
-import ee.webmedia.xtee.client.dhl.types.ee.sk.digiDoc.v13.DataFileType;
-import ee.webmedia.xtee.client.dhl.types.ee.sk.digiDoc.v13.SignedDocType;
-import ee.webmedia.xtee.client.service.configuration.provider.XTeeProviderPropertiesResolver;
+import com.nortal.jroad.client.dhl.DhlXTeeService.ContentToSend;
+import com.nortal.jroad.client.dhl.DhlXTeeService.GetDvkOrganizationsHelper;
+import com.nortal.jroad.client.dhl.DhlXTeeService.MetainfoHelper;
+import com.nortal.jroad.client.dhl.DhlXTeeService.ReceivedDocumentsWrapper;
+import com.nortal.jroad.client.dhl.DhlXTeeService.ReceivedDocumentsWrapper.ReceivedDocument;
+import com.nortal.jroad.client.dhl.DhlXTeeService.SendStatus;
+import com.nortal.jroad.client.dhl.types.ee.riik.schemas.dhl.AadressType;
+import com.nortal.jroad.client.dhl.types.ee.riik.schemas.dhl.DhlDokumentType;
+import com.nortal.jroad.client.dhl.types.ee.riik.schemas.dhl.EdastusDocument;
+import com.nortal.jroad.client.dhl.types.ee.riik.schemas.dhl.EdastusDocument.Edastus;
+import com.nortal.jroad.client.dhl.types.ee.riik.schemas.dhl.FaultDocument.Fault;
+import com.nortal.jroad.client.dhl.types.ee.riik.schemas.dhl.TagasisideType;
+import com.nortal.jroad.client.dhl.types.ee.riik.schemas.dhl.TransportDocument.Transport;
+import com.nortal.jroad.client.dhl.types.ee.riik.xtee.dhl.producers.producer.dhl.GetSendStatusResponseTypeUnencoded.Item;
+import com.nortal.jroad.client.dhl.types.ee.riik.xtee.dhl.producers.producer.dhl.OccupationType;
+import com.nortal.jroad.client.dhl.types.ee.sk.digiDoc.v13.DataFileType;
+import com.nortal.jroad.client.dhl.types.ee.sk.digiDoc.v13.SignedDocType;
+import com.nortal.jroad.client.service.configuration.provider.XTeeProviderPropertiesResolver;
 
 /**
  * @author ats.uiboupin
@@ -350,7 +350,7 @@ public class DhlXTeeServiceImplTest extends TestCase {
     }
 
     /**
-     * Test method for {@link ee.webmedia.xtee.dvk.service.impl.DvkServiceImpl#getSendStatuses(String)
+     * Test method for {@link com.nortal.jroad.dvk.service.impl.DvkServiceImpl#getSendStatuses(String)
      */
     public void testGetSendStatus2() {
         final List<Item> items = dhl.getSendStatuses(sentDocIds);

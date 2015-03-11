@@ -1,4 +1,4 @@
-package ee.webmedia.xtee.example.client;
+package com.nortal.jroad.example.client;
 
 import javax.activation.DataHandler;
 import javax.annotation.Resource;
@@ -10,7 +10,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 
-import ee.webmedia.xtee.jaxb.ByteArrayDataSource;
+import com.nortal.jroad.jaxb.ByteArrayDataSource;
 
 @Controller
 public class AttachmentEchoTestController extends {

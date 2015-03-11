@@ -4,8 +4,8 @@
 *.war
 *.ear
 *.class
-client-service/**/src/main/java/ee/webmedia/xtee/client/**/types/**
-client-service/**/src/main/java/ee/webmedia/xtee/client/**/database/**
+client-service/**/src/main/java/com/nortal/jroad/client/**/types/**
+client-service/**/src/main/java/com/nortal/jroad/client/**/database/**
 
 # eclipse specific git ignore
 .project

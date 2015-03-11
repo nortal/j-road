@@ -5,9 +5,9 @@
   <name>Terviseamet client services</name>
 
   <parent>
-    <groupId>com.googlecode.j-road</groupId>
+    <groupId>com.nortal.jroad</groupId>
     <artifactId>xtee-client-service</artifactId>
- 	<version>3.1.0-SNAPSHOT</version>
+ 	<version>4.0-SNAPSHOT</version>
   </parent>
 
   <properties>
@@ -29,12 +29,12 @@
             </goals>
             <inherited>true</inherited>
             <configuration>
-              <mainClass>ee.webmedia.xtee.typegen.TypeGen</mainClass>
+              <mainClass>com.nortal.jroad.typegen.TypeGen</mainClass>
               <arguments>
                 <argument>wsdldir=${basedir}/src/main/resources</argument>
                 <argument>sourcedir=${basedir}/src/main/java</argument>
                 <argument>xsbdir=${basedir}/target/classes</argument>
-                <argument>basepackage=ee.webmedia.xtee.client.${package}.types</argument>
+                <argument>basepackage=com.nortal.jroad.client.${package}.types</argument>
               </arguments>
             </configuration>
           </execution>

@@ -5,7 +5,7 @@
 
   <import resource="classpath:client-test-common.xml" />
 
-  <bean id="kmaisXTeeService" class="ee.webmedia.xtee.client.kmais.KmaisXTeeServiceImpl"
+  <bean id="kmaisXTeeService" class="com.nortal.jroad.client.kmais.KmaisXTeeServiceImpl"
     parent="xteeDatabaseService">
     <property name="database" value="test-kmais"/>
   </bean>

@@ -1,11 +1,11 @@
-package ee.webmedia.xtee.example.client;
+package com.nortal.jroad.example.client;
 
-import ee.webmedia.xtee.client.exception.XTeeServiceConsumptionException;
-import ee.webmedia.xtee.client.service.XTeeDatabaseService;
-import ee.webmedia.xtee.example.client.types.ee.riik.xtee.naidis.producers.producer.naidis.AttachmentEchoRequest;
-import ee.webmedia.xtee.example.client.types.ee.riik.xtee.naidis.producers.producer.naidis.AttachmentEchoResponse;
-import ee.webmedia.xtee.model.XTeeMessage;
-import ee.webmedia.xtee.model.XmlBeansXTeeMessage;
+import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.service.XTeeDatabaseService;
+import com.nortal.jroad.example.client.types.ee.riik.xtee.naidis.producers.producer.naidis.AttachmentEchoRequest;
+import com.nortal.jroad.example.client.types.ee.riik.xtee.naidis.producers.producer.naidis.AttachmentEchoResponse;
+import com.nortal.jroad.model.XTeeMessage;
+import com.nortal.jroad.model.XmlBeansXTeeMessage;
 import javax.activation.DataHandler;
 
 public class NaidisXTeeServiceImpl extends XTeeDatabaseService implements NaidisXTeeService {

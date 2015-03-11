@@ -1,11 +1,11 @@
-package ee.webmedia.xtee.example.endpoints;
+package com.nortal.jroad.example.endpoints;
 
 import org.springframework.stereotype.Component;
 
 import ee.riik.xtee.naidis.producers.producer.naidis.EchoRequest;
 import ee.riik.xtee.naidis.producers.producer.naidis.EchoResponse;
-import ee.webmedia.xtee.annotation.XTeeService;
-import ee.webmedia.xtee.endpoint.AbstractXTeeAxisEndpoint;
+import com.nortal.jroad.annotation.XTeeService;
+import com.nortal.jroad.endpoint.AbstractXTeeAxisEndpoint;
 
 @XTeeService(name = "AxisEcho", version = "v1", title = "Echo service")
 @Component

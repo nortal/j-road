@@ -1,6 +1,6 @@
 package ${databaseClass.packageName};
 
-import ee.webmedia.xtee.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
 
 /**
  * <code>${databaseClass.database}</code> X-tee database.

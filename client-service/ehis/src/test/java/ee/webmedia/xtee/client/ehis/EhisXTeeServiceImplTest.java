@@ -1,10 +1,13 @@
-package ee.webmedia.xtee.client.ehis;
+package com.nortal.jroad.client.ehis;
 
-import ee.webmedia.xtee.client.exception.XTeeServiceConsumptionException;
-import ee.webmedia.xtee.client.test.BaseXTeeServiceImplTest;
 import java.util.Calendar;
+
 import javax.annotation.Resource;
+
 import org.junit.Test;
+
+import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
 
 /**
  * @author Margus Hanni

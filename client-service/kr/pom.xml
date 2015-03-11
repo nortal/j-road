@@ -5,9 +5,9 @@
   <name>Kinnisturegister client services</name>
 
   <parent>
-    <groupId>com.googlecode.j-road</groupId>
+    <groupId>com.nortal.jroad</groupId>
     <artifactId>xtee-client-service</artifactId>
- 	<version>3.1.0-SNAPSHOT</version>
+ 	<version>4.0-SNAPSHOT</version>
   </parent>
 
   <properties>

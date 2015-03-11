@@ -7,7 +7,7 @@
  * License.
  **/
 
-package ee.webmedia.xtee.example.endpoints;
+package com.nortal.jroad.example.endpoints;
 
 import java.io.IOException;
 
@@ -18,11 +18,11 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 import org.springframework.util.FileCopyUtils;
 
-import ee.webmedia.xtee.endpoint.AbstractXTeeJAXBEndpoint;
-import ee.webmedia.xtee.example.model.AttachmentEchoNest;
-import ee.webmedia.xtee.example.model.AttachmentEchoRequest;
-import ee.webmedia.xtee.example.model.AttachmentEchoResponse;
-import ee.webmedia.xtee.jaxb.ByteArrayDataSource;
+import com.nortal.jroad.endpoint.AbstractXTeeJAXBEndpoint;
+import com.nortal.jroad.example.model.AttachmentEchoNest;
+import com.nortal.jroad.example.model.AttachmentEchoRequest;
+import com.nortal.jroad.example.model.AttachmentEchoResponse;
+import com.nortal.jroad.jaxb.ByteArrayDataSource;
 
 /**
  * Sample service endpoint, which supports binary attachments. Please refer to the PDF documentation on how to create

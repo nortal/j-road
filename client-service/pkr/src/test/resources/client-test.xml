@@ -5,7 +5,7 @@
 
   <import resource="classpath:client-test-common.xml" />
 
-  <bean id="pkrXTeeService" class="ee.webmedia.xtee.client.pkr.PkrXTeeServiceImpl"
+  <bean id="pkrXTeeService" class="com.nortal.jroad.client.pkr.PkrXTeeServiceImpl"
     parent="xteeDatabaseService" />
 
 </beans>

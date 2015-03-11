@@ -7,25 +7,25 @@
   <packaging>pom</packaging>
 
   <parent>
-    <groupId>com.googlecode.j-road</groupId>
+    <groupId>com.nortal.jroad</groupId>
     <artifactId>xtee-root</artifactId>
-    <version>3.1.0-SNAPSHOT</version>
+    <version>4.0-SNAPSHOT</version>
   </parent>
 
   <dependencies>
     <dependency>
-      <groupId>com.googlecode.j-road</groupId>
+      <groupId>com.nortal.jroad</groupId>
       <artifactId>xtee-client-transport</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>com.googlecode.j-road</groupId>
+      <groupId>com.nortal.jroad</groupId>
       <artifactId>xtee-typegen</artifactId>
       <version>${project.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>com.googlecode.j-road</groupId>
+      <groupId>com.nortal.jroad</groupId>
       <artifactId>xtee-client-test</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
@@ -84,13 +84,13 @@
             </goals>
             <inherited>true</inherited>
             <configuration>
-              <mainClass>ee.webmedia.xtee.typegen.TypeGen</mainClass>
+              <mainClass>com.nortal.jroad.typegen.TypeGen</mainClass>
               <arguments>
                 <argument>wsdldir=${basedir}/src/main/resources</argument>
                 <argument>sourcedir=${basedir}/src/main/java</argument>
                 <argument>xsbdir=${basedir}/target/classes</argument>
-                <argument>basepackage=ee.webmedia.xtee.client.${package}.types</argument>
-                <argument>dbclassespackage=ee.webmedia.xtee.client.${package}.database</argument>
+                <argument>basepackage=com.nortal.jroad.client.${package}.types</argument>
+                <argument>dbclassespackage=com.nortal.jroad.client.${package}.database</argument>
               </arguments>
             </configuration>
           </execution>

@@ -6,5 +6,5 @@
 //
 
 @javax.xml.bind.annotation.XmlSchema(namespace = "http://producers.naidis.xtee.riik.ee/producer/naidis")
-package ee.webmedia.xtee.example.model;
+package com.nortal.jroad.example.model;
 
