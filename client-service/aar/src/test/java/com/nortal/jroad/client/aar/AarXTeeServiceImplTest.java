@@ -14,7 +14,7 @@ import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
 /**
  * Aar andmekogu xtee teenuste testid
  * 
- * @author Lauri Lättemäe (lauri.lattemaw@webmedia.ee)
+ * @author Lauri Lättemäe 
  * @date 08.10.2010
  */
 public class AarXTeeServiceImplTest extends BaseXTeeServiceImplTest {

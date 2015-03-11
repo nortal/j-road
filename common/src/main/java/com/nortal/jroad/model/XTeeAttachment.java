@@ -1,5 +1,5 @@
 /**
- * Copyright 2009 Webmedia Group Ltd. Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+ * Copyright 2015 Nortal Licensed under the Apache License, Version 2.0 (the "License"); you may not use
  * this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
@@ -26,7 +26,7 @@ import com.nortal.jroad.jaxb.ByteArrayDataSource;
  * amounts of data because transmitting attachments requires much less bandwidth and resources (base64 etc) than
  * transmitting the same data within SOAP messages without attachments.
  * 
- * @author <a href="mailto:Dmitri Danilkin@webmedia.ee">Dmitri Danilkin</a>
+ * @author Dmitri Danilkin
  */
 public class XTeeAttachment implements InputStreamSource {
   private String cid;

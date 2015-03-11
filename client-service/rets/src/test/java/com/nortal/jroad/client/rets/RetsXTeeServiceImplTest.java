@@ -17,7 +17,7 @@ import com.nortal.jroad.client.rets.types.ee.riik.xtee.rets.producers.producer.r
 import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
 
 /**
- * @author Tanel Käär (tanelk@webmedia.ee)
+ * @author Tanel Käär (tanelk@nortal.com)
  */
 public class RetsXTeeServiceImplTest extends BaseXTeeServiceImplTest {
 

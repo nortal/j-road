@@ -7,7 +7,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 
 /**
- * @author Tatjana Kulikova (tatjana.kulikova@webmedia.ee)
+ * @author Tatjana Kulikova (tatjana.kulikova@nortal.com)
  * @date 17.02.2011
  */
 public class Parser {

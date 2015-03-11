@@ -16,7 +16,7 @@ import com.nortal.jroad.client.lkf.types.ee.riik.xtee.lkf.producers.producer.lkf
 import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
 
 /**
- * @author Tatjana Kulikova (tatjana.kulikova@webmedia.ee)
+ * @author Tatjana Kulikova (tatjana.kulikova@nortal.com)
  * @date 17.02.2011
  */
 public class LkfXTeeServiceImplTest extends BaseXTeeServiceImplTest {

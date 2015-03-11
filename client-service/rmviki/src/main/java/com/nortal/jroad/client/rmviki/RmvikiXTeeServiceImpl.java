@@ -14,7 +14,7 @@ import com.nortal.jroad.client.rmviki.types.ee.riik.xtee.rmviki.producers.produc
 import com.nortal.jroad.client.rmviki.types.ee.riik.xtee.rmviki.producers.producer.rmviki.ZRKOVARResponse;
 
 /**
- * @author Kauri Kägo (kauri@webmedia.ee)
+ * @author Kauri Kägo (kauri@nortal.com)
  */
 @Service("rmvikiXTeeService")
 public class RmvikiXTeeServiceImpl implements RmvikiXTeeService {

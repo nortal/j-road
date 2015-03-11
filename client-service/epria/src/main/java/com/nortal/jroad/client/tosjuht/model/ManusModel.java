@@ -5,7 +5,7 @@ import javax.activation.DataHandler;
 /**
  * Manuse mudel faili nimi ja sisu
  * 
- * @author Lauri Lättemäe (lauri.lattemaw@webmedia.ee)
+ * @author Lauri Lättemäe 
  * @date 02.06.2010
  */
 public class ManusModel {

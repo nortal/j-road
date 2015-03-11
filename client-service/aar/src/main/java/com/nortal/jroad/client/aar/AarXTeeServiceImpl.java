@@ -31,7 +31,7 @@ import com.nortal.jroad.model.XmlBeansXTeeMessage;
 /**
  * Aar andmekogu xtee teenused
  *
- * @author Lauri Lättemäe (lauri.lattemaw@webmedia.ee)
+ * @author Lauri Lättemäe 
  * @date 08.10.2010
  */
 @Service("aarXTeeService")

@@ -105,10 +105,10 @@
         <configuration>
           <filesets>
             <fileset>
-              <directory>src/main/java/ee/webmedia/xtee/client/${package}/types</directory>
+              <directory>src/main/java/com/nortal/jroad/client/${package}/types</directory>
             </fileset>
             <fileset>
-              <directory>src/main/java/ee/webmedia/xtee/client/${package}/database</directory>
+              <directory>src/main/java/com/nortal/jroad/client/${package}/database</directory>
             </fileset>
           </filesets>
         </configuration>

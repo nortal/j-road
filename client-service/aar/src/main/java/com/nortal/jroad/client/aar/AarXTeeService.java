@@ -7,7 +7,7 @@ import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
 /**
  * Aar andmekogu xtee teenused
  * 
- * @author Lauri Lättemäe (lauri.lattemaw@webmedia.ee)
+ * @author Lauri Lättemäe 
  * @date 08.10.2010
  */
 public interface AarXTeeService {

@@ -12,7 +12,7 @@ import com.nortal.jroad.model.XTeeMessage;
 import com.nortal.jroad.model.XmlBeansXTeeMessage;
 
 /**
- * @author Tanel Käär (tanelk@webmedia.ee)
+ * @author Tanel Käär (tanelk@nortal.com)
  */
 public class RetsXTeeServiceImpl extends XTeeDatabaseService implements RetsXTeeService {
 

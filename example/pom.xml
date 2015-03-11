@@ -80,7 +80,7 @@
         <configuration>
           <filesets>
             <fileset>
-              <directory>src/main/java/ee/webmedia/xtee/example/client/types</directory>
+              <directory>src/main/java/com/nortal/jroad/example/client/types</directory>
             </fileset>
           </filesets>
         </configuration>

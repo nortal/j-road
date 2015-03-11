@@ -38,7 +38,7 @@ import com.nortal.jroad.model.XTeeMessage;
 import com.nortal.jroad.model.XmlBeansXTeeMessage;
 
 /**
- * @author Lauri Lättemäe (lauri.lattemaw@webmedia.ee)
+ * @author Lauri Lättemäe 
  * @date 10.09.2010
  */
 @Service("epriaXTeeService")

@@ -29,7 +29,7 @@ import com.nortal.jroad.model.XTeeMessage;
 import com.nortal.jroad.model.XmlBeansXTeeMessage;
 
 /**
- * @author Aleksei Bogdanov (aleksei.bogdanov@webmedia.ee)
+ * @author Aleksei Bogdanov (aleksei.bogdanov@nortal.com)
  */
 @Service("koodikeskusXTeeService")
 public class KoodikeskusXTeeServiceImpl extends XTeeDatabaseService implements KoodikeskusXTeeService {

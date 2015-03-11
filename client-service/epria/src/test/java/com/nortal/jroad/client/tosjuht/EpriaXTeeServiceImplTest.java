@@ -29,7 +29,7 @@ import com.nortal.jroad.model.XmlBeansXTeeMessage;
  * ePria teenuste testid
  * nb. Suuna xtee teegis xtee-service.properties teenused õigesse kohta 
  *  
- * @author Lauri L�ttem�e (lauri.lattemae@webmedia.ee)
+ * @author Lauri Lättemäe (lauri.lattemae@nortal.com)
  * @date 02.06.2010
  */
 public class EpriaXTeeServiceImplTest extends BaseXTeeServiceImplTest {

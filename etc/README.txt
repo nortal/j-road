@@ -7,4 +7,3 @@ WEB-INF/lib folder.
 
 Some Maven repositories where these external dependencies can be downloaded are:
   http://mirrors.ibiblio.org/pub/mirrors/maven2
-  http://maven2.webmedia.ee

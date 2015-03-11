@@ -25,7 +25,7 @@ import com.nortal.jroad.client.koodikeskus.types.ee.riik.xtee.koodikeskus.produc
 import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
 
 /**
- * @author Aleksei Bogdanov (aleksei.bogdanov@webmedia.ee)
+ * @author Aleksei Bogdanov (aleksei.bogdanov@nortal.com)
  */
 public class KoodikeskusXTeeServiceImplTest extends BaseXTeeServiceImplTest {
 

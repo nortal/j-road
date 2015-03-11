@@ -8,7 +8,7 @@ import com.nortal.jroad.client.rets.types.ee.riik.xtee.rets.producers.producer.r
 /**
  * <code>rets</code> (Retseptikeskus) database X-tee service.
  * 
- * @author Tanel Käär (tanelk@webmedia.ee)
+ * @author Tanel Käär (tanelk@nortal.com)
  */
 public interface RetsXTeeService {
 

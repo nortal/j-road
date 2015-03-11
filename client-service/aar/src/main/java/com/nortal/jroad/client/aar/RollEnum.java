@@ -3,7 +3,7 @@ package com.nortal.jroad.client.aar;
 /**
  * Aar andmekogu xtee teenused
  * 
- * @author Lauri Lättemäe (lauri.lattemaw@webmedia.ee)
+ * @author Lauri Lättemäe 
  * @date 27.10.2010
  */
 public enum RollEnum {

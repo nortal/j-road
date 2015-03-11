@@ -1,5 +1,5 @@
 /**
- * Copyright 2009 Webmedia Group Ltd. Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+ * Copyright 2015 Nortal Licensed under the Apache License, Version 2.0 (the "License"); you may not use
  * this file except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
@@ -18,8 +18,8 @@ import java.lang.annotation.RetentionPolicy;
  * <code>N<code> is the version number.
  * <code>value</code> is provided for convenience and is equal to setting <code>name</code>.
  * 
- * @author Dmitri Danilkin (Dmitri Danilkin@webmedia.ee)
- * @author Taimo Peelo (taimo@webmedia.ee)
+ * @author Dmitri Danilkin
+ * @author Taimo Peelo
  */
 @Retention(RetentionPolicy.RUNTIME)
 public @interface XTeeService {
