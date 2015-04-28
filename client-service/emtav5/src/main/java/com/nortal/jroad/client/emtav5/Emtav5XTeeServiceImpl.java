@@ -9,6 +9,10 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.nortal.jroad.client.emtav5.database.Emtav5XTeeDatabase;
+import com.nortal.jroad.client.emtav5.types.net.x_rd.ee.emtav5.producer.SkaMitteresident;
+import com.nortal.jroad.client.emtav5.types.net.x_rd.ee.emtav5.producer.SkaMitteresidentRequestType;
+import com.nortal.jroad.client.emtav5.types.net.x_rd.ee.emtav5.producer.SkaMitteresidentResponse;
+import com.nortal.jroad.client.emtav5.types.net.x_rd.ee.emtav5.producer.SkaMitteresidentResponseType;
 import com.nortal.jroad.client.emtav5.types.net.x_rd.ee.emtav5.producer.SpouseCheckCommonRequestType;
 import com.nortal.jroad.client.emtav5.types.net.x_rd.ee.emtav5.producer.SpouseCheckRequestType;
 import com.nortal.jroad.client.emtav5.types.net.x_rd.ee.emtav5.producer.SpouseCheckResponseType;
@@ -37,9 +41,19 @@ public class Emtav5XTeeServiceImpl implements Emtav5XTeeService {
 	}
 
 	private Calendar getCalendar(Date date) {
-	    Calendar calendar = Calendar.getInstance();
+		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 		return calendar;
-    }
+	}
+
+	@Override
+	public SkaMitteresidentResponseType skaMitteresident(String registreerimiskood)
+			throws XTeeServiceConsumptionException {
+		SkaMitteresident input = SkaMitteresident.Factory.newInstance();
+		SkaMitteresidentRequestType request = input.addNewRequest();
+		request.setRegistreerimiskood(registreerimiskood);
+		SkaMitteresidentResponse skaMitteresident = emtav5XTeeDatabase.skaMitteresidentV1(input);
+		return skaMitteresident.getResponse();
+	}
 
 }

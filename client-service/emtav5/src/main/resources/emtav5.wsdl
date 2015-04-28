@@ -86,6 +86,88 @@
 					</element>
 				</sequence>
 			</complexType>
+            <complexType name="skaMitteresident">
+                    <sequence>
+                        <element name="request" type="tns:skaMitteresidentRequestType"/>
+                    </sequence>
+            </complexType>
+            <complexType name="skaMitteresidentResponse">
+                    <sequence>
+                        <element name="request" type="tns:skaMitteresidentRequestType"/>
+                        <element name="response" type="tns:skaMitteresidentResponseType"/>
+                    </sequence>
+            </complexType>
+            <complexType name="skaMitteresidentRequestType">
+                <sequence>
+                    <element name="registreerimiskood" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Mitteresidendi registreerimiskood</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+            <complexType name="skaMitteresidentResponseType">
+                <sequence>
+                    <element name="registreerimiskood" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Mitteresidendi registreerimiskood</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="nimi" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Füüsilise või juriidilise isiku nimi</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="valisriigiKood" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Välisriigi registreerimiskood</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="residentsusriik" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Isiku residentsuse riik</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="registreeritud" type="date">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Eestis registreerimise kuupäev</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="mrKehtivuseAlgus" type="date">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Mitteresidentsuse kehtivuse algus</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="eestiAadress" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Aadress Eestis</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="valisriigiAadress" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Aadress välisriigis</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
 		</schema>
 	</types>
 	<message name="xrdHeader">
@@ -102,6 +184,12 @@
 	<message name="spouseCheckInputMessage">
 		<part type="tns:SpouseCheckRequestType" name="body" />
 	</message>
+    <message name="skaMitteresident">
+        <part type="tns:skaMitteresident" name="body"/>
+    </message>
+    <message name="skaMitteresidentResponse">
+        <part type="tns:skaMitteresidentResponse" name="body"/>
+    </message>
 	<portType name="emtav5port">
 		<operation name="xteeFIEAK">
 			<documentation>
@@ -110,6 +198,13 @@
 			<input message="tns:spouseCheckInputMessage" />
 			<output message="tns:spouseCheckOutputMessage" />
 		</operation>
+        <operation name="skaMitteresident">
+            <documentation>
+                <xrd:title>Mitteresidentide päring Sotsiaalkindlustusametile</xrd:title>
+            </documentation>
+            <input message="tns:skaMitteresident"/>
+            <output message="tns:skaMitteresidentResponse"/>
+        </operation>
 	</portType>
 	<binding name="emtav5bind" type="tns:emtav5port">
 		<soap:binding style="document"
@@ -138,6 +233,26 @@
 				<soap:body use="literal" />
 			</output>
 		</operation>
+        <operation name="skaMitteresident">
+            <soap:operation soapAction=""/>
+            <xrd:version>v1</xrd:version>
+            <input>
+                <soap:header message="tns:xrdHeader" part="consumer" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="producer" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:header message="tns:xrdHeader" part="consumer" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="producer" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
 	</binding>
 	<service name="emtav5service">
 		<port binding="tns:emtav5bind" name="emtav5port">
