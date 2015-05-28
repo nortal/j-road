@@ -67,6 +67,7 @@
     <module>vangis</module>
     <module>viisaregister</module>
     <module>pria-toetusreg</module>
+    <module>treasury</module>
   </modules>
 
   <build>
