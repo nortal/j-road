@@ -422,7 +422,9 @@ public class TypeGen {
       }
     }
   }
-
+  
+  private static final List<String> MESSAGE_WRAPPER_NAMES = Arrays.asList("keha", "body", "request", "response");
+  
   /**
    * Creates a map between message names and their response elements.
    *
@@ -439,8 +441,7 @@ public class TypeGen {
         Node part = parts.item(j);
 				if (WSDL_NS.equals(part.getNamespaceURI())
 				        && "part".equals(part.getLocalName())
-				        && ("keha".equals(part.getAttributes().getNamedItem("name").getNodeValue()) ||
-				        	"body".equals(part.getAttributes().getNamedItem("name").getNodeValue()))) {
+				        && (MESSAGE_WRAPPER_NAMES.contains(part.getAttributes().getNamedItem("name").getNodeValue()))) {
           Node element = part.getAttributes().getNamedItem("element");
           String[] type =
               element == null
@@ -463,7 +464,7 @@ public class TypeGen {
 
       String key = entry.getKey();
       String database = key.substring(0, key.lastIndexOf(serviceMetadata.getOperationName().toLowerCase()));
-
+      
       classes.add(database, serviceMetadata);
     }
 
