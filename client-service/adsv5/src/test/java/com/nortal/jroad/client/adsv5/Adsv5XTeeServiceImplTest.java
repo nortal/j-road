@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 
 import junit.framework.Assert;
 
+import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 
 import com.nortal.jroad.client.adsv5.Adsv5XTeeService.NormalParamCallback;
@@ -30,9 +31,8 @@ public class Adsv5XTeeServiceImplTest extends BaseXTeeServiceImplTest {
   	});
   	  	
   	NormalTulem result1 = v.getNormalTulemArray(0);
-  	Assert.assertNotNull(result1);
-  	com.nortal.jroad.client.adsv5.types.ee.x_road.adsv5.producer.ADSnormalVastusType.NormalTulem.Aadressid.Aadress firstAdr = result1.getAadressid().getAadressArray(0);
-	  Assert.assertNotNull(firstAdr);
+  	ADSnormalVastusType.NormalTulem.Aadressid.Aadress firstAdr = result1.getAadressid().getAadressArray(0);
+  	Assert.assertTrue(StringUtils.isEmpty(firstAdr.getTekst()));
   }
   
   @Test
@@ -46,10 +46,9 @@ public class Adsv5XTeeServiceImplTest extends BaseXTeeServiceImplTest {
   	});
   	
   	NormalTulem result1 = v.getNormalTulemArray(0);
-  	Assert.assertNotNull(result1);
-  	Assert.assertNotNull(result1.getTeade());
+  	ADSnormalVastusType.NormalTulem.Aadressid.Aadress firstAdr = result1.getAadressid().getAadressArray(0);
   	
-  	com.nortal.jroad.client.adsv5.types.ee.x_road.adsv5.producer.ADSnormalVastusType.NormalTulem.Aadressid.Aadress firstAdr = result1.getAadressid().getAadressArray(0);
-	  Assert.assertNull(firstAdr.getAdsTase1().getKood());
+  	// unsuccessful normalization leaves part which were not normalized
+  	Assert.assertFalse(StringUtils.isEmpty(firstAdr.getTekst()));
   }
 }

@@ -25,7 +25,7 @@ import com.nortal.jroad.client.service.callback.CustomCallback;
 import com.nortal.jroad.model.XTeeMessage;
 import com.nortal.jroad.model.XmlBeansXTeeMessage;
 
-@Service("adsXTeeService")
+@Service("adsv5XTeeService")
 public class Adsv5XTeeServiceImpl extends XRoadDatabaseService implements Adsv5XTeeService {
 	  
   public ADSnormalVastusType adsNormal(NormalParamCallback callback) throws XTeeServiceConsumptionException {
