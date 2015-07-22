@@ -86,17 +86,21 @@
 					</element>
 				</sequence>
 			</complexType>
-            <complexType name="skaMitteresident">
+            <element name="skaMitteresident">
+                <complexType>
                     <sequence>
                         <element name="request" type="tns:skaMitteresidentRequestType"/>
                     </sequence>
-            </complexType>
-            <complexType name="skaMitteresidentResponse">
+                </complexType>
+            </element>
+            <element name="skaMitteresidentResponse">
+                <complexType>
                     <sequence>
                         <element name="request" type="tns:skaMitteresidentRequestType"/>
                         <element name="response" type="tns:skaMitteresidentResponseType"/>
                     </sequence>
-            </complexType>
+                </complexType>
+            </element>
             <complexType name="skaMitteresidentRequestType">
                 <sequence>
                     <element name="registreerimiskood" type="string">
@@ -179,16 +183,16 @@
 		<part element="xrd:issue" name="issue" />
 	</message>
 	<message name="spouseCheckOutputMessage">
-		<part type="tns:SpouseCheckResponseType" name="body" />
+		<part element="tns:xteeFIEAKResponse" name="body" />
 	</message>
 	<message name="spouseCheckInputMessage">
-		<part type="tns:SpouseCheckRequestType" name="body" />
+		<part element="tns:xteeFIEAK" name="body" />
 	</message>
     <message name="skaMitteresident">
-        <part type="tns:skaMitteresident" name="body"/>
+        <part element="tns:skaMitteresident" name="body"/>
     </message>
     <message name="skaMitteresidentResponse">
-        <part type="tns:skaMitteresidentResponse" name="body"/>
+        <part element="tns:skaMitteresidentResponse" name="body"/>
     </message>
 	<portType name="emtav5port">
 		<operation name="xteeFIEAK">
@@ -220,7 +224,7 @@
 				<soap:header message="tns:xrdHeader" part="userId" use="literal" />
 				<soap:header message="tns:xrdHeader" part="id" use="literal" />
 				<soap:header message="tns:xrdHeader" part="service" use="literal" />
-				<soap:body use="literal" />
+				<soap:body parts="body" use="literal" />
 			</input>
 			<output>
 				<soap:header message="tns:xrdHeader" part="consumer"
@@ -230,7 +234,7 @@
 				<soap:header message="tns:xrdHeader" part="userId" use="literal" />
 				<soap:header message="tns:xrdHeader" part="id" use="literal" />
 				<soap:header message="tns:xrdHeader" part="service" use="literal" />
-				<soap:body use="literal" />
+				<soap:body parts="body" use="literal" />
 			</output>
 		</operation>
         <operation name="skaMitteresident">
@@ -242,7 +246,7 @@
                 <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
                 <soap:header message="tns:xrdHeader" part="id" use="literal"/>
                 <soap:header message="tns:xrdHeader" part="service" use="literal"/>
-                <soap:body use="literal"/>
+                <soap:body parts="body" use="literal"/>
             </input>
             <output>
                 <soap:header message="tns:xrdHeader" part="consumer" use="literal"/>
@@ -250,7 +254,7 @@
                 <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
                 <soap:header message="tns:xrdHeader" part="id" use="literal"/>
                 <soap:header message="tns:xrdHeader" part="service" use="literal"/>
-                <soap:body use="literal"/>
+                <soap:body parts="body" use="literal"/>
             </output>
         </operation>
 	</binding>
