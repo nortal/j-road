@@ -20,6 +20,7 @@ import com.nortal.jroad.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR
 import com.nortal.jroad.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR96ResponseV1;
 import com.nortal.jroad.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RRExtDocumentDataRequest;
 import com.nortal.jroad.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RRExtDocumentDataResponse;
+import com.nortal.jroad.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RRPORTTEOVOIMEResponse;
 import com.nortal.jroad.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR67Response.TtKoodid;
 import com.nortal.jroad.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR72Response.TtIsikud;
 
@@ -114,5 +115,11 @@ public interface RrXTeeService {
 	 */
   RR41ResponseV1 findRR41isikPohiandmedV1(String perenimi, String eesnimi, String isikukood,
 			String vald, IsikuStaatus staatus, Long vastusteArv)
+			throws XTeeServiceConsumptionException;
+
+  /**
+   * <code>rr.RRPORTTEOVOIME.v1</code> service.
+   */
+  RRPORTTEOVOIMEResponse getRRPortTeovoimeV1(String isikukood)
 			throws XTeeServiceConsumptionException;
 }

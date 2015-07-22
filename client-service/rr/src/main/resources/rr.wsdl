@@ -12084,7 +12084,44 @@
 				</xs:sequence>
 			</xs:complexType>
 
+            <xs:complexType name="RRPORTTEOVOIMERequest">
+                <xs:sequence>
+                    <xs:element name="Isikukood" type="xs:string" minOccurs="1"
+                        maxOccurs="1">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <xtee:title>Otsitava isiku isikukood</xtee:title>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
 
+            <xs:complexType name="RRPORTTEOVOIMEResponse">
+                <xs:sequence>
+                    <xs:element name="DokumendiMarkus" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <xtee:title>Märkus</xtee:title>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="IsikuTeovoime" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <xtee:title>Teovõime piiramine</xtee:title>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Veatekst" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <xtee:title>Veatekst</xtee:title>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
 
 			<xs:element name="RR82KMAviisaandmed" type="rr:RR82Request" />
 			<xs:complexType name="RR82Request">
@@ -18307,6 +18344,13 @@
 		<part name="paring" type="tns:RR81Request"></part>
 		<part name="keha" type="tns:RR81Response"></part>
 	</message>
+    <message name="RRPORTTEOVOIMERequestMessage">
+        <part name="keha" type="tns:RRPORTTEOVOIMERequest"></part>
+    </message>
+    <message name="RRPORTTEOVOIMEResponseMessage">
+        <part name="paring" type="tns:RRPORTTEOVOIMERequest"></part>
+        <part name="keha" type="tns:RRPORTTEOVOIMEResponse"></part>
+    </message>
 	<message name="RR81Request_v1Message">
 		<part name="keha" type="tns:RR81Request_v1"></part>
 	</message>
@@ -19157,6 +19201,21 @@
 			<input message="tns:RR81Request_v1Message"></input>
 			<output message="tns:RR81Response_v1Message"></output>
 		</operation>
+		<operation name="RRPORTTEOVOIME">
+			<documentation>
+				<xtee:title>RRPORTTEOVOIME -      Portaali päring isiku teovõime kohtaTeenus 
+                      tagastab sisendis olevale isikukoodile vastava isiku teovõime 
+                      piirangu ning teovõime piiramise aluseks oleva märkuse .
+				</xtee:title>
+				<xtee:notes>RRPORTTEOVOIME -      Portaali päring isiku teovõime kohtaTeenus 
+                      tagastab sisendis olevale isikukoodile vastava isiku teovõime 
+                      piirangu ning teovõime piiramise aluseks oleva märkuse .
+				</xtee:notes>
+				<xtee:technotes></xtee:technotes>
+			</documentation>
+			<input message="tns:RRPORTTEOVOIMERequestMessage"></input>
+			<output message="tns:RRPORTTEOVOIMEResponseMessage"></output>
+		</operation>
 		<operation name="RR82KMAviisaandmed">
 			<documentation>
 				<xtee:title>RR82 - KMA LIHTSUSTATUD VIISATAOTLUSE PÄRING
@@ -19658,6 +19717,11 @@
 			<xtee:version>v1</xtee:version>
 			<input message="tns:RR81Request_v1Message" />
 			<output message="tns:RR81Response_v1Message" />
+		</operation>
+		<operation name="RRPORTTEOVOIME">
+			<xtee:version>v1</xtee:version>
+			<input message="tns:RRPORTTEOVOIMERequestMessage" />
+			<output message="tns:RRPORTTEOVOIMEResponseMessage" />
 		</operation>
 		<operation name="RR82KMAviisaandmed">
 			<xtee:version>v1</xtee:version>

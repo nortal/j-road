@@ -43,6 +43,8 @@ import com.nortal.jroad.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR
 import com.nortal.jroad.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RRExtDocumentDataResponse;
 import com.nortal.jroad.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR67Response.TtKoodid;
 import com.nortal.jroad.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR72Response.TtIsikud;
+import com.nortal.jroad.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RRPORTTEOVOIMERequest;
+import com.nortal.jroad.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RRPORTTEOVOIMEResponse;
 import com.nortal.jroad.client.util.XmlBeansUtil;
 
 /**
@@ -229,5 +231,13 @@ public class RrXTeeServiceImpl implements RrXTeeService {
 		request.setMitu(String.valueOf(vastusteArv));
 
 		return rrXTeeDatabase.rr41IsikPohiandmedV1V1(request);
+	}
+
+	public RRPORTTEOVOIMEResponse getRRPortTeovoimeV1(String isikukood)
+			throws XTeeServiceConsumptionException {
+		RRPORTTEOVOIMERequest request = RRPORTTEOVOIMERequest.Factory.newInstance();
+		request.setIsikukood(isikukood);
+
+		return rrXTeeDatabase.rrportteovoimeV1(request);
 	}
 }
