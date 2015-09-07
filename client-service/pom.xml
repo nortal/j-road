@@ -37,6 +37,7 @@
       <module>emtav5</module>
     <module>aar</module>
     <module>ads</module>
+    <module>adsv5</module>	
     <module>arireg</module>
     <!--  <module>dhl</module>-->
     <module>ehis</module>
@@ -67,6 +68,7 @@
     <module>vangis</module>
     <module>viisaregister</module>
     <module>pria-toetusreg</module>
+    <module>treasury</module>
   </modules>
 
   <build>
