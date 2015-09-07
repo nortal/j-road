@@ -39,66 +39,80 @@ import com.nortal.jroad.model.XmlBeansXTeeMessage;
  */
 @Service("emtav5XTeeService")
 public class Emtav5XTeeServiceImpl extends XRoadDatabaseService implements Emtav5XTeeService {
-	
-	private static final String XTEE_FIEAK = "xteeFIEAK";
-	private static final String SKA_MITTERESIDENT = "skaMitteresident";
 
-	@Resource
-	private Emtav5XTeeDatabase emtav5XTeeDatabase;
+  private static final String XTEE_FIEAK = "xteeFIEAK";
+  private static final String SKA_MITTERESIDENT = "skaMitteresident";
 
-	public List<Period> xteeFIEAKV1(String id, Date start, Date end) throws XTeeServiceConsumptionException {
-		SpouseCheckRequestType request = SpouseCheckRequestType.Factory.newInstance();
-		SpouseCheckCommonRequestType commonRequest = request.addNewRequest();
-		commonRequest.setId(id);
-		commonRequest.setStart(getCalendar(start));
-		commonRequest.setEnd(getCalendar(end));
-		
-		XTeeMessage<SpouseCheckResponseType> xteeFIEAKV1 =
-		        send(new XmlBeansXTeeMessage<SpouseCheckRequestType>(request), XTEE_FIEAK, "v1");
-		
-		Response response = xteeFIEAKV1.getContent().getResponse();
-		return response.getPeriodList();
-	}
+  @Resource
+  private Emtav5XTeeDatabase emtav5XTeeDatabase;
 
-	private Calendar getCalendar(Date date) {
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(date);
-		return calendar;
-	}
+  public List<Period> xteeFIEAKV1(String id, Date start, Date end) throws XTeeServiceConsumptionException {
+    SpouseCheckRequestType request = SpouseCheckRequestType.Factory.newInstance();
+    SpouseCheckCommonRequestType commonRequest = request.addNewRequest();
+    commonRequest.setId(id);
+    commonRequest.setStart(getCalendar(start));
+    commonRequest.setEnd(getCalendar(end));
 
-	@Override
-	public SkaMitteresidentResponseType skaMitteresident(String registreerimiskood)
-			throws XTeeServiceConsumptionException {
-		SkaMitteresident input = SkaMitteresident.Factory.newInstance();
-		SkaMitteresidentRequestType request = input.addNewRequest();
-		request.setRegistreerimiskood(registreerimiskood);
-		
-		XTeeMessage<SkaMitteresidentResponse> skaMitteresident =
-		        send(new XmlBeansXTeeMessage<SkaMitteresident>(input), SKA_MITTERESIDENT, "v1", new SkaMitteresidentCallback(), null);
-		return skaMitteresident.getContent().getResponse();
-	}
+    XTeeMessage<SpouseCheckResponseType> xteeFIEAKV1 = send(new XmlBeansXTeeMessage<SpouseCheckRequestType>(request),
+                                                            XTEE_FIEAK,
+                                                            "v1");
 
-	private static class SkaMitteresidentCallback extends CustomCallback {
-	    public void doWithMessage(WebServiceMessage message) throws IOException, TransformerException {
-	      callback.doWithMessage(message);
-	      try {
-	        SaajSoapMessage saajMessage = (SaajSoapMessage) message;
-	        SOAPMessage soapmess = saajMessage.getSaajMessage();
-	        SOAPEnvelope env = soapmess.getSOAPPart().getEnvelope();
-	        env.addNamespaceDeclaration("ns5", "http://emtav5.x-road.ee/producer/");
-	        Iterator elements = env.getBody().getChildElements();
-	        while (elements.hasNext()) {
-	          SOAPElement element = (SOAPElement) elements.next();
-	          if (element.getNamespaceURI().equalsIgnoreCase("http://emtav5.ee.x-rd.net/producer/")) {
-	            String localHeaderName = element.getLocalName();
-	            QName qName = new QName("http://emtav5.x-road.ee/producer/", localHeaderName, "ns5");
-	            element.setElementQName(qName);
-	          }
-	        }
-	      } catch (SOAPException e) {
-	        throw new RuntimeException(e);
-	      }
+    Response response = xteeFIEAKV1.getContent().getResponse();
+    return response.getPeriodList();
+  }
 
-	    }
-	  }
+  private Calendar getCalendar(Date date) {
+    Calendar calendar = Calendar.getInstance();
+    calendar.setTime(date);
+    return calendar;
+  }
+
+  @Override
+  public SkaMitteresidentResponseType skaMitteresident(String registreerimiskood)
+      throws XTeeServiceConsumptionException {
+    SkaMitteresident input = SkaMitteresident.Factory.newInstance();
+    SkaMitteresidentRequestType request = input.addNewRequest();
+    request.setRegistreerimiskood(registreerimiskood);
+
+    XTeeMessage<SkaMitteresidentResponse> skaMitteresident = send(new XmlBeansXTeeMessage<SkaMitteresident>(input),
+                                                                  SKA_MITTERESIDENT,
+                                                                  "v1",
+                                                                  new SkaMitteresidentCallback(),
+                                                                  null);
+    return skaMitteresident.getContent().getResponse();
+  }
+
+  private static class SkaMitteresidentCallback extends CustomCallback {
+    public void doWithMessage(WebServiceMessage message) throws IOException, TransformerException {
+      callback.doWithMessage(message);
+      try {
+        SaajSoapMessage saajMessage = (SaajSoapMessage) message;
+        SOAPMessage soapmess = saajMessage.getSaajMessage();
+        SOAPEnvelope env = soapmess.getSOAPPart().getEnvelope();
+        env.addNamespaceDeclaration("ns5", "http://emtav5.x-road.ee/producer/");
+        env.addNamespaceDeclaration("xro", "http://x-road.ee/xsd/x-road.xsd");
+        Iterator elements = env.getBody().getChildElements();
+        while (elements.hasNext()) {
+          SOAPElement element = (SOAPElement) elements.next();
+          if (element.getNamespaceURI().equalsIgnoreCase("http://emtav5.ee.x-rd.net/producer/")) {
+            String localHeaderName = element.getLocalName();
+            QName qName = new QName("http://emtav5.x-road.ee/producer/", localHeaderName, "ns5");
+            element.setElementQName(qName);
+          }
+        }
+        Iterator headers = env.getHeader().getChildElements();
+        while (headers.hasNext()) {
+          SOAPElement header = (SOAPElement) headers.next();
+           if (header.getNamespaceURI().equalsIgnoreCase("http://x-rd.net/xsd/xroad.xsd")) {
+            String localHeaderName = header.getLocalName();
+            QName qName = new QName("http://x-road.ee/xsd/x-road.xsd", localHeaderName, "xro");
+            header.setElementQName(qName);
+          }
+        }
+      } catch (SOAPException e) {
+        throw new RuntimeException(e);
+      }
+
+    }
+  }
 }

@@ -90,8 +90,8 @@
                 <argument>sourcedir=${basedir}/src/main/java</argument>
                 <argument>xsbdir=${basedir}/target/classes</argument>
                 <argument>basepackage=com.nortal.jroad.client.${package}.types</argument>
-                <argument>dbclassespackage=com.nortal.jroad.client.${package}.database</argument>
-              </arguments>
+                <argument>dbclassespackage=com.nortal.jroad.client.${package}.database</argument>				
+              </arguments>			  
             </configuration>
           </execution>
         </executions>
@@ -124,7 +124,7 @@
           <source>1.5</source>
           <target>1.5</target>
           <fork>true</fork>
-          <maxmem>512m</maxmem>
+          <maxmem>1024m</maxmem>
         </configuration>
       </plugin>
 
