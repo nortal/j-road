@@ -1,0 +1,1278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://producers.digilugu.xtee.riik.ee/producer/digilugu"
+	xmlns:xrd="http://x-tee.riik.ee/xsd/xtee.xsd"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+	xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+	targetNamespace="http://producers.digilugu.xtee.riik.ee/producer/digilugu"
+	name="mydef">
+	
+	<wsdl:types>
+		<schema targetNamespace="http://producers.digilugu.xtee.riik.ee/producer/digilugu" xmlns="http://www.w3.org/2001/XMLSchema">
+			<import namespace="http://x-tee.riik.ee/xsd/xtee.xsd" schemaLocation="http://x-tee.riik.ee/xsd/xtee.xsd" />
+
+			<complexType name="hl7Paring">
+				<sequence>
+					<element name="hl7InputMessage" type="xrd:xml" nillable="true">
+						<annotation>
+							<appinfo><xrd:title>HL7 paringustring</xrd:title></appinfo>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+			<complexType name="hl7Vastus">
+				<sequence>
+					<element name="hl7OutputMessage" type="xrd:xml" nillable="true">
+						<annotation>
+							<appinfo><xrd:title>HL7 vastusstring</xrd:title></appinfo>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+			<complexType name="hl7">
+					<sequence>
+						<element name="request" type="tns:hl7Paring" nillable="true" />
+					</sequence>
+			</complexType>
+			<complexType name="hl7Response">
+					<sequence>
+						<element name="request" type="tns:hl7Paring" nillable="true" />
+						<element name="response" type="tns:hl7Vastus" nillable="true" />
+					</sequence>
+			</complexType>
+
+			<!-- QuestionaryCodeRequest START -->
+			<complexType name="questionaryCodeRequestRequest">
+				<sequence>
+					<element name="personIdOID" nillable="false" type="string">
+						<annotation>
+							<appinfo><xrd:title>Eesti isikukoodi OID</xrd:title></appinfo>
+						</annotation>
+					</element>
+					<element name="personId" nillable="false" type="string">
+						<annotation>
+							<appinfo><xrd:title>Eesti isikukood</xrd:title></appinfo>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+			<complexType name="questionaryCodeRequestParing">
+				<sequence>
+					<element name="request" nillable="false" type="tns:questionaryCodeRequestRequest"></element>
+				</sequence>
+			</complexType>
+			<complexType name="questionaryCodeRequestFault">
+				<sequence>
+					<element name="faultcode" nillable="false" type="string">
+						<annotation>
+							<appinfo><xrd:title>Vea kood</xrd:title></appinfo>
+						</annotation>
+					</element>
+					<element name="faultstring" nillable="true" type="string">
+						<annotation>
+							<appinfo><xrd:title>Vea tekst</xrd:title></appinfo>
+						</annotation>
+					</element>
+					<element name="faultsolution" nillable="true" type="string">
+						<annotation>
+							<appinfo><xrd:title>Vea lahendus</xrd:title></appinfo>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+			<complexType name="questionaryCodeRequestFaults">
+				<sequence>
+					<element name="fault" nillable="false" type="tns:questionaryCodeRequestFault" minOccurs="1" maxOccurs="unbounded"></element>
+				</sequence>
+			</complexType>
+			<complexType name="questionaryCodeRequestVastus">
+				<sequence>
+					<element name="personQuestionaryCodeOID" nillable="true" type="string">
+						<annotation>
+							<appinfo>
+								<xrd:title>Obfuskeeritud koodi OID</xrd:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="personQuestionaryCode" nillable="true" type="string">
+						<annotation>
+							<appinfo>
+								<xrd:title>Obfuskeeritud kood</xrd:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="responsetypeCode" nillable="true" type="string">
+						<annotation>
+							<appinfo>
+								<xrd:title>Vastuse kood</xrd:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="faults" nillable="true" type="tns:questionaryCodeRequestFaults"></element>
+				</sequence>
+			</complexType>
+			<element name="questionaryCodeRequest">
+				<complexType>
+					<sequence>
+						<element name="request" type="tns:questionaryCodeRequestParing" nillable="true"></element>
+					</sequence>
+				</complexType>
+			</element>
+			<element name="questionaryCodeRequestResponse">
+				<complexType>
+					<sequence>
+						<element name="request" type="tns:questionaryCodeRequestParing" nillable="true"></element>
+						<element name="response" type="tns:questionaryCodeRequestVastus" nillable="true"></element>
+					</sequence>
+				</complexType>
+			</element>
+			<!-- QuestionaryCodeRequest END -->
+			
+			<!-- diagProcCheck START -->
+			<element name="diagProcCheck">
+				<complexType>
+					<sequence>
+						<element name="request" type="tns:diagProcCheckRequestType" nillable="false"></element>
+					</sequence>
+				</complexType>
+			</element>
+			<element name="diagProcCheckResponse">
+				<complexType>
+					<sequence>
+						<element name="request" type="tns:diagProcCheckRequestType" nillable="false"></element>
+						<element name="response" type="tns:diagProcCheckResponseType" nillable="false"></element>
+					</sequence>
+				</complexType>
+			</element>
+			<complexType name="diagProcCheckRequestType">
+				<sequence>
+					<element name="showLast" type="boolean" nillable="false"/>
+					<element name="personsQuery" type="tns:dpcPersonsQueryType" nillable="false"/>
+					<element name="diagnosesQuery" type="tns:dpcDiagnosesQueryType" minOccurs="0" maxOccurs="1" />
+					<element name="proceduresQuery" type="tns:dpcProceduresQueryType" minOccurs="0" maxOccurs="1" />
+					<element name="surgeriesQuery" type="tns:dpcSurgeriesQueryType" minOccurs="0" maxOccurs="1" />
+				</sequence>
+			</complexType>
+			<complexType name="dpcPersonsQueryType">
+				<sequence>
+					<element name="person" type="tns:dpcPersonType" minOccurs="1" maxOccurs="unbounded" nillable="false"/>
+				</sequence>
+			</complexType>
+			<complexType name="dpcPersonType">
+				<sequence>
+					<element name="personIdOID" type="string" nillable="false"/>
+					<element name="personId" type="string" nillable="false"/>
+				</sequence>
+			</complexType>
+			<complexType name="dpcDiagnosesQueryType">
+				<sequence>
+					<element name="diagnoseTime" type="tns:dpcHighLowTimestamp8Type" nillable="false"/>
+					<element name="diagnosesCodes" type="tns:dpcCodesType" nillable="false"/>
+				</sequence>
+			</complexType>
+			<complexType name="dpcHighLowTimestamp8Type">
+				<sequence>
+					<element name="low" type="tns:timestamp8" nillable="false"/>
+					<element name="high" type="tns:timestamp8" minOccurs="0" maxOccurs="1"/>
+				</sequence>
+			</complexType>
+			<complexType name="dpcCodesType">
+				<sequence>
+					<element name="code" type="string" minOccurs="1" maxOccurs="unbounded" nillable="false"/>
+				</sequence>
+			</complexType>
+			<complexType name="dpcProceduresQueryType">
+				<sequence>
+					<element name="proceduresTime" type="tns:dpcHighLowTimestamp8Type" nillable="false"/>
+					<element name="procedures" type="tns:dpcProceduresType" minOccurs="0" maxOccurs="1"/>
+				</sequence>
+			</complexType>
+			<complexType name="dpcProceduresType">
+				<sequence>
+					<element name="codeSystem" type="string" nillable="false"/>
+					<element name="procedureCodes" type="tns:dpcCodesType" nillable="false"/>
+				</sequence>
+			</complexType>
+			<complexType name="dpcSurgeriesQueryType">
+				<sequence>
+					<element name="surgeryTime " type="tns:dpcHighLowTimestamp8Type" nillable="false"/>
+					<element name="surgeries" type="tns:dpcSurgeriesType" minOccurs="0" maxOccurs="1"/>
+				</sequence>
+			</complexType>
+			<complexType name="dpcSurgeriesType">
+				<sequence>
+					<element name="codeSystem" type="string" nillable="false"/>
+					<element name="surgeryCodes" type="tns:dpcCodesType" nillable="false"/>
+				</sequence>
+			</complexType>
+			<complexType name="diagProcCheckResponseType">
+				<sequence>
+					<element name="responseTime" type="tns:timestamp12" nillable="false"/>
+					<element name="acknowledgement" type="tns:acknowledgementType" nillable="true"/>
+					<element name="records" type="tns:dpcRecordsType" minOccurs="0" maxOccurs="1"/>
+				</sequence>
+			</complexType>
+			<complexType name="dpcRecordsType">
+				<sequence>
+					<element name="personRecord" type="tns:dpcPersonRecordType" minOccurs="1" maxOccurs="unbounded" nillable="false"/>
+				</sequence>
+			</complexType>
+			<complexType name="dpcPersonRecordType">
+				<sequence>
+					<element name="personIdOID" type="string" nillable="false"/>
+					<element name="personId" type="string" nillable="false"/>
+					<element name="diagnoses" type="tns:dpcDiagnosesResponseType" minOccurs="0" maxOccurs="1"/>
+					<element name="procedures" type="tns:dpcProceduresResponseType" minOccurs="0" maxOccurs="1"/>
+					<element name="surgeries" type="tns:dpcSurgeriesResponseType" minOccurs="0" maxOccurs="1"/>
+				</sequence>
+			</complexType>
+			<complexType name="dpcDiagnosesResponseType">
+				<sequence>
+					<element name="personDiagnosis" type="tns:dpcDiagnosisType" minOccurs="1" maxOccurs="unbounded" nillable="false"/>
+				</sequence>
+			</complexType>
+			<complexType name="dpcDiagnosisType">
+				<sequence>
+					<element name="codeSystem" type="string" nillable="false"/>
+					<element name="code" type="string" nillable="false"/>
+					<element name="time" type="tns:timestamp8" nillable="false"/>
+				</sequence>
+			</complexType>
+			<complexType name="dpcProceduresResponseType">
+				<sequence>
+					<element name="personProcedure" type="tns:dpcProcedureType" minOccurs="1" maxOccurs="unbounded" nillable="false"/>
+				</sequence>
+			</complexType>
+			<complexType name="dpcProcedureType">
+				<sequence>
+					<element name="codeSystem" type="string" nillable="false"/>
+					<element name="code" type="string" nillable="false"/>
+					<element name="time" type="tns:timestamp8" nillable="false"/>
+					<element name="performer" type="tns:dpcPerformerType" nillable="false"/>
+					<element name="document" type="tns:dpcDocumentType" nillable="false"/>
+				</sequence>
+			</complexType>
+			<complexType name="dpcPerformerType">
+				<sequence>
+					<element name="id" type="string" nillable="false"/>
+					<element name="name" type="string" nillable="false"/>
+				</sequence>
+			</complexType>
+			<complexType name="dpcDocumentType">
+				<sequence>
+					<element name="id" type="string" nillable="false"/>
+					<element name="idOID" type="string" nillable="false"/>
+					<element name="version" type="string" nillable="false"/>
+					<element name="time" type="tns:timestamp8" nillable="false"/>
+					<element name="typeCode" type="string" nillable="false"/>
+					<element name="typeCodeOID" type="string" nillable="false"/>
+					<element name="standardVersion" type="string" nillable="false"/>
+				</sequence>
+			</complexType>
+			<complexType name="dpcSurgeriesResponseType">
+				<sequence>
+					<element name="personSurgery" type="tns:dpcSurgeryType" minOccurs="1" maxOccurs="unbounded" nillable="false"/>
+				</sequence>
+			</complexType>
+			<complexType name="dpcSurgeryType">
+				<sequence>
+					<element name="codeSystem" type="string" nillable="false"/>
+					<element name="code" type="string" nillable="false"/>
+					<element name="time" type="tns:timestamp8" nillable="false"/>
+					<element name="performer" type="tns:dpcPerformerType" nillable="false"/>
+					<element name="document" type="tns:dpcDocumentType" nillable="false"/>
+				</sequence>
+			</complexType>
+			<!-- diagProcCheck END -->
+			
+			<!-- certificateRequest START -->
+			<element name="certificateRequest">
+				<complexType>
+					<sequence>
+						<element name="request" type="tns:certificateRequestRequestType" nillable="false"></element>
+					</sequence>
+				</complexType>
+			</element>
+			<element name="certificateRequestResponse">
+				<complexType>
+					<sequence>
+						<element name="request" type="tns:certificateRequestRequestType" nillable="false"></element>
+						<element name="response" type="tns:certificateRequestResponseType" nillable="false"></element>
+					</sequence>
+				</complexType>
+			</element>
+			<complexType name="certificateRequestRequestType">
+				<sequence>
+					<element name="messageTime" type="tns:timestamp14" nillable="false"/>
+					<element name="personIdOID" type="string" nillable="true"/>
+					<element name="personId" type="string" nillable="true"/>
+					<element name="certificateId" type="string" nillable="true"/>
+					<element name="certificateIdOID" type="string" nillable="true"/>
+				</sequence>
+			</complexType>
+			<complexType name="certificateRequestResponseType">
+				<sequence>
+					<element name="acknowledgement" type="tns:ucAcknowledgementType" nillable="false"/>
+					<element name="certificate" type="tns:certificateType" nillable="true"/>
+				</sequence>
+			</complexType>
+			<complexType name="certificateType">
+				<sequence>
+					<element name="status" type="string" nillable="false"/>
+					<element name="statusUpdateTime" type="tns:timestamp14" nillable="true"/>
+					<element name="personIdOID" type="string" nillable="true"/>
+					<element name="personIdOIDName" type="string" nillable="true"/>
+					<element name="personId" type="string" nillable="true"/>
+					<element name="personCountry" type="string" nillable="true"/>
+					<element name="personNameGiven" type="string" nillable="true"/>
+					<element name="personNameFamily" type="string" nillable="true"/>
+					<element name="personBirthDate" type="string" nillable="true"/>
+					<element name="certificateId" type="string" nillable="true"/>
+					<element name="certificateIdOID" type="string" nillable="true"/>
+					<element name="certificateDecisions" type="tns:certificateDecisionsType" nillable="true"/>
+				</sequence>
+			</complexType>
+			<complexType name="certificateDecisionsType">
+				<sequence>
+					<element name="certificateDecision" type="tns:certificateDecisionType" minOccurs="0" maxOccurs="2"/>
+				</sequence>
+			</complexType>
+			<complexType name="certificateDecisionType">
+				<sequence>
+					<element name="id" type="string" nillable="false"/>
+					<element name="idOID" type="string" nillable="false"/>
+					<element name="type" type="string" nillable="true"/>
+					<element name="code" type="string" nillable="true"/>
+					<element name="validFrom" type="tns:timestamp14" nillable="true"/>
+					<element name="validUntil" type="tns:timestamp8" nillable="true"/>
+					<element name="restrictions" type="tns:restrictionsType" maxOccurs="unbounded" nillable="true"/>
+				</sequence>
+			</complexType>
+			<complexType name="restrictionsType">
+				<sequence>
+					<element name="restriction" type="tns:restrictionType" nillable="false"/>
+				</sequence>
+			</complexType>
+			<complexType name="restrictionType">
+				<sequence>
+					<element name="code" type="string" nillable="false"/>
+				</sequence>
+			</complexType>
+			<!-- certificateRequest END -->	
+			
+			<!-- updatedCertificatesRequest START -->
+			<element name="updatedCertificatesRequest">
+				<complexType>
+					<sequence>
+						<element name="request" type="tns:updatedCertificatesRequestRequestType" nillable="false"></element>
+					</sequence>
+				</complexType>
+			</element>
+			<element name="updatedCertificatesRequestResponse">
+				<complexType>
+					<sequence>
+						<element name="request" type="tns:updatedCertificatesRequestRequestType" nillable="false"></element>
+						<element name="response" type="tns:updatedCertificatesRequestResponseType" nillable="false"></element>
+					</sequence>
+				</complexType>
+			</element>
+			<complexType name="updatedCertificatesRequestRequestType">
+				<sequence>
+					<element name="messageTime" type="tns:timestamp14" nillable="false"/>
+					<element name="changesFromTime" type="tns:timestamp14" nillable="false"/>
+				</sequence>
+			</complexType>
+			<complexType name="updatedCertificatesRequestResponseType">
+				<sequence>
+					<element name="acknowledgement" type="tns:ucAcknowledgementType" nillable="true"/>
+					<element name="changes" type="tns:changesType" nillable="false"/>
+				</sequence>
+			</complexType>
+			<complexType name="changesType">
+				<sequence>
+					<element name="certificate" type="tns:certificateType" minOccurs="0" maxOccurs="unbounded" nillable="false"/>
+				</sequence>
+			</complexType>
+			<complexType name="ucAcknowledgementType">
+				<sequence>
+					<element name="responsetypeCode" type="string" nillable="false"/>
+					<element name="responseTime" type="tns:timestamp14" nillable="true"/>
+					<element name="faults" type="tns:faultsType" minOccurs="0" maxOccurs="1"/>
+				</sequence>
+			</complexType>
+			<!-- updatedCertificatesRequest END -->	
+			
+			<!-- generateReferral START -->
+			<element name="generateReferral">
+				<complexType>
+					<sequence>
+						<element name="request" type="tns:generateReferralRequestType" nillable="false"></element>
+					</sequence>
+				</complexType>
+			</element>
+			<element name="generateReferralResponse">
+				<complexType>
+					<sequence>
+						<element name="request" type="tns:generateReferralRequestType" nillable="false"></element>
+						<element name="response" type="tns:generateReferralResponseType" nillable="false"></element>
+					</sequence>
+				</complexType>
+			</element>
+			<complexType name="generateReferralRequestType">
+				<sequence>
+					<element name="persons" type="tns:generateReferralPersonsType" nillable="false"/>
+					<element name="validFrom" type="tns:timestamp8" nillable="false"/>
+					<element name="validUntil" type="tns:timestamp8" nillable="false"/>
+					<element name="diagnosisCode" type="string" nillable="false"/>
+				</sequence>
+			</complexType>
+			<complexType name="generateReferralResponseType">
+				<sequence>
+					<element name="responseTime" type="tns:timestamp14" nillable="false"/>
+					<element name="acknowledgement" type="tns:acknowledgementType" nillable="true"/>
+					<element name="records" type="tns:generateReferralRecordsType" nillable="true"/>
+				</sequence>
+			</complexType>
+			<complexType name="generateReferralPersonsType">
+				<sequence>
+					<element name="patient" type="tns:generateReferralPatientType" minOccurs="1" maxOccurs="unbounded" nillable="false"/>
+				</sequence>
+			</complexType>
+			<complexType name="generateReferralPatientType">
+				<sequence>
+					<element name="oid" type="string" nillable="false"/>
+					<element name="id" type="string" nillable="false"/>
+				</sequence>
+			</complexType>
+			<complexType name="generateReferralRecordsType">
+				<sequence>
+					<element name="referral" type="tns:generateReferralReferralType" minOccurs="1" maxOccurs="unbounded" nillable="false"/>
+				</sequence>
+			</complexType>
+			<complexType name="generateReferralReferralType">
+				<sequence>
+					<element name="patient" type="tns:generateReferralPatientType" nillable="false"/>
+					<element name="document" type="tns:generateReferralDocumentType" nillable="false"/>
+				</sequence>
+			</complexType>
+			<complexType name="generateReferralDocumentType">
+				<sequence>
+					<element name="oid" type="string" nillable="false"/>
+					<element name="id" type="string" nillable="false"/>
+					<element name="new" type="string" nillable="false"/>
+				</sequence>
+			</complexType>
+			<!-- generateReferral END -->	
+			
+			<!-- SHARED -->
+			<complexType name="acknowledgementType">
+				<sequence>
+					<element name="responsetypeCode" type="string" nillable="false"/>
+					<element name="faults" type="tns:faultsType" minOccurs="0" maxOccurs="1"/>
+				</sequence>
+			</complexType>
+			<complexType name="faultsType">
+				<sequence>
+					<element name="fault" type="tns:faultType" minOccurs="1" maxOccurs="unbounded" nillable="false"/>
+				</sequence>
+			</complexType>
+			<complexType name="faultType">
+				<sequence>
+					<element name="faultcode" type="string" nillable="false"/>
+					<element name="faultstring" type="string" nillable="false"/>
+				</sequence>
+			</complexType>
+			<simpleType name="timestamp8">
+				<restriction base="string">
+					<pattern value="\d{8}" />
+				</restriction>
+			</simpleType>
+			<simpleType name="timestamp12">
+				<restriction base="string">
+					<pattern value="\d{12}" />
+				</restriction>
+			</simpleType>
+			<simpleType name="timestamp14">
+				<restriction base="string">
+					<pattern value="\d{14}" />
+				</restriction>
+			</simpleType>
+			<!-- SHARED END -->		
+			
+		</schema>
+
+<xs:schema xmlns:mif="urn:hl7-org:v3/mif" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="urn:hl7-org:v3"
+           targetNamespace="urn:hl7-org:v3"
+           elementFormDefault="qualified">
+   <xs:annotation>
+      <xs:documentation>Source Information
+     Rendered by: RoseTree 4.0.9
+     Rendered on:
+This document was rendered into XML using software provided to HL7 by Beeler Consulting LLC.
+ PubDB to MIF Transform: $RCSfile: PubDbXmlToMIF.xsl,v $ $Revision: 1.10 $ $Date: 2007/03/20 02:48:49 $
+  Fix names transform: $Id: FixMifNames.xsl,v 1.8 2007/03/20 02:48:49 wbeeler Exp $
+  HTML to MIF Markup transform: $Id: HtmlToMIFMarkup.xsl,v 1.4 2007/03/20 02:48:49 wbeeler Exp $
+  Base transform: $Id: ConvertBase.xsl,v 1.4 2007/03/20 02:48:48 wbeeler Exp $
+  Package Id Conversion: $Id: TransformPackageIds.xsl,v 1.6 2007/03/20 02:48:49 wbeeler Exp $
+ Generated using schema builder version: 3.0.6 and DynamicMifToXSD.xsl version: 1.4
+ Dynamic MIF to Schema Transform: $Id: DynamicMifToXsd.xsl,v 1.11 2007/03/20 02:48:49 wbeeler Exp $
+  Static MIF to Schema Transform: $Id: StaticMifToXsd.xsl,v 1.28 2007/07/06 00:24:13 wbeeler Exp $
+  Package Id Conversion: $Id: TransformPackageIds.xsl,v 1.6 2007/03/20 02:48:49 wbeeler Exp $</xs:documentation>
+   </xs:annotation>
+   <xs:include schemaLocation="http://pub.e-tervis.ee/standards2/Schema/V3/HL7-ORG-V3-2007-09/processable/coreschemas/infrastructureRoot.xsd"/>
+   <xs:include schemaLocation="http://pub.e-tervis.ee/standards2/Schema/V3/HL7-ORG-V3-2007-09/processable/multicacheschemas/MCCI_MT000100UV01.xsd"/>
+   <xs:include schemaLocation="http://pub.e-tervis.ee/standards2/Schema/V3/HL7-ORG-V3-2007-09/processable/multicacheschemas/QUQI_MT021001UV01.xsd"/>
+   <xs:include schemaLocation="http://pub.e-tervis.ee/standards2/Schema/V3/HL7-ORG-V3-2007-09/processable/multicacheschemas/RCMR_MT000003UV.xsd"/>
+   <xs:element name="RCMR_IN000029UV01">
+      <xs:complexType>
+         <xs:complexContent>
+            <xs:extension base="RCMR_IN000029UV01.MCCI_MT000100UV01.Message">
+               <xs:attribute name="ITSVersion" type="xs:string" use="required" fixed="XML_1.0"/>
+            </xs:extension>
+         </xs:complexContent>
+      </xs:complexType>
+   </xs:element>
+   <xs:complexType name="RCMR_IN000029UV01.MCCI_MT000100UV01.Message">
+      <xs:sequence>
+         <xs:group ref="InfrastructureRootElements"/>
+         <xs:element name="id" type="II" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="creationTime" type="TS" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="securityText" type="ST" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="versionCode" type="CS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="interactionId" type="II" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="profileId" type="II" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="processingCode" type="CS" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="processingModeCode" type="CS" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="acceptAckCode" type="CS" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="sequenceNumber" type="INT" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="attachmentText" type="ED" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="receiver" type="MCCI_MT000100UV01.Receiver" minOccurs="1"
+                     maxOccurs="unbounded"/>
+         <xs:element name="respondTo" type="MCCI_MT000100UV01.RespondTo" nillable="true"
+                     minOccurs="0"
+                     maxOccurs="unbounded"/>
+         <xs:element name="sender" type="MCCI_MT000100UV01.Sender" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="attentionLine" type="MCCI_MT000100UV01.AttentionLine" nillable="true"
+                     minOccurs="0"
+                     maxOccurs="unbounded"/>
+         <xs:element name="controlActProcess"
+                     type="RCMR_IN000029UV01.QUQI_MT021001UV01.ControlActProcess"
+                     minOccurs="1"
+                     maxOccurs="1"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="InfrastructureRootAttributes"/>
+      <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
+   </xs:complexType>
+   <xs:complexType name="RCMR_IN000029UV01.QUQI_MT021001UV01.ControlActProcess">
+      <xs:sequence>
+         <xs:group ref="InfrastructureRootElements"/>
+         <xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="code" type="CD" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="text" type="ED" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="IVL_TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="priorityCode" type="CE" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="reasonCode" type="CE" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="languageCode" type="CE" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="overseer" type="QUQI_MT021001UV01.Overseer" nillable="true" minOccurs="0"
+                     maxOccurs="unbounded"/>
+         <xs:element name="authorOrPerformer" type="QUQI_MT021001UV01.AuthorOrPerformer"
+                     nillable="true"
+                     minOccurs="0"
+                     maxOccurs="unbounded"/>
+         <xs:element name="dataEnterer" type="QUQI_MT021001UV01.DataEnterer" nillable="true"
+                     minOccurs="0"
+                     maxOccurs="unbounded"/>
+         <xs:element name="informationRecipient" type="QUQI_MT021001UV01.InformationRecipient"
+                     nillable="true"
+                     minOccurs="0"
+                     maxOccurs="unbounded"/>
+         <xs:element name="reasonOf" type="QUQI_MT021001UV01.Reason" nillable="true" minOccurs="0"
+                     maxOccurs="unbounded"/>
+         <!-- Muudatus algus -->
+         <!-- 04.09.2007 Janek Metsallik. Lisatud queryByParameter vastavalt
+         QUQI_MT021001UV01 RMIM-ile ja RCMR_IN000029UV01 interaktsiooni kirjeldusele -->
+         <xs:element name="queryByParameter" type="RCMR_MT000003UV.QueryByParameter" nillable="true"
+                     minOccurs="0"
+                     maxOccurs="1" />
+         <!-- Muudatus lõpp -->
+      </xs:sequence>
+      <xs:attributeGroup ref="InfrastructureRootAttributes"/>
+      <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
+      <xs:attribute name="classCode" type="ActClassControlAct" use="optional" default="CACT"/>
+      <xs:attribute name="moodCode" type="x_ActMoodIntentEvent" use="required"/>
+   </xs:complexType>
+</xs:schema>
+
+<!-- HL7 standardi laiendamiseks vajalikud vaheklassid.
+    Janek Metsallik 16.12.2007
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:ext="urn:hl7-EE-DL-Ext:v1" xmlns="urn:hl7-EE-DL-Ext:v1" xmlns:hl7="urn:hl7-org:v3" 
+    targetNamespace="urn:hl7-EE-DL-Ext:v1" elementFormDefault="qualified"
+    attributeFormDefault="qualified">
+    <!-- kasutatakse standardseid HL7 andmetüüpe ja kodeerimissüsteeme -->
+    <xs:import schemaLocation="http://pub.e-tervis.ee/standards2/Schema/V3/HL7-ORG-V3-2007-09/processable/coreschemas/datatypes.xsd" />
+    <xs:include schemaLocation="http://pub.e-tervis.ee/standards2/Schema/V3/HL7-ORG-V3-2007-09/processable/coreschemas/voc.xsd" />
+    <xs:include schemaLocation="http://pub.e-tervis.ee/standards2/Schema/V3/HL7-ORG-V3-2007-09-EE-DL-Ext-V1/processable/coreschemas/infrastructureRoot_EE01.xsd"/>
+    <xs:include schemaLocation="http://pub.e-tervis.ee/standards2/Schema/V3/HL7-ORG-V3-2007-09-EE-DL-Ext-V1/processable/multicacheschemas/RCMR_MT000003UV_Extension.xsd"/>
+
+   <xs:complexType name="RCMR_IN000029UV01_Extension.QUQI_MT000001UV01.QueryContinuation">
+      <xs:sequence>
+         <xs:group ref="InfrastructureRootElements"/>
+         <xs:element name="queryId" type="II" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="startResultNumber" type="INT" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="continuationQuantity" type="INT" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="statusCode" type="CS" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="InfrastructureRootAttributes"/>
+      <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
+   </xs:complexType>
+    
+    <xs:complexType name="RCMR_IN000029UV01_Extension.ControlActProcess">
+        <xs:complexContent>
+            <xs:extension base="hl7:RCMR_IN000029UV01.QUQI_MT021001UV01.ControlActProcess">
+                <xs:sequence>
+                    <xs:element name="queryContinuation" type="RCMR_IN000029UV01_Extension.QUQI_MT000001UV01.QueryContinuation" minOccurs="0" maxOccurs="1"/>
+                </xs:sequence>
+                <xs:attribute name="HL7-Domain" fixed="QUQI_DM000000UV" />
+                <xs:attribute name="HL7-ClassName" fixed="CACT"/>
+                <xs:attribute name="realmCode" fixed="EE" />
+                <!-- HL7 domeen, millest laiendus on pärit-->
+                <!-- põhiklassi kood-->
+                <!-- valdkonna täpsustus-->
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+</xs:schema>
+
+<xs:schema xmlns:mif="urn:hl7-org:v3/mif" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="urn:hl7-org:v3"
+           targetNamespace="urn:hl7-org:v3"
+           elementFormDefault="qualified">
+   <xs:annotation>
+      <xs:documentation>Source Information
+     Rendered by: RoseTree 4.0.9
+     Rendered on: 
+This document was rendered into XML using software provided to HL7 by Beeler Consulting LLC.
+ PubDB to MIF Transform: $RCSfile: PubDbXmlToMIF.xsl,v $ $Revision: 1.10 $ $Date: 2007/03/20 02:48:49 $
+  Fix names transform: $Id: FixMifNames.xsl,v 1.8 2007/03/20 02:48:49 wbeeler Exp $
+  HTML to MIF Markup transform: $Id: HtmlToMIFMarkup.xsl,v 1.4 2007/03/20 02:48:49 wbeeler Exp $
+  Base transform: $Id: ConvertBase.xsl,v 1.4 2007/03/20 02:48:48 wbeeler Exp $
+  Package Id Conversion: $Id: TransformPackageIds.xsl,v 1.6 2007/03/20 02:48:49 wbeeler Exp $
+ Generated using schema builder version: 3.0.6 and DynamicMifToXSD.xsl version: 1.4
+ Dynamic MIF to Schema Transform: $Id: DynamicMifToXsd.xsl,v 1.11 2007/03/20 02:48:49 wbeeler Exp $
+  Static MIF to Schema Transform: $Id: StaticMifToXsd.xsl,v 1.28 2007/07/06 00:24:13 wbeeler Exp $
+  Package Id Conversion: $Id: TransformPackageIds.xsl,v 1.6 2007/03/20 02:48:49 wbeeler Exp $</xs:documentation>
+   </xs:annotation>
+   <xs:include schemaLocation="http://pub.e-tervis.ee/standards2/Schema/V3/HL7-ORG-V3-2007-09/processable/coreschemas/infrastructureRoot.xsd"/>
+   <xs:include schemaLocation="http://pub.e-tervis.ee/standards2/Schema/V3/HL7-ORG-V3-2007-09/processable/multicacheschemas/MCCI_MT000300UV01.xsd"/>
+   <xs:include schemaLocation="http://pub.e-tervis.ee/standards2/Schema/V3/HL7-ORG-V3-2007-09/processable/multicacheschemas/QUQI_MT120001UV01.xsd"/>
+      <!-- Muudatus algus -->
+      <!-- 4.09.2007 Janek Metsallik asendatud viide puuduvale skeemile, oli  RCMR_MT000001UV01.xsd -->
+   <xs:include schemaLocation="http://pub.e-tervis.ee/standards2/Schema/V3/HL7-ORG-V3-2007-09/processable/multicacheschemas/RCMR_MT000001UV.xsd"/>
+      <!-- Muudatus lõpp -->
+      <!-- Muudatus algus -->
+      <!-- 4.09.2007 Janek Metsallik lisatud viide queryByParameter skeemile 
+      Vajadus tuleneb REPLACE_ME elemendi asendamisest -->
+   <xs:include schemaLocation="http://pub.e-tervis.ee/standards2/Schema/V3/HL7-ORG-V3-2007-09/processable/multicacheschemas/RCMR_MT000003UV.xsd"/>
+      <!-- Muudatus lõpp -->
+   <xs:element name="RCMR_IN000030UV01">
+      <xs:complexType>
+         <xs:complexContent>
+            <xs:extension base="RCMR_IN000030UV01.MCCI_MT000300UV01.Message">
+               <xs:attribute name="ITSVersion" type="xs:string" use="required" fixed="XML_1.0"/>
+            </xs:extension>
+         </xs:complexContent>
+      </xs:complexType>
+   </xs:element>
+   <xs:complexType name="RCMR_IN000030UV01.MCCI_MT000300UV01.Message">
+      <xs:sequence>
+         <xs:group ref="InfrastructureRootElements"/>
+         <xs:element name="id" type="II" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="creationTime" type="TS" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="securityText" type="ST" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="versionCode" type="CS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="interactionId" type="II" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="profileId" type="II" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="processingCode" type="CS" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="processingModeCode" type="CS" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="acceptAckCode" type="CS" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="attachmentText" type="ED" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="receiver" type="MCCI_MT000300UV01.Receiver" minOccurs="1"
+                     maxOccurs="unbounded"/>
+         <xs:element name="respondTo" type="MCCI_MT000300UV01.RespondTo" nillable="true"
+                     minOccurs="0"
+                     maxOccurs="unbounded"/>
+         <xs:element name="sender" type="MCCI_MT000300UV01.Sender" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="attentionLine" type="MCCI_MT000300UV01.AttentionLine" nillable="true"
+                     minOccurs="0"
+                     maxOccurs="unbounded"/>
+         <xs:element name="acknowledgement" type="MCCI_MT000300UV01.Acknowledgement" nillable="true"
+                     minOccurs="0"
+                     maxOccurs="unbounded"/>
+         <xs:element name="controlActProcess"
+                     type="RCMR_IN000030UV01.QUQI_MT120001UV01.ControlActProcess"
+                     minOccurs="1"
+                     maxOccurs="1"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="InfrastructureRootAttributes"/>
+      <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
+   </xs:complexType>
+   <xs:complexType name="RCMR_IN000030UV01.QUQI_MT120001UV01.ControlActProcess">
+      <xs:sequence>
+         <xs:group ref="InfrastructureRootElements"/>
+         <xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="code" type="CD" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="text" type="ED" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="IVL_TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="priorityCode" type="CE" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="reasonCode" type="CE" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="languageCode" type="CE" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="overseer" type="QUQI_MT120001UV01.Overseer" nillable="true" minOccurs="0"
+                     maxOccurs="unbounded"/>
+         <xs:element name="authorOrPerformer" type="QUQI_MT120001UV01.AuthorOrPerformer"
+                     nillable="true"
+                     minOccurs="0"
+                     maxOccurs="unbounded"/>
+         <xs:element name="dataEnterer" type="QUQI_MT120001UV01.DataEnterer" nillable="true"
+                     minOccurs="0"
+                     maxOccurs="unbounded"/>
+         <xs:element name="informationRecipient" type="QUQI_MT120001UV01.InformationRecipient"
+                     nillable="true"
+                     minOccurs="0"
+                     maxOccurs="unbounded"/>
+         <xs:element name="subject" type="RCMR_IN000030UV01.QUQI_MT120001UV01.Subject2"
+                     nillable="true"
+                     minOccurs="0"
+                     maxOccurs="unbounded"/>
+         <xs:element name="reasonOf" type="QUQI_MT120001UV01.Reason" nillable="true" minOccurs="0"
+                     maxOccurs="unbounded"/>
+         <xs:element name="queryAck" type="QUQI_MT120001UV01.QueryAck" minOccurs="1" maxOccurs="1"/>
+      <!-- Muudatus algus -->
+      <!-- 4.09.2007 Janek Metsallik REPLACE_ME on asendatud queryByParameter elemendiga vastavalt 
+         QUQI_MT120001UV01 RMIM-ile ja RCMR_IN000030UV01 interaktsiooni kirjeldusele -->
+         <xs:element name="queryByParameter" type="RCMR_MT000003UV.QueryByParameter" nillable="true" 
+                     minOccurs="0"
+                     maxOccurs="1" />
+        <!-- Placeholder for element referencing stub: QueryByParameter -->
+        <!--  xs:element name="REPLACE_ME" type="xs:anyType" nillable="true" minOccurs="0" maxOccurs="1"/ -->
+      <!-- Muudatus lõpp -->
+      </xs:sequence>
+      <xs:attributeGroup ref="InfrastructureRootAttributes"/>
+      <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
+      <xs:attribute name="classCode" type="ActClassControlAct" use="optional" default="CACT"/>
+      <xs:attribute name="moodCode" type="x_ActMoodIntentEvent" use="required"/>
+   </xs:complexType>
+   <xs:complexType name="RCMR_IN000030UV01.QUQI_MT120001UV01.Subject2">
+      <xs:sequence>
+         <xs:group ref="InfrastructureRootElements"/>
+      <!-- Muudatus algus -->
+      <!-- 4.09.2007 Janek Metsallik lisatud clinicalDocument element vastavalt 
+         QUQI_MT120001UV01 RMIM-ile ja RCMR_IN000030UV01 interaktsiooni kirjeldusele -->
+         <xs:element name="clinicalDocument" type="RCMR_MT000001UV.ClinicalDocument" nillable="false" 
+                     minOccurs="1"
+                     maxOccurs="1" />
+      <!-- Muudatus lõpp -->
+      </xs:sequence>
+      <xs:attributeGroup ref="InfrastructureRootAttributes"/>
+      <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
+      <xs:attribute name="typeCode" type="ActRelationshipType" use="optional" fixed="SUBJ"/>
+      <xs:attribute name="contextConductionInd" type="bl" use="optional" default="false"/>
+   </xs:complexType>
+</xs:schema>
+
+<xs:schema xmlns:mif="urn:hl7-org:v3/mif" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="urn:hl7-org:v3"
+           targetNamespace="urn:hl7-org:v3"
+           elementFormDefault="qualified">
+   <xs:annotation>
+      <xs:documentation>Source Information
+     Rendered by: RoseTree 4.0.9
+     Rendered on: 
+This document was rendered into XML using software provided to HL7 by Beeler Consulting LLC.
+ PubDB to MIF Transform: $RCSfile: PubDbXmlToMIF.xsl,v $ $Revision: 1.10 $ $Date: 2007/03/20 02:48:49 $
+  Fix names transform: $Id: FixMifNames.xsl,v 1.8 2007/03/20 02:48:49 wbeeler Exp $
+  HTML to MIF Markup transform: $Id: HtmlToMIFMarkup.xsl,v 1.4 2007/03/20 02:48:49 wbeeler Exp $
+  Base transform: $Id: ConvertBase.xsl,v 1.4 2007/03/20 02:48:48 wbeeler Exp $
+  Package Id Conversion: $Id: TransformPackageIds.xsl,v 1.6 2007/03/20 02:48:49 wbeeler Exp $
+ Generated using schema builder version: 3.0.6 and DynamicMifToXSD.xsl version: 1.4
+ Dynamic MIF to Schema Transform: $Id: DynamicMifToXsd.xsl,v 1.11 2007/03/20 02:48:49 wbeeler Exp $
+  Static MIF to Schema Transform: $Id: StaticMifToXsd.xsl,v 1.28 2007/07/06 00:24:13 wbeeler Exp $
+  Package Id Conversion: $Id: TransformPackageIds.xsl,v 1.6 2007/03/20 02:48:49 wbeeler Exp $</xs:documentation>
+   </xs:annotation>
+   <xs:include schemaLocation="http://pub.e-tervis.ee/standards2/Schema/V3/HL7-ORG-V3-2007-09/processable/coreschemas/infrastructureRoot.xsd"/>
+   <xs:include schemaLocation="http://pub.e-tervis.ee/standards2/Schema/V3/HL7-ORG-V3-2007-09/processable/multicacheschemas/MCCI_MT000100UV01.xsd"/>
+   <xs:include schemaLocation="http://pub.e-tervis.ee/standards2/Schema/V3/HL7-ORG-V3-2007-09/processable/multicacheschemas/QUQI_MT021001UV01.xsd"/>
+   <xs:include schemaLocation="http://pub.e-tervis.ee/standards2/Schema/V3/HL7-ORG-V3-2007-09/processable/multicacheschemas/RCMR_MT000003UV.xsd"/>
+   <xs:element name="RCMR_IN000031UV01">
+      <xs:complexType>
+         <xs:complexContent>
+            <xs:extension base="RCMR_IN000031UV01.MCCI_MT000100UV01.Message">
+               <xs:attribute name="ITSVersion" type="xs:string" use="required" fixed="XML_1.0"/>
+            </xs:extension>
+         </xs:complexContent>
+      </xs:complexType>
+   </xs:element>
+   <xs:complexType name="RCMR_IN000031UV01.MCCI_MT000100UV01.Message">
+      <xs:sequence>
+         <xs:group ref="InfrastructureRootElements"/>
+         <xs:element name="id" type="II" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="creationTime" type="TS" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="securityText" type="ST" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="versionCode" type="CS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="interactionId" type="II" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="profileId" type="II" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="processingCode" type="CS" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="processingModeCode" type="CS" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="acceptAckCode" type="CS" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="sequenceNumber" type="INT" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="attachmentText" type="ED" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="receiver" type="MCCI_MT000100UV01.Receiver" minOccurs="1"
+                     maxOccurs="unbounded"/>
+         <xs:element name="respondTo" type="MCCI_MT000100UV01.RespondTo" nillable="true"
+                     minOccurs="0"
+                     maxOccurs="unbounded"/>
+         <xs:element name="sender" type="MCCI_MT000100UV01.Sender" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="attentionLine" type="MCCI_MT000100UV01.AttentionLine" nillable="true"
+                     minOccurs="0"
+                     maxOccurs="unbounded"/>
+         <xs:element name="controlActProcess"
+                     type="RCMR_IN000031UV01.QUQI_MT021001UV01.ControlActProcess"
+                     minOccurs="1"
+                     maxOccurs="1"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="InfrastructureRootAttributes"/>
+      <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
+   </xs:complexType>
+   <xs:complexType name="RCMR_IN000031UV01.QUQI_MT021001UV01.ControlActProcess">
+      <xs:sequence>
+         <xs:group ref="InfrastructureRootElements"/>
+         <xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="code" type="CD" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="text" type="ED" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="IVL_TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="priorityCode" type="CE" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="reasonCode" type="CE" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="languageCode" type="CE" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="overseer" type="QUQI_MT021001UV01.Overseer" nillable="true" minOccurs="0"
+                     maxOccurs="unbounded"/>
+         <xs:element name="authorOrPerformer" type="QUQI_MT021001UV01.AuthorOrPerformer"
+                     nillable="true"
+                     minOccurs="0"
+                     maxOccurs="unbounded"/>
+         <xs:element name="dataEnterer" type="QUQI_MT021001UV01.DataEnterer" nillable="true"
+                     minOccurs="0"
+                     maxOccurs="unbounded"/>
+         <xs:element name="informationRecipient" type="QUQI_MT021001UV01.InformationRecipient"
+                     nillable="true"
+                     minOccurs="0"
+                     maxOccurs="unbounded"/>
+         <xs:element name="reasonOf" type="QUQI_MT021001UV01.Reason" nillable="true" minOccurs="0"
+                     maxOccurs="unbounded"/>
+         <!-- Muudatus algus -->
+         <!-- 04.09.2007 Janek Metsallik. Lisatud queryByParameter vastavalt 
+         QUQI_MT021001UV01 RMIM-ile ja RCMR_IN000029UV01 interaktsiooni kirjeldusele -->
+         <xs:element name="queryByParameter" type="RCMR_MT000003UV.QueryByParameter" nillable="true" 
+                     minOccurs="0"
+                     maxOccurs="1" />
+         <!-- Muudatus lõpp -->
+      </xs:sequence>
+      <xs:attributeGroup ref="InfrastructureRootAttributes"/>
+      <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
+      <xs:attribute name="classCode" type="ActClassControlAct" use="optional" default="CACT"/>
+      <xs:attribute name="moodCode" type="x_ActMoodIntentEvent" use="required"/>
+   </xs:complexType>
+</xs:schema>
+
+<xs:schema xmlns:mif="urn:hl7-org:v3/mif" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="urn:hl7-org:v3"
+           targetNamespace="urn:hl7-org:v3"
+           elementFormDefault="qualified">
+   <xs:annotation>
+      <xs:documentation>Source Information
+     Rendered by: RoseTree 4.0.9
+     Rendered on: 
+This document was rendered into XML using software provided to HL7 by Beeler Consulting LLC.
+ PubDB to MIF Transform: $RCSfile: PubDbXmlToMIF.xsl,v $ $Revision: 1.10 $ $Date: 2007/03/20 02:48:49 $
+  Fix names transform: $Id: FixMifNames.xsl,v 1.8 2007/03/20 02:48:49 wbeeler Exp $
+  HTML to MIF Markup transform: $Id: HtmlToMIFMarkup.xsl,v 1.4 2007/03/20 02:48:49 wbeeler Exp $
+  Base transform: $Id: ConvertBase.xsl,v 1.4 2007/03/20 02:48:48 wbeeler Exp $
+  Package Id Conversion: $Id: TransformPackageIds.xsl,v 1.6 2007/03/20 02:48:49 wbeeler Exp $
+ Generated using schema builder version: 3.0.6 and DynamicMifToXSD.xsl version: 1.4
+ Dynamic MIF to Schema Transform: $Id: DynamicMifToXsd.xsl,v 1.11 2007/03/20 02:48:49 wbeeler Exp $
+  Static MIF to Schema Transform: $Id: StaticMifToXsd.xsl,v 1.28 2007/07/06 00:24:13 wbeeler Exp $
+  Package Id Conversion: $Id: TransformPackageIds.xsl,v 1.6 2007/03/20 02:48:49 wbeeler Exp $</xs:documentation>
+   </xs:annotation>
+   <xs:include schemaLocation="http://pub.e-tervis.ee/standards2/Schema/V3/HL7-ORG-V3-2007-09/processable/coreschemas/infrastructureRoot.xsd"/>
+   <xs:include schemaLocation="http://pub.e-tervis.ee/standards2/Schema/V3/HL7-ORG-V3-2007-09/processable/multicacheschemas/MCCI_MT000300UV01.xsd"/>
+   <xs:include schemaLocation="http://pub.e-tervis.ee/standards2/Schema/V3/HL7-ORG-V3-2007-09/processable/multicacheschemas/QUQI_MT120001UV01.xsd"/>
+      <!-- Muudatus algus -->
+      <!-- 4.09.2007 Janek Metsallik asendatud viide puuduvale skeemile, oli  RCMR_MT000002UV01.xsd -->
+   <xs:include schemaLocation="http://pub.e-tervis.ee/standards2/Schema/V3/HL7-ORG-V3-2007-09/processable/multicacheschemas/RCMR_MT000002UV.xsd"/>
+      <!-- Muudatus lõpp -->
+      <!-- Muudatus algus -->
+      <!-- 6.09.2007 Janek Metsallik lisatud viide queryByParameter skeemile 
+      Vajadus tuleneb REPLACE_ME elemendi asendamisest -->
+   <xs:include schemaLocation="http://pub.e-tervis.ee/standards2/Schema/V3/HL7-ORG-V3-2007-09/processable/multicacheschemas/RCMR_MT000003UV.xsd"/>
+      <!-- Muudatus lõpp -->
+   <xs:element name="RCMR_IN000032UV01">
+      <xs:complexType>
+         <xs:complexContent>
+            <xs:extension base="RCMR_IN000032UV01.MCCI_MT000300UV01.Message">
+               <xs:attribute name="ITSVersion" type="xs:string" use="required" fixed="XML_1.0"/>
+            </xs:extension>
+         </xs:complexContent>
+      </xs:complexType>
+   </xs:element>
+   <xs:complexType name="RCMR_IN000032UV01.MCCI_MT000300UV01.Message">
+      <xs:sequence>
+         <xs:group ref="InfrastructureRootElements"/>
+         <xs:element name="id" type="II" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="creationTime" type="TS" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="securityText" type="ST" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="versionCode" type="CS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="interactionId" type="II" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="profileId" type="II" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="processingCode" type="CS" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="processingModeCode" type="CS" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="acceptAckCode" type="CS" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="attachmentText" type="ED" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="receiver" type="MCCI_MT000300UV01.Receiver" minOccurs="1"
+                     maxOccurs="unbounded"/>
+         <xs:element name="respondTo" type="MCCI_MT000300UV01.RespondTo" nillable="true"
+                     minOccurs="0"
+                     maxOccurs="unbounded"/>
+         <xs:element name="sender" type="MCCI_MT000300UV01.Sender" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="attentionLine" type="MCCI_MT000300UV01.AttentionLine" nillable="true"
+                     minOccurs="0"
+                     maxOccurs="unbounded"/>
+         <xs:element name="acknowledgement" type="MCCI_MT000300UV01.Acknowledgement" nillable="true"
+                     minOccurs="0"
+                     maxOccurs="unbounded"/>
+         <xs:element name="controlActProcess"
+                     type="RCMR_IN000032UV01.QUQI_MT120001UV01.ControlActProcess"
+                     minOccurs="1"
+                     maxOccurs="1"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="InfrastructureRootAttributes"/>
+      <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
+   </xs:complexType>
+   <xs:complexType name="RCMR_IN000032UV01.QUQI_MT120001UV01.ControlActProcess">
+      <xs:sequence>
+         <xs:group ref="InfrastructureRootElements"/>
+         <xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="code" type="CD" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="text" type="ED" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="IVL_TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="priorityCode" type="CE" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="reasonCode" type="CE" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="languageCode" type="CE" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="overseer" type="QUQI_MT120001UV01.Overseer" nillable="true" minOccurs="0"
+                     maxOccurs="unbounded"/>
+         <xs:element name="authorOrPerformer" type="QUQI_MT120001UV01.AuthorOrPerformer"
+                     nillable="true"
+                     minOccurs="0"
+                     maxOccurs="unbounded"/>
+         <xs:element name="dataEnterer" type="QUQI_MT120001UV01.DataEnterer" nillable="true"
+                     minOccurs="0"
+                     maxOccurs="unbounded"/>
+         <xs:element name="informationRecipient" type="QUQI_MT120001UV01.InformationRecipient"
+                     nillable="true"
+                     minOccurs="0"
+                     maxOccurs="unbounded"/>
+         <xs:element name="subject" type="RCMR_IN000032UV01.QUQI_MT120001UV01.Subject2"
+                     nillable="true"
+                     minOccurs="0"
+                     maxOccurs="unbounded"/>
+         <xs:element name="reasonOf" type="QUQI_MT120001UV01.Reason" nillable="true" minOccurs="0"
+                     maxOccurs="unbounded"/>
+         <xs:element name="queryAck" type="QUQI_MT120001UV01.QueryAck" minOccurs="1" maxOccurs="1"/>
+      <!-- Muudatus algus -->
+      <!-- 4.09.2007 Janek Metsallik REPLACE_ME on asendatud queryByParameter elemendiga vastavalt 
+         QUQI_MT120001UV01 RMIM-ile ja RCMR_IN000030UV01 interaktsiooni kirjeldusele -->
+         <xs:element name="queryByParameter" type="RCMR_MT000003UV.QueryByParameter" nillable="true" 
+                     minOccurs="0"
+                     maxOccurs="1" />
+        <!-- Placeholder for element referencing stub: QueryByParameter -->
+        <!--  xs:element name="REPLACE_ME" type="xs:anyType" nillable="true" minOccurs="0" maxOccurs="1"/ -->
+      <!-- Muudatus lõpp -->
+      </xs:sequence>
+      <xs:attributeGroup ref="InfrastructureRootAttributes"/>
+      <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
+      <xs:attribute name="classCode" type="ActClassControlAct" use="optional" default="CACT"/>
+      <xs:attribute name="moodCode" type="x_ActMoodIntentEvent" use="required"/>
+   </xs:complexType>
+   <xs:complexType name="RCMR_IN000032UV01.QUQI_MT120001UV01.Subject2">
+      <xs:sequence>
+         <xs:group ref="InfrastructureRootElements"/>
+      <!-- Muudatus algus -->
+      <!-- 4.09.2007 Janek Metsallik lisatud clinicalDocument element vastavalt 
+         QUQI_MT120001UV01 RMIM-ile ja RCMR_IN000030UV01 interaktsiooni kirjeldusele -->
+         <xs:element name="clinicalDocument" type="RCMR_MT000002UV.ClinicalDocument" nillable="false" 
+                     minOccurs="1"
+                     maxOccurs="1" />
+      <!-- Muudatus lõpp -->
+      </xs:sequence>
+      <xs:attributeGroup ref="InfrastructureRootAttributes"/>
+      <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
+      <xs:attribute name="typeCode" type="ActRelationshipType" use="optional" fixed="SUBJ"/>
+      <xs:attribute name="contextConductionInd" type="bl" use="optional" default="false"/>
+   </xs:complexType>
+</xs:schema>
+
+	</wsdl:types>
+
+	<message name="hl7Request">
+		<part name="keha" element="tns:hl7Paring" />
+	</message>
+	<message name="hl7Response">
+		<part name="paring" element="tns:hl7Paring" />
+		<part name="keha" element="tns:hl7Vastus" />
+	</message>
+
+	<!-- QuestionaryCodeRequest START -->
+	<message name="questionaryCodeRequest">
+		<part name="questionaryCodeRequest" element="tns:questionaryCodeRequest" />
+	</message>
+	<message name="questionaryCodeRequestResponse">
+		<part name="questionaryCodeRequestResponse" element="tns:questionaryCodeRequestResponse" />
+	</message>
+	<!-- QuestionaryCodeRequest END -->
+	
+	<!-- diagProcCheck START -->
+	<message name="diagProcCheck">
+		<part name="diagProcCheck" element="tns:diagProcCheck" />
+	</message>
+	<message name="diagProcCheckResponse">
+		<part name="diagProcCheckResponse" element="tns:diagProcCheckResponse" />
+	</message>
+	<!-- diagProcCheck END -->
+	
+	<!-- certificateRequest START -->
+	<message name="certificateRequest">
+		<part name="certificateRequest" element="tns:certificateRequest" />
+	</message>
+	<message name="certificateRequestResponse">
+		<part name="certificateRequestResponse" element="tns:certificateRequestResponse" />
+	</message>
+	<!-- certificateRequest END -->
+	
+	<!-- updatedCertificatesRequest START -->
+	<message name="updatedCertificatesRequest">
+		<part name="updatedCertificatesRequest" element="tns:updatedCertificatesRequest" />
+	</message>
+	<message name="updatedCertificatesRequestResponse">
+		<part name="updatedCertificatesRequestResponse" element="tns:updatedCertificatesRequestResponse" />
+	</message>
+	<!-- updatedCertificatesRequest END -->
+	
+	<!-- generateReferral START -->
+	<message name="generateReferral">
+		<part name="generateReferral" element="tns:generateReferral" />
+	</message>
+	<message name="generateReferralResponse">
+		<part name="generateReferralResponse" element="tns:generateReferralResponse" />
+	</message>
+	<!-- generateReferral END -->
+	
+	<message name="standardpais">
+        <part name="asutus" element="xrd:asutus"/>
+        <part name="andmekogu" element="xrd:andmekogu"/>
+        <part name="isikukood" element="xrd:isikukood"/>
+        <part name="nimi" element="xrd:nimi"/>
+        <part name="id" element="xrd:id"/>
+        <part name="toimik" element="xrd:toimik"/>
+    </message>
+
+	<portType name="DigiluguRegistriteTeenused">
+		<operation name="hl7">
+			<documentation>
+				<xrd:title>hl7</xrd:title>
+			</documentation>
+			<input message="tns:hl7Request" />
+			<output message="tns:hl7Response" />
+		</operation>
+		<operation name="questionaryCodeRequest">
+			<documentation>
+				<xrd:title>questionaryCodeRequest</xrd:title>
+			</documentation>
+			<input message="tns:questionaryCodeRequest" />
+			<output message="tns:questionaryCodeRequestResponse" />
+		</operation>
+		<operation name="diagProcCheck">
+			<documentation>
+				<xrd:title>diagProcCheck</xrd:title>
+			</documentation>
+			<input message="tns:diagProcCheck" />
+			<output message="tns:diagProcCheckResponse" />
+		</operation>
+		<operation name="certificateRequest">
+			<documentation>
+				<xrd:title>certificateRequest</xrd:title>
+			</documentation>
+			<input message="tns:certificateRequest" />
+			<output message="tns:certificateRequestResponse" />
+		</operation>
+		<operation name="updatedCertificatesRequest">
+			<documentation>
+				<xrd:title>updatedCertificatesRequest</xrd:title>
+			</documentation>
+			<input message="tns:updatedCertificatesRequest" />
+			<output message="tns:updatedCertificatesRequestResponse" />
+		</operation>
+		<operation name="generateReferral">
+			<documentation>
+				<xrd:title>generateReferral</xrd:title>
+			</documentation>
+			<input message="tns:generateReferral" />
+			<output message="tns:generateReferralResponse" />
+		</operation>
+	</portType>
+
+	<binding name="DigiluguRegistriteTeenusedSoapBinding" type="tns:DigiluguRegistriteTeenused">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<operation name="hl7">
+			<xrd:version>v1</xrd:version>
+			<input>
+				<soap:header message="tns:standardpais" part="asutus" use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:header message="tns:standardpais" part="andmekogu" use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:header message="tns:standardpais" part="isikukood" use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:header message="tns:standardpais" part="id" use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:header message="tns:standardpais" part="nimi" use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:header message="tns:standardpais" part="toimik" use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body parts="keha" use="literal" namespace="http://producers.digilugu.xtee.riik.ee/producer/digilugu" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:header message="tns:standardpais" part="asutus" use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:header message="tns:standardpais" part="andmekogu" use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:header message="tns:standardpais" part="isikukood" use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:header message="tns:standardpais" part="id" use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:header message="tns:standardpais" part="nimi" use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:header message="tns:standardpais" part="toimik" use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body parts="keha" use="literal" namespace="http://producers.digilugu.xtee.riik.ee/producer/digilugu" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+                <soap:body parts="paring" use="literal" namespace="http://producers.digilugu.xtee.riik.ee/producer/digilugu" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="questionaryCodeRequest">
+			<xrd:version>v1</xrd:version>
+			<input>
+				<soap:header message="tns:standardpais" part="asutus" use="literal"/>
+				<soap:header message="tns:standardpais" part="andmekogu" use="literal"/>
+				<soap:header message="tns:standardpais" part="isikukood" use="literal"/>
+				<soap:header message="tns:standardpais" part="id" use="literal"/>
+				<soap:header message="tns:standardpais" part="nimi" use="literal"/>
+				<soap:header message="tns:standardpais" part="toimik" use="literal"/>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:header message="tns:standardpais" part="asutus" use="literal"/>
+				<soap:header message="tns:standardpais" part="andmekogu" use="literal"/>
+				<soap:header message="tns:standardpais" part="isikukood" use="literal"/>
+				<soap:header message="tns:standardpais" part="id" use="literal"/>
+				<soap:header message="tns:standardpais" part="nimi" use="literal"/>
+				<soap:header message="tns:standardpais" part="toimik" use="literal"/>
+				<soap:body use="literal" />
+			</output>
+		</operation>
+		<operation name="diagProcCheck">
+			<xrd:version>v1</xrd:version>
+			<input>
+				<soap:header message="tns:standardpais" part="asutus" use="literal"/>
+				<soap:header message="tns:standardpais" part="andmekogu" use="literal"/>
+				<soap:header message="tns:standardpais" part="isikukood" use="literal"/>
+				<soap:header message="tns:standardpais" part="id" use="literal"/>
+				<soap:header message="tns:standardpais" part="nimi" use="literal"/>
+				<soap:header message="tns:standardpais" part="toimik" use="literal"/>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:header message="tns:standardpais" part="asutus" use="literal"/>
+				<soap:header message="tns:standardpais" part="andmekogu" use="literal"/>
+				<soap:header message="tns:standardpais" part="isikukood" use="literal"/>
+				<soap:header message="tns:standardpais" part="id" use="literal"/>
+				<soap:header message="tns:standardpais" part="nimi" use="literal"/>
+				<soap:header message="tns:standardpais" part="toimik" use="literal"/>
+				<soap:body use="literal" />
+			</output>
+		</operation>
+		<!-- certificateRequest START -->
+		<operation name="certificateRequest">
+			<xrd:version>v1</xrd:version>
+			<input>
+				<soap:header message="tns:standardpais" part="asutus" use="literal"/>
+				<soap:header message="tns:standardpais" part="andmekogu" use="literal"/>
+				<soap:header message="tns:standardpais" part="isikukood" use="literal"/>
+				<soap:header message="tns:standardpais" part="id" use="literal"/>
+				<soap:header message="tns:standardpais" part="nimi" use="literal"/>
+				<soap:header message="tns:standardpais" part="toimik" use="literal"/>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:header message="tns:standardpais" part="asutus" use="literal"/>
+				<soap:header message="tns:standardpais" part="andmekogu" use="literal"/>
+				<soap:header message="tns:standardpais" part="isikukood" use="literal"/>
+				<soap:header message="tns:standardpais" part="id" use="literal"/>
+				<soap:header message="tns:standardpais" part="nimi" use="literal"/>
+				<soap:header message="tns:standardpais" part="toimik" use="literal"/>
+				<soap:body use="literal" />
+			</output>
+		</operation>
+		<!-- updatedCertificatesRequest START -->
+		<operation name="updatedCertificatesRequest">
+			<xrd:version>v1</xrd:version>
+			<input>
+				<soap:header message="tns:standardpais" part="asutus" use="literal"/>
+				<soap:header message="tns:standardpais" part="andmekogu" use="literal"/>
+				<soap:header message="tns:standardpais" part="isikukood" use="literal"/>
+				<soap:header message="tns:standardpais" part="id" use="literal"/>
+				<soap:header message="tns:standardpais" part="nimi" use="literal"/>
+				<soap:header message="tns:standardpais" part="toimik" use="literal"/>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:header message="tns:standardpais" part="asutus" use="literal"/>
+				<soap:header message="tns:standardpais" part="andmekogu" use="literal"/>
+				<soap:header message="tns:standardpais" part="isikukood" use="literal"/>
+				<soap:header message="tns:standardpais" part="id" use="literal"/>
+				<soap:header message="tns:standardpais" part="nimi" use="literal"/>
+				<soap:header message="tns:standardpais" part="toimik" use="literal"/>
+				<soap:body use="literal" />
+			</output>
+		</operation>		
+		<!-- generateReferral START -->
+		<operation name="generateReferral">
+			<xrd:version>v1</xrd:version>
+			<input>
+				<soap:header message="tns:standardpais" part="asutus" use="literal"/>
+				<soap:header message="tns:standardpais" part="andmekogu" use="literal"/>
+				<soap:header message="tns:standardpais" part="isikukood" use="literal"/>
+				<soap:header message="tns:standardpais" part="id" use="literal"/>
+				<soap:header message="tns:standardpais" part="nimi" use="literal"/>
+				<soap:header message="tns:standardpais" part="toimik" use="literal"/>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:header message="tns:standardpais" part="asutus" use="literal"/>
+				<soap:header message="tns:standardpais" part="andmekogu" use="literal"/>
+				<soap:header message="tns:standardpais" part="isikukood" use="literal"/>
+				<soap:header message="tns:standardpais" part="id" use="literal"/>
+				<soap:header message="tns:standardpais" part="nimi" use="literal"/>
+				<soap:header message="tns:standardpais" part="toimik" use="literal"/>
+				<soap:body use="literal" />
+			</output>
+		</operation>
+	</binding>
+
+	<service name="DigiluguRegistriteTeenused">
+		<port name="DigiluguRegistriteTeenused" binding="tns:DigiluguRegistriteTeenusedSoapBinding">
+			<soap:address location="http://TURVASERVER/cgi-bin/consumer_proxy" />
+			<xrd:title>Digilugu andmekogu</xrd:title>
+			<xrd:address producer="digilugu" />
+		</port>
+	</service>
+</wsdl:definitions>
