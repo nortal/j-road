@@ -889,6 +889,40 @@ This document was rendered into XML using software provided to HL7 by Beeler Con
    </xs:complexType>
 </xs:schema>
 
+<!-- HL7 standardi laiendamiseks vajalikud vaheklassid.
+    Janek Metsallik 16.12.2007
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ext="urn:hl7-EE-DL-Ext:v1" xmlns="urn:hl7-EE-DL-Ext:v1" xmlns:hl7="urn:hl7-org:v3" targetNamespace="urn:hl7-EE-DL-Ext:v1" elementFormDefault="qualified" attributeFormDefault="qualified">
+    <!-- kasutatakse standardseid HL7 andmetüüpe ja kodeerimissüsteeme -->
+    <xs:import schemaLocation="http://pub.e-tervis.ee/standards2/Schema/V3/HL7-ORG-V3-2007-09/processable/coreschemas/datatypes.xsd"/>
+    <xs:include schemaLocation="http://pub.e-tervis.ee/standards2/Schema/V3/HL7-ORG-V3-2007-09/processable/coreschemas/voc.xsd"/>
+    <xs:include schemaLocation="http://pub.e-tervis.ee/standards2/Schema/V3/HL7-ORG-V3-2007-09-EE-DL-Ext-V1/processable/coreschemas/infrastructureRoot_EE01.xsd"/>
+    <xs:include schemaLocation="http://pub.e-tervis.ee/standards2/Schema/V3/HL7-ORG-V3-2007-09-EE-DL-Ext-V1/processable/multicacheschemas/RCMR_MT000003UV_Extension.xsd"/>
+    <xs:complexType name="RCMR_IN000031UV01_Extension.QUQI_MT000001UV01.QueryContinuation">
+        <xs:sequence>
+            <xs:group ref="InfrastructureRootElements"/>
+            <xs:element name="queryId" type="II" minOccurs="0"/>
+            <xs:element name="startResultNumber" type="INT" minOccurs="0"/>
+            <xs:element name="continuationQuantity" type="INT" minOccurs="0"/>
+            <xs:element name="statusCode" type="CS"/>
+        </xs:sequence>
+        <xs:attributeGroup ref="InfrastructureRootAttributes"/>
+        <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
+    </xs:complexType>
+    <xs:complexType name="RCMR_IN000031UV01_Extension.ControlActProcess">
+        <xs:complexContent>
+            <xs:extension base="hl7:RCMR_IN000031UV01.QUQI_MT021001UV01.ControlActProcess">
+                <xs:sequence>
+                    <xs:element name="queryContinuation" type="RCMR_IN000031UV01_Extension.QUQI_MT000001UV01.QueryContinuation" minOccurs="0"/>
+                </xs:sequence>
+                <xs:attribute name="HL7-Domain" fixed="QUQI_DM000000UV"/>
+                <xs:attribute name="HL7-ClassName" fixed="CACT"/>
+                <xs:attribute name="realmCode" fixed="EE"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+</xs:schema>
+
 <xs:schema xmlns:mif="urn:hl7-org:v3/mif" xmlns:xs="http://www.w3.org/2001/XMLSchema"
            xmlns="urn:hl7-org:v3"
            targetNamespace="urn:hl7-org:v3"
