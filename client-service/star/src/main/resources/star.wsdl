@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://producers.star.xtee.riik.ee/producer/star" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://producers.star.xtee.riik.ee/producer/star" xmlns:xtee="http://x-tee.riik.ee/xsd/xtee.xsd" targetNamespace="http://producers.star.xtee.riik.ee/producer/star">
+	<wsdl:types>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:ref="http://ws-i.org/profiles/basic/1.1/xsd" xmlns:star="http://producers.star.xtee.riik.ee/producer/star" xmlns:xsi="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified" targetNamespace="http://producers.star.xtee.riik.ee/producer/star">
+			<import namespace="http://x-tee.riik.ee/xsd/xtee.xsd" schemaLocation="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+			<import namespace="http://ws-i.org/profiles/basic/1.1/xsd" schemaLocation="http://ws-i.org/profiles/basic/1.1/swaref.xsd"/>
+			<element name="HooldajaHooldusedRequest" type="star:HooldajaHooldusedRequest"/>
+			<element name="HooldajaHooldusedResponse" type="star:HooldajaHooldusedResponse"/>
+			<element name="HooldajaHooldusedMassParingRequest" type="star:HooldajaHooldusedMassParingRequest"/>
+			<element name="HooldajaHooldusedMassParingResponse" type="star:HooldajaHooldusedMassParingResponse"/>
+			<element name="Hooldaja" type="star:Hooldaja"/>
+			<element name="KontrolliToimetulekuToetuseSaamistRequest" type="star:KontrolliToimetulekuToetuseSaamistRequest"/>
+			<element name="KontrolliToimetulekuToetuseSaamistResponse" type="star:KontrolliToimetulekuToetuseSaamistResponse"/>
+			<element name="AsynchronousParingTulemRequest" type="star:AsynchronousParingTulemRequest"/>
+			<element name="AsynchronousParingTulemResponse" type="star:AsynchronousParingTulemResponse"/>
+			<xsi:complexType name="KontrolliToimetulekuToetuseSaamistResponse">
+				<xsi:sequence>
+					<xsi:element name="isikukood" type="string">
+						<xsi:annotation>
+							<xsi:appinfo>
+								<xtee:title>Isikukood</xtee:title>
+								<xtee:notes>Isiku isikukood, kelle kohta ppäring tehti</xtee:notes>
+							</xsi:appinfo>
+						</xsi:annotation>
+					</xsi:element>
+					<xsi:element name="eesnimi" type="string">
+						<xsi:annotation>
+							<xsi:appinfo>
+								<xtee:title>Eesnimi</xtee:title>
+								<xtee:notes>Isiku eesnimi, kelle kohta päring tehti</xtee:notes>
+							</xsi:appinfo>
+						</xsi:annotation>
+					</xsi:element>
+					<xsi:element name="perekonnanimi" type="string">
+						<xsi:annotation>
+							<xsi:appinfo>
+								<xtee:title>Perekonnanimi</xtee:title>
+								<xtee:notes>Isiku perekonnanimi, kelle kohta päing tehti</xtee:notes>
+							</xsi:appinfo>
+						</xsi:annotation>
+					</xsi:element>
+					<xsi:choice>
+						<xsi:annotation>
+							<xsi:appinfo>
+								<xtee:technotes>Kui toetuse saajaid ei leitud, tagastatakse info, vastasel juhul maaramiseAndmed</xtee:technotes>
+							</xsi:appinfo>
+						</xsi:annotation>
+						<xsi:element name="maaramine" type="gYearMonth">
+							<xsi:annotation>
+								<xsi:appinfo>
+									<xtee:title>Määramine</xtee:title>
+									<xtee:note>Päringus esitatud perioodi viimane tooetuse määramine</xtee:note>
+								</xsi:appinfo>
+							</xsi:annotation>
+						</xsi:element>
+						<xsi:element name="info" type="string">
+							<xsi:annotation>
+								<xsi:appinfo>
+									<xtee:title>Info</xtee:title>
+									<xtee:notes>Vastuse puudumise põhjus</xtee:notes>
+								</xsi:appinfo>
+							</xsi:annotation>
+						</xsi:element>
+					</xsi:choice>
+				</xsi:sequence>
+			</xsi:complexType>
+			<complexType name="KontrolliToimetulekuToetuseSaamistRequest">
+				<sequence>
+					<element name="isikukood" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Isikukood</xtee:title>
+								<xtee:notes>Isiku isikukood, kelle kuulumist toetust saavasse leibkonda otsitakse.</xtee:notes>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="algus" type="date">
+						<xsi:annotation>
+							<xsi:appinfo>
+								<xtee:title>Perioodi algus</xtee:title>
+								<xtee:notes>Otsitava perioodi algus</xtee:notes>
+							</xsi:appinfo>
+						</xsi:annotation>
+					</element>
+					<element name="lopp" type="date">
+						<xsi:annotation>
+							<xsi:appinfo>
+								<xtee:title>Perioodi lõpp</xtee:title>
+								<xtee:notes>Otsitava perioodi lõpp</xtee:notes>
+							</xsi:appinfo>
+						</xsi:annotation>
+					</element>
+				</sequence>
+			</complexType>
+			<complexType name="HooldajaHooldusedRequest">
+				<sequence>
+					<element name="isikukood" type="string">
+						<annotation>
+							<appinfo>
+								<title>Hooldaja isikukood</title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="algus" type="date">
+						<annotation>
+							<appinfo>
+								<xtee:title>Perioodi alguskuupäev</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="lopp" type="date">
+						<annotation>
+							<appinfo>
+								<xtee:title>Perioodi lõpukuupäev</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+			<complexType name="HooldajaHooldusedResponse">
+				<sequence>
+					<element name="hooldaja" type="star:Hooldaja"/>
+				</sequence>
+			</complexType>
+			<complexType name="Hooldaja">
+				<choice>
+					<element name="viga" type="string"/>
+					<sequence>
+						<element name="isikukood" type="string">
+							<annotation>
+								<appinfo>
+									<xtee:title>Hooldaja isikukood</xtee:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element name="eesnimi" type="string">
+							<annotation>
+								<appinfo>
+									<xtee:title>Hooldaja eesnimi</xtee:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element name="perekonnanimi" type="string">
+							<annotation>
+								<appinfo>
+									<xtee:title>Hooldaja perekonnanimi</xtee:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element name="hooldused" type="star:Hooldused">
+							<annotation>
+								<appinfo>
+									<xtee:title>Hooldaja hoolhused</xtee:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element name="rakendamised" type="star:Rakendamised">
+							<annotation>
+								<appinfo>
+									<xtee:title>Hooldajatoetuse rakendamised</xtee:title>
+								</appinfo>
+							</annotation>
+						</element>
+					</sequence>
+				</choice>
+			</complexType>
+			<complexType name="Hooldused">
+				<sequence>
+					<element maxOccurs="unbounded" name="hooldus" type="star:Hooldus">
+						<annotation>
+							<appinfo>
+								<xtee:title>Hooldus</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+			<complexType name="Hooldus">
+				<sequence>
+					<element name="hoolduseAlgus" type="date">
+						<annotation>
+							<appinfo>
+								<xtee:title>Määratud hoolduse algus</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="hoolduseLopp" type="date">
+						<annotation>
+							<appinfo>
+								<xtee:title>Määratud hoolduse lõpp</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="hoolduseLiik" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Hooldaja, perekonnas hooldaja – seoste alusel</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="hooldatavaIsikukood" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Hooldatava isikukood</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+			<complexType name="Rakendamised">
+				<sequence>
+					<element maxOccurs="unbounded" minOccurs="0" name="rakendamine" type="star:Rakendamine">
+						<annotation>
+							<appinfo>
+								<xtee:title>Hooldajatoetuse rakendamise andmed</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+			<complexType name="Rakendamine">
+				<sequence>
+					<element name="toetuseRakAlgus" type="date">
+						<annotation>
+							<appinfo>
+								<xtee:title>Toetuse rakendamise alguskuupäev</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="toetuseRakLopp" type="date">
+						<annotation>
+							<appinfo>
+								<xtee:title>Toetuse rakendamise lõpu kuupäev</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="omavalitsus" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Hooldajatoetust rakendanud omavalitsuse nimetus</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="viitenumber" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Rakendamise viitenumber</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+			<complexType name="HooldajaHooldusedMassParingRequest">
+				<sequence>
+					<element name="isikukoodid" type="string">
+						<annotation>
+							<appinfo>
+								<title>Hooldajad isikukoodid</title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="algus" type="date">
+						<annotation>
+							<appinfo>
+								<xtee:title>Perioodi alguskuupäev</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="lopp" type="date">
+						<annotation>
+							<appinfo>
+								<xtee:title>Perioodi lõpukuupäev</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+			<complexType name="HooldajaHooldusedMassParingResponse">
+				<sequence>
+					<element name="pilet" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Pilet</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+			<complexType name="AsynchronousParingTulemResponse">
+				<choice>
+					<element name="base64" type="base64Binary"/>
+					<element name="viga" type="string"/>
+				</choice>
+			</complexType>
+			<complexType name="AsynchronousParingTulemRequest">
+				<sequence>
+					<element name="pilet" type="string">
+						<annotation>
+							<appinfo>
+								<xtee:title>Pilet</xtee:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+			<complexType name="Hooldajad">
+				<choice>
+					<element maxOccurs="unbounded" name="hooldaja" type="star:Hooldaja"/>
+					<element name="viga" type="string"/>
+				</choice>
+			</complexType>
+		</schema>
+	</wsdl:types>
+	<wsdl:message name="HooldajaHooldusedMassParingRequest">
+		<wsdl:part name="keha" type="tns:HooldajaHooldusedMassParingRequest"/>
+	</wsdl:message>
+	<wsdl:message name="xteeStandardPais">
+		<wsdl:part element="xtee:asutus" name="asutus"/>
+		<wsdl:part element="xtee:andmekogu" name="andmekogu"/>
+		<wsdl:part element="xtee:isikukood" name="isikukood"/>
+		<wsdl:part element="xtee:id" name="id"/>
+		<wsdl:part element="xtee:nimi" name="nimi"/>
+		<wsdl:part element="xtee:ametnik" name="ametnik"/>
+	</wsdl:message>
+	<wsdl:message name="AsynchronousParingTulemResponse">
+		<wsdl:part name="paring" type="tns:AsynchronousParingTulemRequest"/>
+		<wsdl:part name="keha" type="tns:AsynchronousParingTulemResponse"/>
+	</wsdl:message>
+	<wsdl:message name="KontrolliToimetulekuToetuseSaamistResponse">
+		<wsdl:part name="paring" type="tns:KontrolliToimetulekuToetuseSaamistRequest"/>
+		<wsdl:part name="keha" type="tns:KontrolliToimetulekuToetuseSaamistResponse"/>
+	</wsdl:message>
+	<wsdl:message name="HooldajaHooldusedResponse">
+		<wsdl:part name="paring" type="tns:HooldajaHooldusedRequest"/>
+		<wsdl:part name="keha" type="tns:HooldajaHooldusedResponse"/>
+	</wsdl:message>
+	<wsdl:message name="HooldajaHooldusedRequest">
+		<wsdl:part name="keha" type="tns:HooldajaHooldusedRequest"/>
+	</wsdl:message>
+	<wsdl:message name="HooldajaHooldusedMassParingResponse">
+		<wsdl:part name="paring" type="tns:HooldajaHooldusedMassParingRequest"/>
+		<wsdl:part name="keha" type="tns:HooldajaHooldusedMassParingResponse"/>
+	</wsdl:message>
+	<wsdl:message name="AsynchronousParingTulemRequest">
+		<wsdl:part name="keha" type="tns:AsynchronousParingTulemRequest"/>
+	</wsdl:message>
+	<wsdl:message name="KontrolliToimetulekuToetuseSaamistRequest">
+		<wsdl:part name="keha" type="tns:KontrolliToimetulekuToetuseSaamistRequest"/>
+	</wsdl:message>
+	<wsdl:portType name="starport">
+		<wsdl:operation name="HooldajaHooldusedMassParing">
+			<wsdl:documentation>
+				<xtee:title>HooldajaHooldusedMassParing</xtee:title>
+			</wsdl:documentation>
+			<wsdl:input message="tns:HooldajaHooldusedMassParingRequest" name="HooldajaHooldusedMassParingRequest"/>
+			<wsdl:output message="tns:HooldajaHooldusedMassParingResponse" name="HooldajaHooldusedMassParingResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="AsynchronousParingTulem">
+			<wsdl:documentation>
+				<xtee:title>AsynchronousParingTulem</xtee:title>
+			</wsdl:documentation>
+			<wsdl:input message="tns:AsynchronousParingTulemRequest" name="AsynchronousParingTulemRequest"/>
+			<wsdl:output message="tns:AsynchronousParingTulemResponse" name="AsynchronousParingTulemResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="KontrolliToimetulekuToetuseSaamist">
+			<wsdl:documentation>
+				<xtee:title>KontrolliToimetulekuToetuseSaamist</xtee:title>
+			</wsdl:documentation>
+			<wsdl:input message="tns:KontrolliToimetulekuToetuseSaamistRequest" name="KontrolliToimetulekuToetuseSaamistRequest"/>
+			<wsdl:output message="tns:KontrolliToimetulekuToetuseSaamistResponse" name="KontrolliToimetulekuToetuseSaamistResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="HooldajaHooldused">
+			<wsdl:documentation>
+				<xtee:title>HooldajaHooldused</xtee:title>
+			</wsdl:documentation>
+			<wsdl:input message="tns:HooldajaHooldusedRequest" name="HooldajaHooldusedRequest"/>
+			<wsdl:output message="tns:HooldajaHooldusedResponse" name="HooldajaHooldusedResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="starportSoap11" type="tns:starport">
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="HooldajaHooldusedMassParing">
+			<soap:operation soapAction=""/>
+			<xtee:version>v1</xtee:version>
+			<wsdl:input name="HooldajaHooldusedMassParingRequest">
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="asutus" use="literal"/>
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="andmekogu" use="literal"/>
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="isikukood" use="literal"/>
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="id" use="literal"/>
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="nimi" use="literal"/>
+				<soap:body namespace="http://producers.star.xtee.riik.ee/producer/star" use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="HooldajaHooldusedMassParingResponse">
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="asutus" use="literal"/>
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="andmekogu" use="literal"/>
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="isikukood" use="literal"/>
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="id" use="literal"/>
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="nimi" use="literal"/>
+				<soap:body namespace="http://producers.star.xtee.riik.ee/producer/star" use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="AsynchronousParingTulem">
+			<soap:operation soapAction=""/>
+			<xtee:version>v1</xtee:version>
+			<wsdl:input name="AsynchronousParingTulemRequest">
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="asutus" use="literal"/>
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="andmekogu" use="literal"/>
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="isikukood" use="literal"/>
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="id" use="literal"/>
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="nimi" use="literal"/>
+				<soap:body namespace="http://producers.star.xtee.riik.ee/producer/star" use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="AsynchronousParingTulemResponse">
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="asutus" use="literal"/>
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="andmekogu" use="literal"/>
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="isikukood" use="literal"/>
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="id" use="literal"/>
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="nimi" use="literal"/>
+				<soap:body namespace="http://producers.star.xtee.riik.ee/producer/star" use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="KontrolliToimetulekuToetuseSaamist">
+			<soap:operation soapAction=""/>
+			<xtee:version>v1</xtee:version>
+			<wsdl:input name="KontrolliToimetulekuToetuseSaamistRequest">
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="asutus" use="literal"/>
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="andmekogu" use="literal"/>
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="isikukood" use="literal"/>
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="id" use="literal"/>
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="nimi" use="literal"/>
+				<soap:body namespace="http://producers.star.xtee.riik.ee/producer/star" use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="KontrolliToimetulekuToetuseSaamistResponse">
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="asutus" use="literal"/>
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="andmekogu" use="literal"/>
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="isikukood" use="literal"/>
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="id" use="literal"/>
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="nimi" use="literal"/>
+				<soap:body namespace="http://producers.star.xtee.riik.ee/producer/star" use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="HooldajaHooldused">
+			<soap:operation soapAction=""/>
+			<xtee:version>v1</xtee:version>
+			<wsdl:input name="HooldajaHooldusedRequest">
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="asutus" use="literal"/>
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="andmekogu" use="literal"/>
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="isikukood" use="literal"/>
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="id" use="literal"/>
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="nimi" use="literal"/>
+				<soap:body namespace="http://producers.star.xtee.riik.ee/producer/star" use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="HooldajaHooldusedResponse">
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="asutus" use="literal"/>
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="andmekogu" use="literal"/>
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="isikukood" use="literal"/>
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="id" use="literal"/>
+				<soap:header message="tns:xteeStandardPais" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" part="nimi" use="literal"/>
+				<soap:body namespace="http://producers.star.xtee.riik.ee/producer/star" use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="starportService">
+		<wsdl:port binding="tns:starportSoap11" name="starportSoap11">
+			<soap:address location="http://TURVASERVER/cgi-bin/consumer_proxy"/>
+			<xtee:address producer="star"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
