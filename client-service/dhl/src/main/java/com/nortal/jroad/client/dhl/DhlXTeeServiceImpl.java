@@ -97,7 +97,7 @@ import com.nortal.jroad.client.dhl.types.ee.riik.xtee.dhl.producers.producer.dhl
 import com.nortal.jroad.client.dhl.types.ee.sk.digiDoc.v13.DataFileType;
 import com.nortal.jroad.client.dhl.types.ee.sk.digiDoc.v13.SignedDocType;
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.service.XTeeDatabaseService;
+import com.nortal.jroad.client.service.v2.XTeeDatabaseService;
 import com.nortal.jroad.client.service.extractor.CustomExtractor;
 import com.nortal.jroad.model.XTeeAttachment;
 import com.nortal.jroad.model.XTeeMessage;

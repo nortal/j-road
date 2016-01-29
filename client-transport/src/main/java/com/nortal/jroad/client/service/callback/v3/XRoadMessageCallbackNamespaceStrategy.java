@@ -7,18 +7,18 @@
  * License.
  **/
 
-package com.nortal.jroad.client.service.callback;
+package com.nortal.jroad.client.service.callback.v3;
 
+import com.nortal.jroad.client.service.callback.MessageCallbackNamespaceStrategy;
+import com.nortal.jroad.client.service.configuration.BaseXRoadServiceConfiguration;
 import javax.xml.soap.SOAPElement;
 import javax.xml.soap.SOAPEnvelope;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPHeader;
 
-import com.nortal.jroad.client.service.configuration.XTeeServiceConfiguration;
-
 /**
  * Adds XRoad query header elements (-- as specified by
- * {@link XTeeServiceConfiguration}) and adds the attachments to message.
+ * {@link BaseXRoadServiceConfiguration}) and adds the attachments to message.
  *
  * @author Kait Kasak (kait.kasak@nortal.com)
  */
@@ -35,7 +35,7 @@ public class XRoadMessageCallbackNamespaceStrategy extends MessageCallbackNamesp
 	}
 
 	@Override
-	public void addXTeeHeaderElements(SOAPEnvelope env, XTeeServiceConfiguration serviceConfiguration)
+	public void addXTeeHeaderElements(SOAPEnvelope env, BaseXRoadServiceConfiguration serviceConfiguration)
 	        throws SOAPException {
 		SOAPHeader header = env.getHeader();
 		SOAPElement consumer = header.addChildElement("consumer", "xro");

@@ -24,7 +24,7 @@ import com.nortal.jroad.client.koodikeskus.types.ee.riik.xtee.koodikeskus.produc
 import com.nortal.jroad.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.RetseptinoueLiik;
 import com.nortal.jroad.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.Soodustus;
 import com.nortal.jroad.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.Toimeaine;
-import com.nortal.jroad.client.service.XTeeDatabaseService;
+import com.nortal.jroad.client.service.v2.XTeeDatabaseService;
 import com.nortal.jroad.model.XTeeMessage;
 import com.nortal.jroad.model.XmlBeansXTeeMessage;
 

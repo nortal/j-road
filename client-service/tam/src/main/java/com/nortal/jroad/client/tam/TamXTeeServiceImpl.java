@@ -7,7 +7,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.service.XTeeDatabaseService;
+import com.nortal.jroad.client.service.v2.XTeeDatabaseService;
 import com.nortal.jroad.client.tam.types.ee.riik.xtee.tam.producers.producer.tam.MuudatusKoodVastus;
 import com.nortal.jroad.client.tam.types.ee.riik.xtee.tam.producers.producer.tam.MuudatuseType;
 import com.nortal.jroad.client.tam.types.ee.riik.xtee.tam.producers.producer.tam.Registriisik;

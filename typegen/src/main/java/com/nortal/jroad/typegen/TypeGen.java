@@ -1,5 +1,14 @@
 package com.nortal.jroad.typegen;
 
+import com.nortal.jroad.enums.XRoadProtocolVersion;
+import com.nortal.jroad.model.XmlBeansXTeeMetadata;
+import com.nortal.jroad.typegen.database.DatabaseClasses;
+import com.nortal.jroad.typegen.database.DatabaseGenerator;
+import com.nortal.jroad.typegen.xmlbeans.BasepackageBinder;
+import com.nortal.jroad.typegen.xmlbeans.SimpleFiler;
+import com.nortal.jroad.typegen.xmlbeans.XteeSchemaCodePrinter;
+import com.nortal.jroad.util.SOAPUtil;
+import freemarker.template.TemplateException;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -14,11 +23,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-
 import org.apache.xmlbeans.XmlBeans;
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlObject;
@@ -27,17 +34,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
-import com.nortal.jroad.model.XmlBeansXTeeMetadata;
-import com.nortal.jroad.typegen.database.DatabaseClasses;
-import com.nortal.jroad.typegen.database.DatabaseGenerator;
-import com.nortal.jroad.typegen.xmlbeans.BasepackageBinder;
-import com.nortal.jroad.typegen.xmlbeans.SimpleFiler;
-import com.nortal.jroad.typegen.xmlbeans.XteeSchemaCodePrinter;
-import com.nortal.jroad.util.SOAPUtil;
-import com.nortal.jroad.util.XTeeUtil;
-
-import freemarker.template.TemplateException;
 
 /**
  * XMLBeans types generator
@@ -48,6 +44,10 @@ public class TypeGen {
   private static final String WSDL_NS = "http://schemas.xmlsoap.org/wsdl/";
   private static final String SCHEMA_NS = "http://www.w3.org/2001/XMLSchema";
   private static final String NS_PREFIX = "xmlns";
+  private static final String XTEE_V2_NAMESPACE_PATTERN = "http://producers\\..+?\\.xtee\\.riik\\.ee/producer/.+?$";
+  private static final String XROAD_V3_0_NAMESPACE_PATTERN = "http://(.+?)\\.ee\\.x-rd\\.net/producer[/]??$";
+  private static final String XROAD_V3_1_NAMESPACE_PATTERN = "http://(.+?)\\.x-road\\.ee/producer[/]??$";
+  private static final String XROAD_V4_NAMESPACE_PATTERN = "http://(.+?)\\.x-road\\.eu.*?$";
 
   private static final String WSDL_DIR = "wsdldir";
   private static final String WSDL_SUFFIX = ".wsdl";
@@ -63,7 +63,8 @@ public class TypeGen {
   private static File curWsdl;
   private static File hashFile;
   private static byte[] computedHash;
-  private static boolean useXRoadNamespace;
+  private static XRoadProtocolVersion version;
+  private static String database;
 
   public static void main(String[] args) throws Exception {
     System.out.println("Starting source generation...");
@@ -234,7 +235,6 @@ public class TypeGen {
     DocumentBuilder builder = fac.newDocumentBuilder();
 
     for (File wsdl : wsdls) {
-      System.out.println(wsdl.getName());
       Document xmlWsdl = builder.parse(wsdl);
       curWsdl = wsdl;
       schemas.addAll(getSchemas(xmlWsdl.getElementsByTagNameNS(WSDL_NS, "types").item(0),
@@ -298,31 +298,12 @@ public class TypeGen {
    * @throws Exception
    */
   private static void createMetadata(Document wsdlDoc) throws Exception {
-
-    Map<String, QName> messageMap = getMessageMap(wsdlDoc);
-
     String opNs =
         wsdlDoc.getElementsByTagNameNS(WSDL_NS, "definitions").item(0).getAttributes().getNamedItem("targetNamespace").getNodeValue().toLowerCase();
 
-    String database;
-		Pattern p = Pattern.compile("http://producers\\..+?\\.xtee\\.riik\\.ee/producer/.+?$");
-		Matcher m = p.matcher(opNs);
-		if (m.matches()) {
-			database = opNs.substring(opNs.lastIndexOf("/") + 1);
-		} else {
-			p = Pattern.compile("http://(.+?)\\.ee\\.x-rd\\.net/producer[/]??$");
-			m = p.matcher(opNs);
-			if (m.matches()) {
-				useXRoadNamespace = true;
-				database = m.group(1);
-			} else {
-				// WSDL does not follow X-tee convention, warn and use WSDL name
-				// as database
-				System.out.println("WARNING: WSDL namespace does not match X-tee convention (found: " + opNs
-				        + "), setting database name from WSDL filename!");
-				database = curWsdl.getName().substring(0, curWsdl.getName().toLowerCase().indexOf(".wsdl"));
-			}
-		}
+    parseWsdlMetadata(opNs);
+
+    Map<String, QName> messageMap = getMessageMap(wsdlDoc);
 
     Node binding = wsdlDoc.getElementsByTagNameNS(WSDL_NS, "binding").item(0);
     NodeList bindingChildren = binding.getChildNodes();
@@ -342,9 +323,7 @@ public class TypeGen {
         for (int j = 0; j < operationChildren.getLength(); j++) {
           Node operationChild = operationChildren.item(j);
 
-          String namespaceURI = operationChild.getNamespaceURI();
-		if ((XTeeUtil.XTEE_NS_URI.equals(namespaceURI) || XTeeUtil.XTEEV5_NS_URI.equals(namespaceURI))
-              && "version".equals(operationChild.getLocalName())) {
+          if ("version".equals(operationChild.getLocalName())) {
             version = SOAPUtil.getTextContent(operationChild);
             break;
           }
@@ -422,6 +401,44 @@ public class TypeGen {
       }
     }
   }
+
+  private static void parseWsdlMetadata(String opNs) {
+    Pattern v2 = Pattern.compile(XTEE_V2_NAMESPACE_PATTERN);
+    Matcher m;
+    m = v2.matcher(opNs);
+    if (m.matches()) {
+      version = XRoadProtocolVersion.V2_0;
+      database = opNs.substring(opNs.lastIndexOf("/") + 1);
+      return;
+    }
+    Pattern v3_0 = Pattern.compile(XROAD_V3_0_NAMESPACE_PATTERN);
+    m = v3_0.matcher(opNs);
+    if (m.matches()) {
+      version = XRoadProtocolVersion.V3_0;
+      database = m.group(1);
+      return;
+    }
+    Pattern v3_1 = Pattern.compile(XROAD_V3_1_NAMESPACE_PATTERN);
+    m = v3_1.matcher(opNs);
+    if (m.matches()) {
+      version = XRoadProtocolVersion.V3_1;
+      database = m.group(1);
+      return;
+    }
+    Pattern v4 = Pattern.compile(XROAD_V4_NAMESPACE_PATTERN);
+    m = v4.matcher(opNs);
+    if (m.matches()) {
+      version = XRoadProtocolVersion.V4_0;
+      database = m.group(1);
+      return;
+    }
+    // WSDL does not follow X-tee convention, warn and use WSDL name
+    // as database
+    System.out.println("WARNING: WSDL namespace does not match X-tee convention (found: " + opNs
+        + "), setting database name from WSDL filename!");
+    version = XRoadProtocolVersion.V2_0;
+    database = curWsdl.getName().substring(0, curWsdl.getName().toLowerCase().indexOf(".wsdl"));
+  }
   
   private static final List<String> MESSAGE_WRAPPER_NAMES = Arrays.asList("keha", "body", "request", "response");
   
@@ -439,9 +456,9 @@ public class TypeGen {
       NodeList parts = message.getChildNodes();
       for (int j = 0; j < parts.getLength(); j++) {
         Node part = parts.item(j);
-				if (WSDL_NS.equals(part.getNamespaceURI())
-				        && "part".equals(part.getLocalName())
-				        && (MESSAGE_WRAPPER_NAMES.contains(part.getAttributes().getNamedItem("name").getNodeValue()))) {
+        if (WSDL_NS.equals(part.getNamespaceURI())
+            && "part".equals(part.getLocalName())
+            && (XRoadProtocolVersion.V2_0 != version || MESSAGE_WRAPPER_NAMES.contains(part.getAttributes().getNamedItem("name").getNodeValue()))) {
           Node element = part.getAttributes().getNamedItem("element");
           String[] type =
               element == null
@@ -457,8 +474,8 @@ public class TypeGen {
   }
 
   private static void generateDatabaseClasses(String outputdir) throws IOException, TemplateException {
-	DatabaseClasses classes = new DatabaseClasses(argMap.get(XSB_DIR), argMap.get(DB_CLASSES_PACKAGE),
-		        useXRoadNamespace);
+    DatabaseClasses classes =
+        new DatabaseClasses(argMap.get(XSB_DIR), argMap.get(DB_CLASSES_PACKAGE), version);
     for (Map.Entry<String, XmlBeansXTeeMetadata> entry : metadata.entrySet()) {
       XmlBeansXTeeMetadata serviceMetadata = entry.getValue();
 

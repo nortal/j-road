@@ -2,16 +2,16 @@ package com.nortal.jroad.client.service.consumer;
 
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
 import com.nortal.jroad.client.service.callback.CustomCallback;
-import com.nortal.jroad.client.service.configuration.XTeeServiceConfiguration;
+import com.nortal.jroad.client.service.configuration.BaseXRoadServiceConfiguration;
 import com.nortal.jroad.client.service.extractor.CustomExtractor;
 import com.nortal.jroad.model.XTeeMessage;
 
 /**
- * Service consumer which act as as a high level abstraction for X-tee data exchange processes.
+ * Service consumer which act as as a high level abstraction for X-Road data exchange processes.
  *
  * @author Roman Tekhov
  */
-public interface XTeeConsumer {
+public interface XRoadConsumer {
 
   /**
    * Performs an invocation of some X-tee service.
@@ -22,7 +22,7 @@ public interface XTeeConsumer {
    * @param xTeeServiceConfiguration service configuration data
    * @return Java object representing the response
    */
-  <I, O> XTeeMessage<O> sendRequest(XTeeMessage<I> input, XTeeServiceConfiguration xTeeServiceConfiguration)
+  <I, O> XTeeMessage<O> sendRequest(XTeeMessage<I> input, BaseXRoadServiceConfiguration xTeeServiceConfiguration)
       throws XTeeServiceConsumptionException;
 
   /**
@@ -37,7 +37,7 @@ public interface XTeeConsumer {
    * @return Java object representing the response
    */
   <I, O> XTeeMessage<O> sendRequest(XTeeMessage<I> input,
-                                    XTeeServiceConfiguration xTeeServiceConfiguration,
+                                    BaseXRoadServiceConfiguration xTeeServiceConfiguration,
                                     CustomCallback callback,
                                     CustomExtractor extractor) throws XTeeServiceConsumptionException;
 

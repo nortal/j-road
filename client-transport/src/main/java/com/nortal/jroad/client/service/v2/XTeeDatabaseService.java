@@ -1,8 +1,9 @@
-package com.nortal.jroad.client.service;
+package com.nortal.jroad.client.service.v2;
+
+import com.nortal.jroad.client.service.BaseXRoadDatabaseService;
 
 import javax.annotation.Resource;
-
-import com.nortal.jroad.client.service.consumer.XTeeConsumer;
+import com.nortal.jroad.client.service.consumer.XRoadConsumer;
 
 /**
  * Base class for all standard X-tee services implementations. Database name
@@ -13,17 +14,17 @@ import com.nortal.jroad.client.service.consumer.XTeeConsumer;
  * @author Roman Tekhov
  * @author Dmitri Danilkin
  */
-public abstract class XTeeDatabaseService extends BaseXTeeDatabaseService {
+public abstract class XTeeDatabaseService extends BaseXRoadDatabaseService {
 
   @Resource
-  protected XTeeConsumer xTeeConsumer;
+  protected XRoadConsumer xTeeConsumer;
 
   @Override
-  protected XTeeConsumer getXTeeConsumer() {
+  protected XRoadConsumer getXRoadConsumer() {
     return xTeeConsumer;
   }
 
-  public void setxTeeConsumer(XTeeConsumer xTeeConsumer) {
+  public void setxTeeConsumer(XRoadConsumer xTeeConsumer) {
     this.xTeeConsumer = xTeeConsumer;
   }
 

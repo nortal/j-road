@@ -12,7 +12,7 @@ import com.nortal.jroad.client.kirst.types.ee.riik.xtee.kirst.producers.producer
 import com.nortal.jroad.client.kirst.types.ee.riik.xtee.kirst.producers.producer.kirst.XTParingKindlustusalus;
 import com.nortal.jroad.client.kirst.types.ee.riik.xtee.kirst.producers.producer.kirst.XTParingKindlustused;
 import com.nortal.jroad.client.kirst.types.ee.riik.xtee.kirst.producers.producer.kirst.XTParingKindlustused2;
-import com.nortal.jroad.client.service.XTeeDatabaseService;
+import com.nortal.jroad.client.service.v2.XTeeDatabaseService;
 
 /**
  * @author Roman Tekhov

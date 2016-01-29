@@ -7,19 +7,20 @@
  * License.
  **/
 
-package com.nortal.jroad.client.service.configuration;
+package com.nortal.jroad.client.service.configuration.v2;
 
+import com.nortal.jroad.client.service.configuration.BaseXRoadServiceConfiguration;
 import java.io.Serializable;
 
 /**
- * A simple {@link XTeeServiceConfiguration} implementation which acts in a JavaBean manner allowing to define all
+ * A simple {@link BaseXRoadServiceConfiguration} implementation which acts in a JavaBean manner allowing to define all
  * required valus via setters.
  * 
- * @see XTeeServiceConfiguration
+ * @see BaseXRoadServiceConfiguration
  * @author Rando Mihkelsaar
  * @author Dmitri Danilkin
  */
-public class SimpleXTeeServiceConfiguration implements XTeeServiceConfiguration, Serializable {
+public class SimpleXTeeServiceConfiguration implements BaseXRoadServiceConfiguration, Serializable {
   private static final long serialVersionUID = 1L;
   private String database;
   private String wsdlDatabase;

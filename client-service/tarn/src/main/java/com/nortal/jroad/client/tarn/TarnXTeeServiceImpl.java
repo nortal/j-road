@@ -23,7 +23,7 @@ import org.springframework.ws.WebServiceMessage;
 import org.springframework.ws.soap.saaj.SaajSoapMessage;
 
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.service.XTeeDatabaseService;
+import com.nortal.jroad.client.service.v2.XTeeDatabaseService;
 import com.nortal.jroad.client.service.callback.CustomCallback;
 import com.nortal.jroad.client.tarn.database.TarnXTeeDatabase;
 import com.nortal.jroad.client.tarn.types.ee.riik.xtee.etoimik.producers.producer.etoimik.Aadress;

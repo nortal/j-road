@@ -1,9 +1,9 @@
 package com.nortal.jroad.client.ads;
 
+import com.nortal.jroad.client.service.v2.XTeeDatabaseService;
+
 import javax.annotation.Resource;
-
 import org.springframework.stereotype.Service;
-
 import com.nortal.jroad.client.ads.AdsXTeeService;
 import com.nortal.jroad.client.ads.database.AdsXTeeDatabase;
 import com.nortal.jroad.client.ads.types.ee.maaamet.ADSaadrmuudatusedv2ParingType;
@@ -42,7 +42,6 @@ import com.nortal.jroad.client.ads.types.ee.maaamet.ADSprobleemidParingType.Prob
 import com.nortal.jroad.client.ads.types.ee.maaamet.ADSteavitusedParingType.TeavitusedParam;
 import com.nortal.jroad.client.ads.types.ee.maaamet.ADStekstotsingParingType.AadrTekstParam;
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.service.XTeeDatabaseService;
 
 @Service("adsXTeeService")
 public class AdsXTeeServiceImpl extends XTeeDatabaseService implements AdsXTeeService {

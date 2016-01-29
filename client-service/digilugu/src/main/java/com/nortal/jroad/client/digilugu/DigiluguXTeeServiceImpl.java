@@ -11,7 +11,7 @@ import com.nortal.jroad.client.digilugu.types.hl7_orgV3.RCMRIN000030UV01Document
 import com.nortal.jroad.client.digilugu.types.hl7_orgV3.RCMRIN000031UV01Document;
 import com.nortal.jroad.client.exception.NonTechnicalFaultException;
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.service.XTeeDatabaseService;
+import com.nortal.jroad.client.service.v2.XTeeDatabaseService;
 import com.nortal.jroad.model.XTeeMessage;
 import com.nortal.jroad.model.XmlBeansXTeeMessage;
 

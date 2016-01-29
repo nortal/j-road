@@ -1,9 +1,10 @@
 package com.nortal.jroad.client.service.callback;
 
-import static com.nortal.jroad.client.service.consumer.StandardXTeeConsumer.ROOT_NS;
+import static com.nortal.jroad.client.service.consumer.v2.StandardXTeeConsumer.ROOT_NS;
+
+import com.nortal.jroad.client.service.configuration.BaseXRoadServiceConfiguration;
 
 import java.io.IOException;
-
 import javax.xml.namespace.QName;
 import javax.xml.soap.SOAPBody;
 import javax.xml.soap.SOAPElement;
@@ -12,15 +13,12 @@ import javax.xml.soap.SOAPFactory;
 import javax.xml.soap.SOAPMessage;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.dom.DOMResult;
-
 import org.apache.xmlbeans.XmlCursor;
 import org.apache.xmlbeans.XmlObject;
 import org.springframework.oxm.Marshaller;
 import org.springframework.ws.WebServiceMessage;
 import org.springframework.ws.client.core.WebServiceMessageCallback;
 import org.springframework.ws.soap.saaj.SaajSoapMessage;
-
-import com.nortal.jroad.client.service.configuration.XTeeServiceConfiguration;
 import com.nortal.jroad.model.XmlBeansXTeeMetadata;
 
 /**
@@ -32,18 +30,21 @@ public class StandardXTeeConsumerCallback implements WebServiceMessageCallback {
   private final XTeeMessageCallback callback;
   private final Marshaller marshaller;
   private final XmlBeansXTeeMetadata metadata;
-  private final boolean useXroadSchema;
+  private final String namespace;
+  private final boolean setEncodingStyle;
 
   public StandardXTeeConsumerCallback(Object object,
                                       XTeeMessageCallback callback,
                                       Marshaller marshaller,
                                       XmlBeansXTeeMetadata metadata,
-                                      boolean useXroadSchema) {
+                                      String namespace,
+                                      boolean setEncodingStyle) {
     this.object = object;
     this.callback = callback;
     this.marshaller = marshaller;
     this.metadata = metadata;
-    this.useXroadSchema = useXroadSchema;
+    this.namespace = namespace;
+    this.setEncodingStyle = setEncodingStyle;
   }
 
   public void doWithMessage(WebServiceMessage request) throws IOException, TransformerException {
@@ -55,22 +56,16 @@ public class StandardXTeeConsumerCallback implements WebServiceMessageCallback {
       SOAPFactory factory = SOAPFactory.newInstance();
       SOAPElement rootElement;
 
-      XTeeServiceConfiguration serviceConfiguration = callback.getServiceConfiguration();
-      String databaseBasedNs;
-      if(useXroadSchema) {
-    	  databaseBasedNs = String.format("http://%s.ee.x-rd.net/producer", serviceConfiguration.getDatabase());
-      } else {
-    	  databaseBasedNs = String.format("http://producers.%s.xtee.riik.ee/producer/%s", serviceConfiguration.getDatabase(), serviceConfiguration.getDatabase());
-      }
+      BaseXRoadServiceConfiguration serviceConfiguration = callback.getServiceConfiguration();
 
-      if (serviceConfiguration.getForceDatabaseNamespace() && !metadata.getOperationNs().equals(databaseBasedNs)) {
-        mes.getSOAPPart().getEnvelope().addNamespaceDeclaration(ROOT_NS, databaseBasedNs);
-        rootElement = factory.createElement(metadata.getOperationName(), ROOT_NS, databaseBasedNs);
+      if (serviceConfiguration.getForceDatabaseNamespace() && !metadata.getOperationNs().equals(namespace)) {
+        mes.getSOAPPart().getEnvelope().addNamespaceDeclaration(ROOT_NS, namespace);
+        rootElement = factory.createElement(metadata.getOperationName(), ROOT_NS, namespace);
         XmlCursor c = ((XmlObject)object).newCursor();
         c.toNextToken();
         while (c.hasNextToken()) {
           if ((c.isStart() || c.isAttr() || c.isNamespace()) && metadata.getOperationNs().equals(c.getName().getNamespaceURI())) {
-            c.setName(new QName(databaseBasedNs, c.getName().getLocalPart()));
+            c.setName(new QName(namespace, c.getName().getLocalPart()));
           }
           c.toNextToken();
         }
@@ -80,7 +75,7 @@ public class StandardXTeeConsumerCallback implements WebServiceMessageCallback {
         rootElement = factory.createElement(metadata.getOperationName(), ROOT_NS, metadata.getOperationNs());
       }
 
-      if(!useXroadSchema) {
+      if(setEncodingStyle) {
     	  rootElement.setEncodingStyle("http://schemas.xmlsoap.org/soap/encoding/");
       }
 

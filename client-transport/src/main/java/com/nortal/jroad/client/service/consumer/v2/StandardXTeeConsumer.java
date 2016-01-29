@@ -7,14 +7,28 @@
  * License.
  **/
 
-package com.nortal.jroad.client.service.consumer;
+package com.nortal.jroad.client.service.consumer.v2;
 
+import com.nortal.jroad.client.exception.NonTechnicalFaultException;
+import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.service.callback.CustomCallback;
+import com.nortal.jroad.client.service.callback.StandardXTeeConsumerCallback;
+import com.nortal.jroad.client.service.callback.XTeeMessageCallback;
+import com.nortal.jroad.client.service.callback.v2.XteeMessageCallbackNamespaceStrategy;
+import com.nortal.jroad.client.service.configuration.BaseXRoadServiceConfiguration;
+import com.nortal.jroad.client.service.consumer.XRoadConsumer;
+import com.nortal.jroad.client.service.extractor.CustomExtractor;
+import com.nortal.jroad.client.service.extractor.StandardXTeeConsumerMessageExtractor;
+import com.nortal.jroad.client.util.WSConsumptionLoggingInterceptor;
+import com.nortal.jroad.client.util.XmlBeansUtil;
+import com.nortal.jroad.model.XTeeAttachment;
+import com.nortal.jroad.model.XTeeMessage;
+import com.nortal.jroad.model.XmlBeansXTeeMetadata;
+import com.nortal.jroad.util.AttachmentUtil;
 import java.lang.reflect.Method;
 import java.util.Map;
-
 import javax.activation.DataHandler;
 import javax.xml.namespace.QName;
-
 import org.apache.commons.lang.exception.NestableRuntimeException;
 import org.apache.xmlbeans.XmlObject;
 import org.apache.xmlbeans.XmlOptions;
@@ -27,31 +41,15 @@ import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import org.springframework.ws.client.support.interceptor.ClientInterceptor;
 import org.springframework.ws.soap.client.SoapFaultClientException;
 
-import com.nortal.jroad.client.exception.NonTechnicalFaultException;
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.service.callback.CustomCallback;
-import com.nortal.jroad.client.service.callback.StandardXTeeConsumerCallback;
-import com.nortal.jroad.client.service.callback.XTeeMessageCallback;
-import com.nortal.jroad.client.service.callback.XteeMessageCallbackNamespaceStrategy;
-import com.nortal.jroad.client.service.configuration.XTeeServiceConfiguration;
-import com.nortal.jroad.client.service.extractor.CustomExtractor;
-import com.nortal.jroad.client.service.extractor.StandardXTeeConsumerMessageExtractor;
-import com.nortal.jroad.client.util.WSConsumptionLoggingInterceptor;
-import com.nortal.jroad.client.util.XmlBeansUtil;
-import com.nortal.jroad.model.XTeeAttachment;
-import com.nortal.jroad.model.XTeeMessage;
-import com.nortal.jroad.model.XmlBeansXTeeMetadata;
-import com.nortal.jroad.util.AttachmentUtil;
-
 /**
- * Standard {@link XTeeConsumer} implementation.
+ * Standard {@link XRoadConsumer} implementation.
  *
  * @author Dmitri Danilkin
  * @author Roman Tekhov
  * @author Rando Mihkelsaar
  */
 @Service("xTeeConsumer")
-public class StandardXTeeConsumer extends WebServiceGatewaySupport implements XTeeConsumer {
+public class StandardXTeeConsumer extends WebServiceGatewaySupport implements XRoadConsumer {
   private Map<String, XmlBeansXTeeMetadata> metadata;
   public static final String ROOT_NS = "ns5";
 
@@ -69,13 +67,13 @@ public class StandardXTeeConsumer extends WebServiceGatewaySupport implements XT
     getWebServiceTemplate().setCheckConnectionForFault(false);
   }
 
-  public <I, O> XTeeMessage<O> sendRequest(XTeeMessage<I> input, XTeeServiceConfiguration xTeeServiceConfiguration)
+  public <I, O> XTeeMessage<O> sendRequest(XTeeMessage<I> input, BaseXRoadServiceConfiguration xTeeServiceConfiguration)
       throws XTeeServiceConsumptionException {
     return sendRealRequest(input, xTeeServiceConfiguration, null, null);
   }
 
   public <I, O> XTeeMessage<O> sendRequest(XTeeMessage<I> input,
-                                           XTeeServiceConfiguration xTeeServiceConfiguration,
+                                           BaseXRoadServiceConfiguration xTeeServiceConfiguration,
                                            CustomCallback callback,
                                            CustomExtractor extractor) throws XTeeServiceConsumptionException {
     return sendRealRequest(input, xTeeServiceConfiguration, callback, extractor);
@@ -83,7 +81,7 @@ public class StandardXTeeConsumer extends WebServiceGatewaySupport implements XT
 
   @SuppressWarnings("unchecked")
   private <I, O> XTeeMessage<O> sendRealRequest(XTeeMessage<I> input,
-                                                XTeeServiceConfiguration xteeServiceConfiguration,
+                                                BaseXRoadServiceConfiguration xteeServiceConfiguration,
                                                 CustomCallback callback,
                                                 CustomExtractor extractor) throws XTeeServiceConsumptionException {
 
@@ -168,19 +166,34 @@ public class StandardXTeeConsumer extends WebServiceGatewaySupport implements XT
   }
 
   protected <I> StandardXTeeConsumerCallback getNewConsumerCallback(XTeeMessage<I> input,
-        XTeeServiceConfiguration xteeServiceConfiguration, XmlBeansXTeeMetadata curdata) {
-	  return new StandardXTeeConsumerCallback(input.getContent(), getNewMessageCallback(input,
-	        xteeServiceConfiguration), getMarshaller(), curdata, false);
+                                                                    BaseXRoadServiceConfiguration xteeServiceConfiguration,
+                                                                    XmlBeansXTeeMetadata curdata) {
+    return new StandardXTeeConsumerCallback(input.getContent(),
+                                            getNewMessageCallback(input, xteeServiceConfiguration),
+                                            getMarshaller(),
+                                            curdata,
+                                            getNamespace(xteeServiceConfiguration),
+                                            isEncodingStyleNeeded());
+  }
+
+  protected String getNamespace(BaseXRoadServiceConfiguration xteeServiceConfiguration) {
+    return String.format("http://producers.%s.xtee.riik.ee/producer/%s",
+                         xteeServiceConfiguration.getDatabase(),
+                         xteeServiceConfiguration.getDatabase());
+  }
+
+  protected boolean isEncodingStyleNeeded() {
+    return true;
   }
 
   protected <I> XTeeMessageCallback getNewMessageCallback(XTeeMessage<I> input,
-       XTeeServiceConfiguration xteeServiceConfiguration) {
+       BaseXRoadServiceConfiguration xteeServiceConfiguration) {
 	  return new XTeeMessageCallback(xteeServiceConfiguration, input.getAttachments(),
 			  new XteeMessageCallbackNamespaceStrategy());
   }
 
   private XTeeServiceConsumptionException resolveException(Exception e,
-                                                           XTeeServiceConfiguration xteeServiceConfiguration) {
+                                                           BaseXRoadServiceConfiguration xteeServiceConfiguration) {
 
     WebServiceIOException ioException = null;
     SoapFaultClientException faultException = null;

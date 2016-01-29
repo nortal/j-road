@@ -1,16 +1,16 @@
-package com.nortal.jroad.client.service.callback;
+package com.nortal.jroad.client.service.callback.v2;
 
+import com.nortal.jroad.client.service.callback.MessageCallbackNamespaceStrategy;
+import com.nortal.jroad.client.service.configuration.BaseXRoadServiceConfiguration;
 import javax.xml.soap.SOAPElement;
 import javax.xml.soap.SOAPEnvelope;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPHeader;
 
-import com.nortal.jroad.client.service.configuration.XTeeServiceConfiguration;
-
 /**
  * Adds XTee query header elements ('asutus',
  * 'andmekogu', 'isikukood', etc -- as specified by
- * {@link XTeeServiceConfiguration}) and adds the attachments to message.
+ * {@link BaseXRoadServiceConfiguration}) and adds the attachments to message.
  *
  * @author Kait Kasak (kait.kasak@nortal.com)
  *
@@ -27,7 +27,7 @@ public class XteeMessageCallbackNamespaceStrategy extends MessageCallbackNamespa
 	}
 
 	@Override
-    public void addXTeeHeaderElements(SOAPEnvelope env, XTeeServiceConfiguration serviceConfiguration)
+    public void addXTeeHeaderElements(SOAPEnvelope env, BaseXRoadServiceConfiguration serviceConfiguration)
 	        throws SOAPException {
 		SOAPHeader header = env.getHeader();
 		SOAPElement pasutus = header.addChildElement("asutus", "ns4");
@@ -56,14 +56,6 @@ public class XteeMessageCallbackNamespaceStrategy extends MessageCallbackNamespa
 		sb.append(".");
 		sb.append(serviceConfiguration.getVersion() == null ? "v1" : serviceConfiguration.getVersion());
 		pnimi.addTextNode(sb.toString());
-
-		// deprecated:
-		// http://ftp.ria.ee/pub/x-tee/doc/nouded_infosysteemidele.pdf
-		if (serviceConfiguration.useDeprecatedApi()) {
-			SOAPElement pametnik = header.addChildElement("ametnik", "ns4");
-			pametnik.addAttribute(env.createName("xsi:type"), "xsd:string");
-			pametnik.addTextNode(serviceConfiguration.getIdCode());
-		}
 	}
 
 }

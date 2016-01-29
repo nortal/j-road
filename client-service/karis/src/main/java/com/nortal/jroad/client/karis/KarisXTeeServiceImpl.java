@@ -12,7 +12,7 @@ import com.nortal.jroad.client.karis.types.ee.riik.xtee.karis.producers.producer
 import com.nortal.jroad.client.karis.types.ee.riik.xtee.karis.producers.producer.karis.KrIsikVastus;
 import com.nortal.jroad.client.karis.types.ee.riik.xtee.karis.producers.producer.karis.KrIsikudParing;
 import com.nortal.jroad.client.karis.types.ee.riik.xtee.karis.producers.producer.karis.KrIsikudVastus;
-import com.nortal.jroad.client.service.XTeeDatabaseService;
+import com.nortal.jroad.client.service.v2.XTeeDatabaseService;
 
 @Service("karisXTeeService")
 public class KarisXTeeServiceImpl extends XTeeDatabaseService implements KarisXTeeService {

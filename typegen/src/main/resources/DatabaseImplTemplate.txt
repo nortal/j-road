@@ -1,21 +1,21 @@
 package ${databaseClass.packageName};
 
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.service.${databaseClass.baseImplementationName};
+import com.nortal.jroad.client.service.${databaseClass.packageSuffix}.${databaseClass.baseImplementationName};
 import com.nortal.jroad.model.XTeeMessage;
 import com.nortal.jroad.model.XmlBeansXTeeMessage;
 import org.springframework.stereotype.Service;
 
 /**
- * <code>${databaseClass.database}</code> X-tee database implementation.
+ * <code>${databaseClass.database}</code> X-road database implementation.
  */
 @Service("${databaseClass.interfaceNameDecapitalized}")
-public class ${databaseClass.implementationName} extends ${databaseClass.baseImplementationName}  implements ${databaseClass.interfaceName} {
+public class ${databaseClass.implementationName} extends ${databaseClass.baseImplementationName} implements ${databaseClass.interfaceName} {
 <#list databaseClass.methods as method>
 <#list method.versions as version>
 
   /**
-   * <code>${databaseClass.database}.${method.name}.v${version.version}</code> X-tee service implementation.
+   * <code>${databaseClass.database}.${method.name}.v${version.version}</code> X-road service implementation.
    */
   public ${method.outputClass} ${version.name}(${method.inputClass} input) throws XTeeServiceConsumptionException {
     XTeeMessage<${method.outputClass}> response = send(new XmlBeansXTeeMessage<${method.inputClass}>(input), "${method.name}", "v${version.version}");

@@ -9,17 +9,15 @@
 
 package com.nortal.jroad.client.service.callback;
 
-import java.util.Collection;
+import com.nortal.jroad.client.service.configuration.BaseXRoadServiceConfiguration;
 
+import java.util.Collection;
 import javax.xml.soap.SOAPEnvelope;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
-
 import org.springframework.ws.WebServiceMessage;
 import org.springframework.ws.client.core.WebServiceMessageCallback;
 import org.springframework.ws.soap.saaj.SaajSoapMessage;
-
-import com.nortal.jroad.client.service.configuration.XTeeServiceConfiguration;
 import com.nortal.jroad.model.XTeeAttachment;
 
 /**
@@ -32,10 +30,10 @@ import com.nortal.jroad.model.XTeeAttachment;
 public class XTeeMessageCallback implements WebServiceMessageCallback {
 
 	private final Collection<XTeeAttachment> attachments;
-	private final XTeeServiceConfiguration serviceConfiguration;
+	private final BaseXRoadServiceConfiguration serviceConfiguration;
 	private MessageCallbackNamespaceStrategy namespaceStrategy;
 
-	public XTeeMessageCallback(XTeeServiceConfiguration serviceConfiguration, Collection<XTeeAttachment> attachments,
+	public XTeeMessageCallback(BaseXRoadServiceConfiguration serviceConfiguration, Collection<XTeeAttachment> attachments,
 	        MessageCallbackNamespaceStrategy namespaceStrategy) {
 		this.serviceConfiguration = serviceConfiguration;
 		this.attachments = attachments;
@@ -61,7 +59,7 @@ public class XTeeMessageCallback implements WebServiceMessageCallback {
 		}
 	}
 
-	public XTeeServiceConfiguration getServiceConfiguration() {
+	public BaseXRoadServiceConfiguration getServiceConfiguration() {
 		return serviceConfiguration;
 	}
 

@@ -1,4 +1,4 @@
-package com.nortal.jroad.client.service.configuration.provider;
+package com.nortal.jroad.client.service.configuration.provider.v2;
 
 /**
  * Simple Javabean style configuration provider implementation.

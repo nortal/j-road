@@ -9,6 +9,11 @@
 
 package com.nortal.jroad.endpoint;
 
+import com.nortal.jroad.enums.XRoadProtocolVersion;
+import com.nortal.jroad.model.BeanXTeeMessage;
+import com.nortal.jroad.model.XTeeAttachment;
+import com.nortal.jroad.model.XTeeMessage;
+import com.nortal.jroad.util.AttachmentUtil;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -16,7 +21,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.activation.DataHandler;
 import javax.annotation.Resource;
 import javax.xml.bind.JAXBContext;
@@ -30,15 +34,9 @@ import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-
-import com.nortal.jroad.model.BeanXTeeMessage;
-import com.nortal.jroad.model.XTeeAttachment;
-import com.nortal.jroad.model.XTeeMessage;
-import com.nortal.jroad.util.AttachmentUtil;
 
 /**
  * X-Tee endpoint that provides request/response manipulation using Java objects via JAXB API. All extension classes
@@ -92,10 +90,15 @@ public abstract class AbstractXTeeJAXBEndpoint<T> extends AbstractXTeeBaseEndpoi
     requestUnmarshaller.setAttachmentUnmarshaller(new XteeAttachmentUnmarshaller(request));
 
     Document requestOnly = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-    Node singleNode =
-        (Node) XPathFactory.newInstance().newXPath().evaluate("//*[local-name()='keha']",
-                                                              request.getContent(),
-                                                              XPathConstants.NODE);
+    Node singleNode;
+    if (XRoadProtocolVersion.V2_0 == version) {
+      singleNode =
+          (Node) XPathFactory.newInstance().newXPath().evaluate("//*[local-name()='keha']",
+                                                                request.getContent(),
+                                                                XPathConstants.NODE);
+    } else {
+      singleNode = request.getContent();
+    }
     requestOnly.appendChild(requestOnly.importNode(singleNode, true));
 
     XTeeMessage<T> jaxbRequestMessage =
@@ -113,7 +116,11 @@ public abstract class AbstractXTeeJAXBEndpoint<T> extends AbstractXTeeBaseEndpoi
       JAXBContext responseJc = newJAXBContextInstance();
       Marshaller responseMarshaller = responseJc.createMarshaller();
       responseMarshaller.setAttachmentMarshaller(new XteeAttachmentMarshaller(response));
-      responseMarshaller.marshal(new JAXBElement(new QName("keha"), bean.getClass(), bean), parent);
+      if (XRoadProtocolVersion.V2_0 == version) {
+        responseMarshaller.marshal(new JAXBElement(new QName("keha"), bean.getClass(), bean), parent);
+      } else {
+        responseMarshaller.marshal(bean, parent);
+      }
     }
   }
 

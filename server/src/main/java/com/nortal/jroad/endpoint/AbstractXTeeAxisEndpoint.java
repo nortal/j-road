@@ -1,10 +1,11 @@
 package com.nortal.jroad.endpoint;
 
+import com.nortal.jroad.enums.XRoadProtocolVersion;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
-
 import javax.annotation.Resource;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.soap.AttachmentPart;
@@ -13,14 +14,12 @@ import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
-
 import org.apache.axis.Message;
 import org.springframework.xml.transform.StringResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
 import com.nortal.jroad.endpoint.helper.AxisContextHelper;
 import com.nortal.jroad.model.BeanXTeeMessage;
 import com.nortal.jroad.model.XTeeAttachment;
@@ -51,7 +50,13 @@ public abstract class AbstractXTeeAxisEndpoint<P, V> extends AbstractXTeeBaseEnd
     // Axis can't parse the "keha" node and the header is not needed.
     // So both are removed and the children of the "keha" node re-added to it's parent node.
     requestMessage.getSOAPHeader().detachNode();
-    Node bodyNode = SOAPUtil.getNodeByXPath(requestMessage.getSOAPBody(), "//keha");
+    
+    Node bodyNode;
+    if (XRoadProtocolVersion.V2_0 == version) {
+     bodyNode = SOAPUtil.getNodeByXPath(requestMessage.getSOAPBody(), "//keha");
+    } else {
+      bodyNode = requestMessage.getSOAPBody();
+    }
     Node reqNode = bodyNode.getParentNode();
     NodeList nl = bodyNode.getChildNodes();
     for (int i = 0; i < nl.getLength(); i++) {

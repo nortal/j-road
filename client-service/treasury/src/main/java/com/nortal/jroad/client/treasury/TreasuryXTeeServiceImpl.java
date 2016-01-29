@@ -17,7 +17,7 @@ import org.springframework.ws.WebServiceMessage;
 import org.w3c.dom.Node;
 
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.service.XTeeDatabaseService;
+import com.nortal.jroad.client.service.v2.XTeeDatabaseService;
 import com.nortal.jroad.client.service.callback.CustomCallback;
 import com.nortal.jroad.client.treasury.database.TreasuryXTeeDatabase;
 import com.nortal.jroad.client.treasury.types.ee.riik.xtee.treasury.producers.producer.treasury.SendDocumentRequestType;

@@ -1,32 +1,30 @@
 package com.nortal.jroad.client.aar;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-
-import org.apache.xmlbeans.XmlException;
-import org.apache.xmlbeans.XmlObject;
-import org.apache.xmlbeans.XmlOptions;
-import org.springframework.stereotype.Service;
-
 import com.nortal.jroad.client.aar.types.ee.riik.xtee.aar.producers.producer.aar.AsutusedParing;
 import com.nortal.jroad.client.aar.types.ee.riik.xtee.aar.producers.producer.aar.AsutusedParingManus;
+import com.nortal.jroad.client.aar.types.ee.riik.xtee.aar.producers.producer.aar.AsutusedParingManus.Asutused;
 import com.nortal.jroad.client.aar.types.ee.riik.xtee.aar.producers.producer.aar.AsutusedVastus;
 import com.nortal.jroad.client.aar.types.ee.riik.xtee.aar.producers.producer.aar.AsutusedVastusManus;
 import com.nortal.jroad.client.aar.types.ee.riik.xtee.aar.producers.producer.aar.TaitmisedParing;
 import com.nortal.jroad.client.aar.types.ee.riik.xtee.aar.producers.producer.aar.TaitmisedParingManus;
+import com.nortal.jroad.client.aar.types.ee.riik.xtee.aar.producers.producer.aar.TaitmisedParingManus.Taitmised;
 import com.nortal.jroad.client.aar.types.ee.riik.xtee.aar.producers.producer.aar.TaitmisedVastus;
 import com.nortal.jroad.client.aar.types.ee.riik.xtee.aar.producers.producer.aar.TaitmisedVastusManus;
-import com.nortal.jroad.client.aar.types.ee.riik.xtee.aar.producers.producer.aar.AsutusedParingManus.Asutused;
-import com.nortal.jroad.client.aar.types.ee.riik.xtee.aar.producers.producer.aar.TaitmisedParingManus.Taitmised;
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.service.XTeeDatabaseService;
-import com.nortal.jroad.client.service.configuration.DelegatingXTeeServiceConfiguration;
-import com.nortal.jroad.client.service.configuration.XTeeServiceConfiguration;
+import com.nortal.jroad.client.service.configuration.BaseXRoadServiceConfiguration;
+import com.nortal.jroad.client.service.configuration.DelegatingXRoadServiceConfiguration;
+import com.nortal.jroad.client.service.v2.XTeeDatabaseService;
 import com.nortal.jroad.model.XTeeAttachment;
 import com.nortal.jroad.model.XTeeMessage;
 import com.nortal.jroad.model.XmlBeansXTeeMessage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import org.apache.xmlbeans.XmlException;
+import org.apache.xmlbeans.XmlObject;
+import org.apache.xmlbeans.XmlOptions;
+import org.springframework.stereotype.Service;
 
 /**
  * Aar andmekogu xtee teenused
@@ -55,8 +53,8 @@ public class AarXTeeServiceImpl extends XTeeDatabaseService implements AarXTeeSe
 		callback.addElementAttribute("asutused", "xsi:type", "xsd:base64Binary");
 
 		// Teeme päringu
-		final XTeeServiceConfiguration xteeConfiguration = xTeeServiceConfigurationProvider.createConfiguration(getDatabase(), getDatabase(), "asutused", "v1");
-		DelegatingXTeeServiceConfiguration configuration = new DelegatingXTeeServiceConfiguration(xteeConfiguration) {
+		final BaseXRoadServiceConfiguration xteeConfiguration = xRoadServiceConfigurationProvider.createConfiguration(getDatabase(), getDatabase(), "asutused", "v1");
+		DelegatingXRoadServiceConfiguration configuration = new DelegatingXRoadServiceConfiguration(xteeConfiguration) {
 			@Override
 			public String getIdCode() {
 				// Kasutame konfis etteantud isikukoodi
@@ -111,8 +109,8 @@ public class AarXTeeServiceImpl extends XTeeDatabaseService implements AarXTeeSe
 		callback.addElementAttribute("taitmised", "xsi:type", "xsd:base64Binary");
 
 		// Teeme päringu
-		final XTeeServiceConfiguration xteeConfiguration = xTeeServiceConfigurationProvider.createConfiguration(getDatabase(), getDatabase(), "taitmised", "v1");
-		DelegatingXTeeServiceConfiguration configuration = new DelegatingXTeeServiceConfiguration(xteeConfiguration) {
+		final BaseXRoadServiceConfiguration xteeConfiguration = xRoadServiceConfigurationProvider.createConfiguration(getDatabase(), getDatabase(), "taitmised", "v1");
+		DelegatingXRoadServiceConfiguration configuration = new DelegatingXRoadServiceConfiguration(xteeConfiguration) {
 			@Override
 			public String getIdCode() {
 				// Kasutame konfis etteantud isikukoodi

@@ -1,6 +1,6 @@
 /**
- * Copyright 2015 Nortal Licensed under the Apache License, Version 2.0 (the "License"); you may not use
- * this file except in compliance with the License. You may obtain a copy of the License at
+ * Copyright 2015 Nortal Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language governing permissions and limitations under the
@@ -9,10 +9,16 @@
 
 package com.nortal.jroad.endpoint;
 
+import com.nortal.jroad.enums.XRoadProtocolVersion;
+import com.nortal.jroad.model.BeanXTeeMessage;
+import com.nortal.jroad.model.XTeeAttachment;
+import com.nortal.jroad.model.XTeeHeader;
+import com.nortal.jroad.model.XTeeMessage;
+import com.nortal.jroad.util.SOAPUtil;
+import com.nortal.jroad.util.XTeeUtil;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.soap.AttachmentPart;
@@ -20,20 +26,12 @@ import javax.xml.soap.SOAPElement;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPHeader;
 import javax.xml.soap.SOAPMessage;
-
 import org.springframework.ws.context.MessageContext;
 import org.springframework.ws.server.endpoint.MessageEndpoint;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
-
-import com.nortal.jroad.model.BeanXTeeMessage;
-import com.nortal.jroad.model.XTeeAttachment;
-import com.nortal.jroad.model.XTeeHeader;
-import com.nortal.jroad.model.XTeeMessage;
-import com.nortal.jroad.util.SOAPUtil;
-import com.nortal.jroad.util.XTeeUtil;
 
 /**
  * Base class for X-Tee Spring web-service endpoints, extension classes must implement
@@ -43,8 +41,10 @@ import com.nortal.jroad.util.XTeeUtil;
  * @author Dmitri Danilkin
  */
 public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
+  private static final String PROTOCOL_VERSION = "protocolVersion";
   public final static String RESPONSE_SUFFIX = "Response";
   private boolean metaService = false;
+  protected XRoadProtocolVersion version;
 
   public final void invoke(MessageContext messageContext) throws Exception {
     SOAPMessage paringMessage = SOAPUtil.extractSoapMessage(messageContext.getRequest());
@@ -68,19 +68,29 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
     for (Iterator<Node> headerElemendid = header.getChildElements(); headerElemendid.hasNext();) {
       Node headerElement = headerElemendid.next();
       if (!SOAPUtil.isTextNode(headerElement) && headerElement.getFirstChild() != null) {
-        pais.addElement(new QName(headerElement.getNamespaceURI(), headerElement.getLocalName()),
-                        headerElement.getFirstChild().getNodeValue());
+        String localName = headerElement.getLocalName();
+        String value = headerElement.getFirstChild().getNodeValue();
+        pais.addElement(new QName(headerElement.getNamespaceURI(), localName), value);
+        if (PROTOCOL_VERSION.equals(localName)) {
+          version = XRoadProtocolVersion.getValueByVersionCode(value);
+        }
+      }
+    }
+    if (version == null) {
+      Iterator<Node> elements = header.getChildElements();
+      if (elements.hasNext()) {
+        version = XRoadProtocolVersion.getValueByNamespaceURI(elements.next().getNamespaceURI());
       }
     }
     return pais;
   }
 
   protected Document parseQuery(SOAPMessage queryMsg) throws Exception {
-    Node bodyNode = SOAPUtil.getNodeByXPath(queryMsg.getSOAPBody().getFirstChild(), "//keha");
-
-    if (bodyNode == null) {
-      throw new IllegalStateException("Service is not metaservice, but query is missing mandatory body ('//keha\')");
+    Node bodyNode = queryMsg.getSOAPBody().getFirstChild();
+    if (XRoadProtocolVersion.V2_0 == version) {
+      bodyNode = SOAPUtil.getNodeByXPath(bodyNode, "//keha");
     }
+
     Document query = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
     bodyNode = query.importNode(bodyNode, true);
     query.appendChild(bodyNode);
@@ -101,8 +111,9 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
 
     // Build response message
     SOAPElement teenusElement = createXteeMessageStructure(requestMessage, responseMessage);
-    if (!metaService)
+    if (!metaService && XRoadProtocolVersion.V2_0 == version) {
       copyParing(query, teenusElement);
+    }
     Element kehaNode = teenusElement.addChildElement("keha");
     XTeeMessage<Element> response = new BeanXTeeMessage<Element>(header, kehaNode, new ArrayList<XTeeAttachment>());
 
@@ -153,11 +164,12 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
   }
 
   protected void addHeader(XTeeHeader pais, SOAPMessage message) throws SOAPException {
-    XTeeUtil.addXteeNamespace(message);
+    XTeeUtil.addXteeNamespace(message, version.getNamespacePrefix(), version.getNamespaceUri());
     for (QName qname : pais.getElemendid().keySet()) {
-      if (qname.getNamespaceURI().equals(XTeeUtil.XTEE_NS_URI)) {
-        XTeeUtil.addHeaderElement(message.getSOAPHeader(), qname.getLocalPart(), pais.getElemendid().get(qname));
-      }
+      XTeeUtil.addHeaderElement(message.getSOAPHeader(),
+                                qname.getLocalPart(),
+                                pais.getElemendid().get(qname),
+                                version.getNamespacePrefix());
     }
   }
 

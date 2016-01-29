@@ -10,12 +10,12 @@
 package com.nortal.jroad.client.service.configuration;
 
 /**
- * Interface representing the information about X-Tee service and the client that wishes to access it -- both are needed
- * when actual service invocation is performed, as X-Tee services need certain information about invoker to be present.
+ * Interface representing the information about X-Road service and the client that wishes to access it -- both are needed
+ * when actual service invocation is performed, as X-Road services need certain information about invoker to be present.
  * 
  * @author Alrik Peets
  */
-public interface XTeeServiceConfiguration {
+public interface BaseXRoadServiceConfiguration {
   /**
    * Returns an URL of institutions security server, typically in form of
    * <code>http://minu_turvaserver/cgi-bin/consumer_proxy</code>.
@@ -51,9 +51,4 @@ public interface XTeeServiceConfiguration {
   boolean getForceDatabaseNamespace();
   /** Forced the database namespace to match the called database namespace. Make sure you /really/ know what you are doing when calling this. It is not needed by default. **/
   void forceDatabaseNamespace();
-
-  /**
-   * When set to true uses xtee api fields pre 7.0 version (ametnik) 
-   */
-  boolean useDeprecatedApi();
 }

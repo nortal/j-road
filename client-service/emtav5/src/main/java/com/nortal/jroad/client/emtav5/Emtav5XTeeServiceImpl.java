@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ws.WebServiceMessage;
 import org.springframework.ws.soap.saaj.SaajSoapMessage;
 
-import com.nortal.jroad.client.emtav5.database.Emtav5XTeeDatabase;
+import com.nortal.jroad.client.emtav5.database.Emtav5XRoadDatabase;
 import com.nortal.jroad.client.emtav5.types.net.x_rd.ee.emtav5.producer.SkaMitteresidentDocument.SkaMitteresident;
 import com.nortal.jroad.client.emtav5.types.net.x_rd.ee.emtav5.producer.SkaMitteresidentRequestType;
 import com.nortal.jroad.client.emtav5.types.net.x_rd.ee.emtav5.producer.SkaMitteresidentResponseDocument.SkaMitteresidentResponse;
@@ -29,7 +29,7 @@ import com.nortal.jroad.client.emtav5.types.net.x_rd.ee.emtav5.producer.SpouseCh
 import com.nortal.jroad.client.emtav5.types.net.x_rd.ee.emtav5.producer.SpouseCheckResponseType.Response;
 import com.nortal.jroad.client.emtav5.types.net.x_rd.ee.emtav5.producer.SpouseCheckResponseType.Response.Period;
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.service.XRoadDatabaseService;
+import com.nortal.jroad.client.service.v3.XRoadDatabaseService;
 import com.nortal.jroad.client.service.callback.CustomCallback;
 import com.nortal.jroad.model.XTeeMessage;
 import com.nortal.jroad.model.XmlBeansXTeeMessage;
@@ -44,7 +44,7 @@ public class Emtav5XTeeServiceImpl extends XRoadDatabaseService implements Emtav
   private static final String SKA_MITTERESIDENT = "skaMitteresident";
 
   @Resource
-  private Emtav5XTeeDatabase emtav5XTeeDatabase;
+  private Emtav5XRoadDatabase emtav5XRoadDatabase;
 
   public List<Period> xteeFIEAKV1(String id, Date start, Date end) throws XTeeServiceConsumptionException {
     SpouseCheckRequestType request = SpouseCheckRequestType.Factory.newInstance();

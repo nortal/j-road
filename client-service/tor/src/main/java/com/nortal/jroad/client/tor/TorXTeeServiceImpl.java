@@ -18,7 +18,7 @@ import org.springframework.ws.WebServiceMessage;
 import org.springframework.ws.soap.saaj.SaajSoapMessage;
 
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.service.XRoadDatabaseService;
+import com.nortal.jroad.client.service.v3.XRoadDatabaseService;
 import com.nortal.jroad.client.service.callback.CustomCallback;
 import com.nortal.jroad.client.tor.types.ee.x_road.emtav5.producer.TORIKDocument;
 import com.nortal.jroad.client.tor.types.ee.x_road.emtav5.producer.TORIKResponseDocument;

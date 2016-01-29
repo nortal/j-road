@@ -15,9 +15,9 @@ import org.springframework.stereotype.Service;
 
 import com.nortal.jroad.client.exception.NonTechnicalFaultException;
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.service.XTeeDatabaseService;
-import com.nortal.jroad.client.service.configuration.DelegatingXTeeServiceConfiguration;
-import com.nortal.jroad.client.service.configuration.XTeeServiceConfiguration;
+import com.nortal.jroad.client.service.v2.XTeeDatabaseService;
+import com.nortal.jroad.client.service.configuration.DelegatingXRoadServiceConfiguration;
+import com.nortal.jroad.client.service.configuration.BaseXRoadServiceConfiguration;
 import com.nortal.jroad.client.tosjuht.database.EpriaXTeeDatabase;
 import com.nortal.jroad.client.tosjuht.model.ManusModel;
 import com.nortal.jroad.client.tosjuht.types.ee.riik.xtee.epria.producers.producer.epria.BinaarfailNest;
@@ -52,10 +52,10 @@ public class EpriaXTeeServiceImpl extends XTeeDatabaseService implements EpriaXT
                                      String version,
                                      final String idCode,
                                      final String securityServer) throws XTeeServiceConsumptionException {
-    final XTeeServiceConfiguration xteeConfiguration =
-        xTeeServiceConfigurationProvider.createConfiguration(getDatabase(), getDatabase(), method, version);
+    final BaseXRoadServiceConfiguration xteeConfiguration =
+        xRoadServiceConfigurationProvider.createConfiguration(getDatabase(), getDatabase(), method, version);
 
-    DelegatingXTeeServiceConfiguration configuration = new DelegatingXTeeServiceConfiguration(xteeConfiguration) {
+    DelegatingXRoadServiceConfiguration configuration = new DelegatingXRoadServiceConfiguration(xteeConfiguration) {
       @Override
       public String getIdCode() {
         return idCode != null ? idCode : super.getIdCode();

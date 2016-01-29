@@ -15,7 +15,7 @@ import com.nortal.jroad.client.ehis.types.ee.riik.xtee.ehis.producers.producer.e
 import com.nortal.jroad.client.ehis.types.ee.riik.xtee.ehis.producers.producer.ehis.TootukassaleKehtivadParing.Isikukoodid;
 import com.nortal.jroad.client.ehis.types.ee.riik.xtee.ehis.producers.producer.ehis.TootukassaleKehtivadVastus.Isikud.Isik;
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.service.XTeeDatabaseService;
+import com.nortal.jroad.client.service.v2.XTeeDatabaseService;
 
 /**
  * <code>ehis</code> (teenus töötukassale kehtivad)

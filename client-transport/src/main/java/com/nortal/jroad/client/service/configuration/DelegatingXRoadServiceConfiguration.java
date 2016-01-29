@@ -14,11 +14,11 @@ package com.nortal.jroad.client.service.configuration;
  * 
  * @author Tanel Käär (tanelk@nortal.com)
  */
-public class DelegatingXTeeServiceConfiguration implements XTeeServiceConfiguration {
+public class DelegatingXRoadServiceConfiguration implements BaseXRoadServiceConfiguration {
 
-  protected XTeeServiceConfiguration configuration;
+  protected BaseXRoadServiceConfiguration configuration;
 
-  public DelegatingXTeeServiceConfiguration(XTeeServiceConfiguration configuration) {
+  public DelegatingXRoadServiceConfiguration(BaseXRoadServiceConfiguration configuration) {
     this.configuration = configuration;
   }
 
@@ -60,11 +60,6 @@ public class DelegatingXTeeServiceConfiguration implements XTeeServiceConfigurat
 
   public void forceDatabaseNamespace() {
     configuration.forceDatabaseNamespace();
-  }
-
-
-  public boolean useDeprecatedApi() {
-    return configuration.useDeprecatedApi();
   }
 
 }

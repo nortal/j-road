@@ -1,16 +1,15 @@
-package com.nortal.jroad.client.service.configuration.provider;
+package com.nortal.jroad.client.service.configuration.provider.v2;
 
+import com.nortal.jroad.client.service.configuration.provider.XRoadServiceConfigurationProvider;
+import com.nortal.jroad.client.util.PropertiesUtil;
 import java.io.IOException;
 import java.util.Properties;
-
 import javax.annotation.PostConstruct;
-
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-import org.springframework.util.DefaultPropertiesPersister;
 
 /**
- * {@link XTeeServiceConfigurationProvider} implementation based on a properties file.
+ * {@link XRoadServiceConfigurationProvider} implementation based on a properties file.
  * 
  * @author Dmitri Danilkin
  */
@@ -26,12 +25,15 @@ public class PropertiesBasedXTeeServiceConfigurationProvider extends AbstractXTe
     if (resource == null) {
       resource = new ClassPathResource(DEFAULT_LOCATION);
     }
-    props = new Properties();
-    new DefaultPropertiesPersister().load(props, resource.getInputStream());
+    props = PropertiesUtil.readProperties(resource);
   }
 
   public void setResource(Resource resource) {
     this.resource = resource;
+  }
+
+  private String resolveProperty(String propertyName) {
+    return props.getProperty(propertyName);
   }
 
   @Override
@@ -54,15 +56,8 @@ public class PropertiesBasedXTeeServiceConfigurationProvider extends AbstractXTe
     return resolveProperty("file");
   }
 
-  private String resolveProperty(String propertyName) {
-    return props.getProperty(propertyName);
-  }
-
   @Override
   protected boolean useDeprecatedApi(String database, String method, String version) {
-    // currently the default value is true
-    String value = resolveProperty("use-deprecated-api");
-    return value == null || Boolean.valueOf(value);
+    return Boolean.valueOf(resolveProperty("use-deprecated-api"));
   }
-
 }

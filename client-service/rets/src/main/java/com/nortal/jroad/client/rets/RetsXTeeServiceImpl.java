@@ -7,7 +7,7 @@ import com.nortal.jroad.client.rets.types.ee.riik.xtee.rets.producers.producer.r
 import com.nortal.jroad.client.rets.types.ee.riik.xtee.rets.producers.producer.rets.Hl7DocumentResponseType;
 import com.nortal.jroad.client.rets.types.ee.riik.xtee.rets.producers.producer.rets.Hl7EncodingType;
 import com.nortal.jroad.client.rets.types.ee.riik.xtee.rets.producers.producer.rets.VeadType;
-import com.nortal.jroad.client.service.XTeeDatabaseService;
+import com.nortal.jroad.client.service.v2.XTeeDatabaseService;
 import com.nortal.jroad.model.XTeeMessage;
 import com.nortal.jroad.model.XmlBeansXTeeMessage;
 

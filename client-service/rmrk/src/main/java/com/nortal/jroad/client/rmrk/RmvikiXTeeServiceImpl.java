@@ -17,7 +17,7 @@ import org.w3c.dom.Node;
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
 import com.nortal.jroad.client.rmrk.types.ee.riik.xtee.treasury.producers.producer.treasury.SendDocumentRequestType;
 import com.nortal.jroad.client.rmrk.types.ee.riik.xtee.treasury.producers.producer.treasury.SendDocumentResponseType;
-import com.nortal.jroad.client.service.XTeeDatabaseService;
+import com.nortal.jroad.client.service.v2.XTeeDatabaseService;
 import com.nortal.jroad.client.service.callback.CustomCallback;
 import com.nortal.jroad.model.XTeeAttachment;
 import com.nortal.jroad.model.XTeeMessage;

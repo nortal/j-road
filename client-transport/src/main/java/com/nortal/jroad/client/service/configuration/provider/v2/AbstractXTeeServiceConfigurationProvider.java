@@ -1,17 +1,19 @@
-package com.nortal.jroad.client.service.configuration.provider;
+package com.nortal.jroad.client.service.configuration.provider.v2;
 
-import com.nortal.jroad.client.service.configuration.SimpleXTeeServiceConfiguration;
-import com.nortal.jroad.client.service.configuration.XTeeServiceConfiguration;
+import com.nortal.jroad.client.service.configuration.BaseXRoadServiceConfiguration;
+
+import com.nortal.jroad.client.service.configuration.provider.XRoadServiceConfigurationProvider;
+import com.nortal.jroad.client.service.configuration.v2.SimpleXTeeServiceConfiguration;
 
 /**
  * @author Roman Tekhov
  */
-public abstract class AbstractXTeeServiceConfigurationProvider implements XTeeServiceConfigurationProvider {
+public abstract class AbstractXTeeServiceConfigurationProvider implements XRoadServiceConfigurationProvider {
 
-  public XTeeServiceConfiguration createConfiguration(String database,
-                                                      String wsdlDatabase,
-                                                      String method,
-                                                      String version) {
+  public BaseXRoadServiceConfiguration createConfiguration(String database,
+                                                           String wsdlDatabase,
+                                                           String method,
+                                                           String version) {
     SimpleXTeeServiceConfiguration configuration = new SimpleXTeeServiceConfiguration();
 
     configuration.setDatabase(database);

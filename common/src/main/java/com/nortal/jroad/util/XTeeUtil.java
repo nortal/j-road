@@ -24,8 +24,6 @@ public class XTeeUtil {
 
   public static final String XTEE_NS_PREFIX = "xtee";
   public static final String XTEE_NS_URI = "http://x-tee.riik.ee/xsd/xtee.xsd";
-  public static final String XTEEV5_NS_PREFIX = "xrd";
-  public static final String XTEEV5_NS_URI = "http://x-rd.net/xsd/xroad.xsd";
 
   /**
    * Returns the input string with &quot;/cgi-bin/consumer_proxy&quot; concatenated to it.
@@ -61,8 +59,8 @@ public class XTeeUtil {
    * @param name Header element name
    * @param value Header element value
    */
-  public static void addHeaderElement(SOAPHeader header, String name, String value) throws SOAPException {
-    SOAPElement element = header.addChildElement(name, XTEE_NS_PREFIX);
+  public static void addHeaderElement(SOAPHeader header, String name, String value, String nsPrefix) throws SOAPException {
+    SOAPElement element = header.addChildElement(name, nsPrefix);
     SOAPUtil.addTypeAttribute(element, "xsd:string");
     if (value != null) {
       element.addTextNode(value);
@@ -74,7 +72,7 @@ public class XTeeUtil {
    *
    * @param message Message to add the namespace to.
    */
-  public static void addXteeNamespace(SOAPMessage message) throws SOAPException {
-    SOAPUtil.addNamespace(message, XTEE_NS_PREFIX, XTEE_NS_URI);
+  public static void addXteeNamespace(SOAPMessage message, String nsPrefix, String nsUri) throws SOAPException {
+    SOAPUtil.addNamespace(message, nsPrefix, nsUri);
   }
 }
