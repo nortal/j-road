@@ -78,7 +78,7 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
     }
     if (version == null) {
       Iterator<Node> elements = header.getChildElements();
-      if (elements.hasNext()) {
+      while (version == null && elements.hasNext()) {
         version = XRoadProtocolVersion.getValueByNamespaceURI(elements.next().getNamespaceURI());
       }
     }

@@ -121,7 +121,7 @@ public abstract class BaseXRoadDatabaseService {
     this.database = database;
   }
 
-  public void setRoadServiceConfigurationProvider(XRoadServiceConfigurationProvider xRoadServiceConfigurationProvider) {
+  public void setXRoadServiceConfigurationProvider(XRoadServiceConfigurationProvider xRoadServiceConfigurationProvider) {
     this.xRoadServiceConfigurationProvider = xRoadServiceConfigurationProvider;
   }
 
