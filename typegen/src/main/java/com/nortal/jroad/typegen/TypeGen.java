@@ -302,6 +302,12 @@ public class TypeGen {
         wsdlDoc.getElementsByTagNameNS(WSDL_NS, "definitions").item(0).getAttributes().getNamedItem("targetNamespace").getNodeValue().toLowerCase();
 
     parseWsdlMetadata(opNs);
+    // sets database name from wsdl:definitions name attribute if it exists
+    Node nameNode =
+        wsdlDoc.getElementsByTagNameNS(TypeGen.WSDL_NS, "definitions").item(0).getAttributes().getNamedItem("name");
+    if (nameNode != null) {
+      TypeGen.database = nameNode.getNodeValue().toLowerCase();
+    }
 
     Map<String, QName> messageMap = getMessageMap(wsdlDoc);
 

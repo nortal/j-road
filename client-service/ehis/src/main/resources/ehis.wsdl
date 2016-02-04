@@ -6,8 +6,7 @@
   xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" 
   xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
   xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
-  targetNamespace="http://producers.ehis.xtee.riik.ee/producer/ehis"
-  name="mydef">
+  targetNamespace="http://producers.ehis.xtee.riik.ee/producer/ehis">
   <types>
     <schema targetNamespace="http://producers.ehis.xtee.riik.ee/producer/ehis"
       xmlns="http://www.w3.org/2001/XMLSchema">

@@ -6,7 +6,7 @@
 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
 	xmlns:typens="http://producers.arireg.xtee.riik.ee/producer/arireg"
 	xmlns:wsdl="http://www.w3.org/ns/wsdl" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	xmlns:xtee="http://x-tee.riik.ee/xsd/xtee.xsd" name="AriregAPI"
+	xmlns:xtee="http://x-tee.riik.ee/xsd/xtee.xsd"
 	targetNamespace="http://producers.arireg.xtee.riik.ee/producer/arireg">
 	<types>
 		<xsd:schema xmlns="http://www.w3.org/2001/XMLSchema"

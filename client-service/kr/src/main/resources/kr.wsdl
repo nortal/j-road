@@ -1,5 +1,5 @@
 <?xml version="1.0"  encoding="UTF-8"?>
-<definitions name="mydef"
+<definitions
 	targetNamespace="http://producers.kr.xtee.riik.ee/producer/kr"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:tns="http://producers.kr.xtee.riik.ee/producer/kr"
