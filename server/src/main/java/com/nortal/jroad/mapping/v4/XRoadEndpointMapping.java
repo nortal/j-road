@@ -1,18 +1,10 @@
-/**
- * Copyright 2015 Nortal Licensed under the Apache License, Version 2.0 (the "License"); you may not use
- * this file except in compliance with the License. You may obtain a copy of the License at
- * http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
- * either express or implied. See the License for the specific language governing permissions and limitations under the
- * License.
- **/
+package com.nortal.jroad.mapping.v4;
 
-package com.nortal.jroad.mapping;
-
-import com.nortal.jroad.annotation.XTeeService;
-import com.nortal.jroad.endpoint.AbstractXTeeBaseEndpoint;
-import com.nortal.jroad.endpoint.ListMethodsEndpoint;
+import com.nortal.jroad.annotation.XRoadService;
+import com.nortal.jroad.endpoint.v4.AbstractXRoadBaseEndpoint;
+import com.nortal.jroad.endpoint.v4.XroadListMethodsEndpoint;
 import com.nortal.jroad.util.SOAPUtil;
+import com.nortal.jroad.wsdl.v4.XRoadWsdlDefinition;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -28,20 +20,20 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
- * Finds all X-Tee endpoints and maps incoming requests to them according to query name present in the X-Tee header.
+ * Finds all XRoad endpoints and maps incoming requests to them according to query name present in the XRoad header.
  * 
  * @author Dmitri Danilkin
+ * @author Aleksei Bogdanov (aleksei.bogdanov@nortal.com)
  */
 @Component
-public class XTeeEndpointMapping extends AbstractEndpointMapping implements InitializingBean {
+public class XRoadEndpointMapping extends AbstractEndpointMapping implements InitializingBean {
 
-  protected static final Logger log = Logger.getLogger(XTeeEndpointMapping.class);
+  protected static final Logger log = Logger.getLogger(XRoadEndpointMapping.class);
 
   @Resource(name = "database")
   private String database;
-  private Map<String, AbstractXTeeBaseEndpoint> methodMap;
+  private Map<String, AbstractXRoadBaseEndpoint> methodMap;
 
-  /** Sets the name of Xtee database */
   public void setDatabase(String database) {
     this.database = database;
   }
@@ -49,21 +41,21 @@ public class XTeeEndpointMapping extends AbstractEndpointMapping implements Init
   // Lazy initialization
   public void afterPropertiesSet() throws Exception {
     log.debug("Initializing method map...");
-    methodMap = new HashMap<String, AbstractXTeeBaseEndpoint>();
-    String[] beans = getApplicationContext().getBeanNamesForType(AbstractXTeeBaseEndpoint.class);
+    methodMap = new HashMap<String, AbstractXRoadBaseEndpoint>();
+    String[] beans = getApplicationContext().getBeanNamesForType(AbstractXRoadBaseEndpoint.class);
     for (int i = 0; i < beans.length; i++) {
-      AbstractXTeeBaseEndpoint endpoint = (AbstractXTeeBaseEndpoint) getApplicationContext().getBean(beans[i]);
-      String meetod = getXTeeMethodName(endpoint.getClass(), database);
+      AbstractXRoadBaseEndpoint endpoint = (AbstractXRoadBaseEndpoint) getApplicationContext().getBean(beans[i]);
+      String meetod = getXRoadMethodName(endpoint.getClass(), database);
       if (methodMap.get(meetod) != null) {
         throw new IllegalStateException("Unresolvable: endpoints " + endpoint.getClass().getSimpleName() + " and "
-            + methodMap.get(meetod).getClass().getSimpleName() + " have the same X-Tee method identifier '" + meetod
+            + methodMap.get(meetod).getClass().getSimpleName() + " have the same XRoad method identifier '" + meetod
             + "'!");
       }
-      if (!(endpoint instanceof ListMethodsEndpoint)) {
+      if (!(endpoint instanceof XroadListMethodsEndpoint)) {
         methodMap.put(meetod, endpoint);
       }
       if (log.isDebugEnabled()) {
-        log.debug("Mapping X-Tee method '" + meetod + "' to " + endpoint.getClass().getSimpleName());
+        log.debug("Mapping XRoad method '" + meetod + "' to " + endpoint.getClass().getSimpleName());
       }
     }
     log.debug("Method mappings initialized.");
@@ -73,7 +65,7 @@ public class XTeeEndpointMapping extends AbstractEndpointMapping implements Init
   protected Object getEndpointInternal(MessageContext messageCtx) throws Exception {
     SOAPMessage message = SOAPUtil.extractSoapMessage(messageCtx.getRequest());
     if (message.getSOAPHeader() != null) {
-      NodeList nl = message.getSOAPHeader().getElementsByTagNameNS("http://x-tee.riik.ee/xsd/xtee.xsd", "nimi");
+      NodeList nl = message.getSOAPHeader().getElementsByTagNameNS(XRoadWsdlDefinition.XROAD_NAMESPACE, "userId");
       for (int i = 0; i < nl.getLength(); i++) {
         Node node = nl.item(i);
         Object endpoint = methodMap.get(node.getFirstChild().getNodeValue());
@@ -89,7 +81,7 @@ public class XTeeEndpointMapping extends AbstractEndpointMapping implements Init
     try {
       if (SOAPUtil.getNodeByXPath(message.getSOAPBody(), "/*/*/*[local-name()='listMethods']") != null) {
         log.debug("Matched headerless listMethods request.");
-        return getApplicationContext().getBean(getApplicationContext().getBeanNamesForType(ListMethodsEndpoint.class)[0]);
+        return getApplicationContext().getBean(getApplicationContext().getBeanNamesForType(XroadListMethodsEndpoint.class)[0]);
       }
     } catch (NullPointerException e) {
       // ListMethods lookup failed
@@ -115,20 +107,20 @@ public class XTeeEndpointMapping extends AbstractEndpointMapping implements Init
   }
 
   /**
-   * Attempts to get the full X-Tee method name for the given {@link AbstractXTeeBaseEndpoint}, by processing the
-   * {@link XTeeService} annotation -- if this is not present the method name will be a concatenation of X-Tee database
-   * name, unqualified class name of given {@link AbstractXTeeBaseEndpoint} (as service name) and "v1" (as version
+   * Attempts to get the full XRoad method name for the given {@link AbstractXRoadBaseEndpoint}, by processing the
+   * {@link XRoadService} annotation -- if this is not present the method name will be a concatenation of X-Tee database
+   * name, unqualified class name of given {@link AbstractXRoadBaseEndpoint} (as service name) and "v1" (as version
    * number).
    * 
-   * @param clazz X-Tee service endpoint implementation class
-   * @param databaseName name of the X-Tee database("andmekogu")
-   * @return the X-Tee method name that was constructed according to aforementioned rules
+   * @param clazz XRoad service endpoint implementation class
+   * @param databaseName name of the XRoad database
+   * @return the XRoadService method name that was constructed according to aforementioned rules
    */
-  private String getXTeeMethodName(Class<? extends AbstractXTeeBaseEndpoint> clazz, String databaseName) {
+  private String getXRoadMethodName(Class<? extends AbstractXRoadBaseEndpoint> clazz, String databaseName) {
     String version = "v1";
     String serviceName = null;
-    if (clazz.isAnnotationPresent(XTeeService.class)) {
-      XTeeService serviceAnnotation = clazz.getAnnotation(XTeeService.class);
+    if (clazz.isAnnotationPresent(XRoadService.class)) {
+      XRoadService serviceAnnotation = clazz.getAnnotation(XRoadService.class);
       version = serviceAnnotation.version();
       if (!serviceAnnotation.name().equals("") || !serviceAnnotation.value().equals("")) {
         serviceName = serviceAnnotation.name().equals("") ? serviceAnnotation.value() : serviceAnnotation.name();
@@ -147,7 +139,7 @@ public class XTeeEndpointMapping extends AbstractEndpointMapping implements Init
     return methodMap.keySet();
   }
 
-  public Map<String, AbstractXTeeBaseEndpoint> getMethodMap() {
+  public Map<String, AbstractXRoadBaseEndpoint> getMethodMap() {
     return Collections.unmodifiableMap(methodMap);
   }
 }

@@ -1,16 +1,8 @@
-/**
- * Copyright 2015 Nortal Licensed under the Apache License, Version 2.0 (the "License"); you may not use
- * this file except in compliance with the License. You may obtain a copy of the License at
- * http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
- * either express or implied. See the License for the specific language governing permissions and limitations under the
- * License.
- **/
+package com.nortal.jroad.wsdl.v4;
 
-package com.nortal.jroad.wsdl;
-
+import com.nortal.jroad.mapping.v4.XRoadEndpointMapping;
+import com.nortal.jroad.model.v4.XRoadHeader;
 import java.util.Properties;
-
 import javax.annotation.Resource;
 import javax.wsdl.Definition;
 import javax.wsdl.Message;
@@ -19,7 +11,6 @@ import javax.wsdl.WSDLException;
 import javax.wsdl.extensions.schema.Schema;
 import javax.xml.namespace.QName;
 import javax.xml.transform.Source;
-
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.StringUtils;
 import org.springframework.ws.wsdl.wsdl11.ProviderBasedWsdl4jDefinition;
@@ -30,38 +21,34 @@ import org.springframework.xml.xsd.XsdSchema;
 import org.springframework.xml.xsd.XsdSchemaCollection;
 import org.w3c.dom.Element;
 
-import com.nortal.jroad.mapping.XTeeEndpointMapping;
-import com.nortal.jroad.model.XTeeHeader;
-import com.nortal.jroad.util.XTeeUtil;
-
 /**
- * Generates WSDL for X-Tee services from a schema, much like Spring's WSDL generator it delegates to
+ * * Generates WSDL for XRoad services from a schema, much like Spring's WSDL generator it delegates to
  * <code>InliningXsdSchemaTypesProvider</code>, <code>DefaultMessagesProvider</code>,
- * <code>SuffixBasedPortTypesProvider</code>, <code>ProviderBasedWsdl4jDefinition</code> and {@link XTeeSoapProvider}
+ * <code>SuffixBasedPortTypesProvider</code>, <code>ProviderBasedWsdl4jDefinition</code> and {@link XRoadSoapProvider}
  * underneath.
  * 
  * @author Dmitri Danilkin
+ * @author Aleksei Bogdanov (aleksei.bogdanov@nortal.com)
  */
-public class XTeeWsdlDefinition implements Wsdl11Definition, InitializingBean {
+public class XRoadWsdlDefinition implements Wsdl11Definition, InitializingBean {
 
   private final InliningXsdSchemaTypesProvider typesProvider = new InliningXsdSchemaTypesProvider();
-  private final SuffixBasedMessagesProvider messagesProvider = new XTeeMessagesProvider();
-  private final XTeePortTypesProvider portTypesProvider = new XTeePortTypesProvider();
-  private final XTeeSoapProvider soapProvider = new XTeeSoapProvider();
+  private final SuffixBasedMessagesProvider messagesProvider = new XRoadMessagesProvider();
+  private final XRoadPortTypesProvider portTypesProvider = new XRoadPortTypesProvider();
+  private final XRoadSoapProvider soapProvider = new XRoadSoapProvider();
   private final ProviderBasedWsdl4jDefinition delegate = new ProviderBasedWsdl4jDefinition();
   private String serviceName;
 
   @Resource(name = "database")
   private String database;
   @Resource
-  private XTeeEndpointMapping xTeeEndpointMapping;
+  private XRoadEndpointMapping xRoadEndpointMapping;
 
-  public static final String XTEE_PAIS = "xteeStandardPais";
-  public static final String XTEE_PAIS_PART = "xteePais";
-  public static final String XTEE_NAMESPACE = "http://x-tee.riik.ee/xsd/xtee.xsd";
-  public static final String XTEE_PREFIX = "xtee";
+  public static final String XROAD_HEADER = "requestheader";
+  public static final String XROAD_NAMESPACE = "http://x-road.eu/xsd/xroad.xsd";
+  public static final String XROAD_PREFIX = "xrd";
 
-  public XTeeWsdlDefinition() {
+  public XRoadWsdlDefinition() {
     delegate.setTypesProvider(typesProvider);
     delegate.setMessagesProvider(messagesProvider);
     delegate.setPortTypesProvider(portTypesProvider);
@@ -105,7 +92,7 @@ public class XTeeWsdlDefinition implements Wsdl11Definition, InitializingBean {
   /** Sets the suffix used to detect fault elements in the schema. */
   public void setFaultSuffix(String faultSuffix) {
     portTypesProvider.setFaultSuffix(faultSuffix);
-    messagesProvider.setResponseSuffix(faultSuffix);
+    messagesProvider.setFaultSuffix(faultSuffix);
   }
 
   public void setUse(String use) {
@@ -129,14 +116,14 @@ public class XTeeWsdlDefinition implements Wsdl11Definition, InitializingBean {
   }
 
   public void afterPropertiesSet() throws Exception {
-    soapProvider.setLocationUri("http://TURVASERVER/cgi-bin/consumer_proxy");
-    soapProvider.setXteeDatabase(database);
-    soapProvider.setxTeeEndpointMapping(xTeeEndpointMapping);
-    portTypesProvider.setxTeeEndpointMapping(xTeeEndpointMapping);
+    soapProvider.setLocationUri("http://SECURITY_SERVER/cgi-bin/consumer_proxy");
+    soapProvider.setXRoadDatabase(database);
+    soapProvider.setXRoadEndpointMapping(xRoadEndpointMapping);
+    portTypesProvider.setXRoadEndpointMapping(xRoadEndpointMapping);
 
     setRequestSuffix("Request");
     setResponseSuffix("Response");
-    delegate.setTargetNamespace(XTeeUtil.getDatabaseNamespace(database));
+    delegate.setTargetNamespace("http://" + database + ".x-road.eu");
 
     if (!StringUtils.hasText(delegate.getTargetNamespace()) && typesProvider.getSchemaCollection() != null
         && typesProvider.getSchemaCollection().getXsdSchemas().length > 0) {
@@ -147,7 +134,7 @@ public class XTeeWsdlDefinition implements Wsdl11Definition, InitializingBean {
       soapProvider.setServiceName(portTypesProvider.getPortTypeName() + "Service");
     }
     delegate.afterPropertiesSet();
-    addXteeExtensions(delegate.getDefinition());
+    addXRoadExtensions(delegate.getDefinition());
   }
 
   public Source getSource() {
@@ -158,45 +145,43 @@ public class XTeeWsdlDefinition implements Wsdl11Definition, InitializingBean {
     return delegate.getDefinition();
   }
 
-  private void addXteeExtensions(Definition definition) throws WSDLException {
-    // Lisa x-tee nimeruum
-    definition.addNamespace(XTEE_PREFIX, XTEE_NAMESPACE);
+  private void addXRoadExtensions(Definition definition) throws WSDLException {
+    definition.addNamespace(XROAD_PREFIX, XROAD_NAMESPACE);
 
-    // Lisa x-tee pais
     Message message = definition.createMessage();
-    message.setQName(new QName(definition.getTargetNamespace(), XTEE_PAIS));
+    message.setQName(new QName(definition.getTargetNamespace(), XROAD_HEADER));
 
-    addXteeHeaderPart(definition, message, XTeeHeader.ASUTUS);
-    addXteeHeaderPart(definition, message, XTeeHeader.ANDMEKOGU);
-    addXteeHeaderPart(definition, message, XTeeHeader.ISIKUKOOD);
-    addXteeHeaderPart(definition, message, XTeeHeader.ID);
-    addXteeHeaderPart(definition, message, XTeeHeader.NIMI);
-    addXteeHeaderPart(definition, message, XTeeHeader.AMETNIK);
+    addXroadHeaderPart(definition, message, XRoadHeader.CLIENT);
+    addXroadHeaderPart(definition, message, XRoadHeader.SERVICE);
+    addXroadHeaderPart(definition, message, XRoadHeader.ID);
+    addXroadHeaderPart(definition, message, XRoadHeader.USER_ID);
+    addXroadHeaderPart(definition, message, XRoadHeader.PROTOCOL_VERSION);
 
     message.setUndefined(false);
     definition.addMessage(message);
 
-    // Lisa esimesele schemale x-tee schema import
+    // Add XRoad schema import to the first schema
     for (Object ex : definition.getTypes().getExtensibilityElements()) {
       if (ex instanceof Schema) {
         Schema schema = (Schema) ex;
-        Element xteeImport =
+        Element xRoadImport =
             schema.getElement().getOwnerDocument().createElement(schema.getElement().getPrefix() == null
                                                                                                         ? "import"
                                                                                                         : schema.getElement().getPrefix()
                                                                                                             + ":import");
-        xteeImport.setAttribute("namespace", XTEE_NAMESPACE);
-        xteeImport.setAttribute("schemaLocation", XTEE_NAMESPACE);
-        schema.getElement().insertBefore(xteeImport, schema.getElement().getFirstChild());
+        xRoadImport.setAttribute("namespace", XROAD_NAMESPACE);
+        xRoadImport.setAttribute("schemaLocation", XROAD_NAMESPACE);
+        schema.getElement().insertBefore(xRoadImport, schema.getElement().getFirstChild());
         break;
       }
     }
   }
 
-  private void addXteeHeaderPart(Definition definition, Message message, QName partName) {
+  private void addXroadHeaderPart(Definition definition, Message message, QName partName) {
     Part part = definition.createPart();
     part.setElementName(partName);
     part.setName(partName.getLocalPart());
     message.addPart(part);
   }
+
 }

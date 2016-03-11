@@ -41,9 +41,9 @@ import org.w3c.dom.Node;
  * @author Dmitri Danilkin
  */
 public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
-  private static final String PROTOCOL_VERSION = "protocolVersion";
+  protected static final String PROTOCOL_VERSION = "protocolVersion";
   public final static String RESPONSE_SUFFIX = "Response";
-  private boolean metaService = false;
+  protected boolean metaService = false;
   protected XRoadProtocolVersion version;
 
   public final void invoke(MessageContext messageContext) throws Exception {
@@ -55,10 +55,9 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
       responseMessage.getSOAPHeader().detachNode();
     }
 
-    XTeeHeader pais = metaService ? null : parseXteeHeader(paringMessage);
     Document paring = metaService ? null : parseQuery(paringMessage);
 
-    getResponse(pais, paring, responseMessage, paringMessage);
+    getResponse(paring, responseMessage, paringMessage);
   }
 
   @SuppressWarnings("unchecked")
@@ -101,8 +100,9 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
   }
 
   @SuppressWarnings("unchecked")
-  protected void getResponse(XTeeHeader header, Document query, SOAPMessage responseMessage, SOAPMessage requestMessage)
+  protected void getResponse(Document query, SOAPMessage responseMessage, SOAPMessage requestMessage)
       throws Exception {
+    XTeeHeader header = metaService ? null : parseXteeHeader(requestMessage);
 
     // Build request message
     List<XTeeAttachment> attachments = new ArrayList<XTeeAttachment>();
