@@ -11,11 +11,11 @@
 	<bean id="schema" class="org.springframework.xml.xsd.SimpleXsdSchema">
 		<property name="xsd" value="/WEB-INF/schema/echo.xsd" />
 	</bean>
-	<bean id="echo" class="com.nortal.jroad.wsdl.XTeeWsdlDefinition">
+	<bean id="echo" class="com.nortal.jroad.wsdl.v4.XRoadWsdlDefinition">
 		<property name="schema" ref="schema" />
 		<property name="portTypeName" value="myport" />
 	</bean>
-	<bean id="xteeDatabase" class="java.lang.String">
+	<bean id="database" class="java.lang.String">
 		<constructor-arg value="naidis" />
 	</bean>
 	

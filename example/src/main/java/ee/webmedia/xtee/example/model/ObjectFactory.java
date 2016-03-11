@@ -5,7 +5,7 @@
 // Generated on: 2009.09.23 at 11:57:10 PM EEST
 //
 
-package ee.webmedia.xtee.example.model;
+package com.nortal.jroad.example.model;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;
