@@ -5,6 +5,7 @@ import java.util.Date;
 
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
 import com.nortal.jroad.client.pkr.types.ee.riik.xtee.pkr.producers.producer.pkr.Tkis1Vastus;
+import com.nortal.jroad.client.pkr.types.ee.riik.xtee.pkr.producers.producer.pkr.Tkis2Valjund;
 import com.nortal.jroad.client.pkr.types.ee.riik.xtee.pkr.producers.producer.pkr.TtaPensionToetusVastus;
 
 /**
@@ -23,4 +24,9 @@ public interface PkrXTeeService {
    * <code>pkr.tkis1</code> service.
    */
   Tkis1Vastus getTkis1(String isikukood, Date algusKuup, Date loppKuup, Date kuup) throws XTeeServiceConsumptionException;
+
+  /**
+   * <code>pkr.tkis2.v1</code> service.
+   */
+  Tkis2Valjund getTkis2V1(String isikukood, Date algusKuup, Date loppKuup) throws XTeeServiceConsumptionException;
 }

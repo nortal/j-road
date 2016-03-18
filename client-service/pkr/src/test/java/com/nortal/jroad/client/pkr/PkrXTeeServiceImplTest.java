@@ -1,15 +1,16 @@
 package com.nortal.jroad.client.pkr;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.nortal.jroad.client.pkr.types.ee.riik.xtee.pkr.producers.producer.pkr.Tkis2Valjund;
 import junit.framework.Assert;
 
 import org.junit.Test;
 
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.pkr.PkrXTeeServiceImpl;
 import com.nortal.jroad.client.pkr.types.ee.riik.xtee.pkr.producers.producer.pkr.TtaPensionToetusVastus;
 import com.nortal.jroad.client.pkr.types.ee.riik.xtee.pkr.producers.producer.pkr.TtaPensionToetusVastus.ToetusJada;
 import com.nortal.jroad.client.pkr.types.ee.riik.xtee.pkr.producers.producer.pkr.TtaPensionToetusVastus.ToetusJada.Item;
@@ -20,7 +21,7 @@ import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
  */
 public class PkrXTeeServiceImplTest extends BaseXTeeServiceImplTest {
 
-  private static final String TEST_ISIKUKOOD = "35803107903";
+  private static final String TEST_ISIKUKOOD = "43108150028";
 
   @Resource
   private PkrXTeeServiceImpl pkrXTeeServiceImpl;
@@ -38,5 +39,15 @@ public class PkrXTeeServiceImplTest extends BaseXTeeServiceImplTest {
 
     List<Item> items = toetusJada.getItemList();
     Assert.assertNotNull(items);
+  }
+
+  @Test
+  public void getTkis2V1() throws Exception {
+    Calendar start = Calendar.getInstance();
+    start.set(2010, Calendar.JANUARY, 1);
+    Calendar end = Calendar.getInstance();
+    end.set(2015, Calendar.DECEMBER, 31);
+    Tkis2Valjund response = pkrXTeeServiceImpl.getTkis2V1(TEST_ISIKUKOOD, start.getTime(), end.getTime());
+    Assert.assertNotNull(response);
   }
 }
