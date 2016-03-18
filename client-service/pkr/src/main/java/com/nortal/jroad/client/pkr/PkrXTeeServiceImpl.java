@@ -3,21 +3,13 @@ package com.nortal.jroad.client.pkr;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
 
-import javax.xml.soap.SOAPEnvelope;
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPHeader;
-import javax.xml.soap.SOAPMessage;
 import javax.xml.transform.TransformerException;
 
 import com.nortal.jroad.client.pkr.types.ee.riik.xtee.pkr.producers.producer.pkr.*;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.util.Assert;
 import org.springframework.ws.WebServiceMessage;
 
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.service.XTeeDatabaseService;
 import com.nortal.jroad.client.pkr.types.ee.riik.xtee.pkr.producers.producer.pkr.Tkis1Paring;
 import com.nortal.jroad.client.pkr.types.ee.riik.xtee.pkr.producers.producer.pkr.Tkis1Vastus;
 import com.nortal.jroad.client.pkr.types.ee.riik.xtee.pkr.producers.producer.pkr.TtaPensionToetusParing;
@@ -28,8 +20,6 @@ import com.nortal.jroad.client.service.extractor.CustomExtractor;
 import com.nortal.jroad.model.XTeeMessage;
 import com.nortal.jroad.model.XmlBeansXTeeMessage;
 import com.nortal.jroad.util.SOAPUtil;
-import org.springframework.ws.soap.saaj.SaajSoapMessage;
-import org.w3c.dom.Node;
 
 /**
  * <code>PKR</code> or <code>TPKR</code> X-tee service<br>
