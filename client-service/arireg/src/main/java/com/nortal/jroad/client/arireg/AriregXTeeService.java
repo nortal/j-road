@@ -5,19 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.DetailandmedV3Ettevotja;
-import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.DetailandmedV4Ettevotja;
-import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.DetailandmedV4Query;
-import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.DetailandmedV5Ettevotja;
-import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.DetailandmedV5Query;
-import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.Detailandmedv2Ettevotja;
-import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.Detailandmedv2Query;
-import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.EttevotjaMuudatusedTasutaParing;
-import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.EttevotjaMuudatusedTasutaVastus;
-import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingarikeeludKeeld;
-import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingesindusEttevote;
-import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingesindusV2Ettevote;
-import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingesindusV3Ettevote;
+import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.*;
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
 
 /**
@@ -404,4 +392,12 @@ public interface AriregXTeeService {
    */
   EttevotjaMuudatusedTasutaVastus findEttevotjaMuudatusedTasutaV1(EttevotjaMuudatusedTasutaReturnedDataSettingCallback callback)
       throws XTeeServiceConsumptionException;
+
+  /**
+   * <code>arireg.ettevotja_muudatused_tasuta_tootukassa.v1</code> X-tee service.
+   */
+  EttevotjaMuudatusedTasutaTootukassaVastus findEttevotjaMuudatusedTasutaTootukassaV1(Date algusKp,
+                                                                                      Date loppKp,
+                                                                                      String[] kandesIsikudRollid)
+          throws XTeeServiceConsumptionException;
 }
