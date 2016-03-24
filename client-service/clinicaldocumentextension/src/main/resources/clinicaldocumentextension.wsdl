@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://producers.digilugu.xtee.riik.ee/producer/digilugu"
+	xmlns:xrd="http://x-tee.riik.ee/xsd/xtee.xsd"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+	xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+	targetNamespace="http://producers.digilugu.xtee.riik.ee/producer/digilugu"
+	name="mydef">
+	
+	<wsdl:types>
+		
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by Bob Dolin (HL7 CDA TC) -->
+<xs:schema targetNamespace="urn:hl7-org:v3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:hl7-org:v3" xmlns:mif="urn:hl7-org:v3/mif" elementFormDefault="qualified">
+	<xs:include schemaLocation="http://pub.e-tervis.ee/standards2/Schema/V3/HL7-ORG-V3-2005-NORMATIVE-EE-DL-Ext-V1/infrastructure/cda/POCD_MT000040_EE01.xsd"/>
+	<xs:element name="ClinicalDocument" type="POCD_MT000040.ClinicalDocument"/>
+</xs:schema>
+
+	</wsdl:types>
+
+	<message name="hl7Request">
+		<part name="keha" element="tns:hl7Paring" />
+	</message>
+	<message name="hl7Response">
+		<part name="paring" element="tns:hl7Paring" />
+		<part name="keha" element="tns:hl7Vastus" />
+	</message>
+
+	<!-- QuestionaryCodeRequest START -->
+	<message name="questionaryCodeRequest">
+		<part name="questionaryCodeRequest" element="tns:questionaryCodeRequest" />
+	</message>
+	<message name="questionaryCodeRequestResponse">
+		<part name="questionaryCodeRequestResponse" element="tns:questionaryCodeRequestResponse" />
+	</message>
+	<!-- QuestionaryCodeRequest END -->
+	
+	<!-- diagProcCheck START -->
+	<message name="diagProcCheck">
+		<part name="diagProcCheck" element="tns:diagProcCheck" />
+	</message>
+	<message name="diagProcCheckResponse">
+		<part name="diagProcCheckResponse" element="tns:diagProcCheckResponse" />
+	</message>
+	<!-- diagProcCheck END -->
+	
+	<!-- certificateRequest START -->
+	<message name="certificateRequest">
+		<part name="certificateRequest" element="tns:certificateRequest" />
+	</message>
+	<message name="certificateRequestResponse">
+		<part name="certificateRequestResponse" element="tns:certificateRequestResponse" />
+	</message>
+	<!-- certificateRequest END -->
+	
+	<!-- updatedCertificatesRequest START -->
+	<message name="updatedCertificatesRequest">
+		<part name="updatedCertificatesRequest" element="tns:updatedCertificatesRequest" />
+	</message>
+	<message name="updatedCertificatesRequestResponse">
+		<part name="updatedCertificatesRequestResponse" element="tns:updatedCertificatesRequestResponse" />
+	</message>
+	<!-- updatedCertificatesRequest END -->
+	
+	<!-- generateReferral START -->
+	<message name="generateReferral">
+		<part name="generateReferral" element="tns:generateReferral" />
+	</message>
+	<message name="generateReferralResponse">
+		<part name="generateReferralResponse" element="tns:generateReferralResponse" />
+	</message>
+	<!-- generateReferral END -->
+	
+	<message name="standardpais">
+        <part name="asutus" element="xrd:asutus"/>
+        <part name="andmekogu" element="xrd:andmekogu"/>
+        <part name="isikukood" element="xrd:isikukood"/>
+        <part name="nimi" element="xrd:nimi"/>
+        <part name="id" element="xrd:id"/>
+        <part name="toimik" element="xrd:toimik"/>
+    </message>
+
+	<portType name="DigiluguRegistriteTeenused">
+		<operation name="hl7">
+			<documentation>
+				<xrd:title>hl7</xrd:title>
+			</documentation>
+			<input message="tns:hl7Request" />
+			<output message="tns:hl7Response" />
+		</operation>
+		<operation name="questionaryCodeRequest">
+			<documentation>
+				<xrd:title>questionaryCodeRequest</xrd:title>
+			</documentation>
+			<input message="tns:questionaryCodeRequest" />
+			<output message="tns:questionaryCodeRequestResponse" />
+		</operation>
+		<operation name="diagProcCheck">
+			<documentation>
+				<xrd:title>diagProcCheck</xrd:title>
+			</documentation>
+			<input message="tns:diagProcCheck" />
+			<output message="tns:diagProcCheckResponse" />
+		</operation>
+		<operation name="certificateRequest">
+			<documentation>
+				<xrd:title>certificateRequest</xrd:title>
+			</documentation>
+			<input message="tns:certificateRequest" />
+			<output message="tns:certificateRequestResponse" />
+		</operation>
+		<operation name="updatedCertificatesRequest">
+			<documentation>
+				<xrd:title>updatedCertificatesRequest</xrd:title>
+			</documentation>
+			<input message="tns:updatedCertificatesRequest" />
+			<output message="tns:updatedCertificatesRequestResponse" />
+		</operation>
+		<operation name="generateReferral">
+			<documentation>
+				<xrd:title>generateReferral</xrd:title>
+			</documentation>
+			<input message="tns:generateReferral" />
+			<output message="tns:generateReferralResponse" />
+		</operation>
+	</portType>
+
+	<binding name="DigiluguRegistriteTeenusedSoapBinding" type="tns:DigiluguRegistriteTeenused">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		<operation name="hl7">
+			<xrd:version>v1</xrd:version>
+			<input>
+				<soap:header message="tns:standardpais" part="asutus" use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:header message="tns:standardpais" part="andmekogu" use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:header message="tns:standardpais" part="isikukood" use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:header message="tns:standardpais" part="id" use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:header message="tns:standardpais" part="nimi" use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:header message="tns:standardpais" part="toimik" use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body parts="keha" use="literal" namespace="http://producers.digilugu.xtee.riik.ee/producer/digilugu" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:header message="tns:standardpais" part="asutus" use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:header message="tns:standardpais" part="andmekogu" use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:header message="tns:standardpais" part="isikukood" use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:header message="tns:standardpais" part="id" use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:header message="tns:standardpais" part="nimi" use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:header message="tns:standardpais" part="toimik" use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body parts="keha" use="literal" namespace="http://producers.digilugu.xtee.riik.ee/producer/digilugu" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+                <soap:body parts="paring" use="literal" namespace="http://producers.digilugu.xtee.riik.ee/producer/digilugu" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="questionaryCodeRequest">
+			<xrd:version>v1</xrd:version>
+			<input>
+				<soap:header message="tns:standardpais" part="asutus" use="literal"/>
+				<soap:header message="tns:standardpais" part="andmekogu" use="literal"/>
+				<soap:header message="tns:standardpais" part="isikukood" use="literal"/>
+				<soap:header message="tns:standardpais" part="id" use="literal"/>
+				<soap:header message="tns:standardpais" part="nimi" use="literal"/>
+				<soap:header message="tns:standardpais" part="toimik" use="literal"/>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:header message="tns:standardpais" part="asutus" use="literal"/>
+				<soap:header message="tns:standardpais" part="andmekogu" use="literal"/>
+				<soap:header message="tns:standardpais" part="isikukood" use="literal"/>
+				<soap:header message="tns:standardpais" part="id" use="literal"/>
+				<soap:header message="tns:standardpais" part="nimi" use="literal"/>
+				<soap:header message="tns:standardpais" part="toimik" use="literal"/>
+				<soap:body use="literal" />
+			</output>
+		</operation>
+		<operation name="diagProcCheck">
+			<xrd:version>v1</xrd:version>
+			<input>
+				<soap:header message="tns:standardpais" part="asutus" use="literal"/>
+				<soap:header message="tns:standardpais" part="andmekogu" use="literal"/>
+				<soap:header message="tns:standardpais" part="isikukood" use="literal"/>
+				<soap:header message="tns:standardpais" part="id" use="literal"/>
+				<soap:header message="tns:standardpais" part="nimi" use="literal"/>
+				<soap:header message="tns:standardpais" part="toimik" use="literal"/>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:header message="tns:standardpais" part="asutus" use="literal"/>
+				<soap:header message="tns:standardpais" part="andmekogu" use="literal"/>
+				<soap:header message="tns:standardpais" part="isikukood" use="literal"/>
+				<soap:header message="tns:standardpais" part="id" use="literal"/>
+				<soap:header message="tns:standardpais" part="nimi" use="literal"/>
+				<soap:header message="tns:standardpais" part="toimik" use="literal"/>
+				<soap:body use="literal" />
+			</output>
+		</operation>
+		<!-- certificateRequest START -->
+		<operation name="certificateRequest">
+			<xrd:version>v1</xrd:version>
+			<input>
+				<soap:header message="tns:standardpais" part="asutus" use="literal"/>
+				<soap:header message="tns:standardpais" part="andmekogu" use="literal"/>
+				<soap:header message="tns:standardpais" part="isikukood" use="literal"/>
+				<soap:header message="tns:standardpais" part="id" use="literal"/>
+				<soap:header message="tns:standardpais" part="nimi" use="literal"/>
+				<soap:header message="tns:standardpais" part="toimik" use="literal"/>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:header message="tns:standardpais" part="asutus" use="literal"/>
+				<soap:header message="tns:standardpais" part="andmekogu" use="literal"/>
+				<soap:header message="tns:standardpais" part="isikukood" use="literal"/>
+				<soap:header message="tns:standardpais" part="id" use="literal"/>
+				<soap:header message="tns:standardpais" part="nimi" use="literal"/>
+				<soap:header message="tns:standardpais" part="toimik" use="literal"/>
+				<soap:body use="literal" />
+			</output>
+		</operation>
+		<!-- updatedCertificatesRequest START -->
+		<operation name="updatedCertificatesRequest">
+			<xrd:version>v1</xrd:version>
+			<input>
+				<soap:header message="tns:standardpais" part="asutus" use="literal"/>
+				<soap:header message="tns:standardpais" part="andmekogu" use="literal"/>
+				<soap:header message="tns:standardpais" part="isikukood" use="literal"/>
+				<soap:header message="tns:standardpais" part="id" use="literal"/>
+				<soap:header message="tns:standardpais" part="nimi" use="literal"/>
+				<soap:header message="tns:standardpais" part="toimik" use="literal"/>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:header message="tns:standardpais" part="asutus" use="literal"/>
+				<soap:header message="tns:standardpais" part="andmekogu" use="literal"/>
+				<soap:header message="tns:standardpais" part="isikukood" use="literal"/>
+				<soap:header message="tns:standardpais" part="id" use="literal"/>
+				<soap:header message="tns:standardpais" part="nimi" use="literal"/>
+				<soap:header message="tns:standardpais" part="toimik" use="literal"/>
+				<soap:body use="literal" />
+			</output>
+		</operation>		
+		<!-- generateReferral START -->
+		<operation name="generateReferral">
+			<xrd:version>v1</xrd:version>
+			<input>
+				<soap:header message="tns:standardpais" part="asutus" use="literal"/>
+				<soap:header message="tns:standardpais" part="andmekogu" use="literal"/>
+				<soap:header message="tns:standardpais" part="isikukood" use="literal"/>
+				<soap:header message="tns:standardpais" part="id" use="literal"/>
+				<soap:header message="tns:standardpais" part="nimi" use="literal"/>
+				<soap:header message="tns:standardpais" part="toimik" use="literal"/>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:header message="tns:standardpais" part="asutus" use="literal"/>
+				<soap:header message="tns:standardpais" part="andmekogu" use="literal"/>
+				<soap:header message="tns:standardpais" part="isikukood" use="literal"/>
+				<soap:header message="tns:standardpais" part="id" use="literal"/>
+				<soap:header message="tns:standardpais" part="nimi" use="literal"/>
+				<soap:header message="tns:standardpais" part="toimik" use="literal"/>
+				<soap:body use="literal" />
+			</output>
+		</operation>
+	</binding>
+
+	<service name="DigiluguRegistriteTeenused">
+		<port name="DigiluguRegistriteTeenused" binding="tns:DigiluguRegistriteTeenusedSoapBinding">
+			<soap:address location="http://TURVASERVER/cgi-bin/consumer_proxy" />
+			<xrd:title>Digilugu andmekogu</xrd:title>
+			<xrd:address producer="clinicaldocumentextension" />
+		</port>
+	</service>
+</wsdl:definitions>
