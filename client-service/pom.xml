@@ -39,6 +39,9 @@
     <module>ads</module>
     <module>adsv5</module>	
     <module>arireg</module>
+    <module>kvkr</module>
+    <module>star</module>
+
     <!--  <module>dhl</module>-->
     <module>ehis</module>
     <module>ehr</module>
