@@ -1,12 +1,13 @@
 package com.nortal.jroad.client.tor;
 
-import javax.xml.namespace.QName;
-
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
+import javax.activation.DataHandler;
+import javax.xml.namespace.QName;
 import javax.xml.soap.SOAPElement;
 import javax.xml.soap.SOAPEnvelope;
 import javax.xml.soap.SOAPException;
@@ -18,15 +19,28 @@ import org.springframework.ws.WebServiceMessage;
 import org.springframework.ws.soap.saaj.SaajSoapMessage;
 
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.service.v3.XRoadDatabaseService;
+import com.nortal.jroad.client.service.XRoadDatabaseService;
 import com.nortal.jroad.client.service.callback.CustomCallback;
+import com.nortal.jroad.client.tor.types.ee.x_road.emtav5.producer.DownloadMimeDocument;
+import com.nortal.jroad.client.tor.types.ee.x_road.emtav5.producer.DownloadMimeDocument.DownloadMime;
+import com.nortal.jroad.client.tor.types.ee.x_road.emtav5.producer.DownloadMimeResponseDocument.DownloadMimeResponse;
+import com.nortal.jroad.client.tor.types.ee.x_road.emtav5.producer.TORIKDocument.TORIK;
+import com.nortal.jroad.client.tor.types.ee.x_road.emtav5.producer.DownloadMimeType;
 import com.nortal.jroad.client.tor.types.ee.x_road.emtav5.producer.TORIKDocument;
 import com.nortal.jroad.client.tor.types.ee.x_road.emtav5.producer.TORIKResponseDocument;
-import com.nortal.jroad.client.tor.types.ee.x_road.emtav5.producer.TorikRequestType;
 import com.nortal.jroad.client.tor.types.ee.x_road.emtav5.producer.TORIKResponseDocument.TORIKResponse;
+import com.nortal.jroad.client.tor.types.ee.x_road.emtav5.producer.TorikRequestType;
 import com.nortal.jroad.client.tor.types.ee.x_road.emtav5.producer.TorikRequestType.ParinguLiik;
+import com.nortal.jroad.client.tor.types.ee.x_road.emtav5.producer.UploadMimeDocument;
+import com.nortal.jroad.client.tor.types.ee.x_road.emtav5.producer.UploadMimeDocument.UploadMime;
+import com.nortal.jroad.client.tor.types.ee.x_road.emtav5.producer.UploadMimeResponseDocument.UploadMimeResponse;
+import com.nortal.jroad.client.tor.types.ee.x_road.emtav5.producer.UploadMimeType;
+import com.nortal.jroad.client.tor.types.ee.x_road.emtav5.producer.UploadMimeType.Props;
+import com.nortal.jroad.client.tor.types.ee.x_road.emtav5.producer.UploadMimeType.Props.Prop;
+import com.nortal.jroad.model.XTeeAttachment;
 import com.nortal.jroad.model.XTeeMessage;
 import com.nortal.jroad.model.XmlBeansXTeeMessage;
+import com.nortal.jroad.util.AttachmentUtil;
 
 /**
  * <code>TOR</code> database X-tee service implementation<br>
@@ -36,20 +50,76 @@ import com.nortal.jroad.model.XmlBeansXTeeMessage;
 @Service("torXTeeServiceImpl")
 public class TorXTeeServiceImpl extends XRoadDatabaseService implements TorXTeeService {
 
-  private static final String TORIK = "TORIK";
+  private static final String UPLOAD_ID = "UPLOAD_ID";
+  private static final String METHOD_TORIK = "TORIK";
+  private static final String METHOD_UPLOAD_MIME = "uploadMime";
+  private static final String METHOD_DOWNLOAD_MIME = "downloadMime";
+  private static final String V1 = "v1";
 
   @Override
   public void init() {
     super.init();
     setDatabase("emtav5");
   }
+  
+  @Override
+  public XTeeMessage<DownloadMimeResponse> downloadMime(String target) throws XTeeServiceConsumptionException {
+    DownloadMime downloadMimeDocument = DownloadMimeDocument.DownloadMime.Factory.newInstance();
+
+    DownloadMimeType request = downloadMimeDocument.addNewRequest();
+    request.setTarget(target);
+
+    XTeeMessage<DownloadMimeResponse> response = send(new XmlBeansXTeeMessage<DownloadMimeDocument.DownloadMime>(downloadMimeDocument),
+                                                      METHOD_DOWNLOAD_MIME,
+                                                      V1,
+                                                      new TorCallback(),
+                                                      null);
+    return response;
+  }
+  
+  @Override
+  public UploadMimeResponse uploadMime(String target, String operation, String id, DataHandler fail)
+      throws XTeeServiceConsumptionException {
+    UploadMime uploadMimeDocument = UploadMimeDocument.UploadMime.Factory.newInstance();
+
+    UploadMimeType request = uploadMimeDocument.addNewRequest();
+    request.setTarget(target);
+    request.setOperation(operation);
+    Props props = request.addNewProps();
+    Prop prop = props.addNewProp();
+    prop.setKey(UPLOAD_ID);
+    prop.setStringValue(id);
+
+    XmlBeansXTeeMessage<UploadMimeDocument.UploadMime> xteeMessage = new XmlBeansXTeeMessage<UploadMimeDocument.UploadMime>(uploadMimeDocument);
+    List<XTeeAttachment> attachments = xteeMessage.getAttachments();
+
+    String failCid = AttachmentUtil.getUniqueCid();
+    request.addNewFile().setHref("cid:" + failCid);
+    attachments.add(new XTeeAttachment(failCid, fail));
+
+    XTeeMessage<UploadMimeResponse> response = send(xteeMessage, METHOD_UPLOAD_MIME, V1, new TorCallback(), null);
+
+    return response.getContent();
+  }
 
   @Override
   public TORIKResponse findTorik(String paringuLiik, Date tootAlgusKp, Date tootLoppKp, String isikukood)
       throws XTeeServiceConsumptionException {
-    TORIKDocument.TORIK torikDocument = TORIKDocument.TORIK.Factory.newInstance();
+    TorikRequestType torik = getTorikRequest(paringuLiik, tootAlgusKp, tootLoppKp, isikukood).getTORIK().getRequest();
 
-    TorikRequestType request = torikDocument.addNewRequest();
+    XTeeMessage<TORIKResponseDocument.TORIKResponse> vastus =
+        send(new XmlBeansXTeeMessage<TorikRequestType>(torik), METHOD_TORIK, V1, new TorCallback(), null);
+
+    return vastus.getContent();
+
+  }
+
+  @Override
+  public TORIKDocument getTorikRequest(String paringuLiik, Date tootAlgusKp, Date tootLoppKp, String isikukood) {
+    TORIKDocument torikDocument = TORIKDocument.Factory.newInstance();
+    TORIK torik = torikDocument.addNewTORIK();
+
+    TorikRequestType request = torik.addNewRequest();
     request.setParinguLiik(ParinguLiik.Enum.forString(paringuLiik));
     request.setTootAlgus(getCalendar(tootAlgusKp));
     request.setTootLopp(getCalendar(tootLoppKp));
@@ -61,12 +131,7 @@ public class TorXTeeServiceImpl extends XRoadDatabaseService implements TorXTeeS
       request.setMuutLopp(loppCal);
     }
     request.setIsikukoodid(isikukood);
-
-    XTeeMessage<TORIKResponseDocument.TORIKResponse> vastus =
-        send(new XmlBeansXTeeMessage<TORIKDocument.TORIK>(torikDocument), TORIK, "v1", new TorCallback(), null);
-
-    return vastus.getContent();
-
+    return torikDocument;
   }
 
   private Calendar getCalendar(Date kuup) {
