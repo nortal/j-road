@@ -152,9 +152,9 @@
   </build>
   <dependencies>
     <dependency>
-      <groupId>javax.xml</groupId>
+      <groupId>javax.xml.parsers</groupId>
       <artifactId>jaxp-api</artifactId>
-      <version>1.4.2</version>
+      <version>1.4.5</version>
     </dependency>
   </dependencies>
 
