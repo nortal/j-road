@@ -37,7 +37,7 @@
       <module>emtav5</module>
     <module>aar</module>
     <module>ads</module>
-    <module>adsv5</module>	
+    <module>adsv5</module>
     <module>arireg</module>
     <module>kvkr</module>
     <module>star</module>
@@ -63,6 +63,7 @@
     <module>rets</module>
     <module>rmrk</module>
     <module>rr</module>
+    <module>rrv5</module>
     <module>tam</module>
 	<module>tarn</module>
     <module>teavituskalender</module>
