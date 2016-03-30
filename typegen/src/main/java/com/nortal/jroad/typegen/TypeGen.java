@@ -424,6 +424,7 @@ public class TypeGen {
                                                                                version));
       }
     }
+    logInfo("Created metadata for operations: " + metadata.keySet());
   }
 
   private static void parseWsdlMetadata(String opNs) {
