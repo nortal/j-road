@@ -29,8 +29,6 @@ public class KirstXTeeServiceImplTest extends BaseXTeeServiceImplTest {
     Set<String> isikukoodid = new HashSet<String>(
           Arrays.asList("46111030234", "38606132730", "48703220267", "48702160305", "48809083723",
                         "47205076025", "38611122787", "48702160305", "37203312721", "46805252737", "47710130255"));
-    isikukoodid.clear();
-    isikukoodid.add("46111030234");
     Calendar alates = Calendar.getInstance();
     alates.set(2007, Calendar.JANUARY, 1);
     Calendar kuni = Calendar.getInstance();

@@ -1,10 +1,13 @@
 package com.nortal.jroad.client.kirst;
 
+import com.nortal.jroad.client.exception.NonTechnicalFaultException;
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
 import com.nortal.jroad.client.kirst.types.ee.x_road.kirst.producer.*;
 import com.nortal.jroad.client.service.v2.XTeeDatabaseService;
 import com.nortal.jroad.model.XTeeMessage;
 import com.nortal.jroad.model.XmlBeansXTeeMessage;
+import org.apache.xmlbeans.XmlException;
+import org.apache.xmlbeans.XmlObject;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -23,9 +26,12 @@ public class KirstXTeeServiceImpl extends XTeeDatabaseService implements KirstXT
       throw new IllegalArgumentException("At least one 'isikukood' must be provided");
     }
     TvlLoetelu2RequestType request = createTvlLoetelu2V1Request(isikukoodid, alates, kuni);
-    XTeeMessage<TvlLoetelu2ResponseType> response = send(new XmlBeansXTeeMessage<TvlLoetelu2RequestType>(request), "tvl_loetelu2", "v1");
-
-    return response.getContent();
+    XTeeMessage<XmlObject> response = send(new XmlBeansXTeeMessage<TvlLoetelu2RequestType>(request), "tvl_loetelu2", "v1");
+    try {
+      return TvlLoetelu2ResponseType.Factory.parse(response.getContent().xmlText());
+    } catch (XmlException e) {
+      throw new XTeeServiceConsumptionException(new NonTechnicalFaultException("", "Unable to parse response"), "kirst", "tvl_loetelu2", "v1");
+    }
   }
 
   private TvlLoetelu2RequestType createTvlLoetelu2V1Request(Set<String> isikukoodid, Date alates, Date kuni) {
@@ -40,8 +46,8 @@ public class KirstXTeeServiceImpl extends XTeeDatabaseService implements KirstXT
       item.setIsikukood(isikukood);
       items[count++] = item;
     }
-      isikud.setItemArray(items);
-      return request;
+    isikud.setItemArray(items);
+    return request;
   }
 
   private Calendar toCalendar(Date date) {
