@@ -3,7 +3,6 @@ package com.nortal.jroad.typegen;
 import com.nortal.jroad.enums.XRoadProtocolVersion;
 
 public class DatabaseDescriptor {
-
     private String id;
     private boolean overrideId;
     private XRoadProtocolVersion version;

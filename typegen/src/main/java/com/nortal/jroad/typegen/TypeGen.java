@@ -431,7 +431,7 @@ public class TypeGen {
     Matcher m;
     m = v2.matcher(opNs);
     if (m.matches()) {
-      dbDesc.setId(opNs.substring(opNs.lastIndexOf("/") + 1));
+      dbDesc.set(opNs.substring(opNs.lastIndexOf("/") + 1), XRoadProtocolVersion.V2_0);
       return;
     }
     Pattern v3_0 = Pattern.compile(XROAD_V3_0_NAMESPACE_PATTERN);
