@@ -9,23 +9,17 @@ import com.nortal.jroad.typegen.xmlbeans.SimpleFiler;
 import com.nortal.jroad.typegen.xmlbeans.XteeSchemaCodePrinter;
 import com.nortal.jroad.util.SOAPUtil;
 import freemarker.template.TemplateException;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+
+import java.io.*;
 import java.net.URISyntaxException;
 import java.security.MessageDigest;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.apache.xmlbeans.XmlBeans;
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlObject;
@@ -51,6 +45,8 @@ public class TypeGen {
 
   private static final String WSDL_DIR = "wsdldir";
   private static final String WSDL_SUFFIX = ".wsdl";
+  private static final String FILENAME__DATABASE_PROPERTIES = "database.properties";
+  private static final String PROPERTY__DATABASE_NAME_OVERRIDE = "databaseNameOverride";
   private static final String XSD_SUFFIX = ".xsd";
   private static final String OUTPUT_DIR = "sourcedir";
   static final String XSB_DIR = "xsbdir";
@@ -63,8 +59,7 @@ public class TypeGen {
   private static File curWsdl;
   private static File hashFile;
   private static byte[] computedHash;
-  private static XRoadProtocolVersion version;
-  private static String database;
+  private final static DatabaseDescriptor dbDesc = new DatabaseDescriptor();
 
   public static void main(String[] args) throws Exception {
     System.out.println("Starting source generation...");
@@ -180,7 +175,6 @@ public class TypeGen {
   /**
    * Gets all WSDL files in a directory and returns them as an array
    *
-   * @param dir
    * @return File array
    */
   private static File[] getWsdls(File dirfile) throws Exception {
@@ -240,8 +234,39 @@ public class TypeGen {
       schemas.addAll(getSchemas(xmlWsdl.getElementsByTagNameNS(WSDL_NS, "types").item(0),
                                 getNamespaces(xmlWsdl),
                                 wsdl.getParent()));
+      Properties databaseProps = getDatabaseProps(wsdl.getParentFile());
+      String databaseNameOverride = databaseProps.getProperty(PROPERTY__DATABASE_NAME_OVERRIDE);
+      if (databaseNameOverride != null) {
+        logInfo(PROPERTY__DATABASE_NAME_OVERRIDE + " is set to '"
+                + databaseNameOverride + "', will use it as database identifier.");
+        dbDesc.setId(databaseNameOverride, true);
+      }
+
       createMetadata(xmlWsdl);
+      logInfo("Created metadata for database " + dbDesc.getId());
     }
+  }
+
+  private static void logInfo(String s) {
+    System.out.println(s);
+  }
+
+  private static Properties getDatabaseProps(File wsdlLocationDir) {
+    logInfo("Looking for " + FILENAME__DATABASE_PROPERTIES + " at " + wsdlLocationDir);
+    File dbPropsFile = new File(wsdlLocationDir, FILENAME__DATABASE_PROPERTIES);
+    Properties result = new Properties();
+    if (dbPropsFile.exists()) {
+      try {
+        FileInputStream fis = new FileInputStream(dbPropsFile);
+        logInfo("..found, loading properties.");
+        result.load(fis);
+      } catch (Exception e) {
+        throw new RuntimeException(e);
+      }
+    } else {
+      logInfo("..not found");
+    }
+    return result;
   }
 
   /**
@@ -295,19 +320,12 @@ public class TypeGen {
    * Creates metadata needed to marshal XmlBeans objects to valid XTee requests.
    *
    * @param wsdlDoc
-   * @throws Exception
    */
-  private static void createMetadata(Document wsdlDoc) throws Exception {
+  private static void createMetadata(Document wsdlDoc) {
     String opNs =
         wsdlDoc.getElementsByTagNameNS(WSDL_NS, "definitions").item(0).getAttributes().getNamedItem("targetNamespace").getNodeValue().toLowerCase();
 
     parseWsdlMetadata(opNs);
-    // sets database name from wsdl:definitions name attribute if it exists
-    Node nameNode =
-        wsdlDoc.getElementsByTagNameNS(TypeGen.WSDL_NS, "definitions").item(0).getAttributes().getNamedItem("name");
-    if (nameNode != null) {
-      TypeGen.database = nameNode.getNodeValue().toLowerCase();
-    }
 
     Map<String, QName> messageMap = getMessageMap(wsdlDoc);
 
@@ -397,7 +415,7 @@ public class TypeGen {
 
         String version = versionMap.get(opname);
 
-        metadata.put(database + opname.toLowerCase(), new XmlBeansXTeeMetadata(opname,
+        metadata.put(dbDesc.getId() + opname.toLowerCase(), new XmlBeansXTeeMetadata(opname,
                                                                                opNs,
                                                                                requestElementName,
                                                                                requestElementNs,
@@ -413,37 +431,33 @@ public class TypeGen {
     Matcher m;
     m = v2.matcher(opNs);
     if (m.matches()) {
-      version = XRoadProtocolVersion.V2_0;
-      database = opNs.substring(opNs.lastIndexOf("/") + 1);
+      dbDesc.setId(opNs.substring(opNs.lastIndexOf("/") + 1));
       return;
     }
     Pattern v3_0 = Pattern.compile(XROAD_V3_0_NAMESPACE_PATTERN);
     m = v3_0.matcher(opNs);
     if (m.matches()) {
-      version = XRoadProtocolVersion.V3_0;
-      database = m.group(1);
+      dbDesc.set(m.group(1), XRoadProtocolVersion.V3_0);
       return;
     }
     Pattern v3_1 = Pattern.compile(XROAD_V3_1_NAMESPACE_PATTERN);
     m = v3_1.matcher(opNs);
     if (m.matches()) {
-      version = XRoadProtocolVersion.V3_1;
-      database = m.group(1);
+      dbDesc.set(m.group(1), XRoadProtocolVersion.V3_1);
       return;
     }
     Pattern v4 = Pattern.compile(XROAD_V4_NAMESPACE_PATTERN);
     m = v4.matcher(opNs);
     if (m.matches()) {
-      version = XRoadProtocolVersion.V4_0;
-      database = m.group(1);
+      dbDesc.set(m.group(1), XRoadProtocolVersion.V4_0);
       return;
     }
     // WSDL does not follow X-tee convention, warn and use WSDL name
     // as database
     System.out.println("WARNING: WSDL namespace does not match X-tee convention (found: " + opNs
         + "), setting database name from WSDL filename!");
-    version = XRoadProtocolVersion.V2_0;
-    database = curWsdl.getName().substring(0, curWsdl.getName().toLowerCase().indexOf(".wsdl"));
+    dbDesc.set(curWsdl.getName().substring(0, curWsdl.getName().toLowerCase().indexOf(".wsdl")),
+               XRoadProtocolVersion.V2_0);
   }
   
   private static final List<String> MESSAGE_WRAPPER_NAMES = Arrays.asList("keha", "body", "request", "response");
@@ -464,7 +478,7 @@ public class TypeGen {
         Node part = parts.item(j);
         if (WSDL_NS.equals(part.getNamespaceURI())
             && "part".equals(part.getLocalName())
-            && (XRoadProtocolVersion.V2_0 != version || MESSAGE_WRAPPER_NAMES.contains(part.getAttributes().getNamedItem("name").getNodeValue()))) {
+            && (XRoadProtocolVersion.V2_0 != dbDesc.getVersion() || MESSAGE_WRAPPER_NAMES.contains(part.getAttributes().getNamedItem("name").getNodeValue()))) {
           Node element = part.getAttributes().getNamedItem("element");
           String[] type =
               element == null
@@ -481,7 +495,7 @@ public class TypeGen {
 
   private static void generateDatabaseClasses(String outputdir) throws IOException, TemplateException {
     DatabaseClasses classes =
-        new DatabaseClasses(argMap.get(XSB_DIR), argMap.get(DB_CLASSES_PACKAGE), version);
+        new DatabaseClasses(argMap.get(XSB_DIR), argMap.get(DB_CLASSES_PACKAGE), dbDesc.getVersion());
     for (Map.Entry<String, XmlBeansXTeeMetadata> entry : metadata.entrySet()) {
       XmlBeansXTeeMetadata serviceMetadata = entry.getValue();
 
