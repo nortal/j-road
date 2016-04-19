@@ -1,9 +1,9 @@
 package com.nortal.jroad.client.kir;
 
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.kir.types.ee.x_road.kir.producer.AnnaArvelolekuAndmedResponse;
+import com.nortal.jroad.client.kir.types.ee.x_road.kir.producer.AnnaArvelolekuAndmedResponseDocument.AnnaArvelolekuAndmedResponse;
 import com.nortal.jroad.client.kir.types.ee.x_road.kir.producer.IsikuStaatus;
-import com.nortal.jroad.client.kir.types.ee.x_road.kir.producer.LeiaMuudetudAndmetegaKinnipeetavadResponse;
+import com.nortal.jroad.client.kir.types.ee.x_road.kir.producer.LeiaMuudetudAndmetegaKinnipeetavadResponseDocument.LeiaMuudetudAndmetegaKinnipeetavadResponse;
 
 import java.util.Date;
 import java.util.Set;
