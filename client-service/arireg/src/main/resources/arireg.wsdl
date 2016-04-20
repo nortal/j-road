@@ -47,6 +47,10 @@
 			<!-- http://www2.rik.ee/schemas/xtee/arireg/live/ettevotja_muudatused_tasuta.xsd -->
 			<!-- <include schemaLocation="http://www2.rik.ee/schemas/xtee/arireg/live/ettevotja_muudatused_tasuta.xsd" /> -->
 
+			<!-- ettevotja_muudatused tasuta riigiasutustele, eelkõige töötukassa -->
+			<include
+				schemaLocation="http://www2.rik.ee/schemas/xtee/arireg/live/ettevotja_muudatused_tasuta_tootukassa.xsd" />
+
 			<!-- ettevotja_muudatused tasuline -->
 			<!-- <include schemaLocation="http://www2.rik.ee/schemas/xtee/arireg/live/ettevotja_muudatused_tasuline.xsd"/> -->
 
@@ -993,6 +997,13 @@
 		<part name="paring" type="typens:ettevotja_muudatused_tasuta_paring" />
 		<part name="keha" type="typens:ettevotja_muudatused_tasuta_vastus" />
 	</message>
+	<message name="ettevotja_muudatused_tasuta_tootukassaInputMessage">
+		<part name="keha" type="typens:ettevotja_muudatused_tasuta_tootukassa_paring"/>
+	</message>
+	<message name="ettevotja_muudatused_tasuta_tootukassaOutputMessage">
+		<part name="paring" type="typens:ettevotja_muudatused_tasuta_tootukassa_paring"/>
+		<part name="keha" type="typens:ettevotja_muudatused_tasuta_tootukassa_vastus"/>
+	</message>
 	<message name="ettevotja_muudatused_tasulineOutputMessage">
 		<part name="paring" type="typens:ettevotja_muudatused_tasuline_paring" />
 		<part name="keha" type="typens:ettevotja_muudatused_tasuline_vastus" />
@@ -1486,6 +1497,15 @@
 			</documentation>
 			<input message="typens:ettevotja_muudatused_tasutaInputMessage" />
 			<output message="typens:ettevotja_muudatused_tasutaOutputMessage" />
+		</operation>
+		<operation name="ettevotja_muudatused_tasuta_tootukassa">
+			<documentation>
+				<xtee:title>
+					Ettevõtja muudatuste loetelu riigiasutustele päring töötukassale
+				</xtee:title>
+			</documentation>
+			<input message="typens:ettevotja_muudatused_tasuta_tootukassaInputMessage"/>
+			<output message="typens:ettevotja_muudatused_tasuta_tootukassaOutputMessage"/>
 		</operation>
 		<operation name="ettevotja_muudatused_tasuline">
 			<documentation>
@@ -2029,6 +2049,20 @@
 			</output>
 		</operation>
 		<operation name="ettevotja_muudatused_tasuta">
+			<xtee:version>v1</xtee:version>
+			<soap:operation soapAction="" />
+			<input>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://producers.arireg.xtee.riik.ee/producer/arireg"
+					use="encoded" />
+			</input>
+			<output>
+				<soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://producers.arireg.xtee.riik.ee/producer/arireg"
+					use="encoded" />
+			</output>
+		</operation>
+		<operation name="ettevotja_muudatused_tasuta_tootukassa">
 			<xtee:version>v1</xtee:version>
 			<soap:operation soapAction="" />
 			<input>

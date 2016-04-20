@@ -7,26 +7,10 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.*;
 import org.springframework.stereotype.Service;
 
 import com.nortal.jroad.client.arireg.database.AriregXTeeDatabase;
-import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.DetailandmedV3Ettevotja;
-import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.DetailandmedV4Ettevotja;
-import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.DetailandmedV4Query;
-import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.DetailandmedV5Ettevotja;
-import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.DetailandmedV5Query;
-import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.Detailandmedv2Ettevotja;
-import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.Detailandmedv2Query;
-import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.EttevotjaMuudatusedTasutaParing;
-import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.EttevotjaMuudatusedTasutaVastus;
-import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingarikeeludKeeld;
-import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingarikeeludParing;
-import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingesindusEttevote;
-import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingesindusParing;
-import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingesindusV2Ettevote;
-import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingesindusV2Paring;
-import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingesindusV3Ettevote;
-import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingesindusV3Paring;
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
 
 /**
@@ -337,5 +321,27 @@ public class AriregXTeeServiceImpl implements AriregXTeeService {
     callback.populate(query);
 
     return ariregXTeeDatabase.ettevotjaMuudatusedTasutaV1(query);
+  }
+
+  public EttevotjaMuudatusedTasutaTootukassaVastus findEttevotjaMuudatusedTasutaTootukassaV1(
+          Date algusKp,
+          Date loppKp,
+          String[] kandesIsikudRollid,
+          Integer tulemusteLk) throws XTeeServiceConsumptionException {
+
+    Calendar algus = Calendar.getInstance();
+    Calendar lopp = Calendar.getInstance();
+    algus.setTime(algusKp);
+    lopp.setTime(loppKp);
+
+    EttevotjaMuudatusedTasutaTootukassaParing query = EttevotjaMuudatusedTasutaTootukassaParing.Factory.newInstance();
+    query.setAlguskuupaev(algus);
+    query.setLoppkuupaev(lopp);
+    query.setKandesIsikudRollidArray(kandesIsikudRollid);
+    if (tulemusteLk != null) {
+      query.setTulemusteLk(tulemusteLk);
+    }
+
+    return ariregXTeeDatabase.ettevotjaMuudatusedTasutaTootukassaV1(query);
   }
 }
