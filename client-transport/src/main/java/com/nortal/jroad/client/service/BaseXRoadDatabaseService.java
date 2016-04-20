@@ -11,7 +11,6 @@ import com.nortal.jroad.model.XTeeMessage;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 
 /**
  * Base class for all standard X-Road services implementations. Database name will be determined automatically based on
@@ -25,16 +24,13 @@ public abstract class BaseXRoadDatabaseService {
 
   private static final String DATABASE_SERVICE_PATTERN = "(.+?)X(Tee|Road)(Database|Service)Impl";
 
-  @Resource
-  protected XRoadServiceConfigurationProvider xRoadServiceConfigurationProvider;
-
   private String database;
   private String wsdlDatabase;
 
 
   @PostConstruct
   public void init() {
-    if (xRoadServiceConfigurationProvider == null) {
+    if (getXRoadServiceConfigurationProvider() == null) {
       throw new IllegalStateException("Service configuration provider must be set!");
     }
 
@@ -65,7 +61,7 @@ public abstract class BaseXRoadDatabaseService {
   protected <I, O> XTeeMessage<O> send(XTeeMessage<I> input, String method, String version)
       throws XTeeServiceConsumptionException {
     return (XTeeMessage<O>) getXRoadConsumer().sendRequest(input,
-                                                     xRoadServiceConfigurationProvider.createConfiguration(database,
+                                                     getXRoadServiceConfigurationProvider().createConfiguration(database,
                                                                                                           wsdlDatabase,
                                                                                                           method,
                                                                                                           version));
@@ -74,7 +70,7 @@ public abstract class BaseXRoadDatabaseService {
   protected <I, O> XTeeMessage<O> send(XTeeMessage<I> input, String method, String version, final String idCode)
       throws XTeeServiceConsumptionException {
     final BaseXRoadServiceConfiguration xteeConfiguration =
-        xRoadServiceConfigurationProvider.createConfiguration(database, wsdlDatabase, method, version);
+        getXRoadServiceConfigurationProvider().createConfiguration(database, wsdlDatabase, method, version);
 
     DelegatingXRoadServiceConfiguration configuration = new DelegatingXRoadServiceConfiguration(xteeConfiguration) {
       @Override
@@ -94,7 +90,7 @@ public abstract class BaseXRoadDatabaseService {
                                        CustomCallback callback,
                                        CustomExtractor extractor) throws XTeeServiceConsumptionException {
     return (XTeeMessage<O>) getXRoadConsumer().sendRequest(input,
-                                                           xRoadServiceConfigurationProvider.createConfiguration(database,
+                                                           getXRoadServiceConfigurationProvider().createConfiguration(database,
                                                                                                                  wsdlDatabase,
                                                                                                                  method,
                                                                                                                  version),
@@ -110,7 +106,7 @@ public abstract class BaseXRoadDatabaseService {
                                        CustomExtractor extractor,
                                        boolean forceDatabaseNamespace) throws XTeeServiceConsumptionException {
     BaseXRoadServiceConfiguration configuration =
-        xRoadServiceConfigurationProvider.createConfiguration(database, wsdlDatabase, method, version);
+        getXRoadServiceConfigurationProvider().createConfiguration(database, wsdlDatabase, method, version);
     if (forceDatabaseNamespace) {
       configuration.forceDatabaseNamespace();
     }
@@ -121,14 +117,12 @@ public abstract class BaseXRoadDatabaseService {
     this.database = database;
   }
 
-  public void setXRoadServiceConfigurationProvider(XRoadServiceConfigurationProvider xRoadServiceConfigurationProvider) {
-    this.xRoadServiceConfigurationProvider = xRoadServiceConfigurationProvider;
-  }
-
   public String getDatabase() {
     return database;
   }
 
   protected abstract XRoadConsumer getXRoadConsumer();
+
+  protected abstract XRoadServiceConfigurationProvider getXRoadServiceConfigurationProvider();
 
 }

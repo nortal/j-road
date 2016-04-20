@@ -1,6 +1,7 @@
 package com.nortal.jroad.client.service.v2;
 
 import com.nortal.jroad.client.service.BaseXRoadDatabaseService;
+import com.nortal.jroad.client.service.configuration.provider.XRoadServiceConfigurationProvider;
 
 import javax.annotation.Resource;
 import com.nortal.jroad.client.service.consumer.XRoadConsumer;
@@ -19,13 +20,24 @@ public abstract class XTeeDatabaseService extends BaseXRoadDatabaseService {
   @Resource
   protected XRoadConsumer xTeeConsumer;
 
+  @Resource
+  protected XRoadServiceConfigurationProvider xRoadServiceConfigurationProvider;
+
   @Override
   protected XRoadConsumer getXRoadConsumer() {
     return xTeeConsumer;
+  }
+
+  @Override
+  protected XRoadServiceConfigurationProvider getXRoadServiceConfigurationProvider() {
+    return xRoadServiceConfigurationProvider;
   }
 
   public void setxTeeConsumer(XRoadConsumer xTeeConsumer) {
     this.xTeeConsumer = xTeeConsumer;
   }
 
+  public void setXRoadServiceConfigurationProvider(XRoadServiceConfigurationProvider xRoadServiceConfigurationProvider) {
+    this.xRoadServiceConfigurationProvider = xRoadServiceConfigurationProvider;
+  }
 }

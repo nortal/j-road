@@ -50,7 +50,7 @@ public class PropertiesBasedXRoadServiceConfigurationProvider extends AbstractXR
     this.resource = resource;
   }
 
-  private String resolveProperty(String propertyName) {
+  protected String resolveProperty(String propertyName) {
     return props.getProperty(propertyName);
   }
 }
