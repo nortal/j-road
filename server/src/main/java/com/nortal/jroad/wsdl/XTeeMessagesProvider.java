@@ -14,7 +14,6 @@ import java.util.Map;
 
 import javax.wsdl.Definition;
 import javax.wsdl.Part;
-import javax.wsdl.WSDLException;
 import javax.xml.namespace.QName;
 
 import org.springframework.ws.wsdl.wsdl11.provider.SuffixBasedMessagesProvider;
@@ -27,19 +26,21 @@ import org.w3c.dom.Element;
  * 
  * @author Lauri Lättemäe (lauri.lattemae@nortal.com) - protocol 4.0
  */
+// TODO Lauri: maybe we can remove it or we want to remove Request suffix from input names as it seems to be needed by
+// xroad doc?
 public class XTeeMessagesProvider extends SuffixBasedMessagesProvider {
   private final Map<String, QName> elementTypeMap = new HashMap<String, QName>();
   private int nscounter = 1;
 
-  @Override
-  protected void populatePart(Definition definition, Part part, QName elementName) throws WSDLException {
-    QName typeName = elementTypeMap.get(elementName.getLocalPart());
-    part.setTypeName(typeName);
-    part.setName(elementName.getLocalPart());
-    if (definition.getPrefix(typeName.getNamespaceURI()) == null) {
-      definition.addNamespace("xns" + nscounter++, typeName.getNamespaceURI());
-    }
-  }
+  // @Override
+  // protected void populatePart(Definition definition, Part part, QName elementName) throws WSDLException {
+  // QName typeName = elementTypeMap.get(elementName.getLocalPart());
+  // part.setTypeName(typeName);
+  // part.setName(elementName.getLocalPart());
+  // if (definition.getPrefix(typeName.getNamespaceURI()) == null) {
+  // definition.addNamespace("xns" + nscounter++, typeName.getNamespaceURI());
+  // }
+  // }
 
   @Override
   protected boolean isMessageElement(Element element) {

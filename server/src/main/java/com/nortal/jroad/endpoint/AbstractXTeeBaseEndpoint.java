@@ -183,10 +183,10 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
     responseMessage.getSOAPPart().getEnvelope().setEncodingStyle("http://schemas.xmlsoap.org/soap/encoding/");
 
     Node teenusElement = SOAPUtil.getFirstNonTextChild(requestMessage.getSOAPBody());
-
-    if (teenusElement.getPrefix() != null || teenusElement.getNamespaceURI() != null) {
-      SOAPUtil.addNamespace(responseMessage, teenusElement.getPrefix(), teenusElement.getNamespaceURI());
+    if (teenusElement.getPrefix() == null || teenusElement.getNamespaceURI() == null) {
+      throw new IllegalStateException("Service request is missing namespace.");
     }
+    SOAPUtil.addNamespace(responseMessage, teenusElement.getPrefix(), teenusElement.getNamespaceURI());
 
     String teenusElementName = teenusElement.getLocalName();
     if (teenusElementName.endsWith(SuffixBasedMessagesProvider.DEFAULT_REQUEST_SUFFIX)) {
