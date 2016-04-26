@@ -54,12 +54,11 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
     SOAPMessage paringMessage = SOAPUtil.extractSoapMessage(messageContext.getRequest());
     SOAPMessage responseMessage = SOAPUtil.extractSoapMessage(messageContext.getResponse());
 
-    version = parseProtocolVersion(paringMessage);
-
     // meta-service does not need 'header' element
     if (metaService) {
       responseMessage.getSOAPHeader().detachNode();
     }
+    version = parseProtocolVersion(paringMessage);
 
     Document paring = metaService ? null : parseQuery(paringMessage);
     getResponse(paring, responseMessage, paringMessage);
@@ -67,15 +66,17 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
 
   private XRoadProtocolVersion parseProtocolVersion(SOAPMessage paringMessage) throws SOAPException {
     XRoadProtocolVersion version = null;
-    NodeList reqHeaders = paringMessage.getSOAPHeader().getChildNodes();
-    for (int i = 0; i < reqHeaders.getLength(); i++) {
-      Node reqHeader = reqHeaders.item(i);
-      if (reqHeader.getNodeType() != Node.ELEMENT_NODE
-          || !reqHeader.getLocalName().equals(XTeeHeader.PROTOCOL_VERSION.getLocalPart())) {
-        continue;
+    if (paringMessage.getSOAPHeader() != null) {
+      NodeList reqHeaders = paringMessage.getSOAPHeader().getChildNodes();
+      for (int i = 0; i < reqHeaders.getLength(); i++) {
+        Node reqHeader = reqHeaders.item(i);
+        if (reqHeader.getNodeType() != Node.ELEMENT_NODE
+            || !reqHeader.getLocalName().equals(XTeeHeader.PROTOCOL_VERSION.getLocalPart())) {
+          continue;
+        }
+        version = XRoadProtocolVersion.getValueByVersionCode(SOAPUtil.getTextContent(reqHeader));
+        break;
       }
-      version = XRoadProtocolVersion.getValueByVersionCode(SOAPUtil.getTextContent(reqHeader));
-      break;
     }
     // TODO Lauri: try to extract version according to namespaces?
     return version != null ? version : XRoadProtocolVersion.V2_0;
@@ -94,8 +95,10 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
     XTeeMessage<Document> request = new BeanXTeeMessage<Document>(header, query, attachments);
 
     SOAPElement teenusElement = createXteeMessageStructure(requestMessage, responseMessage);
-    if (!metaService && XRoadProtocolVersion.V2_0 == version) {
-      copyParing(query, teenusElement);
+    if (XRoadProtocolVersion.V2_0 == version) {
+      if (!metaService) {
+        copyParing(query, teenusElement);
+      }
       teenusElement = teenusElement.addChildElement("keha");
     }
 
