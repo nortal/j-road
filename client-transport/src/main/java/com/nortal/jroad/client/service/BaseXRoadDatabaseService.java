@@ -1,5 +1,10 @@
 package com.nortal.jroad.client.service;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.annotation.PostConstruct;
+
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
 import com.nortal.jroad.client.service.callback.CustomCallback;
 import com.nortal.jroad.client.service.configuration.BaseXRoadServiceConfiguration;
@@ -7,10 +12,8 @@ import com.nortal.jroad.client.service.configuration.DelegatingXRoadServiceConfi
 import com.nortal.jroad.client.service.configuration.provider.XRoadServiceConfigurationProvider;
 import com.nortal.jroad.client.service.consumer.XRoadConsumer;
 import com.nortal.jroad.client.service.extractor.CustomExtractor;
+import com.nortal.jroad.enums.XRoadProtocolVersion;
 import com.nortal.jroad.model.XTeeMessage;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.annotation.PostConstruct;
 
 /**
  * Base class for all standard X-Road services implementations. Database name will be determined automatically based on
@@ -26,7 +29,6 @@ public abstract class BaseXRoadDatabaseService {
 
   private String database;
   private String wsdlDatabase;
-
 
   @PostConstruct
   public void init() {
@@ -61,16 +63,21 @@ public abstract class BaseXRoadDatabaseService {
   protected <I, O> XTeeMessage<O> send(XTeeMessage<I> input, String method, String version)
       throws XTeeServiceConsumptionException {
     return (XTeeMessage<O>) getXRoadConsumer().sendRequest(input,
-                                                     getXRoadServiceConfigurationProvider().createConfiguration(database,
-                                                                                                          wsdlDatabase,
-                                                                                                          method,
-                                                                                                          version));
+                                                           getXRoadServiceConfigurationProvider().createConfiguration(getProtocolVersion(),
+                                                                                                                      database,
+                                                                                                                      wsdlDatabase,
+                                                                                                                      method,
+                                                                                                                      version));
   }
 
   protected <I, O> XTeeMessage<O> send(XTeeMessage<I> input, String method, String version, final String idCode)
       throws XTeeServiceConsumptionException {
     final BaseXRoadServiceConfiguration xteeConfiguration =
-        getXRoadServiceConfigurationProvider().createConfiguration(database, wsdlDatabase, method, version);
+        getXRoadServiceConfigurationProvider().createConfiguration(getProtocolVersion(),
+                                                                   database,
+                                                                   wsdlDatabase,
+                                                                   method,
+                                                                   version);
 
     DelegatingXRoadServiceConfiguration configuration = new DelegatingXRoadServiceConfiguration(xteeConfiguration) {
       @Override
@@ -90,10 +97,11 @@ public abstract class BaseXRoadDatabaseService {
                                        CustomCallback callback,
                                        CustomExtractor extractor) throws XTeeServiceConsumptionException {
     return (XTeeMessage<O>) getXRoadConsumer().sendRequest(input,
-                                                           getXRoadServiceConfigurationProvider().createConfiguration(database,
-                                                                                                                 wsdlDatabase,
-                                                                                                                 method,
-                                                                                                                 version),
+                                                           getXRoadServiceConfigurationProvider().createConfiguration(getProtocolVersion(),
+                                                                                                                      database,
+                                                                                                                      wsdlDatabase,
+                                                                                                                      method,
+                                                                                                                      version),
                                                            callback,
                                                            extractor);
   }
@@ -106,7 +114,11 @@ public abstract class BaseXRoadDatabaseService {
                                        CustomExtractor extractor,
                                        boolean forceDatabaseNamespace) throws XTeeServiceConsumptionException {
     BaseXRoadServiceConfiguration configuration =
-        getXRoadServiceConfigurationProvider().createConfiguration(database, wsdlDatabase, method, version);
+        getXRoadServiceConfigurationProvider().createConfiguration(getProtocolVersion(),
+                                                                   database,
+                                                                   wsdlDatabase,
+                                                                   method,
+                                                                   version);
     if (forceDatabaseNamespace) {
       configuration.forceDatabaseNamespace();
     }
@@ -125,4 +137,5 @@ public abstract class BaseXRoadDatabaseService {
 
   protected abstract XRoadServiceConfigurationProvider getXRoadServiceConfigurationProvider();
 
+  protected abstract XRoadProtocolVersion getProtocolVersion();
 }

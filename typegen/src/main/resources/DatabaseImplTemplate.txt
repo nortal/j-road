@@ -1,9 +1,10 @@
 package ${databaseClass.packageName};
 
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.service.${databaseClass.packageSuffix}.${databaseClass.baseImplementationName};
+import com.nortal.jroad.client.service.${databaseClass.baseImplementationName};
 import com.nortal.jroad.model.XTeeMessage;
 import com.nortal.jroad.model.XmlBeansXTeeMessage;
+import com.nortal.jroad.enums.XRoadProtocolVersion;
 import org.springframework.stereotype.Service;
 
 /**
@@ -11,6 +12,16 @@ import org.springframework.stereotype.Service;
  */
 @Service("${databaseClass.interfaceNameDecapitalized}")
 public class ${databaseClass.implementationName} extends ${databaseClass.baseImplementationName} implements ${databaseClass.interfaceName} {
+  private XRoadProtocolVersion protocolVersion = XRoadProtocolVersion.${databaseClass.protocolVersion};
+
+  /**
+   * <code>${databaseClass.database}</code> X-road service protocol version according to WSDL.
+   */  
+  @Override
+  public XRoadProtocolVersion getProtocolVersion() {
+    return protocolVersion;
+  }
+  
 <#list databaseClass.methods as method>
 <#list method.versions as version>
 

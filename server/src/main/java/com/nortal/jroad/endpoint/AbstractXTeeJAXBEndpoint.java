@@ -9,11 +9,6 @@
 
 package com.nortal.jroad.endpoint;
 
-import com.nortal.jroad.enums.XRoadProtocolVersion;
-import com.nortal.jroad.model.BeanXTeeMessage;
-import com.nortal.jroad.model.XTeeAttachment;
-import com.nortal.jroad.model.XTeeMessage;
-import com.nortal.jroad.util.AttachmentUtil;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -21,31 +16,42 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.activation.DataHandler;
 import javax.annotation.Resource;
+import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.annotation.XmlSchema;
 import javax.xml.bind.attachment.AttachmentMarshaller;
 import javax.xml.bind.attachment.AttachmentUnmarshaller;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+
+import com.nortal.jroad.enums.XRoadProtocolVersion;
+import com.nortal.jroad.model.BeanXTeeMessage;
+import com.nortal.jroad.model.XTeeAttachment;
+import com.nortal.jroad.model.XTeeMessage;
+import com.nortal.jroad.util.AttachmentUtil;
+import com.nortal.jroad.util.SOAPUtil;
 
 /**
  * X-Tee endpoint that provides request/response manipulation using Java objects via JAXB API. All extension classes
  * must implement the method method {@link AbstractXTeeJAXBEndpoint#invokeBean(T requestBean)}.
  *
  * @author Dmitri Danilkin
+ * @author Lauri Lättemäe (lauri.lattemae@nortal.com) - protocol 4.0
  */
 public abstract class AbstractXTeeJAXBEndpoint<T> extends AbstractXTeeBaseEndpoint {
-
   private static final class JaxbContextKey {
     private final String contextPath;
     private final ClassLoader classLoader;
@@ -114,28 +120,26 @@ public abstract class AbstractXTeeJAXBEndpoint<T> extends AbstractXTeeBaseEndpoi
   }
 
   @Override
-  @SuppressWarnings("unchecked")
+  @SuppressWarnings({ "unchecked", "rawtypes" })
   protected void invokeInternal(final XTeeMessage<Document> request, final XTeeMessage<Element> response)
       throws Exception {
     if (getParingKehaClass() == null) {
-      throw new IllegalStateException("Query body class ('paringKehaClass') is unset/unspecified!");
+      throw new IllegalStateException("Query body class ('requestClass') is unset/unspecified!");
     }
 
     JAXBContext requestJc = getJAXBContextInstance();
     Unmarshaller requestUnmarshaller = requestJc.createUnmarshaller();
-    requestUnmarshaller.setAttachmentUnmarshaller(new XteeAttachmentUnmarshaller(request));
+    requestUnmarshaller.setAttachmentUnmarshaller(new XTeeAttachmentUnmarshaller(request));
 
     Document requestOnly = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-    Node singleNode;
     if (XRoadProtocolVersion.V2_0 == version) {
-      singleNode =
-          (Node) XPathFactory.newInstance().newXPath().evaluate("//*[local-name()='keha']",
-                                                                request.getContent(),
-                                                                XPathConstants.NODE);
+      requestOnly.appendChild(requestOnly.importNode((Node) XPathFactory.newInstance().newXPath().evaluate("//*[local-name()='keha']",
+                                                                                                           request.getContent(),
+                                                                                                           XPathConstants.NODE),
+                                                     true));
     } else {
-      singleNode = request.getContent();
+      requestOnly.appendChild(requestOnly.importNode(SOAPUtil.getFirstNonTextChild(request.getContent()), true));
     }
-    requestOnly.appendChild(requestOnly.importNode(singleNode, true));
 
     XTeeMessage<T> jaxbRequestMessage = new BeanXTeeMessage<T>(request.getHeader(),
                                                                requestUnmarshaller.unmarshal(requestOnly.getDocumentElement(),
@@ -148,14 +152,23 @@ public abstract class AbstractXTeeJAXBEndpoint<T> extends AbstractXTeeBaseEndpoi
     Object bean = jaxbResponseMessage.getContent();
     if (bean != null) { // If you do not need to send an object as response, <keha /> is sufficient.
       Node parent = response.getContent().getParentNode();
-      parent.removeChild(response.getContent());
+      Node child = parent.removeChild(response.getContent());
       JAXBContext responseJc = getJAXBContextInstance();
       Marshaller responseMarshaller = responseJc.createMarshaller();
-      responseMarshaller.setAttachmentMarshaller(new XteeAttachmentMarshaller(response));
+      responseMarshaller.setAttachmentMarshaller(new XTeeAttachmentMarshaller(response));
       if (XRoadProtocolVersion.V2_0 == version) {
         responseMarshaller.marshal(new JAXBElement(new QName("keha"), bean.getClass(), bean), parent);
       } else {
-        responseMarshaller.marshal(bean, parent);
+        XmlSchema schema = bean.getClass().getPackage().getAnnotation(XmlSchema.class);
+
+        responseMarshaller.marshal(new JAXBElement(new QName(schema != null
+                                                                            ? schema.namespace()
+                                                                            : XMLConstants.NULL_NS_URI,
+                                                             child.getLocalName(),
+                                                             schema != null ? "tns" : XMLConstants.DEFAULT_NS_PREFIX),
+                                                   bean.getClass(),
+                                                   bean),
+                                   parent);
       }
     }
   }
@@ -174,10 +187,10 @@ public abstract class AbstractXTeeJAXBEndpoint<T> extends AbstractXTeeBaseEndpoi
     }
   }
 
-  private static class XteeAttachmentUnmarshaller extends AttachmentUnmarshaller {
+  private static class XTeeAttachmentUnmarshaller extends AttachmentUnmarshaller {
     private final Map<String, XTeeAttachment> cidMap = new HashMap<String, XTeeAttachment>();
 
-    XteeAttachmentUnmarshaller(final XTeeMessage<?> message) {
+    XTeeAttachmentUnmarshaller(final XTeeMessage<?> message) {
       for (XTeeAttachment attachment : message.getAttachments()) {
         cidMap.put(attachment.getCid(), attachment);
       }
@@ -219,11 +232,11 @@ public abstract class AbstractXTeeJAXBEndpoint<T> extends AbstractXTeeBaseEndpoi
 
   }
 
-  private static class XteeAttachmentMarshaller extends AttachmentMarshaller {
+  private static class XTeeAttachmentMarshaller extends AttachmentMarshaller {
     private final List<XTeeAttachment> attachments;
     private long salt = 0;
 
-    public XteeAttachmentMarshaller(final XTeeMessage<?> message) {
+    public XTeeAttachmentMarshaller(final XTeeMessage<?> message) {
       this.attachments = message.getAttachments();
     }
 

@@ -11,21 +11,19 @@
 
 	<bean id="webServiceTemplate" class="org.springframework.ws.client.core.WebServiceTemplate" />
 
-	<bean id="xTeeConsumer"
-		class="com.nortal.jroad.client.service.consumer.v2.StandardXTeeConsumer">
+	<bean id="xRoadConsumer"
+		class="com.nortal.jroad.client.service.consumer.StandardXRoadConsumer">
 		<property name="webServiceTemplate" ref="webServiceTemplate" />
 	</bean>
 
 	<bean id="xRoadServiceConfigurationProvider"
-		class="com.nortal.jroad.client.service.configuration.provider.v2.PropertiesBasedXTeeServiceConfigurationProvider">
-		<property name="resource" value="xtee-service.properties" />
+		class="com.nortal.jroad.client.service.configuration.provider.PropertiesBasedXRoadServiceConfigurationProvider">
 	</bean>
 
 
-	<bean id="xteeDatabaseService" abstract="true"
-		class="com.nortal.jroad.client.service.v2.XTeeDatabaseService">
+	<bean id="xroadDatabaseService" abstract="true"
+		class="com.nortal.jroad.client.service.XRoadDatabaseService">
 		<property name="xRoadServiceConfigurationProvider" ref="xRoadServiceConfigurationProvider" />
-		<property name="xTeeConsumer" ref="xTeeConsumer" />
+		<property name="xRoadConsumer" ref="xRoadConsumer" />
 	</bean>
-
 </beans>

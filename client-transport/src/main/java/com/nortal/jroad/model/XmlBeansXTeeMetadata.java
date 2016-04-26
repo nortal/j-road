@@ -21,7 +21,6 @@ public class XmlBeansXTeeMetadata implements Serializable {
 
   private String version;
 
-
   public XmlBeansXTeeMetadata(String operationName,
                               String operationNs,
                               String requestElementName,
@@ -37,7 +36,6 @@ public class XmlBeansXTeeMetadata implements Serializable {
     this.responseElementNs = responseElementNs;
     this.version = version;
   }
-
 
   public String getOperationName() {
     return operationName;

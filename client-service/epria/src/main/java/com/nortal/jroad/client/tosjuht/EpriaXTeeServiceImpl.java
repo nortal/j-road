@@ -15,9 +15,9 @@ import org.springframework.stereotype.Service;
 
 import com.nortal.jroad.client.exception.NonTechnicalFaultException;
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.service.v2.XTeeDatabaseService;
-import com.nortal.jroad.client.service.configuration.DelegatingXRoadServiceConfiguration;
+import com.nortal.jroad.client.service.XTeeDatabaseService;
 import com.nortal.jroad.client.service.configuration.BaseXRoadServiceConfiguration;
+import com.nortal.jroad.client.service.configuration.DelegatingXRoadServiceConfiguration;
 import com.nortal.jroad.client.tosjuht.database.EpriaXTeeDatabase;
 import com.nortal.jroad.client.tosjuht.model.ManusModel;
 import com.nortal.jroad.client.tosjuht.types.ee.riik.xtee.epria.producers.producer.epria.BinaarfailNest;
@@ -32,13 +32,14 @@ import com.nortal.jroad.client.tosjuht.types.ee.riik.xtee.epria.producers.produc
 import com.nortal.jroad.client.tosjuht.types.ee.riik.xtee.epria.producers.producer.epria.EpriaManusegaResponse;
 import com.nortal.jroad.client.tosjuht.types.ee.riik.xtee.epria.producers.producer.epria.Manus;
 import com.nortal.jroad.client.tosjuht.types.ee.riik.xtee.epria.producers.producer.epria.VastuseKood;
+import com.nortal.jroad.enums.XRoadProtocolVersion;
 import com.nortal.jroad.jaxb.ByteArrayDataSource;
 import com.nortal.jroad.model.XTeeAttachment;
 import com.nortal.jroad.model.XTeeMessage;
 import com.nortal.jroad.model.XmlBeansXTeeMessage;
 
 /**
- * @author Lauri Lättemäe 
+ * @author Lauri Lättemäe
  * @date 10.09.2010
  */
 @Service("epriaXTeeService")
@@ -53,7 +54,11 @@ public class EpriaXTeeServiceImpl extends XTeeDatabaseService implements EpriaXT
                                      final String idCode,
                                      final String securityServer) throws XTeeServiceConsumptionException {
     final BaseXRoadServiceConfiguration xteeConfiguration =
-        xRoadServiceConfigurationProvider.createConfiguration(getDatabase(), getDatabase(), method, version);
+        xRoadServiceConfigurationProvider.createConfiguration(getProtocolVersion(),
+                                                              getDatabase(),
+                                                              getDatabase(),
+                                                              method,
+                                                              version);
 
     DelegatingXRoadServiceConfiguration configuration = new DelegatingXRoadServiceConfiguration(xteeConfiguration) {
       @Override
@@ -67,19 +72,18 @@ public class EpriaXTeeServiceImpl extends XTeeDatabaseService implements EpriaXT
       }
     };
 
-    XTeeMessage<O> result = xTeeConsumer.sendRequest(input, configuration);
+    XTeeMessage<O> result = getXRoadConsumer().sendRequest(input, configuration);
     return result;
   }
 
   @Override
   public String epria(String xml, String securityServer, String isikukood) throws XTeeServiceConsumptionException {
     try {
-      XTeeMessage<XmlString> response =
-          send(new XmlBeansXTeeMessage<XmlString>(XmlString.Factory.parse(xml)),
-               "epria",
-               "v1",
-               isikukood,
-               securityServer);
+      XTeeMessage<XmlString> response = send(new XmlBeansXTeeMessage<XmlString>(XmlString.Factory.parse(xml)),
+                                             "epria",
+                                             "v1",
+                                             isikukood,
+                                             securityServer);
       return ((XmlString) response.getContent()).xmlText();
     } catch (XTeeServiceConsumptionException ex) {
       throw ex;
@@ -169,12 +173,11 @@ public class EpriaXTeeServiceImpl extends XTeeDatabaseService implements EpriaXT
     if (StringUtils.isEmpty(securityServer)) {
       result = epriaXTeeDatabase.dhsVaataTaotlusePdfV1(request);
     } else {
-      result =
-          (DhsVaataTaotlusePdfResponse) send(new XmlBeansXTeeMessage<DhsVaataTaotlusePdfRequest>(request),
-                                             "dhsVaataTaotlusePdf",
-                                             "v1",
-                                             null,
-                                             securityServer).getContent();
+      result = (DhsVaataTaotlusePdfResponse) send(new XmlBeansXTeeMessage<DhsVaataTaotlusePdfRequest>(request),
+                                                  "dhsVaataTaotlusePdf",
+                                                  "v1",
+                                                  null,
+                                                  securityServer).getContent();
     }
     return result;
   }
@@ -206,12 +209,11 @@ public class EpriaXTeeServiceImpl extends XTeeDatabaseService implements EpriaXT
     if (StringUtils.isEmpty(securityServer)) {
       result = epriaXTeeDatabase.dhsVaataTaotluseManusV1(request);
     } else {
-      result =
-          (DhsVaataTaotluseManusResponse) send(new XmlBeansXTeeMessage<DhsVaataTaotluseManusRequest>(request),
-                                               "dhsVaataTaotluseManus",
-                                               "v1",
-                                               null,
-                                               securityServer).getContent();
+      result = (DhsVaataTaotluseManusResponse) send(new XmlBeansXTeeMessage<DhsVaataTaotluseManusRequest>(request),
+                                                    "dhsVaataTaotluseManus",
+                                                    "v1",
+                                                    null,
+                                                    securityServer).getContent();
     }
     return result;
   }
@@ -266,7 +268,8 @@ public class EpriaXTeeServiceImpl extends XTeeDatabaseService implements EpriaXT
     return response.getContent();
   }
 
-  public void setEpriaXTeeDatabase(EpriaXTeeDatabase epriaXTeeDatabase) {
-    this.epriaXTeeDatabase = epriaXTeeDatabase;
+  @Override
+  protected XRoadProtocolVersion getProtocolVersion() {
+    return epriaXTeeDatabase.getProtocolVersion();
   }
 }

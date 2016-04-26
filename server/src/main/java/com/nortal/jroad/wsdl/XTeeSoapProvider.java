@@ -1,6 +1,6 @@
 /**
- * Copyright 2015 Nortal Licensed under the Apache License, Version 2.0 (the "License"); you may not use
- * this file except in compliance with the License. You may obtain a copy of the License at
+ * Copyright 2015 Nortal Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language governing permissions and limitations under the
@@ -41,29 +41,31 @@ import com.nortal.jroad.mapping.XTeeEndpointMapping;
 import com.nortal.jroad.model.XTeeHeader;
 
 /**
- * Creates X-Tee specific SOAP headers and bindings (<code>RPC/Literal</code> is used). Used by
+ * Creates X-Road specific SOAP headers and bindings (<code>Document/Literal</code> is used). Used by
  * {@link XTeeWsdlDefinition}.
+ * 
+ * @author Lauri Lättemäe (lauri.lattemae@nortal.com) - protocol 4.0
  */
 public class XTeeSoapProvider extends Soap11Provider {
   private static final String ENCODED = "encoded";
   private static final String LITERAL = "literal";
   private static final String ENCODING = "http://schemas.xmlsoap.org/soap/encoding/";
 
-  private String xteeDatabase;
+  private String xRoadDatabase;
   private String use = LITERAL;
 
-  private XTeeEndpointMapping xTeeEndpointMapping;
+  private XTeeEndpointMapping xRoadEndpointMapping;
 
   private List<SOAPHeader> makeHeaders(Definition definition) throws WSDLException {
     List<SOAPHeader> list = new ArrayList<SOAPHeader>();
-    String[] parts =
-        new String[] { XTeeHeader.ASUTUS.getLocalPart(), XTeeHeader.ANDMEKOGU.getLocalPart(),
-                      XTeeHeader.ISIKUKOOD.getLocalPart(), XTeeHeader.ID.getLocalPart(), XTeeHeader.NIMI.getLocalPart() };
+    String[] parts = new String[] { XTeeHeader.CLIENT.getLocalPart(), XTeeHeader.SERVICE.getLocalPart(),
+                                    XTeeHeader.USER_ID.getLocalPart(), XTeeHeader.ID.getLocalPart(),
+                                    XTeeHeader.PROTOCOL_VERSION.getLocalPart() };
     ExtensionRegistry extReg = definition.getExtensionRegistry();
     for (int i = 0; i < parts.length; i++) {
       SOAPHeader header =
           (SOAPHeader) extReg.createExtension(BindingInput.class, new QName(SOAP_11_NAMESPACE_URI, "header"));
-      header.setMessage(new QName(definition.getTargetNamespace(), XTeeWsdlDefinition.XTEE_PAIS));
+      header.setMessage(new QName(definition.getTargetNamespace(), XTeeWsdlDefinition.XROAD_HEADER));
       header.setPart(parts[i]);
       if (use.equalsIgnoreCase(LITERAL)) {
         header.setUse(LITERAL);
@@ -71,7 +73,7 @@ public class XTeeSoapProvider extends Soap11Provider {
         header.setUse(ENCODED);
         header.setEncodingStyles(Arrays.asList(ENCODING));
       }
-      header.setNamespaceURI(XTeeWsdlDefinition.XTEE_NAMESPACE);
+      header.setNamespaceURI(XTeeWsdlDefinition.XROAD_NAMESPACE);
       list.add(header);
     }
 
@@ -112,12 +114,11 @@ public class XTeeSoapProvider extends Soap11Provider {
   protected void populateBindingOperation(Definition definition, BindingOperation bindingOperation)
       throws WSDLException {
     super.populateBindingOperation(definition, bindingOperation);
-    XTeeElement element =
-        (XTeeElement) definition.getExtensionRegistry().createExtension(BindingOperation.class,
-                                                                        XTeeElement.VERSION_TYPE);
+    XTeeElement element = (XTeeElement) definition.getExtensionRegistry().createExtension(BindingOperation.class,
+                                                                                          XTeeElement.VERSION_TYPE);
     String version = "v1";
     String name = bindingOperation.getName().toLowerCase();
-    for (String method : xTeeEndpointMapping.getMethods()) {
+    for (String method : xRoadEndpointMapping.getMethods()) {
       method = method.substring(method.indexOf('.') + 1).toLowerCase();
       if (method.startsWith(name + ".")) {
         version = method.substring(method.indexOf('.') + 1);
@@ -135,13 +136,13 @@ public class XTeeSoapProvider extends Soap11Provider {
                                                         XTeeElement.class);
     definition.getExtensionRegistry().registerSerializer(BindingOperation.class,
                                                          XTeeElement.VERSION_TYPE,
-                                                         new XTeeElement.XteeElementSerializer());
+                                                         new XTeeElement.XRoadElementSerializer());
     super.populateBinding(definition, binding);
   }
 
   @Override
   protected void populateSoapBinding(SOAPBinding soapBinding, Binding binding) throws WSDLException {
-    soapBinding.setStyle("rpc");
+    soapBinding.setStyle("document");
     soapBinding.setTransportURI(getTransportUri());
   }
 
@@ -150,34 +151,34 @@ public class XTeeSoapProvider extends Soap11Provider {
     super.populatePort(definition, port);
     ExtensionRegistry extensionRegistry = definition.getExtensionRegistry();
     extensionRegistry.mapExtensionTypes(Port.class,
-                                        new QName(XTeeWsdlDefinition.XTEE_NAMESPACE,
+                                        new QName(XTeeWsdlDefinition.XROAD_NAMESPACE,
                                                   "address",
-                                                  XTeeWsdlDefinition.XTEE_PREFIX),
+                                                  XTeeWsdlDefinition.XROAD_PREFIX),
                                         UnknownExtensibilityElement.class);
     UnknownExtensibilityElement element =
         (UnknownExtensibilityElement) extensionRegistry.createExtension(Port.class,
-                                                                        new QName(XTeeWsdlDefinition.XTEE_NAMESPACE,
+                                                                        new QName(XTeeWsdlDefinition.XROAD_NAMESPACE,
                                                                                   "address",
-                                                                                  XTeeWsdlDefinition.XTEE_PREFIX));
+                                                                                  XTeeWsdlDefinition.XROAD_NAMESPACE));
     Document doc;
     try {
       doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
     } catch (ParserConfigurationException e) {
       throw new RuntimeException(e);
     }
-    Element xteeaddr = doc.createElementNS(XTeeWsdlDefinition.XTEE_NAMESPACE, "address");
-    xteeaddr.setPrefix(XTeeWsdlDefinition.XTEE_PREFIX);
-    xteeaddr.setAttribute("producer", xteeDatabase);
-    element.setElement(xteeaddr);
+    Element xRoadAddr = doc.createElementNS(XTeeWsdlDefinition.XROAD_NAMESPACE, "address");
+    xRoadAddr.setPrefix(XTeeWsdlDefinition.XROAD_PREFIX);
+    xRoadAddr.setAttribute("producer", xRoadDatabase);
+    element.setElement(xRoadAddr);
     port.addExtensibilityElement(element);
   }
 
-  public void setXteeDatabase(String xteeDatabase) {
-    this.xteeDatabase = xteeDatabase;
+  public void setXRoadDatabase(String xRoadDatabase) {
+    this.xRoadDatabase = xRoadDatabase;
   }
 
-  public void setxTeeEndpointMapping(XTeeEndpointMapping xTeeEndpointMapping) {
-    this.xTeeEndpointMapping = xTeeEndpointMapping;
+  public void setXRoadEndpointMapping(XTeeEndpointMapping xRoadEndpointMapping) {
+    this.xRoadEndpointMapping = xRoadEndpointMapping;
   }
 
   public void setUse(String use) {

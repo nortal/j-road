@@ -14,7 +14,7 @@ import com.nortal.jroad.model.XteeElement;
  * @author Roman Tekhov
  * @author margush
  */
-@ContextConfiguration(locations = { "classpath:client-test.xml" })
+@ContextConfiguration(locations = { "classpath:client-test-common.xml" })
 public abstract class BaseXTeeServiceImplTest extends AbstractJUnit4SpringContextTests {
 
 	/**
