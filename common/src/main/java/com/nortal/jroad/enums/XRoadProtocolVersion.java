@@ -44,7 +44,7 @@ public enum XRoadProtocolVersion {
 
   public static XRoadProtocolVersion getValueByNamespaceURI(String uri) {
     for (XRoadProtocolVersion version : XRoadProtocolVersion.values()) {
-      if (version.getNamespaceUri().equals(uri)) {
+      if (version.getNamespaceUri().startsWith(uri)) {
         return version;
       }
     }

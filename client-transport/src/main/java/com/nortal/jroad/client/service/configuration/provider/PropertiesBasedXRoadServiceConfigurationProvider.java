@@ -1,10 +1,13 @@
 package com.nortal.jroad.client.service.configuration.provider;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
@@ -17,44 +20,66 @@ import com.nortal.jroad.client.util.PropertiesUtil;
  */
 public class PropertiesBasedXRoadServiceConfigurationProvider extends AbstractXRoadServiceConfigurationProvider {
 
-  public static final String DEFAULT_LOCATION = "xroad.properties";
+  public static final String XROAD_COMMON_PROPERTIES_TARGET = "xroad";
 
-  private Properties props;
   private Resource resource;
+  private Map<String, Properties> properties = new HashMap<String, Properties>();
 
   @PostConstruct
-  public void init() throws IOException {
-    if (resource == null) {
-      resource = new ClassPathResource(DEFAULT_LOCATION);
+  public void init() {
+    if (resource != null) {
+      properties.put(XROAD_COMMON_PROPERTIES_TARGET, loadProperties(resource));
     }
-    props = PropertiesUtil.readProperties(resource);
   }
 
   @Override
   protected void fillConfuguration(SimpleXRoadServiceConfiguration configuration) {
-    configuration.setSecurityServer(resolveProperty("security-server"));
-    configuration.setIdCode(resolveProperty("id-code"));
+    Properties commonProps = getProperties(XROAD_COMMON_PROPERTIES_TARGET);
 
-    configuration.setClientXRoadInstance(resolveProperty("client-xroad-instance"));
-    configuration.setClientObjectType(resolveProperty("client-object-type"));
-    configuration.setClientMemberClass(resolveProperty("client-member-class"));
-    configuration.setClientMemberCode(resolveProperty("client-member-code"));
-    configuration.setClientSubsystemCode(resolveProperty("client-subsystem-code"));
+    configuration.setSecurityServer(resolveProperty(commonProps, "security-server"));
+    configuration.setInstitution(resolveProperty(commonProps, "institution"));
+    configuration.setIdCode(resolveProperty(commonProps, "id-code"));
+    configuration.setFile(resolveProperty(commonProps, "file"));
 
-    configuration.setServiceXRoadInstance(resolveProperty("service-xroad-instance"));
-    configuration.setServiceObjectType(resolveProperty("service-object-type"));
-    configuration.setServiceMemberClass(resolveProperty("service-member-class"));
-    configuration.setServiceMemberCode(resolveProperty("service-member-code"));
-    configuration.setServiceSubsystemCode(resolveProperty("service-subsystem-code"));
+    configuration.setXRoadInstance(resolveProperty(commonProps, "xroad-instance"));
+    configuration.setClientMemberClass(resolveProperty(commonProps, "client-member-class"));
+    configuration.setClientSubsystemCode(resolveProperty(commonProps, "client-subsystem-code"));
 
-    configuration.setFile(resolveProperty("file"));
+    fillServiceProperties(configuration);
+  }
+
+  protected void fillServiceProperties(SimpleXRoadServiceConfiguration configuration) {
+    Properties serviceProps = getProperties(XROAD_COMMON_PROPERTIES_TARGET + "-" + configuration.getDatabase());
+
+    configuration.setServiceMemberClass(resolveProperty(serviceProps, "service-member-class"));
+    configuration.setServiceMemberCode(resolveProperty(serviceProps, "service-member-code"));
+    configuration.setServiceSubsystemCode(resolveProperty(serviceProps, "service-subsystem-code"));
   }
 
   public void setResource(Resource resource) {
     this.resource = resource;
   }
 
-  protected String resolveProperty(String propertyName) {
+  protected String resolveProperty(Properties props, String propertyName) {
     return props.getProperty(propertyName);
+  }
+
+  protected synchronized Properties getProperties(String target) {
+    if (StringUtils.isBlank(target)) {
+      return null;
+    }
+
+    if (!properties.containsKey(target)) {
+      properties.put(target, loadProperties(new ClassPathResource(target + ".properties")));
+    }
+    return properties.get(target);
+  }
+
+  protected Properties loadProperties(Resource resource) {
+    try {
+      return PropertiesUtil.readProperties(resource);
+    } catch (IOException e) {
+      throw new IllegalStateException("Unable to resolve configuration properties: " + resource.getFilename());
+    }
   }
 }

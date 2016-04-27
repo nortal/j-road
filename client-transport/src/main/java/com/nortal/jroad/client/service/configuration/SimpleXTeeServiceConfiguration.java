@@ -33,7 +33,6 @@ public class SimpleXTeeServiceConfiguration implements BaseXRoadServiceConfigura
   private String version;
   private String method;
   private boolean forceDatabaseNamespace = false;
-  private boolean useDeprecatedApi = true;
   private XRoadProtocolVersion protocolVersion;
 
   @Override
@@ -192,14 +191,6 @@ public class SimpleXTeeServiceConfiguration implements BaseXRoadServiceConfigura
   @Override
   public boolean getForceDatabaseNamespace() {
     return forceDatabaseNamespace;
-  }
-
-  public boolean useDeprecatedApi() {
-    return useDeprecatedApi;
-  }
-
-  public void setUseDeprecatedApi(boolean useDeprecatedApi) {
-    this.useDeprecatedApi = useDeprecatedApi;
   }
 
   @Override
