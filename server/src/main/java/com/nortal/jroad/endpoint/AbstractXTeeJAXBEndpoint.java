@@ -19,13 +19,11 @@ import java.util.Map;
 
 import javax.activation.DataHandler;
 import javax.annotation.Resource;
-import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.annotation.XmlSchema;
 import javax.xml.bind.attachment.AttachmentMarshaller;
 import javax.xml.bind.attachment.AttachmentUnmarshaller;
 import javax.xml.namespace.QName;
@@ -159,13 +157,9 @@ public abstract class AbstractXTeeJAXBEndpoint<T> extends AbstractXTeeBaseEndpoi
       if (XRoadProtocolVersion.V2_0 == version) {
         responseMarshaller.marshal(new JAXBElement(new QName("keha"), bean.getClass(), bean), parent);
       } else {
-        XmlSchema schema = bean.getClass().getPackage().getAnnotation(XmlSchema.class);
-
-        responseMarshaller.marshal(new JAXBElement(new QName(schema != null
-                                                                            ? schema.namespace()
-                                                                            : XMLConstants.NULL_NS_URI,
+        responseMarshaller.marshal(new JAXBElement(new QName(response.getContent().getNamespaceURI(),
                                                              child.getLocalName(),
-                                                             schema != null ? "tns" : XMLConstants.DEFAULT_NS_PREFIX),
+                                                             response.getContent().getPrefix()),
                                                    bean.getClass(),
                                                    bean),
                                    parent);

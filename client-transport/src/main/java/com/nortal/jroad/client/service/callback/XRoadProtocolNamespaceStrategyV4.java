@@ -10,6 +10,7 @@ import org.apache.commons.lang.StringUtils;
 import com.nortal.jroad.client.enums.XroadObjectType;
 import com.nortal.jroad.client.service.configuration.BaseXRoadServiceConfiguration;
 import com.nortal.jroad.client.service.configuration.XRoadServiceConfiguration;
+import com.nortal.jroad.enums.XRoadProtocolVersion;
 
 /**
  * @author Aleksei Bogdanov (aleksei.bogdanov@nortal.com)
@@ -17,76 +18,73 @@ import com.nortal.jroad.client.service.configuration.XRoadServiceConfiguration;
  */
 public class XRoadProtocolNamespaceStrategyV4 extends MessageCallbackNamespaceStrategy {
 
+  private XRoadProtocolVersion protocol = XRoadProtocolVersion.V4_0;
+
   @Override
   public void addNamespaces(SOAPEnvelope env) throws SOAPException {
     env.addNamespaceDeclaration("xsd", "http://www.w3.org/2001/XMLSchema");
     env.addNamespaceDeclaration("xsi", "http://www.w3.org/2001/XMLSchema-instance");
-    env.addNamespaceDeclaration("xrd", "http://x-road.eu/xsd/xroad.xsd");
+    env.addNamespaceDeclaration(protocol.getNamespacePrefix(), protocol.getNamespaceUri());
     env.addNamespaceDeclaration("id", "http://x-road.eu/xsd/identifiers");
   }
 
   @Override
   public void addXTeeHeaderElements(SOAPEnvelope env, BaseXRoadServiceConfiguration serviceConfiguration)
       throws SOAPException {
-    XRoadServiceConfiguration v4ServiceConfiguration = (XRoadServiceConfiguration) serviceConfiguration;
+    XRoadServiceConfiguration conf = (XRoadServiceConfiguration) serviceConfiguration;
     SOAPHeader header = env.getHeader();
-    addClientElements(env, v4ServiceConfiguration, header);
-    addServiceElements(env, v4ServiceConfiguration, header);
 
-    SOAPElement userId = header.addChildElement("userId", "xrd");
-    userId.addTextNode(v4ServiceConfiguration.getIdCode());
-    SOAPElement id = header.addChildElement("id", "xrd");
-    id.addTextNode(generateUniqueMessageId(v4ServiceConfiguration));
-    if (StringUtils.isNotEmpty(v4ServiceConfiguration.getFile())) {
-      SOAPElement issue = header.addChildElement("issue", "xrd");
-      issue.addTextNode(v4ServiceConfiguration.getFile());
+    SOAPElement userId = header.addChildElement("userId", protocol.getNamespacePrefix());
+    userId.addTextNode(conf.getIdCode());
+    SOAPElement id = header.addChildElement("id", protocol.getNamespacePrefix());
+    id.addTextNode(generateUniqueMessageId(conf));
+    if (StringUtils.isNotBlank(conf.getFile())) {
+      SOAPElement issue = header.addChildElement("issue", protocol.getNamespacePrefix());
+      issue.addTextNode(conf.getFile());
     }
+    SOAPElement protocolVersion = header.addChildElement("protocolVersion", protocol.getNamespacePrefix());
+    protocolVersion.addTextNode(protocol.getCode());
 
-    SOAPElement protocolVersion = header.addChildElement("protocolVersion", "xrd");
-    protocolVersion.addTextNode("4.0");
+    addClientElements(env, conf, header);
+    addServiceElements(env, conf, header);
   }
 
-  private void addClientElements(SOAPEnvelope env, XRoadServiceConfiguration serviceConfiguration, SOAPHeader header)
+  private void addClientElements(SOAPEnvelope env, XRoadServiceConfiguration conf, SOAPHeader header)
       throws SOAPException {
-    SOAPElement client = header.addChildElement("client", "xrd");
-    client.addAttribute(env.createName("id:objectType"), serviceConfiguration.getClientObjectType());
+    SOAPElement client = header.addChildElement("client", protocol.getNamespacePrefix());
+    client.addAttribute(env.createName("id:objectType"), XroadObjectType.MEMBER.name());
     SOAPElement clientXRoadInstance = client.addChildElement("xRoadInstance", "id");
-    clientXRoadInstance.addTextNode(serviceConfiguration.getClientXRoadInstance());
+    clientXRoadInstance.addTextNode(conf.getXRoadInstance());
     SOAPElement clientMemberClass = client.addChildElement("memberClass", "id");
-    clientMemberClass.addTextNode(serviceConfiguration.getClientMemberClass());
+    clientMemberClass.addTextNode(conf.getClientMemberClass());
     SOAPElement clientMemberCode = client.addChildElement("memberCode", "id");
-    clientMemberCode.addTextNode(serviceConfiguration.getClientMemberCode());
-    if (StringUtils.isNotEmpty(serviceConfiguration.getClientSubsystemCode())) {
+    clientMemberCode.addTextNode(conf.getInstitution());
+
+    if (StringUtils.isNotBlank(conf.getClientSubsystemCode())) {
       SOAPElement clientSubsystemCode = client.addChildElement("subsystemCode", "id");
-      clientSubsystemCode.addTextNode(serviceConfiguration.getClientSubsystemCode());
+      clientSubsystemCode.addTextNode(conf.getClientSubsystemCode());
     }
   }
 
-  private void addServiceElements(SOAPEnvelope env, XRoadServiceConfiguration serviceConfiguration, SOAPHeader header)
+  private void addServiceElements(SOAPEnvelope env, XRoadServiceConfiguration conf, SOAPHeader header)
       throws SOAPException {
-    SOAPElement service;
-    if (StringUtils.equals(XroadObjectType.SERVICE.name(), serviceConfiguration.getServiceObjectType())) {
-      service = header.addChildElement("service", "xrd");
-    } else {
-      service = header.addChildElement("centalService", "xrd");
-    }
-    service.addAttribute(env.createName("id:objectType"), serviceConfiguration.getServiceObjectType());
+    SOAPElement service = header.addChildElement("service", protocol.getNamespacePrefix());
+    service.addAttribute(env.createName("id:objectType"), XroadObjectType.SERVICE.name());
     SOAPElement serviceXRoadInstance = service.addChildElement("xRoadInstance", "id");
-    serviceXRoadInstance.addTextNode(serviceConfiguration.getServiceXRoadInstance());
-    if (StringUtils.equals(XroadObjectType.SERVICE.name(), serviceConfiguration.getServiceObjectType())) {
-      SOAPElement serviceMemberClass = service.addChildElement("memberClass", "id");
-      serviceMemberClass.addTextNode(serviceConfiguration.getServiceMemberClass());
-      SOAPElement serviceMemberCode = service.addChildElement("memberCode", "id");
-      serviceMemberCode.addTextNode(serviceConfiguration.getServiceMemberCode());
-      SOAPElement subsystemCode = service.addChildElement("subsystemCode", "id");
-      subsystemCode.addTextNode(serviceConfiguration.getServiceSubsystemCode());
-    }
-    SOAPElement database = service.addChildElement("serviceCode", "id");
-    database.addTextNode(serviceConfiguration.getMethod());
-    if (StringUtils.equals(XroadObjectType.SERVICE.name(), serviceConfiguration.getServiceObjectType())) {
-      SOAPElement serviceVersion = service.addChildElement("serviceVersion", "id");
-      serviceVersion.addTextNode(serviceConfiguration.getVersion() == null ? "v1" : serviceConfiguration.getVersion());
-    }
-  }
+    serviceXRoadInstance.addTextNode(conf.getXRoadInstance());
+    SOAPElement serviceMemberClass = service.addChildElement("memberClass", "id");
+    serviceMemberClass.addTextNode(conf.getServiceMemberClass());
+    SOAPElement serviceMemberCode = service.addChildElement("memberCode", "id");
+    serviceMemberCode.addTextNode(conf.getServiceMemberCode());
 
+    if (StringUtils.isNotBlank(conf.getServiceSubsystemCode())) {
+      SOAPElement subsystemCode = service.addChildElement("subsystemCode", "id");
+      subsystemCode.addTextNode(conf.getServiceSubsystemCode());
+    }
+
+    SOAPElement database = service.addChildElement("serviceCode", "id");
+    database.addTextNode(conf.getMethod());
+    SOAPElement serviceVersion = service.addChildElement("serviceVersion", "id");
+    serviceVersion.addTextNode(StringUtils.isBlank(conf.getVersion()) ? conf.getVersion() : "v1");
+  }
 }

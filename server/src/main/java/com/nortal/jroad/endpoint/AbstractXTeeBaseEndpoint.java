@@ -17,6 +17,7 @@ import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.soap.AttachmentPart;
 import javax.xml.soap.SOAPElement;
+import javax.xml.soap.SOAPEnvelope;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPHeader;
 import javax.xml.soap.SOAPMessage;
@@ -54,32 +55,47 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
     SOAPMessage paringMessage = SOAPUtil.extractSoapMessage(messageContext.getRequest());
     SOAPMessage responseMessage = SOAPUtil.extractSoapMessage(messageContext.getResponse());
 
+    version = parseProtocolVersion(paringMessage);
+
     // meta-service does not need 'header' element
     if (metaService) {
       responseMessage.getSOAPHeader().detachNode();
     }
-    version = parseProtocolVersion(paringMessage);
 
     Document paring = metaService ? null : parseQuery(paringMessage);
     getResponse(paring, responseMessage, paringMessage);
   }
 
-  private XRoadProtocolVersion parseProtocolVersion(SOAPMessage paringMessage) throws SOAPException {
+  @SuppressWarnings("unchecked")
+  private XRoadProtocolVersion parseProtocolVersion(SOAPMessage requestMessage) throws SOAPException {
     XRoadProtocolVersion version = null;
-    if (paringMessage.getSOAPHeader() != null) {
-      NodeList reqHeaders = paringMessage.getSOAPHeader().getChildNodes();
+    // Extract protocol version by headers
+    if (requestMessage.getSOAPHeader() != null) {
+      NodeList reqHeaders = requestMessage.getSOAPHeader().getChildNodes();
       for (int i = 0; i < reqHeaders.getLength(); i++) {
         Node reqHeader = reqHeaders.item(i);
         if (reqHeader.getNodeType() != Node.ELEMENT_NODE
             || !reqHeader.getLocalName().equals(XTeeHeader.PROTOCOL_VERSION.getLocalPart())) {
           continue;
         }
-        version = XRoadProtocolVersion.getValueByVersionCode(SOAPUtil.getTextContent(reqHeader));
-        break;
+
+        if ((version = XRoadProtocolVersion.getValueByVersionCode(SOAPUtil.getTextContent(reqHeader))) != null) {
+          return version;
+        }
       }
     }
-    // TODO Lauri: try to extract version according to namespaces?
-    return version != null ? version : XRoadProtocolVersion.V2_0;
+
+    // Extract protocol version by namespaces
+    SOAPEnvelope soapEnv = requestMessage.getSOAPPart().getEnvelope();
+    Iterator<String> prefixes = soapEnv.getNamespacePrefixes();
+    while (prefixes.hasNext()) {
+      String nsPrefix = (String) prefixes.next();
+      String nsURI = soapEnv.getNamespaceURI(nsPrefix).toLowerCase();
+      if ((version = XRoadProtocolVersion.getValueByNamespaceURI(nsURI)) != null) {
+        return version;
+      }
+    }
+    throw new IllegalStateException("Unsupported protocol version");
   }
 
   @SuppressWarnings("unchecked")
@@ -120,6 +136,10 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
   @SuppressWarnings("unchecked")
   private XTeeHeader parseXteeHeader(SOAPMessage paringMessage) throws SOAPException {
     XTeeHeader pais = new XTeeHeader();
+    if (paringMessage.getSOAPHeader() == null) {
+      return pais;
+    }
+
     SOAPHeader header = paringMessage.getSOAPHeader();
     for (Iterator<Node> headerElemendid = header.getChildElements(); headerElemendid.hasNext();) {
       Node headerElement = headerElemendid.next();
