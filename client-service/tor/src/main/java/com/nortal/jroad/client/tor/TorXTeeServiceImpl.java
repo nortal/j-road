@@ -18,15 +18,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.ws.WebServiceMessage;
 import org.springframework.ws.soap.saaj.SaajSoapMessage;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
+import com.nortal.jroad.client.service.XRoadDatabaseService;
 import com.nortal.jroad.client.service.callback.CustomCallback;
-import com.nortal.jroad.client.service.v3.XRoadDatabaseService;
 import com.nortal.jroad.client.tor.types.ee.x_road.emtav5.producer.DownloadMimeDocument;
 import com.nortal.jroad.client.tor.types.ee.x_road.emtav5.producer.DownloadMimeDocument.DownloadMime;
 import com.nortal.jroad.client.tor.types.ee.x_road.emtav5.producer.DownloadMimeResponseDocument.DownloadMimeResponse;
-import com.nortal.jroad.client.tor.types.ee.x_road.emtav5.producer.TORIKDocument.TORIK;
 import com.nortal.jroad.client.tor.types.ee.x_road.emtav5.producer.DownloadMimeType;
 import com.nortal.jroad.client.tor.types.ee.x_road.emtav5.producer.TORIKDocument;
+import com.nortal.jroad.client.tor.types.ee.x_road.emtav5.producer.TORIKDocument.TORIK;
 import com.nortal.jroad.client.tor.types.ee.x_road.emtav5.producer.TORIKResponseDocument;
 import com.nortal.jroad.client.tor.types.ee.x_road.emtav5.producer.TORIKResponseDocument.TORIKResponse;
 import com.nortal.jroad.client.tor.types.ee.x_road.emtav5.producer.TorikRequestType;
@@ -37,9 +37,9 @@ import com.nortal.jroad.client.tor.types.ee.x_road.emtav5.producer.UploadMimeRes
 import com.nortal.jroad.client.tor.types.ee.x_road.emtav5.producer.UploadMimeType;
 import com.nortal.jroad.client.tor.types.ee.x_road.emtav5.producer.UploadMimeType.Props;
 import com.nortal.jroad.client.tor.types.ee.x_road.emtav5.producer.UploadMimeType.Props.Prop;
-import com.nortal.jroad.model.XTeeAttachment;
-import com.nortal.jroad.model.XTeeMessage;
-import com.nortal.jroad.model.XmlBeansXTeeMessage;
+import com.nortal.jroad.model.XRoadAttachment;
+import com.nortal.jroad.model.XRoadMessage;
+import com.nortal.jroad.model.XmlBeansXRoadMessage;
 import com.nortal.jroad.util.AttachmentUtil;
 
 /**
@@ -61,25 +61,26 @@ public class TorXTeeServiceImpl extends XRoadDatabaseService implements TorXTeeS
     super.init();
     setDatabase("emtav5");
   }
-  
+
   @Override
-  public XTeeMessage<DownloadMimeResponse> downloadMime(String target) throws XTeeServiceConsumptionException {
+  public XRoadMessage<DownloadMimeResponse> downloadMime(String target) throws XRoadServiceConsumptionException {
     DownloadMime downloadMimeDocument = DownloadMimeDocument.DownloadMime.Factory.newInstance();
 
     DownloadMimeType request = downloadMimeDocument.addNewRequest();
     request.setTarget(target);
 
-    XTeeMessage<DownloadMimeResponse> response = send(new XmlBeansXTeeMessage<DownloadMimeDocument.DownloadMime>(downloadMimeDocument),
-                                                      METHOD_DOWNLOAD_MIME,
-                                                      V1,
-                                                      new TorCallback(),
-                                                      null);
+    XRoadMessage<DownloadMimeResponse> response =
+        send(new XmlBeansXRoadMessage<DownloadMimeDocument.DownloadMime>(downloadMimeDocument),
+             METHOD_DOWNLOAD_MIME,
+             V1,
+             new TorCallback(),
+             null);
     return response;
   }
-  
+
   @Override
   public UploadMimeResponse uploadMime(String target, String operation, String id, DataHandler fail)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
     UploadMime uploadMimeDocument = UploadMimeDocument.UploadMime.Factory.newInstance();
 
     UploadMimeType request = uploadMimeDocument.addNewRequest();
@@ -90,25 +91,26 @@ public class TorXTeeServiceImpl extends XRoadDatabaseService implements TorXTeeS
     prop.setKey(UPLOAD_ID);
     prop.setStringValue(id);
 
-    XmlBeansXTeeMessage<UploadMimeDocument.UploadMime> xteeMessage = new XmlBeansXTeeMessage<UploadMimeDocument.UploadMime>(uploadMimeDocument);
-    List<XTeeAttachment> attachments = xteeMessage.getAttachments();
+    XmlBeansXRoadMessage<UploadMimeDocument.UploadMime> XRoadMessage =
+        new XmlBeansXRoadMessage<UploadMimeDocument.UploadMime>(uploadMimeDocument);
+    List<XRoadAttachment> attachments = XRoadMessage.getAttachments();
 
     String failCid = AttachmentUtil.getUniqueCid();
     request.addNewFile().setHref("cid:" + failCid);
-    attachments.add(new XTeeAttachment(failCid, fail));
+    attachments.add(new XRoadAttachment(failCid, fail));
 
-    XTeeMessage<UploadMimeResponse> response = send(xteeMessage, METHOD_UPLOAD_MIME, V1, new TorCallback(), null);
+    XRoadMessage<UploadMimeResponse> response = send(XRoadMessage, METHOD_UPLOAD_MIME, V1, new TorCallback(), null);
 
     return response.getContent();
   }
 
   @Override
   public TORIKResponse findTorik(String paringuLiik, Date tootAlgusKp, Date tootLoppKp, String isikukood)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
     TorikRequestType torik = getTorikRequest(paringuLiik, tootAlgusKp, tootLoppKp, isikukood).getTORIK().getRequest();
 
-    XTeeMessage<TORIKResponseDocument.TORIKResponse> vastus =
-        send(new XmlBeansXTeeMessage<TorikRequestType>(torik), METHOD_TORIK, V1, new TorCallback(), null);
+    XRoadMessage<TORIKResponseDocument.TORIKResponse> vastus =
+        send(new XmlBeansXRoadMessage<TorikRequestType>(torik), METHOD_TORIK, V1, new TorCallback(), null);
 
     return vastus.getContent();
 

@@ -1,10 +1,10 @@
 package com.nortal.jroad.client.service.consumer;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.service.callback.CustomCallback;
 import com.nortal.jroad.client.service.configuration.BaseXRoadServiceConfiguration;
 import com.nortal.jroad.client.service.extractor.CustomExtractor;
-import com.nortal.jroad.model.XTeeMessage;
+import com.nortal.jroad.model.XRoadMessage;
 
 /**
  * Service consumer which act as as a high level abstraction for X-Road data exchange processes.
@@ -22,8 +22,8 @@ public interface XRoadConsumer {
    * @param xTeeServiceConfiguration service configuration data
    * @return Java object representing the response
    */
-  <I, O> XTeeMessage<O> sendRequest(XTeeMessage<I> input, BaseXRoadServiceConfiguration xTeeServiceConfiguration)
-      throws XTeeServiceConsumptionException;
+  <I, O> XRoadMessage<O> sendRequest(XRoadMessage<I> input, BaseXRoadServiceConfiguration xTeeServiceConfiguration)
+      throws XRoadServiceConsumptionException;
 
   /**
    * Performs an invocation of some X-tee service.
@@ -36,9 +36,9 @@ public interface XRoadConsumer {
    * @param extractor Custom extractor to invoke for extracting the message
    * @return Java object representing the response
    */
-  <I, O> XTeeMessage<O> sendRequest(XTeeMessage<I> input,
-                                    BaseXRoadServiceConfiguration xTeeServiceConfiguration,
-                                    CustomCallback callback,
-                                    CustomExtractor extractor) throws XTeeServiceConsumptionException;
+  <I, O> XRoadMessage<O> sendRequest(XRoadMessage<I> input,
+                                     BaseXRoadServiceConfiguration xTeeServiceConfiguration,
+                                     CustomCallback callback,
+                                     CustomExtractor extractor) throws XRoadServiceConsumptionException;
 
 }

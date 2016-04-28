@@ -8,7 +8,7 @@ import javax.annotation.Resource;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.tam.TamXTeeServiceImpl;
 import com.nortal.jroad.client.tam.types.ee.riik.xtee.tam.producers.producer.tam.Registriisik;
 import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
@@ -19,7 +19,7 @@ public class TamXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   private TamXTeeServiceImpl tamXTeeServiceImpl;
   
   @Test
-  public void testRegistriisik() throws XTeeServiceConsumptionException {
+  public void testRegistriisik() throws XRoadServiceConsumptionException {
     String kood = "D03115";
     List<Registriisik> result = tamXTeeServiceImpl.findRegistriisik(kood);
     Assert.assertEquals("One result expected", 1, result.size());
@@ -27,7 +27,7 @@ public class TamXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
   
   @Test
-  public void testTervishoiutootajamuudatuskood() throws XTeeServiceConsumptionException {
+  public void testTervishoiutootajamuudatuskood() throws XRoadServiceConsumptionException {
     int type = 1;
     Calendar startDate = Calendar.getInstance();
     Calendar endDate = startDate;

@@ -16,7 +16,7 @@ import com.nortal.jroad.client.esis.types.com.tietoenator.sis.common.dto.query.s
 import com.nortal.jroad.client.esis.types.com.tietoenator.sis.common.dto.query.sis1Query.QueryDTO;
 import com.nortal.jroad.client.esis.types.com.tietoenator.sis.common.dto.query.sis1Query.VehicleQueryDTO;
 import com.nortal.jroad.client.esis.types.com.tietoenator.sis.common.dto.result.sis1Result.ResultDTO;
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
 
 /**
@@ -39,7 +39,7 @@ public class EsisXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
 
   @Test
-  public void findVehicle() throws XTeeServiceConsumptionException {
+  public void findVehicle() throws XRoadServiceConsumptionException {
     VehicleQueryDTO request = VehicleQueryDTO.Factory.newInstance();
     fillRequest(request);
 
@@ -49,7 +49,7 @@ public class EsisXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
 
   @Test
-  public void findPerson() throws XTeeServiceConsumptionException {
+  public void findPerson() throws XRoadServiceConsumptionException {
     PersonQueryDTO request = PersonQueryDTO.Factory.newInstance();
     fillRequest(request);
 
@@ -60,7 +60,7 @@ public class EsisXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
   
   @Test
-  public void findFirearm() throws XTeeServiceConsumptionException {
+  public void findFirearm() throws XRoadServiceConsumptionException {
     FirearmQueryDTO request = FirearmQueryDTO.Factory.newInstance();
     fillRequest(request);
     
@@ -70,7 +70,7 @@ public class EsisXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
   
   @Test
-  public void findBlankDocument() throws XTeeServiceConsumptionException {
+  public void findBlankDocument() throws XRoadServiceConsumptionException {
     BlankDocumentQueryDTO request = BlankDocumentQueryDTO.Factory.newInstance();
     fillRequest(request);
     
@@ -80,7 +80,7 @@ public class EsisXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
   
   @Test
-  public void findIssuedDocument() throws XTeeServiceConsumptionException {
+  public void findIssuedDocument() throws XRoadServiceConsumptionException {
     IssuedDocumentQueryDTO request = IssuedDocumentQueryDTO.Factory.newInstance();
     fillRequest(request);
     
@@ -90,7 +90,7 @@ public class EsisXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
   
   @Test
-  public void findBankNote() throws XTeeServiceConsumptionException {
+  public void findBankNote() throws XRoadServiceConsumptionException {
     BanknoteQueryDTO request = BanknoteQueryDTO.Factory.newInstance();
     fillRequest(request);
     

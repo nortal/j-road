@@ -13,7 +13,7 @@ import org.junit.Test;
 
 import com.nortal.jroad.client.emtav5.Emtav5XTeeServiceImpl;
 import com.nortal.jroad.client.emtav5.types.net.x_rd.ee.emtav5.producer.SpouseCheckResponseType.Response.Period;
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
 
 /**
@@ -30,7 +30,7 @@ public class Emtav5XTeeServiceImplTest extends BaseXTeeServiceImplTest {
 	private Emtav5XTeeServiceImpl emtav5xTeeServiceImpl;
 
 	@Test
-	public void xteeFIEAKV1() throws ParseException, XTeeServiceConsumptionException {
+	public void xteeFIEAKV1() throws ParseException, XRoadServiceConsumptionException {
 		List<Period> periodList = emtav5xTeeServiceImpl.xteeFIEAKV1(CODE, dateFormat.parse("01.08.2012"),
 				dateFormat.parse("05.09.2012"));
 		Assert.assertNotNull(periodList);

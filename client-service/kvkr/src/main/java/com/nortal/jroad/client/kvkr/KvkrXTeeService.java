@@ -1,6 +1,6 @@
 package com.nortal.jroad.client.kvkr;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.kvkr.types.ee.x_road.kvkr.producer.ServiceinfoResponseDocument;
 
 public interface KvkrXTeeService {
@@ -11,6 +11,6 @@ public interface KvkrXTeeService {
    * @param nationalIdCode Isikukood
    * @param queryGrounds   Päringu sooritamise põhjus
    */
-  ServiceinfoResponseDocument.ServiceinfoResponse getServiceinfoV1(String nationalIdCode, String queryGrounds) throws XTeeServiceConsumptionException;
+  ServiceinfoResponseDocument.ServiceinfoResponse getServiceinfoV1(String nationalIdCode, String queryGrounds) throws XRoadServiceConsumptionException;
 
 }

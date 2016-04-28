@@ -36,7 +36,7 @@ import com.nortal.jroad.client.dhl.types.ee.riik.xtee.dhl.producers.producer.dhl
 import com.nortal.jroad.client.dhl.types.ee.riik.xtee.dhl.producers.producer.dhl.OccupationType;
 import com.nortal.jroad.client.dhl.types.ee.riik.xtee.dhl.producers.producer.dhl.SendDocumentsV2RequestType;
 import com.nortal.jroad.client.dhl.types.ee.sk.digiDoc.v13.SignedDocType;
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 
 /**
  * @author ats.uiboupin
@@ -451,23 +451,23 @@ public interface DhlXTeeService {
     }
 
     /**
-     * Wrapper(unchecked exception) for checked exception XTeeServiceConsumptionException
+     * Wrapper(unchecked exception) for checked exception XRoadServiceConsumptionException
      * 
      * @author Ats Uiboupin
      */
-    public class WrappedXTeeServiceConsumptionException extends RuntimeException {
+    public class WrappedXRoadServiceConsumptionException extends RuntimeException {
         private static final long serialVersionUID = 1L;
 
-        public WrappedXTeeServiceConsumptionException(XTeeServiceConsumptionException cause) {
+        public WrappedXRoadServiceConsumptionException(XRoadServiceConsumptionException cause) {
             super(resolveMessage(cause), cause);
         }
 
         @Override
-        public XTeeServiceConsumptionException getCause() {
-            return (XTeeServiceConsumptionException) super.getCause();
+        public XRoadServiceConsumptionException getCause() {
+            return (XRoadServiceConsumptionException) super.getCause();
         }
 
-        private static String resolveMessage(XTeeServiceConsumptionException e) {
+        private static String resolveMessage(XRoadServiceConsumptionException e) {
             return "Failed to execute xtee query " + e.getFullServiceName() + ". Fault(" + e.getFaultCode() + "): '" + e.getFaultString() + "'";
         }
     }

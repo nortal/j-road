@@ -10,7 +10,7 @@ import javax.annotation.Resource;
 
 import org.apache.xmlbeans.XmlString;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.mteenus.MteenusXTeeServiceImpl;
 import com.nortal.jroad.client.mteenus.Sms;
 import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
@@ -25,7 +25,7 @@ public class MteenusXteeServiceImplTest extends BaseXTeeServiceImplTest {
   private MteenusXTeeServiceImpl mteenusXTeeServiceImpl;
 
   @Test
-  public void testSend() throws XTeeServiceConsumptionException {
+  public void testSend() throws XRoadServiceConsumptionException {
     Sms sms = new Sms();
     sms.setIsikukood("37801113714");
     sms.setTeenusId("169");

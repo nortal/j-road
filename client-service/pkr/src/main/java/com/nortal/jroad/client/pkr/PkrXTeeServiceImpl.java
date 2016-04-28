@@ -9,16 +9,16 @@ import javax.xml.transform.TransformerException;
 import com.nortal.jroad.client.pkr.types.ee.riik.xtee.pkr.producers.producer.pkr.*;
 import org.springframework.ws.WebServiceMessage;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.pkr.types.ee.riik.xtee.pkr.producers.producer.pkr.Tkis1Paring;
 import com.nortal.jroad.client.pkr.types.ee.riik.xtee.pkr.producers.producer.pkr.Tkis1Vastus;
 import com.nortal.jroad.client.pkr.types.ee.riik.xtee.pkr.producers.producer.pkr.TtaPensionToetusParing;
 import com.nortal.jroad.client.pkr.types.ee.riik.xtee.pkr.producers.producer.pkr.TtaPensionToetusVastus;
-import com.nortal.jroad.client.service.v2.XTeeDatabaseService;
+import com.nortal.jroad.client.service.XRoadDatabaseService;
 import com.nortal.jroad.client.service.callback.CustomCallback;
 import com.nortal.jroad.client.service.extractor.CustomExtractor;
-import com.nortal.jroad.model.XTeeMessage;
-import com.nortal.jroad.model.XmlBeansXTeeMessage;
+import com.nortal.jroad.model.XRoadMessage;
+import com.nortal.jroad.model.XmlBeansXRoadMessage;
 import com.nortal.jroad.util.SOAPUtil;
 
 /**
@@ -28,7 +28,7 @@ import com.nortal.jroad.util.SOAPUtil;
  * 
  * @author Margus Hanni
  */
-public class PkrXTeeServiceImpl extends XTeeDatabaseService implements PkrXTeeService {
+public class PkrXTeeServiceImpl extends XRoadDatabaseService implements PkrXTeeService {
 
   private static final String TEST_DATABASE = "tpkr";
 
@@ -46,13 +46,13 @@ public class PkrXTeeServiceImpl extends XTeeDatabaseService implements PkrXTeeSe
     this.useTestDatabase = useTestDatabase;
   }
 
-  public TtaPensionToetusVastus getPensionToetus(String isikukood) throws XTeeServiceConsumptionException {
+  public TtaPensionToetusVastus getPensionToetus(String isikukood) throws XRoadServiceConsumptionException {
 
     TtaPensionToetusParing paring = TtaPensionToetusParing.Factory.newInstance();
     paring.setIsikukood(isikukood);
 
-    XTeeMessage<TtaPensionToetusVastus> response =
-        send(new XmlBeansXTeeMessage<TtaPensionToetusParing>(paring),
+    XRoadMessage<TtaPensionToetusVastus> response =
+        send(new XmlBeansXRoadMessage<TtaPensionToetusParing>(paring),
              PENSION_TOETUS,
              null,
              new PkrCallback(),
@@ -62,7 +62,7 @@ public class PkrXTeeServiceImpl extends XTeeDatabaseService implements PkrXTeeSe
   }
   
   public Tkis1Vastus getTkis1(String isikukood, Date algusKuup, Date loppKuup,
-      Date kuup) throws XTeeServiceConsumptionException {
+      Date kuup) throws XRoadServiceConsumptionException {
 
     Tkis1Paring paring = Tkis1Paring.Factory.newInstance();
     paring.setIsikukood(isikukood);
@@ -70,20 +70,20 @@ public class PkrXTeeServiceImpl extends XTeeDatabaseService implements PkrXTeeSe
     paring.setLoppKuup(getCalendar(loppKuup));
     paring.setKuup(getCalendar(kuup));
 
-    XTeeMessage<Tkis1Vastus> response = send(
-        new XmlBeansXTeeMessage<Tkis1Paring>(paring), TKIS1, null,
+    XRoadMessage<Tkis1Vastus> response = send(
+        new XmlBeansXRoadMessage<Tkis1Paring>(paring), TKIS1, null,
         new PkrCallback(), new PkrExtractor());
 
     return response.getContent();
   }
 
-  public Tkis2Valjund getTkis2V1(String isikukood, Date algusKuup, Date loppKuup) throws XTeeServiceConsumptionException {
+  public Tkis2Valjund getTkis2V1(String isikukood, Date algusKuup, Date loppKuup) throws XRoadServiceConsumptionException {
     Tkis2Sisend sisend = Tkis2Sisend.Factory.newInstance();
     sisend.setIsikukood(isikukood);
     sisend.setPerAlgus(getCalendar(algusKuup));
     sisend.setPerLopp(getCalendar(loppKuup));
 
-    XTeeMessage<Tkis2Valjund> response = send(new XmlBeansXTeeMessage<Tkis2Sisend>(sisend), TKIS2, "v1");
+    XRoadMessage<Tkis2Valjund> response = send(new XmlBeansXRoadMessage<Tkis2Sisend>(sisend), TKIS2, "v1");
     return response.getContent();
   }
 

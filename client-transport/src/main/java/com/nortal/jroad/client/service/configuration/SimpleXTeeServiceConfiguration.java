@@ -28,7 +28,6 @@ public class SimpleXTeeServiceConfiguration implements BaseXRoadServiceConfigura
   private String wsdlDatabase;
   private String securityServer;
   private String idCode;
-  private String institution;
   private String file;
   private String version;
   private String method;
@@ -60,15 +59,6 @@ public class SimpleXTeeServiceConfiguration implements BaseXRoadServiceConfigura
 
   public void setIdCode(String idCode) {
     this.idCode = idCode;
-  }
-
-  @Override
-  public String getInstitution() {
-    return institution;
-  }
-
-  public void setInstitution(String institution) {
-    this.institution = institution;
   }
 
   @Override
@@ -104,11 +94,11 @@ public class SimpleXTeeServiceConfiguration implements BaseXRoadServiceConfigura
     int result = 1;
     result = prime * result + ((database == null) ? 0 : database.hashCode());
     result = prime * result + ((idCode == null) ? 0 : idCode.hashCode());
-    result = prime * result + ((institution == null) ? 0 : institution.hashCode());
     result = prime * result + ((method == null) ? 0 : method.hashCode());
     result = prime * result + ((securityServer == null) ? 0 : securityServer.hashCode());
     result = prime * result + ((file == null) ? 0 : file.hashCode());
     result = prime * result + ((version == null) ? 0 : version.hashCode());
+    result = prime * result + ((protocolVersion == null) ? 0 : protocolVersion.hashCode());
     return result;
   }
 
@@ -131,11 +121,6 @@ public class SimpleXTeeServiceConfiguration implements BaseXRoadServiceConfigura
         return false;
     } else if (!idCode.equals(other.idCode))
       return false;
-    if (institution == null) {
-      if (other.institution != null)
-        return false;
-    } else if (!institution.equals(other.institution))
-      return false;
     if (method == null) {
       if (other.method != null)
         return false;
@@ -156,6 +141,11 @@ public class SimpleXTeeServiceConfiguration implements BaseXRoadServiceConfigura
         return false;
     } else if (!version.equals(other.version))
       return false;
+    if (protocolVersion == null) {
+      if (other.protocolVersion != null)
+        return false;
+    } else if (!protocolVersion.equals(other.protocolVersion))
+      return false;
     return true;
   }
 
@@ -165,11 +155,11 @@ public class SimpleXTeeServiceConfiguration implements BaseXRoadServiceConfigura
     builder.append("SimpleXteeServiceConfigurator[");
     builder.append(" database = ").append(database);
     builder.append(" idCode = ").append(idCode);
-    builder.append(" institution = ").append(institution);
     builder.append(" method = ").append(method);
     builder.append(" securityServer = ").append(securityServer);
     builder.append(" file = ").append(file);
     builder.append(" version = ").append(version);
+    builder.append(" protocolVersion = ").append(protocolVersion);
     builder.append("]");
     return builder.toString();
   }

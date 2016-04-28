@@ -17,7 +17,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <spring.ws.version>2.2.0.RELEASE</spring.ws.version>
-    <skipTests>false</skipTests>
+    <skipTests>true</skipTests>
   </properties>
   <developers>
     <developer>
@@ -46,9 +46,10 @@
   <modules>
     <module>common</module>
     <module>client-transport</module>
-    <module>client-service</module>
     <module>server</module>
     <module>typegen</module>
+    <module>example</module>
+    <module>client-service</module>
   </modules>
   <build>
 	<plugins>

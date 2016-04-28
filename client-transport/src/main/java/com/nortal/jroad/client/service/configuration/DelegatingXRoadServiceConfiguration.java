@@ -41,11 +41,6 @@ public class DelegatingXRoadServiceConfiguration implements BaseXRoadServiceConf
   }
 
   @Override
-  public String getInstitution() {
-    return configuration.getInstitution();
-  }
-
-  @Override
   public String getMethod() {
     return configuration.getMethod();
   }

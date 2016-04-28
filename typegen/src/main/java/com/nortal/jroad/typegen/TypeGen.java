@@ -31,7 +31,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.nortal.jroad.enums.XRoadProtocolVersion;
-import com.nortal.jroad.model.XmlBeansXTeeMetadata;
+import com.nortal.jroad.model.XmlBeansXRoadMetadata;
 import com.nortal.jroad.typegen.database.DatabaseClasses;
 import com.nortal.jroad.typegen.database.DatabaseGenerator;
 import com.nortal.jroad.typegen.xmlbeans.BasepackageBinder;
@@ -64,7 +64,7 @@ public class TypeGen {
   private static final String DB_CLASSES_PACKAGE = "dbclassespackage";
 
   static Map<String, String> argMap = new HashMap<String, String>();
-  private static Map<String, XmlBeansXTeeMetadata> metadata = new HashMap<String, XmlBeansXTeeMetadata>();
+  private static Map<String, XmlBeansXRoadMetadata> metadata = new HashMap<String, XmlBeansXRoadMetadata>();
   private static List<XmlObject> schemas = new ArrayList<XmlObject>();
   private static File curWsdl;
   private static File hashFile;
@@ -426,7 +426,7 @@ public class TypeGen {
         String version = versionMap.get(opname);
 
         metadata.put(dbDesc.getId() + opname.toLowerCase(),
-                     new XmlBeansXTeeMetadata(opname,
+                     new XmlBeansXRoadMetadata(opname,
                                               opNs,
                                               requestElementName,
                                               requestElementNs,
@@ -486,8 +486,8 @@ public class TypeGen {
   private static void generateDatabaseClasses(String outputdir) throws IOException, TemplateException {
     DatabaseClasses classes =
         new DatabaseClasses(argMap.get(XSB_DIR), argMap.get(DB_CLASSES_PACKAGE), dbDesc.getVersion());
-    for (Map.Entry<String, XmlBeansXTeeMetadata> entry : metadata.entrySet()) {
-      XmlBeansXTeeMetadata serviceMetadata = entry.getValue();
+    for (Map.Entry<String, XmlBeansXRoadMetadata> entry : metadata.entrySet()) {
+      XmlBeansXRoadMetadata serviceMetadata = entry.getValue();
 
       String key = entry.getKey();
       String database = key.substring(0, key.lastIndexOf(serviceMetadata.getOperationName().toLowerCase()));

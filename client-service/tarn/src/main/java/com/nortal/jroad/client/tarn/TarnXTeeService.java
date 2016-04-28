@@ -2,7 +2,7 @@ package com.nortal.jroad.client.tarn;
 
 import javax.activation.DataHandler;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.tarn.types.ee.riik.xtee.tarn.producers.producer.tarn.TaitemenetluseMuutmineTaSisend;
 import com.nortal.jroad.client.tarn.types.ee.riik.xtee.tarn.producers.producer.tarn.TaitemenetluseMuutmineTaVastus;
 import com.nortal.jroad.client.tarn.types.ee.riik.xtee.tarn.producers.producer.tarn.TaitmisavalduseEsitamineParing;
@@ -20,12 +20,12 @@ public interface TarnXTeeService {
    */
   TaitemenetluseMuutmineTaVastus taitemenetluseMuutmine(
       TaitemenetluseMuutmineTaSisend paring)
-      throws XTeeServiceConsumptionException;
+      throws XRoadServiceConsumptionException;
 
   /**
    * <code>tarn.taitmisavalduseEsitamine.v1</code> service.
    */
   TaitmisavalduseEsitamineVastus taitmisavalduseEsitamine(
       TaitmisavalduseEsitamineParing input, DataHandler toimingudFail,
-      DataHandler seotudToimingudFail) throws XTeeServiceConsumptionException;
+      DataHandler seotudToimingudFail) throws XRoadServiceConsumptionException;
 }

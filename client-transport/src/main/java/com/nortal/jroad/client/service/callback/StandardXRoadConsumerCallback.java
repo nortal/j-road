@@ -21,7 +21,7 @@ import org.springframework.ws.client.core.WebServiceMessageCallback;
 import org.springframework.ws.soap.saaj.SaajSoapMessage;
 
 import com.nortal.jroad.client.service.configuration.BaseXRoadServiceConfiguration;
-import com.nortal.jroad.model.XmlBeansXTeeMetadata;
+import com.nortal.jroad.model.XmlBeansXRoadMetadata;
 
 /**
  * @author Dmitri Danilkin
@@ -32,13 +32,13 @@ public class StandardXRoadConsumerCallback implements WebServiceMessageCallback 
   private final Object object;
   private final XRoadMessageCallback callback;
   private final Marshaller marshaller;
-  private final XmlBeansXTeeMetadata metadata;
+  private final XmlBeansXRoadMetadata metadata;
   private final boolean setEncodingStyle;
 
   public StandardXRoadConsumerCallback(Object object,
                                        XRoadMessageCallback callback,
                                        Marshaller marshaller,
-                                       XmlBeansXTeeMetadata metadata,
+                                       XmlBeansXRoadMetadata metadata,
                                        boolean setEncodingStyle) {
     this.object = object;
     this.callback = callback;

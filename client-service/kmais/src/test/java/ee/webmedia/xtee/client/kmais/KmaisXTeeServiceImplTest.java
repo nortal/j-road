@@ -1,6 +1,6 @@
 package com.nortal.jroad.client.kmais;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.kmais.KmaisXTeeService;
 import com.nortal.jroad.client.kmais.KmaisXTeeService.IsikukoodNimiFragSalaCallback;
 import com.nortal.jroad.client.kmais.types.ee.riik.xtee.kmais.producers.producer.kmais.AlalineElamislubaKleebisPvaVastus;
@@ -25,14 +25,14 @@ public class KmaisXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   private static final String TEST_IK = "38606282771";
 
   @Test
-  public void isikutToendavate6V1() throws XTeeServiceConsumptionException {
+  public void isikutToendavate6V1() throws XRoadServiceConsumptionException {
     IsikutToendavatePvaVastus isikutToendavate6V1 =
         kmaisXTeeService.isikutToendavate6V1(TEST_IK, null, null, null, null);
     Assert.assertEquals(isikutToendavate6V1.getDetailandmed().getIsikukood(), TEST_IK);
   }
 
   @Test
-  public void eestiKodaniku19V1() throws XTeeServiceConsumptionException {
+  public void eestiKodaniku19V1() throws XRoadServiceConsumptionException {
     IsikukoodNimiFragSalaCallback callback = new IsikukoodNimiFragSalaCallback() {
 
       public void populate(IsikukoodNimiFragSala infs) {
@@ -45,7 +45,7 @@ public class KmaisXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
 
   @Test
-  public void valismaalasePassiandmete12V1() throws XTeeServiceConsumptionException {
+  public void valismaalasePassiandmete12V1() throws XRoadServiceConsumptionException {
     IsikukoodNimiFragSalaCallback callback = new IsikukoodNimiFragSalaCallback() {
 
       public void populate(IsikukoodNimiFragSala infs) {
@@ -58,7 +58,7 @@ public class KmaisXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
   
   @Test
-  public void ebaseaduslikult2() throws XTeeServiceConsumptionException {
+  public void ebaseaduslikult2() throws XRoadServiceConsumptionException {
     IdIsikukoodNimiFrag request = IdIsikukoodNimiFrag.Factory.newInstance();
     request.setSynniaeg("1991");
     request.setEesnimi("ARDE");
@@ -68,7 +68,7 @@ public class KmaisXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
   
   @Test
-  public void sissesoiduKeelduOmavate2() throws XTeeServiceConsumptionException {
+  public void sissesoiduKeelduOmavate2() throws XRoadServiceConsumptionException {
     IdIsikukoodNimiFrag request = IdIsikukoodNimiFrag.Factory.newInstance();
     request.setSynniaeg("1976");
     request.setEesnimi("ABEL");
@@ -78,7 +78,7 @@ public class KmaisXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
   
   @Test
-  public void eestiKodaniku17() throws XTeeServiceConsumptionException {
+  public void eestiKodaniku17() throws XRoadServiceConsumptionException {
 	DokNumberSala request = DokNumberSala.Factory.newInstance();
     request.setDokNumber("K1166492");
     EestiKodanikuPassPvaVastus eestiKodanikuPassPvaVastus = kmaisXTeeService.eestiKodaniku17(request);
@@ -86,7 +86,7 @@ public class KmaisXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
   
   @Test
-  public void isikutunnistuseAndmete10() throws XTeeServiceConsumptionException {
+  public void isikutunnistuseAndmete10() throws XRoadServiceConsumptionException {
 	DokNumberSala request = DokNumberSala.Factory.newInstance();
     request.setDokNumber("A0027818");
     IdPvaVastus idPvaVastus = kmaisXTeeService.isikutunnistuseAndmete10(request);
@@ -94,7 +94,7 @@ public class KmaisXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
   
   @Test
-  public void valismaalasePassiandmete10() throws XTeeServiceConsumptionException {
+  public void valismaalasePassiandmete10() throws XRoadServiceConsumptionException {
 	DokNumberSala request = DokNumberSala.Factory.newInstance();
     request.setDokNumber("V0115316");
     ValismaalasePassPvaVastus valismaalasePassPvaVastus = kmaisXTeeService.valismaalasePassiandmete10(request);
@@ -102,7 +102,7 @@ public class KmaisXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }  
   
   @Test
-  public void alaliseElamisloa6() throws XTeeServiceConsumptionException {
+  public void alaliseElamisloa6() throws XRoadServiceConsumptionException {
 	IsikukoodNimiFragSala request = IsikukoodNimiFragSala.Factory.newInstance();
     request.setIsikukood("37611122210");
     AlalineElamislubaKleebisPvaVastus alalineElamislubaKleebisPvaVastus = kmaisXTeeService.alaliseElamisloa6(request);
@@ -110,7 +110,7 @@ public class KmaisXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
   
   @Test
-  public void tooloaAndmete10() throws XTeeServiceConsumptionException {
+  public void tooloaAndmete10() throws XRoadServiceConsumptionException {
 	IsikukoodNimiFragSala request = IsikukoodNimiFragSala.Factory.newInstance();
     request.setIsikukood("47106190348");
     ToolubaPvaVastus toolubaPvaVastus = kmaisXTeeService.tooloaAndmete10(request);

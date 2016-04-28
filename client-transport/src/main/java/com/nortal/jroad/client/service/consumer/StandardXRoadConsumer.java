@@ -26,18 +26,18 @@ import org.springframework.ws.client.support.interceptor.ClientInterceptor;
 import org.springframework.ws.soap.client.SoapFaultClientException;
 
 import com.nortal.jroad.client.exception.NonTechnicalFaultException;
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.service.callback.CustomCallback;
 import com.nortal.jroad.client.service.callback.StandardXRoadConsumerCallback;
 import com.nortal.jroad.client.service.callback.XRoadMessageCallback;
 import com.nortal.jroad.client.service.configuration.BaseXRoadServiceConfiguration;
 import com.nortal.jroad.client.service.extractor.CustomExtractor;
-import com.nortal.jroad.client.service.extractor.StandardXTeeConsumerMessageExtractor;
+import com.nortal.jroad.client.service.extractor.StandardXRoadConsumerMessageExtractor;
 import com.nortal.jroad.client.util.WSConsumptionLoggingInterceptor;
 import com.nortal.jroad.client.util.XmlBeansUtil;
-import com.nortal.jroad.model.XTeeAttachment;
-import com.nortal.jroad.model.XTeeMessage;
-import com.nortal.jroad.model.XmlBeansXTeeMetadata;
+import com.nortal.jroad.model.XRoadAttachment;
+import com.nortal.jroad.model.XRoadMessage;
+import com.nortal.jroad.model.XmlBeansXRoadMetadata;
 import com.nortal.jroad.util.AttachmentUtil;
 
 /**
@@ -49,7 +49,7 @@ import com.nortal.jroad.util.AttachmentUtil;
  */
 @Service("xRoadConsumer")
 public class StandardXRoadConsumer extends WebServiceGatewaySupport implements XRoadConsumer {
-  private Map<String, XmlBeansXTeeMetadata> metadata;
+  private Map<String, XmlBeansXRoadMetadata> metadata;
   public static final String ROOT_NS = "ns5";
 
   @Override
@@ -67,24 +67,25 @@ public class StandardXRoadConsumer extends WebServiceGatewaySupport implements X
   }
 
   @Override
-  public <I, O> XTeeMessage<O> sendRequest(XTeeMessage<I> input, BaseXRoadServiceConfiguration xTeeServiceConfiguration)
-      throws XTeeServiceConsumptionException {
+  public <I, O> XRoadMessage<O> sendRequest(XRoadMessage<I> input,
+                                            BaseXRoadServiceConfiguration xTeeServiceConfiguration)
+                                                throws XRoadServiceConsumptionException {
     return sendRealRequest(input, xTeeServiceConfiguration, null, null);
   }
 
   @Override
-  public <I, O> XTeeMessage<O> sendRequest(XTeeMessage<I> input,
-                                           BaseXRoadServiceConfiguration xTeeServiceConfiguration,
-                                           CustomCallback callback,
-                                           CustomExtractor extractor) throws XTeeServiceConsumptionException {
+  public <I, O> XRoadMessage<O> sendRequest(XRoadMessage<I> input,
+                                            BaseXRoadServiceConfiguration xTeeServiceConfiguration,
+                                            CustomCallback callback,
+                                            CustomExtractor extractor) throws XRoadServiceConsumptionException {
     return sendRealRequest(input, xTeeServiceConfiguration, callback, extractor);
   }
 
-  @SuppressWarnings("unchecked")
-  private <I, O> XTeeMessage<O> sendRealRequest(XTeeMessage<I> input,
-                                                BaseXRoadServiceConfiguration xteeServiceConfiguration,
-                                                CustomCallback callback,
-                                                CustomExtractor extractor) throws XTeeServiceConsumptionException {
+  @SuppressWarnings({ "unchecked", "rawtypes" })
+  private <I, O> XRoadMessage<O> sendRealRequest(XRoadMessage<I> input,
+                                                 BaseXRoadServiceConfiguration xteeServiceConfiguration,
+                                                 CustomCallback callback,
+                                                 CustomExtractor extractor) throws XRoadServiceConsumptionException {
     try {
       // Add any swaref attachments...
       // First find all Objects.
@@ -107,12 +108,12 @@ public class StandardXRoadConsumer extends WebServiceGatewaySupport implements X
             XmlBeansUtil.setCid(attachmentObj, field, "cid:" + cid);
 
             // Add a new attachment to the list
-            input.getAttachments().add(new XTeeAttachment(cid, handler));
+            input.getAttachments().add(new XRoadAttachment(cid, handler));
           }
         }
       }
 
-      XmlBeansXTeeMetadata curdata = metadata.get(xteeServiceConfiguration.getWsdlDatabase().toLowerCase()
+      XmlBeansXRoadMetadata curdata = metadata.get(xteeServiceConfiguration.getWsdlDatabase().toLowerCase()
           + xteeServiceConfiguration.getMethod().toLowerCase());
 
       if (curdata == null) {
@@ -122,7 +123,7 @@ public class StandardXRoadConsumer extends WebServiceGatewaySupport implements X
       }
 
       WebServiceMessageCallback originalCallback = getNewConsumerCallback(input, xteeServiceConfiguration, curdata);
-      WebServiceMessageExtractor originalExtractor = new StandardXTeeConsumerMessageExtractor(curdata);
+      WebServiceMessageExtractor originalExtractor = new StandardXRoadConsumerMessageExtractor(curdata);
 
       if (callback != null) {
         callback.setOriginalCallback(originalCallback);
@@ -136,11 +137,12 @@ public class StandardXRoadConsumer extends WebServiceGatewaySupport implements X
 
       WebServiceMessageExtractor finalExtractor = extractor == null ? originalExtractor : extractor;
 
-      return (XTeeMessage<O>) getWebServiceTemplate().sendAndReceive(xteeServiceConfiguration.getSecurityServer(),
-                                                                     finalCallback,
-                                                                     finalExtractor);
+      return (XRoadMessage<O>) getWebServiceTemplate().sendAndReceive(xteeServiceConfiguration.getSecurityServer(),
+                                                                      finalCallback,
+                                                                      finalExtractor);
     } catch (Exception e) {
-      XTeeServiceConsumptionException consumptionException = resolveException(e, xteeServiceConfiguration);
+      e.printStackTrace();
+      XRoadServiceConsumptionException consumptionException = resolveException(e, xteeServiceConfiguration);
 
       if (consumptionException != null) {
         throw consumptionException;
@@ -150,9 +152,9 @@ public class StandardXRoadConsumer extends WebServiceGatewaySupport implements X
 
   }
 
-  protected <I> StandardXRoadConsumerCallback getNewConsumerCallback(XTeeMessage<I> input,
+  protected <I> StandardXRoadConsumerCallback getNewConsumerCallback(XRoadMessage<I> input,
                                                                      BaseXRoadServiceConfiguration xteeServiceConfiguration,
-                                                                     XmlBeansXTeeMetadata curdata) {
+                                                                     XmlBeansXRoadMetadata curdata) {
     return new StandardXRoadConsumerCallback(input.getContent(),
                                              getNewMessageCallback(input, xteeServiceConfiguration),
                                              getMarshaller(),
@@ -164,13 +166,13 @@ public class StandardXRoadConsumer extends WebServiceGatewaySupport implements X
     return false;
   }
 
-  protected <I> XRoadMessageCallback getNewMessageCallback(XTeeMessage<I> input,
+  protected <I> XRoadMessageCallback getNewMessageCallback(XRoadMessage<I> input,
                                                            BaseXRoadServiceConfiguration xteeServiceConfiguration) {
     return new XRoadMessageCallback(xteeServiceConfiguration, input.getAttachments());
   }
 
-  private XTeeServiceConsumptionException resolveException(Exception e,
-                                                           BaseXRoadServiceConfiguration xteeServiceConfiguration) {
+  private XRoadServiceConsumptionException resolveException(Exception e,
+                                                            BaseXRoadServiceConfiguration xteeServiceConfiguration) {
 
     WebServiceIOException ioException = null;
     SoapFaultClientException faultException = null;
@@ -188,17 +190,17 @@ public class StandardXRoadConsumer extends WebServiceGatewaySupport implements X
 
       if (ioException != null) {
         if (ioException.getCause() instanceof NonTechnicalFaultException) {
-          return new XTeeServiceConsumptionException((NonTechnicalFaultException) ioException.getCause(),
-                                                     database,
-                                                     method,
-                                                     version);
+          return new XRoadServiceConsumptionException((NonTechnicalFaultException) ioException.getCause(),
+                                                      database,
+                                                      method,
+                                                      version);
         }
 
-        return new XTeeServiceConsumptionException(ioException, database, method, version);
+        return new XRoadServiceConsumptionException(ioException, database, method, version);
       }
 
       if (faultException != null) {
-        return new XTeeServiceConsumptionException(faultException, database, method, version);
+        return new XRoadServiceConsumptionException(faultException, database, method, version);
       }
     }
 

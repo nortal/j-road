@@ -13,64 +13,72 @@ import org.springframework.core.io.Resource;
 
 import com.nortal.jroad.client.service.configuration.SimpleXRoadServiceConfiguration;
 import com.nortal.jroad.client.util.PropertiesUtil;
+import com.nortal.jroad.enums.XRoadProtocolVersion;
 
 /**
  * @author Aleksei Bogdanov (aleksei.bogdanov@nortal.com)
  * @author Lauri Lättemäe (lauri.lattemae@nortal.com) - protocol 4.0
  */
 public class PropertiesBasedXRoadServiceConfigurationProvider extends AbstractXRoadServiceConfigurationProvider {
+  public static final String PROTOCOL_VERSION_FORMAT = "%s-protocol-version";
+  public static final String XROAD_INSTANCE_FORMAT = "%s-xroad-instance";
+  public static final String MEMBER_CLASS_FORMAT = "%s-member-class";
+  public static final String SUBSYSTEM_FORMAT = "%s-subsystem-code";
+  public static final String MEMBER_CODE_FORMAT = "%s-member-code";
 
-  public static final String XROAD_COMMON_PROPERTIES_TARGET = "xroad";
+  public static final String XROAD_COMMON_PROPERTIES = "xroad.properties";
 
   private Resource resource;
+  private Properties commonProps;
   private Map<String, Properties> properties = new HashMap<String, Properties>();
 
   @PostConstruct
   public void init() {
-    if (resource != null) {
-      properties.put(XROAD_COMMON_PROPERTIES_TARGET, loadProperties(resource));
+    if (resource == null) {
+      resource = new ClassPathResource(XROAD_COMMON_PROPERTIES);
     }
+    commonProps = loadProperties(resource);
   }
 
   @Override
   protected void fillConfuguration(SimpleXRoadServiceConfiguration configuration) {
-    Properties commonProps = getProperties(XROAD_COMMON_PROPERTIES_TARGET);
+    configuration.setSecurityServer(commonProps.getProperty("security-server"));
+    configuration.setIdCode(commonProps.getProperty("id-code"));
+    configuration.setFile(commonProps.getProperty("file"));
 
-    configuration.setSecurityServer(resolveProperty(commonProps, "security-server"));
-    configuration.setInstitution(resolveProperty(commonProps, "institution"));
-    configuration.setIdCode(resolveProperty(commonProps, "id-code"));
-    configuration.setFile(resolveProperty(commonProps, "file"));
-
-    configuration.setXRoadInstance(resolveProperty(commonProps, "xroad-instance"));
-    configuration.setClientMemberClass(resolveProperty(commonProps, "client-member-class"));
-    configuration.setClientSubsystemCode(resolveProperty(commonProps, "client-subsystem-code"));
+    configuration.setClientXRoadInstance(commonProps.getProperty(String.format(XROAD_INSTANCE_FORMAT, "client")));
+    configuration.setClientMemberClass(commonProps.getProperty(String.format(MEMBER_CLASS_FORMAT, "client")));
+    configuration.setClientMemberCode(commonProps.getProperty(String.format(MEMBER_CODE_FORMAT, "client")));
+    configuration.setClientSubsystemCode(commonProps.getProperty(String.format(SUBSYSTEM_FORMAT, "client")));
 
     fillServiceProperties(configuration);
   }
 
   protected void fillServiceProperties(SimpleXRoadServiceConfiguration configuration) {
-    Properties serviceProps = getProperties(XROAD_COMMON_PROPERTIES_TARGET + "-" + configuration.getDatabase());
+    String db = configuration.getDatabase();
+    Properties serviceProps = loadProperties(String.format("xroad-%s.properties", db));
 
-    configuration.setServiceMemberClass(resolveProperty(serviceProps, "service-member-class"));
-    configuration.setServiceMemberCode(resolveProperty(serviceProps, "service-member-code"));
-    configuration.setServiceSubsystemCode(resolveProperty(serviceProps, "service-subsystem-code"));
+    configuration.setProtocolVersion(XRoadProtocolVersion.getValueByVersionCode(resolveDatabaseProperty(String.format(PROTOCOL_VERSION_FORMAT,
+                                                                                                                      db),
+                                                                                                        serviceProps)));
+    configuration.setServiceXRoadInstance(resolveDatabaseProperty(String.format(XROAD_INSTANCE_FORMAT, db),
+                                                                  serviceProps));
+    configuration.setServiceMemberClass(resolveDatabaseProperty(String.format(MEMBER_CLASS_FORMAT, db), serviceProps));
+    configuration.setServiceMemberCode(resolveDatabaseProperty(String.format(MEMBER_CODE_FORMAT, db), serviceProps));
+    configuration.setServiceSubsystemCode(resolveDatabaseProperty(String.format(SUBSYSTEM_FORMAT, db), serviceProps));
   }
 
-  public void setResource(Resource resource) {
-    this.resource = resource;
-  }
-
-  protected String resolveProperty(Properties props, String propertyName) {
-    return props.getProperty(propertyName);
-  }
-
-  protected synchronized Properties getProperties(String target) {
-    if (StringUtils.isBlank(target)) {
-      return null;
+  protected String resolveDatabaseProperty(String propertyName, Properties databaseProps) {
+    String result = commonProps.getProperty(propertyName);
+    if (StringUtils.isNotBlank(result)) {
+      return result;
     }
+    return databaseProps.getProperty(propertyName);
+  }
 
+  protected synchronized Properties loadProperties(String target) {
     if (!properties.containsKey(target)) {
-      properties.put(target, loadProperties(new ClassPathResource(target + ".properties")));
+      properties.put(target, loadProperties(new ClassPathResource(target)));
     }
     return properties.get(target);
   }
@@ -81,5 +89,9 @@ public class PropertiesBasedXRoadServiceConfigurationProvider extends AbstractXR
     } catch (IOException e) {
       throw new IllegalStateException("Unable to resolve configuration properties: " + resource.getFilename());
     }
+  }
+
+  public void setResource(Resource resource) {
+    this.resource = resource;
   }
 }

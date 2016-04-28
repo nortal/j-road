@@ -1,6 +1,6 @@
 package com.nortal.jroad.client.kir;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.kir.types.ee.x_road.kir.producer.AnnaArvelolekuAndmedResponseDocument.AnnaArvelolekuAndmedResponse;
 import com.nortal.jroad.client.kir.types.ee.x_road.kir.producer.IsikuStaatus.Enum;
 import com.nortal.jroad.client.kir.types.ee.x_road.kir.producer.LeiaMuudetudAndmetegaKinnipeetavadResponseDocument.LeiaMuudetudAndmetegaKinnipeetavadResponse;
@@ -20,7 +20,7 @@ public class KirXTeeServiceImplTest extends BaseXTeeServiceImplTest {
     private KirXTeeServiceImpl kirXTeeService;
 
     @Test
-    public void annaArvelolekuAndmedV1() throws XTeeServiceConsumptionException {
+    public void annaArvelolekuAndmedV1() throws XRoadServiceConsumptionException {
         Date start = createDate(2014, Calendar.JANUARY, 1);
         Date end = createDate(2016, Calendar.JANUARY, 1);
         Set<String> ids = new HashSet<String>(Arrays.asList("12345678", "23456789"));
@@ -39,7 +39,7 @@ public class KirXTeeServiceImplTest extends BaseXTeeServiceImplTest {
     }
 
     @Test
-    public void leiaMuudetudAndmetegaKinnipeetavadV1() throws XTeeServiceConsumptionException {
+    public void leiaMuudetudAndmetegaKinnipeetavadV1() throws XRoadServiceConsumptionException {
         Date start = createDate(2014, Calendar.JANUARY, 1);
         Date end = createDate(2016, Calendar.JANUARY, 1);
         LeiaMuudetudAndmetegaKinnipeetavadResponse response = kirXTeeService.leiaMuudetudAndmetegaKinnipeetavadV1(start, end);

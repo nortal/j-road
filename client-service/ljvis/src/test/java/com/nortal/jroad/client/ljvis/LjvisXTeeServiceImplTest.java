@@ -5,7 +5,7 @@ import javax.annotation.Resource;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.ljvis.LjvisXTeeServiceImpl;
 import com.nortal.jroad.client.ljvis.types.ee.riik.xtee.ljvis.producers.producer.ljvis.ErakorralineYVconfirmV1Request;
 import com.nortal.jroad.client.ljvis.types.ee.riik.xtee.ljvis.producers.producer.ljvis.ErakorralineYVconfirmV1Response;
@@ -30,13 +30,13 @@ public class LjvisXTeeServiceImplTest extends BaseXTeeServiceImplTest {
       Assert.assertNotNull(response);
       Assert.assertNotNull(response.getTargetedForInspection().getItemList().get(0).getLicencePlateNo());
       Assert.assertNotNull(response.getTargetedForInspection().getItemList().get(0).getInspector());
-    } catch (XTeeServiceConsumptionException e) {
+    } catch (XRoadServiceConsumptionException e) {
      //nothing
     }
   }
 
   @Test
-  public void erakorralineConfirm() throws XTeeServiceConsumptionException {
+  public void erakorralineConfirm() throws XRoadServiceConsumptionException {
    ErakorralineYVconfirmV1Request request = ErakorralineYVconfirmV1Request.Factory.newInstance();
 
     Confirmed confirmed = request.addNewConfirmed();

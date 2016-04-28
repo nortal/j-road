@@ -10,7 +10,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
 
 /**
@@ -28,7 +28,7 @@ public class TreasuryXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
 
   @Test
-  public void sendDocumentTestV1() throws XTeeServiceConsumptionException {
+  public void sendDocumentTestV1() throws XRoadServiceConsumptionException {
 
     try {
       InputStream is = getClass().getClassLoader().getResourceAsStream("makseM3.bdoc");

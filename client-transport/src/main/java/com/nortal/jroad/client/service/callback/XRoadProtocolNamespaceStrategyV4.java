@@ -54,11 +54,11 @@ public class XRoadProtocolNamespaceStrategyV4 extends MessageCallbackNamespaceSt
     SOAPElement client = header.addChildElement("client", protocol.getNamespacePrefix());
     client.addAttribute(env.createName("id:objectType"), XroadObjectType.MEMBER.name());
     SOAPElement clientXRoadInstance = client.addChildElement("xRoadInstance", "id");
-    clientXRoadInstance.addTextNode(conf.getXRoadInstance());
+    clientXRoadInstance.addTextNode(conf.getClientXRoadInstance());
     SOAPElement clientMemberClass = client.addChildElement("memberClass", "id");
     clientMemberClass.addTextNode(conf.getClientMemberClass());
     SOAPElement clientMemberCode = client.addChildElement("memberCode", "id");
-    clientMemberCode.addTextNode(conf.getInstitution());
+    clientMemberCode.addTextNode(conf.getClientMemberCode());
 
     if (StringUtils.isNotBlank(conf.getClientSubsystemCode())) {
       SOAPElement clientSubsystemCode = client.addChildElement("subsystemCode", "id");
@@ -71,7 +71,7 @@ public class XRoadProtocolNamespaceStrategyV4 extends MessageCallbackNamespaceSt
     SOAPElement service = header.addChildElement("service", protocol.getNamespacePrefix());
     service.addAttribute(env.createName("id:objectType"), XroadObjectType.SERVICE.name());
     SOAPElement serviceXRoadInstance = service.addChildElement("xRoadInstance", "id");
-    serviceXRoadInstance.addTextNode(conf.getXRoadInstance());
+    serviceXRoadInstance.addTextNode(conf.getServiceXRoadInstance());
     SOAPElement serviceMemberClass = service.addChildElement("memberClass", "id");
     serviceMemberClass.addTextNode(conf.getServiceMemberClass());
     SOAPElement serviceMemberCode = service.addChildElement("memberCode", "id");
@@ -85,6 +85,6 @@ public class XRoadProtocolNamespaceStrategyV4 extends MessageCallbackNamespaceSt
     SOAPElement database = service.addChildElement("serviceCode", "id");
     database.addTextNode(conf.getMethod());
     SOAPElement serviceVersion = service.addChildElement("serviceVersion", "id");
-    serviceVersion.addTextNode(StringUtils.isBlank(conf.getVersion()) ? conf.getVersion() : "v1");
+    serviceVersion.addTextNode(StringUtils.isNotBlank(conf.getVersion()) ? conf.getVersion() : "v1");
   }
 }

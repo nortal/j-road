@@ -39,9 +39,6 @@ public interface BaseXRoadServiceConfiguration {
   /** Returns identifier of the person/entity who will be invoking the service */
   String getIdCode();
 
-  /** Returns institution identifier. */
-  String getInstitution();
-
   /** Returns name of file (or document) related to the service invokation. */
   String getFile();
 

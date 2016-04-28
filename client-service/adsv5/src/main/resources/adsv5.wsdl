@@ -8,7 +8,7 @@
     <schema xmlns="http://www.w3.org/2001/XMLSchema">
       <import namespace="http://x-road.ee/xsd/x-road.xsd" schemaLocation="http://x-road.ee/xsd/x-road.xsd" />
       <import namespace="http://adsv5.x-road.ee/producer/" schemaLocation="http://www.maaamet.ee/schemas/xTeenused/ADSaadrmuudatused.v4.xsd"/>
-      <import namespace="http://adsv5.x-road.ee/producer/" schemaLocation="http://www.maaamet.ee/schemas/xTeenused/ADSobjaadrmuudatused.v2.xsd"/>
+      <import namespace="http://adsv5.x-road.ee/producer/" schemaLocation="http://www.maaamet.ee/schemas/xTeenused/ADSobjaadrmuudatused.xsd"/>
       <import namespace="http://adsv5.x-road.ee/producer/" schemaLocation="http://www.maaamet.ee/schemas/xTeenused/ADSobjjarglased.v1.xsd"/>
       <import namespace="http://adsv5.x-road.ee/producer/" schemaLocation="http://www.maaamet.ee/schemas/xTeenused/ADSaadrjarglased.v1.xsd"/>
       <import namespace="http://adsv5.x-road.ee/producer/" schemaLocation="http://www.maaamet.ee/schemas/xTeenused/ADSruumiaadress.v1.xsd"/>
@@ -16,9 +16,9 @@
       <import namespace="http://adsv5.x-road.ee/producer/" schemaLocation="http://www.maaamet.ee/schemas/xTeenused/ADSaadrotsing.v1.xsd"/>
       <import namespace="http://adsv5.x-road.ee/producer/" schemaLocation="http://www.maaamet.ee/schemas/xTeenused/ADSobjotsing.v4.xsd"/>
       <import namespace="http://adsv5.x-road.ee/producer/" schemaLocation="http://www.maaamet.ee/schemas/xTeenused/ADSobjmuudatused.v4.xsd"/>
-      <import namespace="http://adsv5.x-road.ee/producer/" schemaLocation="http://www.maaamet.ee/schemas/xTeenused/ADSnormal.v2.xsd"/>
-      <import namespace="http://adsv5.x-road.ee/producer/" schemaLocation="http://www.maaamet.ee/schemas/xTeenused/ADSkomponendid.v2.xsd"/>
-      <import namespace="http://adsv5.x-road.ee/producer/" schemaLocation="http://www.maaamet.ee/schemas/xTeenused/ADSkompklassif.v2.xsd"/>
+      <import namespace="http://adsv5.x-road.ee/producer/" schemaLocation="http://www.maaamet.ee/schemas/xTeenused/ADSnormal.xsd"/>
+      <import namespace="http://adsv5.x-road.ee/producer/" schemaLocation="http://www.maaamet.ee/schemas/xTeenused/ADSkomponendid.xsd"/>
+      <import namespace="http://adsv5.x-road.ee/producer/" schemaLocation="http://www.maaamet.ee/schemas/xTeenused/ADSkompklassif.xsd"/>
       <import namespace="http://adsv5.x-road.ee/producer/" schemaLocation="http://www.maaamet.ee/schemas/xTeenused/ADSadrTagasisideSoovitused.v1.xsd"/>
       <import namespace="http://adsv5.x-road.ee/producer/" schemaLocation="http://www.maaamet.ee/schemas/xTeenused/ADSgazetteerotsing.v1.xsd"/>
     </schema>

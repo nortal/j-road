@@ -12,7 +12,7 @@ import junit.framework.Assert;
 import org.apache.xmlbeans.XmlString;
 import org.junit.Test;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.rr.RrXTeeServiceImpl;
 import com.nortal.jroad.client.rr.RrXTeeService.RR42RequestCallback;
 import com.nortal.jroad.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.DokumendiTyyp;
@@ -47,7 +47,7 @@ public class RrXTeeServiceImplTest extends BaseXTeeServiceImplTest {
 	private RrXTeeServiceImpl rrXTeeServiceImpl;
 
 	@Test
-	public void findRR72Isik() throws XTeeServiceConsumptionException {
+	public void findRR72Isik() throws XRoadServiceConsumptionException {
 		List<TtIsikud.Item> items = rrXTeeServiceImpl.findRR72Isik(
 				"37109046017", "47702037790");
 
@@ -66,7 +66,7 @@ public class RrXTeeServiceImplTest extends BaseXTeeServiceImplTest {
 	}
 
 	@Test
-	public void RR63ResponseV1() throws XTeeServiceConsumptionException {
+	public void RR63ResponseV1() throws XRoadServiceConsumptionException {
 		String idCode = "38307070013";
 		RR63ResponseV1 response = rrXTeeServiceImpl.findRR63IsikAadrDok(
 				"Tamm*", "A*", idCode, null);
@@ -76,7 +76,7 @@ public class RrXTeeServiceImplTest extends BaseXTeeServiceImplTest {
 	}
 
 	@Test
-	public void getRR81KMAisikkontroll() throws XTeeServiceConsumptionException {
+	public void getRR81KMAisikkontroll() throws XRoadServiceConsumptionException {
 		RR81ResponseV1 response = rrXTeeServiceImpl
 				.getRR81KMAisikkontrollv1("37707010014");
 
@@ -87,7 +87,7 @@ public class RrXTeeServiceImplTest extends BaseXTeeServiceImplTest {
 
 	@Test
 	public void findRR40isikTaielikIsikukoodV1()
-			throws XTeeServiceConsumptionException {
+			throws XRoadServiceConsumptionException {
 		RR40Response response = rrXTeeServiceImpl
 				.findRR40isikTaielikIsikukood("37707010014");
 		Assert.assertNotNull(response);
@@ -100,7 +100,7 @@ public class RrXTeeServiceImplTest extends BaseXTeeServiceImplTest {
 
 	@Test
 	public void findRR42isikAadressKoodV1()
-			throws XTeeServiceConsumptionException {
+			throws XRoadServiceConsumptionException {
 		RR42Response response = rrXTeeServiceImpl
 				.findRR42isikAadressKood(new RR42RequestCallback() {
 
@@ -121,7 +121,7 @@ public class RrXTeeServiceImplTest extends BaseXTeeServiceImplTest {
 	}
 
 	@Test
-	public void getRR52() throws XTeeServiceConsumptionException {
+	public void getRR52() throws XRoadServiceConsumptionException {
 		RR52Response response = rrXTeeServiceImpl.getRR52("47707178682",
 				"Olga", "Sidorova");
 
@@ -137,7 +137,7 @@ public class RrXTeeServiceImplTest extends BaseXTeeServiceImplTest {
 	}
 
 	@Test
-	public void getRR43dokument() throws XTeeServiceConsumptionException {
+	public void getRR43dokument() throws XRoadServiceConsumptionException {
 		RR43Response response = rrXTeeServiceImpl.getRR43dokument(
 				"mingi dok number", "serria 1222", DokumendiTyyp.L_9);
 		Assert.assertNotNull(response);
@@ -150,7 +150,7 @@ public class RrXTeeServiceImplTest extends BaseXTeeServiceImplTest {
 
 	@Test
 	public void sendRRExtDocumentDataArkLuba()
-			throws XTeeServiceConsumptionException {
+			throws XRoadServiceConsumptionException {
 		try {
 			DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 			RRExtDocumentDataRequest request = RRExtDocumentDataRequest.Factory
@@ -218,7 +218,7 @@ public class RrXTeeServiceImplTest extends BaseXTeeServiceImplTest {
 	}
 
 	@Test
-	public void getRR96isikDokElukSuhe() throws XTeeServiceConsumptionException {
+	public void getRR96isikDokElukSuhe() throws XRoadServiceConsumptionException {
 		RR96ResponseV1 response = rrXTeeServiceImpl.getRR96isikDokElukSuhe(
 				"KAAREL", "METSAMEES", "32105258875", 5L);
 
@@ -232,7 +232,7 @@ public class RrXTeeServiceImplTest extends BaseXTeeServiceImplTest {
 	}
 
 	@Test
-	public void getRR67MuutusV1() throws XTeeServiceConsumptionException {
+	public void getRR67MuutusV1() throws XRoadServiceConsumptionException {
 		try {
 			SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
 			List<TtKoodid.Item> muutused = rrXTeeServiceImpl.findRR67MuutusV1(

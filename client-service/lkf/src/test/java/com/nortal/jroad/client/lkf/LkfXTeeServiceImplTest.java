@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.lkf.LkfXTeeServiceImpl;
 import com.nortal.jroad.client.lkf.types.ee.riik.xtee.lkf.producers.producer.lkf.KindlustuskaitseOtsingParing;
 import com.nortal.jroad.client.lkf.types.ee.riik.xtee.lkf.producers.producer.lkf.KindlustuskaitseOtsingVastus;
@@ -33,7 +33,7 @@ public class LkfXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
 
   @Test
-  public void romudeOtsing() throws XTeeServiceConsumptionException {
+  public void romudeOtsing() throws XRoadServiceConsumptionException {
 
 	RomudeOtsingVastus response = lkfXTeeServiceImpl.romudeOtsing(START, END);
     Assert.assertNotNull(response);
@@ -44,7 +44,7 @@ public class LkfXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
   
   @Test
-  public void kindlustusKaitseOtsing() throws XTeeServiceConsumptionException {
+  public void kindlustusKaitseOtsing() throws XRoadServiceConsumptionException {
     KindlustuskaitseOtsingParing paring = KindlustuskaitseOtsingParing.Factory.newInstance();
     paring.setVehicleVin("VSSZZZ5PZ7R039967");
     KindlustuskaitseOtsingVastus vastus = lkfXTeeServiceImpl.kindlustusKaitseOtsing(paring);

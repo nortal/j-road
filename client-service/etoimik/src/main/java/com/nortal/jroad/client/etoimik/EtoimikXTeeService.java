@@ -4,7 +4,7 @@ import java.util.Date;
 
 import com.nortal.jroad.client.etoimik.types.ee.riik.xtee.etoimik.producers.producer.etoimik.LeiaToovoimetuteKaristused;
 import com.nortal.jroad.client.etoimik.types.ee.riik.xtee.etoimik.producers.producer.etoimik.KARRParinguVastus.KarrIsikuteValjavote;
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 
 /**
  * @author Romet Piho
@@ -12,5 +12,5 @@ import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
 public interface EtoimikXTeeService {
 
   KarrIsikuteValjavote leiaToovoimetuteKaristused(LeiaToovoimetuteKaristused request)
-      throws XTeeServiceConsumptionException;
+      throws XRoadServiceConsumptionException;
 }

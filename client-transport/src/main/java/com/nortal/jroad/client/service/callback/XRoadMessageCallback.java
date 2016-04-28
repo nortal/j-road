@@ -20,7 +20,7 @@ import org.springframework.ws.client.core.WebServiceMessageCallback;
 import org.springframework.ws.soap.saaj.SaajSoapMessage;
 
 import com.nortal.jroad.client.service.configuration.BaseXRoadServiceConfiguration;
-import com.nortal.jroad.model.XTeeAttachment;
+import com.nortal.jroad.model.XRoadAttachment;
 
 /**
  * <code>WebServiceMessageCallback</code> implementation that sets envelope namespaces for SOAP envelope.
@@ -31,12 +31,12 @@ import com.nortal.jroad.model.XTeeAttachment;
  */
 public class XRoadMessageCallback implements WebServiceMessageCallback {
 
-  private final Collection<XTeeAttachment> attachments;
+  private final Collection<XRoadAttachment> attachments;
   private final BaseXRoadServiceConfiguration serviceConfiguration;
   private MessageCallbackNamespaceStrategy protocolVersionStrategy;
 
   public XRoadMessageCallback(BaseXRoadServiceConfiguration serviceConfiguration,
-                              Collection<XTeeAttachment> attachments) {
+                              Collection<XRoadAttachment> attachments) {
     this.serviceConfiguration = serviceConfiguration;
     this.attachments = attachments;
 
@@ -53,7 +53,7 @@ public class XRoadMessageCallback implements WebServiceMessageCallback {
     try {
       // Add attachments
       if (attachments != null) {
-        for (XTeeAttachment attachment : attachments) {
+        for (XRoadAttachment attachment : attachments) {
           saajMessage.addAttachment("<" + attachment.getCid() + ">", attachment, attachment.getContentType());
         }
       }

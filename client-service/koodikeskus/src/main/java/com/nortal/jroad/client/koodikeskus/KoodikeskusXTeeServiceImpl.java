@@ -8,8 +8,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.koodikeskus.database.KoodikeskusXTeeDatabase;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
+import com.nortal.jroad.client.koodikeskus.database.KoodikeskusXRoadDatabase;
 import com.nortal.jroad.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.ATCKlassifikaator;
 import com.nortal.jroad.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.ArrayOfString;
 import com.nortal.jroad.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.DateNotRequired;
@@ -24,15 +24,15 @@ import com.nortal.jroad.client.koodikeskus.types.ee.riik.xtee.koodikeskus.produc
 import com.nortal.jroad.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.RetseptinoueLiik;
 import com.nortal.jroad.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.Soodustus;
 import com.nortal.jroad.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.Toimeaine;
-import com.nortal.jroad.client.service.v2.XTeeDatabaseService;
-import com.nortal.jroad.model.XTeeMessage;
-import com.nortal.jroad.model.XmlBeansXTeeMessage;
+import com.nortal.jroad.client.service.XRoadDatabaseService;
+import com.nortal.jroad.model.XRoadMessage;
+import com.nortal.jroad.model.XmlBeansXRoadMessage;
 
 /**
  * @author Aleksei Bogdanov (aleksei.bogdanov@nortal.com)
  */
 @Service("koodikeskusXTeeService")
-public class KoodikeskusXTeeServiceImpl extends XTeeDatabaseService implements KoodikeskusXTeeService {
+public class KoodikeskusXTeeServiceImpl extends XRoadDatabaseService implements KoodikeskusXTeeService {
 
   private static final String ATC_KLASSIFIKAATORID = "ATCKlassifikaatorid";
   private static final String HAIGUSED = "haigused";
@@ -44,41 +44,41 @@ public class KoodikeskusXTeeServiceImpl extends XTeeDatabaseService implements K
   private static final String MYYGILOAD = "myygiload";
 
   @Resource
-  private KoodikeskusXTeeDatabase koodikeskusXTeeDatabase;
+  private KoodikeskusXRoadDatabase koodikeskusXRoadDatabase;
 
 
   @Override
   public List<ATCKlassifikaator> findATCKlassifikaatoridDetailandmedv1(List<String> items)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
     ArrayOfString request = createDetailsRequest(items);
 
-    return koodikeskusXTeeDatabase.atcKlassifikaatoridByIDArrayV1(request).getItemList();
+    return koodikeskusXRoadDatabase.atcKlassifikaatoridByIDArrayV1(request).getItemList();
   }
 
   @Override
-  public List<String> findATCKlassifikaatoridv1(Date date) throws XTeeServiceConsumptionException {
+  public List<String> findATCKlassifikaatoridv1(Date date) throws XRoadServiceConsumptionException {
     return makeListRequest(date, ATC_KLASSIFIKAATORID);
   }
 
   @Override
-  public List<Haigus> findHaigusedDetailandmedv1(List<String> items) throws XTeeServiceConsumptionException {
+  public List<Haigus> findHaigusedDetailandmedv1(List<String> items) throws XRoadServiceConsumptionException {
     ArrayOfString request = createDetailsRequest(items);
-    return koodikeskusXTeeDatabase.haigusedByIDArrayV1(request).getItemList();
+    return koodikeskusXRoadDatabase.haigusedByIDArrayV1(request).getItemList();
   }
 
   @Override
-  public List<String> findHaigusedv1(Date date) throws XTeeServiceConsumptionException {
+  public List<String> findHaigusedv1(Date date) throws XRoadServiceConsumptionException {
     return makeListRequest(date, HAIGUSED);
   }
 
   @Override
-  public List<Pakend> findPakendidDetailandmedv1(List<String> items) throws XTeeServiceConsumptionException {
+  public List<Pakend> findPakendidDetailandmedv1(List<String> items) throws XRoadServiceConsumptionException {
     ArrayOfString request = createDetailsRequest(items);
-    return koodikeskusXTeeDatabase.pakendidByIDArrayV1(request).getItemList();
+    return koodikeskusXRoadDatabase.pakendidByIDArrayV1(request).getItemList();
   }
 
   @Override
-  public List<String> findPakendidv1(Date date) throws XTeeServiceConsumptionException {
+  public List<String> findPakendidv1(Date date) throws XRoadServiceConsumptionException {
     PakendidRequest request = PakendidRequest.Factory.newInstance();
     DateNotRequired alatesKp = DateNotRequired.Factory.newInstance();
     setRequestStartDate(date, alatesKp);
@@ -86,74 +86,74 @@ public class KoodikeskusXTeeServiceImpl extends XTeeDatabaseService implements K
     request.setRavimiLiik(RavimiLiik.INIM);
     request.setRetseptinoueLiik(RetseptinoueLiik.KXIK);
 
-    return koodikeskusXTeeDatabase.pakendidV1(request).getItemList();
+    return koodikeskusXRoadDatabase.pakendidV1(request).getItemList();
   }
 
   @Override
-  public List<Ravimvorm> findRavimvormidDetailandmedv1(List<String> items) throws XTeeServiceConsumptionException {
+  public List<Ravimvorm> findRavimvormidDetailandmedv1(List<String> items) throws XRoadServiceConsumptionException {
     ArrayOfString request = createDetailsRequest(items);
-    return koodikeskusXTeeDatabase.ravimvormidByIDArrayV1(request).getItemList();
+    return koodikeskusXRoadDatabase.ravimvormidByIDArrayV1(request).getItemList();
   }
 
   @Override
-  public List<String> findRavimvormidv1(Date date) throws XTeeServiceConsumptionException {
+  public List<String> findRavimvormidv1(Date date) throws XRoadServiceConsumptionException {
     return makeListRequest(date, RAVIMVORMID);
   }
 
   @Override
-  public List<Soodustus> findSoodustusedDetailandmedv1(List<String> items) throws XTeeServiceConsumptionException {
+  public List<Soodustus> findSoodustusedDetailandmedv1(List<String> items) throws XRoadServiceConsumptionException {
     ArrayOfString request = createDetailsRequest(items);
-    return koodikeskusXTeeDatabase.soodustusedByIDArrayV1(request).getItemList();
+    return koodikeskusXRoadDatabase.soodustusedByIDArrayV1(request).getItemList();
   }
 
   @Override
-  public List<String> findSoodustusedv1(Date date) throws XTeeServiceConsumptionException {
+  public List<String> findSoodustusedv1(Date date) throws XRoadServiceConsumptionException {
     return makeListRequest(date, SOODUSTUSED);
   }
 
   @Override
-  public List<Toimeaine> findToimeainedDetailandmedv1(List<String> items) throws XTeeServiceConsumptionException {
+  public List<Toimeaine> findToimeainedDetailandmedv1(List<String> items) throws XRoadServiceConsumptionException {
     ArrayOfString request = createDetailsRequest(items);
-    return koodikeskusXTeeDatabase.toimeainedByIDArrayV1(request).getItemList();
+    return koodikeskusXRoadDatabase.toimeainedByIDArrayV1(request).getItemList();
   }
 
   @Override
-  public List<String> findToimeainedv1(Date date) throws XTeeServiceConsumptionException {
+  public List<String> findToimeainedv1(Date date) throws XRoadServiceConsumptionException {
     return makeListRequest(date, TOIMEAINED);
   }
 
   @Override
-  public List<String> findPiirhinnadv1(Date date) throws XTeeServiceConsumptionException {
+  public List<String> findPiirhinnadv1(Date date) throws XRoadServiceConsumptionException {
     return makeListRequest(date, PIIRHINNAD);
   }
 
   @Override
-  public List<Piirhind> findPiirhinnadDetailandmedv1(List<String> items) throws XTeeServiceConsumptionException {
+  public List<Piirhind> findPiirhinnadDetailandmedv1(List<String> items) throws XRoadServiceConsumptionException {
     ArrayOfString request = createDetailsRequest(items);
-    return koodikeskusXTeeDatabase.piirhinnadByIDArrayV1(request).getItemList();
+    return koodikeskusXRoadDatabase.piirhinnadByIDArrayV1(request).getItemList();
   }
 
   @Override
-  public List<String> findHinnakokkuleppedv1(Date date) throws XTeeServiceConsumptionException {
+  public List<String> findHinnakokkuleppedv1(Date date) throws XRoadServiceConsumptionException {
     return makeListRequest(date, HINNAKOKKULEPPED);
   }
 
   @Override
   public List<Hinnakokkulepe> findHinnakokkuleppedDetailandmedv1(List<String> items)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
     ArrayOfString request = createDetailsRequest(items);
-    return koodikeskusXTeeDatabase.hinnakokkuleppedByIDArrayV1(request).getItemList();
+    return koodikeskusXRoadDatabase.hinnakokkuleppedByIDArrayV1(request).getItemList();
   }
 
   @Override
-  public List<String> findMyygiloadv1(Date date) throws XTeeServiceConsumptionException {
+  public List<String> findMyygiloadv1(Date date) throws XRoadServiceConsumptionException {
     return makeListRequest(date, MYYGILOAD);
   }
 
   @Override
-  public List<Myygiluba> findMyygiloadDetailandmedv1(List<String> items) throws XTeeServiceConsumptionException {
+  public List<Myygiluba> findMyygiloadDetailandmedv1(List<String> items) throws XRoadServiceConsumptionException {
     ArrayOfString request = createDetailsRequest(items);
-    return koodikeskusXTeeDatabase.myygiloadByIDArrayV1(request).getItemList();
+    return koodikeskusXRoadDatabase.myygiloadByIDArrayV1(request).getItemList();
   }
 
   private ArrayOfString createDetailsRequest(List<String> items) {
@@ -164,10 +164,10 @@ public class KoodikeskusXTeeServiceImpl extends XTeeDatabaseService implements K
     return request;
   }
 
-  private List<String> makeListRequest(Date date, String serviceName) throws XTeeServiceConsumptionException {
+  private List<String> makeListRequest(Date date, String serviceName) throws XRoadServiceConsumptionException {
     DateNotRequired request = DateNotRequired.Factory.newInstance();
     setRequestStartDate(date, request);
-    XTeeMessage<ArrayOfString> response = send(new XmlBeansXTeeMessage<DateNotRequired>(request), serviceName);
+    XRoadMessage<ArrayOfString> response = send(new XmlBeansXRoadMessage<DateNotRequired>(request), serviceName);
     return response.getContent().getItemList();
   }
 
@@ -180,8 +180,8 @@ public class KoodikeskusXTeeServiceImpl extends XTeeDatabaseService implements K
   }
 
 
-  public void setKoodikeskusXTeeDatabase(KoodikeskusXTeeDatabase koodikeskusXTeeDatabase) {
-    this.koodikeskusXTeeDatabase = koodikeskusXTeeDatabase;
+  public void setKoodikeskusXRoadDatabase(KoodikeskusXRoadDatabase koodikeskusXRoadDatabase) {
+    this.koodikeskusXRoadDatabase = koodikeskusXRoadDatabase;
   }
 
 }

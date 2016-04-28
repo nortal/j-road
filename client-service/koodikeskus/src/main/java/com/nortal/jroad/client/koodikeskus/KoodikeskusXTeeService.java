@@ -3,7 +3,7 @@ package com.nortal.jroad.client.koodikeskus;
 import java.util.Date;
 import java.util.List;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.ATCKlassifikaator;
 import com.nortal.jroad.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.Haigus;
 import com.nortal.jroad.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.Hinnakokkulepe;
@@ -24,91 +24,91 @@ public interface KoodikeskusXTeeService {
   /**
    * <code>koodikeskus.toimeained.v1</code> service.
    */
-  List<String> findToimeainedv1(Date date) throws XTeeServiceConsumptionException;
+  List<String> findToimeainedv1(Date date) throws XRoadServiceConsumptionException;
 
   /**
    * <code>koodikeskus.toimeainedByIDArray.v1</code> service.
    */
-  List<Toimeaine> findToimeainedDetailandmedv1(List<String> items) throws XTeeServiceConsumptionException;
+  List<Toimeaine> findToimeainedDetailandmedv1(List<String> items) throws XRoadServiceConsumptionException;
 
   /**
    * <code>koodikeskus.ravimvormid.v1</code> service.
    */
-  List<String> findRavimvormidv1(Date date) throws XTeeServiceConsumptionException;
+  List<String> findRavimvormidv1(Date date) throws XRoadServiceConsumptionException;
 
   /**
    * <code>koodikeskus.ravimvormidByIDArray.v1</code> service.
    */
-  List<Ravimvorm> findRavimvormidDetailandmedv1(List<String> items) throws XTeeServiceConsumptionException;
+  List<Ravimvorm> findRavimvormidDetailandmedv1(List<String> items) throws XRoadServiceConsumptionException;
 
   /**
    * <code>koodikeskus.ATCKlassifikaatorid.v1</code> service.
    */
-  List<String> findATCKlassifikaatoridv1(Date date) throws XTeeServiceConsumptionException;
+  List<String> findATCKlassifikaatoridv1(Date date) throws XRoadServiceConsumptionException;
 
   /**
    * <code>koodikeskus.ATCKlassifikaatoridByIDArray.v1</code> service.
    */
   List<ATCKlassifikaator> findATCKlassifikaatoridDetailandmedv1(List<String> items)
-      throws XTeeServiceConsumptionException;
+      throws XRoadServiceConsumptionException;
 
   /**
    * <code>koodikeskus.pakendid.v1</code> service.
    */
-  List<String> findPakendidv1(Date date) throws XTeeServiceConsumptionException;
+  List<String> findPakendidv1(Date date) throws XRoadServiceConsumptionException;
 
   /**
    * <code>koodikeskus.PakendidByIDArray.v1</code> service.
    */
-  List<Pakend> findPakendidDetailandmedv1(List<String> items) throws XTeeServiceConsumptionException;
+  List<Pakend> findPakendidDetailandmedv1(List<String> items) throws XRoadServiceConsumptionException;
 
   /**
    * <code>koodikeskus.haigused.v1</code> service.
    */
-  List<String> findHaigusedv1(Date date) throws XTeeServiceConsumptionException;
+  List<String> findHaigusedv1(Date date) throws XRoadServiceConsumptionException;
 
   /**
    * <code>koodikeskus.haigusedByIDArray.v1</code> service.
    */
-  List<Haigus> findHaigusedDetailandmedv1(List<String> items) throws XTeeServiceConsumptionException;
+  List<Haigus> findHaigusedDetailandmedv1(List<String> items) throws XRoadServiceConsumptionException;
 
   /**
    * <code>koodikeskus.soodustused.v1</code> service.
    */
-  List<String> findSoodustusedv1(Date date) throws XTeeServiceConsumptionException;
+  List<String> findSoodustusedv1(Date date) throws XRoadServiceConsumptionException;
 
   /**
    * <code>koodikeskus.soodustusedByIDArray.v1</code> service.
    */
-  List<Soodustus> findSoodustusedDetailandmedv1(List<String> items) throws XTeeServiceConsumptionException;
+  List<Soodustus> findSoodustusedDetailandmedv1(List<String> items) throws XRoadServiceConsumptionException;
 
   /**
    * <code>koodikeskus.piirhinnad.v1</code> service.
    */
-  List<String> findPiirhinnadv1(Date date) throws XTeeServiceConsumptionException;
+  List<String> findPiirhinnadv1(Date date) throws XRoadServiceConsumptionException;
 
   /**
    * <code>koodikeskus.soodustusedByIDArray.v1</code> service.
    */
-  List<Piirhind> findPiirhinnadDetailandmedv1(List<String> items) throws XTeeServiceConsumptionException;
+  List<Piirhind> findPiirhinnadDetailandmedv1(List<String> items) throws XRoadServiceConsumptionException;
 
   /**
    * <code>koodikeskus.hinnakokkulepped.v1</code> service.
    */
-  List<String> findHinnakokkuleppedv1(Date date) throws XTeeServiceConsumptionException;
+  List<String> findHinnakokkuleppedv1(Date date) throws XRoadServiceConsumptionException;
 
   /**
    * <code>koodikeskus.hinnakokkuleppedByIDArray.v1</code> service.
    */
-  List<Hinnakokkulepe> findHinnakokkuleppedDetailandmedv1(List<String> items) throws XTeeServiceConsumptionException;
+  List<Hinnakokkulepe> findHinnakokkuleppedDetailandmedv1(List<String> items) throws XRoadServiceConsumptionException;
 
   /**
    * <code>koodikeskus.myygiload.v1</code> service.
    */
-  List<String> findMyygiloadv1(Date date) throws XTeeServiceConsumptionException;
+  List<String> findMyygiloadv1(Date date) throws XRoadServiceConsumptionException;
 
   /**
    * <code>koodikeskus.myygiloadByIDArray.v1</code> service.
    */
-  List<Myygiluba> findMyygiloadDetailandmedv1(List<String> items) throws XTeeServiceConsumptionException;
+  List<Myygiluba> findMyygiloadDetailandmedv1(List<String> items) throws XRoadServiceConsumptionException;
 }

@@ -1,7 +1,7 @@
 package com.nortal.jroad.client.rrv5;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.rrv5.database.RrV5XRoadDatabase;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
+import com.nortal.jroad.client.rrv5.database.Rrv5XRoadDatabase;
 import com.nortal.jroad.client.rrv5.types.ee.x_road.rr_v5.producer.RR435;
 import com.nortal.jroad.client.rrv5.types.ee.x_road.rr_v5.producer.RR435Response;
 import com.nortal.jroad.client.rrv5.types.ee.x_road.rr_v5.producer.RR436;
@@ -16,7 +16,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 import javax.annotation.Resource;
 
-import com.nortal.jroad.client.service.v4.XRoadDatabaseService;
+import com.nortal.jroad.client.service.XRoadDatabaseService;
 import org.springframework.stereotype.Service;
 import org.apache.commons.codec.binary.Base64;
 
@@ -27,19 +27,19 @@ import org.apache.commons.codec.binary.Base64;
 public class Rrv5XTeeServiceImpl extends XRoadDatabaseService implements Rrv5XTeeService {
 
   @Resource
-  private RrV5XRoadDatabase rrV5XTeeDatabase;
+  private Rrv5XRoadDatabase rrV5XRoadDatabase;
 
   @Override
-  public RR435Response findRR435(String legalCode) throws XTeeServiceConsumptionException {
+  public RR435Response findRR435(String legalCode) throws XRoadServiceConsumptionException {
     RR435 paring = RR435.Factory.newInstance();
     paring.addNewRequest().setIsikukood(legalCode);
 
-    return rrV5XTeeDatabase.rr435V1(paring);
+    return rrV5XRoadDatabase.rr435V1(paring);
 
   }
 
   @Override
-  public RR436Response findRR436(List<String> idCodes) throws XTeeServiceConsumptionException {
+  public RR436Response findRR436(List<String> idCodes) throws XRoadServiceConsumptionException {
 
     String base64 = null;
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -65,15 +65,15 @@ public class Rrv5XTeeServiceImpl extends XRoadDatabaseService implements Rrv5XTe
     request.setIsikukoodideArv(String.valueOf(idCodes.size()));
     request.setCFailiSisu(base64);
 
-    return rrV5XTeeDatabase.rr436V1(paring);
+    return rrV5XRoadDatabase.rr436V1(paring);
   }
   
   @Override
-  public RR71FailDownloadResponse findRR71(String orderNr) throws XTeeServiceConsumptionException {
+  public RR71FailDownloadResponse findRR71(String orderNr) throws XRoadServiceConsumptionException {
     RR71FailDownload paring = RR71FailDownload.Factory.newInstance();
     paring.addNewRequest().setCFailiNimi(orderNr);
 
-    RR71FailDownloadResponse response = rrV5XTeeDatabase.rr71FailDownloadV1(paring);
+    RR71FailDownloadResponse response = rrV5XRoadDatabase.rr71FailDownloadV1(paring);
     return response;
 
   }

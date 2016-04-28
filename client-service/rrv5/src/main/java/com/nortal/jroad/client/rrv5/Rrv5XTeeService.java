@@ -1,6 +1,6 @@
 package com.nortal.jroad.client.rrv5;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.rrv5.types.ee.x_road.rr_v5.producer.RR435Response;
 import com.nortal.jroad.client.rrv5.types.ee.x_road.rr_v5.producer.RR436Response;
 import com.nortal.jroad.client.rrv5.types.ee.x_road.rr_v5.producer.RR71FailDownloadResponse;
@@ -17,14 +17,14 @@ public interface Rrv5XTeeService {
    * <code>rr.RR435.v1</code> service.
    */
   RR435Response findRR435(String legalCode)
-      throws XTeeServiceConsumptionException;
+      throws XRoadServiceConsumptionException;
 
   /**
    * <code>rr.RR436.v1</code> service.
    */
   RR436Response findRR436(List<String> idCodes)
-      throws XTeeServiceConsumptionException;
+      throws XRoadServiceConsumptionException;
 
-  public RR71FailDownloadResponse findRR71(String orderNr) throws XTeeServiceConsumptionException;
+  public RR71FailDownloadResponse findRR71(String orderNr) throws XRoadServiceConsumptionException;
 
 }

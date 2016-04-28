@@ -10,7 +10,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.pkr.types.ee.riik.xtee.pkr.producers.producer.pkr.TtaPensionToetusVastus;
 import com.nortal.jroad.client.pkr.types.ee.riik.xtee.pkr.producers.producer.pkr.TtaPensionToetusVastus.ToetusJada;
 import com.nortal.jroad.client.pkr.types.ee.riik.xtee.pkr.producers.producer.pkr.TtaPensionToetusVastus.ToetusJada.Item;
@@ -27,7 +27,7 @@ public class PkrXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   private PkrXTeeServiceImpl pkrXTeeServiceImpl;
 
   @Test
-  public void getPensionToetus() throws XTeeServiceConsumptionException {
+  public void getPensionToetus() throws XRoadServiceConsumptionException {
 
     TtaPensionToetusVastus toetusVastus = pkrXTeeServiceImpl.getPensionToetus(TEST_ISIKUKOOD);
 

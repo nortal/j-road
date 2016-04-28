@@ -4,7 +4,7 @@ import javax.annotation.Resource;
 
 import org.junit.Test;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
 import com.nortal.jroad.client.tosjuht.types.ee.riik.xtee.epria.producers.producer.epria.DhsVaataTaotlusePdfResponse;
 
@@ -19,39 +19,39 @@ import junit.framework.Assert;
 public class EpriaXTeeServiceImplTest extends BaseXTeeServiceImplTest {
 
   @Resource
-  private EpriaXTeeServiceImpl epriaXTeeServiceImpl;
+  private EpriaXRoadServiceImpl epriaXTeeServiceImpl;
   /*
-   * @Test public void sendAttachment() throws XTeeServiceConsumptionException { DataHandler handler = new
+   * @Test public void sendAttachment() throws XRoadServiceConsumptionException { DataHandler handler = new
    * DataHandler(new ByteArrayDataSource("application/pdf", "123".getBytes())); VastuseKood response =
    * epriaXTeeServiceImpl.sendAttachment("123", handler); Assert.assertNotNull(response);
    * Assert.assertTrue(response.getVastuseKood().equals(VastuseKood2.OK) ||
    * response.getVastuseKood().equals(VastuseKood2.VIGA)); }
-   * @Test public void vaataEsitatudPdf() throws XTeeServiceConsumptionException { DhVaataEsitatudPdfResponse response =
+   * @Test public void vaataEsitatudPdf() throws XRoadServiceConsumptionException { DhVaataEsitatudPdfResponse response =
    * epriaXTeeServiceImpl.vaataEsitatudPdf("123"); Assert.assertNotNull(response);
    * Assert.assertNotNull(response.getPdf()); }
-   * @Test public void saadaTaotluseManused() throws XTeeServiceConsumptionException { List<ManusModel> manused = new
+   * @Test public void saadaTaotluseManused() throws XRoadServiceConsumptionException { List<ManusModel> manused = new
    * ArrayList<ManusModel>(); DataHandler handler = new DataHandler(new ByteArrayDataSource("text/plain",
    * "123".getBytes())); manused.add(new ManusModel("123", "somefile.txt", handler)); VastuseKood response =
    * epriaXTeeServiceImpl.saadaTaotluseManused("123", manused); Assert.assertNotNull(response);
    * Assert.assertTrue(response.getVastuseKood().equals(VastuseKood2.OK) ||
    * response.getVastuseKood().equals(VastuseKood2.VIGA)); }
-   * @Test public void vaataTatoluseManus() throws XTeeServiceConsumptionException { DhVaataTaotluseManusResponse
+   * @Test public void vaataTatoluseManus() throws XRoadServiceConsumptionException { DhVaataTaotluseManusResponse
    * response = epriaXTeeServiceImpl.vaataTatoluseManus("123", 123L); Assert.assertNotNull(response);
    * Assert.assertNotNull(response.getSisu()); Assert.assertEquals("somefile.txt", response.getManuseNimi()); }
    */
 
   @Test
-  public void saadaTaotluseDigiDok() throws XTeeServiceConsumptionException {
+  public void saadaTaotluseDigiDok() throws XRoadServiceConsumptionException {
     Assert.assertTrue(true);
   }
 
   @Test
-  public void vaataTaotluseDigiDok() throws XTeeServiceConsumptionException {
+  public void vaataTaotluseDigiDok() throws XRoadServiceConsumptionException {
     Assert.assertTrue(true);
   }
 
   @Test
-  public void vaataTaotlusePdf() throws XTeeServiceConsumptionException {
+  public void vaataTaotlusePdf() throws XRoadServiceConsumptionException {
     DhsVaataTaotlusePdfResponse response = epriaXTeeServiceImpl.vaataTaotlusePdf("123");
 
     Assert.assertNotNull(response);
@@ -59,12 +59,12 @@ public class EpriaXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
 
   @Test
-  public void vaataTatoluseManus() throws XTeeServiceConsumptionException {
+  public void vaataTatoluseManus() throws XRoadServiceConsumptionException {
     Assert.assertTrue(true);
   }
 
   @Test
-  public void saadaTaotlus() throws XTeeServiceConsumptionException {
+  public void saadaTaotlus() throws XRoadServiceConsumptionException {
     Assert.assertTrue(true);
   }
 }

@@ -8,23 +8,23 @@ package com.nortal.jroad.client.service.configuration;
 public class SimpleXRoadServiceConfiguration extends SimpleXTeeServiceConfiguration
     implements XRoadServiceConfiguration {
 
-  // TODO Lauri: this should be sufficient assuming dev/test/live environments cannot exchange messages
-  private String xRoadInstance;
-
+  private String clientXRoadInstance;
   private String clientMemberClass;
+  private String clientMemberCode;
   private String clientSubsystemCode;
 
+  private String serviceXRoadInstance;
   private String serviceMemberClass;
   private String serviceMemberCode;
   // TODO Lauri: if this is actually xroad "andmekogu" then we can assign it by database property
   private String serviceSubsystemCode;
 
-  public String getXRoadInstance() {
-    return xRoadInstance;
+  public String getClientXRoadInstance() {
+    return clientXRoadInstance;
   }
 
-  public void setXRoadInstance(String xRoadInstance) {
-    this.xRoadInstance = xRoadInstance;
+  public void setClientXRoadInstance(String clientXRoadInstance) {
+    this.clientXRoadInstance = clientXRoadInstance;
   }
 
   public String getClientMemberClass() {
@@ -35,12 +35,28 @@ public class SimpleXRoadServiceConfiguration extends SimpleXTeeServiceConfigurat
     this.clientMemberClass = clientMemberClass;
   }
 
+  public String getClientMemberCode() {
+    return clientMemberCode;
+  }
+
+  public void setClientMemberCode(String clientMemberCode) {
+    this.clientMemberCode = clientMemberCode;
+  }
+
   public String getClientSubsystemCode() {
     return clientSubsystemCode;
   }
 
   public void setClientSubsystemCode(String clientSubsystemCode) {
     this.clientSubsystemCode = clientSubsystemCode;
+  }
+
+  public String getServiceXRoadInstance() {
+    return serviceXRoadInstance;
+  }
+
+  public void setServiceXRoadInstance(String serviceXRoadInstance) {
+    this.serviceXRoadInstance = serviceXRoadInstance;
   }
 
   public String getServiceMemberClass() {

@@ -1,7 +1,6 @@
 package com.nortal.jroad.client.service.configuration.provider;
 
 import com.nortal.jroad.client.service.configuration.BaseXRoadServiceConfiguration;
-import com.nortal.jroad.enums.XRoadProtocolVersion;
 
 /**
  * Creates configurations
@@ -11,8 +10,7 @@ import com.nortal.jroad.enums.XRoadProtocolVersion;
  */
 public interface XRoadServiceConfigurationProvider {
 
-  BaseXRoadServiceConfiguration createConfiguration(XRoadProtocolVersion protocolVersion,
-                                                    String database,
+  BaseXRoadServiceConfiguration createConfiguration(String database,
                                                     String wsdldatabase,
                                                     String method,
                                                     String version);

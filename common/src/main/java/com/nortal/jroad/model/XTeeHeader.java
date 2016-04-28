@@ -25,6 +25,8 @@ import javax.xml.namespace.QName;
 // TODO Lauri: see tuleks veel üle vaadata. Hetkel ei ole piisav protokoll 4 päiste mappimiseks ja endpointid peavad
 // teatud perioodil ka protokoll 2 päistest aru saama. Küsimus on tegelt, kas seda on üldse vaja ja kui siis mida
 // täpsemalt - ilmselt päringu sooritaja id võib vaja minna
+// Should switch to X-road implementation
+@Deprecated
 public class XTeeHeader implements Serializable {
   private static final long serialVersionUID = 1L;
 

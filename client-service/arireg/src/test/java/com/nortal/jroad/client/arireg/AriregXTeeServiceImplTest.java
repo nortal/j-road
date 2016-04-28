@@ -30,7 +30,7 @@ import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.produc
 import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingesindusEttevote;
 import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingesindusV2Ettevote;
 import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingesindusV3Ettevote;
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
 
 /**
@@ -46,7 +46,7 @@ public class AriregXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   private AriregXTeeServiceImpl ariregXTeeServiceImpl;
 
   @Test
-  public void findDetailandmedv31() throws XTeeServiceConsumptionException {
+  public void findDetailandmedv31() throws XRoadServiceConsumptionException {
     List<DetailandmedV3Ettevotja> items =
         ariregXTeeServiceImpl.findDetailandmedv3(TEST_ISIKUKOOD, true, true, false, false, 10);
     Assert.assertNotNull(items);
@@ -70,7 +70,7 @@ public class AriregXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
 
   @Test
-  public void findDetailandmedv32() throws XTeeServiceConsumptionException {
+  public void findDetailandmedv32() throws XRoadServiceConsumptionException {
     List<DetailandmedV3Ettevotja> items =
         ariregXTeeServiceImpl.findDetailandmedv3(TEST_ARIKOOD, true, true, false, false, 10);
     Assert.assertNotNull(items);
@@ -80,7 +80,7 @@ public class AriregXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
 
   @Test
-  public void findDetailandmedv33() throws XTeeServiceConsumptionException {
+  public void findDetailandmedv33() throws XRoadServiceConsumptionException {
     Detailandmedv2KehaPopulatingCallback callback =
         new AriregXTeeService.Detailandmedv2ReturnedDataSettingCallback(true, false, false, false, 10) {
           @Override
@@ -96,7 +96,7 @@ public class AriregXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
 
   @Test
-  public void findArikeelud() throws XTeeServiceConsumptionException {
+  public void findArikeelud() throws XRoadServiceConsumptionException {
     List<ParingarikeeludKeeld> keelud = ariregXTeeServiceImpl.findArikeelud("38001010001", null, null, null);
     Assert.assertNotNull(keelud);
     Assert.assertTrue(!keelud.isEmpty());
@@ -105,7 +105,7 @@ public class AriregXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
 
   @Test
-  public void findDetailandmedv41() throws XTeeServiceConsumptionException {
+  public void findDetailandmedv41() throws XRoadServiceConsumptionException {
     List<DetailandmedV4Ettevotja> items =
         ariregXTeeServiceImpl.findDetailandmedv4(TEST_ISIKUKOOD, true, true, false, false, false, 10);
     Assert.assertNotNull(items);
@@ -129,7 +129,7 @@ public class AriregXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
 
   @Test
-  public void findDetailandmedv42() throws XTeeServiceConsumptionException {
+  public void findDetailandmedv42() throws XRoadServiceConsumptionException {
     List<DetailandmedV4Ettevotja> items =
         ariregXTeeServiceImpl.findDetailandmedv4(TEST_ARIKOOD, true, true, false, false, false, 10);
     Assert.assertNotNull(items);
@@ -140,7 +140,7 @@ public class AriregXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
 
   @Test
-  public void findDetailandmedv44() throws XTeeServiceConsumptionException {
+  public void findDetailandmedv44() throws XRoadServiceConsumptionException {
     Detailandmedv4KehaPopulatingCallback callback =
         new AriregXTeeService.Detailandmedv4ReturnedDataSettingCallback(true, false, false, false, false, 10) {
           @Override
@@ -156,7 +156,7 @@ public class AriregXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
 
   @Test
-  public void findDetailandmedV5() throws XTeeServiceConsumptionException {
+  public void findDetailandmedV5() throws XRoadServiceConsumptionException {
     List<DetailandmedV5Ettevotja> items =
         ariregXTeeServiceImpl.findDetailandmedV5(TEST_ARIKOOD, true, true, false, false, false, false, 10);
     Assert.assertNotNull(items);
@@ -167,19 +167,19 @@ public class AriregXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
 
   @Test
-  public void findParingesindusV1() throws XTeeServiceConsumptionException {
+  public void findParingesindusV1() throws XRoadServiceConsumptionException {
     List<ParingesindusEttevote> items = ariregXTeeServiceImpl.findParingesindusV1(null, TEST_ISIKUKOOD, null, null);
     Assert.assertTrue(!items.isEmpty());
   }
 
   @Test
-  public void findParingesindusV2() throws XTeeServiceConsumptionException {
+  public void findParingesindusV2() throws XRoadServiceConsumptionException {
     List<ParingesindusV2Ettevote> items = ariregXTeeServiceImpl.findParingesindusV2(null, TEST_ISIKUKOOD, null, null);
     Assert.assertTrue(!items.isEmpty());
   }
 
   @Test
-  public void findParingesindusV3() throws XTeeServiceConsumptionException { // Add implementation when we get access to
+  public void findParingesindusV3() throws XRoadServiceConsumptionException { // Add implementation when we get access to
                                                                              // this service method
     List<ParingesindusV3Ettevote> result =
         ariregXTeeServiceImpl.findParingesindusV3(TEST_ARIKOOD, null, null, null, null);
@@ -187,7 +187,7 @@ public class AriregXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
 
   @Test
-  public void getEttevotjaMuudatusedTasutaV1() throws XTeeServiceConsumptionException {
+  public void getEttevotjaMuudatusedTasutaV1() throws XRoadServiceConsumptionException {
     try {
       SimpleDateFormat sf = new SimpleDateFormat("dd.MM.yyyy");
       EttevotjaMuudatusedTasutaReturnedDataSettingCallback callback =

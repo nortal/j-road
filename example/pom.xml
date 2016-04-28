@@ -66,6 +66,7 @@
                 <argument>sourcedir=${basedir}/src/main/java</argument>
                 <argument>xsbdir=${basedir}/target/classes</argument>
                 <argument>basepackage=com.nortal.jroad.example.client.types</argument>
+                <argument>dbclassespackage=com.nortal.jroad.example.client.database</argument>
               </arguments>
             </configuration>
           </execution>
@@ -81,6 +82,9 @@
           <filesets>
             <fileset>
               <directory>src/main/java/com/nortal/jroad/example/client/types</directory>
+            </fileset>
+            <fileset>
+              <directory>src/main/java/com/nortal/jroad/example/client/database</directory>
             </fileset>
           </filesets>
         </configuration>

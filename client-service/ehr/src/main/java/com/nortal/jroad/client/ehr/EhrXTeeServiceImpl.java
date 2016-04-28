@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.nortal.jroad.client.ehr.database.EhrXTeeDatabase;
+import com.nortal.jroad.client.ehr.database.EhrXRoadDatabase;
 import com.nortal.jroad.client.ehr.types.ee.riik.xtee.ehr.producers.producer.ehr.ENEhitiseAndmedQuery;
 import com.nortal.jroad.client.ehr.types.ee.riik.xtee.ehr.producers.producer.ehr.ENEhitiseAndmedResponse;
 import com.nortal.jroad.client.ehr.types.ee.riik.xtee.ehr.producers.producer.ehr.ENEhitiseOtsingQuery;
@@ -16,7 +16,7 @@ import com.nortal.jroad.client.ehr.types.ee.riik.xtee.ehr.producers.producer.ehr
 import com.nortal.jroad.client.ehr.types.ee.riik.xtee.ehr.producers.producer.ehr.ENOtsiAadressiAdrTxtResponse;
 import com.nortal.jroad.client.ehr.types.ee.riik.xtee.ehr.producers.producer.ehr.ENEhitiseOtsingResponse.ENEhitiseOtsing.Ehitised;
 import com.nortal.jroad.client.ehr.types.ee.riik.xtee.ehr.producers.producer.ehr.ENOtsiAadressiAdrTxtResponse.ENOtsiAadressiAdrTxt.Aadress;
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 
 /**
  * @author Tanel Tensing
@@ -25,7 +25,7 @@ import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
 public class EhrXTeeServiceImpl implements EhrXTeeService {
 
   @Resource
-  private EhrXTeeDatabase ehrXTeeDatabase;
+  private EhrXRoadDatabase ehrXRoadDatabase;
 
   /**
    * {@inheritDoc}
@@ -35,9 +35,9 @@ public class EhrXTeeServiceImpl implements EhrXTeeService {
    *      java.lang.String)
    */
   public List<Aadress> findENOtsiAadressiAdrTxt(ENOtsiAadressiAdrTxtQuery request)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
 
-    ENOtsiAadressiAdrTxtResponse response = ehrXTeeDatabase.enOtsiAadressiAdrTxtV1(request);
+    ENOtsiAadressiAdrTxtResponse response = ehrXRoadDatabase.enOtsiAadressiAdrTxtV1(request);
 
     return response.getENOtsiAadressiAdrTxt() == null
            ? null
@@ -49,7 +49,7 @@ public class EhrXTeeServiceImpl implements EhrXTeeService {
    *
    * @see com.nortal.jroad.client.service.EhrXTeeService#findENEhitiseOtsing(java.math.BigInteger)
    */
-  public List<Ehitised> findENEhitiseOtsing(BigInteger aadressId) throws XTeeServiceConsumptionException {
+  public List<Ehitised> findENEhitiseOtsing(BigInteger aadressId) throws XRoadServiceConsumptionException {
 
     ENEhitiseOtsingQuery request = ENEhitiseOtsingQuery.Factory.newInstance();
     request.setAadressId(aadressId);
@@ -63,8 +63,8 @@ public class EhrXTeeServiceImpl implements EhrXTeeService {
    * @see com.nortal.jroad.client.service.EhrXTeeService#findENEhitiseOtsing(java.math.BigInteger, java.lang.String,
    *      java.math.BigInteger, java.math.BigInteger, java.math.BigInteger)
    */
-  public List<Ehitised> findENEhitiseOtsing(ENEhitiseOtsingQuery request) throws XTeeServiceConsumptionException {
-    ENEhitiseOtsingResponse response = ehrXTeeDatabase.enEhitiseOtsingV1(request);
+  public List<Ehitised> findENEhitiseOtsing(ENEhitiseOtsingQuery request) throws XRoadServiceConsumptionException {
+    ENEhitiseOtsingResponse response = ehrXRoadDatabase.enEhitiseOtsingV1(request);
 
     return response.getENEhitiseOtsing() == null
            ? null
@@ -76,17 +76,17 @@ public class EhrXTeeServiceImpl implements EhrXTeeService {
    *
    * @see com.nortal.jroad.client.service.EhrXTeeService#findENEhitiseAndmed(java.math.BigInteger)
    */
-  public ENEhitiseAndmedResponse findENEhitiseAndmed(BigInteger ehitId) throws XTeeServiceConsumptionException {
+  public ENEhitiseAndmedResponse findENEhitiseAndmed(BigInteger ehitId) throws XRoadServiceConsumptionException {
     ENEhitiseAndmedQuery request = ENEhitiseAndmedQuery.Factory.newInstance();
 
     request.setEhitId(ehitId);
 
-    return ehrXTeeDatabase.enEhitiseAndmedV1(request);
+    return ehrXRoadDatabase.enEhitiseAndmedV1(request);
   }
 
 
-  public void setEhrXTeeDatabase(EhrXTeeDatabase ehrXTeeDatabase) {
-    this.ehrXTeeDatabase = ehrXTeeDatabase;
+  public void setEhrXRoadDatabase(EhrXRoadDatabase ehrXRoadDatabase) {
+    this.ehrXRoadDatabase = ehrXRoadDatabase;
   }
 
 }

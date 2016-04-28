@@ -6,11 +6,15 @@ package com.nortal.jroad.client.service.configuration;
  */
 // TODO Lauri: konfi võiks kuidagi paremini lahendatud olla
 public interface XRoadServiceConfiguration extends BaseXRoadServiceConfiguration {
-  String getXRoadInstance();
+  String getClientXRoadInstance();
 
   String getClientMemberClass();
 
+  String getClientMemberCode();
+
   String getClientSubsystemCode();
+
+  String getServiceXRoadInstance();
 
   String getServiceMemberClass();
 

@@ -1,10 +1,9 @@
 package ${databaseClass.packageName};
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.service.${databaseClass.baseImplementationName};
-import com.nortal.jroad.model.XTeeMessage;
-import com.nortal.jroad.model.XmlBeansXTeeMessage;
-import com.nortal.jroad.enums.XRoadProtocolVersion;
+import com.nortal.jroad.model.XRoadMessage;
+import com.nortal.jroad.model.XmlBeansXRoadMessage;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,24 +11,14 @@ import org.springframework.stereotype.Service;
  */
 @Service("${databaseClass.interfaceNameDecapitalized}")
 public class ${databaseClass.implementationName} extends ${databaseClass.baseImplementationName} implements ${databaseClass.interfaceName} {
-  private XRoadProtocolVersion protocolVersion = XRoadProtocolVersion.${databaseClass.protocolVersion};
-
-  /**
-   * <code>${databaseClass.database}</code> X-road service protocol version according to WSDL.
-   */  
-  @Override
-  public XRoadProtocolVersion getProtocolVersion() {
-    return protocolVersion;
-  }
-  
 <#list databaseClass.methods as method>
 <#list method.versions as version>
 
   /**
    * <code>${databaseClass.database}.${method.name}.v${version.version}</code> X-road service implementation.
    */
-  public ${method.outputClass} ${version.name}(${method.inputClass} input) throws XTeeServiceConsumptionException {
-    XTeeMessage<${method.outputClass}> response = send(new XmlBeansXTeeMessage<${method.inputClass}>(input), "${method.name}", "v${version.version}");
+  public ${method.outputClass} ${version.name}(${method.inputClass} input) throws XRoadServiceConsumptionException {
+    XRoadMessage<${method.outputClass}> response = send(new XmlBeansXRoadMessage<${method.inputClass}>(input), "${method.name}", "v${version.version}");
 
     return response.getContent();
   }

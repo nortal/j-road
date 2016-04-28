@@ -17,7 +17,7 @@ import com.nortal.jroad.client.emta.EmtaXTeeServiceImpl;
 import com.nortal.jroad.client.emta.types.ee.riik.xtee.emta.producers.producer.emta.FieIsikAndmed;
 import com.nortal.jroad.client.emta.types.ee.riik.xtee.emta.producers.producer.emta.Periood;
 import com.nortal.jroad.client.emta.types.ee.riik.xtee.emta.producers.producer.emta.VptValjund;
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
 
 import java.util.Calendar;
@@ -31,7 +31,7 @@ public class EmtaXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   private EmtaXTeeServiceImpl emtaXTeeServiceImpl;
 
   @Test
-  public void findXteeKindlustusV2() throws ParseException, XTeeServiceConsumptionException {
+  public void findXteeKindlustusV2() throws ParseException, XRoadServiceConsumptionException {
     String isikukood = "45804300304";
 
     DateFormat dateFormat = new SimpleDateFormat("MM.yyyy");
@@ -47,7 +47,7 @@ public class EmtaXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
 
   @Test
-  public void findXteeFieAndmed() throws XTeeServiceConsumptionException {
+  public void findXteeFieAndmed() throws XRoadServiceConsumptionException {
     String isikukood = "45804300304";
 
     List<FieIsikAndmed> response = emtaXTeeServiceImpl.findXteeFieAndmed(isikukood);
@@ -56,12 +56,12 @@ public class EmtaXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
   
   @Test
-  public void findSissetulek() throws XTeeServiceConsumptionException {
+  public void findSissetulek() throws XRoadServiceConsumptionException {
     Assert.assertNotNull(emtaXTeeServiceImpl.findSissetulek("45804300304", new BigInteger("2008")).getVastus());
   }
   
   @Test
-  public void findXteeVpt() throws XTeeServiceConsumptionException {
+  public void findXteeVpt() throws XRoadServiceConsumptionException {
 	  String kood = "37304050222";
 	  Calendar c = Calendar.getInstance();
 	  c.set(2009, 9, 29);

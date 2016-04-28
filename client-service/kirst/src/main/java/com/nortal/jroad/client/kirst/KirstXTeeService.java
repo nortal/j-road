@@ -1,6 +1,6 @@
 package com.nortal.jroad.client.kirst;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.kirst.types.ee.x_road.kirst.producer.TvlLoetelu2ResponseType;
 
 import java.util.Date;
@@ -15,6 +15,6 @@ public interface KirstXTeeService {
   /**
    * <code>kirst.tvl_loetelu2.v1</code> service.
    */
-  TvlLoetelu2ResponseType findTvlLoetelu2V1(Set<String> isikukoodid, Date alates, Date kuni) throws XTeeServiceConsumptionException;
+  TvlLoetelu2ResponseType findTvlLoetelu2V1(Set<String> isikukoodid, Date alates, Date kuni) throws XRoadServiceConsumptionException;
 
 }

@@ -22,10 +22,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.ws.WebServiceMessage;
 import org.springframework.ws.soap.saaj.SaajSoapMessage;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.service.v2.XTeeDatabaseService;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
+import com.nortal.jroad.client.service.XRoadDatabaseService;
 import com.nortal.jroad.client.service.callback.CustomCallback;
-import com.nortal.jroad.client.tarn.database.TarnXTeeDatabase;
+import com.nortal.jroad.client.tarn.database.TarnXRoadDatabase;
 import com.nortal.jroad.client.tarn.types.ee.riik.xtee.etoimik.producers.producer.etoimik.Aadress;
 import com.nortal.jroad.client.tarn.types.ee.riik.xtee.etoimik.producers.producer.etoimik.Ametnik;
 import com.nortal.jroad.client.tarn.types.ee.riik.xtee.etoimik.producers.producer.etoimik.Fail;
@@ -60,9 +60,9 @@ import com.nortal.jroad.client.tarn.types.ee.riik.xtee.tarn.producers.producer.t
 import com.nortal.jroad.client.tarn.types.ee.riik.xtee.tarn.producers.producer.tarn.ToiminguTeavitus;
 import com.nortal.jroad.client.tarn.types.org.xmlsoap.schemas.soap.encoding.Base64Binary;
 import com.nortal.jroad.client.util.XmlBeansUtil;
-import com.nortal.jroad.model.XTeeAttachment;
-import com.nortal.jroad.model.XTeeMessage;
-import com.nortal.jroad.model.XmlBeansXTeeMessage;
+import com.nortal.jroad.model.XRoadAttachment;
+import com.nortal.jroad.model.XRoadMessage;
+import com.nortal.jroad.model.XmlBeansXRoadMessage;
 import com.nortal.jroad.util.AttachmentUtil;
 
 /**
@@ -71,20 +71,20 @@ import com.nortal.jroad.util.AttachmentUtil;
  * @author Romet Piho
  */
 @Service("tarnXTeeService")
-public class TarnXTeeServiceImpl extends XTeeDatabaseService implements TarnXTeeService {
+public class TarnXTeeServiceImpl extends XRoadDatabaseService implements TarnXTeeService {
 
   @Resource
-  private TarnXTeeDatabase tarnXTeeDatabase;
+  private TarnXRoadDatabase tarnXRoadDatabase;
 
   public TaitemenetluseMuutmineTaVastus taitemenetluseMuutmine(
       TaitemenetluseMuutmineTaSisend input)
-      throws XTeeServiceConsumptionException {
-    return tarnXTeeDatabase.taitemenetluseMuutmineTaV1(input);
+      throws XRoadServiceConsumptionException {
+    return tarnXRoadDatabase.taitemenetluseMuutmineTaV1(input);
   }
 
   public TaitmisavalduseEsitamineVastus taitmisavalduseEsitamine(
       TaitmisavalduseEsitamineParing input, DataHandler toimingudFail,
-      DataHandler seotudToimingudFail) throws XTeeServiceConsumptionException {
+      DataHandler seotudToimingudFail) throws XRoadServiceConsumptionException {
     XmlCursor cursor = input.newCursor();
     while (cursor.hasNextToken()) {
       cursor.toNextToken();
@@ -225,19 +225,19 @@ public class TarnXTeeServiceImpl extends XTeeDatabaseService implements TarnXTee
     }
     cursor.dispose();
     
-    XmlBeansXTeeMessage<TaitmisavalduseEsitamineParing> xteeMessage = new XmlBeansXTeeMessage<TaitmisavalduseEsitamineParing>(input);
-    List<XTeeAttachment> attachments = xteeMessage.getAttachments();
+    XmlBeansXRoadMessage<TaitmisavalduseEsitamineParing> XRoadMessage = new XmlBeansXRoadMessage<TaitmisavalduseEsitamineParing>(input);
+    List<XRoadAttachment> attachments = XRoadMessage.getAttachments();
     
     String toimingudFailCid = AttachmentUtil.getUniqueCid();
     input.getTeavitus().getToiming().getPohiFail().getSisu().setHref("cid:"+toimingudFailCid);
-    attachments.add(new XTeeAttachment(toimingudFailCid, toimingudFail));
+    attachments.add(new XRoadAttachment(toimingudFailCid, toimingudFail));
     
     String seotudToimingudFailCid = AttachmentUtil.getUniqueCid();
     input.getTeavitus().getToiming().getSeotudToimingud().getItemArray(0).getPohiFail().getSisu().setHref("cid:"+seotudToimingudFailCid);
-    attachments.add(new XTeeAttachment(seotudToimingudFailCid, seotudToimingudFail));
+    attachments.add(new XRoadAttachment(seotudToimingudFailCid, seotudToimingudFail));
     
-    XTeeMessage<TaitmisavalduseEsitamineVastus> response = 
-        send(xteeMessage,
+    XRoadMessage<TaitmisavalduseEsitamineVastus> response = 
+        send(XRoadMessage,
              "TaitmisavalduseEsitamine",
              "v1",
              new TarnCallback(),

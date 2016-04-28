@@ -6,7 +6,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
 import com.nortal.jroad.client.viisaregister.ViisaregisterXTeeServiceImpl;
 import com.nortal.jroad.client.viisaregister.types.ee.riik.xtee.viisaregister.producers.producer.viisaregister.StruktIsikSuguMK;
@@ -20,7 +20,7 @@ public class ViisaregisterXTeeServiceImplTest extends BaseXTeeServiceImplTest {
 	private ViisaregisterXTeeServiceImpl viisaregisterXTeeServiceImpl;
 	
 	@Test
-	public void taotluseAndmedIsikReisidokumentParing() throws XTeeServiceConsumptionException {
+	public void taotluseAndmedIsikReisidokumentParing() throws XRoadServiceConsumptionException {
 		TaotlusteNimistuVastus result = viisaregisterXTeeServiceImpl.taotluseAndmedIsikReisidokumentParing("FANNY", "JALKA", null, null, null, null, null, null);
 		Assert.assertNotNull(result);
 		Assert.assertNotNull(result.getTaotluseAndmed());
@@ -29,7 +29,7 @@ public class ViisaregisterXTeeServiceImplTest extends BaseXTeeServiceImplTest {
 	}
 	
 	@Test
-	public void taotluseAndmedNrLiikParing() throws XTeeServiceConsumptionException {
+	public void taotluseAndmedNrLiikParing() throws XRoadServiceConsumptionException {
 		TaotluseAndmedVastus result = viisaregisterXTeeServiceImpl.taotluseAndmedNrLiikParing("viisataotlus", "2010/700/15");
 		Assert.assertNotNull(result);
 		Assert.assertNotNull(result.getTaotlAndmed());

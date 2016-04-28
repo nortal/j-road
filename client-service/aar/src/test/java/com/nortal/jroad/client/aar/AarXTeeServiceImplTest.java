@@ -8,7 +8,7 @@ import org.apache.xmlbeans.XmlException;
 import org.junit.Test;
 
 import com.nortal.jroad.client.aar.AarXTeeServiceImpl;
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
 
 /**
@@ -27,12 +27,12 @@ public class AarXTeeServiceImplTest extends BaseXTeeServiceImplTest {
 	}
 	
 	@Test
-	public void asutusedParing() throws XTeeServiceConsumptionException {
+	public void asutusedParing() throws XRoadServiceConsumptionException {
 		Assert.assertNotNull(aarXTeeServiceImpl.asutusedParingRegistriKoodiJargi("123", "10391131"));
 	}
 
 	@Test
-	public void oigusedParing() throws XTeeServiceConsumptionException {
+	public void oigusedParing() throws XRoadServiceConsumptionException {
 		// Pane siia õige isikukood
 		//Assert.assertNotNull(aarXTeeServiceImpl.isikuRollidAsutuses(21134L, "123", RollEnum.ESFOS_TATOTLUSE_ESITAJA, RollEnum.GENERAL_ASUTUS_ESINDAJA));
 		Assert.assertTrue(true);

@@ -13,7 +13,7 @@ import org.apache.xmlbeans.XmlString;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.teavituskalender.Syndmus;
 import com.nortal.jroad.client.teavituskalender.TeavituskalenderXTeeServiceImpl;
 import com.nortal.jroad.client.teavituskalender.types.ee.riik.xtee.teavituskalender.producers.producer.teavituskalender.LisaSyndmusParing.SyndmuseTyyp;
@@ -39,7 +39,7 @@ public class TeavituskalenderXteeServiceImplTest extends BaseXTeeServiceImplTest
   }
 
   @Test
-  public void testLisaSyndmus() throws XTeeServiceConsumptionException {
+  public void testLisaSyndmus() throws XRoadServiceConsumptionException {
     Syndmus syndmus = new Syndmus();
     syndmus.setIsikukood("37801113714");
     syndmus.setAlgus(ALGUS);

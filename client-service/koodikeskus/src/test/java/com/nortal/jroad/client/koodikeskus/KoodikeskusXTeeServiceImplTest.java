@@ -11,7 +11,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.koodikeskus.KoodikeskusXTeeServiceImpl;
 import com.nortal.jroad.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.ATCKlassifikaator;
 import com.nortal.jroad.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.Haigus;
@@ -33,7 +33,7 @@ public class KoodikeskusXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   private KoodikeskusXTeeServiceImpl koodikeskusXTeeServiceImpl;
 
   @Test
-  public void findATCKlassifikaatoridv1() throws XTeeServiceConsumptionException {
+  public void findATCKlassifikaatoridv1() throws XRoadServiceConsumptionException {
     Calendar calendar = Calendar.getInstance();
     calendar.add(Calendar.DAY_OF_MONTH, -10);
     List<String> items = koodikeskusXTeeServiceImpl.findATCKlassifikaatoridv1(calendar.getTime());
@@ -41,7 +41,7 @@ public class KoodikeskusXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
 
   @Test
-  public void findATCKlassifikaatoridDetailandmedv1() throws XTeeServiceConsumptionException {
+  public void findATCKlassifikaatoridDetailandmedv1() throws XRoadServiceConsumptionException {
     String ATCKood = "A01AA01";
     List<String> ATCKoodid = new ArrayList<String>();
     ATCKoodid.add(ATCKood);
@@ -54,7 +54,7 @@ public class KoodikeskusXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
 
   @Test
-  public void findHaigusedv1() throws XTeeServiceConsumptionException {
+  public void findHaigusedv1() throws XRoadServiceConsumptionException {
     Calendar calendar = Calendar.getInstance();
     calendar.add(Calendar.DAY_OF_MONTH, -10);
     List<String> items = koodikeskusXTeeServiceImpl.findToimeainedv1(calendar.getTime());
@@ -62,7 +62,7 @@ public class KoodikeskusXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
 
   @Test
-  public void findHaigusedDetailandmedv1() throws XTeeServiceConsumptionException {
+  public void findHaigusedDetailandmedv1() throws XRoadServiceConsumptionException {
     String haiguseKood = "3";
     List<String> haiguseKoodid = new ArrayList<String>();
     haiguseKoodid.add(haiguseKood);
@@ -74,7 +74,7 @@ public class KoodikeskusXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
 
   @Test
-  public void findPakendidv1() throws XTeeServiceConsumptionException {
+  public void findPakendidv1() throws XRoadServiceConsumptionException {
     Calendar calendar = Calendar.getInstance();
     calendar.add(Calendar.DAY_OF_MONTH, -1);
     List<String> items = koodikeskusXTeeServiceImpl.findPakendidv1(calendar.getTime());
@@ -82,7 +82,7 @@ public class KoodikeskusXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
 
   @Test
-  public void findPakendidDetailandmedv1() throws XTeeServiceConsumptionException {
+  public void findPakendidDetailandmedv1() throws XRoadServiceConsumptionException {
     String pakendiKood = "1026177";
     List<String> pakendiKoodid = new ArrayList<String>();
     pakendiKoodid.add(pakendiKood);
@@ -94,7 +94,7 @@ public class KoodikeskusXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
 
   @Test
-  public void findRavimvormidv1() throws XTeeServiceConsumptionException {
+  public void findRavimvormidv1() throws XRoadServiceConsumptionException {
     Calendar calendar = Calendar.getInstance();
     calendar.add(Calendar.DAY_OF_MONTH, -10);
     List<String> items = koodikeskusXTeeServiceImpl.findRavimvormidv1(calendar.getTime());
@@ -102,7 +102,7 @@ public class KoodikeskusXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
 
   @Test
-  public void findRavimvormidDetailandmedv1() throws XTeeServiceConsumptionException {
+  public void findRavimvormidDetailandmedv1() throws XRoadServiceConsumptionException {
     String ravimvormiKood = "748";
     List<String> ravimvormiKoodid = new ArrayList<String>();
     ravimvormiKoodid.add(ravimvormiKood);
@@ -114,7 +114,7 @@ public class KoodikeskusXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
 
   @Test
-  public void findSoodustusedv1() throws XTeeServiceConsumptionException {
+  public void findSoodustusedv1() throws XRoadServiceConsumptionException {
     Calendar calendar = Calendar.getInstance();
     calendar.add(Calendar.DAY_OF_MONTH, -10);
     List<String> items = koodikeskusXTeeServiceImpl.findSoodustusedv1(calendar.getTime());
@@ -122,7 +122,7 @@ public class KoodikeskusXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
 
   @Test
-  public void findSoodustusedDetailandmedv1() throws XTeeServiceConsumptionException {
+  public void findSoodustusedDetailandmedv1() throws XRoadServiceConsumptionException {
     String soodustuseKood = "374435";
     List<String> soodustuseKoodid = new ArrayList<String>();
     soodustuseKoodid.add(soodustuseKood);
@@ -134,7 +134,7 @@ public class KoodikeskusXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
 
   @Test
-  public void findToimeainedv1() throws XTeeServiceConsumptionException {
+  public void findToimeainedv1() throws XRoadServiceConsumptionException {
     Calendar calendar = Calendar.getInstance();
     calendar.add(Calendar.DAY_OF_MONTH, -10);
     List<String> items = koodikeskusXTeeServiceImpl.findToimeainedv1(calendar.getTime());
@@ -142,7 +142,7 @@ public class KoodikeskusXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
 
   @Test
-  public void findToimeainedDetailandmedv1() throws XTeeServiceConsumptionException {
+  public void findToimeainedDetailandmedv1() throws XRoadServiceConsumptionException {
     String toimeaineKood = "8874";
     List<String> toimeaineKoodid = new ArrayList<String>();
     toimeaineKoodid.add(toimeaineKood);
@@ -154,7 +154,7 @@ public class KoodikeskusXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
 
   @Test
-  public void findPiirhinnadv1() throws XTeeServiceConsumptionException {
+  public void findPiirhinnadv1() throws XRoadServiceConsumptionException {
     Calendar calendar = Calendar.getInstance();
     calendar.add(Calendar.DAY_OF_MONTH, -12);
     List<String> items = koodikeskusXTeeServiceImpl.findPiirhinnadv1(calendar.getTime());
@@ -162,7 +162,7 @@ public class KoodikeskusXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
   
   @Test
-  public void findPiirhinnadDetailandmedv1() throws XTeeServiceConsumptionException {
+  public void findPiirhinnadDetailandmedv1() throws XRoadServiceConsumptionException {
     String piirhinnaKood = "32120";
     List<String> koodid = Collections.singletonList(piirhinnaKood);
     List<Piirhind> items = koodikeskusXTeeServiceImpl.findPiirhinnadDetailandmedv1(koodid);
@@ -171,7 +171,7 @@ public class KoodikeskusXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
   
   @Test
-  public void findHinnakokkuleppedv1() throws XTeeServiceConsumptionException {
+  public void findHinnakokkuleppedv1() throws XRoadServiceConsumptionException {
     Calendar calendar = Calendar.getInstance();
     calendar.add(Calendar.DAY_OF_MONTH, -12);
     List<String> items = koodikeskusXTeeServiceImpl.findHinnakokkuleppedv1(calendar.getTime());
@@ -179,7 +179,7 @@ public class KoodikeskusXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
   
   @Test
-  public void findHinnakokkuleppedDetailandmedv1() throws XTeeServiceConsumptionException {
+  public void findHinnakokkuleppedDetailandmedv1() throws XRoadServiceConsumptionException {
     String kood = "5072";
     List<String> koodid = Collections.singletonList(kood);
     List<Hinnakokkulepe> items = koodikeskusXTeeServiceImpl.findHinnakokkuleppedDetailandmedv1(koodid);
@@ -188,7 +188,7 @@ public class KoodikeskusXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
   
   @Test
-  public void findMyygiloadv1() throws XTeeServiceConsumptionException {
+  public void findMyygiloadv1() throws XRoadServiceConsumptionException {
     Calendar calendar = Calendar.getInstance();
     calendar.add(Calendar.DAY_OF_MONTH, -12);
     List<String> items = koodikeskusXTeeServiceImpl.findMyygiloadv1(calendar.getTime());
@@ -196,7 +196,7 @@ public class KoodikeskusXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
   
   @Test
-  public void findMyygiloadDetailandmedv1() throws XTeeServiceConsumptionException {
+  public void findMyygiloadDetailandmedv1() throws XRoadServiceConsumptionException {
     String kood = "697010_24085";
     List<String> koodid = Collections.singletonList(kood);
     List<Myygiluba> items = koodikeskusXTeeServiceImpl.findMyygiloadDetailandmedv1(koodid);

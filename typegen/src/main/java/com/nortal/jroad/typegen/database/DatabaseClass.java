@@ -37,9 +37,9 @@ public class DatabaseClass {
 
     switch (version) {
     default:
-      interfaceName = NameUtil.upperCamelCase(database) + XTEE_DATABASE_CLASS_NAME_SUFFIX;
-      implementationName = NameUtil.upperCamelCase(database) + XTEE_DATABASE_IMPL_CLASS_NAME_SUFFIX;
-      baseImplementationName = XTEE_BASE_IMPL_CLASS_NAME;
+      interfaceName = NameUtil.upperCamelCase(database) + XROAD_DATABASE_CLASS_NAME_SUFFIX;
+      implementationName = NameUtil.upperCamelCase(database) + XROAD_DATABASE_IMPL_CLASS_NAME_SUFFIX;
+      baseImplementationName = XROAD_BASE_IMPL_CLASS_NAME;
       break;
     }
   }

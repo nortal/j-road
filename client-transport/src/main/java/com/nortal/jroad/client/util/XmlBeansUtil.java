@@ -20,7 +20,7 @@ import org.apache.xmlbeans.XmlCursor;
 import org.apache.xmlbeans.XmlObject;
 import org.apache.xmlbeans.XmlString;
 
-import com.nortal.jroad.model.XmlBeansXTeeMetadata;
+import com.nortal.jroad.model.XmlBeansXRoadMetadata;
 
 /**
  * XMLBeans related utilities.
@@ -52,14 +52,14 @@ public class XmlBeansUtil {
   }
 
   @SuppressWarnings("unchecked")
-  public static HashMap<String, XmlBeansXTeeMetadata> loadMetadata() throws IOException, ClassNotFoundException {
-    HashMap<String, XmlBeansXTeeMetadata> metaMap = new HashMap<String, XmlBeansXTeeMetadata>();
+  public static HashMap<String, XmlBeansXRoadMetadata> loadMetadata() throws IOException, ClassNotFoundException {
+    HashMap<String, XmlBeansXRoadMetadata> metaMap = new HashMap<String, XmlBeansXRoadMetadata>();
 
     for (Enumeration<URL> metaUrls = Thread.currentThread().getContextClassLoader().getResources("xtee.metadata"); metaUrls.hasMoreElements();) {
       URL metaUrl = metaUrls.nextElement();
       InputStream is = metaUrl.openStream();
       ObjectInputStream ois = new ObjectInputStream(is);
-      metaMap.putAll((HashMap<String, XmlBeansXTeeMetadata>) ois.readObject());
+      metaMap.putAll((HashMap<String, XmlBeansXRoadMetadata>) ois.readObject());
       ois.close();
       is.close();
     }
