@@ -12,12 +12,12 @@ import com.nortal.jroad.client.ljvis.types.ee.riik.xtee.ljvis.producers.producer
 import com.nortal.jroad.client.ljvis.types.ee.riik.xtee.ljvis.producers.producer.ljvis.ErakorralineYVqueryV1Response;
 import com.nortal.jroad.client.ljvis.types.ee.riik.xtee.ljvis.producers.producer.ljvis.ErakorralineYVconfirmV1Request.Confirmed;
 import com.nortal.jroad.client.ljvis.types.ee.riik.xtee.ljvis.producers.producer.ljvis.ErakorralineYVconfirmV1Request.Confirmed.Item;
-import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
+import com.nortal.jroad.client.test.BaseXRoadServiceImplTest;
 
 /**
  * @author Tatjana Kulikova
  */
-public class LjvisXTeeServiceImplTest extends BaseXTeeServiceImplTest {
+public class LjvisXTeeServiceImplTest extends BaseXRoadServiceImplTest {
 
   @Resource
   private LjvisXTeeServiceImpl ljvisXTeeServiceImpl;

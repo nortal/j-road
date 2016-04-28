@@ -38,9 +38,9 @@ import com.nortal.jroad.client.ads.types.ee.maaamet.ADSprobleemidParingType.Prob
 import com.nortal.jroad.client.ads.types.ee.maaamet.ADSteavitusedParingType.TeavitusedParam;
 import com.nortal.jroad.client.ads.types.ee.maaamet.ADStekstotsingParingType.AadrTekstParam;
 import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
-import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
+import com.nortal.jroad.client.test.BaseXRoadServiceImplTest;
 
-public class AdsXTeeServiceImplTest extends BaseXTeeServiceImplTest {
+public class AdsXTeeServiceImplTest extends BaseXRoadServiceImplTest {
 
   @Resource
   private AdsXTeeServiceImpl adsXTeeServiceImpl;

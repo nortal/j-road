@@ -30,7 +30,7 @@ import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.service.callback.CustomCallback;
 import com.nortal.jroad.client.service.callback.StandardXRoadConsumerCallback;
 import com.nortal.jroad.client.service.callback.XRoadMessageCallback;
-import com.nortal.jroad.client.service.configuration.BaseXRoadServiceConfiguration;
+import com.nortal.jroad.client.service.configuration.XRoadServiceConfiguration;
 import com.nortal.jroad.client.service.extractor.CustomExtractor;
 import com.nortal.jroad.client.service.extractor.StandardXRoadConsumerMessageExtractor;
 import com.nortal.jroad.client.util.WSConsumptionLoggingInterceptor;
@@ -67,15 +67,14 @@ public class StandardXRoadConsumer extends WebServiceGatewaySupport implements X
   }
 
   @Override
-  public <I, O> XRoadMessage<O> sendRequest(XRoadMessage<I> input,
-                                            BaseXRoadServiceConfiguration xTeeServiceConfiguration)
-                                                throws XRoadServiceConsumptionException {
+  public <I, O> XRoadMessage<O> sendRequest(XRoadMessage<I> input, XRoadServiceConfiguration xTeeServiceConfiguration)
+      throws XRoadServiceConsumptionException {
     return sendRealRequest(input, xTeeServiceConfiguration, null, null);
   }
 
   @Override
   public <I, O> XRoadMessage<O> sendRequest(XRoadMessage<I> input,
-                                            BaseXRoadServiceConfiguration xTeeServiceConfiguration,
+                                            XRoadServiceConfiguration xTeeServiceConfiguration,
                                             CustomCallback callback,
                                             CustomExtractor extractor) throws XRoadServiceConsumptionException {
     return sendRealRequest(input, xTeeServiceConfiguration, callback, extractor);
@@ -83,7 +82,7 @@ public class StandardXRoadConsumer extends WebServiceGatewaySupport implements X
 
   @SuppressWarnings({ "unchecked", "rawtypes" })
   private <I, O> XRoadMessage<O> sendRealRequest(XRoadMessage<I> input,
-                                                 BaseXRoadServiceConfiguration xteeServiceConfiguration,
+                                                 XRoadServiceConfiguration xteeServiceConfiguration,
                                                  CustomCallback callback,
                                                  CustomExtractor extractor) throws XRoadServiceConsumptionException {
     try {
@@ -153,7 +152,7 @@ public class StandardXRoadConsumer extends WebServiceGatewaySupport implements X
   }
 
   protected <I> StandardXRoadConsumerCallback getNewConsumerCallback(XRoadMessage<I> input,
-                                                                     BaseXRoadServiceConfiguration xteeServiceConfiguration,
+                                                                     XRoadServiceConfiguration xteeServiceConfiguration,
                                                                      XmlBeansXRoadMetadata curdata) {
     return new StandardXRoadConsumerCallback(input.getContent(),
                                              getNewMessageCallback(input, xteeServiceConfiguration),
@@ -167,12 +166,12 @@ public class StandardXRoadConsumer extends WebServiceGatewaySupport implements X
   }
 
   protected <I> XRoadMessageCallback getNewMessageCallback(XRoadMessage<I> input,
-                                                           BaseXRoadServiceConfiguration xteeServiceConfiguration) {
+                                                           XRoadServiceConfiguration xteeServiceConfiguration) {
     return new XRoadMessageCallback(xteeServiceConfiguration, input.getAttachments());
   }
 
   private XRoadServiceConsumptionException resolveException(Exception e,
-                                                            BaseXRoadServiceConfiguration xteeServiceConfiguration) {
+                                                            XRoadServiceConfiguration xteeServiceConfiguration) {
 
     WebServiceIOException ioException = null;
     SoapFaultClientException faultException = null;

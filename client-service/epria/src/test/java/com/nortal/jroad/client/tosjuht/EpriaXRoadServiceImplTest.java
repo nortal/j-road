@@ -5,7 +5,7 @@ import javax.annotation.Resource;
 import org.junit.Test;
 
 import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
-import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
+import com.nortal.jroad.client.test.BaseXRoadServiceImplTest;
 import com.nortal.jroad.client.tosjuht.types.ee.riik.xtee.epria.producers.producer.epria.DhsVaataTaotlusePdfResponse;
 
 import junit.framework.Assert;
@@ -16,18 +16,18 @@ import junit.framework.Assert;
  * @author Lauri Lättemäe (lauri.lattemae@nortal.com)
  * @date 02.06.2010
  */
-public class EpriaXTeeServiceImplTest extends BaseXTeeServiceImplTest {
+public class EpriaXRoadServiceImplTest extends BaseXRoadServiceImplTest {
 
   @Resource
-  private EpriaXRoadServiceImpl epriaXTeeServiceImpl;
+  private EpriaXRoadServiceImpl epriaXRoadServiceImpl;
   /*
    * @Test public void sendAttachment() throws XRoadServiceConsumptionException { DataHandler handler = new
    * DataHandler(new ByteArrayDataSource("application/pdf", "123".getBytes())); VastuseKood response =
    * epriaXTeeServiceImpl.sendAttachment("123", handler); Assert.assertNotNull(response);
    * Assert.assertTrue(response.getVastuseKood().equals(VastuseKood2.OK) ||
    * response.getVastuseKood().equals(VastuseKood2.VIGA)); }
-   * @Test public void vaataEsitatudPdf() throws XRoadServiceConsumptionException { DhVaataEsitatudPdfResponse response =
-   * epriaXTeeServiceImpl.vaataEsitatudPdf("123"); Assert.assertNotNull(response);
+   * @Test public void vaataEsitatudPdf() throws XRoadServiceConsumptionException { DhVaataEsitatudPdfResponse response
+   * = epriaXTeeServiceImpl.vaataEsitatudPdf("123"); Assert.assertNotNull(response);
    * Assert.assertNotNull(response.getPdf()); }
    * @Test public void saadaTaotluseManused() throws XRoadServiceConsumptionException { List<ManusModel> manused = new
    * ArrayList<ManusModel>(); DataHandler handler = new DataHandler(new ByteArrayDataSource("text/plain",
@@ -50,12 +50,20 @@ public class EpriaXTeeServiceImplTest extends BaseXTeeServiceImplTest {
     Assert.assertTrue(true);
   }
 
-  @Test
   public void vaataTaotlusePdf() throws XRoadServiceConsumptionException {
-    DhsVaataTaotlusePdfResponse response = epriaXTeeServiceImpl.vaataTaotlusePdf("123");
+    DhsVaataTaotlusePdfResponse response = epriaXRoadServiceImpl.vaataTaotlusePdf(null, "123");
 
     Assert.assertNotNull(response);
     Assert.assertNotNull(response.getPdf());
+  }
+
+  @Test
+  public void paringManusega() throws XRoadServiceConsumptionException {
+    String result =
+        epriaXRoadServiceImpl.epriaParingManusega("<andmeParing xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"><teenus>kliendiRegistriMuudatused</teenus><sisendParams><param paramNimi=\"klientID\">97383</param></sisendParams></andmeParing>",
+                                                  null,
+                                                  null);
+    Assert.assertNotNull(result);
   }
 
   @Test

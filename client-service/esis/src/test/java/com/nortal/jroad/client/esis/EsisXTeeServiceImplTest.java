@@ -17,12 +17,12 @@ import com.nortal.jroad.client.esis.types.com.tietoenator.sis.common.dto.query.s
 import com.nortal.jroad.client.esis.types.com.tietoenator.sis.common.dto.query.sis1Query.VehicleQueryDTO;
 import com.nortal.jroad.client.esis.types.com.tietoenator.sis.common.dto.result.sis1Result.ResultDTO;
 import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
-import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
+import com.nortal.jroad.client.test.BaseXRoadServiceImplTest;
 
 /**
  * @author Tatjana Kulikova
  */
-public class EsisXTeeServiceImplTest extends BaseXTeeServiceImplTest {
+public class EsisXTeeServiceImplTest extends BaseXRoadServiceImplTest {
   @Resource
   private EsisXTeeServiceImpl esisXTeeServiceImpl;
   

@@ -21,8 +21,7 @@
 	</bean>
 
 
-	<bean id="xroadDatabaseService" abstract="true"
-		class="com.nortal.jroad.client.service.XRoadDatabaseService">
+	<bean id="xroadDatabaseService" abstract="true" class="com.nortal.jroad.client.service.XRoadDatabaseService">
 		<property name="xRoadServiceConfigurationProvider" ref="xRoadServiceConfigurationProvider" />
 		<property name="xRoadConsumer" ref="xRoadConsumer" />
 	</bean>

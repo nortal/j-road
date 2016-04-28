@@ -20,7 +20,7 @@ import org.springframework.ws.WebServiceMessage;
 import org.springframework.ws.client.core.WebServiceMessageCallback;
 import org.springframework.ws.soap.saaj.SaajSoapMessage;
 
-import com.nortal.jroad.client.service.configuration.BaseXRoadServiceConfiguration;
+import com.nortal.jroad.client.service.configuration.XRoadServiceConfiguration;
 import com.nortal.jroad.model.XmlBeansXRoadMetadata;
 
 /**
@@ -56,7 +56,7 @@ public class StandardXRoadConsumerCallback implements WebServiceMessageCallback 
       SOAPFactory factory = SOAPFactory.newInstance();
       SOAPElement rootElement;
 
-      BaseXRoadServiceConfiguration serviceConfiguration = callback.getServiceConfiguration();
+      XRoadServiceConfiguration serviceConfiguration = callback.getServiceConfiguration();
 
       if (serviceConfiguration.getForceDatabaseNamespace()) {
         mes.getSOAPPart().getEnvelope().addNamespaceDeclaration(ROOT_NS, metadata.getRequestElementNs());

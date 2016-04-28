@@ -34,3 +34,11 @@ It consists of two parts: the client, which is used for consuming services from 
 * Generates Java classes from Schema.
 * Supports multiple XML technologies - JAXB, DOM, Axis and allows you to write your own if needed.
 * Supports swaref attachments.
+
+## Upgrading to new version
+* jada
+* jada
+
+## Thing yet to do
+* bla
+* bla

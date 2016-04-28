@@ -19,13 +19,13 @@ import com.nortal.jroad.client.teavituskalender.TeavituskalenderXTeeServiceImpl;
 import com.nortal.jroad.client.teavituskalender.types.ee.riik.xtee.teavituskalender.producers.producer.teavituskalender.LisaSyndmusParing.SyndmuseTyyp;
 import com.nortal.jroad.client.teavituskalender.types.ee.riik.xtee.teavituskalender.producers.producer.teavituskalender.LisaSyndmusParing.Tahtsus;
 import com.nortal.jroad.client.teavituskalender.types.ee.riik.xtee.teavituskalender.producers.producer.teavituskalender.LisaSyndmusParing.Lugejad.Item.KasutajaTyyp;
-import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
+import com.nortal.jroad.client.test.BaseXRoadServiceImplTest;
 import com.nortal.jroad.client.util.XmlBeansUtil;
 
 /**
  * @author Aleksandr.Koltakov
  */
-public class TeavituskalenderXteeServiceImplTest extends BaseXTeeServiceImplTest {
+public class TeavituskalenderXteeServiceImplTest extends BaseXRoadServiceImplTest {
 
   private static final Calendar ALGUS = Calendar.getInstance();
   private static final Calendar LOPP = Calendar.getInstance();

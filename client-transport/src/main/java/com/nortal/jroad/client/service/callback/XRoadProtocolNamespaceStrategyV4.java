@@ -8,7 +8,6 @@ import javax.xml.soap.SOAPHeader;
 import org.apache.commons.lang.StringUtils;
 
 import com.nortal.jroad.client.enums.XroadObjectType;
-import com.nortal.jroad.client.service.configuration.BaseXRoadServiceConfiguration;
 import com.nortal.jroad.client.service.configuration.XRoadServiceConfiguration;
 import com.nortal.jroad.enums.XRoadProtocolVersion;
 
@@ -29,11 +28,8 @@ public class XRoadProtocolNamespaceStrategyV4 extends MessageCallbackNamespaceSt
   }
 
   @Override
-  public void addXTeeHeaderElements(SOAPEnvelope env, BaseXRoadServiceConfiguration serviceConfiguration)
-      throws SOAPException {
-    XRoadServiceConfiguration conf = (XRoadServiceConfiguration) serviceConfiguration;
+  public void addXTeeHeaderElements(SOAPEnvelope env, XRoadServiceConfiguration conf) throws SOAPException {
     SOAPHeader header = env.getHeader();
-
     SOAPElement userId = header.addChildElement("userId", protocol.getNamespacePrefix());
     userId.addTextNode(conf.getIdCode());
     SOAPElement id = header.addChildElement("id", protocol.getNamespacePrefix());

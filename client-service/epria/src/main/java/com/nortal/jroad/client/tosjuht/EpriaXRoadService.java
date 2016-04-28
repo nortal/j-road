@@ -14,7 +14,7 @@ import com.nortal.jroad.client.tosjuht.types.ee.riik.xtee.epria.producers.produc
  * ePria xtee teenused
  * 
  * @author Allar Tammik
- * @author Lauri Lättemäe 
+ * @author Lauri Lättemäe
  * @date 10.09.2010
  */
 public interface EpriaXRoadService {

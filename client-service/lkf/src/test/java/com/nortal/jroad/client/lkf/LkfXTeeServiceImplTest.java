@@ -13,13 +13,13 @@ import com.nortal.jroad.client.lkf.types.ee.riik.xtee.lkf.producers.producer.lkf
 import com.nortal.jroad.client.lkf.types.ee.riik.xtee.lkf.producers.producer.lkf.KindlustuskaitseOtsingVastus;
 import com.nortal.jroad.client.lkf.types.ee.riik.xtee.lkf.producers.producer.lkf.RomudeOtsingVastus;
 import com.nortal.jroad.client.lkf.types.ee.riik.xtee.lkf.producers.producer.lkf.RomudeOtsingVastus.ClaimBangers.Item.Vehicle;
-import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
+import com.nortal.jroad.client.test.BaseXRoadServiceImplTest;
 
 /**
  * @author Tatjana Kulikova (tatjana.kulikova@nortal.com)
  * @date 17.02.2011
  */
-public class LkfXTeeServiceImplTest extends BaseXTeeServiceImplTest {
+public class LkfXTeeServiceImplTest extends BaseXRoadServiceImplTest {
 
   @Resource
   private LkfXTeeServiceImpl lkfXTeeServiceImpl;

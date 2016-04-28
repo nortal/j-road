@@ -7,8 +7,8 @@ import javax.annotation.PostConstruct;
 
 import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.service.callback.CustomCallback;
-import com.nortal.jroad.client.service.configuration.BaseXRoadServiceConfiguration;
 import com.nortal.jroad.client.service.configuration.DelegatingXRoadServiceConfiguration;
+import com.nortal.jroad.client.service.configuration.XRoadServiceConfiguration;
 import com.nortal.jroad.client.service.configuration.provider.XRoadServiceConfigurationProvider;
 import com.nortal.jroad.client.service.consumer.XRoadConsumer;
 import com.nortal.jroad.client.service.extractor.CustomExtractor;
@@ -70,7 +70,7 @@ public abstract class BaseXRoadDatabaseService {
 
   protected <I, O> XRoadMessage<O> send(XRoadMessage<I> input, String method, String version, final String idCode)
       throws XRoadServiceConsumptionException {
-    final BaseXRoadServiceConfiguration xteeConfiguration =
+    final XRoadServiceConfiguration xteeConfiguration =
         getXRoadServiceConfigurationProvider().createConfiguration(database, wsdlDatabase, method, version);
 
     DelegatingXRoadServiceConfiguration configuration = new DelegatingXRoadServiceConfiguration(xteeConfiguration) {
@@ -106,7 +106,7 @@ public abstract class BaseXRoadDatabaseService {
                                         CustomCallback callback,
                                         CustomExtractor extractor,
                                         boolean forceDatabaseNamespace) throws XRoadServiceConsumptionException {
-    BaseXRoadServiceConfiguration configuration =
+    XRoadServiceConfiguration configuration =
         getXRoadServiceConfigurationProvider().createConfiguration(database, wsdlDatabase, method, version);
     if (forceDatabaseNamespace) {
       configuration.forceDatabaseNamespace();

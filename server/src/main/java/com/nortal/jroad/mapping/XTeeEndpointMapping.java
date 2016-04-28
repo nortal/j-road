@@ -77,8 +77,7 @@ public class XTeeEndpointMapping extends AbstractEndpointMapping implements Init
   protected Object getEndpointInternal(MessageContext messageCtx) throws Exception {
     SOAPMessage message = SOAPUtil.extractSoapMessage(messageCtx.getRequest());
     if (message.getSOAPHeader() != null) {
-      String method = getRequestMethod(message.getSOAPHeader());
-      AbstractXTeeBaseEndpoint endpoint = methodMap.get(method);
+      AbstractXTeeBaseEndpoint endpoint = methodMap.get(getRequestMethod(message.getSOAPHeader()));
       if (endpoint != null) {
         if (log.isDebugEnabled()) {
           log.debug("Matched " + endpoint + " to " + endpoint.getClass().getSimpleName());
@@ -113,14 +112,12 @@ public class XTeeEndpointMapping extends AbstractEndpointMapping implements Init
     if (service == null) {
       return null;
     }
-    String subsystemCode =
-        SOAPUtil.getNsElementValue(service, "subsystemCode", XTeeWsdlDefinition.XROAD_IDEN_NAMESPACE);
     String serviceCode = SOAPUtil.getNsElementValue(service, "serviceCode", XTeeWsdlDefinition.XROAD_IDEN_NAMESPACE);
     String serviceVersion =
         SOAPUtil.getNsElementValue(service, "serviceVersion", XTeeWsdlDefinition.XROAD_IDEN_NAMESPACE);
 
     StringBuilder method = new StringBuilder();
-    method.append(subsystemCode != null ? subsystemCode : xRoadDatabase).append(".");
+    method.append(xRoadDatabase).append(".");
     method.append(serviceCode).append(".");
     method.append(serviceVersion != null ? serviceVersion : "v1");
     return method.toString();

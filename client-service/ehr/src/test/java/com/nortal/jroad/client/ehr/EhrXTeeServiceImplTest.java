@@ -15,12 +15,12 @@ import com.nortal.jroad.client.ehr.types.ee.riik.xtee.ehr.producers.producer.ehr
 import com.nortal.jroad.client.ehr.types.ee.riik.xtee.ehr.producers.producer.ehr.ENEhitiseOtsingResponse.ENEhitiseOtsing.Ehitised;
 import com.nortal.jroad.client.ehr.types.ee.riik.xtee.ehr.producers.producer.ehr.ENOtsiAadressiAdrTxtResponse.ENOtsiAadressiAdrTxt.Aadress;
 import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
-import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
+import com.nortal.jroad.client.test.BaseXRoadServiceImplTest;
 
 /**
  * @author Tanel Tensing
  */
-public class EhrXTeeServiceImplTest extends BaseXTeeServiceImplTest {
+public class EhrXTeeServiceImplTest extends BaseXRoadServiceImplTest {
 
   @Resource
   private EhrXTeeServiceImpl ehrXTeeServiceImpl;

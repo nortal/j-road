@@ -22,12 +22,12 @@ import com.nortal.jroad.client.koodikeskus.types.ee.riik.xtee.koodikeskus.produc
 import com.nortal.jroad.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.Ravimvorm;
 import com.nortal.jroad.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.Soodustus;
 import com.nortal.jroad.client.koodikeskus.types.ee.riik.xtee.koodikeskus.producers.producer.koodikeskus.Toimeaine;
-import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
+import com.nortal.jroad.client.test.BaseXRoadServiceImplTest;
 
 /**
  * @author Aleksei Bogdanov (aleksei.bogdanov@nortal.com)
  */
-public class KoodikeskusXTeeServiceImplTest extends BaseXTeeServiceImplTest {
+public class KoodikeskusXTeeServiceImplTest extends BaseXRoadServiceImplTest {
 
   @Resource
   private KoodikeskusXTeeServiceImpl koodikeskusXTeeServiceImpl;

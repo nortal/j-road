@@ -10,9 +10,9 @@ import com.nortal.jroad.client.karis.KarisXTeeServiceImpl;
 import com.nortal.jroad.client.karis.types.ee.riik.xtee.karis.producers.producer.karis.KrIsikIdVastus;
 import com.nortal.jroad.client.karis.types.ee.riik.xtee.karis.producers.producer.karis.KrIsikVastus;
 import com.nortal.jroad.client.karis.types.ee.riik.xtee.karis.producers.producer.karis.KrIsikudVastus;
-import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
+import com.nortal.jroad.client.test.BaseXRoadServiceImplTest;
 
-public class KarisXTeeServiceImplTest extends BaseXTeeServiceImplTest{
+public class KarisXTeeServiceImplTest extends BaseXRoadServiceImplTest{
 
 	@Resource
 	private KarisXTeeServiceImpl karisXTeeServiceImpl;

@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import com.nortal.jroad.client.aar.AarXTeeServiceImpl;
 import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
-import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
+import com.nortal.jroad.client.test.BaseXRoadServiceImplTest;
 
 /**
  * Aar andmekogu xtee teenuste testid
@@ -17,7 +17,7 @@ import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
  * @author Lauri Lättemäe 
  * @date 08.10.2010
  */
-public class AarXTeeServiceImplTest extends BaseXTeeServiceImplTest {
+public class AarXTeeServiceImplTest extends BaseXRoadServiceImplTest {
 	@Resource
 	private AarXTeeServiceImpl aarXTeeServiceImpl;
 

@@ -154,6 +154,8 @@ public abstract class AbstractXTeeJAXBEndpoint<T> extends AbstractXTeeBaseEndpoi
       JAXBContext responseJc = getJAXBContextInstance();
       Marshaller responseMarshaller = responseJc.createMarshaller();
       responseMarshaller.setAttachmentMarshaller(new XTeeAttachmentMarshaller(response));
+      // TODO Lauri: some namespace hacking might be needed if existing service schema is changed according to new
+      // standard while upgrading. J-road clients do not mind tho :)
       if (XRoadProtocolVersion.V2_0 == version) {
         responseMarshaller.marshal(new JAXBElement(new QName("keha"), bean.getClass(), bean), parent);
       } else {

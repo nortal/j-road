@@ -46,7 +46,8 @@ public class XmlBeansUtil {
     XmlCursor cursor = xmlString.newCursor();
     cursor.toNextToken();
     cursor.insertNamespace("xsd", "http://www.w3.org/2001/XMLSchema");
-    cursor.insertAttributeWithValue(new QName("http://www.w3.org/2001/XMLSchema-instance", "type", "xsi"), "xsd:string");
+    cursor.insertAttributeWithValue(new QName("http://www.w3.org/2001/XMLSchema-instance", "type", "xsi"),
+                                    "xsd:string");
 
     return xmlString;
   }
@@ -55,7 +56,8 @@ public class XmlBeansUtil {
   public static HashMap<String, XmlBeansXRoadMetadata> loadMetadata() throws IOException, ClassNotFoundException {
     HashMap<String, XmlBeansXRoadMetadata> metaMap = new HashMap<String, XmlBeansXRoadMetadata>();
 
-    for (Enumeration<URL> metaUrls = Thread.currentThread().getContextClassLoader().getResources("xtee.metadata"); metaUrls.hasMoreElements();) {
+    for (Enumeration<URL> metaUrls =
+        Thread.currentThread().getContextClassLoader().getResources("xroad.metadata"); metaUrls.hasMoreElements();) {
       URL metaUrl = metaUrls.nextElement();
       InputStream is = metaUrl.openStream();
       ObjectInputStream ois = new ObjectInputStream(is);
@@ -67,8 +69,8 @@ public class XmlBeansUtil {
     return metaMap;
   }
 
-  public static XmlObject getResponseObject(XmlObject obj) throws IllegalArgumentException, IllegalAccessException,
-      InvocationTargetException {
+  public static XmlObject getResponseObject(XmlObject obj)
+      throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
     if (obj.schemaType().isDocumentType()) {
       for (Method method : obj.getClass().getDeclaredMethods()) {
         if (XmlObject.class.isAssignableFrom(method.getReturnType()) && method.getName().startsWith("get")
@@ -81,8 +83,8 @@ public class XmlBeansUtil {
     return obj;
   }
 
-  public static Set<XmlObject> getAllObjects(XmlObject obj) throws IllegalArgumentException, IllegalAccessException,
-      InvocationTargetException {
+  public static Set<XmlObject> getAllObjects(XmlObject obj)
+      throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
     Set<XmlObject> objs = new HashSet<XmlObject>();
     if (obj != null) {
       objs.add(obj);

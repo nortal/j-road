@@ -132,7 +132,7 @@ public class TypeGen {
    * @param dir
    */
   private static void saveMetadata(String dir) throws Exception {
-    File metafile = new File(dir, "xtee.metadata");
+    File metafile = new File(dir, "xroad.metadata");
     metafile.createNewFile();
     FileOutputStream fos = new FileOutputStream(metafile);
     ObjectOutputStream stream = new ObjectOutputStream(fos);

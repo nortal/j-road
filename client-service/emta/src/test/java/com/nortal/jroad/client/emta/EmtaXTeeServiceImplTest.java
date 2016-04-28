@@ -18,14 +18,14 @@ import com.nortal.jroad.client.emta.types.ee.riik.xtee.emta.producers.producer.e
 import com.nortal.jroad.client.emta.types.ee.riik.xtee.emta.producers.producer.emta.Periood;
 import com.nortal.jroad.client.emta.types.ee.riik.xtee.emta.producers.producer.emta.VptValjund;
 import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
-import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
+import com.nortal.jroad.client.test.BaseXRoadServiceImplTest;
 
 import java.util.Calendar;
 
 /**
  * @author Roman Tekhov
  */
-public class EmtaXTeeServiceImplTest extends BaseXTeeServiceImplTest {
+public class EmtaXTeeServiceImplTest extends BaseXRoadServiceImplTest {
 
   @Resource
   private EmtaXTeeServiceImpl emtaXTeeServiceImpl;

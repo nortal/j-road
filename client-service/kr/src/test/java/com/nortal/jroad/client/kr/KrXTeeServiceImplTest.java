@@ -6,7 +6,7 @@ import com.nortal.jroad.client.kr.types.ee.riik.xtee.kr.producers.producer.kr.Ki
 import com.nortal.jroad.client.kr.types.ee.riik.xtee.kr.producers.producer.kr.KinnistuVastus;
 import com.nortal.jroad.client.kr.types.ee.riik.xtee.kr.producers.producer.kr.KpijIsikType;
 import com.nortal.jroad.client.kr.types.ee.riik.xtee.kr.producers.producer.kr.PolitseiEhakVastus;
-import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
+import com.nortal.jroad.client.test.BaseXRoadServiceImplTest;
 import java.util.Calendar;
 import java.util.List;
 import javax.annotation.Resource;
@@ -16,7 +16,7 @@ import org.junit.Test;
 /**
  * @author Allar Saarnak
  */
-public class KrXTeeServiceImplTest extends BaseXTeeServiceImplTest {
+public class KrXTeeServiceImplTest extends BaseXRoadServiceImplTest {
 
 	@Resource
 	private KrXTeeServiceImpl krXTeeServiceImpl;

@@ -14,9 +14,9 @@ import com.nortal.jroad.client.adsv5.types.ee.x_road.adsv5.producer.ADSnormalReq
 import com.nortal.jroad.client.adsv5.types.ee.x_road.adsv5.producer.ADSnormalVastusType;
 import com.nortal.jroad.client.adsv5.types.ee.x_road.adsv5.producer.ADSnormalVastusType.NormalTulem;
 import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
-import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
+import com.nortal.jroad.client.test.BaseXRoadServiceImplTest;
 
-public class Adsv5XTeeServiceImplTest extends BaseXTeeServiceImplTest {
+public class Adsv5XTeeServiceImplTest extends BaseXRoadServiceImplTest {
   @Resource
   private Adsv5XTeeServiceImpl adsXTeeServiceImpl;
   

@@ -19,7 +19,7 @@ import org.springframework.ws.WebServiceMessage;
 import org.springframework.ws.client.core.WebServiceMessageCallback;
 import org.springframework.ws.soap.saaj.SaajSoapMessage;
 
-import com.nortal.jroad.client.service.configuration.BaseXRoadServiceConfiguration;
+import com.nortal.jroad.client.service.configuration.XRoadServiceConfiguration;
 import com.nortal.jroad.model.XRoadAttachment;
 
 /**
@@ -32,11 +32,10 @@ import com.nortal.jroad.model.XRoadAttachment;
 public class XRoadMessageCallback implements WebServiceMessageCallback {
 
   private final Collection<XRoadAttachment> attachments;
-  private final BaseXRoadServiceConfiguration serviceConfiguration;
+  private final XRoadServiceConfiguration serviceConfiguration;
   private MessageCallbackNamespaceStrategy protocolVersionStrategy;
 
-  public XRoadMessageCallback(BaseXRoadServiceConfiguration serviceConfiguration,
-                              Collection<XRoadAttachment> attachments) {
+  public XRoadMessageCallback(XRoadServiceConfiguration serviceConfiguration, Collection<XRoadAttachment> attachments) {
     this.serviceConfiguration = serviceConfiguration;
     this.attachments = attachments;
 
@@ -67,7 +66,7 @@ public class XRoadMessageCallback implements WebServiceMessageCallback {
     }
   }
 
-  public BaseXRoadServiceConfiguration getServiceConfiguration() {
+  public XRoadServiceConfiguration getServiceConfiguration() {
     return serviceConfiguration;
   }
 

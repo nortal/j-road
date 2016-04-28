@@ -2,7 +2,7 @@ package com.nortal.jroad.client.service.consumer;
 
 import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.service.callback.CustomCallback;
-import com.nortal.jroad.client.service.configuration.BaseXRoadServiceConfiguration;
+import com.nortal.jroad.client.service.configuration.XRoadServiceConfiguration;
 import com.nortal.jroad.client.service.extractor.CustomExtractor;
 import com.nortal.jroad.model.XRoadMessage;
 
@@ -22,7 +22,7 @@ public interface XRoadConsumer {
    * @param xTeeServiceConfiguration service configuration data
    * @return Java object representing the response
    */
-  <I, O> XRoadMessage<O> sendRequest(XRoadMessage<I> input, BaseXRoadServiceConfiguration xTeeServiceConfiguration)
+  <I, O> XRoadMessage<O> sendRequest(XRoadMessage<I> input, XRoadServiceConfiguration xTeeServiceConfiguration)
       throws XRoadServiceConsumptionException;
 
   /**
@@ -37,7 +37,7 @@ public interface XRoadConsumer {
    * @return Java object representing the response
    */
   <I, O> XRoadMessage<O> sendRequest(XRoadMessage<I> input,
-                                     BaseXRoadServiceConfiguration xTeeServiceConfiguration,
+                                     XRoadServiceConfiguration xTeeServiceConfiguration,
                                      CustomCallback callback,
                                      CustomExtractor extractor) throws XRoadServiceConsumptionException;
 

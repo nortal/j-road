@@ -35,13 +35,13 @@ import com.nortal.jroad.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR
 import com.nortal.jroad.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RRExtDocumentDataRequest.Isikud;
 import com.nortal.jroad.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RRExtDocumentDataRequest.Tegevus;
 import com.nortal.jroad.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RRExtDocumentDataRequest.Dokument.KoostanudAsutus;
-import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
+import com.nortal.jroad.client.test.BaseXRoadServiceImplTest;
 import com.nortal.jroad.client.util.XmlBeansUtil;
 
 /**
  * @author Roman Tekhov
  */
-public class RrXTeeServiceImplTest extends BaseXTeeServiceImplTest {
+public class RrXTeeServiceImplTest extends BaseXRoadServiceImplTest {
 
 	@Resource
 	private RrXTeeServiceImpl rrXTeeServiceImpl;
@@ -228,7 +228,7 @@ public class RrXTeeServiceImplTest extends BaseXTeeServiceImplTest {
 		Assert.assertTrue(response.getIsikuandmed().getItemList().get(0)
 				.getIsikuandmedPerenimi().equalsIgnoreCase("METSAMEES"));
 
-		checkXteeAnnotation(com.nortal.jroad.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR96ResponseV1.Isikuandmed.Item.class);
+		checkXRoadAnnotation(com.nortal.jroad.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR96ResponseV1.Isikuandmed.Item.class);
 	}
 
 	@Test

@@ -31,12 +31,12 @@ import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.produc
 import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingesindusV2Ettevote;
 import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.ParingesindusV3Ettevote;
 import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
-import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
+import com.nortal.jroad.client.test.BaseXRoadServiceImplTest;
 
 /**
  * @author Roman Tekhov
  */
-public class AriregXTeeServiceImplTest extends BaseXTeeServiceImplTest {
+public class AriregXTeeServiceImplTest extends BaseXRoadServiceImplTest {
 
   private static final String TEST_ISIKUKOOD = "36605235217";
   private static final int TEST_ARIKOOD = 80191600;

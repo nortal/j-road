@@ -14,12 +14,12 @@ import com.nortal.jroad.client.kmais.types.ee.riik.xtee.kmais.producers.producer
 import com.nortal.jroad.client.kmais.types.ee.riik.xtee.kmais.producers.producer.kmais.IsikutToendavatePvaVastus;
 import com.nortal.jroad.client.kmais.types.ee.riik.xtee.kmais.producers.producer.kmais.ToolubaPvaVastus;
 import com.nortal.jroad.client.kmais.types.ee.riik.xtee.kmais.producers.producer.kmais.ValismaalasePassPvaVastus;
-import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
+import com.nortal.jroad.client.test.BaseXRoadServiceImplTest;
 import javax.annotation.Resource;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class KmaisXTeeServiceImplTest extends BaseXTeeServiceImplTest {
+public class KmaisXTeeServiceImplTest extends BaseXRoadServiceImplTest {
   @Resource
   private KmaisXTeeService kmaisXTeeService;
   private static final String TEST_IK = "38606282771";

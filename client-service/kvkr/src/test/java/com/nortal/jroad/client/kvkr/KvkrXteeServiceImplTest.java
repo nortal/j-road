@@ -1,13 +1,13 @@
 package com.nortal.jroad.client.kvkr;
 
 import com.nortal.jroad.client.kvkr.types.ee.x_road.kvkr.producer.ServiceinfoResponseDocument;
-import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
+import com.nortal.jroad.client.test.BaseXRoadServiceImplTest;
 import org.junit.Assert;
 import org.junit.Test;
 
 import javax.annotation.Resource;
 
-public class KvkrXteeServiceImplTest extends BaseXTeeServiceImplTest {
+public class KvkrXteeServiceImplTest extends BaseXRoadServiceImplTest {
 
   @Resource
   private KvkrXTeeServiceImpl kvkrXTeeServiceImpl;

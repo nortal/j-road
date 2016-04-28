@@ -13,12 +13,12 @@ import com.nortal.jroad.client.liiklusregister.types.ee.riik.xtee.liiklusregiste
 import com.nortal.jroad.client.liiklusregister.types.ee.riik.xtee.liiklusregister.producers.producer.liiklusregister.VlaevTunnVastus;
 import com.nortal.jroad.client.liiklusregister.types.ee.riik.xtee.liiklusregister.producers.producer.liiklusregister.VlaevTunnistus;
 import com.nortal.jroad.client.liiklusregister.types.ee.riik.xtee.liiklusregister.producers.producer.liiklusregister.VlaevVastusLaevaandmed;
-import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
+import com.nortal.jroad.client.test.BaseXRoadServiceImplTest;
 
 /**
  * @author Dmitri Danilkin
  */
-public class LiiklusregisterXTeeServiceImplTest extends BaseXTeeServiceImplTest {
+public class LiiklusregisterXTeeServiceImplTest extends BaseXRoadServiceImplTest {
 
   private static final String TEST_ISIKUKOOD = "38606282771";
 

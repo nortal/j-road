@@ -11,9 +11,9 @@ import org.junit.Test;
 import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.tam.TamXTeeServiceImpl;
 import com.nortal.jroad.client.tam.types.ee.riik.xtee.tam.producers.producer.tam.Registriisik;
-import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
+import com.nortal.jroad.client.test.BaseXRoadServiceImplTest;
 
-public class TamXTeeServiceImplTest extends BaseXTeeServiceImplTest {
+public class TamXTeeServiceImplTest extends BaseXRoadServiceImplTest {
   
   @Resource
   private TamXTeeServiceImpl tamXTeeServiceImpl;

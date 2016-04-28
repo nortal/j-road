@@ -11,7 +11,7 @@ import com.nortal.jroad.client.aar.types.ee.riik.xtee.aar.producers.producer.aar
 import com.nortal.jroad.client.aar.types.ee.riik.xtee.aar.producers.producer.aar.TaitmisedVastus;
 import com.nortal.jroad.client.aar.types.ee.riik.xtee.aar.producers.producer.aar.TaitmisedVastusManus;
 import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
-import com.nortal.jroad.client.service.configuration.BaseXRoadServiceConfiguration;
+import com.nortal.jroad.client.service.configuration.XRoadServiceConfiguration;
 import com.nortal.jroad.client.service.configuration.DelegatingXRoadServiceConfiguration;
 import com.nortal.jroad.client.service.XRoadDatabaseService;
 import com.nortal.jroad.model.XRoadAttachment;
@@ -53,7 +53,7 @@ public class AarXTeeServiceImpl extends XRoadDatabaseService implements AarXTeeS
 		callback.addElementAttribute("asutused", "xsi:type", "xsd:base64Binary");
 
 		// Teeme päringu
-		final BaseXRoadServiceConfiguration xteeConfiguration = xRoadServiceConfigurationProvider.createConfiguration(getDatabase(), getDatabase(), "asutused", "v1");
+		final XRoadServiceConfiguration xteeConfiguration = xRoadServiceConfigurationProvider.createConfiguration(getDatabase(), getDatabase(), "asutused", "v1");
 		DelegatingXRoadServiceConfiguration configuration = new DelegatingXRoadServiceConfiguration(xteeConfiguration) {
 			@Override
 			public String getIdCode() {
@@ -109,7 +109,7 @@ public class AarXTeeServiceImpl extends XRoadDatabaseService implements AarXTeeS
 		callback.addElementAttribute("taitmised", "xsi:type", "xsd:base64Binary");
 
 		// Teeme päringu
-		final BaseXRoadServiceConfiguration xteeConfiguration = xRoadServiceConfigurationProvider.createConfiguration(getDatabase(), getDatabase(), "taitmised", "v1");
+		final XRoadServiceConfiguration xteeConfiguration = xRoadServiceConfigurationProvider.createConfiguration(getDatabase(), getDatabase(), "taitmised", "v1");
 		DelegatingXRoadServiceConfiguration configuration = new DelegatingXRoadServiceConfiguration(xteeConfiguration) {
 			@Override
 			public String getIdCode() {

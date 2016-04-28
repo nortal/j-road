@@ -14,12 +14,12 @@ import org.junit.Test;
 
 import com.nortal.jroad.client.rets.RetsXTeeServiceImpl;
 import com.nortal.jroad.client.rets.types.ee.riik.xtee.rets.producers.producer.rets.VeadType;
-import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
+import com.nortal.jroad.client.test.BaseXRoadServiceImplTest;
 
 /**
  * @author Tanel Käär (tanelk@nortal.com)
  */
-public class RetsXTeeServiceImplTest extends BaseXTeeServiceImplTest {
+public class RetsXTeeServiceImplTest extends BaseXRoadServiceImplTest {
 
   @Resource
   private RetsXTeeServiceImpl retsXTeeServiceImpl;

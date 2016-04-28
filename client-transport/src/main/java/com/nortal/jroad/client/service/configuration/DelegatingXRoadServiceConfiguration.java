@@ -17,11 +17,11 @@ import com.nortal.jroad.enums.XRoadProtocolVersion;
  * @author Tanel Käär (tanelk@nortal.com)
  * @author Lauri Lättemäe (lauri.lattemae@nortal.com) - protocol 4.0
  */
-public class DelegatingXRoadServiceConfiguration implements BaseXRoadServiceConfiguration {
+public class DelegatingXRoadServiceConfiguration implements XRoadServiceConfiguration {
 
-  protected BaseXRoadServiceConfiguration configuration;
+  protected XRoadServiceConfiguration configuration;
 
-  public DelegatingXRoadServiceConfiguration(BaseXRoadServiceConfiguration configuration) {
+  public DelegatingXRoadServiceConfiguration(XRoadServiceConfiguration configuration) {
     this.configuration = configuration;
   }
 
@@ -73,5 +73,45 @@ public class DelegatingXRoadServiceConfiguration implements BaseXRoadServiceConf
   @Override
   public XRoadProtocolVersion getProtocolVersion() {
     return configuration.getProtocolVersion();
+  }
+
+  @Override
+  public String getClientXRoadInstance() {
+    return configuration.getClientXRoadInstance();
+  }
+
+  @Override
+  public String getClientMemberClass() {
+    return configuration.getClientMemberClass();
+  }
+
+  @Override
+  public String getClientMemberCode() {
+    return configuration.getClientMemberCode();
+  }
+
+  @Override
+  public String getClientSubsystemCode() {
+    return configuration.getClientSubsystemCode();
+  }
+
+  @Override
+  public String getServiceXRoadInstance() {
+    return configuration.getServiceXRoadInstance();
+  }
+
+  @Override
+  public String getServiceMemberClass() {
+    return configuration.getServiceMemberClass();
+  }
+
+  @Override
+  public String getServiceMemberCode() {
+    return configuration.getServiceMemberCode();
+  }
+
+  @Override
+  public String getServiceSubsystemCode() {
+    return configuration.getServiceSubsystemCode();
   }
 }

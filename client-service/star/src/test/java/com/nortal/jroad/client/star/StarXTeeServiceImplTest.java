@@ -3,7 +3,7 @@ package com.nortal.jroad.client.star;
 import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.star.types.ee.riik.xtee.star.producers.producer.star.AsynchronousParingTulemResponse;
 import com.nortal.jroad.client.star.types.ee.riik.xtee.star.producers.producer.star.HooldajaHooldusedMassParingResponse;
-import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
+import com.nortal.jroad.client.test.BaseXRoadServiceImplTest;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -13,7 +13,7 @@ import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
-public class StarXTeeServiceImplTest extends BaseXTeeServiceImplTest {
+public class StarXTeeServiceImplTest extends BaseXRoadServiceImplTest {
 
   @Resource
   private StarXTeeServiceImpl starXTeeServiceImpl;

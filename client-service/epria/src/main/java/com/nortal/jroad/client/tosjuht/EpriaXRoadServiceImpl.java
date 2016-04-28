@@ -16,8 +16,8 @@ import org.springframework.stereotype.Service;
 import com.nortal.jroad.client.exception.NonTechnicalFaultException;
 import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.service.XRoadDatabaseService;
-import com.nortal.jroad.client.service.configuration.BaseXRoadServiceConfiguration;
 import com.nortal.jroad.client.service.configuration.DelegatingXRoadServiceConfiguration;
+import com.nortal.jroad.client.service.configuration.XRoadServiceConfiguration;
 import com.nortal.jroad.client.tosjuht.database.EpriaXRoadDatabase;
 import com.nortal.jroad.client.tosjuht.model.ManusModel;
 import com.nortal.jroad.client.tosjuht.types.ee.riik.xtee.epria.producers.producer.epria.BinaarfailNest;
@@ -41,18 +41,18 @@ import com.nortal.jroad.model.XmlBeansXRoadMessage;
  * @author Lauri Lättemäe
  * @date 10.09.2010
  */
-@Service("epriaXTeeService")
+@Service("epriaXRoadService")
 public class EpriaXRoadServiceImpl extends XRoadDatabaseService implements EpriaXRoadService {
 
   @Resource
   private EpriaXRoadDatabase epriaXRoadDatabase;
 
   private <I, O> XRoadMessage<O> send(XRoadMessage<I> input,
-                                     String method,
-                                     String version,
-                                     final String idCode,
-                                     final String securityServer) throws XRoadServiceConsumptionException {
-    final BaseXRoadServiceConfiguration xteeConfiguration =
+                                      String method,
+                                      String version,
+                                      final String idCode,
+                                      final String securityServer) throws XRoadServiceConsumptionException {
+    final XRoadServiceConfiguration xteeConfiguration =
         xRoadServiceConfigurationProvider.createConfiguration(getDatabase(), getDatabase(), method, version);
 
     DelegatingXRoadServiceConfiguration configuration = new DelegatingXRoadServiceConfiguration(xteeConfiguration) {
@@ -75,18 +75,18 @@ public class EpriaXRoadServiceImpl extends XRoadDatabaseService implements Epria
   public String epria(String xml, String securityServer, String isikukood) throws XRoadServiceConsumptionException {
     try {
       XRoadMessage<XmlString> response = send(new XmlBeansXRoadMessage<XmlString>(XmlString.Factory.parse(xml)),
-                                             "epria",
-                                             "v1",
-                                             isikukood,
-                                             securityServer);
+                                              "epria",
+                                              "v1",
+                                              isikukood,
+                                              securityServer);
       return ((XmlString) response.getContent()).xmlText();
     } catch (XRoadServiceConsumptionException ex) {
       throw ex;
     } catch (XmlException ex) {
       throw new XRoadServiceConsumptionException(new NonTechnicalFaultException("1", "P2ring eba6nnestus"),
-                                                "epria",
-                                                "epria",
-                                                "v1");
+                                                 "epria",
+                                                 "epria",
+                                                 "v1");
     }
   }
 
@@ -118,9 +118,9 @@ public class EpriaXRoadServiceImpl extends XRoadDatabaseService implements Epria
     } catch (Exception ex) {
       ex.printStackTrace();
       throw new XRoadServiceConsumptionException(new NonTechnicalFaultException("1", "P2ring eba6nnestus"),
-                                                "epria",
-                                                "epriaParingManusega",
-                                                "v1");
+                                                 "epria",
+                                                 "epriaParingManusega",
+                                                 "v1");
     }
   }
 

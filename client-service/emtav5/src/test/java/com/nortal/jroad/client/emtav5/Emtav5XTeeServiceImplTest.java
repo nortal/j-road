@@ -14,12 +14,12 @@ import org.junit.Test;
 import com.nortal.jroad.client.emtav5.Emtav5XTeeServiceImpl;
 import com.nortal.jroad.client.emtav5.types.net.x_rd.ee.emtav5.producer.SpouseCheckResponseType.Response.Period;
 import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
-import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
+import com.nortal.jroad.client.test.BaseXRoadServiceImplTest;
 
 /**
  * @author Kait Kasak (kait.kasak@nortal.com)
  */
-public class Emtav5XTeeServiceImplTest extends BaseXTeeServiceImplTest {
+public class Emtav5XTeeServiceImplTest extends BaseXRoadServiceImplTest {
 
 	private static final String CODE = "45906134717";
 	private static final String SPOUSE_CODE = "35508274726";
