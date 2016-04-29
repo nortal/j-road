@@ -1,8 +1,7 @@
 package com.nortal.jroad.example.client;
 
 import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
-import com.nortal.jroad.example.client.types.ee.riik.xtee.naidis.producers.producer.naidis.AttachmentEchoResponse;
-import com.nortal.jroad.example.client.types.ee.riik.xtee.naidis.producers.producer.naidis.EchoResponse;
+import com.nortal.jroad.example.client.types.eu.x_road.naidis.AttachmentEchoResponse;
 
 /**
  * Example X-road service
@@ -12,7 +11,9 @@ import com.nortal.jroad.example.client.types.ee.riik.xtee.naidis.producers.produ
 public interface NaidisXRoadService {
   AttachmentEchoResponse sendAttachment(String contentType, byte[] content) throws XRoadServiceConsumptionException;
 
-  EchoResponse sendEcho(String text) throws XRoadServiceConsumptionException;
+  String sendEcho(String text) throws XRoadServiceConsumptionException;
 
-  EchoResponse sendAxisEcho(String text) throws XRoadServiceConsumptionException;
+  String sendEchoMime(String text) throws XRoadServiceConsumptionException;
+
+  String sendAxisEcho(String text) throws XRoadServiceConsumptionException;
 }

@@ -1,5 +1,7 @@
 package com.nortal.jroad.example.client;
 
+import java.util.Arrays;
+
 import javax.activation.DataHandler;
 import javax.annotation.Resource;
 
@@ -8,11 +10,14 @@ import org.springframework.stereotype.Service;
 import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.service.XRoadDatabaseService;
 import com.nortal.jroad.example.client.database.NaidisXRoadDatabase;
-import com.nortal.jroad.example.client.types.ee.riik.xtee.naidis.producers.producer.naidis.AttachmentEchoRequest;
-import com.nortal.jroad.example.client.types.ee.riik.xtee.naidis.producers.producer.naidis.AttachmentEchoResponse;
-import com.nortal.jroad.example.client.types.ee.riik.xtee.naidis.producers.producer.naidis.EchoRequest;
-import com.nortal.jroad.example.client.types.ee.riik.xtee.naidis.producers.producer.naidis.EchoResponse;
+import com.nortal.jroad.example.client.types.eu.x_road.naidis.AttachmentEchoRequest;
+import com.nortal.jroad.example.client.types.eu.x_road.naidis.AttachmentEchoResponse;
+import com.nortal.jroad.example.client.types.eu.x_road.naidis.EchoRequest;
+import com.nortal.jroad.example.client.types.eu.x_road.naidis.EchoResponse;
 import com.nortal.jroad.jaxb.ByteArrayDataSource;
+import com.nortal.jroad.model.BeanXRoadMessage;
+import com.nortal.jroad.model.XRoadAttachment;
+import com.nortal.jroad.model.XRoadMessage;
 
 /**
  * @author Lauri Lättemäe <lauri.lattemae@nortal.com>
@@ -32,16 +37,28 @@ public class NaidisXRoadServiceImpl extends XRoadDatabaseService implements Naid
   }
 
   @Override
-  public EchoResponse sendEcho(String text) throws XRoadServiceConsumptionException {
+  public String sendEcho(String text) throws XRoadServiceConsumptionException {
     EchoRequest req = EchoRequest.Factory.newInstance();
     req.setText(text);
-    return naidisXRoadDatabase.echoV1(req);
+    return naidisXRoadDatabase.echoV1(req).getText();
   }
 
   @Override
-  public EchoResponse sendAxisEcho(String text) throws XRoadServiceConsumptionException {
+  public String sendEchoMime(String text) throws XRoadServiceConsumptionException {
+    EchoRequest echoReq = EchoRequest.Factory.newInstance();
+    echoReq.setText(text);
+    BeanXRoadMessage<EchoRequest> req =
+        new BeanXRoadMessage<EchoRequest>(null,
+                                          echoReq,
+                                          Arrays.asList(new XRoadAttachment("cid", "text/plain", text.getBytes())));
+    XRoadMessage<EchoResponse> rsp = send(req, "Echo", "v1");
+    return rsp.getContent().getText();
+  }
+
+  @Override
+  public String sendAxisEcho(String text) throws XRoadServiceConsumptionException {
     EchoRequest req = EchoRequest.Factory.newInstance();
     req.setText(text);
-    return naidisXRoadDatabase.axisEchoV1(req);
+    return naidisXRoadDatabase.axisEchoV1(req).getText();
   }
 }

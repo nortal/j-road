@@ -137,7 +137,7 @@ public class XTeeWsdlDefinition implements Wsdl11Definition, InitializingBean {
 
     setRequestSuffix(SuffixBasedMessagesProvider.DEFAULT_REQUEST_SUFFIX);
     setResponseSuffix(SuffixBasedMessagesProvider.DEFAULT_RESPONSE_SUFFIX);
-    delegate.setTargetNamespace("http://" + xRoadDatabase + ".x-road.eu/producer");
+    delegate.setTargetNamespace("http://" + xRoadDatabase + ".x-road.eu");
 
     if (!StringUtils.hasText(delegate.getTargetNamespace()) && typesProvider.getSchemaCollection() != null
         && typesProvider.getSchemaCollection().getXsdSchemas().length > 0) {

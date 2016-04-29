@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://producers.naidis.xtee.riik.ee/producer/naidis" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://naidis.x-road.eu/producer" xmlns:xrd="http://x-road.eu/xsd/xroad.xsd" targetNamespace="http://naidis.x-road.eu/producer">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://naidis.x-road.eu" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://naidis.x-road.eu" xmlns:xrd="http://x-road.eu/xsd/xroad.xsd" targetNamespace="http://naidis.x-road.eu">
   <wsdl:types>
-    <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:ref="http://ws-i.org/profiles/basic/1.1/xsd" xmlns:tns="http://producers.naidis.xtee.riik.ee/producer/naidis" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" elementFormDefault="unqualified" targetNamespace="http://producers.naidis.xtee.riik.ee/producer/naidis"><import namespace="http://x-road.eu/xsd/xroad.xsd" schemaLocation="http://x-road.eu/xsd/xroad.xsd"/>
+    <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:ref="http://ws-i.org/profiles/basic/1.1/xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" elementFormDefault="unqualified" targetNamespace="http://naidis.x-road.eu"><import namespace="http://x-road.eu/xsd/xroad.xsd" schemaLocation="http://x-road.eu/xsd/xroad.xsd"/>
 
 	<import namespace="http://ws-i.org/profiles/basic/1.1/xsd" schemaLocation="http://ws-i.org/profiles/basic/1.1/swaref.xsd"/>
 
@@ -47,28 +47,20 @@
 	</complexType>
 </schema>
   </wsdl:types>
-  <wsdl:message name="AxisEchoResponse">
-    <wsdl:part element="sch:AxisEchoResponse" name="AxisEchoResponse">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="AttachmentEchoResponse">
-    <wsdl:part element="sch:AttachmentEchoResponse" name="AttachmentEchoResponse">
-    </wsdl:part>
-  </wsdl:message>
   <wsdl:message name="AxisEchoRequest">
-    <wsdl:part element="sch:AxisEchoRequest" name="AxisEchoRequest">
+    <wsdl:part element="tns:AxisEchoRequest" name="AxisEchoRequest">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="EchoRequest">
-    <wsdl:part element="sch:EchoRequest" name="EchoRequest">
+    <wsdl:part element="tns:EchoRequest" name="EchoRequest">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="AttachmentEchoRequest">
-    <wsdl:part element="sch:AttachmentEchoRequest" name="AttachmentEchoRequest">
+    <wsdl:part element="tns:AttachmentEchoRequest" name="AttachmentEchoRequest">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="EchoResponse">
-    <wsdl:part element="sch:EchoResponse" name="EchoResponse">
+    <wsdl:part element="tns:EchoResponse" name="EchoResponse">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="requestheader">
@@ -83,19 +75,20 @@
     <wsdl:part element="xrd:protocolVersion" name="protocolVersion">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:portType name="myport">
+  <wsdl:message name="AxisEchoResponse">
+    <wsdl:part element="tns:AxisEchoResponse" name="AxisEchoResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="AttachmentEchoResponse">
+    <wsdl:part element="tns:AttachmentEchoResponse" name="AttachmentEchoResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="naidisPort">
     <wsdl:operation name="AxisEcho">
 <wsdl:documentation><xrd:title>Axis echo service</xrd:title></wsdl:documentation>
       <wsdl:input message="tns:AxisEchoRequest" name="AxisEchoRequest">
     </wsdl:input>
       <wsdl:output message="tns:AxisEchoResponse" name="AxisEchoResponse">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="AttachmentEcho">
-<wsdl:documentation><xrd:title>Attachment echo endpoint</xrd:title></wsdl:documentation>
-      <wsdl:input message="tns:AttachmentEchoRequest" name="AttachmentEchoRequest">
-    </wsdl:input>
-      <wsdl:output message="tns:AttachmentEchoResponse" name="AttachmentEchoResponse">
     </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="Echo">
@@ -105,8 +98,15 @@
       <wsdl:output message="tns:EchoResponse" name="EchoResponse">
     </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="AttachmentEcho">
+<wsdl:documentation><xrd:title>Attachment echo endpoint</xrd:title></wsdl:documentation>
+      <wsdl:input message="tns:AttachmentEchoRequest" name="AttachmentEchoRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:AttachmentEchoResponse" name="AttachmentEchoResponse">
+    </wsdl:output>
+    </wsdl:operation>
   </wsdl:portType>
-  <wsdl:binding name="myportSoap11" type="tns:myport">
+  <wsdl:binding name="naidisPortSoap11" type="tns:naidisPort">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsdl:operation name="AxisEcho">
       <soap:operation soapAction=""/>
@@ -122,7 +122,7 @@
         </soap:header>
         <soap:header message="tns:requestheader" namespace="http://x-road.eu/xsd/xroad.xsd" part="protocolVersion" use="literal">
         </soap:header>
-        <soap:body namespace="http://naidis.x-road.eu/producer" use="literal"/>
+        <soap:body namespace="http://naidis.x-road.eu" use="literal"/>
       </wsdl:input>
       <wsdl:output name="AxisEchoResponse">
         <soap:header message="tns:requestheader" namespace="http://x-road.eu/xsd/xroad.xsd" part="client" use="literal">
@@ -135,37 +135,7 @@
         </soap:header>
         <soap:header message="tns:requestheader" namespace="http://x-road.eu/xsd/xroad.xsd" part="protocolVersion" use="literal">
         </soap:header>
-        <soap:body namespace="http://naidis.x-road.eu/producer" use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="AttachmentEcho">
-      <soap:operation soapAction=""/>
-        <xrd:version>v1</xrd:version>
-      <wsdl:input name="AttachmentEchoRequest">
-        <soap:header message="tns:requestheader" namespace="http://x-road.eu/xsd/xroad.xsd" part="client" use="literal">
-        </soap:header>
-        <soap:header message="tns:requestheader" namespace="http://x-road.eu/xsd/xroad.xsd" part="service" use="literal">
-        </soap:header>
-        <soap:header message="tns:requestheader" namespace="http://x-road.eu/xsd/xroad.xsd" part="userId" use="literal">
-        </soap:header>
-        <soap:header message="tns:requestheader" namespace="http://x-road.eu/xsd/xroad.xsd" part="id" use="literal">
-        </soap:header>
-        <soap:header message="tns:requestheader" namespace="http://x-road.eu/xsd/xroad.xsd" part="protocolVersion" use="literal">
-        </soap:header>
-        <soap:body namespace="http://naidis.x-road.eu/producer" use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="AttachmentEchoResponse">
-        <soap:header message="tns:requestheader" namespace="http://x-road.eu/xsd/xroad.xsd" part="client" use="literal">
-        </soap:header>
-        <soap:header message="tns:requestheader" namespace="http://x-road.eu/xsd/xroad.xsd" part="service" use="literal">
-        </soap:header>
-        <soap:header message="tns:requestheader" namespace="http://x-road.eu/xsd/xroad.xsd" part="userId" use="literal">
-        </soap:header>
-        <soap:header message="tns:requestheader" namespace="http://x-road.eu/xsd/xroad.xsd" part="id" use="literal">
-        </soap:header>
-        <soap:header message="tns:requestheader" namespace="http://x-road.eu/xsd/xroad.xsd" part="protocolVersion" use="literal">
-        </soap:header>
-        <soap:body namespace="http://naidis.x-road.eu/producer" use="literal"/>
+        <soap:body namespace="http://naidis.x-road.eu" use="literal"/>
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="Echo">
@@ -182,7 +152,7 @@
         </soap:header>
         <soap:header message="tns:requestheader" namespace="http://x-road.eu/xsd/xroad.xsd" part="protocolVersion" use="literal">
         </soap:header>
-        <soap:body namespace="http://naidis.x-road.eu/producer" use="literal"/>
+        <soap:body namespace="http://naidis.x-road.eu" use="literal"/>
       </wsdl:input>
       <wsdl:output name="EchoResponse">
         <soap:header message="tns:requestheader" namespace="http://x-road.eu/xsd/xroad.xsd" part="client" use="literal">
@@ -195,12 +165,42 @@
         </soap:header>
         <soap:header message="tns:requestheader" namespace="http://x-road.eu/xsd/xroad.xsd" part="protocolVersion" use="literal">
         </soap:header>
-        <soap:body namespace="http://naidis.x-road.eu/producer" use="literal"/>
+        <soap:body namespace="http://naidis.x-road.eu" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AttachmentEcho">
+      <soap:operation soapAction=""/>
+        <xrd:version>v1</xrd:version>
+      <wsdl:input name="AttachmentEchoRequest">
+        <soap:header message="tns:requestheader" namespace="http://x-road.eu/xsd/xroad.xsd" part="client" use="literal">
+        </soap:header>
+        <soap:header message="tns:requestheader" namespace="http://x-road.eu/xsd/xroad.xsd" part="service" use="literal">
+        </soap:header>
+        <soap:header message="tns:requestheader" namespace="http://x-road.eu/xsd/xroad.xsd" part="userId" use="literal">
+        </soap:header>
+        <soap:header message="tns:requestheader" namespace="http://x-road.eu/xsd/xroad.xsd" part="id" use="literal">
+        </soap:header>
+        <soap:header message="tns:requestheader" namespace="http://x-road.eu/xsd/xroad.xsd" part="protocolVersion" use="literal">
+        </soap:header>
+        <soap:body namespace="http://naidis.x-road.eu" use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="AttachmentEchoResponse">
+        <soap:header message="tns:requestheader" namespace="http://x-road.eu/xsd/xroad.xsd" part="client" use="literal">
+        </soap:header>
+        <soap:header message="tns:requestheader" namespace="http://x-road.eu/xsd/xroad.xsd" part="service" use="literal">
+        </soap:header>
+        <soap:header message="tns:requestheader" namespace="http://x-road.eu/xsd/xroad.xsd" part="userId" use="literal">
+        </soap:header>
+        <soap:header message="tns:requestheader" namespace="http://x-road.eu/xsd/xroad.xsd" part="id" use="literal">
+        </soap:header>
+        <soap:header message="tns:requestheader" namespace="http://x-road.eu/xsd/xroad.xsd" part="protocolVersion" use="literal">
+        </soap:header>
+        <soap:body namespace="http://naidis.x-road.eu" use="literal"/>
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
-  <wsdl:service name="myportService">
-    <wsdl:port binding="tns:myportSoap11" name="myportSoap11">
+  <wsdl:service name="naidisPortService">
+    <wsdl:port binding="tns:naidisPortSoap11" name="naidisPortSoap11">
       <soap:address location="http://SECURITY_SERVER/cgi-bin/consumer_proxy"/>
     <xrd:address producer="naidis"/>
     </wsdl:port>

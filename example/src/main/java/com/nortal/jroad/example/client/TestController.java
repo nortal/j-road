@@ -42,7 +42,8 @@ public class TestController {
   private String getEchoResult() {
     try {
       String text = "Some echo text!";
-      return naidisXRoadService.sendEcho(text).getText().equals(text) ? TEST_OK : TEST_FAILED;
+      return naidisXRoadService.sendEcho(text).equals(text)
+          && naidisXRoadService.sendEchoMime(text).equals(text) ? TEST_OK : TEST_FAILED;
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -52,7 +53,7 @@ public class TestController {
   private String getAxisEchoResult() {
     try {
       String text = "Some axis echo text!";
-      return naidisXRoadService.sendAxisEcho(text).getText().equals(text) ? TEST_OK : TEST_FAILED;
+      return naidisXRoadService.sendAxisEcho(text).equals(text) ? TEST_OK : TEST_FAILED;
     } catch (Exception e) {
       e.printStackTrace();
     }

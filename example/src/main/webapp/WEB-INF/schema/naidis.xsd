@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schema xmlns="http://www.w3.org/2001/XMLSchema"
-	targetNamespace="http://producers.naidis.xtee.riik.ee/producer/naidis"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://producers.naidis.xtee.riik.ee/producer/naidis"
+	targetNamespace="http://naidis.x-road.eu"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://naidis.x-road.eu"
 	elementFormDefault="unqualified" xmlns:ref="http://ws-i.org/profiles/basic/1.1/xsd">
 
 	<import namespace="http://ws-i.org/profiles/basic/1.1/xsd" schemaLocation="http://ws-i.org/profiles/basic/1.1/swaref.xsd" />

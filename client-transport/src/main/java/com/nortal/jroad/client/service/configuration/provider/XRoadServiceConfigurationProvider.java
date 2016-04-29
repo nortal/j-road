@@ -10,4 +10,6 @@ import com.nortal.jroad.client.service.configuration.XRoadServiceConfiguration;
  */
 public interface XRoadServiceConfigurationProvider {
   XRoadServiceConfiguration createConfiguration(String database, String wsdldatabase, String method, String version);
+
+  String getDatabaseProperty(String database, String propertyName);
 }
