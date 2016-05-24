@@ -158,17 +158,9 @@
     </dependency>
   </dependencies>
 
-  <distributionManagement>
-    <repository>
-      <uniqueVersion>false</uniqueVersion>
-      <id>wm-local</id>
-      <url>ftp://maven2.webmedia.int</url>
-    </repository>
-  </distributionManagement>
-
   <scm>
-  	<connection>scm:svn:http://j-road.googlecode.com/svn/trunk/</connection>
-  	<developerConnection>scm:svn:https://j-road.googlecode.com/svn/trunk/</developerConnection>
-  	<url>http://j-road.googlecode.com/svn/trunk/</url>
+  	<connection>scm:git:https://github.com/nortal/j-road</connection>
+  	<developerConnection>scm:git:https://github.com/nortal/j-road</developerConnection>
+  	<url>scm:git:https://github.com/nortal/j-road</url>
   </scm>
 </project>
