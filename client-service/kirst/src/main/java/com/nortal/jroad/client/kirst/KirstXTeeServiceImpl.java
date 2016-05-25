@@ -1,11 +1,11 @@
 package com.nortal.jroad.client.kirst;
 
 import com.nortal.jroad.client.exception.NonTechnicalFaultException;
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.kirst.types.ee.x_road.kirst.producer.*;
-import com.nortal.jroad.client.service.v2.XTeeDatabaseService;
-import com.nortal.jroad.model.XTeeMessage;
-import com.nortal.jroad.model.XmlBeansXTeeMessage;
+import com.nortal.jroad.client.service.XRoadDatabaseService;
+import com.nortal.jroad.model.XRoadMessage;
+import com.nortal.jroad.model.XmlBeansXRoadMessage;
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlObject;
 import org.springframework.stereotype.Service;
@@ -19,18 +19,18 @@ import java.util.Set;
  * @author Roman Tekhov
  */
 @Service("kirstXTeeService")
-public class KirstXTeeServiceImpl extends XTeeDatabaseService implements KirstXTeeService {
+public class KirstXTeeServiceImpl extends XRoadDatabaseService implements KirstXTeeService {
 
-  public TvlLoetelu2ResponseType findTvlLoetelu2V1(Set<String> isikukoodid, Date alates, Date kuni) throws XTeeServiceConsumptionException {
+  public TvlLoetelu2ResponseType findTvlLoetelu2V1(Set<String> isikukoodid, Date alates, Date kuni) throws XRoadServiceConsumptionException {
     if (CollectionUtils.isEmpty(isikukoodid)) {
       throw new IllegalArgumentException("At least one 'isikukood' must be provided");
     }
     TvlLoetelu2RequestType request = createTvlLoetelu2V1Request(isikukoodid, alates, kuni);
-    XTeeMessage<XmlObject> response = send(new XmlBeansXTeeMessage<TvlLoetelu2RequestType>(request), "tvl_loetelu2", "v1");
+    XRoadMessage<XmlObject> response = send(new XmlBeansXRoadMessage<TvlLoetelu2RequestType>(request), "tvl_loetelu2", "v1");
     try {
       return TvlLoetelu2ResponseType.Factory.parse(response.getContent().xmlText());
     } catch (XmlException e) {
-      throw new XTeeServiceConsumptionException(new NonTechnicalFaultException("", "Unable to parse response"), "kirst", "tvl_loetelu2", "v1");
+      throw new XRoadServiceConsumptionException(new NonTechnicalFaultException("", "Unable to parse response"), "kirst", "tvl_loetelu2", "v1");
     }
   }
 

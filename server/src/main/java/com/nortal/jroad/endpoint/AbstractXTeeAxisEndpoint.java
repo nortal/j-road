@@ -33,12 +33,16 @@ import com.nortal.jroad.util.SOAPUtil;
  * Axis marshalling implementation
  * 
  * @author Dmitri Danilkin
- * @param <P> Request class
+ * @param
+ *          <P>
+ *          Request class
  * @param <V> Response class
  */
+// TODO Lauri: see tuleks veel üle vaadata. Kas on üldse kusagil kastusel? Axis 1.4 on üsna vana vb saab ära kaotada?
 public abstract class AbstractXTeeAxisEndpoint<P, V> extends AbstractXTeeBaseEndpoint {
 
   private Class<P> paringKehaClass;
+
   @Resource(name = "axisContextHelper")
   private AxisContextHelper contextHelper;
 
@@ -48,13 +52,10 @@ public abstract class AbstractXTeeAxisEndpoint<P, V> extends AbstractXTeeBaseEnd
                                   XTeeMessage<Element> response,
                                   SOAPMessage requestMessage,
                                   SOAPMessage responseMessage) throws Exception {
-
-    // Axis can't parse the "keha" node and the header is not needed.
-    // So both are removed and the children of the "keha" node re-added to it's parent node.
     requestMessage.getSOAPHeader().detachNode();
     Node bodyNode;
     if (XRoadProtocolVersion.V2_0 == version) {
-     bodyNode = SOAPUtil.getNodeByXPath(requestMessage.getSOAPBody(), "//keha");
+      bodyNode = SOAPUtil.getNodeByXPath(requestMessage.getSOAPBody(), "//keha");
     } else {
       bodyNode = requestMessage.getSOAPBody();
     }
@@ -82,10 +83,9 @@ public abstract class AbstractXTeeAxisEndpoint<P, V> extends AbstractXTeeBaseEnd
       axisMessage.addAttachmentPart(i.next());
     }
 
-    XTeeMessage<P> axisRequestMessage =
-        new BeanXTeeMessage<P>(request.getHeader(),
-                               (P) axisMessage.getSOAPEnvelope().getFirstBody().getObjectValue(getParingKehaClass()),
-                               request.getAttachments());
+    XTeeMessage<P> axisRequestMessage = new BeanXTeeMessage<P>(request.getHeader(),
+                                                               (P) axisMessage.getSOAPEnvelope().getFirstBody().getObjectValue(getParingKehaClass()),
+                                                               request.getAttachments());
     XTeeMessage<V> axisResponseMessage =
         new BeanXTeeMessage<V>(response.getHeader(), null, new ArrayList<XTeeAttachment>());
 

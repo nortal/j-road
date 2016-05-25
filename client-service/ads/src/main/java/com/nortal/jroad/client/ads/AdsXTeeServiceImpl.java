@@ -1,11 +1,11 @@
 package com.nortal.jroad.client.ads;
 
-import com.nortal.jroad.client.service.v2.XTeeDatabaseService;
+import com.nortal.jroad.client.service.XRoadDatabaseService;
 
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import com.nortal.jroad.client.ads.AdsXTeeService;
-import com.nortal.jroad.client.ads.database.AdsXTeeDatabase;
+import com.nortal.jroad.client.ads.database.AdsXRoadDatabase;
 import com.nortal.jroad.client.ads.types.ee.maaamet.ADSaadrmuudatusedv2ParingType;
 import com.nortal.jroad.client.ads.types.ee.maaamet.ADSaadrmuudatusedv2VastusType;
 import com.nortal.jroad.client.ads.types.ee.maaamet.ADSkompklassifParingType;
@@ -41,15 +41,15 @@ import com.nortal.jroad.client.ads.types.ee.maaamet.ADSobjotsingv2ParingType.Obj
 import com.nortal.jroad.client.ads.types.ee.maaamet.ADSprobleemidParingType.ProbleemidParam;
 import com.nortal.jroad.client.ads.types.ee.maaamet.ADSteavitusedParingType.TeavitusedParam;
 import com.nortal.jroad.client.ads.types.ee.maaamet.ADStekstotsingParingType.AadrTekstParam;
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 
 @Service("adsXTeeService")
-public class AdsXTeeServiceImpl extends XTeeDatabaseService implements AdsXTeeService {
+public class AdsXTeeServiceImpl extends XRoadDatabaseService implements AdsXTeeService {
 
   @Resource
-  private AdsXTeeDatabase adsXTeeDatabase;
+  private AdsXRoadDatabase adsXRoadDatabase;
 
-  public ADSkompklassifVastusType kompklassifV1(KlassifParamCallback callback) throws XTeeServiceConsumptionException {
+  public ADSkompklassifVastusType kompklassifV1(KlassifParamCallback callback) throws XRoadServiceConsumptionException {
     if (callback == null)
       throw new IllegalArgumentException("Callback can not be null!");
 
@@ -59,10 +59,10 @@ public class AdsXTeeServiceImpl extends XTeeDatabaseService implements AdsXTeeSe
     callback.populate(kp);
     request.setKlassifParam(kp);
 
-    return adsXTeeDatabase.adSkompklassifV1(request);
+    return adsXRoadDatabase.adSkompklassifV1(request);
   }
 
-  public ADSmuudatusedVastusType muudatusedV1(MuudatusedParamCallback callback) throws XTeeServiceConsumptionException {
+  public ADSmuudatusedVastusType muudatusedV1(MuudatusedParamCallback callback) throws XRoadServiceConsumptionException {
     if (callback == null)
       throw new IllegalArgumentException("Callback can not be null!");
 
@@ -72,10 +72,10 @@ public class AdsXTeeServiceImpl extends XTeeDatabaseService implements AdsXTeeSe
     callback.populate(mp);
     request.setMuudatusedParam(mp);
 
-    return adsXTeeDatabase.adSmuudatusedV1(request);
+    return adsXRoadDatabase.adSmuudatusedV1(request);
   }
 
-  public ADSkompotsingVastusType kompotsingV1(AadrKompParamCallback callback) throws XTeeServiceConsumptionException {
+  public ADSkompotsingVastusType kompotsingV1(AadrKompParamCallback callback) throws XRoadServiceConsumptionException {
     if (callback == null)
       throw new IllegalArgumentException("Callback can not be null!");
 
@@ -85,11 +85,11 @@ public class AdsXTeeServiceImpl extends XTeeDatabaseService implements AdsXTeeSe
     callback.populate(mp);
     request.setAadrKompParam(mp);
 
-    return adsXTeeDatabase.adSkompotsingV1(request);
+    return adsXRoadDatabase.adSkompotsingV1(request);
   }
 
   @Override
-  public ADSobjotsingv2VastusType objotsingV2(ObjKompParamCallback callback) throws XTeeServiceConsumptionException {
+  public ADSobjotsingv2VastusType objotsingV2(ObjKompParamCallback callback) throws XRoadServiceConsumptionException {
     if (callback == null)
       throw new IllegalArgumentException("Callback can not be null!");
 
@@ -99,11 +99,11 @@ public class AdsXTeeServiceImpl extends XTeeDatabaseService implements AdsXTeeSe
     callback.populate(mp);
     request.setObjKompParam(mp);
 
-    return adsXTeeDatabase.adSobjotsingv2V1(request);
+    return adsXRoadDatabase.adSobjotsingv2V1(request);
   }
 
   @Override
-  public ADStekstotsingVastusType tekstotsingV1(AadrTekstParamCallback callback) throws XTeeServiceConsumptionException {
+  public ADStekstotsingVastusType tekstotsingV1(AadrTekstParamCallback callback) throws XRoadServiceConsumptionException {
     if (callback == null)
       throw new IllegalArgumentException("Callback can not be null!");
     ADStekstotsingParingType request = ADStekstotsingParingType.Factory.newInstance();
@@ -112,11 +112,11 @@ public class AdsXTeeServiceImpl extends XTeeDatabaseService implements AdsXTeeSe
     callback.populate(mp);
     request.setAadrTekstParam(mp);
 
-    return adsXTeeDatabase.adStekstotsingV1(request);
+    return adsXRoadDatabase.adStekstotsingV1(request);
   }
 
   @Override
-  public ADSkomponendidVastusType komponendidV1(KompParamCallback callback) throws XTeeServiceConsumptionException {
+  public ADSkomponendidVastusType komponendidV1(KompParamCallback callback) throws XRoadServiceConsumptionException {
     if (callback == null)
       throw new IllegalArgumentException("Callback can not be null!");
     ADSkomponendidParingType request = ADSkomponendidParingType.Factory.newInstance();
@@ -125,12 +125,12 @@ public class AdsXTeeServiceImpl extends XTeeDatabaseService implements AdsXTeeSe
     callback.populate(mp);
     request.setKompParam(mp);
 
-    return adsXTeeDatabase.adSkomponendidV1(request);
+    return adsXRoadDatabase.adSkomponendidV1(request);
   }
 
 
   @Override
-  public ADSnormalVastusType normalV1(NormalParamCallback callback) throws XTeeServiceConsumptionException {
+  public ADSnormalVastusType normalV1(NormalParamCallback callback) throws XRoadServiceConsumptionException {
     if (callback == null)
       throw new IllegalArgumentException("Callback can not be null!");
     ADSnormalParingType request = ADSnormalParingType.Factory.newInstance();
@@ -139,11 +139,11 @@ public class AdsXTeeServiceImpl extends XTeeDatabaseService implements AdsXTeeSe
     callback.populate(mp);
     request.setNormalParam(mp);
 
-    return adsXTeeDatabase.adSnormalV1(request);
+    return adsXRoadDatabase.adSnormalV1(request);
   }
 
   @Override
-  public ADSteavitusedVastusType teavitusedV1(TeavitusedParamCallback callback) throws XTeeServiceConsumptionException {
+  public ADSteavitusedVastusType teavitusedV1(TeavitusedParamCallback callback) throws XRoadServiceConsumptionException {
     if (callback == null)
       throw new IllegalArgumentException("Callback can not be null!");
     ADSteavitusedParingType request = ADSteavitusedParingType.Factory.newInstance();
@@ -152,12 +152,12 @@ public class AdsXTeeServiceImpl extends XTeeDatabaseService implements AdsXTeeSe
     callback.populate(mp);
     request.setTeavitusedParam(mp);
 
-    return adsXTeeDatabase.adSteavitusedV1(request);
+    return adsXRoadDatabase.adSteavitusedV1(request);
   }
 
   @Override
   public ADSaadrmuudatusedv2VastusType aadrmuudatusedV2(AadrMuudatusedParamCallback callback)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
     if (callback == null)
       throw new IllegalArgumentException("Callback can not be null!");
     ADSaadrmuudatusedv2ParingType request = ADSaadrmuudatusedv2ParingType.Factory.newInstance();
@@ -166,12 +166,12 @@ public class AdsXTeeServiceImpl extends XTeeDatabaseService implements AdsXTeeSe
     callback.populate(mp);
     request.setAadrMuudatusedParam(mp);
 
-    return adsXTeeDatabase.adSaadrmuudatusedv2V1(request);
+    return adsXRoadDatabase.adSaadrmuudatusedv2V1(request);
   }
 
   @Override
   public ADSobjaadrmuudatusedVastusType objaadrmuudatusedV1(ObjAadrMuudatusedParamCallback callback)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
     if (callback == null)
       throw new IllegalArgumentException("Callback can not be null!");
     ADSobjaadrmuudatusedParingType request = ADSobjaadrmuudatusedParingType.Factory.newInstance();
@@ -180,12 +180,12 @@ public class AdsXTeeServiceImpl extends XTeeDatabaseService implements AdsXTeeSe
     callback.populate(mp);
     request.setObjMuudatusedParam(mp);
 
-    return adsXTeeDatabase.adSobjaadrmuudatusedV1(request);
+    return adsXRoadDatabase.adSobjaadrmuudatusedV1(request);
   }
 
   @Override
   public ADSobjmuudatusedv2VastusType objmuudatusedV2(ObjMuudatusedParamCallback callback)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
     if (callback == null)
       throw new IllegalArgumentException("Callback can not be null!");
     ADSobjmuudatusedv2ParingType request = ADSobjmuudatusedv2ParingType.Factory.newInstance();
@@ -195,10 +195,10 @@ public class AdsXTeeServiceImpl extends XTeeDatabaseService implements AdsXTeeSe
     callback.populate(mp);
     request.setObjMuudatusedParam(mp);
 
-    return adsXTeeDatabase.adSobjmuudatusedv2V1(request);
+    return adsXRoadDatabase.adSobjmuudatusedv2V1(request);
   }
 
-  public ADSprobleemidVastusType probleemidV1(ProbleemidParamCallback callback) throws XTeeServiceConsumptionException {
+  public ADSprobleemidVastusType probleemidV1(ProbleemidParamCallback callback) throws XRoadServiceConsumptionException {
     if (callback == null)
       throw new IllegalArgumentException("Callback can not be null!");
     ADSprobleemidParingType request = ADSprobleemidParingType.Factory.newInstance();
@@ -207,10 +207,10 @@ public class AdsXTeeServiceImpl extends XTeeDatabaseService implements AdsXTeeSe
     callback.populate(mp);
     request.setProbleemidParam(mp);
 
-    return adsXTeeDatabase.adSprobleemidV1(request);
+    return adsXRoadDatabase.adSprobleemidV1(request);
   }
 
-  public void setAdsXTeeDatabase(AdsXTeeDatabase adsXTeeDatabase) {
-    this.adsXTeeDatabase = adsXTeeDatabase;
+  public void setAdsXRoadDatabase(AdsXRoadDatabase adsXRoadDatabase) {
+    this.adsXRoadDatabase = adsXRoadDatabase;
   }
 }

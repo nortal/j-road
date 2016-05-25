@@ -3,58 +3,58 @@ package com.nortal.jroad.client.ehis;
 import com.nortal.jroad.client.ehis.types.ee.riik.xtee.ehis.producers.producer.ehis.*;
 import org.springframework.stereotype.Service;
 
-import com.nortal.jroad.client.ehis.database.EhisXTeeDatabase;
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.ehis.database.EhisXRoadDatabase;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 
 import javax.annotation.Resource;
 import java.math.BigInteger;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import com.nortal.jroad.client.service.v2.XTeeDatabaseService;
+import com.nortal.jroad.client.service.XRoadDatabaseService;
 
 /**
  * @author Margus Hanni
  */
 @Service("ehisXTeeService")
-public class EhisXTeeServiceImpl extends XTeeDatabaseService implements EhisXTeeService {
+public class EhisXTeeServiceImpl extends XRoadDatabaseService implements EhisXTeeService {
 
   @Resource
-  private EhisXTeeDatabase ehisXTeeDatabase;
+  private EhisXRoadDatabase ehisXRoadDatabase;
 
   public List<TootukassaleKehtivadIsik> findTootukassaleKehtivad(Date algkuup, Date loppkuup, String... isikukoodid)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
     TootukassaleKehtivadParing paring = TootukassaleKehtivadParing.Factory.newInstance();
     TootukassaleKehtivadIsikukoodid isikud = paring.addNewIsikukoodid();
     isikud.setIsikukoodArray(isikukoodid);
     paring.setAlgusKp(toCalendar(algkuup));
     paring.setLoppKp(toCalendar(loppkuup));
 
-    return ehisXTeeDatabase.tootukassaleKehtivadV1(paring).getIsikud().getIsikList();
+    return ehisXRoadDatabase.tootukassaleKehtivadV1(paring).getIsikud().getIsikList();
   }
 
   public List<TootukassaleKehtivadV2Isik> findTootukassaleKehtivadV2(Date algusKp, Date loppKp, String... isikukoodid)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
     TootukassaleKehtivadV2Paring request = TootukassaleKehtivadV2Paring.Factory.newInstance();
     TootukassaleKehtivadV2Isikukoodid isikud = request.addNewIsikukoodid();
     isikud.setIsikukoodArray(isikukoodid);
     request.setAlgusKp(toCalendar(algusKp));
     request.setLoppKp(toCalendar(loppKp));
 
-    return ehisXTeeDatabase.tootukassaleKehtivadV2V1(request).getIsikud().getIsikList();
+    return ehisXRoadDatabase.tootukassaleKehtivadV2V1(request).getIsikud().getIsikList();
   }
 
-  public PolOppurVastus findPolOppur(String isikukood, Calendar algKp, Calendar loppKp) throws XTeeServiceConsumptionException {
+  public PolOppurVastus findPolOppur(String isikukood, Calendar algKp, Calendar loppKp) throws XRoadServiceConsumptionException {
     PolOppurParing paring = PolOppurParing.Factory.newInstance();
     paring.setIsikukood(isikukood);
     paring.setAlgKpv(algKp);
     paring.setLoppKpv(loppKp);
 
-    return ehisXTeeDatabase.polOppurV1(paring);
+    return ehisXRoadDatabase.polOppurV1(paring);
   }
 
   public TootukassaleOppimisedTellimusVastus submitTootukassaleOppimisedTellimusV1(Date algusKp, Date loppKp, BigInteger tkId, String... isikukoodid)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
     TootukassaleOppimisedTellimusParing request = TootukassaleOppimisedTellimusParing.Factory.newInstance();
     TootukassaleIsikukoodidTellimus isikud = request.addNewIsikukoodid();
     isikud.setIsikukoodArray(isikukoodid);
@@ -62,13 +62,13 @@ public class EhisXTeeServiceImpl extends XTeeDatabaseService implements EhisXTee
     request.setLoppKp(toCalendar(loppKp));
     request.setTkId(tkId);
 
-    return ehisXTeeDatabase.tootukassaleOppimisedTellimusV1(request);
+    return ehisXRoadDatabase.tootukassaleOppimisedTellimusV1(request);
   }
 
-  public TootukassaleOppimisedVastusVastus getTootukassaleOppimisedVastusV1(BigInteger tkId) throws XTeeServiceConsumptionException {
+  public TootukassaleOppimisedVastusVastus getTootukassaleOppimisedVastusV1(BigInteger tkId) throws XRoadServiceConsumptionException {
     TootukassaleOppimisedVastusParing request = TootukassaleOppimisedVastusParing.Factory.newInstance();
     request.setTkId(tkId);
-    return ehisXTeeDatabase.tootukassaleOppimisedVastusV1(request);
+    return ehisXRoadDatabase.tootukassaleOppimisedVastusV1(request);
   }
 
   private Calendar toCalendar(Date date) {
@@ -80,7 +80,7 @@ public class EhisXTeeServiceImpl extends XTeeDatabaseService implements EhisXTee
     return calendar;
   }
 
-  public void setEhisXTeeDatabase(EhisXTeeDatabase ehisXTeeDatabase) {
-    this.ehisXTeeDatabase = ehisXTeeDatabase;
+  public void setEhisXRoadDatabase(EhisXRoadDatabase ehisXRoadDatabase) {
+    this.ehisXRoadDatabase = ehisXRoadDatabase;
   }
 }

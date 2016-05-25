@@ -8,8 +8,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.liiklusregister.database.LiiklusregisterXTeeDatabase;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
+import com.nortal.jroad.client.liiklusregister.database.LiiklusregisterXRoadDatabase;
 import com.nortal.jroad.client.liiklusregister.types.ee.riik.xtee.liiklusregister.producers.producer.liiklusregister.MuuDokParing;
 import com.nortal.jroad.client.liiklusregister.types.ee.riik.xtee.liiklusregister.producers.producer.liiklusregister.MuuDokVastus;
 import com.nortal.jroad.client.liiklusregister.types.ee.riik.xtee.liiklusregister.producers.producer.liiklusregister.PolIsikudParing;
@@ -33,25 +33,25 @@ import com.nortal.jroad.client.liiklusregister.types.ee.riik.xtee.liiklusregiste
 public class LiiklusregisterXTeeServiceImpl implements LiiklusregisterXTeeService {
 
   @Resource
-  private LiiklusregisterXTeeDatabase liiklusregisterXTeeDatabase;
+  private LiiklusregisterXRoadDatabase liiklusregisterXRoadDatabase;
 
 
-  public PolJuhtoigusVastus polJuhtoigus(String isikukood) throws XTeeServiceConsumptionException {
+  public PolJuhtoigusVastus polJuhtoigus(String isikukood) throws XRoadServiceConsumptionException {
     PolJuhtoigusParing paring = PolJuhtoigusParing.Factory.newInstance();
     paring.setIsikukood(isikukood);
-    return liiklusregisterXTeeDatabase.polJuhtoigusV1(paring);
+    return liiklusregisterXRoadDatabase.polJuhtoigusV1(paring);
   }
 
-  public PolSoidukVastus findPolSoiduk(PolSoidukParingCallback callback) throws XTeeServiceConsumptionException {
+  public PolSoidukVastus findPolSoiduk(PolSoidukParingCallback callback) throws XRoadServiceConsumptionException {
 
     PolSoidukParing request = PolSoidukParing.Factory.newInstance();
     callback.populate(request);
 
-    return liiklusregisterXTeeDatabase.polSoidukV1(request);
+    return liiklusregisterXRoadDatabase.polSoidukV1(request);
   }
 
   public PolJuhtoigusVastus findPolJuhtoigus(String isikukood, Long identifikaator)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
     PolJuhtoigusParing paring = PolJuhtoigusParing.Factory.newInstance();
 
     if (isikukood != null)
@@ -59,10 +59,10 @@ public class LiiklusregisterXTeeServiceImpl implements LiiklusregisterXTeeServic
     if (identifikaator != null)
       paring.setId(BigInteger.valueOf(identifikaator));
 
-    return liiklusregisterXTeeDatabase.polJuhtoigusV1(paring);
+    return liiklusregisterXRoadDatabase.polJuhtoigusV1(paring);
   }
 
-  public PolYlevVastus findPolYlev(Long identifikaator, String vin) throws XTeeServiceConsumptionException {
+  public PolYlevVastus findPolYlev(Long identifikaator, String vin) throws XRoadServiceConsumptionException {
     PolYlevParing paring = PolYlevParing.Factory.newInstance();
 
     if (identifikaator != null)
@@ -70,11 +70,11 @@ public class LiiklusregisterXTeeServiceImpl implements LiiklusregisterXTeeServic
     if (vin != null)
       paring.setVinkood(vin);
 
-    return liiklusregisterXTeeDatabase.polYlevV1(paring);
+    return liiklusregisterXRoadDatabase.polYlevV1(paring);
   }
 
   public PolIsikudVastus findPolIsiku(String isikukood, String eesnimi, String perenimi, Date synniaeg)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
     PolIsikudParing paring = PolIsikudParing.Factory.newInstance();
 
     if (isikukood != null)
@@ -89,10 +89,10 @@ public class LiiklusregisterXTeeServiceImpl implements LiiklusregisterXTeeServic
       paring.setSynniaeg(cal);
     }
 
-    return liiklusregisterXTeeDatabase.polIsikudV1(paring);
+    return liiklusregisterXRoadDatabase.polIsikudV1(paring);
   }
 
-  public VlaevResponse findVLaevAndmed(String regNr, String hinKood, String omaKood, String omaNimi, String omaEesnimi) throws XTeeServiceConsumptionException {
+  public VlaevResponse findVLaevAndmed(String regNr, String hinKood, String omaKood, String omaNimi, String omaEesnimi) throws XRoadServiceConsumptionException {
 	  VlaevRequest paring = VlaevRequest.Factory.newInstance();
 	  if (regNr != null)
 		  paring.setLaevaRegnr(regNr);
@@ -108,10 +108,10 @@ public class LiiklusregisterXTeeServiceImpl implements LiiklusregisterXTeeServic
 			  oma.setOmaEesnimi(omaEesnimi);
 	  }
 
-	  return liiklusregisterXTeeDatabase.vlaevV1(paring);
+	  return liiklusregisterXRoadDatabase.vlaevV1(paring);
   }
 
-  public VlaevTunnVastus findVlaevTunnistused(String tunnistusNr, String isikukood, String eesnimi, String perenimi) throws XTeeServiceConsumptionException {
+  public VlaevTunnVastus findVlaevTunnistused(String tunnistusNr, String isikukood, String eesnimi, String perenimi) throws XRoadServiceConsumptionException {
 	  VlaevTunnParing paring = VlaevTunnParing.Factory.newInstance();
 	  if (tunnistusNr != null) {
 		  try {
@@ -128,21 +128,21 @@ public class LiiklusregisterXTeeServiceImpl implements LiiklusregisterXTeeServic
 	  if (perenimi != null)
 		  paring.setPerenimi(perenimi);
 
-	  return liiklusregisterXTeeDatabase.vlaevTunnV1(paring);
+	  return liiklusregisterXRoadDatabase.vlaevTunnV1(paring);
   }
 
-  public MuuDokVastus findMuuDok(String eesnimi, String perenimi, String kood, String loaNr) throws XTeeServiceConsumptionException {
+  public MuuDokVastus findMuuDok(String eesnimi, String perenimi, String kood, String loaNr) throws XRoadServiceConsumptionException {
     MuuDokParing paring = MuuDokParing.Factory.newInstance();
     paring.setEesnimi(eesnimi);
     paring.setNimi(perenimi);
     paring.setKood(kood);
     paring.setLoaNr(loaNr);
 
-    return liiklusregisterXTeeDatabase.muuDokV1(paring);
+    return liiklusregisterXRoadDatabase.muuDokV1(paring);
   }
 
 
-  public void setLiiklusregisterXTeeDatabase(LiiklusregisterXTeeDatabase liiklusregisterXTeeService) {
-    this.liiklusregisterXTeeDatabase = liiklusregisterXTeeService;
+  public void setLiiklusregisterXRoadDatabase(LiiklusregisterXRoadDatabase liiklusregisterXTeeService) {
+    this.liiklusregisterXRoadDatabase = liiklusregisterXTeeService;
   }
 }

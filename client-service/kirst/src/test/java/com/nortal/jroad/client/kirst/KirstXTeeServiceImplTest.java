@@ -9,12 +9,12 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
+import com.nortal.jroad.client.test.BaseXRoadServiceImplTest;
 
 /**
  * @author Roman Tekhov
  */
-public class KirstXTeeServiceImplTest extends BaseXTeeServiceImplTest {
+public class KirstXTeeServiceImplTest extends BaseXRoadServiceImplTest {
 
   @Resource
   private KirstXTeeServiceImpl kirstXTeeServiceImpl;

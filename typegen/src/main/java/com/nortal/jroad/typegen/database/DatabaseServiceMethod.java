@@ -1,6 +1,6 @@
 package com.nortal.jroad.typegen.database;
 
-import com.nortal.jroad.model.XmlBeansXTeeMetadata;
+import com.nortal.jroad.model.XmlBeansXRoadMetadata;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -31,7 +31,7 @@ public class DatabaseServiceMethod {
   private String baseDirectory;
 
 
-  public DatabaseServiceMethod(XmlBeansXTeeMetadata metadata, String baseDirectory)
+  public DatabaseServiceMethod(XmlBeansXRoadMetadata metadata, String baseDirectory)
         throws IOException, NoDescriptionFoundException {
 
     this.baseDirectory = baseDirectory;
@@ -54,7 +54,7 @@ public class DatabaseServiceMethod {
   }
 
 
-  private void createVersions(XmlBeansXTeeMetadata metadata) {
+  private void createVersions(XmlBeansXRoadMetadata metadata) {
     // According to specification only the last version of a service needs to be defined
     // in WSDL but the database adapter must also support all previous versions.
 

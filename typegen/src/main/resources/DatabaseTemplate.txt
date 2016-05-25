@@ -1,6 +1,6 @@
 package ${databaseClass.packageName};
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 
 /**
  * <code>${databaseClass.database}</code> X-road database.
@@ -12,7 +12,7 @@ public interface ${databaseClass.interfaceName} {
   /**
    * <code>${databaseClass.database}.${method.name}.v${version.version}</code> X-road service.
    */
-  ${method.outputClass} ${version.name}(${method.inputClass} input) throws XTeeServiceConsumptionException;
+  ${method.outputClass} ${version.name}(${method.inputClass} input) throws XRoadServiceConsumptionException;
 </#list>
 </#list>
 

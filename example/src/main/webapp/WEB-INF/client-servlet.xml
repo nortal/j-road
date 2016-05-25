@@ -1,50 +1,32 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd	   
-	   					   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 
+	<!-- Spring MVC configuration for demo app, not needed for X-road -->
 	<context:annotation-config />
 
-	<!-- Spring MVC configuration for demo app, not needed for X-tee -->
-	<bean id="attachmentEchoTestController"
-		class="com.nortal.jroad.example.client.AttachmentEchoTestController">
-		<property name="formView" value="test" />
-	</bean>
-
-	<bean id="viewResolver"
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="viewClass"
-			value="org.springframework.web.servlet.view.JstlView" />
+	<bean id="testController" class="com.nortal.jroad.example.client.TestController" />
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
 		<property name="prefix" value="/WEB-INF/views/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
 
-	<bean id="urlMapping"
-		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-		<property name="mappings">
-			<value>**=attachmentEchoTestController</value>
-		</property>
-	</bean>
-
-	<!-- X-tee configuration -->
-
+	<!-- X-road client configuration -->
+	<!-- Spring webservice template which is needed by X-road services consumer -->
 	<bean id="webServiceTemplate" class="org.springframework.ws.client.core.WebServiceTemplate" />
 
-	<bean id="xTeeConsumer" class="com.nortal.jroad.client.service.consumer.StandardXTeeConsumer">
+	<!-- Generated X-road database services implementation with minimal implementation -->
+	<bean id="naidisXRoadDatabase" class="com.nortal.jroad.example.client.database.NaidisXRoadDatabaseImpl" />
+	<!-- X-road services implementation - usually services wrap generated database implementation -->
+	<bean id="naidisXRoadService" class="com.nortal.jroad.example.client.NaidisXRoadServiceImpl" />
+	<!-- X-road services consumer which prepares and processes service consumption -->
+	<bean id="xRoadConsumer" class="com.nortal.jroad.client.service.consumer.StandardXRoadConsumer">
 		<property name="webServiceTemplate" ref="webServiceTemplate" />
 	</bean>
-
-	<bean id="xTeeServiceConfigurationProvider"
-		class="com.nortal.jroad.client.service.configuration.provider.PropertiesBasedXTeeServiceConfigurationProvider">
-		<property name="resource" value="/WEB-INF/xtee.properties" />
+	<!-- X-road services configuration -->
+	<bean id="xRoadServiceConfigurationProvider" class="com.nortal.jroad.client.service.configuration.provider.PropertiesBasedXRoadServiceConfigurationProvider">
+		<property name="resource" value="/WEB-INF/xroad.properties" />
 	</bean>
-
-	<bean id="naidisXTeeService"
-		class="com.nortal.jroad.example.client.NaidisXTeeServiceImpl">
-		<property name="database" value="naidis" />
-		<property name="xTeeServiceConfigurationProvider" ref="xTeeServiceConfigurationProvider" />
-		<property name="xTeeConsumer" ref="xTeeConsumer" />
-	</bean>
-
-
 </beans>

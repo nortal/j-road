@@ -10,12 +10,14 @@ import java.lang.annotation.Target;
 
 /**
  * @author margush
- *
  */
+// Should switch to X-road implementation
+@Deprecated
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface XteeElement {
 
-	String title();
-	long sequence();
+  String title();
+
+  long sequence();
 }

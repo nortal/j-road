@@ -8,7 +8,7 @@ import com.nortal.jroad.client.ehr.types.ee.riik.xtee.ehr.producers.producer.ehr
 import com.nortal.jroad.client.ehr.types.ee.riik.xtee.ehr.producers.producer.ehr.ENOtsiAadressiAdrTxtQuery;
 import com.nortal.jroad.client.ehr.types.ee.riik.xtee.ehr.producers.producer.ehr.ENEhitiseOtsingResponse.ENEhitiseOtsing.Ehitised;
 import com.nortal.jroad.client.ehr.types.ee.riik.xtee.ehr.producers.producer.ehr.ENOtsiAadressiAdrTxtResponse.ENOtsiAadressiAdrTxt.Aadress;
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 
 /**
  * <code>ehr</code> (Ehitisregister) database X-tee service.
@@ -32,18 +32,18 @@ public interface EhrXTeeService {
    * @param olek ‚A’ – Ajalooline aadress ja ‚K’ – Kehtiv/Ootel/Normaliseerimata Kui olekut ei märgita, siis väljundisse
    *          tulevad nii „A“ kui ka „K“ aadressid
    * @return list of {@link Aadress} objects
-   * @throws XTeeServiceConsumptionException
+   * @throws XRoadServiceConsumptionException
    */
-  List<Aadress> findENOtsiAadressiAdrTxt(ENOtsiAadressiAdrTxtQuery request) throws XTeeServiceConsumptionException;
+  List<Aadress> findENOtsiAadressiAdrTxt(ENOtsiAadressiAdrTxtQuery request) throws XRoadServiceConsumptionException;
 
   /**
    * Find list of {@link Ehitised} objects by specified address id
    * 
    * @param aadressId Aadressi ID
    * @return list of {@link Ehitised} objects
-   * @throws XTeeServiceConsumptionException
+   * @throws XRoadServiceConsumptionException
    */
-  List<Ehitised> findENEhitiseOtsing(BigInteger aadressId) throws XTeeServiceConsumptionException;
+  List<Ehitised> findENEhitiseOtsing(BigInteger aadressId) throws XRoadServiceConsumptionException;
 
   /**
    * Find list of {@link Ehitised} objects
@@ -54,17 +54,17 @@ public interface EhrXTeeService {
    * @param isikId Isiku ID
    * @param kaykId Katastriüksuse ID
    * @return list of {@link Ehitised} objects
-   * @throws XTeeServiceConsumptionException
+   * @throws XRoadServiceConsumptionException
    */
-  List<Ehitised> findENEhitiseOtsing(ENEhitiseOtsingQuery request) throws XTeeServiceConsumptionException;
+  List<Ehitised> findENEhitiseOtsing(ENEhitiseOtsingQuery request) throws XRoadServiceConsumptionException;
 
   /**
    * Find building data by specified id
    * 
    * @param ehitId Ehitise ID
    * @return {@link ENEhitiseAndmedResponse} object with specified id
-   * @throws XTeeServiceConsumptionException
+   * @throws XRoadServiceConsumptionException
    */
-  ENEhitiseAndmedResponse findENEhitiseAndmed(BigInteger ehitId) throws XTeeServiceConsumptionException;
+  ENEhitiseAndmedResponse findENEhitiseAndmed(BigInteger ehitId) throws XRoadServiceConsumptionException;
 
 }

@@ -1,9 +1,9 @@
 package com.nortal.jroad.client.star;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.star.types.ee.riik.xtee.star.producers.producer.star.AsynchronousParingTulemResponse;
 import com.nortal.jroad.client.star.types.ee.riik.xtee.star.producers.producer.star.HooldajaHooldusedMassParingResponse;
-import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
+import com.nortal.jroad.client.test.BaseXRoadServiceImplTest;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -13,7 +13,7 @@ import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
-public class StarXTeeServiceImplTest extends BaseXTeeServiceImplTest {
+public class StarXTeeServiceImplTest extends BaseXRoadServiceImplTest {
 
   @Resource
   private StarXTeeServiceImpl starXTeeServiceImpl;
@@ -26,7 +26,7 @@ public class StarXTeeServiceImplTest extends BaseXTeeServiceImplTest {
     Assert.assertNotNull(response.getPilet());
   }
 
-  @Test(expected = XTeeServiceConsumptionException.class)
+  @Test(expected = XRoadServiceConsumptionException.class)
   public void findHooldajaHooldusedMassParingV1_invalidInput() throws Exception {
     String[] isikukoodid = {};
     getHooldajaHooldusedMassParingResponse(isikukoodid);
@@ -34,7 +34,7 @@ public class StarXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
 
   private HooldajaHooldusedMassParingResponse getHooldajaHooldusedMassParingResponse(String... idCodes)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
     Set<String> isikukoodid = new HashSet<String>(Arrays.asList(idCodes));
     Calendar algus = Calendar.getInstance();
     algus.set(2015, Calendar.JANUARY, 1);

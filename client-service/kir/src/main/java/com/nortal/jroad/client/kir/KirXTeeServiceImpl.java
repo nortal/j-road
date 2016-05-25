@@ -1,6 +1,6 @@
 package com.nortal.jroad.client.kir;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.kir.types.ee.x_road.kir.producer.AnnaArvelolekuAndmedDocument.AnnaArvelolekuAndmed;
 import com.nortal.jroad.client.kir.types.ee.x_road.kir.producer.AnnaArvelolekuAndmedRequest;
 import com.nortal.jroad.client.kir.types.ee.x_road.kir.producer.AnnaArvelolekuAndmedResponseDocument.AnnaArvelolekuAndmedResponse;
@@ -9,10 +9,10 @@ import com.nortal.jroad.client.kir.types.ee.x_road.kir.producer.LeiaMuudetudAndm
 import com.nortal.jroad.client.kir.types.ee.x_road.kir.producer.LeiaMuudetudAndmetegaKinnipeetavadRequest;
 import com.nortal.jroad.client.kir.types.ee.x_road.kir.producer.LeiaMuudetudAndmetegaKinnipeetavadResponseDocument.LeiaMuudetudAndmetegaKinnipeetavadResponse;
 import com.nortal.jroad.client.service.callback.CustomCallback;
-import com.nortal.jroad.client.service.v3.XRoadDatabaseService;
+import com.nortal.jroad.client.service.XRoadDatabaseService;
 import com.nortal.jroad.enums.XRoadProtocolVersion;
-import com.nortal.jroad.model.XTeeMessage;
-import com.nortal.jroad.model.XmlBeansXTeeMessage;
+import com.nortal.jroad.model.XRoadMessage;
+import com.nortal.jroad.model.XmlBeansXRoadMessage;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.ws.WebServiceMessage;
@@ -39,7 +39,7 @@ import java.util.Set;
 @Service("kirXTeeService")
 public class KirXTeeServiceImpl extends XRoadDatabaseService implements KirXTeeService {
 
-    public AnnaArvelolekuAndmedResponse annaArvelolekuAndmedV1(Date start, Date end, Set<IsikuStaatus.Enum> requestTypes, Set<String> idCodes) throws XTeeServiceConsumptionException {
+    public AnnaArvelolekuAndmedResponse annaArvelolekuAndmedV1(Date start, Date end, Set<IsikuStaatus.Enum> requestTypes, Set<String> idCodes) throws XRoadServiceConsumptionException {
         AnnaArvelolekuAndmed requestWrapper = AnnaArvelolekuAndmed.Factory.newInstance();
         AnnaArvelolekuAndmedRequest request = requestWrapper.addNewRequest();
         request.setPerioodiAlgusKP(toCalendar(start));
@@ -47,23 +47,23 @@ public class KirXTeeServiceImpl extends XRoadDatabaseService implements KirXTeeS
         request.setParinguLiikArray(requestTypes.toArray(new IsikuStaatus.Enum[requestTypes.size()]));
         request.setIsikukoodArray(idCodes.toArray(new String[idCodes.size()]));
 
-        XmlBeansXTeeMessage<AnnaArvelolekuAndmed> xRoadMsg =
-                new XmlBeansXTeeMessage<AnnaArvelolekuAndmed>(requestWrapper);
-        XTeeMessage<AnnaArvelolekuAndmedResponse> response =
+        XmlBeansXRoadMessage<AnnaArvelolekuAndmed> xRoadMsg =
+                new XmlBeansXRoadMessage<AnnaArvelolekuAndmed>(requestWrapper);
+        XRoadMessage<AnnaArvelolekuAndmedResponse> response =
                 send(xRoadMsg, "AnnaArvelolekuAndmed", "v1", new KirCallback(start, end), null);
         return response.getContent();
     }
 
-    public LeiaMuudetudAndmetegaKinnipeetavadResponse leiaMuudetudAndmetegaKinnipeetavadV1(Date start, Date end) throws XTeeServiceConsumptionException {
+    public LeiaMuudetudAndmetegaKinnipeetavadResponse leiaMuudetudAndmetegaKinnipeetavadV1(Date start, Date end) throws XRoadServiceConsumptionException {
         LeiaMuudetudAndmetegaKinnipeetavad requestWrapper = LeiaMuudetudAndmetegaKinnipeetavad.Factory.newInstance();
         LeiaMuudetudAndmetegaKinnipeetavadRequest request = requestWrapper.addNewRequest();
 
         request.setPerioodiAlgusKP(toCalendar(start));
         request.setPerioodiLoppKP(toCalendar(end));
 
-        XmlBeansXTeeMessage<LeiaMuudetudAndmetegaKinnipeetavadRequest> xRoadMsg =
-                new XmlBeansXTeeMessage<LeiaMuudetudAndmetegaKinnipeetavadRequest>(request);
-        XTeeMessage<LeiaMuudetudAndmetegaKinnipeetavadResponse> response =
+        XmlBeansXRoadMessage<LeiaMuudetudAndmetegaKinnipeetavadRequest> xRoadMsg =
+                new XmlBeansXRoadMessage<LeiaMuudetudAndmetegaKinnipeetavadRequest>(request);
+        XRoadMessage<LeiaMuudetudAndmetegaKinnipeetavadResponse> response =
                 send(xRoadMsg, "LeiaMuudetudAndmetegaKinnipeetavad", "v1", new KirCallback(), null);
 
         return response.getContent();

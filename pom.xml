@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.nortal.jroad</groupId>
   <artifactId>xtee-root</artifactId>
   <packaging>pom</packaging>
   <name>x-tee root</name>
-  <version>4.1-SNAPSHOT</version>
+  <version>4.2.0</version>
 
   <parent>
     <groupId>org.sonatype.oss</groupId>
@@ -46,9 +45,10 @@
   <modules>
     <module>common</module>
     <module>client-transport</module>
-    <module>client-service</module>
     <module>server</module>
     <module>typegen</module>
+    <module>example</module>
+    <module>client-service</module>
   </modules>
   <build>
 	<plugins>
@@ -116,7 +116,7 @@
     								</goals>
     							</pluginExecutionFilter>
     							<action>
-    								<ignore></ignore>
+    								<ignore />
     							</action>
     						</pluginExecution>
     						<pluginExecution>
@@ -135,7 +135,7 @@
     								</goals>
     							</pluginExecutionFilter>
     							<action>
-    								<ignore></ignore>
+    								<ignore />
     							</action>
     						</pluginExecution>
     					</pluginExecutions>
@@ -158,17 +158,9 @@
     </dependency>
   </dependencies>
 
-  <distributionManagement>
-    <repository>
-      <uniqueVersion>false</uniqueVersion>
-      <id>wm-local</id>
-      <url>ftp://maven2.webmedia.int</url>
-    </repository>
-  </distributionManagement>
-
   <scm>
-  	<connection>scm:svn:http://j-road.googlecode.com/svn/trunk/</connection>
-  	<developerConnection>scm:svn:https://j-road.googlecode.com/svn/trunk/</developerConnection>
-  	<url>http://j-road.googlecode.com/svn/trunk/</url>
+  	<connection>scm:git:https://github.com/nortal/j-road</connection>
+  	<developerConnection>scm:git:https://github.com/nortal/j-road</developerConnection>
+  	<url>scm:git:https://github.com/nortal/j-road</url>
   </scm>
 </project>

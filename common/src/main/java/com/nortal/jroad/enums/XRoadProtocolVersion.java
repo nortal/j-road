@@ -2,24 +2,23 @@ package com.nortal.jroad.enums;
 
 /**
  * @author Aleksei Bogdanov (aleksei.bogdanov@nortal.com)
+ * @author Lauri Lättemäe (lauri.lattemae@nortal.com) - protocol 4.0
  */
 public enum XRoadProtocolVersion {
 
-  V2_0("2.0", "xtee", "http://x-tee.riik.ee/xsd/xtee.xsd", "v2"),
-  V3_0("3.0", "xrd", "http://x-rd.net/xsd/xroad.xsd", "v3"),
-  V3_1("3.1", "xrd", "http://x-road.ee/xsd/x-road.xsd", "v3"),
-  V4_0("4.0", "xrd", "http://x-road.eu/xsd/xroad.xsd", "v4");
+  V2_0("2.0", "xtee", "http://x-tee.riik.ee/xsd/xtee.xsd"),
+  // V3_0("3.0", "xrd", "http://x-rd.net/xsd/xroad.xsd", "v3"),
+  // V3_1("3.1", "xrd", "http://x-road.ee/xsd/x-road.xsd", "v3"),
+  V4_0("4.0", "xrd", "http://x-road.eu/xsd/xroad.xsd");
 
   private final String code;
   private final String namespacePrefix;
   private final String namespaceUri;
-  private final String packageSuffix;
 
-  private XRoadProtocolVersion(String code, String namespacePrefix, String namespaceUri, String packageSuffix) {
+  private XRoadProtocolVersion(String code, String namespacePrefix, String namespaceUri) {
     this.code = code;
     this.namespaceUri = namespaceUri;
     this.namespacePrefix = namespacePrefix;
-    this.packageSuffix = packageSuffix;
   }
 
   public String getCode() {
@@ -34,10 +33,6 @@ public enum XRoadProtocolVersion {
     return namespaceUri;
   }
 
-  public String getPackageSuffix() {
-    return packageSuffix;
-  }
-
   public static XRoadProtocolVersion getValueByVersionCode(String code) {
     for (XRoadProtocolVersion version : XRoadProtocolVersion.values()) {
       if (version.getCode().equals(code)) {
@@ -49,7 +44,7 @@ public enum XRoadProtocolVersion {
 
   public static XRoadProtocolVersion getValueByNamespaceURI(String uri) {
     for (XRoadProtocolVersion version : XRoadProtocolVersion.values()) {
-      if (version.getNamespaceUri().equals(uri)) {
+      if (version.getNamespaceUri().startsWith(uri)) {
         return version;
       }
     }

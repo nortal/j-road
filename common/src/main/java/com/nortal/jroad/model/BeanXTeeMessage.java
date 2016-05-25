@@ -10,6 +10,8 @@ import org.w3c.dom.Node;
  * @author Dmitri Danilkin
  * @param <T extends {@link Node}>
  */
+// Should switch to X-road implementation
+@Deprecated
 public class BeanXTeeMessage<T> implements XTeeMessage<T> {
   private List<XTeeAttachment> attachments;
   private XTeeHeader header;

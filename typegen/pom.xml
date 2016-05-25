@@ -2,7 +2,7 @@
   <parent>
     <artifactId>xtee-root</artifactId>
     <groupId>com.nortal.jroad</groupId>
- 	<version>4.1-SNAPSHOT</version>
+ 	<version>4.2.0</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.nortal.jroad</groupId>

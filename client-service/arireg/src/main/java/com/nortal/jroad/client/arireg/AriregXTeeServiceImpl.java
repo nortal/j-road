@@ -7,11 +7,11 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.nortal.jroad.client.arireg.database.AriregXRoadDatabase;
 import com.nortal.jroad.client.arireg.types.ee.riik.xtee.arireg.producers.producer.arireg.*;
 import org.springframework.stereotype.Service;
 
-import com.nortal.jroad.client.arireg.database.AriregXTeeDatabase;
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 
 /**
  * @author Roman Tekhov
@@ -20,7 +20,7 @@ import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
 public class AriregXTeeServiceImpl implements AriregXTeeService {
 
   @Resource
-  private AriregXTeeDatabase ariregXTeeDatabase;
+  private AriregXRoadDatabase ariregXRoadDatabase;
 
   @Deprecated
   public List<Detailandmedv2Ettevotja> findDetailandmedv2(final int ariregistriKood,
@@ -28,7 +28,7 @@ public class AriregXTeeServiceImpl implements AriregXTeeService {
                                                           boolean isikuandmed,
                                                           boolean menetlusesAvaldused,
                                                           boolean kommertspandiandmed,
-                                                          int maksValjundArv) throws XTeeServiceConsumptionException {
+                                                          int maksValjundArv) throws XRoadServiceConsumptionException {
 
     return findDetailandmedv2(new Detailandmedv2ReturnedDataSettingCallback(yldandmed,
                                                                             isikuandmed,
@@ -48,7 +48,7 @@ public class AriregXTeeServiceImpl implements AriregXTeeService {
                                                           boolean isikuandmed,
                                                           boolean menetlusesAvaldused,
                                                           boolean kommertspandiandmed,
-                                                          int maksValjundArv) throws XTeeServiceConsumptionException {
+                                                          int maksValjundArv) throws XRoadServiceConsumptionException {
 
     return findDetailandmedv2(new Detailandmedv2ReturnedDataSettingCallback(yldandmed,
                                                                             isikuandmed,
@@ -64,13 +64,13 @@ public class AriregXTeeServiceImpl implements AriregXTeeService {
 
   @Deprecated
   public List<Detailandmedv2Ettevotja> findDetailandmedv2(Detailandmedv2KehaPopulatingCallback callback)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
 
     Detailandmedv2Query requestDocument = Detailandmedv2Query.Factory.newInstance();
 
     callback.populate(requestDocument);
 
-    return ariregXTeeDatabase.detailandmedv2V1(requestDocument).getEttevotjad().getItemList();
+    return ariregXRoadDatabase.detailandmedv2V1(requestDocument).getEttevotjad().getItemList();
   }
 
   public List<DetailandmedV3Ettevotja> findDetailandmedv3(final int ariregistriKood,
@@ -78,7 +78,7 @@ public class AriregXTeeServiceImpl implements AriregXTeeService {
                                                           boolean isikuandmed,
                                                           boolean menetlusesAvaldused,
                                                           boolean kommertspandiandmed,
-                                                          int maksValjundArv) throws XTeeServiceConsumptionException {
+                                                          int maksValjundArv) throws XRoadServiceConsumptionException {
 
     return findDetailandmedv3(new Detailandmedv2ReturnedDataSettingCallback(yldandmed,
                                                                             isikuandmed,
@@ -97,7 +97,7 @@ public class AriregXTeeServiceImpl implements AriregXTeeService {
                                                           boolean isikuandmed,
                                                           boolean menetlusesAvaldused,
                                                           boolean kommertspandiandmed,
-                                                          int maksValjundArv) throws XTeeServiceConsumptionException {
+                                                          int maksValjundArv) throws XRoadServiceConsumptionException {
 
     return findDetailandmedv3(new Detailandmedv2ReturnedDataSettingCallback(yldandmed,
                                                                             isikuandmed,
@@ -112,17 +112,17 @@ public class AriregXTeeServiceImpl implements AriregXTeeService {
   }
 
   public List<DetailandmedV3Ettevotja> findDetailandmedv3(Detailandmedv2KehaPopulatingCallback callback)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
 
     Detailandmedv2Query requestDocument = Detailandmedv2Query.Factory.newInstance();
 
     callback.populate(requestDocument);
 
-    return ariregXTeeDatabase.detailandmedV3V1(requestDocument).getEttevotjad().getItemList();
+    return ariregXRoadDatabase.detailandmedV3V1(requestDocument).getEttevotjad().getItemList();
   }
 
   public List<ParingarikeeludKeeld> findArikeelud(String isikukood, String eesnimi, String perenimi, Date synniaeg)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
     ParingarikeeludParing paring = ParingarikeeludParing.Factory.newInstance();
     paring.setFyysiliseIsikuKood(isikukood);
     paring.setFyysiliseIsikuEesnimi(eesnimi);
@@ -135,7 +135,7 @@ public class AriregXTeeServiceImpl implements AriregXTeeService {
       paring.setFyysiliseIsikuSynniaeg(cal);
     }
 
-    return ariregXTeeDatabase.paringarikeeludV1(paring).getArikeelud().getItemList();
+    return ariregXRoadDatabase.paringarikeeludV1(paring).getArikeelud().getItemList();
   }
 
   public List<DetailandmedV4Ettevotja> findDetailandmedv4(final int ariregistriKood,
@@ -144,7 +144,7 @@ public class AriregXTeeServiceImpl implements AriregXTeeService {
                                                           boolean menetlusesAvaldused,
                                                           boolean kommertspandiandmed,
                                                           boolean maarused,
-                                                          int maksValjundArv) throws XTeeServiceConsumptionException {
+                                                          int maksValjundArv) throws XRoadServiceConsumptionException {
     return findDetailandmedv4(new Detailandmedv4ReturnedDataSettingCallback(yldandmed,
                                                                             isikuandmed,
                                                                             menetlusesAvaldused,
@@ -164,7 +164,7 @@ public class AriregXTeeServiceImpl implements AriregXTeeService {
                                                           boolean menetlusesAvaldused,
                                                           boolean kommertspandiandmed,
                                                           boolean maarused,
-                                                          int maksValjundArv) throws XTeeServiceConsumptionException {
+                                                          int maksValjundArv) throws XRoadServiceConsumptionException {
     return findDetailandmedv4(new Detailandmedv4ReturnedDataSettingCallback(yldandmed,
                                                                             isikuandmed,
                                                                             menetlusesAvaldused,
@@ -179,13 +179,13 @@ public class AriregXTeeServiceImpl implements AriregXTeeService {
   }
 
   public List<DetailandmedV4Ettevotja> findDetailandmedv4(Detailandmedv4KehaPopulatingCallback callback)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
 
     DetailandmedV4Query requestDocument = DetailandmedV4Query.Factory.newInstance();
 
     callback.populate(requestDocument);
 
-    return ariregXTeeDatabase.detailandmedV4V1(requestDocument).getEttevotjad().getItemList();
+    return ariregXRoadDatabase.detailandmedV4V1(requestDocument).getEttevotjad().getItemList();
   }
 
   public List<DetailandmedV5Ettevotja> findDetailandmedV5(final String isikukood,
@@ -196,7 +196,7 @@ public class AriregXTeeServiceImpl implements AriregXTeeService {
                                                           boolean maarused,
                                                           boolean ainultKehtivad,
                                                           long maksValjundArv)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
     return findDetailandmedV5(new DetailandmedV5ReturnedDataSettingCallback(yldandmed,
                                                                             isikuandmed,
                                                                             menetlusesAvaldused,
@@ -219,7 +219,7 @@ public class AriregXTeeServiceImpl implements AriregXTeeService {
                                                           boolean kommertspandiandmed,
                                                           boolean maarused,
                                                           boolean ainultKehtivad,
-                                                          long maksValjundArv) throws XTeeServiceConsumptionException {
+                                                          long maksValjundArv) throws XRoadServiceConsumptionException {
     return findDetailandmedV5(new DetailandmedV5ReturnedDataSettingCallback(yldandmed,
                                                                             isikuandmed,
                                                                             menetlusesAvaldused,
@@ -236,20 +236,20 @@ public class AriregXTeeServiceImpl implements AriregXTeeService {
   }
 
   public List<DetailandmedV5Ettevotja> findDetailandmedV5(DetailandmedV5KehaPopulatingCallback callback)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
 
     DetailandmedV5Query requestDocument = DetailandmedV5Query.Factory.newInstance();
 
     callback.populate(requestDocument);
 
-    return ariregXTeeDatabase.detailandmedV5V1(requestDocument).getEttevotjad().getItemList();
+    return ariregXRoadDatabase.detailandmedV5V1(requestDocument).getEttevotjad().getItemList();
   }
 
   public List<ParingesindusEttevote> findParingesindusV1(Integer ariregistriKood,
                                                          String fyysiliseIsikuKood,
                                                          String fyysiliseIsikuEesnimi,
                                                          String fyysiliseIsikuPerenimi)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
     ParingesindusParing paring = ParingesindusParing.Factory.newInstance();
     if (ariregistriKood != null) {
       paring.setAriregistriKood(ariregistriKood);
@@ -263,14 +263,14 @@ public class AriregXTeeServiceImpl implements AriregXTeeService {
     if (fyysiliseIsikuPerenimi != null) {
       paring.setFyysiliseIsikuPerenimi(fyysiliseIsikuPerenimi);
     }
-    return ariregXTeeDatabase.paringesindusV1(paring).getEttevotjad().getItemList();
+    return ariregXRoadDatabase.paringesindusV1(paring).getEttevotjad().getItemList();
   }
 
   public List<ParingesindusV2Ettevote> findParingesindusV2(Integer ariregistriKood,
                                                            String fyysiliseIsikuKood,
                                                            String fyysiliseIsikuEesnimi,
                                                            String fyysiliseIsikuPerenimi)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
 
     ParingesindusV2Paring paring = ParingesindusV2Paring.Factory.newInstance();
     if (ariregistriKood != null) {
@@ -285,7 +285,7 @@ public class AriregXTeeServiceImpl implements AriregXTeeService {
     if (fyysiliseIsikuPerenimi != null) {
       paring.setFyysiliseIsikuPerenimi(fyysiliseIsikuPerenimi);
     }
-    return ariregXTeeDatabase.paringesindusV2V1(paring).getEttevotjad().getItemList();
+    return ariregXRoadDatabase.paringesindusV2V1(paring).getEttevotjad().getItemList();
   }
 
   public List<ParingesindusV3Ettevote> findParingesindusV3(Integer ariregistriKood,
@@ -293,7 +293,7 @@ public class AriregXTeeServiceImpl implements AriregXTeeService {
                                                            String fyysiliseIsikuEesnimi,
                                                            String fyysiliseIsikuPerenimi,
                                                            String ariregisterValjundiFormaat)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
     ParingesindusV3Paring paring = ParingesindusV3Paring.Factory.newInstance();
 
     if (ariregistriKood != null) {
@@ -311,23 +311,23 @@ public class AriregXTeeServiceImpl implements AriregXTeeService {
     if (ariregisterValjundiFormaat != null) {
       paring.setAriregisterValjundiFormaat(ariregisterValjundiFormaat);
     }
-    return ariregXTeeDatabase.paringesindusV3V1(paring).getEttevotjad().getItemList();
+    return ariregXRoadDatabase.paringesindusV3V1(paring).getEttevotjad().getItemList();
   }
 
   public EttevotjaMuudatusedTasutaVastus findEttevotjaMuudatusedTasutaV1(EttevotjaMuudatusedTasutaReturnedDataSettingCallback callback)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
     EttevotjaMuudatusedTasutaParing query = EttevotjaMuudatusedTasutaParing.Factory.newInstance();
 
     callback.populate(query);
 
-    return ariregXTeeDatabase.ettevotjaMuudatusedTasutaV1(query);
+    return ariregXRoadDatabase.ettevotjaMuudatusedTasutaV1(query);
   }
 
   public EttevotjaMuudatusedTasutaTootukassaVastus findEttevotjaMuudatusedTasutaTootukassaV1(
           Date algusKp,
           Date loppKp,
           String[] kandesIsikudRollid,
-          Integer tulemusteLk) throws XTeeServiceConsumptionException {
+          Integer tulemusteLk) throws XRoadServiceConsumptionException {
 
     Calendar algus = Calendar.getInstance();
     Calendar lopp = Calendar.getInstance();
@@ -342,6 +342,6 @@ public class AriregXTeeServiceImpl implements AriregXTeeService {
       query.setTulemusteLk(tulemusteLk);
     }
 
-    return ariregXTeeDatabase.ettevotjaMuudatusedTasutaTootukassaV1(query);
+    return ariregXRoadDatabase.ettevotjaMuudatusedTasutaTootukassaV1(query);
   }
 }

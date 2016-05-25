@@ -13,13 +13,13 @@ import com.nortal.jroad.client.ehis.types.ee.riik.xtee.ehis.producers.producer.e
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
+import com.nortal.jroad.client.test.BaseXRoadServiceImplTest;
 
 /**
  * @author Margus Hanni
  */
-public class EhisXTeeServiceImplTest extends BaseXTeeServiceImplTest {
+public class EhisXTeeServiceImplTest extends BaseXRoadServiceImplTest {
 
   private static final String TEST_ISIKUKOOD = "38005039562";
   private static final Date TEST_ALGUSKP;
@@ -34,7 +34,7 @@ public class EhisXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   private EhisXTeeServiceImpl ehisXTeeServiceImpl;
 
   @Test
-  public void findTootukassaleKehtivad() throws XTeeServiceConsumptionException {
+  public void findTootukassaleKehtivad() throws XRoadServiceConsumptionException {
 
     /*
      * TODO Kui EHIS hakkab kunagi tööle, siis tuleks koodi kommentaarid eemaldada. Praegu EHIS ei tagasta tulemusi

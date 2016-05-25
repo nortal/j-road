@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://naidis.x-road.eu"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://naidis.x-road.eu"
+	elementFormDefault="unqualified" xmlns:ref="http://ws-i.org/profiles/basic/1.1/xsd">
+
+	<import namespace="http://ws-i.org/profiles/basic/1.1/xsd" schemaLocation="http://ws-i.org/profiles/basic/1.1/swaref.xsd" />
+
+	<element name="EchoRequest" type="tns:EchoRequest"></element>
+	<element name="EchoResponse" type="tns:EchoResponse"></element>
+
+	<element name="AxisEchoRequest" type="tns:EchoRequest"></element>
+	<element name="AxisEchoResponse" type="tns:EchoResponse"></element>
+
+	<complexType name="EchoRequest">
+		<sequence>
+			<element name="Text" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="EchoResponse">
+		<sequence>
+			<element name="Text" type="string"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="AttachmentEchoRequest">
+		<sequence>
+			<element name="Nest" type="tns:AttachmentEchoNest"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="AttachmentEchoResponse">
+		<sequence>
+			<element name="Nest" type="tns:AttachmentEchoNest"></element>
+		</sequence>
+	</complexType>
+
+	<element name="AttachmentEchoRequest" type="tns:AttachmentEchoRequest">
+	</element>
+
+	<element name="AttachmentEchoResponse" type="tns:AttachmentEchoResponse">
+	</element>
+
+	<complexType name="AttachmentEchoNest">
+		<sequence>
+			<element name="Attachment" type="ref:swaRef"></element>
+		</sequence>
+	</complexType>
+</schema>
