@@ -14,18 +14,18 @@
     <dependency>
       <groupId>com.nortal.jroad</groupId>
       <artifactId>xtee-client-transport</artifactId>
-      <version>${project.version}</version>
+      <version>${project.parent.version}</version>
     </dependency>
     <dependency>
       <groupId>com.nortal.jroad</groupId>
       <artifactId>xtee-typegen</artifactId>
-      <version>${project.version}</version>
+      <version>${project.parent.version}</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>com.nortal.jroad</groupId>
       <artifactId>xtee-client-test</artifactId>
-      <version>${project.version}</version>
+      <version>${project.parent.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
