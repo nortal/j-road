@@ -7,8 +7,8 @@ package com.nortal.jroad.enums;
 public enum XRoadProtocolVersion {
 
   V2_0("2.0", "xtee", "http://x-tee.riik.ee/xsd/xtee.xsd"),
-  // V3_0("3.0", "xrd", "http://x-rd.net/xsd/xroad.xsd", "v3"),
-  // V3_1("3.1", "xrd", "http://x-road.ee/xsd/x-road.xsd", "v3"),
+  V3_0("3.0", "xrd", "http://x-rd.net/xsd/xroad.xsd"),
+  V3_1("3.1", "xrd", "http://x-road.ee/xsd/x-road.xsd"),
   V4_0("4.0", "xrd", "http://x-road.eu/xsd/xroad.xsd");
 
   private final String code;
