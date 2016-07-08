@@ -71,6 +71,15 @@ public class EhisXTeeServiceImpl extends XTeeDatabaseService implements EhisXTee
     return ehisXTeeDatabase.tootukassaleOppimisedVastusV1(request);
   }
 
+  public TootukassaleTegevusloadVastus getTootukassaleTegevusload(String registrikood, Date algusKp, Date loppKp)
+          throws XTeeServiceConsumptionException {
+      TootukassaleTegevusloadParing request = TootukassaleTegevusloadParing.Factory.newInstance();
+      request.setRegistrikood(registrikood);
+      request.setAlgusKp(toCalendar(algusKp));
+      request.setLoppKp(toCalendar(loppKp));
+      return ehisXTeeDatabase.tootukassaleTegevusloadV1(request);
+  }
+
   private Calendar toCalendar(Date date) {
     if (date == null) {
       return null;
