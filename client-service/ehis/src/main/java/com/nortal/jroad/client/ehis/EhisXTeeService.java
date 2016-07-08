@@ -38,4 +38,10 @@ public interface EhisXTeeService {
    */
   TootukassaleOppimisedVastusVastus getTootukassaleOppimisedVastusV1(BigInteger tkId)
       throws XRoadServiceConsumptionException;
+  
+  /**
+   * <code>ehis.tootukassale_tegevusload.v1</code> service.
+   */
+  TootukassaleTegevusloadVastus getTootukassaleTegevusload(String registrikood, Date algusKp, Date loppKp)
+      throws XRoadServiceConsumptionException;
 }

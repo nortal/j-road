@@ -4164,6 +4164,148 @@
                     </element>
                 </sequence>
             </complexType>
+            <!-- =================================== Service 'ehis.tootukassale_tegevusload.v1' types =================================== -->
+            <!-- =================================== tegevusload_request =================================== -->
+            <complexType name="tootukassale_tegevusload_paring">
+                <sequence>
+                    <element name="registrikood" type="string" minOccurs="1" maxOccurs="1" nillable="false">
+                        <annotation>
+                            <appinfo>
+                                <xtee:title>Õppeasutuse registrikood</xtee:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="algus_kp" type="date" minOccurs="1" maxOccurs="1" nillable="false">
+                        <annotation>
+                            <appinfo>
+                                <xtee:title>Päritava perioodi alguskuupäev</xtee:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="lopp_kp" type="date" minOccurs="1" maxOccurs="1" nillable="false">
+                        <annotation>
+                            <appinfo>
+                                <xtee:title>Päritava perioodi lõpu kuupäev</xtee:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+            <!-- =================================== tegevusload_response =================================== -->
+            <complexType name="tootukassale_tegevusload_vastus">
+                <sequence>
+                    <element name="oppeasutus_registrikood" type="string" minOccurs="1" maxOccurs="1" nillable="false">
+                        <annotation>
+                            <appinfo>
+                                <xtee:title>Õppeasutuse registrikood</xtee:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="oppeasutus_nimi" type="string" minOccurs="0" maxOccurs="1" nillable="false">
+                        <annotation>
+                            <appinfo>
+                                <xtee:title>Õppeasutuse nimetus EHIS-es</xtee:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="omanik_registrikood" type="string" minOccurs="0" maxOccurs="1" nillable="false">
+                        <annotation>
+                            <appinfo>
+                                <xtee:title>Õppeasutuse omaniku registrikood</xtee:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="omanik_nimi" type="string" minOccurs="0" maxOccurs="1" nillable="false">
+                        <annotation>
+                            <appinfo>
+                                <xtee:title>Õppeasutuse omaniku nimetus EHIS-es</xtee:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="majandustegevusteated" type="tns:tk_majandustegevusteated" minOccurs="0" nillable="false" />
+                    <element name="tegevusload" type="tns:tk_tegevusload" minOccurs="0" nillable="false" />
+                    <element name="teade" type="string" minOccurs="0" nillable="false">
+                        <annotation>
+                            <appinfo>
+                                <xtee:title>Teated</xtee:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+
+            <!-- =================================== majandustegevusteated =================================== -->
+            <complexType name="tk_majandustegevusteated">
+                <sequence>
+                    <element name="majandustegevusteade" type="tns:tk_majandustegevusteade" minOccurs="0" maxOccurs="unbounded"
+                        nillable="false" />
+                </sequence>
+            </complexType>
+            <!-- =================================== majandustegevusteade =================================== -->
+            <complexType name="tk_majandustegevusteade">
+                <sequence>
+                    <element name="nr" type="integer" minOccurs="0" nillable="false" />
+                    <element name="ryhma_nimetus" type="tns:STR_Array" minOccurs="0" nillable="false" />
+                    <element name="kehtiv_algus_kp" type="string" minOccurs="0" nillable="false">
+                        <annotation>
+                            <appinfo>
+                                <xtee:title>Majandustegevuse teate kehtivuse alguskuupäev</xtee:title>
+                                <xtee:notes>Kuupäev formaadis dd.mm.yyyy</xtee:notes>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="kehtiv_lopp_kp" type="string" minOccurs="0" nillable="false">
+                        <annotation>
+                            <appinfo>
+                                <xtee:title>Majandustegevuse teate kehtivuse lõppu kuupäev</xtee:title>
+                                <xtee:notes>Kuupäev formaadis dd.mm.yyyy</xtee:notes>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+            <!-- =================================== tegevusload =================================== -->
+            <complexType name="tk_tegevusload">
+                <sequence>
+                    <element name="tegevusluba" type="tns:tk_tegevusluba" minOccurs="0" maxOccurs="unbounded" nillable="false" />
+                </sequence>
+            </complexType>
+            <!-- =================================== tegevusluba =================================== -->
+            <complexType name="tk_tegevusluba">
+                <sequence>
+                    <element name="nr" type="string" minOccurs="0" nillable="false" />
+                    <element name="liik" type="string" minOccurs="0" nillable="false" />
+                    <element name="nimi" type="string" minOccurs="0" nillable="false" />
+                    <element name="kategooria" type="string" minOccurs="0" nillable="false" />
+                    <element name="keeletase" type="string" minOccurs="0" nillable="false" />
+                    <element name="ministri_kaskkirja_nr" type="string" minOccurs="0" nillable="false" />
+                    <element name="ministri_kaskkirja_kp" type="string" minOccurs="0" nillable="false">
+                        <annotation>
+                            <appinfo>
+                                <xtee:title>Ministri käskkirja kuupäev</xtee:title>
+                                <xtee:notes>Kuupäev formaadis dd.mm.yyyy</xtee:notes>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="kehtiv_algus_kp" type="string" minOccurs="0" nillable="false">
+                        <annotation>
+                            <appinfo>
+                                <xtee:title>Tegevusloa kehtivuse alguse kuupäev</xtee:title>
+                                <xtee:notes>Kuupäev formaadis dd.mm.yyyy</xtee:notes>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="kehtiv_lopp_kp" type="string" minOccurs="0" nillable="false">
+                        <annotation>
+                            <appinfo>
+                                <xtee:title>Tegevusloa kehtivuse lõpu kuupäev</xtee:title>
+                                <xtee:notes>Kuupäev formaadis dd.mm.yyyy</xtee:notes>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>            
+          
             <complexType name="oppeasutused_kov_portaali_paring">
                 <sequence>
                     <element name="EHISe_kood" type="positiveInteger" minOccurs="0">
@@ -7568,6 +7710,13 @@
         <part name="paring" type="tns:tootukassale_oppimised_vastus_paring" />
         <part name="keha" type="tns:tootukassale_oppimised_vastus_vastus" />
     </message>
+    <message name="tootukassale_tegevusload_request">
+        <part name="keha" type="tns:tootukassale_tegevusload_paring" />
+    </message>
+    <message name="tootukassale_tegevusload_response">
+        <part name="paring" type="tns:tootukassale_tegevusload_paring" />
+        <part name="keha" type="tns:tootukassale_tegevusload_vastus" />
+    </message>
     <message name="koolidele_kehtivad_request">
         <part name="keha" type="tns:koolidele_kehtivad_paring"/>
     </message>
@@ -8206,6 +8355,13 @@
             </documentation>
             <input message="tns:tootukassale_oppimised_vastus_request" />
             <output message="tns:tootukassale_oppimised_vastus_response" />
+        </operation>
+        <operation name="tootukassale_tegevusload">
+            <documentation>
+                <xtee:title>Tegevuslubade päring Töötukassale</xtee:title>
+            </documentation>
+            <input message="tns:tootukassale_tegevusload_request" />
+            <output message="tns:tootukassale_tegevusload_response" />
         </operation>
 
         <operation name="koolidele_kehtivad">
@@ -9898,6 +10054,49 @@
                 <soap:header message="tns:standardpais" part="asutus" use="encoded"
                              encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
                              namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+            </output>
+        </operation>
+        
+        <operation name="tootukassale_tegevusload">
+            <xtee:version>v1</xtee:version>
+            <soap:operation soapAction="http://TURVASERVER.XTEE/cgi-bin/consumer_proxy" />
+            <input>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+
+                <soap:header message="tns:standardpais" part="andmekogu" use="encoded"
+                             encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                             namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+                <soap:header message="tns:standardpais" part="isikukood" use="encoded"
+                             encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                             namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+                <soap:header message="tns:standardpais" part="nimi" use="encoded"
+                             encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                             namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+                <soap:header message="tns:standardpais" part="id" use="encoded"
+                             encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                             namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+                <soap:header message="tns:standardpais" part="asutus" use="encoded"
+                             encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                             namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+            </input>
+            <output>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+
+                <soap:header message="tns:standardpais" part="andmekogu" use="encoded"
+                             encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" 
+                             namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+                <soap:header message="tns:standardpais" part="isikukood" use="encoded"
+                             encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                             namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+                <soap:header message="tns:standardpais" part="nimi" use="encoded" 
+                             encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                             namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+                <soap:header message="tns:standardpais" part="id" use="encoded"
+                             encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                             namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
+                <soap:header message="tns:standardpais" part="asutus" use="encoded"
+                             encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+                             namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
             </output>
         </operation>
 

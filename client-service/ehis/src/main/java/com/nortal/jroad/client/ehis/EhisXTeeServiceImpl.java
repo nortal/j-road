@@ -71,6 +71,15 @@ public class EhisXTeeServiceImpl extends XRoadDatabaseService implements EhisXTe
     return ehisXRoadDatabase.tootukassaleOppimisedVastusV1(request);
   }
 
+  public TootukassaleTegevusloadVastus getTootukassaleTegevusload(String registrikood, Date algusKp, Date loppKp)
+          throws XRoadServiceConsumptionException {
+      TootukassaleTegevusloadParing request = TootukassaleTegevusloadParing.Factory.newInstance();
+      request.setRegistrikood(registrikood);
+      request.setAlgusKp(toCalendar(algusKp));
+      request.setLoppKp(toCalendar(loppKp));
+      return ehisXRoadDatabase.tootukassaleTegevusloadV1(request);
+  }
+
   private Calendar toCalendar(Date date) {
     if (date == null) {
       return null;
