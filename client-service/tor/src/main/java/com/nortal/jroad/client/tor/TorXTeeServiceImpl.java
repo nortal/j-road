@@ -105,9 +105,9 @@ public class TorXTeeServiceImpl extends XRoadDatabaseService implements TorXTeeS
   }
 
   @Override
-  public TORIKResponse findTorik(String paringuLiik, Date tootAlgusKp, Date tootLoppKp, String isikukood)
+  public TORIKResponse findTorik(String paringuLiik, Date tootAlgusKp, Date tootLoppKp, Date muutAlgKp, Date muutLoppKp, String isikukood)
       throws XRoadServiceConsumptionException {
-    TorikRequestType torik = getTorikRequest(paringuLiik, tootAlgusKp, tootLoppKp, isikukood).getTORIK().getRequest();
+    TorikRequestType torik = getTorikRequest(paringuLiik, tootAlgusKp, tootLoppKp, muutAlgKp, muutLoppKp, isikukood).getTORIK().getRequest();
 
     XRoadMessage<TORIKResponseDocument.TORIKResponse> vastus =
         send(new XmlBeansXRoadMessage<TorikRequestType>(torik), METHOD_TORIK, V1, new TorCallback(), null);
@@ -117,7 +117,7 @@ public class TorXTeeServiceImpl extends XRoadDatabaseService implements TorXTeeS
   }
 
   @Override
-  public TORIKDocument getTorikRequest(String paringuLiik, Date tootAlgusKp, Date tootLoppKp, String isikukood) {
+  public TORIKDocument getTorikRequest(String paringuLiik, Date tootAlgusKp, Date tootLoppKp, Date muutAlgKp, Date muutLoppKp, String isikukood) {
     TORIKDocument torikDocument = TORIKDocument.Factory.newInstance();
     TORIK torik = torikDocument.addNewTORIK();
 
@@ -127,10 +127,8 @@ public class TorXTeeServiceImpl extends XRoadDatabaseService implements TorXTeeS
     request.setTootLopp(getCalendar(tootLoppKp));
 
     if (ParinguLiik.Enum.forString(paringuLiik).equals(ParinguLiik.PM)) {
-      request.setMuutAlg(getCalendar(tootAlgusKp));
-      Calendar loppCal = getCalendar(new Date());
-      loppCal.add(Calendar.DATE, 1);
-      request.setMuutLopp(loppCal);
+      request.setMuutAlg(getCalendar(muutAlgKp));
+      request.setMuutLopp(getCalendar(muutLoppKp));
     }
     request.setIsikukoodid(isikukood);
     return torikDocument;
