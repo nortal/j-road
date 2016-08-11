@@ -22,7 +22,7 @@
   	<dependency>
   		<groupId>com.nortal.jroad</groupId>
   		<artifactId>xtee-client-transport</artifactId>
-  		<version>${project.version}</version>
+  		<version>4.1.1-SNAPSHOT</version>
   	</dependency>
   	<dependency>
   		<groupId>commons-io</groupId>

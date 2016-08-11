@@ -4,6 +4,7 @@ import com.nortal.jroad.enums.XRoadProtocolVersion;
 import com.nortal.jroad.model.XmlBeansXTeeMetadata;
 import com.nortal.jroad.typegen.database.DatabaseClasses;
 import com.nortal.jroad.typegen.database.DatabaseGenerator;
+import com.nortal.jroad.typegen.metaservice.MetaServicesGen;
 import com.nortal.jroad.typegen.xmlbeans.BasepackageBinder;
 import com.nortal.jroad.typegen.xmlbeans.SimpleFiler;
 import com.nortal.jroad.typegen.xmlbeans.XteeSchemaCodePrinter;
@@ -36,7 +37,7 @@ import org.w3c.dom.NodeList;
  */
 public class TypeGen {
   private static final String WSDL_NS = "http://schemas.xmlsoap.org/wsdl/";
-  private static final String SCHEMA_NS = "http://www.w3.org/2001/XMLSchema";
+  public static final String SCHEMA_NS = "http://www.w3.org/2001/XMLSchema";
   private static final String NS_PREFIX = "xmlns";
   private static final String XTEE_V2_NAMESPACE_PATTERN = "http://producers\\..+?\\.xtee\\.riik\\.ee/producer/.+?$";
   private static final String XROAD_V3_0_NAMESPACE_PATTERN = "http://(.+?)\\.ee\\.x-rd\\.net/producer[/]??$";
@@ -59,7 +60,7 @@ public class TypeGen {
   private static File curWsdl;
   private static File hashFile;
   private static byte[] computedHash;
-  private final static DatabaseDescriptor dbDesc = new DatabaseDescriptor();
+  private static DatabaseDescriptor dbDesc;
 
   public static void main(String[] args) throws Exception {
     System.out.println("Starting source generation...");
@@ -231,10 +232,13 @@ public class TypeGen {
     for (File wsdl : wsdls) {
       Document xmlWsdl = builder.parse(wsdl);
       curWsdl = wsdl;
+      Properties databaseProps = getDatabaseProps(wsdl.getParentFile());
+      dbDesc = new DatabaseDescriptor(databaseProps);
+      MetaServicesGen metaServicesGen = new MetaServicesGen(dbDesc);
       schemas.addAll(getSchemas(xmlWsdl.getElementsByTagNameNS(WSDL_NS, "types").item(0),
                                 getNamespaces(xmlWsdl),
-                                wsdl.getParent()));
-      Properties databaseProps = getDatabaseProps(wsdl.getParentFile());
+                                wsdl.getParent(), metaServicesGen));
+
       String databaseNameOverride = databaseProps.getProperty(PROPERTY__DATABASE_NAME_OVERRIDE);
       if (databaseNameOverride != null) {
         logInfo(PROPERTY__DATABASE_NAME_OVERRIDE + " is set to '"
@@ -242,7 +246,7 @@ public class TypeGen {
         dbDesc.setId(databaseNameOverride, true);
       }
 
-      createMetadata(xmlWsdl);
+      createMetadata(xmlWsdl, metaServicesGen);
       logInfo("Created metadata for database " + dbDesc.getId());
     }
   }
@@ -294,18 +298,24 @@ public class TypeGen {
    * @return A collection of schemas found under the Node
    * @throws Exception
    */
-  private static Collection<XmlObject> getSchemas(Node typesNode, Map<String, String> additionalNs, String schemaPath)
+  private static Collection<XmlObject> getSchemas(Node typesNode, Map<String, String> additionalNs, String schemaPath,
+                                                  MetaServicesGen metaServicesGen)
       throws Exception {
     List<XmlObject> schemas = new ArrayList<XmlObject>();
     NodeList schemaNodes = typesNode.getChildNodes();
     XmlOptions options = new XmlOptions();
     options.setLoadAdditionalNamespaces(additionalNs);
+    boolean firstSchema = true;
     for (int i = 0; i < schemaNodes.getLength(); i++) {
       Node schemaNode = schemaNodes.item(i);
       if (SCHEMA_NS.equals(schemaNode.getNamespaceURI()) && "schema".equals(schemaNode.getLocalName())) {
+        if (firstSchema) {
+          metaServicesGen.tryAddMetaOpsToSchema(schemaNode);
+        }
         XmlObject schema = XmlObject.Factory.parse(schemaNode, options);
         schema.documentProperties().setSourceName("file://" + schemaPath.replace(File.separator, "/") + "/");
         schemas.add(schema);
+        firstSchema = false;
       } else if (schemaNode.getNodeType() != Node.TEXT_NODE && schemaNode.getNodeType() != Node.COMMENT_NODE) {
         // TODO: Add xs:import support outside schemas.
         throw new IllegalStateException("Encountered unsupported element in WSDL types definition: ({"
@@ -321,7 +331,7 @@ public class TypeGen {
    *
    * @param wsdlDoc
    */
-  private static void createMetadata(Document wsdlDoc) {
+  private static void createMetadata(Document wsdlDoc, final MetaServicesGen metaServicesGen) {
     String opNs =
         wsdlDoc.getElementsByTagNameNS(WSDL_NS, "definitions").item(0).getAttributes().getNamedItem("targetNamespace").getNodeValue().toLowerCase();
 
@@ -424,6 +434,14 @@ public class TypeGen {
                                                                                version));
       }
     }
+
+    metaServicesGen.tryAddMetaOpsToMetadata(new XteeMetadataModifier() {
+      @Override
+      public void addOperation(XmlBeansXTeeMetadata xTeeMetadata) {
+        metadata.put(dbDesc.getId() + xTeeMetadata.getOperationName().toLowerCase(), xTeeMetadata);
+      }
+    }, opNs);
+
     logInfo("Created metadata for operations: " + metadata.keySet());
   }
 

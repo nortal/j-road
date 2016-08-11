@@ -1,11 +1,20 @@
 package com.nortal.jroad.typegen;
 
 import com.nortal.jroad.enums.XRoadProtocolVersion;
+import org.apache.commons.lang.BooleanUtils;
+
+import java.util.Properties;
 
 public class DatabaseDescriptor {
     private String id;
     private boolean overrideId;
     private XRoadProtocolVersion version;
+    private final boolean generateMetaOperations;
+
+    public DatabaseDescriptor(Properties databaseProps) {
+        String generateMetaValue = databaseProps.getProperty("generateMetaOperations");
+        this.generateMetaOperations = generateMetaValue != null && BooleanUtils.toBoolean(generateMetaValue);
+    }
 
     public String getId() {
         return id;
@@ -33,5 +42,9 @@ public class DatabaseDescriptor {
 
     public XRoadProtocolVersion getVersion() {
         return version;
+    }
+
+    public boolean isGenerateMetaOperations() {
+        return generateMetaOperations;
     }
 }
