@@ -246,7 +246,7 @@
               </appinfo>
             </annotation>
           </element>
-          <element name="broneeringud" nillable="true" type="tns:Broneeringud">
+          <element name="broneeringud" minOccurs="0" maxOccurs="unbounded" type="tns:Broneeringud">
             <annotation>
               <appinfo>
                 <xtee:title>VTA Broneeringud</xtee:title>
@@ -362,11 +362,6 @@
         </sequence>
       </complexType>
       <complexType xmlns="http://www.w3.org/2001/XMLSchema" name="Broneeringud">
-        <sequence>
-          <element minOccurs="0" maxOccurs="unbounded" name="broneering" nillable="true" type="tns:Broneering" />
-        </sequence>
-      </complexType>
-      <complexType xmlns="http://www.w3.org/2001/XMLSchema" name="Broneering">
         <sequence>
           <element name="number" type="string">
             <annotation>

@@ -4,6 +4,7 @@
   <artifactId>xtee-client-rmviki</artifactId>
   <name>RMVIKI client services</name>
   <packaging>jar</packaging>
+  <version>4.1.2-SNAPSHOT</version>
 
   <parent>
     <groupId>com.nortal.jroad</groupId>

@@ -60,6 +60,10 @@ public class XTeeWsdlDefinition implements Wsdl11Definition, InitializingBean {
   public static final String XTEE_PAIS_PART = "xteePais";
   public static final String XTEE_NAMESPACE = "http://x-tee.riik.ee/xsd/xtee.xsd";
   public static final String XTEE_PREFIX = "xtee";
+  public static final String XROAD_HEADER = "requestheader";
+  public static final String XROAD_NAMESPACE = "http://x-road.eu/xsd/xroad.xsd";
+  public static final String XROAD_PREFIX = "xrd";
+  public static final String XROAD_IDEN_NAMESPACE = "http://x-road.eu/xsd/identifiers";
 
   public XTeeWsdlDefinition() {
     delegate.setTypesProvider(typesProvider);

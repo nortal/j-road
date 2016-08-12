@@ -3,6 +3,13 @@ package com.nortal.jroad.client.kirst;
 import com.nortal.jroad.client.exception.NonTechnicalFaultException;
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
 import com.nortal.jroad.client.kirst.types.ee.x_road.kirst.producer.*;
+import com.nortal.jroad.client.kirst.types.ee.x_road.kirst.producer.KindlustusalusDocument.Kindlustusalus;
+import com.nortal.jroad.client.kirst.types.ee.x_road.kirst.producer.KindlustusalusRequestType.KanneJada;
+import com.nortal.jroad.client.kirst.types.ee.x_road.kirst.producer.KindlustusalusResponseDocument.KindlustusalusResponse;
+import com.nortal.jroad.client.kirst.types.ee.x_road.kirst.producer.Kindlustused2Document.Kindlustused2;
+import com.nortal.jroad.client.kirst.types.ee.x_road.kirst.producer.Kindlustused2ResponseDocument.Kindlustused2Response;
+import com.nortal.jroad.client.kirst.types.ee.x_road.kirst.producer.KindlustusedResponseDocument.KindlustusedResponse;
+import com.nortal.jroad.client.kirst.types.ee.x_road.kirst.producer.KindlustusedResponseType.Kindlustused;
 import com.nortal.jroad.client.service.v2.XTeeDatabaseService;
 import com.nortal.jroad.model.XTeeMessage;
 import com.nortal.jroad.model.XmlBeansXTeeMessage;
@@ -21,16 +28,22 @@ import java.util.Set;
 @Service("kirstXTeeService")
 public class KirstXTeeServiceImpl extends XTeeDatabaseService implements KirstXTeeService {
 
-  public TvlLoetelu2ResponseType findTvlLoetelu2V1(Set<String> isikukoodid, Date alates, Date kuni) throws XTeeServiceConsumptionException {
+  public TvlLoetelu2ResponseType findTvlLoetelu2V1(Set<String> isikukoodid, Date alates, Date kuni)
+      throws XTeeServiceConsumptionException {
     if (CollectionUtils.isEmpty(isikukoodid)) {
       throw new IllegalArgumentException("At least one 'isikukood' must be provided");
     }
     TvlLoetelu2RequestType request = createTvlLoetelu2V1Request(isikukoodid, alates, kuni);
-    XTeeMessage<XmlObject> response = send(new XmlBeansXTeeMessage<TvlLoetelu2RequestType>(request), "tvl_loetelu2", "v1");
+    XTeeMessage<XmlObject> response = send(new XmlBeansXTeeMessage<TvlLoetelu2RequestType>(request),
+                                           "tvl_loetelu2",
+                                           "v1");
     try {
       return TvlLoetelu2ResponseType.Factory.parse(response.getContent().xmlText());
     } catch (XmlException e) {
-      throw new XTeeServiceConsumptionException(new NonTechnicalFaultException("", "Unable to parse response"), "kirst", "tvl_loetelu2", "v1");
+      throw new XTeeServiceConsumptionException(new NonTechnicalFaultException("", "Unable to parse response"),
+                                                "kirst",
+                                                "tvl_loetelu2",
+                                                "v1");
     }
   }
 
@@ -59,4 +72,44 @@ public class KirstXTeeServiceImpl extends XTeeDatabaseService implements KirstXT
     return cal;
   }
 
+  public KindlustusedResponse findKindlustusV1(XTParingKindlustusedCallback callback)
+      throws XTeeServiceConsumptionException {
+    if (callback == null) {
+      throw new IllegalArgumentException("Callback can not be null!");
+    }
+    Kindlustused paring = Kindlustused.Factory.newInstance();
+
+    callback.populate(paring);
+    XTeeMessage<KindlustusedResponse> response = send(new XmlBeansXTeeMessage<Kindlustused>(paring),
+                                                      "kindlustused",
+                                                      "v1");
+
+    return response.getContent();
+  }
+
+  public Kindlustused2Response findKindlustus2(Kindlustused2 paring) throws XTeeServiceConsumptionException {
+    XTeeMessage<Kindlustused2Response> response = send(new XmlBeansXTeeMessage<Kindlustused2>(paring),
+                                                       "kindlustused2",
+                                                       "v1");
+
+    return response.getContent();
+  }
+
+  public KindlustusalusResponse findKindlustusalusV2(KindlustusalusKanneJadaCallback callback)
+      throws XTeeServiceConsumptionException {
+
+    if (callback == null) {
+      throw new IllegalArgumentException("Callback can not be null!");
+    }
+    KindlustusalusRequestType keha = Kindlustusalus.Factory.newInstance().addNewRequest();
+    KanneJada kanneJada = keha.addNewKanneJada();
+
+    callback.populate(kanneJada);
+
+    XTeeMessage<KindlustusalusResponse> response = send(new XmlBeansXTeeMessage<KindlustusalusRequestType>(keha),
+                                                        "kindlustusalus",
+                                                        "v2");
+
+    return response.getContent();
+  }
 }

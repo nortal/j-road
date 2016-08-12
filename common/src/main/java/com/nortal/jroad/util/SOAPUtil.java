@@ -1,6 +1,6 @@
 /**
- * Copyright 2015 Nortal Licensed under the Apache License, Version 2.0 (the "License"); you may not use
- * this file except in compliance with the License. You may obtain a copy of the License at
+ * Copyright 2015 Nortal Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License at
  * http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
  * either express or implied. See the License for the specific language governing permissions and limitations under the
@@ -10,6 +10,7 @@
 package com.nortal.jroad.util;
 
 import java.util.Collection;
+
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 import javax.xml.soap.SOAPPart;
@@ -21,6 +22,7 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathException;
 import javax.xml.xpath.XPathFactory;
+
 import org.springframework.ws.WebServiceMessage;
 import org.springframework.ws.soap.saaj.SaajSoapMessage;
 import org.springframework.xml.transform.StringResult;
@@ -34,6 +36,7 @@ import org.w3c.dom.NodeList;
  *
  * @author Dmitri Danilkin
  * @author Roman Tekhov
+ * @author Lauri Lättemäe (lauri.lattemae@nortal.com) - protocol 4.0
  */
 public class SOAPUtil {
   public static final String TEENUS_NS_PREFIX = "tns";
@@ -103,6 +106,10 @@ public class SOAPUtil {
    * @return text content of a node
    */
   public static String getTextContent(Node node) {
+    if (node == null) {
+      return null;
+    }
+
     NodeList nl = node.getChildNodes();
     for (int i = 0; i < nl.getLength(); i++) {
       Node childNode = nl.item(i);
@@ -273,5 +280,48 @@ public class SOAPUtil {
     } catch (SOAPException e) {
       throw new TransformerException(e);
     }
+  }
+
+  /**
+   * Returns child elements according to name and namespace
+   * 
+   * @param root
+   * @param name
+   * @param ns
+   * @return
+   */
+  public static NodeList getNsElements(Element root, String name, String ns) {
+    if (root == null) {
+      return null;
+    }
+    return root.getElementsByTagNameNS(ns, name);
+  }
+
+  /**
+   * Returns child element according to name and namespace
+   * 
+   * @param root
+   * @param name
+   * @param ns
+   * @return
+   */
+  public static Element getNsElement(Element root, String name, String ns) {
+    NodeList nl = getNsElements(root, name, ns);
+    if (nl == null || nl.getLength() != 1) {
+      return null;
+    }
+    return (Element) nl.item(0);
+  }
+
+  /**
+   * Returns child element value according to name and namespace
+   * 
+   * @param root
+   * @param name
+   * @param ns
+   * @return
+   */
+  public static String getNsElementValue(Element root, String name, String ns) {
+    return getTextContent(getNsElement(root, name, ns));
   }
 }
