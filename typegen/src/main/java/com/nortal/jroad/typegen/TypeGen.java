@@ -9,17 +9,6 @@ import com.nortal.jroad.typegen.xmlbeans.SimpleFiler;
 import com.nortal.jroad.typegen.xmlbeans.XteeSchemaCodePrinter;
 import com.nortal.jroad.util.SOAPUtil;
 import freemarker.template.TemplateException;
-
-import java.io.*;
-import java.net.URISyntaxException;
-import java.security.MessageDigest;
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.xml.namespace.QName;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 import org.apache.xmlbeans.XmlBeans;
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlObject;
@@ -28,6 +17,16 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import javax.xml.namespace.QName;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.*;
+import java.net.URISyntaxException;
+import java.security.MessageDigest;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * XMLBeans types generator
@@ -458,7 +457,7 @@ public class TypeGen {
     System.out.println("WARNING: WSDL namespace does not match X-tee convention (found: " + opNs
         + "), setting database name from WSDL filename!");
     dbDesc.set(curWsdl.getName().substring(0, curWsdl.getName().toLowerCase().indexOf(".wsdl")),
-               XRoadProtocolVersion.V2_0);
+               XRoadProtocolVersion.V4_0);
   }
   
   private static final List<String> MESSAGE_WRAPPER_NAMES = Arrays.asList("keha", "body", "request", "response");

@@ -7,7 +7,7 @@ import com.nortal.jroad.client.skais2.types.ee.som.skais2.producer.skais2.TVHYhi
 /**
  * @author Hasso Mehide <hasso.mehide@nortal.com>
  */
-public interface Skais2XTeeService {
+public interface Skais2XRoadService {
 
     /**
      * Skais2.TVHTaotlusYksUks.v1
