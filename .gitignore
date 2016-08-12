@@ -3,7 +3,6 @@
 *.jar
 *.war
 *.ear
-*.class
 client-service/**/src/main/java/com/nortal/jroad/client/**/types/**
 client-service/**/src/main/java/com/nortal/jroad/client/**/database/**
 
@@ -27,3 +26,7 @@ local.properties
 
 # Locally stored "Eclipse launch configurations"
 *.launch
+
+# IDEA
+.idea/
+*.iml
