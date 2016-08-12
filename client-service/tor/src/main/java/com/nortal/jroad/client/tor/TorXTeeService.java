@@ -20,7 +20,7 @@ public interface TorXTeeService {
   /**
    * <code>emtav5.TORIK</code> service.
    */
-  TORIKResponse findTorik(String paringuLiik, Date tootAlgusKp, Date tootLoppKp, String isikukood)
+  TORIKResponse findTorik(String paringuLiik, Date tootAlgusKp, Date tootLoppKp, Date muutAlgKp, Date muutLoppKp, String isikukood)
       throws XTeeServiceConsumptionException;
   
   /**
@@ -34,6 +34,6 @@ public interface TorXTeeService {
   UploadMimeResponse uploadMime(String target, String operation, String id, DataHandler fail)
       throws XTeeServiceConsumptionException;
   
-  TORIKDocument getTorikRequest(String paringuLiik, Date tootAlgusKp, Date tootLoppKp, String isikukood);
+  TORIKDocument getTorikRequest(String paringuLiik, Date tootAlgusKp, Date tootLoppKp, Date muutAlgKp, Date muutLoppKp, String isikukood);
 
 }
