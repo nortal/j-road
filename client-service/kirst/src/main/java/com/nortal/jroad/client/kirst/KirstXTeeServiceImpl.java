@@ -95,7 +95,7 @@ public class KirstXTeeServiceImpl extends XTeeDatabaseService implements KirstXT
     return response.getContent();
   }
 
-  public KindlustusalusResponse findKindlustusalusV2(KindlustusalusKanneJadaCallback callback)
+  public KindlustusalusResponseType findKindlustusalusV2(KindlustusalusKanneJadaCallback callback)
       throws XTeeServiceConsumptionException {
 
     if (callback == null) {
@@ -109,7 +109,13 @@ public class KirstXTeeServiceImpl extends XTeeDatabaseService implements KirstXT
     XTeeMessage<KindlustusalusResponse> response = send(new XmlBeansXTeeMessage<KindlustusalusRequestType>(keha),
                                                         "kindlustusalus",
                                                         "v2");
-
-    return response.getContent();
+    try {
+      return KindlustusalusResponseType.Factory.parse(response.getContent().xmlText());
+    } catch (XmlException e) {
+      throw new XTeeServiceConsumptionException(new NonTechnicalFaultException("", "Unable to parse response"),
+                                                "kirst",
+                                                "kindlustusalus",
+                                                "v2");
+    }
   }
 }

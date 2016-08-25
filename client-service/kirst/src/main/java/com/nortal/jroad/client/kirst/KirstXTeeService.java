@@ -1,11 +1,9 @@
 package com.nortal.jroad.client.kirst;
 
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.kirst.types.ee.x_road.kirst.producer.KindlustusalusDocument.Kindlustusalus;
 import com.nortal.jroad.client.kirst.types.ee.x_road.kirst.producer.KindlustusalusRequestType.KanneJada;
-import com.nortal.jroad.client.kirst.types.ee.x_road.kirst.producer.KindlustusalusResponseDocument.KindlustusalusResponse;
+import com.nortal.jroad.client.kirst.types.ee.x_road.kirst.producer.KindlustusalusResponseType;
 import com.nortal.jroad.client.kirst.types.ee.x_road.kirst.producer.Kindlustused2Document.Kindlustused2;
-import com.nortal.jroad.client.kirst.types.ee.x_road.kirst.producer.Kindlustused2RequestType;
 import com.nortal.jroad.client.kirst.types.ee.x_road.kirst.producer.Kindlustused2ResponseDocument.Kindlustused2Response;
 import com.nortal.jroad.client.kirst.types.ee.x_road.kirst.producer.KindlustusedResponseDocument.KindlustusedResponse;
 import com.nortal.jroad.client.kirst.types.ee.x_road.kirst.producer.KindlustusedResponseType.Kindlustused;
@@ -30,7 +28,7 @@ public interface KirstXTeeService {
   /**
    * <code>kirst.kindlustusalus.v2</code> service.
    */
-  KindlustusalusResponse findKindlustusalusV2(KindlustusalusKanneJadaCallback callback)
+  KindlustusalusResponseType findKindlustusalusV2(KindlustusalusKanneJadaCallback callback)
       throws XTeeServiceConsumptionException;
 
   /**
