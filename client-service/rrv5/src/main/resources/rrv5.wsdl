@@ -7,6 +7,7 @@
     <schema targetNamespace="http://rr-v5.x-road.ee/producer" xmlns="http://www.w3.org/2001/XMLSchema">
       <import namespace="http://x-road.ee/xsd/x-road.xsd" schemaLocation="http://x-road.ee/xsd/x-road.xsd" />
       <import namespace="http://schemas.xmlsoap.org/soap/encoding/" schemaLocation="http://schemas.xmlsoap.org/soap/encoding/" />
+
       <complexType name="XRoadResponseBaseType" abstract="true">
         <sequence>
           <element name="faultCode" type="string" minOccurs="0" />
@@ -607,6 +608,13 @@
                                                 </annotation>
                                                 <complexType>
                                                   <sequence>
+                                                    <element name="Hooldusoigus.PohiIsikuRoll" type="string">
+                                                      <annotation>
+                                                        <appinfo>
+                                                          <xrd:title>Hooldusõiguse põhiisiku roll</xrd:title>
+                                                        </appinfo>
+                                                      </annotation>
+                                                    </element>
                                                     <element name="Hooldusoigus.TyypKood" type="string">
                                                       <annotation>
                                                         <appinfo>
