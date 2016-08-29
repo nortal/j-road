@@ -16,7 +16,7 @@
             <!-- =================================== XTEE IMPORTS =================================== -->
             <import namespace="http://x-tee.riik.ee/xsd/xtee.xsd" schemaLocation="http://x-tee.riik.ee/xsd/xtee.xsd"/>
             <import namespace="http://schemas.xmlsoap.org/soap/encoding/" schemaLocation="http://schemas.xmlsoap.org/soap/encoding/" />
-            <import namespace="http://x-road.ee/xsd/x-road.xsd" schemaLocation="http://dehis.andmevara.ee/adapter/xroad.xsd"/>
+            <import namespace="http://x-road.ee/xsd/x-road.xsd" />
             <!-- =================================== LOCAL IMPORTS =================================== -->
             <!--<xsd:include schemaLocation="http://dehis.andmevara.ee/adapter/ariregister_teenused_definitions.xsd"/>-->
             <element name="kinnitatavMajandustegevus">
@@ -231,8 +231,7 @@
             <import namespace="http://x-tee.riik.ee/xsd/xtee.xsd" schemaLocation="http://x-tee.riik.ee/xsd/xtee.xsd"/>
             <import namespace="http://schemas.xmlsoap.org/soap/encoding/"
                     schemaLocation="http://schemas.xmlsoap.org/soap/encoding/"/>
-            <import namespace="http://x-road.ee/xsd/x-road.xsd"
-                    schemaLocation="http://dehis.andmevara.ee/adapter/xroad.xsd"/>
+            <import namespace="http://x-road.ee/xsd/x-road.xsd" />
 
             <!-- FIXME -->
             <!-- =================================== LOCAL IMPORTS =================================== -->
