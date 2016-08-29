@@ -105,7 +105,7 @@ public class TorXTeeServiceImpl extends XRoadDatabaseService implements TorXTeeS
   @Override
   public TORIKResponse findTorik(String paringuLiik, Date tootAlgusKp, Date tootLoppKp, Date muutAlgKp, Date muutLoppKp, String isikukood)
       throws XTeeServiceConsumptionException {
-    TorikRequestType torik = getTorikRequest(paringuLiik, tootAlgusKp, tootLoppKp, muutAlgKp, muutLoppKp isikukood).getTORIK().getRequest();
+    TorikRequestType torik = getTorikRequest(paringuLiik, tootAlgusKp, tootLoppKp, muutAlgKp, muutLoppKp, isikukood).getTORIK().getRequest();
 
     XTeeMessage<TORIKResponseDocument.TORIKResponse> vastus =
         send(new XmlBeansXTeeMessage<TorikRequestType>(torik), METHOD_TORIK, V1, new TorCallback(), null);
