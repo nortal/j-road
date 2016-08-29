@@ -30,7 +30,7 @@
     <dependency>
     	<groupId>com.nortal.jroad</groupId>
     	<artifactId>xtee-common</artifactId>
-    	<version>${project.version}</version>
+    	<version>4.1.1-SNAPSHOT</version>
    </dependency>
   </dependencies>
   <modules>
