@@ -7,11 +7,12 @@ import com.nortal.jroad.client.service.callback.StandardXTeeConsumerCallback;
 import com.nortal.jroad.client.util.ServiceVersion;
 import com.nortal.jroad.model.XTeeMessage;
 import com.nortal.jroad.model.XmlBeansXTeeMessage;
+import org.apache.xmlbeans.QNameSet;
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlObject;
+import org.apache.xmlbeans.impl.values.XmlAnyTypeImpl;
 import org.springframework.ws.WebServiceMessage;
 
-import javax.xml.namespace.QName;
 import javax.xml.transform.TransformerException;
 import java.io.IOException;
 
@@ -62,19 +63,29 @@ public class MetaserviceOperations {
   }
 
   private Integer readStateResponseCode(XmlObject respContent) {
-    XmlObject[] getStateResponses = respContent.selectChildren(new QName("getStateResponse"));
-    for (XmlObject getStateResponseElement : getStateResponses) {
-      XmlObject[] responses = getStateResponseElement.selectChildren(new QName("response"));
-      for (XmlObject responseElement : responses) {
-        XmlObject[] textNodes = responseElement.selectPath("text()");
-        for (XmlObject textNode : textNodes) {
-          String s = textNode.xmlText();
-          try {
-            return Integer.parseInt(s);
-          } catch (NumberFormatException nfe) {
-            // skip
-          }
+    XmlObject getStateResponseElement = findChildByLocalName(respContent, "getStateResponse");
+    if (getStateResponseElement == null) {
+      return null;
+    }
+    XmlObject responseElement = findChildByLocalName(getStateResponseElement, "response");
+    if (responseElement == null) {
+      return null;
+    }
+    if (responseElement instanceof XmlAnyTypeImpl) {
+      String s =((XmlAnyTypeImpl) responseElement).getStringValue();
+        try {
+          return Integer.parseInt(s);
+        } catch (NumberFormatException nfe) {
+          // skip
         }
+    }
+    return null;
+  }
+
+  private XmlObject findChildByLocalName(XmlObject element, String localname) {
+    for (XmlObject child : element.selectChildren(QNameSet.ALL)) {
+      if (localname.equals(child.getDomNode().getLocalName())) {
+        return child;
       }
     }
     return null;
