@@ -434,12 +434,12 @@ public class TypeGen {
       }
     }
 
-    metaServicesGen.tryAddMetaOpsToMetadata(new XteeMetadataModifier() {
+    metaServicesGen.tryAddMetaOpsToMetadata(opNs, dbDesc.getVersion(), new XteeMetadataModifier() {
       @Override
       public void addOperation(XmlBeansXTeeMetadata xTeeMetadata) {
         metadata.put(dbDesc.getId() + xTeeMetadata.getOperationName().toLowerCase(), xTeeMetadata);
       }
-    }, opNs);
+    });
 
     logInfo("Created metadata for operations: " + metadata.keySet());
   }

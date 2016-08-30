@@ -131,7 +131,11 @@ public class StandardXTeeConsumer extends WebServiceGatewaySupport implements XR
                                                       xteeServiceConfiguration.getMethod().toLowerCase()));
       }
 
-	  WebServiceMessageCallback originalCallback = getNewConsumerCallback(input, xteeServiceConfiguration, curdata);
+      StandardXTeeConsumerCallback originalCallback = getNewConsumerCallback(input, xteeServiceConfiguration, curdata);
+      if (callback != null) {
+        callback.modifyConsumerCallback(originalCallback);
+      }
+
       WebServiceMessageExtractor originalExtractor = new StandardXTeeConsumerMessageExtractor(curdata);
 
       if (callback != null) {

@@ -20,7 +20,7 @@ import javax.annotation.PostConstruct;
  * @author Roman Tekhov
  * @author Dmitri Danilkin
  */
-public abstract class BaseXRoadDatabaseService {
+public abstract class BaseXRoadDatabaseService implements XroadDatabaseClient {
 
   private static final String DATABASE_SERVICE_PATTERN = "(.+?)X(Tee|Road)(Database|Service)Impl";
 
@@ -58,7 +58,7 @@ public abstract class BaseXRoadDatabaseService {
   }
 
   @SuppressWarnings("unchecked")
-  protected <I, O> XTeeMessage<O> send(XTeeMessage<I> input, String method, String version)
+  public <I, O> XTeeMessage<O> send(XTeeMessage<I> input, String method, String version)
       throws XTeeServiceConsumptionException {
     return (XTeeMessage<O>) getXRoadConsumer().sendRequest(input,
                                                      getXRoadServiceConfigurationProvider().createConfiguration(database,
@@ -84,7 +84,7 @@ public abstract class BaseXRoadDatabaseService {
   }
 
   @SuppressWarnings("unchecked")
-  protected <I, O> XTeeMessage<O> send(XTeeMessage<I> input,
+  public <I, O> XTeeMessage<O> send(XTeeMessage<I> input,
                                        String method,
                                        String version,
                                        CustomCallback callback,

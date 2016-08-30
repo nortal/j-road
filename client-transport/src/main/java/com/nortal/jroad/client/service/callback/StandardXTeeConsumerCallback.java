@@ -87,4 +87,8 @@ public class StandardXTeeConsumerCallback implements WebServiceMessageCallback {
     callback.doWithMessage(request);
   }
 
+  public XTeeMessageCallback getCallback() {
+    return callback;
+  }
+
 }

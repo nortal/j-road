@@ -1,5 +1,6 @@
 package com.nortal.jroad.typegen.metaservice;
 
+import com.nortal.jroad.enums.XRoadProtocolVersion;
 import com.nortal.jroad.model.XmlBeansXTeeMetadata;
 import com.nortal.jroad.typegen.DatabaseDescriptor;
 import com.nortal.jroad.typegen.XteeMetadataModifier;
@@ -17,7 +18,7 @@ public class MetaServicesGen {
   public MetaServicesGen(DatabaseDescriptor config) {
     addMetaOperations = config.isGenerateMetaOperations();
     { // getState
-      metaOperations.add(new VoidInSimpleTypeOutMetaOp("getState", 1, "int"));
+      metaOperations.add(new VoidInSimpleTypeOutMetaOp("getState", 1));
     }
   }
 
@@ -35,10 +36,14 @@ public class MetaServicesGen {
     }
   }
 
-  public void tryAddMetaOpsToMetadata(XteeMetadataModifier metadataModifier, String operationNs) {
+  public void tryAddMetaOpsToMetadata(String operationNs,
+                                      XRoadProtocolVersion protocolVersion,
+                                      XteeMetadataModifier metadataModifier) {
     if (addMetaOperations) {
+      System.out.println("Adding metaservice operations..");
       for (MetaOperation metaOperation : metaOperations) {
-        XmlBeansXTeeMetadata xTeeMetadata = metaOperation.createXteeMetadata(operationNs);
+        System.out.println(" * " + metaOperation.getName());
+        XmlBeansXTeeMetadata xTeeMetadata = metaOperation.createXteeMetadata(protocolVersion, operationNs);
         metadataModifier.addOperation(xTeeMetadata);
       }
     }

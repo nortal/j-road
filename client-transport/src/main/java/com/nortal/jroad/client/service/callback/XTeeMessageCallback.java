@@ -63,4 +63,8 @@ public class XTeeMessageCallback implements WebServiceMessageCallback {
 		return serviceConfiguration;
 	}
 
+	public void setNamespaceStrategy(MessageCallbackNamespaceStrategy namespaceStrategy) {
+		this.namespaceStrategy = namespaceStrategy;
+	}
+
 }

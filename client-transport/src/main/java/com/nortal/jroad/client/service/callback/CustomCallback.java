@@ -14,4 +14,8 @@ public abstract class CustomCallback implements WebServiceMessageCallback {
   public void setOriginalCallback(WebServiceMessageCallback callback) {
     this.callback = callback;
   }
+
+  public void modifyConsumerCallback(StandardXTeeConsumerCallback originalCallback) {
+    // NOP by default
+  }
 }

@@ -11,6 +11,8 @@ package com.nortal.jroad.client.service.callback.v3;
 
 import com.nortal.jroad.client.service.callback.MessageCallbackNamespaceStrategy;
 import com.nortal.jroad.client.service.configuration.BaseXRoadServiceConfiguration;
+import com.nortal.jroad.client.util.ServiceVersion;
+
 import javax.xml.soap.SOAPElement;
 import javax.xml.soap.SOAPEnvelope;
 import javax.xml.soap.SOAPException;
@@ -61,8 +63,14 @@ public class XRoadMessageCallbackNamespaceStrategy extends MessageCallbackNamesp
 		StringBuilder sb = new StringBuilder(serviceConfiguration.getDatabase());
 		sb.append(".");
 		sb.append(serviceConfiguration.getMethod());
-		sb.append(".");
-		sb.append(serviceConfiguration.getVersion() == null ? "v1" : serviceConfiguration.getVersion());
+
+		ServiceVersion version = new ServiceVersion(serviceConfiguration.getVersion() == null
+																										 ? "v1"
+																										 : serviceConfiguration.getVersion());
+		if (version.isVersionedMethod()) {
+			sb.append(".").append(version.asString());
+		}
+
 		service.addTextNode(sb.toString());
 	}
 
