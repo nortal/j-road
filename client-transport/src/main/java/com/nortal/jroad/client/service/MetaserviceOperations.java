@@ -69,17 +69,11 @@ public class MetaserviceOperations {
     }
     XmlObject responseElement = findChildByLocalName(getStateResponseElement, "response");
     if (responseElement == null) {
-      return null;
+      Integer result = tryReadInteger(getStateResponseElement);
+      return (result == null) ? null : result;
     }
-    if (responseElement instanceof XmlAnyTypeImpl) {
-      String s =((XmlAnyTypeImpl) responseElement).getStringValue();
-        try {
-          return Integer.parseInt(s);
-        } catch (NumberFormatException nfe) {
-          // skip
-        }
-    }
-    return null;
+
+    return tryReadInteger(responseElement);
   }
 
   private XmlObject findChildByLocalName(XmlObject element, String localname) {
@@ -91,4 +85,23 @@ public class MetaserviceOperations {
     return null;
   }
 
+  private String tryReadStringFromTextNode(XmlObject element) {
+    if (element instanceof XmlAnyTypeImpl) {
+      return ((XmlAnyTypeImpl) element).getStringValue();
+    }
+    return null;
+  }
+
+  private Integer tryReadInteger(XmlObject element) {
+    String s = tryReadStringFromTextNode(element);
+    if (s == null) {
+      return null;
+    }
+    try {
+      return Integer.parseInt(s);
+    } catch (NumberFormatException nfe) {
+      return null;
+    }
+
+  }
 }

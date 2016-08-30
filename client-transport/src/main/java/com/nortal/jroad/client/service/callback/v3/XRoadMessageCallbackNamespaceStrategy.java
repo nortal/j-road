@@ -60,18 +60,7 @@ public class XRoadMessageCallbackNamespaceStrategy extends MessageCallbackNamesp
 		producer.addTextNode(serviceConfiguration.getDatabase());
 		userId.addTextNode(serviceConfiguration.getIdCode());
 		id.addTextNode(generateUniqueMessageId(serviceConfiguration));
-		StringBuilder sb = new StringBuilder(serviceConfiguration.getDatabase());
-		sb.append(".");
-		sb.append(serviceConfiguration.getMethod());
-
-		ServiceVersion version = new ServiceVersion(serviceConfiguration.getVersion() == null
-																										 ? "v1"
-																										 : serviceConfiguration.getVersion());
-		if (version.isVersionedMethod()) {
-			sb.append(".").append(version.asString());
-		}
-
-		service.addTextNode(sb.toString());
+		service.addTextNode(getFullServiceMethodName(serviceConfiguration));
 	}
 
 }

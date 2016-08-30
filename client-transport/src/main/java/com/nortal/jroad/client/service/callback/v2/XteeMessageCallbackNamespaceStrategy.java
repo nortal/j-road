@@ -50,12 +50,7 @@ public class XteeMessageCallbackNamespaceStrategy extends MessageCallbackNamespa
 		pandmekogu.addTextNode(serviceConfiguration.getDatabase());
 		ikood.addTextNode(serviceConfiguration.getIdCode());
 		id.addTextNode(generateUniqueMessageId(serviceConfiguration));
-		StringBuilder sb = new StringBuilder(serviceConfiguration.getDatabase());
-		sb.append(".");
-		sb.append(serviceConfiguration.getMethod());
-		sb.append(".");
-		sb.append(serviceConfiguration.getVersion() == null ? "v1" : serviceConfiguration.getVersion());
-		pnimi.addTextNode(sb.toString());
+		pnimi.addTextNode(getFullServiceMethodName(serviceConfiguration));
 	}
 
 }

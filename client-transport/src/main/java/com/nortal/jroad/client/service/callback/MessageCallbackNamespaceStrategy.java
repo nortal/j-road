@@ -1,6 +1,8 @@
 package com.nortal.jroad.client.service.callback;
 
 import com.nortal.jroad.client.service.configuration.BaseXRoadServiceConfiguration;
+import com.nortal.jroad.client.util.ServiceVersion;
+
 import java.util.Random;
 import javax.xml.soap.SOAPEnvelope;
 import javax.xml.soap.SOAPException;
@@ -19,6 +21,20 @@ public abstract class MessageCallbackNamespaceStrategy {
 	 */
 	protected String generateUniqueMessageId(BaseXRoadServiceConfiguration serviceConfiguration) {
 		return Long.toHexString(System.currentTimeMillis()) + serviceConfiguration.getInstitution() + random.nextInt();
+	}
+
+	protected String getFullServiceMethodName(BaseXRoadServiceConfiguration serviceConfiguration) {
+		StringBuilder sb = new StringBuilder(serviceConfiguration.getDatabase());
+		sb.append(".");
+		sb.append(serviceConfiguration.getMethod());
+
+		ServiceVersion version = new ServiceVersion(serviceConfiguration.getVersion() == null
+																										? "v1"
+																										: serviceConfiguration.getVersion());
+		if (version.isVersionedMethod()) {
+			sb.append(".").append(version.asString());
+		}
+		return sb.toString();
 	}
 
 	public abstract void addNamespaces(SOAPEnvelope env) throws SOAPException;
