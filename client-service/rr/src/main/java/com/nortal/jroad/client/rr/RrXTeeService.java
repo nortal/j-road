@@ -31,6 +31,8 @@ import com.nortal.jroad.client.rr.types.ee.riik.xtee.rr.producers.producer.rr.RR
  */
 public interface RrXTeeService {
 
+  Integer getState() throws XTeeServiceConsumptionException;
+
 	/**
 	 * <code>rr.RR72_isik.v1</code> service.
 	 */

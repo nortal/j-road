@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
+import com.nortal.jroad.client.service.MetaserviceOperations;
 import org.apache.commons.lang.StringUtils;
 import org.apache.xmlbeans.XmlString;
 import org.springframework.stereotype.Service;
@@ -55,6 +57,17 @@ public class RrXTeeServiceImpl implements RrXTeeService {
 
 	@Resource
 	private RrXTeeDatabase rrXTeeDatabase;
+
+	private MetaserviceOperations metaserviceOperations;
+
+	@PostConstruct
+	public void setUpCollaborators() {
+		metaserviceOperations = new MetaserviceOperations(rrXTeeDatabase);
+	}
+
+	public Integer getState() throws XTeeServiceConsumptionException {
+		return metaserviceOperations.getState();
+	}
 
 	public RR42Response findRR42isikAadressKood(RR42RequestCallback callback)
 			throws XTeeServiceConsumptionException {
