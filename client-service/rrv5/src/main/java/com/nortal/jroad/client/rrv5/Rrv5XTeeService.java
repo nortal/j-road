@@ -4,6 +4,7 @@ import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
 import com.nortal.jroad.client.rrv5.types.ee.x_road.rr_v5.producer.RR435Response;
 import com.nortal.jroad.client.rrv5.types.ee.x_road.rr_v5.producer.RR436Response;
 import com.nortal.jroad.client.rrv5.types.ee.x_road.rr_v5.producer.RR71FailDownloadResponse;
+
 import java.util.List;
 
 /**
@@ -27,4 +28,5 @@ public interface Rrv5XTeeService {
 
   public RR71FailDownloadResponse findRR71(String orderNr) throws XTeeServiceConsumptionException;
 
+  Integer getState() throws XTeeServiceConsumptionException;
 }

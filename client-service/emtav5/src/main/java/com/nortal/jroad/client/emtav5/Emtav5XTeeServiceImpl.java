@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.activation.DataHandler;
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.xml.namespace.QName;
 import javax.xml.soap.SOAPElement;
@@ -15,6 +16,7 @@ import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 import javax.xml.transform.TransformerException;
 
+import com.nortal.jroad.client.service.MetaserviceOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.ws.WebServiceMessage;
 import org.springframework.ws.soap.saaj.SaajSoapMessage;
@@ -67,6 +69,16 @@ public class Emtav5XTeeServiceImpl extends XRoadDatabaseService implements Emtav
 
   @Resource
   private Emtav5XRoadDatabase emtav5XRoadDatabase;
+  private MetaserviceOperations metaserviceOperations;
+
+  @PostConstruct public void setUpCollaborators() {
+    metaserviceOperations = new MetaserviceOperations(emtav5XRoadDatabase);
+  }
+
+  @Override
+  public Integer getState() throws XTeeServiceConsumptionException {
+    return metaserviceOperations.getState();
+  }
 
   public List<Period> xteeFIEAKV1(String id, Date start, Date end) throws XTeeServiceConsumptionException {
     SpouseCheckRequestType request = SpouseCheckRequestType.Factory.newInstance();

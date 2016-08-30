@@ -3,6 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>xtee-client-emtav5</artifactId>
   <name>EMTAV5 client services</name>
+  <version>4.1.5-SNAPSHOT</version>
 
   <parent>
     <groupId>com.nortal.jroad</groupId>

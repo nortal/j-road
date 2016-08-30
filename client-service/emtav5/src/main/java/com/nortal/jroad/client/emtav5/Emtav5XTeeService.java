@@ -20,7 +20,9 @@ import com.nortal.jroad.model.XTeeMessage;
  */
 public interface Emtav5XTeeService {
 
-	/**
+  Integer getState() throws XTeeServiceConsumptionException;
+
+  /**
 	 * <code>emtav5.xteeFIEAK.v1</code> service.
 	 */
 	List<Period> xteeFIEAKV1(String id, Date start, Date end) throws XTeeServiceConsumptionException;
