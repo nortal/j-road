@@ -58,25 +58,29 @@ public class StandardXTeeConsumerCallback implements WebServiceMessageCallback {
 
       BaseXRoadServiceConfiguration serviceConfiguration = callback.getServiceConfiguration();
 
-      if (serviceConfiguration.getForceDatabaseNamespace() && !metadata.getOperationNs().equals(namespace)) {
+      String requestElementName = getRequestElementName(metadata);
+      String requestElementNs = getRequestElementNs(metadata);
+
+      if (serviceConfiguration.getForceDatabaseNamespace() && !requestElementNs.equals(namespace)) {
         mes.getSOAPPart().getEnvelope().addNamespaceDeclaration(ROOT_NS, namespace);
-        rootElement = factory.createElement(metadata.getOperationName(), ROOT_NS, namespace);
-        XmlCursor c = ((XmlObject)object).newCursor();
+        rootElement = factory.createElement(requestElementName, ROOT_NS, namespace);
+        XmlCursor c = ((XmlObject) object).newCursor();
         c.toNextToken();
         while (c.hasNextToken()) {
-          if ((c.isStart() || c.isAttr() || c.isNamespace()) && metadata.getOperationNs().equals(c.getName().getNamespaceURI())) {
+          if ((c.isStart() || c.isAttr() || c.isNamespace())
+              && requestElementNs.equals(c.getName().getNamespaceURI())) {
             c.setName(new QName(namespace, c.getName().getLocalPart()));
           }
           c.toNextToken();
         }
         c.dispose();
       } else {
-        mes.getSOAPPart().getEnvelope().addNamespaceDeclaration(ROOT_NS, metadata.getOperationNs());
-        rootElement = factory.createElement(metadata.getOperationName(), ROOT_NS, metadata.getOperationNs());
+        mes.getSOAPPart().getEnvelope().addNamespaceDeclaration(ROOT_NS, requestElementNs);
+        rootElement = factory.createElement(requestElementName, ROOT_NS, requestElementNs);
       }
 
-      if(setEncodingStyle) {
-    	  rootElement.setEncodingStyle("http://schemas.xmlsoap.org/soap/encoding/");
+      if (setEncodingStyle) {
+        rootElement.setEncodingStyle("http://schemas.xmlsoap.org/soap/encoding/");
       }
 
       marshaller.marshal(object, new DOMResult(rootElement));
@@ -89,6 +93,14 @@ public class StandardXTeeConsumerCallback implements WebServiceMessageCallback {
 
   public XTeeMessageCallback getCallback() {
     return callback;
+  }
+
+  protected String getRequestElementName(XmlBeansXTeeMetadata metadata) {
+    return metadata.getOperationName();
+  }
+
+  protected String getRequestElementNs(XmlBeansXTeeMetadata metadata) {
+    return metadata.getOperationNs();
   }
 
 }
