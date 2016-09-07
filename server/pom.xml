@@ -6,7 +6,7 @@
 	<artifactId>xtee-server</artifactId>
 	<name>x-tee server</name>
 	<description>x-tee server API</description>
-    <version>4.1.1-SNAPSHOT</version>
+    <version>4.1.2-SNAPSHOT</version>
 	<parent>
 		<groupId>com.nortal.jroad</groupId>
 		<artifactId>xtee-root</artifactId>
@@ -61,7 +61,7 @@
 		<dependency>
 			<groupId>com.nortal.jroad</groupId>
 			<artifactId>xtee-common</artifactId>
-			<version>${project.version}</version>
+			<version>4.1.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.sun.xml.bind</groupId>

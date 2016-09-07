@@ -2,19 +2,11 @@ package com.nortal.jroad.wsdl.v4;
 
 import com.nortal.jroad.mapping.v4.XRoadEndpointMapping;
 import com.nortal.jroad.model.v4.XRoadHeader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-import javax.wsdl.Binding;
-import javax.wsdl.BindingInput;
-import javax.wsdl.BindingOperation;
-import javax.wsdl.BindingOutput;
-import javax.wsdl.Definition;
-import javax.wsdl.Input;
-import javax.wsdl.Output;
-import javax.wsdl.Port;
-import javax.wsdl.WSDLException;
+import org.springframework.ws.wsdl.wsdl11.provider.Soap11Provider;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import javax.wsdl.*;
 import javax.wsdl.extensions.ExtensibilityElement;
 import javax.wsdl.extensions.ExtensionRegistry;
 import javax.wsdl.extensions.UnknownExtensibilityElement;
@@ -24,9 +16,10 @@ import javax.wsdl.extensions.soap.SOAPHeader;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import org.springframework.ws.wsdl.wsdl11.provider.Soap11Provider;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Creates XRoad specific SOAP headers and bindings (<code>RPC/Literal</code> is used). Used by
@@ -131,7 +124,7 @@ public class XRoadSoapProvider extends Soap11Provider {
 
   @Override
   protected void populateSoapBinding(SOAPBinding soapBinding, Binding binding) throws WSDLException {
-    soapBinding.setStyle("rpc");
+    soapBinding.setStyle("document");
     soapBinding.setTransportURI(getTransportUri());
   }
 
