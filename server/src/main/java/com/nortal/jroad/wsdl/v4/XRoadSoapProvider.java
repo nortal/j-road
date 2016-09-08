@@ -7,7 +7,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import javax.wsdl.*;
-import javax.wsdl.extensions.ExtensibilityElement;
 import javax.wsdl.extensions.ExtensionRegistry;
 import javax.wsdl.extensions.UnknownExtensibilityElement;
 import javax.wsdl.extensions.soap.SOAPBinding;
@@ -18,7 +17,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -54,7 +52,6 @@ public class XRoadSoapProvider extends Soap11Provider {
         header.setUse(ENCODED);
         header.setEncodingStyles(Arrays.asList(ENCODING));
       }
-      header.setNamespaceURI(XRoadWsdlDefinition.XROAD_NAMESPACE);
       list.add(header);
     }
 
@@ -68,12 +65,6 @@ public class XRoadSoapProvider extends Soap11Provider {
       bindingInput.addExtensibilityElement(header);
     }
     super.populateBindingInput(definition, bindingInput, input);
-    for (Iterator<?> i = bindingInput.getExtensibilityElements().iterator(); i.hasNext();) {
-      ExtensibilityElement element = (ExtensibilityElement) i.next();
-      if (element instanceof SOAPBody) {
-        ((SOAPBody) element).setNamespaceURI(definition.getTargetNamespace());
-      }
-    }
   }
 
   @Override
@@ -83,12 +74,6 @@ public class XRoadSoapProvider extends Soap11Provider {
       bindingOutput.addExtensibilityElement(header);
     }
     super.populateBindingOutput(definition, bindingOutput, output);
-    for (Iterator<?> i = bindingOutput.getExtensibilityElements().iterator(); i.hasNext();) {
-      ExtensibilityElement element = (ExtensibilityElement) i.next();
-      if (element instanceof SOAPBody) {
-        ((SOAPBody) element).setNamespaceURI(definition.getTargetNamespace());
-      }
-    }
   }
 
   @Override

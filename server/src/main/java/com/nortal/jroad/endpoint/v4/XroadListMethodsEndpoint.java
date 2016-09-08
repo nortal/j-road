@@ -1,14 +1,14 @@
 package com.nortal.jroad.endpoint.v4;
 
-import org.springframework.stereotype.Component;
-
 import com.nortal.jroad.mapping.v4.XRoadEndpointMapping;
-import com.nortal.jroad.model.XTeeMessage;
+import com.nortal.jroad.model.v4.XRoadMessage;
 import com.nortal.jroad.util.SOAPUtil;
-import javax.annotation.Resource;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import javax.annotation.Resource;
 
 /**
  * @author Aleksei Bogdanov (aleksei.bogdanov@nortal.com)
@@ -25,7 +25,7 @@ public class XroadListMethodsEndpoint extends AbstractXRoadBaseEndpoint {
   }
 
   @Override
-  protected void invokeInternal(XTeeMessage<Document> request, XTeeMessage<Element> response) throws Exception {
+  protected void invokeInternal(XRoadMessage<Document> request, XRoadMessage<Element> response) throws Exception {
     SOAPUtil.addTypeAttribute(response.getContent(), "SOAP-ENC:Array");
     SOAPUtil.addArrayTypeAttribute(response.getContent(), "string", xRoadEndpointMapping.getMethods().size());
     SOAPUtil.addArrayOffsetAttribute(response.getContent(), 0);

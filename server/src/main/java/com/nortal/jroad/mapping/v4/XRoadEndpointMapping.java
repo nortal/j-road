@@ -1,16 +1,11 @@
 package com.nortal.jroad.mapping.v4;
 
 import com.nortal.jroad.annotation.XRoadService;
+import com.nortal.jroad.endpoint.AbstractXTeeBaseEndpoint;
 import com.nortal.jroad.endpoint.v4.AbstractXRoadBaseEndpoint;
 import com.nortal.jroad.endpoint.v4.XroadListMethodsEndpoint;
 import com.nortal.jroad.util.SOAPUtil;
 import com.nortal.jroad.wsdl.v4.XRoadWsdlDefinition;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import javax.annotation.Resource;
-import javax.xml.soap.SOAPMessage;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
@@ -18,6 +13,13 @@ import org.springframework.ws.context.MessageContext;
 import org.springframework.ws.server.endpoint.mapping.AbstractEndpointMapping;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import javax.annotation.Resource;
+import javax.xml.soap.SOAPMessage;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Finds all XRoad endpoints and maps incoming requests to them according to query name present in the XRoad header.
@@ -32,7 +34,7 @@ public class XRoadEndpointMapping extends AbstractEndpointMapping implements Ini
 
   @Resource(name = "database")
   private String database;
-  private Map<String, AbstractXRoadBaseEndpoint> methodMap;
+  private Map<String, AbstractXTeeBaseEndpoint> methodMap;
 
   public void setDatabase(String database) {
     this.database = database;
@@ -41,10 +43,10 @@ public class XRoadEndpointMapping extends AbstractEndpointMapping implements Ini
   // Lazy initialization
   public void afterPropertiesSet() throws Exception {
     log.debug("Initializing method map...");
-    methodMap = new HashMap<String, AbstractXRoadBaseEndpoint>();
-    String[] beans = getApplicationContext().getBeanNamesForType(AbstractXRoadBaseEndpoint.class);
+    methodMap = new HashMap<String, AbstractXTeeBaseEndpoint>();
+    String[] beans = getApplicationContext().getBeanNamesForType(AbstractXTeeBaseEndpoint.class);
     for (int i = 0; i < beans.length; i++) {
-      AbstractXRoadBaseEndpoint endpoint = (AbstractXRoadBaseEndpoint) getApplicationContext().getBean(beans[i]);
+      AbstractXTeeBaseEndpoint endpoint = (AbstractXTeeBaseEndpoint) getApplicationContext().getBean(beans[i]);
       String meetod = getXRoadMethodName(endpoint.getClass(), database);
       if (methodMap.get(meetod) != null) {
         throw new IllegalStateException("Unresolvable: endpoints " + endpoint.getClass().getSimpleName() + " and "
@@ -107,7 +109,7 @@ public class XRoadEndpointMapping extends AbstractEndpointMapping implements Ini
   }
 
   /**
-   * Attempts to get the full XRoad method name for the given {@link AbstractXRoadBaseEndpoint}, by processing the
+   * Attempts to get the full XRoad method name for the given {@link AbstractXTeeBaseEndpoint}, by processing the
    * {@link XRoadService} annotation -- if this is not present the method name will be a concatenation of X-Tee database
    * name, unqualified class name of given {@link AbstractXRoadBaseEndpoint} (as service name) and "v1" (as version
    * number).
@@ -116,7 +118,7 @@ public class XRoadEndpointMapping extends AbstractEndpointMapping implements Ini
    * @param databaseName name of the XRoad database
    * @return the XRoadService method name that was constructed according to aforementioned rules
    */
-  private String getXRoadMethodName(Class<? extends AbstractXRoadBaseEndpoint> clazz, String databaseName) {
+  private String getXRoadMethodName(Class<? extends AbstractXTeeBaseEndpoint> clazz, String databaseName) {
     String version = "v1";
     String serviceName = null;
     if (clazz.isAnnotationPresent(XRoadService.class)) {
@@ -139,7 +141,7 @@ public class XRoadEndpointMapping extends AbstractEndpointMapping implements Ini
     return methodMap.keySet();
   }
 
-  public Map<String, AbstractXRoadBaseEndpoint> getMethodMap() {
+  public Map<String, AbstractXTeeBaseEndpoint> getMethodMap() {
     return Collections.unmodifiableMap(methodMap);
   }
 }

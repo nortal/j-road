@@ -9,28 +9,6 @@
 
 package com.nortal.jroad.endpoint;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import javax.xml.namespace.QName;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.soap.AttachmentPart;
-import javax.xml.soap.SOAPElement;
-import javax.xml.soap.SOAPEnvelope;
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPHeader;
-import javax.xml.soap.SOAPMessage;
-
-import org.springframework.ws.context.MessageContext;
-import org.springframework.ws.server.endpoint.MessageEndpoint;
-import org.springframework.ws.wsdl.wsdl11.provider.SuffixBasedMessagesProvider;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
 import com.nortal.jroad.enums.XRoadProtocolVersion;
 import com.nortal.jroad.model.BeanXTeeMessage;
 import com.nortal.jroad.model.XTeeAttachment;
@@ -38,6 +16,19 @@ import com.nortal.jroad.model.XTeeHeader;
 import com.nortal.jroad.model.XTeeMessage;
 import com.nortal.jroad.util.SOAPUtil;
 import com.nortal.jroad.wsdl.XTeeWsdlDefinition;
+import org.apache.log4j.Logger;
+import org.springframework.ws.context.MessageContext;
+import org.springframework.ws.server.endpoint.MessageEndpoint;
+import org.springframework.ws.wsdl.wsdl11.provider.SuffixBasedMessagesProvider;
+import org.w3c.dom.*;
+import org.w3c.dom.Node;
+
+import javax.xml.namespace.QName;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.soap.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Base class for X-Tee Spring web-service endpoints, extension classes must implement
@@ -48,6 +39,7 @@ import com.nortal.jroad.wsdl.XTeeWsdlDefinition;
  * @author Lauri Lättemäe (lauri.lattemae@nortal.com) - protocol 4.0
  */
 public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
+  private static final Logger log = Logger.getLogger(AbstractXTeeBaseEndpoint.class);
   protected static final String PROTOCOL_VERSION = "protocolVersion";
   public final static String RESPONSE_SUFFIX = "Response";
   protected boolean metaService = false;
@@ -97,7 +89,8 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
         return version;
       }
     }
-    throw new IllegalStateException("Unsupported protocol version");
+    log.info("Defaulting to protocol 2.0");
+    return XRoadProtocolVersion.V2_0;
   }
 
   @SuppressWarnings("unchecked")
