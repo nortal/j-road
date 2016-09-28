@@ -17,8 +17,11 @@ import com.nortal.jroad.model.XTeeMessage;
 import com.nortal.jroad.util.SOAPUtil;
 import com.nortal.jroad.wsdl.XTeeWsdlDefinition;
 import org.apache.log4j.Logger;
+import org.springframework.ws.WebServiceMessage;
+import org.springframework.ws.client.WebServiceClientException;
 import org.springframework.ws.context.MessageContext;
 import org.springframework.ws.server.endpoint.MessageEndpoint;
+import org.springframework.ws.soap.saaj.SaajSoapMessage;
 import org.springframework.ws.wsdl.wsdl11.provider.SuffixBasedMessagesProvider;
 import org.w3c.dom.*;
 import org.w3c.dom.Node;
@@ -26,12 +29,15 @@ import org.w3c.dom.Node;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.soap.*;
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 /**
- * Base class for X-Tee Spring web-service endpoints, extension classes must implement
+ * Base class for X-Tee Spring web-service endpoints, extension classes must
+ * implement
  * {@link AbstractXTeeBaseEndpoint#invokeInternal(XTeeMessage request, XTeeMessage response)}.
  * 
  * @author Roman Tekhov
@@ -46,6 +52,7 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
   protected XRoadProtocolVersion version;
 
   public final void invoke(MessageContext messageContext) throws Exception {
+    handleRequest(messageContext);
     SOAPMessage paringMessage = SOAPUtil.extractSoapMessage(messageContext.getRequest());
     SOAPMessage responseMessage = SOAPUtil.extractSoapMessage(messageContext.getResponse());
 
@@ -58,6 +65,7 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
 
     Document paring = metaService ? null : parseQuery(paringMessage);
     getResponse(paring, responseMessage, paringMessage);
+    handleResponse(messageContext);
   }
 
   @SuppressWarnings("unchecked")
@@ -68,8 +76,7 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
       NodeList reqHeaders = requestMessage.getSOAPHeader().getChildNodes();
       for (int i = 0; i < reqHeaders.getLength(); i++) {
         Node reqHeader = reqHeaders.item(i);
-        if (reqHeader.getNodeType() != Node.ELEMENT_NODE
-            || !reqHeader.getLocalName().equals(PROTOCOL_VERSION)) {
+        if (reqHeader.getNodeType() != Node.ELEMENT_NODE || !reqHeader.getLocalName().equals(PROTOCOL_VERSION)) {
           continue;
         }
 
@@ -81,10 +88,15 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
 
     // Extract protocol version by namespaces
     SOAPEnvelope soapEnv = requestMessage.getSOAPPart().getEnvelope();
-    Iterator<String> prefixes = soapEnv.getNamespacePrefixes();
-    while (prefixes.hasNext()) {
-      String nsPrefix = (String) prefixes.next();
-      String nsURI = soapEnv.getNamespaceURI(nsPrefix).toLowerCase();
+    SOAPHeader soapHead = soapEnv.getHeader();
+    Iterator<Node> headers = soapHead != null && soapHead.hasChildNodes() ? soapHead.getChildElements() : null;
+    while (headers != null && headers.hasNext()) {
+      Node header = headers.next();
+      String namespaceURI = header.getNamespaceURI();
+      if (namespaceURI == null) {
+        continue;
+      }
+      String nsURI = namespaceURI.toLowerCase();
       if ((version = XRoadProtocolVersion.getValueByNamespaceURI(nsURI)) != null) {
         return version;
       }
@@ -114,8 +126,9 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
     }
 
     // Build response message
-    XTeeMessage<Element> response =
-        new BeanXTeeMessage<Element>(header, teenusElement, new ArrayList<XTeeAttachment>());
+    XTeeMessage<Element> response = new BeanXTeeMessage<Element>(header,
+                                                                 teenusElement,
+                                                                 new ArrayList<XTeeAttachment>());
 
     // Run logic
     invokeInternalEx(request, response, requestMessage, responseMessage);
@@ -148,7 +161,8 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
             if (item.getLocalName() == null) {
               continue;
             } else {
-              pais.addElement(new QName(item.getNamespaceURI(), localName + "." + item.getLocalName()), item.getFirstChild().getNodeValue());
+              pais.addElement(new QName(item.getNamespaceURI(), localName + "." + item.getLocalName()),
+                              item.getFirstChild().getNodeValue());
             }
           }
         }
@@ -216,9 +230,8 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
 
     String teenusElementName = teenusElement.getLocalName();
     if (teenusElementName.endsWith(SuffixBasedMessagesProvider.DEFAULT_REQUEST_SUFFIX)) {
-      teenusElementName =
-          teenusElementName.substring(0,
-                                      teenusElementName.lastIndexOf(SuffixBasedMessagesProvider.DEFAULT_REQUEST_SUFFIX));
+      teenusElementName = teenusElementName
+          .substring(0, teenusElementName.lastIndexOf(SuffixBasedMessagesProvider.DEFAULT_REQUEST_SUFFIX));
     }
     teenusElementName += SuffixBasedMessagesProvider.DEFAULT_RESPONSE_SUFFIX;
     return responseMessage.getSOAPBody().addChildElement(teenusElementName,
@@ -241,7 +254,8 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
   }
 
   /**
-   * If true, request will be processed as a meta-request (an example of a meta-query is <code>listMethods</code>).
+   * If true, request will be processed as a meta-request (an example of a
+   * meta-query is <code>listMethods</code>).
    */
   public void setMetaService(boolean metaService) {
     this.metaService = metaService;
@@ -253,7 +267,8 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
   }
 
   /**
-   * This method can be overridden if you need direct access to the request and response messages.
+   * This method can be overridden if you need direct access to the request and
+   * response messages.
    * 
    * @param request
    * @param response
@@ -264,17 +279,50 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
   protected void invokeInternalEx(XTeeMessage<Document> request,
                                   XTeeMessage<Element> response,
                                   SOAPMessage responseMessage,
-                                  SOAPMessage requestMessage) throws Exception {
+                                  SOAPMessage requestMessage)
+      throws Exception {
     invokeInternal(request, response);
   }
 
   /**
-   * Method which must implement the service logic, receives <code>request</code> and <code>response<code>.
+   * Method which must implement the service logic, receives
+   * <code>request</code> and <code>response<code>.
    * 
    * @param request
    * @param response
    */
   protected void invokeInternal(XTeeMessage<Document> request, XTeeMessage<Element> response) throws Exception {
     throw new IllegalStateException("You must override either the 'invokeInternal' or the 'invokeInternalEx' method!");
-  };
+  }
+
+  protected enum MessageType {
+
+    REQUEST, RESPONSE, FAULT;
+  }
+
+  protected boolean handleRequest(MessageContext mc) throws WebServiceClientException {
+    return logMessage(mc, MessageType.REQUEST);
+  }
+
+  protected boolean handleResponse(MessageContext mc) throws WebServiceClientException {
+    return true;
+  }
+
+  protected boolean logMessage(MessageContext mc, MessageType messageType) {
+    if (log.isDebugEnabled()) {
+      WebServiceMessage message = MessageType.REQUEST.equals(messageType) ? mc.getRequest() : mc.getResponse();
+
+      if (message instanceof SaajSoapMessage) {
+        OutputStream out = new ByteArrayOutputStream();
+        try {
+          message.writeTo(out);
+          log.debug(messageType + " message follows:\n" + out.toString());
+        } catch (Exception e) {
+          throw new RuntimeException(e);
+        }
+      }
+    }
+
+    return true;
+  }
 }
