@@ -67,7 +67,7 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
   }
 
   @SuppressWarnings("unchecked")
-  private XRoadProtocolVersion parseProtocolVersion(SOAPMessage requestMessage) throws SOAPException {
+  protected XRoadProtocolVersion parseProtocolVersion(SOAPMessage requestMessage) throws SOAPException {
     XRoadProtocolVersion version = null;
     // Extract protocol version by headers
     if (requestMessage.getSOAPHeader() != null) {
