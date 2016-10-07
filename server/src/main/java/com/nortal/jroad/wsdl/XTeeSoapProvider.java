@@ -73,7 +73,6 @@ public class XTeeSoapProvider extends Soap11Provider {
         header.setUse(ENCODED);
         header.setEncodingStyles(Arrays.asList(ENCODING));
       }
-      header.setNamespaceURI(XTeeWsdlDefinition.XROAD_NAMESPACE);
       list.add(header);
     }
 
@@ -87,12 +86,6 @@ public class XTeeSoapProvider extends Soap11Provider {
       bindingInput.addExtensibilityElement(header);
     }
     super.populateBindingInput(definition, bindingInput, input);
-    for (Iterator<?> i = bindingInput.getExtensibilityElements().iterator(); i.hasNext();) {
-      ExtensibilityElement element = (ExtensibilityElement) i.next();
-      if (element instanceof SOAPBody) {
-        ((SOAPBody) element).setNamespaceURI(definition.getTargetNamespace());
-      }
-    }
   }
 
   @Override
@@ -102,12 +95,6 @@ public class XTeeSoapProvider extends Soap11Provider {
       bindingOutput.addExtensibilityElement(header);
     }
     super.populateBindingOutput(definition, bindingOutput, output);
-    for (Iterator<?> i = bindingOutput.getExtensibilityElements().iterator(); i.hasNext();) {
-      ExtensibilityElement element = (ExtensibilityElement) i.next();
-      if (element instanceof SOAPBody) {
-        ((SOAPBody) element).setNamespaceURI(definition.getTargetNamespace());
-      }
-    }
   }
 
   @Override
