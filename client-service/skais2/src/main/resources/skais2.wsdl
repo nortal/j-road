@@ -419,7 +419,7 @@
             <!--<xsd:include schemaLocation="tootukassa_teenused.xsd"/>-->
 
             <!-- Teenus: courierDeliveryReply päring -->
-            <element name="TVHYhisTaotlusRequest" type="tns:TVHYhisTaotlusRequest"/>
+            <element name="TVHTaotlusYksUks" type="tns:TVHYhisTaotlusRequest"/>
 
             <complexType name="TVHYhisTaotlusRequest">
                 <sequence>
@@ -689,7 +689,7 @@
                             </appinfo>
                         </annotation>
                     </element>
-                    <element maxOccurs="unbounded" minOccurs="0" name="tookogemus" nillable="false"
+                    <element maxOccurs="1" minOccurs="0" name="tookogemus" nillable="false"
                              type="tns:TVHYhisTookogemus">
                         <annotation>
                             <appinfo>
