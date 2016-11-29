@@ -1,0 +1,1148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:xrd="http://x-road.ee/xsd/x-road.xsd" xmlns:tns="http://rr-v5.x-road.ee/producer"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+  xmlns:wsdl="http://www.w3.org/ns/wsdl" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns="http://schemas.xmlsoap.org/wsdl/"
+  targetNamespace="http://rr-v5.x-road.ee/producer" xmlns:rr="http://producers.rr.xtee.riik.ee/producer/rr">
+  <types>
+    <schema targetNamespace="http://rr-v5.x-road.ee/producer" xmlns="http://www.w3.org/2001/XMLSchema">
+      <import namespace="http://x-road.ee/xsd/x-road.xsd" schemaLocation="http://x-road.ee/xsd/x-road.xsd" />
+      <import namespace="http://schemas.xmlsoap.org/soap/encoding/" schemaLocation="http://schemas.xmlsoap.org/soap/encoding/" />
+
+      <complexType name="XRoadResponseBaseType" abstract="true">
+        <sequence>
+          <element name="faultCode" type="string" minOccurs="0" />
+          <element name="faultString" type="string" minOccurs="0" />
+        </sequence>
+      </complexType>
+      <simpleType name="date">
+        <restriction base="string">
+          <pattern value="(([0-2]?[0-9])|(3[0,1]))\.((0[0-9])|(1[0-2]))\.[0-9]{4}" />
+        </restriction>
+      </simpleType>
+      <simpleType name="time">
+        <restriction base="string">
+          <pattern value="(([0,1][0-9])|(2[0-3])):[0-5][0-9]" />
+        </restriction>
+      </simpleType>
+      <simpleType name="PersonalCode">
+        <restriction base="string">
+          <pattern value="[1,2,3,4,5,6][0-9]{2}((0[0-9])|(1[0-2]))(([0-2][0-9])|(3[0,1]))[0-9]{4}" />
+        </restriction>
+      </simpleType>
+
+      <complexType name="RR435">
+        <sequence>
+          <element name="request" type="tns:RR435RequestType" />
+        </sequence>
+      </complexType>
+
+
+      <complexType name="RR435RequestType">
+        <sequence>
+          <element name="Isikukood" type="tns:PersonalCode" minOccurs="1" maxOccurs="1">
+            <annotation>
+              <appinfo>
+                <xrd:title>Isikukood</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+        </sequence>
+      </complexType>
+
+
+
+      <complexType name="RR435ResponseType">
+        <complexContent>
+          <extension base="tns:XRoadResponseBaseType">
+            <sequence>
+
+              <element name="Veakood" type="integer" minOccurs="0">
+                <annotation>
+                  <appinfo>
+                    <xrd:title>Kui otsingu tulemusena isik leiti, siis 0, vastasel juhul veakood</xrd:title>
+                  </appinfo>
+                </annotation>
+              </element>
+              <element name="Veatekst" type="string" minOccurs="0">
+                <annotation>
+                  <appinfo>
+                    <xrd:title>Vea põhjust iseloomustav tekst</xrd:title>
+                  </appinfo>
+                </annotation>
+              </element>
+
+              <element name="Isik">
+                <complexType>
+                  <sequence>
+                    <element name="Isik.Eesnimi" type="string">
+                      <annotation>
+                        <appinfo>
+                          <xrd:title>Eesnimi</xrd:title>
+                        </appinfo>
+                      </annotation>
+                    </element>
+                    <element name="Isik.Perenimi" type="string">
+                      <annotation>
+                        <appinfo>
+                          <xrd:title>Perenimi</xrd:title>
+                        </appinfo>
+                      </annotation>
+                    </element>
+                    <element name="Isik.Isikukood" type="tns:PersonalCode">
+                      <annotation>
+                        <appinfo>
+                          <xrd:title>Isikukood</xrd:title>
+                        </appinfo>
+                      </annotation>
+                    </element>
+                    <element name="Isik.TopeltIsikukood" type="tns:PersonalCode">
+                      <annotation>
+                        <appinfo>
+                          <xrd:title>Isikukood</xrd:title>
+                        </appinfo>
+                      </annotation>
+                    </element>
+                    <element name="Isik.Synniaeg" type="tns:date">
+                      <annotation>
+                        <appinfo>
+                          <xrd:title>Sünniaeg</xrd:title>
+                        </appinfo>
+                      </annotation>
+                    </element>
+                    <element name="Isik.Surmaaeg" type="tns:date" minOccurs="0">
+                      <annotation>
+                        <appinfo>
+                          <xrd:title>Surmaaeg</xrd:title>
+                        </appinfo>
+                      </annotation>
+                    </element>
+                    <element name="Isik.SuguKood" type="string">
+                      <annotation>
+                        <appinfo>
+                          <xrd:title>Isiku soo kood</xrd:title>
+                        </appinfo>
+                      </annotation>
+                    </element>
+                    <element name="Isik.Sugu" type="string">
+                      <annotation>
+                        <appinfo>
+                          <xrd:title>Isiku sugu</xrd:title>
+                        </appinfo>
+                      </annotation>
+                    </element>
+                    <element name="Isik.KirjeStaatusKood" type="string">
+                      <annotation>
+                        <appinfo>
+                          <xrd:title>Kirje staatuse kood</xrd:title>
+                        </appinfo>
+                      </annotation>
+                    </element>
+                    <element name="Isik.KirjeStaatusNimetus" type="string">
+                      <annotation>
+                        <appinfo>
+                          <xrd:title>Kirje staatus</xrd:title>
+                        </appinfo>
+                      </annotation>
+                    </element>
+                    <element name="Isik.ArhiiviKandmisePohjus" type="string" minOccurs="0">
+                      <annotation>
+                        <appinfo>
+                          <xrd:title>Arhiivi kandmise põhjus</xrd:title>
+                        </appinfo>
+                      </annotation>
+                    </element>
+
+                    <element name="Isik.Kodakondsused">
+                      <annotation>
+                        <appinfo>
+                          <xrd:title>Kodakondsused</xrd:title>
+                        </appinfo>
+                      </annotation>
+                      <complexType>
+                        <complexContent>
+                          <restriction base="SOAP-ENC:Array">
+                            <sequence>
+                              <element name="Kodakondsus" minOccurs="0" maxOccurs="unbounded">
+                                <complexType>
+                                  <sequence>
+                                    <element name="Kodakondsus.OnPohiline" type="string" minOccurs="0">
+                                      <annotation>
+                                        <appinfo>
+                                          <xrd:title>Põhikodakondsus</xrd:title>
+                                        </appinfo>
+                                      </annotation>
+                                    </element>
+                                    <element name="Kodakondsus.KehtivAlates" type="tns:date" minOccurs="0">
+                                      <annotation>
+                                        <appinfo>
+                                          <xrd:title>Alates</xrd:title>
+                                        </appinfo>
+                                      </annotation>
+                                    </element>
+                                    <element name="Kodakondsus.KehtivKuni" type="tns:date" minOccurs="0">
+                                      <annotation>
+                                        <appinfo>
+                                          <xrd:title>Kuni</xrd:title>
+                                        </appinfo>
+                                      </annotation>
+                                    </element>
+                                    <element name="Kodakondsus.ISO3Kood" type="string" minOccurs="0">
+                                      <annotation>
+                                        <appinfo>
+                                          <xrd:title>Riigi kood</xrd:title>
+                                        </appinfo>
+                                      </annotation>
+                                    </element>
+                                    <element name="Kodakondsus.Nimetus" type="string" minOccurs="0">
+                                      <annotation>
+                                        <appinfo>
+                                          <xrd:title>Riigi nimetus</xrd:title>
+                                        </appinfo>
+                                      </annotation>
+                                    </element>
+                                  </sequence>
+                                </complexType>
+                              </element>
+                            </sequence>
+                          </restriction>
+                        </complexContent>
+                      </complexType>
+                    </element>
+
+                    <element name="Isik.TeovoimePiirangud">
+                      <annotation>
+                        <appinfo>
+                          <xrd:title>Teovõime</xrd:title>
+                        </appinfo>
+                      </annotation>
+                      <complexType>
+                        <complexContent>
+                          <restriction base="SOAP-ENC:Array">
+                            <sequence>
+                              <element name="Teovoime" minOccurs="0" maxOccurs="unbounded">
+                                <complexType>
+                                  <sequence>
+                                    <element name="Teovoime.LiikKood" type="string">
+                                      <annotation>
+                                        <appinfo>
+                                          <xrd:title>Teovõime piirangu kood</xrd:title>
+                                        </appinfo>
+                                      </annotation>
+                                    </element>
+                                    <element name="Teovoime.Liik" type="string" minOccurs="0">
+                                      <annotation>
+                                        <appinfo>
+                                          <xrd:title>Teovõime piirang</xrd:title>
+                                        </appinfo>
+                                      </annotation>
+                                    </element>
+                                    <element name="Teovoime.Markus" type="string" minOccurs="0">
+                                      <annotation>
+                                        <appinfo>
+                                          <xrd:title>Teovõime sisu</xrd:title>
+                                        </appinfo>
+                                      </annotation>
+                                    </element>
+                                    <element name="Teovoime.KehtivAlates" type="tns:date" minOccurs="0">
+                                      <annotation>
+                                        <appinfo>
+                                          <xrd:title>Alates</xrd:title>
+                                        </appinfo>
+                                      </annotation>
+                                    </element>
+                                    <element name="Teovoime.KehtivKuni" type="tns:date" minOccurs="0">
+                                      <annotation>
+                                        <appinfo>
+                                          <xrd:title>Kuni</xrd:title>
+                                        </appinfo>
+                                      </annotation>
+                                    </element>
+                                    <element name="Teovoime.StaatusKood" type="string">
+                                      <annotation>
+                                        <appinfo>
+                                          <xrd:title>Staatuse kood</xrd:title>
+                                        </appinfo>
+                                      </annotation>
+                                    </element>
+                                    <element name="Teovoime.Staatus" type="string">
+                                      <annotation>
+                                        <appinfo>
+                                          <xrd:title>Staatus</xrd:title>
+                                        </appinfo>
+                                      </annotation>
+                                    </element>
+                                  </sequence>
+                                </complexType>
+                              </element>
+                            </sequence>
+                          </restriction>
+                        </complexContent>
+                      </complexType>
+                    </element>
+
+                    <element name="Isik.Aadress" minOccurs="0">
+                      <complexType>
+                        <sequence>
+                          <element name="Aadress.KehtivAlates" type="tns:date" minOccurs="0">
+                            <annotation>
+                              <appinfo>
+                                <xrd:title>Elukoha alguse kuupäev</xrd:title>
+                              </appinfo>
+                            </annotation>
+                          </element>
+                          <element name="Aadress.Sihtnumber" type="string" minOccurs="0">
+                            <annotation>
+                              <appinfo>
+                                <xrd:title>Elukoha aadressi sihtnumber</xrd:title>
+                              </appinfo>
+                            </annotation>
+                          </element>
+                          <element name="Aadress.Tanav" type="string" minOccurs="0">
+                            <annotation>
+                              <appinfo>
+                                <xrd:title>Tänava nimetus</xrd:title>
+                              </appinfo>
+                            </annotation>
+                          </element>
+                          <element name="Aadress.Maja" type="string" minOccurs="0">
+                            <annotation>
+                              <appinfo>
+                                <xrd:title>Maja number</xrd:title>
+                              </appinfo>
+                            </annotation>
+                          </element>
+                          <element name="Aadress.Korter" type="string" minOccurs="0">
+                            <annotation>
+                              <appinfo>
+                                <xrd:title>Korteri number</xrd:title>
+                              </appinfo>
+                            </annotation>
+                          </element>
+                          <element name="Aadress.Nimi" type="string" minOccurs="0">
+                            <annotation>
+                              <appinfo>
+                                <xrd:title>Nimi</xrd:title>
+                              </appinfo>
+                            </annotation>
+                          </element>
+                          <element name="Aadress.Vkoht" type="string" minOccurs="0">
+                            <annotation>
+                              <appinfo>
+                                <xrd:title>Väikekoha nimetus</xrd:title>
+                              </appinfo>
+                            </annotation>
+                          </element>
+                          <element name="Aadress.KOV" type="string" minOccurs="0">
+                            <annotation>
+                              <appinfo>
+                                <xrd:title>Valla või linna nimetus</xrd:title>
+                              </appinfo>
+                            </annotation>
+                          </element>
+                          <element name="Aadress.Asula" type="string" minOccurs="0">
+                            <annotation>
+                              <appinfo>
+                                <xrd:title>Asula või küla või linnaosa nimetus</xrd:title>
+                              </appinfo>
+                            </annotation>
+                          </element>
+                          <element name="Aadress.Maakond" type="string" minOccurs="0">
+                            <annotation>
+                              <appinfo>
+                                <xrd:title>Maakonna nimetus</xrd:title>
+                              </appinfo>
+                            </annotation>
+                          </element>
+                          <element name="Aadress.ISO3Riik" type="string" minOccurs="0">
+                            <annotation>
+                              <appinfo>
+                                <xrd:title>Riigi kood</xrd:title>
+                              </appinfo>
+                            </annotation>
+                          </element>
+                          <element name="Aadress.Ads_adob_id" type="string" minOccurs="0">
+                            <annotation>
+                              <appinfo>
+                                <xrd:title>ADS_ADOB_ID</xrd:title>
+                              </appinfo>
+                            </annotation>
+                          </element>
+                          <element name="Aadress.Ads_AdrID" type="string" minOccurs="0">
+                            <annotation>
+                              <appinfo>
+                                <xrd:title>ADS_ADR_ID</xrd:title>
+                              </appinfo>
+                            </annotation>
+                          </element>
+                          <element name="Aadress.Ads_oid" type="string" minOccurs="0">
+                            <annotation>
+                              <appinfo>
+                                <xrd:title>ADS_OID</xrd:title>
+                              </appinfo>
+                            </annotation>
+                          </element>
+                          <element name="Aadress.Ads_Koodaadress" type="string" minOccurs="0">
+                            <annotation>
+                              <appinfo>
+                                <xrd:title>ADS_KOODAADRESS</xrd:title>
+                              </appinfo>
+                            </annotation>
+                          </element>
+                          <element name="Aadress.Aadresstekst" type="string" minOccurs="0">
+                            <annotation>
+                              <appinfo>
+                                <xrd:title>Aadress tekstina</xrd:title>
+                              </appinfo>
+                            </annotation>
+                          </element>
+                        </sequence>
+                      </complexType>
+                    </element>
+
+                    <element name="Isik.Elamislubaoigused">
+                      <complexType>
+                        <complexContent>
+                          <restriction base="SOAP-ENC:Array">
+                            <sequence>
+                              <element name="Elamislubaoigus" minOccurs="0" maxOccurs="unbounded">
+                                <complexType>
+                                  <sequence>
+                                    <element name="Elamislubaoigus.LiikKood" type="string">
+                                      <annotation>
+                                        <appinfo>
+                                          <xrd:title>Dokumendi liigi kood</xrd:title>
+                                        </appinfo>
+                                      </annotation>
+                                    </element>
+                                    <element name="Elamislubaoigus.Liik" type="string">
+                                      <annotation>
+                                        <appinfo>
+                                          <xrd:title>Dokumendi liik</xrd:title>
+                                        </appinfo>
+                                      </annotation>
+                                    </element>
+                                    <element name="Elamislubaoigus.KehtivAlates" type="tns:date" minOccurs="0">
+                                      <annotation>
+                                        <appinfo>
+                                          <xrd:title>Dokumendi kehtivuse alguse kuupäev</xrd:title>
+                                        </appinfo>
+                                      </annotation>
+                                    </element>
+                                    <element name="Elamislubaoigus.KehtivKuni" type="tns:date" minOccurs="0">
+                                      <annotation>
+                                        <appinfo>
+                                          <xrd:title>Dokumendi kehtivuse lõpu kuupäev</xrd:title>
+                                        </appinfo>
+                                      </annotation>
+                                    </element>
+                                    <element name="Elamislubaoigus.StaatusKood" type="string">
+                                      <annotation>
+                                        <appinfo>
+                                          <xrd:title>Dokumendi staatuse kood</xrd:title>
+                                        </appinfo>
+                                      </annotation>
+                                    </element>
+                                    <element name="Elamislubaoigus.Staatus" type="string">
+                                      <annotation>
+                                        <appinfo>
+                                          <xrd:title>Dokumendi staatus</xrd:title>
+                                        </appinfo>
+                                      </annotation>
+                                    </element>
+                                  </sequence>
+                                </complexType>
+                              </element>
+                            </sequence>
+                          </restriction>
+                        </complexContent>
+                      </complexType>
+                    </element>
+
+                    <element name="Isik.SeotudIsikud">
+                      <annotation>
+                        <appinfo>
+                          <xrd:title>Isiku seosed</xrd:title>
+                        </appinfo>
+                      </annotation>
+                      <complexType>
+                        <complexContent>
+                          <restriction base="SOAP-ENC:Array">
+                            <sequence>
+                              <element name="SeotudIsik" minOccurs="0" maxOccurs="unbounded">
+                                <complexType>
+                                  <sequence>
+                                    <element name="SeotudIsik.Eesnimi" type="string" minOccurs="0" maxOccurs="1">
+                                      <annotation>
+                                        <appinfo>
+                                          <xrd:title>Seoses oleva teise isiku eesnimi</xrd:title>
+                                        </appinfo>
+                                      </annotation>
+                                    </element>
+                                    <element name="SeotudIsik.Nimi" type="string" minOccurs="1" maxOccurs="1">
+                                      <annotation>
+                                        <appinfo>
+                                          <xrd:title>Seoses oleva teise isiku perenimi</xrd:title>
+                                        </appinfo>
+                                      </annotation>
+                                    </element>
+                                    <element name="SeotudIsik.Isikukood" type="string" minOccurs="0" maxOccurs="1">
+                                      <annotation>
+                                        <appinfo>
+                                          <xrd:title>Seoses oleva teise isiku isikukood</xrd:title>
+                                        </appinfo>
+                                      </annotation>
+                                    </element>
+                                    <element name="SeotudIsik.Registrikood" type="string" minOccurs="0"
+                                      maxOccurs="1">
+                                      <annotation>
+                                        <appinfo>
+                                          <xrd:title>Seoses oleva asutuse registrikood</xrd:title>
+                                        </appinfo>
+                                      </annotation>
+                                    </element>
+                                    <element name="SeotudIsik.SeoseTyypKood" type="string" minOccurs="1"
+                                      maxOccurs="1">
+                                      <annotation>
+                                        <appinfo>
+                                          <xrd:title>Seose liik</xrd:title>
+                                        </appinfo>
+                                      </annotation>
+                                    </element>
+                                    <element name="SeotudIsik.SeoseTyyp" type="string" minOccurs="1" maxOccurs="1">
+                                      <annotation>
+                                        <appinfo>
+                                          <xrd:title>Seose liik</xrd:title>
+                                        </appinfo>
+                                      </annotation>
+                                    </element>
+                                    <element name="SeotudIsik.StaatusKood" type="string" minOccurs="1"
+                                      maxOccurs="1">
+                                      <annotation>
+                                        <appinfo>
+                                          <xrd:title>Seose staatuse kood</xrd:title>
+                                        </appinfo>
+                                      </annotation>
+                                    </element>
+                                    <element name="SeotudIsik.Staatus" type="string" minOccurs="1" maxOccurs="1">
+                                      <annotation>
+                                        <appinfo>
+                                          <xrd:title>Seose staatus</xrd:title>
+                                        </appinfo>
+                                      </annotation>
+                                    </element>
+                                    <element name="SeotudIsik.KehtivAlates" type="tns:date" minOccurs="0"
+                                      maxOccurs="1">
+                                      <annotation>
+                                        <appinfo>
+                                          <xrd:title>Seose algus</xrd:title>
+                                        </appinfo>
+                                      </annotation>
+                                    </element>
+                                    <element name="SeotudIsik.KehtivKuni" type="tns:date" minOccurs="0"
+                                      maxOccurs="1">
+                                      <annotation>
+                                        <appinfo>
+                                          <xrd:title>Seos kuni</xrd:title>
+                                        </appinfo>
+                                      </annotation>
+                                    </element>
+
+                                    <element name="SeotudIsik.Kontaktid">
+                                      <annotation>
+                                        <appinfo>
+                                          <xrd:title>Seotud isiku kontaktid</xrd:title>
+                                        </appinfo>
+                                      </annotation>
+                                      <complexType>
+                                        <complexContent>
+                                          <restriction base="SOAP-ENC:Array">
+                                            <sequence>
+                                              <element name="Kontakt" minOccurs="0" maxOccurs="unbounded">
+                                                <complexType>
+                                                  <sequence>
+                                                    <element name="Kontakt.TyypKood" type="string">
+                                                      <annotation>
+                                                        <appinfo>
+                                                          <xrd:title>Kontakti liigi kood</xrd:title>
+                                                        </appinfo>
+                                                      </annotation>
+                                                    </element>
+                                                    <element name="Kontakt.Tyyp" type="string">
+                                                      <annotation>
+                                                        <appinfo>
+                                                          <xrd:title>Kontkti liik</xrd:title>
+                                                        </appinfo>
+                                                      </annotation>
+                                                    </element>
+                                                    <element name="Kontakt.Vaartus" type="string">
+                                                      <annotation>
+                                                        <appinfo>
+                                                          <xrd:title>Kontakti väärtus</xrd:title>
+                                                        </appinfo>
+                                                      </annotation>
+                                                    </element>
+                                                  </sequence>
+                                                </complexType>
+                                              </element>
+                                            </sequence>
+                                          </restriction>
+                                        </complexContent>
+                                      </complexType>
+                                    </element>
+
+                                    <element name="SeotudIsik.Hooldusoigused">
+                                      <annotation>
+                                        <appinfo>
+                                          <xrd:title>Hooldusoigused</xrd:title>
+                                        </appinfo>
+                                      </annotation>
+                                      <complexType>
+                                        <complexContent>
+                                          <restriction base="SOAP-ENC:Array">
+                                            <sequence>
+                                              <element name="Hooldusoigus" minOccurs="0" maxOccurs="unbounded">
+                                                <annotation>
+                                                  <appinfo>
+                                                    <xrd:title>Hooldusoigus</xrd:title>
+                                                  </appinfo>
+                                                </annotation>
+                                                <complexType>
+                                                  <sequence>
+                                                    <element name="Hooldusoigus.PohiIsikuRoll" type="string">
+                                                      <annotation>
+                                                        <appinfo>
+                                                          <xrd:title>Hooldusõiguse põhiisiku roll</xrd:title>
+                                                        </appinfo>
+                                                      </annotation>
+                                                    </element>
+                                                    <element name="Hooldusoigus.TyypKood" type="string">
+                                                      <annotation>
+                                                        <appinfo>
+                                                          <xrd:title>Hooldusõiguse liigi kood</xrd:title>
+                                                        </appinfo>
+                                                      </annotation>
+                                                    </element>
+                                                    <element name="Hooldusoigus.Tyyp" type="string">
+                                                      <annotation>
+                                                        <appinfo>
+                                                          <xrd:title>Hooldusõiguse liik</xrd:title>
+                                                        </appinfo>
+                                                      </annotation>
+                                                    </element>
+                                                    <element name="Hooldusoigus.KehtivAlates" type="tns:date"
+                                                      minOccurs="0">
+                                                      <annotation>
+                                                        <appinfo>
+                                                          <xrd:title>Hooldusõiguse algus</xrd:title>
+                                                        </appinfo>
+                                                      </annotation>
+                                                    </element>
+                                                    <element name="Hooldusoigus.KehtivKuni" type="tns:date"
+                                                      minOccurs="0">
+                                                      <annotation>
+                                                        <appinfo>
+                                                          <xrd:title>Hooldusõiguse lõpp</xrd:title>
+                                                        </appinfo>
+                                                      </annotation>
+                                                    </element>
+                                                    <element name="Hooldusoigus.StaatusKood" type="string"
+                                                      minOccurs="1" maxOccurs="1">
+                                                      <annotation>
+                                                        <appinfo>
+                                                          <xrd:title>Hooldusõiguse staatuse kood</xrd:title>
+                                                        </appinfo>
+                                                      </annotation>
+                                                    </element>
+                                                    <element name="Hooldusoigus.Staatus" type="string"
+                                                      minOccurs="1" maxOccurs="1">
+                                                      <annotation>
+                                                        <appinfo>
+                                                          <xrd:title>Hooldusõiguse staatus</xrd:title>
+                                                        </appinfo>
+                                                      </annotation>
+                                                    </element>
+                                                  </sequence>
+                                                </complexType>
+                                              </element>
+                                            </sequence>
+                                          </restriction>
+                                        </complexContent>
+                                      </complexType>
+                                    </element>
+
+                                  </sequence>
+                                </complexType>
+                              </element>
+                            </sequence>
+                          </restriction>
+                        </complexContent>
+
+                      </complexType>
+                    </element>
+
+                  </sequence>
+                </complexType>
+              </element>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+
+
+      <complexType name="RR435Response">
+        <sequence>
+          <element name="request" type="tns:RR435RequestType" />
+          <element name="response" type="tns:RR435ResponseType" />
+        </sequence>
+      </complexType>
+
+
+
+      <complexType name="RR436RequestType">
+        <sequence>
+          <element name="cFailiSisu" type="string" minOccurs="1" maxOccurs="1">
+            <annotation>
+              <appinfo>
+                <xrd:title>Isikukoodid (zip+base-64)</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="IsikukoodideArv" type="string" minOccurs="1" maxOccurs="1">
+            <annotation>
+              <appinfo>
+                <xrd:title>Isikukoodide arv</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+        </sequence>
+      </complexType>
+
+
+      <complexType name="RR436">
+        <sequence>
+          <element name="request" type="tns:RR436RequestType" />
+        </sequence>
+      </complexType>
+
+
+      <complexType name="RR436ResponseType">
+        <complexContent>
+          <extension base="tns:XRoadResponseBaseType">
+            <sequence>
+              <element name="cTellimuseNr" type="string" minOccurs="1" maxOccurs="1">
+                <annotation>
+                  <appinfo>
+                    <xrd:title>Tellimuse number</xrd:title>
+                  </appinfo>
+                </annotation>
+              </element>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+
+      <complexType name="RR436InnerResponseType">
+        <complexContent>
+          <extension base="tns:XRoadResponseBaseType">
+            <sequence>
+
+              <element name="RR436" minOccurs="1" maxOccurs="1">
+                <complexType>
+                  <sequence>
+                    <element name="Veakood" type="integer" minOccurs="0">
+                      <annotation>
+                        <appinfo>
+                          <xrd:title>Kui otsingu tulemusena isik leiti, siis 0, vastasel juhul veakood</xrd:title>
+                        </appinfo>
+                      </annotation>
+                    </element>
+                    <element name="Veatekst" type="string" minOccurs="0">
+                      <annotation>
+                        <appinfo>
+                          <xrd:title>Vea põhjust iseloomustav tekst</xrd:title>
+                        </appinfo>
+                      </annotation>
+                    </element>
+
+                    <element name="Isik" minOccurs="0" maxOccurs="unbounded">
+                      <complexType>
+                        <sequence>
+                          <element name="Isikukood" type="tns:PersonalCode">
+                            <annotation>
+                              <appinfo>
+                                <xrd:title>Isikukood</xrd:title>
+                              </appinfo>
+                            </annotation>
+                          </element>
+                          <element name="Isik.SeotudIsikud">
+                            <annotation>
+                              <appinfo>
+                                <xrd:title>Isiku seosed</xrd:title>
+                              </appinfo>
+                            </annotation>
+                            <complexType>
+                              <complexContent>
+                                <restriction base="SOAP-ENC:Array">
+                                  <sequence>
+                                    <element name="SeotudIsik" minOccurs="0" maxOccurs="unbounded">
+                                      <complexType>
+                                        <sequence>
+                                          <element name="SeotudIsik.SeoseEesNimi" type="string" minOccurs="0"
+                                            maxOccurs="1">
+                                            <annotation>
+                                              <appinfo>
+                                                <xrd:title>Seoses oleva teise isiku eesnimi</xrd:title>
+                                              </appinfo>
+                                            </annotation>
+                                          </element>
+                                          <element name="SeotudIsik.SeoseNimi" type="string" minOccurs="1"
+                                            maxOccurs="1">
+                                            <annotation>
+                                              <appinfo>
+                                                <xrd:title>Seoses oleva teise isiku perenimi</xrd:title>
+                                              </appinfo>
+                                            </annotation>
+                                          </element>
+                                          <element name="SeotudIsik.SeoseIsikukood" type="string" minOccurs="0"
+                                            maxOccurs="1">
+                                            <annotation>
+                                              <appinfo>
+                                                <xrd:title>Seoses oleva teise isiku isikukood</xrd:title>
+                                              </appinfo>
+                                            </annotation>
+                                          </element>
+                                          <element name="SeotudIsik.SeoseTyypKood" type="string" minOccurs="1"
+                                            maxOccurs="1">
+                                            <annotation>
+                                              <appinfo>
+                                                <xrd:title>Seose liik</xrd:title>
+                                              </appinfo>
+                                            </annotation>
+                                          </element>
+                                          <element name="SeotudIsik.SeoseTyyp" type="string" minOccurs="1"
+                                            maxOccurs="1">
+                                            <annotation>
+                                              <appinfo>
+                                                <xrd:title>Seose liik</xrd:title>
+                                              </appinfo>
+                                            </annotation>
+                                          </element>
+                                          <element name="SeotudIsik.KehtivAlates" type="tns:date" minOccurs="0"
+                                            maxOccurs="1">
+                                            <annotation>
+                                              <appinfo>
+                                                <xrd:title>Seose algus</xrd:title>
+                                              </appinfo>
+                                            </annotation>
+                                          </element>
+
+                                          <element name="SeotudIsik.Hooldusoigused" minOccurs="0" maxOccurs="1">
+                                            <complexType>
+                                              <sequence>
+
+                                                <element name="Hooldusoigus" minOccurs="0" maxOccurs="unbounded">
+                                                  <annotation>
+                                                    <appinfo>
+                                                      <xrd:title>Hooldusoigus</xrd:title>
+                                                    </appinfo>
+                                                  </annotation>
+                                                  <complexType>
+                                                    <sequence>
+                                                      <element name="Hooldusoigus.TyypKood" type="string">
+                                                        <annotation>
+                                                          <appinfo>
+                                                            <xrd:title>Hooldusõiguse liigi kood</xrd:title>
+                                                          </appinfo>
+                                                        </annotation>
+                                                      </element>
+
+                                                      <element name="Hooldusoigus.Tyyp" type="string">
+                                                        <annotation>
+                                                          <appinfo>
+                                                            <xrd:title>Hooldusõiguse liik</xrd:title>
+                                                          </appinfo>
+                                                        </annotation>
+                                                      </element>
+                                                      <element name="Hooldusoigus.KehtivAlates" type="tns:date"
+                                                        minOccurs="0">
+                                                        <annotation>
+                                                          <appinfo>
+                                                            <xrd:title>Hooldusõiguse algus</xrd:title>
+                                                          </appinfo>
+                                                        </annotation>
+                                                      </element>
+                                                      <element name="Hooldusoigus.KehtivKuni" type="tns:date"
+                                                        minOccurs="0">
+                                                        <annotation>
+                                                          <appinfo>
+                                                            <xrd:title>Hooldusõiguse lõpp</xrd:title>
+                                                          </appinfo>
+                                                        </annotation>
+                                                      </element>
+                                                      <element name="Hooldusoigus.StaatusKood" type="string"
+                                                        minOccurs="1" maxOccurs="1">
+                                                        <annotation>
+                                                          <appinfo>
+                                                            <xrd:title>Hooldusõiguse staatuse kood</xrd:title>
+                                                          </appinfo>
+                                                        </annotation>
+                                                      </element>
+                                                      <element name="Hooldusoigus.Staatus" type="string"
+                                                        minOccurs="1" maxOccurs="1">
+                                                        <annotation>
+                                                          <appinfo>
+                                                            <xrd:title>Hooldusõiguse staatus</xrd:title>
+                                                          </appinfo>
+                                                        </annotation>
+                                                      </element>
+                                                    </sequence>
+                                                  </complexType>
+                                                </element>
+                                              </sequence>
+                                            </complexType>
+                                          </element>
+
+                                        </sequence>
+                                      </complexType>
+
+
+                                    </element>
+                                  </sequence>
+                                </restriction>
+                              </complexContent>
+
+                            </complexType>
+                          </element>
+
+                        </sequence>
+                      </complexType>
+                    </element>
+                  </sequence>
+                </complexType>
+              </element>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+
+
+      <complexType name="RR436Response">
+        <sequence>
+          <element name="request" type="tns:RR436RequestType" />
+          <element name="response" type="tns:RR436ResponseType" />
+        </sequence>
+      </complexType>
+
+
+
+
+      <complexType name="RR71_fail_downloadRequestType">
+        <sequence>
+          <element name="cFailiNimi" type="string" minOccurs="1" maxOccurs="1">
+            <annotation>
+              <appinfo>
+                <xrd:title>Faili nimi</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+        </sequence>
+      </complexType>
+
+
+      <complexType name="RR71_fail_download">
+        <sequence>
+          <element name="request" type="tns:RR71_fail_downloadRequestType" />
+        </sequence>
+      </complexType>
+
+      <complexType name="RR71_fail_downloadResponseType">
+        <complexContent>
+          <extension base="tns:XRoadResponseBaseType">
+            <sequence>
+              <element name="ttData">
+                <annotation>
+                  <appinfo>
+                    <xrd:title />
+                  </appinfo>
+                </annotation>
+                <complexType>
+
+                  <complexContent>
+                    <restriction base="SOAP-ENC:Array">
+                      <sequence>
+                        <!-- jada milles on struktuurid (tabeli ridadest) -->
+                        <element name="item " minOccurs="0" maxOccurs="unbounded">
+                          <complexType>
+                            <sequence>
+                              <element name="ttData.id" type="integer">
+                                <annotation>
+                                  <appinfo>
+                                    <xrd:title />
+                                  </appinfo>
+                                </annotation>
+                              </element>
+                              <element name="ttData.cData" type="string">
+                                <annotation>
+                                  <appinfo>
+                                    <xrd:title>Väljundfail</xrd:title>
+                                  </appinfo>
+                                </annotation>
+                              </element>
+                            </sequence>
+                            <!-- START struktuuri kirjeldus -->
+                          </complexType>
+                        </element>
+
+                        <!-- LOPP struktuuri kirjeldus -->
+                        <!-- END generate TABLE [ttData.] columns: 2 -->
+                      </sequence>
+                    </restriction>
+                    <!-- LOPP massiivile -->
+                  </complexContent>
+                  <!-- ############# START massiivile ########### -->
+                </complexType>
+              </element>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+
+      <complexType name="RR71_fail_downloadResponse">
+        <sequence>
+          <element name="request" type="tns:RR71_fail_downloadRequestType" />
+          <element name="response" type="tns:RR71_fail_downloadResponseType" />
+        </sequence>
+      </complexType>
+
+    </schema>
+  </types>
+
+  <message name="RR435">
+    <part name="body" type="tns:RR435" />
+  </message>
+  <message name="RR435Response">
+    <part name="body" type="tns:RR435Response" />
+  </message>
+  <message name="RR436">
+    <part name="body" type="tns:RR436" />
+  </message>
+  <message name="RR436Response">
+    <part name="body" type="tns:RR436Response" />
+  </message>
+
+  <message name="RR71_fail_download">
+    <part name="body" type="tns:RR71_fail_download" />
+  </message>
+  <message name="RR71_fail_downloadResponse">
+    <part name="body" type="tns:RR71_fail_downloadResponse" />
+  </message>
+
+
+  <portType name="XRoadAdapterPortType">
+
+    <operation name="RR435">
+      <documentation>
+        <xrd:title xml:lang="et">RR435 - ISIKUKOODI ALUSEL SEOSED, ELAMISLOAD,TEOVÕIMED JA AADRESSID (SH KONTAKTID)
+        </xrd:title>
+        <xrd:notes xml:lang="et">RR435 - ISIKUKOODI ALUSEL SEOSED, ELAMISLOAD,TEOVÕIMED JA AADRESSID (SH KONTAKTID)
+        </xrd:notes>
+      </documentation>
+      <input message="tns:RR435" />
+      <output message="tns:RR435Response" />
+    </operation>
+
+    <operation name="RR436">
+      <documentation>
+        <xrd:title xml:lang="et">RR436 - ISIKUKOODI ALUSEL SEOSED</xrd:title>
+        <xrd:notes xml:lang="et">RR436 - ISIKUKOODI ALUSEL SEOSED</xrd:notes>
+      </documentation>
+      <input message="tns:RR436" />
+      <output message="tns:RR436Response" />
+    </operation>
+
+    <operation name="RR71_fail_download">
+      <documentation>
+        <xrd:title xml:lang="et">RR71 - Vastavalt teenuse numdrile faili allalaadimine</xrd:title>
+        <xrd:notes xml:lang="et">RR71 - Faili allalaadimine</xrd:notes>
+      </documentation>
+      <input message="tns:RR71_fail_download" />
+      <output message="tns:RR71_fail_downloadResponse" />
+    </operation>
+
+  </portType>
+
+  <binding name="XRoadBinding" type="tns:XRoadAdapterPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="RR435">
+      <soap:operation soapAction="" style="document" />
+      <xrd:version>v1</xrd:version>
+      <input>
+        <soap:body parts="body" use="literal" />
+        <soap:header message="tns:standardheader" part="consumer" use="literal" />
+        <soap:header message="tns:standardheader" part="producer" use="literal" />
+        <soap:header message="tns:standardheader" part="userId" use="literal" />
+        <soap:header message="tns:standardheader" part="id" use="literal" />
+        <soap:header message="tns:standardheader" part="service" use="literal" />
+      </input>
+      <output>
+        <soap:body parts="body" use="literal" />
+        <soap:header message="tns:standardheader" part="consumer" use="literal" />
+        <soap:header message="tns:standardheader" part="producer" use="literal" />
+        <soap:header message="tns:standardheader" part="userId" use="literal" />
+        <soap:header message="tns:standardheader" part="id" use="literal" />
+        <soap:header message="tns:standardheader" part="service" use="literal" />
+      </output>
+    </operation>
+    <operation name="RR436">
+      <soap:operation soapAction="" style="document" />
+      <xrd:version>v1</xrd:version>
+      <input>
+        <soap:body parts="body" use="literal" />
+        <soap:header message="tns:standardheader" part="consumer" use="literal" />
+        <soap:header message="tns:standardheader" part="producer" use="literal" />
+        <soap:header message="tns:standardheader" part="userId" use="literal" />
+        <soap:header message="tns:standardheader" part="id" use="literal" />
+        <soap:header message="tns:standardheader" part="service" use="literal" />
+      </input>
+      <output>
+        <soap:body parts="body" use="literal" />
+        <soap:header message="tns:standardheader" part="consumer" use="literal" />
+        <soap:header message="tns:standardheader" part="producer" use="literal" />
+        <soap:header message="tns:standardheader" part="userId" use="literal" />
+        <soap:header message="tns:standardheader" part="id" use="literal" />
+        <soap:header message="tns:standardheader" part="service" use="literal" />
+      </output>
+    </operation>
+
+
+    <operation name="RR71_fail_download">
+      <soap:operation soapAction="" style="document" />
+      <xrd:version>v1</xrd:version>
+      <input>
+        <soap:body parts="body" use="literal" />
+        <soap:header message="tns:standardheader" part="consumer" use="literal" />
+        <soap:header message="tns:standardheader" part="producer" use="literal" />
+        <soap:header message="tns:standardheader" part="userId" use="literal" />
+        <soap:header message="tns:standardheader" part="id" use="literal" />
+        <soap:header message="tns:standardheader" part="service" use="literal" />
+      </input>
+
+      <output>
+        <soap:body parts="body" use="literal" />
+        <soap:header message="tns:standardheader" part="consumer" use="literal" />
+        <soap:header message="tns:standardheader" part="producer" use="literal" />
+        <soap:header message="tns:standardheader" part="userId" use="literal" />
+        <soap:header message="tns:standardheader" part="id" use="literal" />
+        <soap:header message="tns:standardheader" part="service" use="literal" />
+      </output>
+    </operation>
+
+  </binding>
+  <service name="XRoadService">
+    <port name="MainPort" binding="tns:XRoadBinding">
+      <soap:address location="https://turvaserveri-url/cgi-bin/consumer_proxy" />
+      <xrd:title xml:lang="et">RRver5 ADAPTER</xrd:title>
+      <xrd:address producer="rr-v5" />
+    </port>
+  </service>
+</definitions>
