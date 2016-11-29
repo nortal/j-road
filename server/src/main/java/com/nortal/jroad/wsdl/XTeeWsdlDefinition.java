@@ -54,6 +54,10 @@ public class XTeeWsdlDefinition implements Wsdl11Definition, InitializingBean {
 
   @Resource(name = "xteeDatabase")
   private String xRoadDatabase;
+
+  @Resource(name = "xRoadTargetNamespace")
+  private String xRoadTargetNamespace;
+
   @Resource
   private XTeeEndpointMapping xRoadEndpointMapping;
 
@@ -137,7 +141,9 @@ public class XTeeWsdlDefinition implements Wsdl11Definition, InitializingBean {
 
     setRequestSuffix(SuffixBasedMessagesProvider.DEFAULT_REQUEST_SUFFIX);
     setResponseSuffix(SuffixBasedMessagesProvider.DEFAULT_RESPONSE_SUFFIX);
-    delegate.setTargetNamespace("http://" + xRoadDatabase + ".x-road.eu");
+
+    String targetNamespace = (xRoadTargetNamespace != null) ?xRoadTargetNamespace : "http://"+xRoadDatabase+".x-road.ee/producer/";
+    delegate.setTargetNamespace(targetNamespace);
 
     if (!StringUtils.hasText(delegate.getTargetNamespace()) && typesProvider.getSchemaCollection() != null
         && typesProvider.getSchemaCollection().getXsdSchemas().length > 0) {
