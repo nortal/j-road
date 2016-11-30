@@ -9824,7 +9824,7 @@
     <wsdl:message name="ERIHK2Response">
         <wsdl:part name="body" element="tns:ERIHK2Response" />
     </wsdl:message>
-    <!--END Missing from-->
+    <!--END Changed from-->
 
     <wsdl:portType name="pkrPortType">
         <wsdl:operation name="STAR1_TULUD">
