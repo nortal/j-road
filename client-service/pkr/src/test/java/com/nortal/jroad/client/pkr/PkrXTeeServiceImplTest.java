@@ -1,20 +1,12 @@
 package com.nortal.jroad.client.pkr;
 
-import java.util.Calendar;
-import java.util.List;
-
-import javax.annotation.Resource;
-
 import com.nortal.jroad.client.pkr.types.ee.riik.xtee.pkr.producers.producer.pkr.Tkis2Valjund;
+import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
 import junit.framework.Assert;
-
 import org.junit.Test;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.pkr.types.ee.riik.xtee.pkr.producers.producer.pkr.TtaPensionToetusVastus;
-import com.nortal.jroad.client.pkr.types.ee.riik.xtee.pkr.producers.producer.pkr.TtaPensionToetusVastus.ToetusJada;
-import com.nortal.jroad.client.pkr.types.ee.riik.xtee.pkr.producers.producer.pkr.TtaPensionToetusVastus.ToetusJada.Item;
-import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
+import javax.annotation.Resource;
+import java.util.Calendar;
 
 /**
  * @author Margus Hanni
@@ -25,21 +17,6 @@ public class PkrXTeeServiceImplTest extends BaseXTeeServiceImplTest {
 
   @Resource
   private PkrXTeeServiceImpl pkrXTeeServiceImpl;
-
-  @Test
-  public void getPensionToetus() throws XTeeServiceConsumptionException {
-
-    TtaPensionToetusVastus toetusVastus = pkrXTeeServiceImpl.getPensionToetus(TEST_ISIKUKOOD);
-
-    Assert.assertNotNull(toetusVastus);
-    Assert.assertNotNull(toetusVastus.getKood());
-
-    ToetusJada toetusJada = toetusVastus.getToetusJada();
-    Assert.assertNotNull(toetusJada);
-
-    List<Item> items = toetusJada.getItemList();
-    Assert.assertNotNull(items);
-  }
 
   @Test
   public void getTkis2V1() throws Exception {

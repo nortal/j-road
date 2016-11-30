@@ -1,12 +1,11 @@
 package com.nortal.jroad.client.pkr;
 
-import java.util.Calendar;
-import java.util.Date;
-
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.pkr.types.ee.riik.xtee.pkr.producers.producer.pkr.Tkis1Vastus;
+import com.nortal.jroad.client.pkr.types.ee.riik.xtee.pkr.producers.producer.pkr.ERIHK1ResponseDocument;
 import com.nortal.jroad.client.pkr.types.ee.riik.xtee.pkr.producers.producer.pkr.Tkis2Valjund;
-import com.nortal.jroad.client.pkr.types.ee.riik.xtee.pkr.producers.producer.pkr.TtaPensionToetusVastus;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * <code>PKR</code> or <code>TPKR</code> X-tee service
@@ -16,17 +15,12 @@ import com.nortal.jroad.client.pkr.types.ee.riik.xtee.pkr.producers.producer.pkr
 public interface PkrXTeeService {
 
   /**
-   * <code>pkr.tta_pension_toetus</code> service.
-   */
-  TtaPensionToetusVastus getPensionToetus(String isikukood) throws XTeeServiceConsumptionException;
-
-  /**
-   * <code>pkr.tkis1</code> service.
-   */
-  Tkis1Vastus getTkis1(String isikukood, Date algusKuup, Date loppKuup, Date kuup) throws XTeeServiceConsumptionException;
-
-  /**
    * <code>pkr.tkis2.v1</code> service.
    */
   Tkis2Valjund getTkis2V1(String isikukood, Date algusKuup, Date loppKuup) throws XTeeServiceConsumptionException;
+
+  /**
+   * <code>pkr.ERIHK1.v1</code> service.
+   */
+  ERIHK1ResponseDocument getTkisErihkVastus(List<String> isikukoodid, Date algusKuup, Date loppKuup) throws XTeeServiceConsumptionException;
 }
