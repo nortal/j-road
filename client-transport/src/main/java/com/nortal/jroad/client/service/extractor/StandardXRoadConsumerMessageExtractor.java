@@ -17,6 +17,7 @@ import javax.xml.soap.SOAPMessage;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.xmlbeans.SchemaType;
 import org.apache.xmlbeans.SchemaTypeLoader;
 import org.apache.xmlbeans.XmlBeans;
@@ -56,11 +57,8 @@ public class StandardXRoadConsumerMessageExtractor implements WebServiceMessageE
       SaajSoapMessage message = (SaajSoapMessage) response;
       SOAPMessage mes = message.getSaajMessage();
       Element body = mes.getSOAPBody();
-      NodeList kehaNodes = body.getElementsByTagName("keha");
-      if (kehaNodes.getLength() == 0) {
-        kehaNodes = body.getChildNodes();
-      }
-      kehaNode = kehaNodes.item(0);
+      NodeList kehaNodes = body.getChildNodes();
+      kehaNode = body.getChildNodes().item(0);
       if (kehaNode instanceof TextImpl) {
         kehaNode = kehaNodes.item(1);
       }
@@ -80,8 +78,14 @@ public class StandardXRoadConsumerMessageExtractor implements WebServiceMessageE
     checkForNonTechnicalFault(kehaNode);
 
     try {
-      Node NSCheckNode = SOAPUtil.getFirstNonTextChild(kehaNode);
-      if (NSCheckNode != null && !(NSCheckNode.getNamespaceURI() == null || "".equals(NSCheckNode.getNamespaceURI()))) {
+      XmlOptions options = new XmlOptions();
+      SchemaTypeLoader loader = XmlBeans.getContextTypeLoader();
+      QName responseElement = new QName(metadata.getResponseElementNs(), metadata.getResponseElementName());
+      SchemaType type = loader.findType(responseElement);
+      XmlObject responseObj;
+
+      if (StringUtils.isBlank(responseElement.getNamespaceURI())
+          && !StringUtils.equalsIgnoreCase(kehaNode.getNamespaceURI(), responseElement.getNamespaceURI())) {
         DOMSource src = new DOMSource(kehaNode);
         StringResult result = new StringResult();
         TransformerFactory.newInstance().newTransformer().transform(src, result);
@@ -91,12 +95,6 @@ public class StandardXRoadConsumerMessageExtractor implements WebServiceMessageE
         ByteArrayInputStream stream = new ByteArrayInputStream(result.toString().getBytes("UTF-8"));
         kehaNode = SOAPUtil.getFirstNonTextChild(fac.newDocumentBuilder().parse(stream));
       }
-
-      XmlOptions options = new XmlOptions();
-      SchemaTypeLoader loader = XmlBeans.getContextTypeLoader();
-      QName responseElement = new QName(metadata.getResponseElementNs(), metadata.getResponseElementName());
-      SchemaType type = loader.findType(responseElement);
-      XmlObject responseObj;
 
       if (type != null) {
         options.setDocumentType(type);
