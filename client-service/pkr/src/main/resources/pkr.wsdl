@@ -9805,24 +9805,6 @@
     <wsdl:message name="sotsmaks_aastaResponse">
         <wsdl:part name="parameters" element="tns:sotsmaks_aastaResponse" />
     </wsdl:message>
-    <!--<wsdl:message name="tkis2">-->
-        <!--<wsdl:part name="parameters" element="tns:tkis2" />-->
-    <!--</wsdl:message>-->
-    <!--<wsdl:message name="tkis2Response">-->
-        <!--<wsdl:part name="parameters" element="tns:tkis2Response" />-->
-    <!--</wsdl:message>-->
-    <!--<wsdl:message name="ERIHK1">-->
-        <!--<wsdl:part name="parameters" element="tns:ERIHK1" />-->
-    <!--</wsdl:message>-->
-    <!--<wsdl:message name="ERIHK1Response">-->
-        <!--<wsdl:part name="parameters" element="tns:ERIHK1Response" />-->
-    <!--</wsdl:message>-->
-    <!--<wsdl:message name="ERIHK2">-->
-        <!--<wsdl:part name="parameters" element="tns:ERIHK2" />-->
-    <!--</wsdl:message>-->
-    <!--<wsdl:message name="ERIHK2Response">-->
-        <!--<wsdl:part name="parameters" element="tns:ERIHK2Response" />-->
-    <!--</wsdl:message>-->
     <!--Changed from original WSDL sent from SKA - j-road couldn't build it's metadata without these-->
     <wsdl:message name="tkis2">
         <wsdl:part name="body" element="tns:tkis2" />
