@@ -70,10 +70,12 @@ public abstract class BaseXRoadDatabaseService {
 
   protected <I, O> XRoadMessage<O> send(XRoadMessage<I> input, String method, String version, final String idCode)
       throws XRoadServiceConsumptionException {
-    final XRoadServiceConfiguration xteeConfiguration =
+    final XRoadServiceConfiguration xroadConfiguration =
         getXRoadServiceConfigurationProvider().createConfiguration(database, wsdlDatabase, method, version);
 
-    DelegatingXRoadServiceConfiguration configuration = new DelegatingXRoadServiceConfiguration(xteeConfiguration) {
+    DelegatingXRoadServiceConfiguration configuration = new DelegatingXRoadServiceConfiguration(xroadConfiguration) {
+      private static final long serialVersionUID = 1L;
+
       @Override
       public String getIdCode() {
         return idCode != null ? idCode : super.getIdCode();
@@ -89,7 +91,8 @@ public abstract class BaseXRoadDatabaseService {
                                         String method,
                                         String version,
                                         CustomCallback callback,
-                                        CustomExtractor extractor) throws XRoadServiceConsumptionException {
+                                        CustomExtractor extractor)
+      throws XRoadServiceConsumptionException {
     return (XRoadMessage<O>) getXRoadConsumer().sendRequest(input,
                                                             getXRoadServiceConfigurationProvider().createConfiguration(database,
                                                                                                                        wsdlDatabase,
@@ -97,21 +100,6 @@ public abstract class BaseXRoadDatabaseService {
                                                                                                                        version),
                                                             callback,
                                                             extractor);
-  }
-
-  @SuppressWarnings("unchecked")
-  protected <I, O> XRoadMessage<O> send(XRoadMessage<I> input,
-                                        String method,
-                                        String version,
-                                        CustomCallback callback,
-                                        CustomExtractor extractor,
-                                        boolean forceDatabaseNamespace) throws XRoadServiceConsumptionException {
-    XRoadServiceConfiguration configuration =
-        getXRoadServiceConfigurationProvider().createConfiguration(database, wsdlDatabase, method, version);
-    if (forceDatabaseNamespace) {
-      configuration.forceDatabaseNamespace();
-    }
-    return (XRoadMessage<O>) getXRoadConsumer().sendRequest(input, configuration, callback, extractor);
   }
 
   public void setDatabase(String database) {

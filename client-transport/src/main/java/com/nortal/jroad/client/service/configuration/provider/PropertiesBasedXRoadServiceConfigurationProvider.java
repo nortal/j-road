@@ -1,5 +1,8 @@
 package com.nortal.jroad.client.service.configuration.provider;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.annotation.PostConstruct;
@@ -9,6 +12,8 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
 import com.nortal.jroad.client.service.configuration.SimpleXRoadServiceConfiguration;
+import com.nortal.jroad.client.service.configuration.XRoadServiceConfiguration;
+import com.nortal.jroad.client.util.PropertiesUtil;
 import com.nortal.jroad.enums.XRoadProtocolVersion;
 
 /**
@@ -16,51 +21,83 @@ import com.nortal.jroad.enums.XRoadProtocolVersion;
  * @author Lauri Lättemäe (lauri.lattemae@nortal.com) - protocol 4.0
  */
 public class PropertiesBasedXRoadServiceConfigurationProvider extends AbstractXRoadServiceConfigurationProvider {
-  public static final String XROAD_COMMON_PROPERTIES = "xroad.properties";
+  public static final String XROAD_DATABASE_PROPERTIES_FORMAT = "xroad-%s.properties";
+  public static final String XROAD_CLIENT_PROPERTIES = "xroad.properties";
+  public static final String CLIENT_KEY = "client";
 
   private Resource resource;
-  private Properties commonProps;
+  private Map<String, Properties> properties = new HashMap<String, Properties>();
 
   @PostConstruct
   public void init() {
     if (resource == null) {
-      resource = new ClassPathResource(XROAD_COMMON_PROPERTIES);
+      resource = new ClassPathResource(XROAD_CLIENT_PROPERTIES);
     }
-    commonProps = loadProperties(resource);
+    properties.put(XROAD_CLIENT_PROPERTIES, loadProperties(resource));
   }
 
   @Override
-  protected void fillConfuguration(SimpleXRoadServiceConfiguration configuration) {
-    configuration.setSecurityServer(commonProps.getProperty("security-server"));
-    configuration.setIdCode(commonProps.getProperty("id-code"));
-    configuration.setFile(commonProps.getProperty("file"));
+  protected XRoadServiceConfiguration fillConfuguration(SimpleXRoadServiceConfiguration configuration) {
+    configuration.setSecurityServer(getProperty("security-server"));
+    configuration.setIdCode(getProperty("id-code"));
+    configuration.setFile(getProperty("file"));
 
-    configuration.setClientXRoadInstance(commonProps.getProperty(String.format(XROAD_INSTANCE_FORMAT, "client")));
-    configuration.setClientMemberClass(commonProps.getProperty(String.format(MEMBER_CLASS_FORMAT, "client")));
-    configuration.setClientMemberCode(commonProps.getProperty(String.format(MEMBER_CODE_FORMAT, "client")));
-    configuration.setClientSubsystemCode(commonProps.getProperty(String.format(SUBSYSTEM_FORMAT, "client")));
-
+    fillClientProperties(configuration);
     fillServiceProperties(configuration);
+
+    return configuration;
+  }
+
+  protected void fillClientProperties(SimpleXRoadServiceConfiguration configuration) {
+    configuration.setClientXRoadInstance(getClientProperty(XROAD_INSTANCE_FORMAT));
+    configuration.setClientMemberClass(getClientProperty(XROAD_MEMBER_CLASS_FORMAT));
+    configuration.setClientMemberCode(getClientProperty(XROAD_MEMBER_CODE_FORMAT));
+    configuration.setClientSubsystemCode(getClientProperty(XROAD_SUBSYSTEM_CODE_FORMAT));
   }
 
   protected void fillServiceProperties(SimpleXRoadServiceConfiguration configuration) {
     String db = configuration.getDatabase();
-    configuration.setProtocolVersion(XRoadProtocolVersion.getValueByVersionCode(getDatabaseProperty(db,
-                                                                                                        String.format(PROTOCOL_VERSION_FORMAT,
-                                                                                                                      db))));
-    configuration.setServiceXRoadInstance(getDatabaseProperty(db, String.format(XROAD_INSTANCE_FORMAT, db)));
-    configuration.setServiceMemberClass(getDatabaseProperty(db, String.format(MEMBER_CLASS_FORMAT, db)));
-    configuration.setServiceMemberCode(getDatabaseProperty(db, String.format(MEMBER_CODE_FORMAT, db)));
-    configuration.setServiceSubsystemCode(getDatabaseProperty(db, String.format(SUBSYSTEM_FORMAT, db)));
+    configuration.setProtocolVersion(XRoadProtocolVersion.getValueByVersionCode(getServiceProperty(XROAD_PROTOCOL_VERSION_FORMAT,
+                                                                                                   db)));
+    configuration.setServiceXRoadInstance(getServiceProperty(XROAD_INSTANCE_FORMAT, db));
+    configuration.setServiceMemberClass(getServiceProperty(XROAD_MEMBER_CLASS_FORMAT, db));
+    configuration.setServiceMemberCode(getServiceProperty(XROAD_MEMBER_CODE_FORMAT, db));
+    configuration.setServiceSubsystemCode(getServiceProperty(XROAD_SUBSYSTEM_CODE_FORMAT, db));
   }
 
-  @Override
-  public String getDatabaseProperty(String database, String propertyName) {
-    String result = commonProps.getProperty(propertyName);
+  protected String getClientProperty(String pattern) {
+    return getProperty(XROAD_CLIENT_PROPERTIES, getKey(pattern, CLIENT_KEY));
+  }
+
+  protected String getServiceProperty(String pattern, String db) {
+    return getProperty(getKey(XROAD_DATABASE_PROPERTIES_FORMAT, db), getKey(pattern, db));
+  }
+
+  protected String getProperty(String key) {
+    return getProperty(XROAD_CLIENT_PROPERTIES, key);
+  }
+
+  protected String getProperty(String target, String key) {
+    String result = properties.get(XROAD_CLIENT_PROPERTIES).getProperty(key);
     if (StringUtils.isNotBlank(result)) {
       return result;
     }
-    return super.getDatabaseProperty(database, propertyName);
+    return loadProperties(target).getProperty(key);
+  }
+
+  protected synchronized Properties loadProperties(String target) {
+    if (!properties.containsKey(target)) {
+      properties.put(target, loadProperties(new ClassPathResource(target)));
+    }
+    return properties.get(target);
+  }
+
+  protected Properties loadProperties(Resource resource) {
+    try {
+      return PropertiesUtil.readProperties(resource);
+    } catch (IOException e) {
+      throw new IllegalStateException("Unable to resolve configuration properties: " + resource.getFilename());
+    }
   }
 
   public void setResource(Resource resource) {

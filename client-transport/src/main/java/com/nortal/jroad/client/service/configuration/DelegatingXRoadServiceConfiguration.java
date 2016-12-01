@@ -18,6 +18,7 @@ import com.nortal.jroad.enums.XRoadProtocolVersion;
  * @author Lauri Lättemäe (lauri.lattemae@nortal.com) - protocol 4.0
  */
 public class DelegatingXRoadServiceConfiguration implements XRoadServiceConfiguration {
+  private static final long serialVersionUID = 1L;
 
   protected XRoadServiceConfiguration configuration;
 
@@ -58,16 +59,6 @@ public class DelegatingXRoadServiceConfiguration implements XRoadServiceConfigur
   @Override
   public String getWsdlDatabase() {
     return configuration.getWsdlDatabase();
-  }
-
-  @Override
-  public boolean getForceDatabaseNamespace() {
-    return configuration.getForceDatabaseNamespace();
-  }
-
-  @Override
-  public void forceDatabaseNamespace() {
-    configuration.forceDatabaseNamespace();
   }
 
   @Override

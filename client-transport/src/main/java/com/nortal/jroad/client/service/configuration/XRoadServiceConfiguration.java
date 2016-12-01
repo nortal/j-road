@@ -38,15 +38,6 @@ public interface XRoadServiceConfiguration extends Serializable {
   /** Returns the name of the (service's) <code>method<code> that will be called. */
   String getMethod();
 
-  /** Returns whether the namespace should be forced to match the called database namespace **/
-  boolean getForceDatabaseNamespace();
-
-  /**
-   * Forced the database namespace to match the called database namespace. Make sure you /really/ know what you are
-   * doing when calling this. It is not needed by default.
-   **/
-  void forceDatabaseNamespace();
-
   /**
    * Returns database xroad protocol version - by default v4
    */

@@ -51,11 +51,17 @@ public class EpriaXRoadServiceImpl extends XRoadDatabaseService implements Epria
                                       String method,
                                       String version,
                                       final String idCode,
-                                      final String securityServer) throws XRoadServiceConsumptionException {
-    final XRoadServiceConfiguration xteeConfiguration =
+                                      final String securityServer)
+      throws XRoadServiceConsumptionException {
+    final XRoadServiceConfiguration xroadConfiguration =
         xRoadServiceConfigurationProvider.createConfiguration(getDatabase(), getDatabase(), method, version);
 
-    DelegatingXRoadServiceConfiguration configuration = new DelegatingXRoadServiceConfiguration(xteeConfiguration) {
+    DelegatingXRoadServiceConfiguration configuration = new DelegatingXRoadServiceConfiguration(xroadConfiguration) {
+      /**
+      * 
+      */
+      private static final long serialVersionUID = 1L;
+
       @Override
       public String getIdCode() {
         return idCode != null ? idCode : super.getIdCode();
@@ -182,7 +188,8 @@ public class EpriaXRoadServiceImpl extends XRoadDatabaseService implements Epria
                                                           String portaaliId,
                                                           String sisuFailId,
                                                           String vaataja,
-                                                          Integer priaRoll) throws XRoadServiceConsumptionException {
+                                                          Integer priaRoll)
+      throws XRoadServiceConsumptionException {
     return vaataTatoluseManus(null, kandeNumber, portaaliId, sisuFailId, vaataja, priaRoll);
   }
 
@@ -192,7 +199,8 @@ public class EpriaXRoadServiceImpl extends XRoadDatabaseService implements Epria
                                                           String portaaliId,
                                                           String sisuFailId,
                                                           String vaataja,
-                                                          Integer priaRoll) throws XRoadServiceConsumptionException {
+                                                          Integer priaRoll)
+      throws XRoadServiceConsumptionException {
     DhsVaataTaotluseManusRequest request = DhsVaataTaotluseManusRequest.Factory.newInstance();
     request.setKandeNumber(kandeNumber);
     request.setManuseId(portaaliId != null ? portaaliId : "");
@@ -224,7 +232,8 @@ public class EpriaXRoadServiceImpl extends XRoadDatabaseService implements Epria
                                   String kandeNumber,
                                   ManusModel digiDoc,
                                   ManusModel pdf,
-                                  List<ManusModel> manused) throws XRoadServiceConsumptionException {
+                                  List<ManusModel> manused)
+      throws XRoadServiceConsumptionException {
     XRoadMessage<DhsSaadaTaotlusRequest> request =
         new XmlBeansXRoadMessage<DhsSaadaTaotlusRequest>(DhsSaadaTaotlusRequest.Factory.newInstance());
     request.getContent().setKandeNumber(kandeNumber);

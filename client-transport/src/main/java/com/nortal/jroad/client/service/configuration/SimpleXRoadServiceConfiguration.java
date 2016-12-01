@@ -15,7 +15,6 @@ public class SimpleXRoadServiceConfiguration implements XRoadServiceConfiguratio
   private String file;
   private String version;
   private String method;
-  private boolean forceDatabaseNamespace = false;
   private XRoadProtocolVersion protocolVersion;
 
   private String clientXRoadInstance;
@@ -165,16 +164,6 @@ public class SimpleXRoadServiceConfiguration implements XRoadServiceConfiguratio
 
   public void setWsdlDatabase(String wsdlDatabase) {
     this.wsdlDatabase = wsdlDatabase;
-  }
-
-  @Override
-  public void forceDatabaseNamespace() {
-    this.forceDatabaseNamespace = true;
-  }
-
-  @Override
-  public boolean getForceDatabaseNamespace() {
-    return forceDatabaseNamespace;
   }
 
   @Override

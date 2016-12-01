@@ -10,13 +10,14 @@
 package com.nortal.jroad.client.service.consumer;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Map;
 
 import javax.activation.DataHandler;
 
 import org.apache.commons.lang.exception.NestableRuntimeException;
 import org.apache.xmlbeans.XmlObject;
-import org.springframework.oxm.xmlbeans.XmlBeansMarshaller;
 import org.springframework.stereotype.Service;
 import org.springframework.ws.client.WebServiceIOException;
 import org.springframework.ws.client.core.WebServiceMessageCallback;
@@ -46,6 +47,7 @@ import com.nortal.jroad.util.AttachmentUtil;
  * @author Dmitri Danilkin
  * @author Roman Tekhov
  * @author Rando Mihkelsaar
+ * @author Lauri Lättemäe (lauri.lattemae@nortal.com) - protocol 4.0
  */
 @Service("xRoadConsumer")
 public class StandardXRoadConsumer extends WebServiceGatewaySupport implements XRoadConsumer {
@@ -54,37 +56,40 @@ public class StandardXRoadConsumer extends WebServiceGatewaySupport implements X
 
   @Override
   protected void initGateway() throws Exception {
-    XmlBeansMarshaller marshaller = new XmlBeansMarshaller();
     metadata = XmlBeansUtil.loadMetadata();
 
-    setMarshaller(marshaller);
-    setUnmarshaller(marshaller);
-
-    ClientInterceptor[] interceptors = new ClientInterceptor[] { new WSConsumptionLoggingInterceptor() };
-    setInterceptors(interceptors);
-
+    Collection<ClientInterceptor> interceptors = createInterceptors();
+    if (interceptors != null && !interceptors.isEmpty()) {
+      setInterceptors(interceptors.toArray(new ClientInterceptor[0]));
+    }
     getWebServiceTemplate().setCheckConnectionForFault(false);
   }
 
+  protected Collection<ClientInterceptor> createInterceptors() {
+    return Arrays.asList(new ClientInterceptor[] { new WSConsumptionLoggingInterceptor() });
+  }
+
   @Override
-  public <I, O> XRoadMessage<O> sendRequest(XRoadMessage<I> input, XRoadServiceConfiguration xTeeServiceConfiguration)
+  public <I, O> XRoadMessage<O> sendRequest(XRoadMessage<I> input, XRoadServiceConfiguration xroadServiceConfiguration)
       throws XRoadServiceConsumptionException {
-    return sendRealRequest(input, xTeeServiceConfiguration, null, null);
+    return sendRealRequest(input, xroadServiceConfiguration, null, null);
   }
 
   @Override
   public <I, O> XRoadMessage<O> sendRequest(XRoadMessage<I> input,
-                                            XRoadServiceConfiguration xTeeServiceConfiguration,
+                                            XRoadServiceConfiguration xroadServiceConfiguration,
                                             CustomCallback callback,
-                                            CustomExtractor extractor) throws XRoadServiceConsumptionException {
-    return sendRealRequest(input, xTeeServiceConfiguration, callback, extractor);
+                                            CustomExtractor extractor)
+      throws XRoadServiceConsumptionException {
+    return sendRealRequest(input, xroadServiceConfiguration, callback, extractor);
   }
 
   @SuppressWarnings({ "unchecked", "rawtypes" })
   private <I, O> XRoadMessage<O> sendRealRequest(XRoadMessage<I> input,
-                                                 XRoadServiceConfiguration xteeServiceConfiguration,
+                                                 XRoadServiceConfiguration xroadServiceConfiguration,
                                                  CustomCallback callback,
-                                                 CustomExtractor extractor) throws XRoadServiceConsumptionException {
+                                                 CustomExtractor extractor)
+      throws XRoadServiceConsumptionException {
     try {
       // Add any swaref attachments...
       // First find all Objects.
@@ -112,16 +117,16 @@ public class StandardXRoadConsumer extends WebServiceGatewaySupport implements X
         }
       }
 
-      XmlBeansXRoadMetadata curdata = metadata.get(xteeServiceConfiguration.getWsdlDatabase().toLowerCase()
-          + xteeServiceConfiguration.getMethod().toLowerCase());
+      XmlBeansXRoadMetadata curdata = metadata.get(xroadServiceConfiguration.getWsdlDatabase().toLowerCase()
+          + xroadServiceConfiguration.getMethod().toLowerCase());
 
       if (curdata == null) {
         throw new IllegalStateException(String.format("Could not find metadata for %s.%s! Most likely the method name has been specified incorrectly.",
-                                                      xteeServiceConfiguration.getWsdlDatabase().toLowerCase(),
-                                                      xteeServiceConfiguration.getMethod().toLowerCase()));
+                                                      xroadServiceConfiguration.getWsdlDatabase().toLowerCase(),
+                                                      xroadServiceConfiguration.getMethod().toLowerCase()));
       }
 
-      WebServiceMessageCallback originalCallback = getNewConsumerCallback(input, xteeServiceConfiguration, curdata);
+      WebServiceMessageCallback originalCallback = getNewConsumerCallback(input, xroadServiceConfiguration, curdata);
       WebServiceMessageExtractor originalExtractor = new StandardXRoadConsumerMessageExtractor(curdata);
 
       if (callback != null) {
@@ -136,12 +141,12 @@ public class StandardXRoadConsumer extends WebServiceGatewaySupport implements X
 
       WebServiceMessageExtractor finalExtractor = extractor == null ? originalExtractor : extractor;
 
-      return (XRoadMessage<O>) getWebServiceTemplate().sendAndReceive(xteeServiceConfiguration.getSecurityServer(),
+      return (XRoadMessage<O>) getWebServiceTemplate().sendAndReceive(xroadServiceConfiguration.getSecurityServer(),
                                                                       finalCallback,
                                                                       finalExtractor);
     } catch (Exception e) {
       e.printStackTrace();
-      XRoadServiceConsumptionException consumptionException = resolveException(e, xteeServiceConfiguration);
+      XRoadServiceConsumptionException consumptionException = resolveException(e, xroadServiceConfiguration);
 
       if (consumptionException != null) {
         throw consumptionException;
@@ -156,22 +161,16 @@ public class StandardXRoadConsumer extends WebServiceGatewaySupport implements X
                                                                      XmlBeansXRoadMetadata curdata) {
     return new StandardXRoadConsumerCallback(input.getContent(),
                                              getNewMessageCallback(input, xteeServiceConfiguration),
-                                             getMarshaller(),
-                                             curdata,
-                                             isEncodingStyleNeeded());
-  }
-
-  protected boolean isEncodingStyleNeeded() {
-    return false;
+                                             curdata);
   }
 
   protected <I> XRoadMessageCallback getNewMessageCallback(XRoadMessage<I> input,
-                                                           XRoadServiceConfiguration xteeServiceConfiguration) {
-    return new XRoadMessageCallback(xteeServiceConfiguration, input.getAttachments());
+                                                           XRoadServiceConfiguration xroadServiceConfiguration) {
+    return new XRoadMessageCallback(xroadServiceConfiguration, input.getAttachments());
   }
 
   private XRoadServiceConsumptionException resolveException(Exception e,
-                                                            XRoadServiceConfiguration xteeServiceConfiguration) {
+                                                            XRoadServiceConfiguration xroadServiceConfiguration) {
 
     WebServiceIOException ioException = null;
     SoapFaultClientException faultException = null;
@@ -183,9 +182,9 @@ public class StandardXRoadConsumer extends WebServiceGatewaySupport implements X
     }
 
     if (ioException != null || faultException != null) {
-      String database = xteeServiceConfiguration.getDatabase();
-      String method = xteeServiceConfiguration.getMethod();
-      String version = xteeServiceConfiguration.getVersion();
+      String database = xroadServiceConfiguration.getDatabase();
+      String method = xroadServiceConfiguration.getMethod();
+      String version = xroadServiceConfiguration.getVersion();
 
       if (ioException != null) {
         if (ioException.getCause() instanceof NonTechnicalFaultException) {
