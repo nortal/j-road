@@ -55,7 +55,6 @@ public class XTeeWsdlDefinition implements Wsdl11Definition, InitializingBean {
   @Resource(name = "xteeDatabase")
   private String xRoadDatabase;
 
-  @Resource(name = "xRoadTargetNamespace")
   private String xRoadTargetNamespace;
 
   @Resource
@@ -142,7 +141,9 @@ public class XTeeWsdlDefinition implements Wsdl11Definition, InitializingBean {
     setRequestSuffix(SuffixBasedMessagesProvider.DEFAULT_REQUEST_SUFFIX);
     setResponseSuffix(SuffixBasedMessagesProvider.DEFAULT_RESPONSE_SUFFIX);
 
-    String targetNamespace = (xRoadTargetNamespace != null) ?xRoadTargetNamespace : "http://" + xRoadDatabase + ".x-road.eu";
+    String targetNamespace = StringUtils.hasText(xRoadTargetNamespace)
+                                                                       ? xRoadTargetNamespace
+                                                                       : "http://" + xRoadDatabase + ".x-road.eu";
     delegate.setTargetNamespace(targetNamespace);
 
     if (!StringUtils.hasText(delegate.getTargetNamespace()) && typesProvider.getSchemaCollection() != null
@@ -184,7 +185,11 @@ public class XTeeWsdlDefinition implements Wsdl11Definition, InitializingBean {
     for (Object ex : definition.getTypes().getExtensibilityElements()) {
       if (ex instanceof Schema) {
         Schema schema = (Schema) ex;
-        Element xRoadImport = schema.getElement().getOwnerDocument().createElement(schema.getElement().getPrefix() == null ? "import" : schema.getElement().getPrefix() + ":import");
+        Element xRoadImport =
+            schema.getElement().getOwnerDocument().createElement(schema.getElement().getPrefix() == null
+                                                                                                         ? "import"
+                                                                                                         : schema.getElement().getPrefix()
+                                                                                                             + ":import");
         xRoadImport.setAttribute("namespace", XROAD_NAMESPACE);
         xRoadImport.setAttribute("schemaLocation", XROAD_NAMESPACE);
         schema.getElement().insertBefore(xRoadImport, schema.getElement().getFirstChild());
@@ -198,5 +203,9 @@ public class XTeeWsdlDefinition implements Wsdl11Definition, InitializingBean {
     part.setElementName(partName);
     part.setName(partName.getLocalPart());
     message.addPart(part);
+  }
+
+  public void setxRoadTargetNamespace(String xRoadTargetNamespace) {
+    this.xRoadTargetNamespace = xRoadTargetNamespace;
   }
 }
