@@ -1,14 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-                  xmlns:tns="http://producers.pkr.xtee.riik.ee/producer/pkr"
-                  xmlns:xrd="http://x-road.eu/xsd/xroad.xsd"
-                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-                  targetNamespace="http://producers.pkr.xtee.riik.ee/producer/pkr">
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://producers.pkr.xtee.riik.ee/producer/pkr" xmlns:xrd="http://x-road.eu/xsd/xroad.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns="http://schemas.xmlsoap.org/soap/encoding/" xmlns:id="http://x-road.eu/xsd/identifiers" xmlns:ns2="http://www.w3.org/1999/xlink" targetNamespace="http://producers.pkr.xtee.riik.ee/producer/pkr">
     <wsdl:types>
-        <schema xmlns="http://www.w3.org/2001/XMLSchema"
-                xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
-                targetNamespace="http://producers.pkr.xtee.riik.ee/producer/pkr">
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://producers.pkr.xtee.riik.ee/producer/pkr">
             <import namespace="http://x-road.eu/xsd/xroad.xsd" schemaLocation="http://x-road.eu/xsd/xroad.xsd" />
             <!-- tyybid mis olid defineeritud xtee.xsd nimeruumis-->
             <simpleType name="url">
@@ -9805,26 +9798,24 @@
     <wsdl:message name="sotsmaks_aastaResponse">
         <wsdl:part name="parameters" element="tns:sotsmaks_aastaResponse" />
     </wsdl:message>
-    <!--Changed from original WSDL sent from SKA - j-road couldn't build it's metadata without these-->
     <wsdl:message name="tkis2">
-        <wsdl:part name="body" element="tns:tkis2" />
+        <wsdl:part name="parameters" element="tns:tkis2" />
     </wsdl:message>
     <wsdl:message name="tkis2Response">
-        <wsdl:part name="body" element="tns:tkis2Response" />
+        <wsdl:part name="parameters" element="tns:tkis2Response" />
     </wsdl:message>
     <wsdl:message name="ERIHK1">
-        <wsdl:part name="body" element="tns:ERIHK1" />
+        <wsdl:part name="parameters" element="tns:ERIHK1" />
     </wsdl:message>
     <wsdl:message name="ERIHK1Response">
-        <wsdl:part name="body" element="tns:ERIHK1Response" />
+        <wsdl:part name="parameters" element="tns:ERIHK1Response" />
     </wsdl:message>
     <wsdl:message name="ERIHK2">
-        <wsdl:part name="body" element="tns:ERIHK2" />
+        <wsdl:part name="parameters" element="tns:ERIHK2" />
     </wsdl:message>
     <wsdl:message name="ERIHK2Response">
-        <wsdl:part name="body" element="tns:ERIHK2Response" />
+        <wsdl:part name="parameters" element="tns:ERIHK2Response" />
     </wsdl:message>
-    <!--END Changed from-->
 
     <wsdl:portType name="pkrPortType">
         <wsdl:operation name="STAR1_TULUD">
@@ -12970,5 +12961,4 @@
     <wsdl:part name="parameters" element="tns:rehajrk2_esindus" />
 </wsdl:message><wsdl:message name="rehajrk2_esindusResponse">
     <wsdl:part name="parameters" element="tns:rehajrk2_esindusResponse" />
-</wsdl:message>
-</wsdl:definitions>
+</wsdl:message></wsdl:definitions>

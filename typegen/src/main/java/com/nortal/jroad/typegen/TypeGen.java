@@ -334,7 +334,7 @@ public class TypeGen {
     String opNs =
         wsdlDoc.getElementsByTagNameNS(WSDL_NS, "definitions").item(0).getAttributes().getNamedItem("targetNamespace").getNodeValue().toLowerCase();
 
-    parseWsdlMetadata(opNs);
+    parseWsdlMetadata(wsdlDoc, opNs);
 
     Map<String, QName> messageMap = getMessageMap(wsdlDoc);
 
@@ -444,38 +444,48 @@ public class TypeGen {
     logInfo("Created metadata for operations: " + metadata.keySet());
   }
 
-  private static void parseWsdlMetadata(String opNs) {
+  private static void parseWsdlMetadata(Document wsdlDoc, String opNs) {
+    dbDesc.set(getDbName(opNs), getProtocolVersion(wsdlDoc));
+  }
+
+  private static XRoadProtocolVersion getProtocolVersion(Document wsdlDoc) {
+    Map<String, String> namespaces = getNamespaces(wsdlDoc);
+    for (String nsURI : namespaces.values()) {
+      XRoadProtocolVersion versionFromNamespaceURI = XRoadProtocolVersion.getValueByNamespaceURI(nsURI);
+      if(versionFromNamespaceURI != null){
+        return versionFromNamespaceURI;
+      }
+    }
+    return XRoadProtocolVersion.V4_0;
+  }
+
+  private static String getDbName(String opNs) {
     Pattern v2 = Pattern.compile(XTEE_V2_NAMESPACE_PATTERN);
     Matcher m;
     m = v2.matcher(opNs);
     if (m.matches()) {
-      dbDesc.set(opNs.substring(opNs.lastIndexOf("/") + 1), XRoadProtocolVersion.V2_0);
-      return;
+      return opNs.substring(opNs.lastIndexOf("/") + 1);
     }
     Pattern v3_0 = Pattern.compile(XROAD_V3_0_NAMESPACE_PATTERN);
     m = v3_0.matcher(opNs);
     if (m.matches()) {
-      dbDesc.set(m.group(1), XRoadProtocolVersion.V3_0);
-      return;
+      return m.group(1);
     }
     Pattern v3_1 = Pattern.compile(XROAD_V3_1_NAMESPACE_PATTERN);
     m = v3_1.matcher(opNs);
     if (m.matches()) {
-      dbDesc.set(m.group(1), XRoadProtocolVersion.V3_1);
-      return;
+      return m.group(1);
     }
     Pattern v4 = Pattern.compile(XROAD_V4_NAMESPACE_PATTERN);
     m = v4.matcher(opNs);
     if (m.matches()) {
-      dbDesc.set(m.group(1), XRoadProtocolVersion.V4_0);
-      return;
+      return m.group(1);
     }
     // WSDL does not follow X-tee convention, warn and use WSDL name
     // as database
     System.out.println("WARNING: WSDL namespace does not match X-tee convention (found: " + opNs
-        + "), setting database name from WSDL filename!");
-    dbDesc.set(curWsdl.getName().substring(0, curWsdl.getName().toLowerCase().indexOf(".wsdl")),
-               XRoadProtocolVersion.V4_0);
+            + "), setting database name from WSDL filename!");
+    return curWsdl.getName().substring(0, curWsdl.getName().toLowerCase().indexOf(".wsdl"));
   }
   
   private static final List<String> MESSAGE_WRAPPER_NAMES = Arrays.asList("keha", "body", "request", "response");

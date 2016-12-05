@@ -8,29 +8,7 @@ import com.nortal.jroad.model.XmlBeansXTeeMessage;
 import com.nortal.jroad.model.XmlBeansXTeeMetadata;
 import com.nortal.jroad.util.SOAPUtil;
 import com.sun.xml.messaging.saaj.soap.impl.TextImpl;
-
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.xml.namespace.QName;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.soap.AttachmentPart;
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPMessage;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-
-import org.apache.xmlbeans.SchemaType;
-import org.apache.xmlbeans.SchemaTypeLoader;
-import org.apache.xmlbeans.XmlBeans;
-import org.apache.xmlbeans.XmlObject;
-import org.apache.xmlbeans.XmlOptions;
+import org.apache.xmlbeans.*;
 import org.springframework.ws.WebServiceMessage;
 import org.springframework.ws.client.core.WebServiceMessageExtractor;
 import org.springframework.ws.soap.saaj.SaajSoapMessage;
@@ -39,14 +17,28 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import javax.xml.namespace.QName;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.soap.AttachmentPart;
+import javax.xml.soap.SOAPException;
+import javax.xml.soap.SOAPMessage;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.lang.reflect.Method;
+import java.util.*;
+
 /**
  * @author Dmitri Danilkin
  */
 public class StandardXTeeConsumerMessageExtractor implements WebServiceMessageExtractor {
   private final XmlBeansXTeeMetadata metadata;
+  private final boolean extractKehaElement;
 
-  public StandardXTeeConsumerMessageExtractor(XmlBeansXTeeMetadata metadata) {
+  public StandardXTeeConsumerMessageExtractor(XmlBeansXTeeMetadata metadata, boolean extractKehaElement) {
     this.metadata = metadata;
+    this.extractKehaElement = extractKehaElement;
   }
 
   public XTeeMessage<XmlObject> extractData(WebServiceMessage response) throws IOException {
@@ -55,10 +47,7 @@ public class StandardXTeeConsumerMessageExtractor implements WebServiceMessageEx
       SaajSoapMessage message = (SaajSoapMessage) response;
       SOAPMessage mes = message.getSaajMessage();
       Element body = mes.getSOAPBody();
-      NodeList kehaNodes = body.getElementsByTagName("keha");
-      if (kehaNodes.getLength() == 0) {
-        kehaNodes = body.getChildNodes();
-      }
+      NodeList kehaNodes = getKehaNodes(body, extractKehaElement);
       kehaNode = kehaNodes.item(0);
       if (kehaNode instanceof TextImpl) {
         kehaNode = kehaNodes.item(1);
@@ -141,6 +130,17 @@ public class StandardXTeeConsumerMessageExtractor implements WebServiceMessageEx
       throw new RuntimeException(e);
     }
 
+  }
+
+  private NodeList getKehaNodes(Element body, boolean isKehaElementNeeded) {
+    NodeList kehaNodes = null;
+    if(isKehaElementNeeded){
+      kehaNodes = body.getElementsByTagName("keha");
+    }
+    if (kehaNodes == null || kehaNodes.getLength() == 0) {
+      kehaNodes = body.getChildNodes();
+    }
+    return kehaNodes;
   }
 
   private void checkForNonTechnicalFault(Node kehaNode) throws NonTechnicalFaultException {

@@ -22,5 +22,5 @@ public interface PkrXTeeService {
   /**
    * <code>pkr.ERIHK1.v1</code> service.
    */
-  ERIHK1ResponseDocument getTkisErihkVastus(List<String> isikukoodid, Date algusKuup, Date loppKuup) throws XTeeServiceConsumptionException;
+  ERIHK1ResponseDocument.ERIHK1Response getTkisErihkVastus(List<String> isikukoodid, Date algusKuup, Date loppKuup) throws XTeeServiceConsumptionException;
 }

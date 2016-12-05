@@ -32,6 +32,10 @@ public class StandardXRoadConsumer extends StandardXTeeConsumer {
     return false;
   }
 
+  protected boolean isKehaElementPresent() {
+    return false;
+  }
+
   @Override
   protected boolean isEncodingStyleNeeded() {
     return false;

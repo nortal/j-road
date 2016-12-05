@@ -16,6 +16,10 @@ public class StandardXRoadConsumer extends StandardXTeeConsumer {
     return false;
   }
 
+  protected boolean isKehaElementPresent() {
+    return true;
+  }
+
   @Override
   protected String getNamespace(BaseXRoadServiceConfiguration xteeServiceConfiguration) {
     return String.format("http://%s.ee.x-rd.net/producer", xteeServiceConfiguration.getDatabase());

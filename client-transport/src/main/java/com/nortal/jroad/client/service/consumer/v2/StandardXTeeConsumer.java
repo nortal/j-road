@@ -25,10 +25,6 @@ import com.nortal.jroad.model.XTeeAttachment;
 import com.nortal.jroad.model.XTeeMessage;
 import com.nortal.jroad.model.XmlBeansXTeeMetadata;
 import com.nortal.jroad.util.AttachmentUtil;
-import java.lang.reflect.Method;
-import java.util.Map;
-import javax.activation.DataHandler;
-import javax.xml.namespace.QName;
 import org.apache.commons.lang.exception.NestableRuntimeException;
 import org.apache.xmlbeans.XmlObject;
 import org.apache.xmlbeans.XmlOptions;
@@ -40,6 +36,11 @@ import org.springframework.ws.client.core.WebServiceMessageExtractor;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import org.springframework.ws.client.support.interceptor.ClientInterceptor;
 import org.springframework.ws.soap.client.SoapFaultClientException;
+
+import javax.activation.DataHandler;
+import javax.xml.namespace.QName;
+import java.lang.reflect.Method;
+import java.util.Map;
 
 /**
  * Standard {@link XRoadConsumer} implementation.
@@ -136,7 +137,7 @@ public class StandardXTeeConsumer extends WebServiceGatewaySupport implements XR
         callback.modifyConsumerCallback(originalCallback);
       }
 
-      WebServiceMessageExtractor originalExtractor = new StandardXTeeConsumerMessageExtractor(curdata);
+      WebServiceMessageExtractor originalExtractor = new StandardXTeeConsumerMessageExtractor(curdata, isKehaElementPresent());
 
       if (callback != null) {
         callback.setOriginalCallback(originalCallback);
@@ -167,6 +168,10 @@ public class StandardXTeeConsumer extends WebServiceGatewaySupport implements XR
 
   protected boolean isKehaElementNeeded() {
 	  return true;
+  }
+
+  protected boolean isKehaElementPresent() {
+    return true;
   }
 
   protected <I> StandardXTeeConsumerCallback getNewConsumerCallback(XTeeMessage<I> input,
