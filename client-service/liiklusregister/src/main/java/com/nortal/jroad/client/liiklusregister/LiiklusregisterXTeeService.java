@@ -3,14 +3,15 @@ package com.nortal.jroad.client.liiklusregister;
 import java.util.Date;
 
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.liiklusregister.types.ee.riik.xtee.liiklusregister.producers.producer.liiklusregister.MuuDokVastus;
-import com.nortal.jroad.client.liiklusregister.types.ee.riik.xtee.liiklusregister.producers.producer.liiklusregister.PolIsikudVastus;
-import com.nortal.jroad.client.liiklusregister.types.ee.riik.xtee.liiklusregister.producers.producer.liiklusregister.PolJuhtoigusVastus;
-import com.nortal.jroad.client.liiklusregister.types.ee.riik.xtee.liiklusregister.producers.producer.liiklusregister.PolSoidukParing;
-import com.nortal.jroad.client.liiklusregister.types.ee.riik.xtee.liiklusregister.producers.producer.liiklusregister.PolSoidukVastus;
-import com.nortal.jroad.client.liiklusregister.types.ee.riik.xtee.liiklusregister.producers.producer.liiklusregister.PolYlevVastus;
-import com.nortal.jroad.client.liiklusregister.types.ee.riik.xtee.liiklusregister.producers.producer.liiklusregister.VlaevResponse;
-import com.nortal.jroad.client.liiklusregister.types.ee.riik.xtee.liiklusregister.producers.producer.liiklusregister.VlaevTunnVastus;
+import com.nortal.jroad.client.liiklusregister.types.eu.x_road.liiklusregister.MuuDokVastus;
+import com.nortal.jroad.client.liiklusregister.types.eu.x_road.liiklusregister.PolIsikudVastus;
+import com.nortal.jroad.client.liiklusregister.types.eu.x_road.liiklusregister.PolJuhtoigusVastus;
+import com.nortal.jroad.client.liiklusregister.types.eu.x_road.liiklusregister.PolSoidukParing;
+import com.nortal.jroad.client.liiklusregister.types.eu.x_road.liiklusregister.PolSoidukVastus;
+import com.nortal.jroad.client.liiklusregister.types.eu.x_road.liiklusregister.PolYlevVastus;
+import com.nortal.jroad.client.liiklusregister.types.eu.x_road.liiklusregister.TootukassaParingResponse;
+import com.nortal.jroad.client.liiklusregister.types.eu.x_road.liiklusregister.VlaevResponse;
+import com.nortal.jroad.client.liiklusregister.types.eu.x_road.liiklusregister.VlaevTunnVastus;
 
 /**
  * <code>liiklusregister</code> (ARK teenused) database X-tee service.
@@ -55,4 +56,9 @@ public interface LiiklusregisterXTeeService {
   public interface PolSoidukParingCallback {
     void populate(PolSoidukParing paring);
   }
+
+  /**
+   * <code>liiklusregister.tootukassaParing.v1</code> X-tee service implementation.
+   */
+  TootukassaParingResponse tootukassaParing(String isikukood, String taotluseNr, Date alates, Date kuni) throws XTeeServiceConsumptionException;
 }
