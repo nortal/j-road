@@ -363,30 +363,36 @@
       </complexType>
       <complexType xmlns="http://www.w3.org/2001/XMLSchema" name="Broneeringud">
         <sequence>
-          <element name="number" type="string">
-            <annotation>
-              <documentation>Broneeringu number.</documentation>
-            </annotation>
-          </element>
-          <element name="abiAndja" type="string">
-            <annotation>
-              <documentation>Abi andja.</documentation>
-            </annotation>
-          </element>
-          <element name="eesmark" type="string">
-            <annotation>
-              <documentation>Antud abi pea- ja alameesmärk.</documentation>
-            </annotation>
-          </element>
-          <element name="abiSumma" type="decimal">
-            <annotation>
-              <documentation>Antud abi summa.</documentation>
-            </annotation>
-          </element>
-          <element name="abiKuupaev" type="date">
-            <annotation>
-              <documentation>Abi andmise otsuse kuupäev.</documentation>
-            </annotation>
+          <element minOccurs="0" maxOccurs="unbounded" name="broneeringud" nillable="true">
+            <complexType>
+              <sequence>
+                <element name="number" type="string">
+                  <annotation>
+                    <documentation>Broneeringu number.</documentation>
+                  </annotation>
+                </element>
+                <element name="abiAndja" type="string">
+                  <annotation>
+                    <documentation>Abi andja.</documentation>
+                  </annotation>
+                </element>
+                <element name="eesmark" type="string">
+                  <annotation>
+                    <documentation>Antud abi pea- ja alameesmärk.</documentation>
+                  </annotation>
+                </element>
+                <element name="abiSumma" type="decimal">
+                  <annotation>
+                    <documentation>Antud abi summa.</documentation>
+                  </annotation>
+                </element>
+                <element name="abiKuupaev" type="date">
+                  <annotation>
+                    <documentation>Abi andmise otsuse kuupäev.</documentation>
+                  </annotation>
+                </element>
+              </sequence>
+            </complexType>
           </element>
         </sequence>
       </complexType>
