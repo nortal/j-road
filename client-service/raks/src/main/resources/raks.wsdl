@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  xmlns:tns="http://raks.x-road.eu/producer/"
+                  xmlns:xrd="http://x-road.eu/xsd/xroad.xsd"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+                  xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+                  targetNamespace="http://raks.x-road.eu/producer/">
+  <wsdl:types>
+    <schema targetNamespace="http://raks.x-road.eu/producer/"
+            xmlns="http://www.w3.org/2001/XMLSchema">
+
+      <import namespace="http://x-road.eu/xsd/x-road.xsd"
+              schemaLocation="http://x-road.eu/xsd/x-road.xsd" />
+
+      <complexType name="raks_tootukassa_input">
+        <sequence>
+          <element name="isikukood" type="string" minOccurs="0">
+            <annotation>
+              <appinfo>
+                <xrd:title xml:lang="et">Isikukood</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="vptunnistus_nr" type="string" minOccurs="0">
+            <annotation>
+              <appinfo>
+                <xrd:title xml:lang="et">Varjupaigataotleja tunnistuse number</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="kuupaev" type="date" minOccurs="0">
+            <annotation>
+              <appinfo>
+                <xrd:title xml:lang="et">Kuupäev</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+        </sequence>
+      </complexType>
+
+      <complexType name="raks_tootukassa_output">
+        <sequence>
+          <element name="viga" type="string" minOccurs="0">
+            <annotation>
+              <appinfo>
+                <xrd:title xml:lang="et">Viga</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="andmed" type="tns:andmed" minOccurs="0">
+            <annotation>
+              <appinfo>
+                <xrd:title xml:lang="et">Leitud andmed</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+        </sequence>
+      </complexType>
+
+      <complexType name="andmed">
+        <sequence>
+          <element name="isikukood" type="string">
+            <annotation>
+              <appinfo>
+                <xrd:title xml:lang="et">Isikukood</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="eesnimi" type="string">
+            <annotation>
+              <appinfo>
+                <xrd:title xml:lang="et">Eesnimi</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="perenimi" type="string">
+            <annotation>
+              <appinfo>
+                <xrd:title xml:lang="et">Perekonnanimi</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="kaitse" type="boolean">
+            <annotation>
+              <appinfo>
+                <xrd:title xml:lang="et">Kas taotlejale on määratud kaitse ja elamisluba</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="vptunnistus" type="tns:vptunnistus" minOccurs="0">
+            <annotation>
+              <appinfo>
+                <xrd:title xml:lang="et">Varjupaigataotleja tunnistus</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="lahkumine" type="date" minOccurs="0">
+            <annotation>
+              <appinfo>
+                <xrd:title xml:lang="et">Eestist lahkumise kuupäev</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+        </sequence>
+      </complexType>
+
+      <complexType name="vptunnistus">
+        <sequence>
+          <element name="vptunnistus_nr" type="string">
+            <annotation>
+              <appinfo>
+                <xrd:title xml:lang="et">Tunnistuse nr</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="kehtiv_alates" type="date">
+            <annotation>
+              <appinfo>
+                <xrd:title xml:lang="et">Kehtivuse algus</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="kehtiv_lopp" type="date">
+            <annotation>
+              <appinfo>
+                <xrd:title xml:lang="et">Kehtivuse lõpp</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="tootamisoigus" type="boolean">
+            <annotation>
+              <appinfo>
+                <xrd:title xml:lang="et">Töötamise õigus</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+        </sequence>
+      </complexType>
+
+      <element name="raks_tootukassa">
+        <complexType>
+          <sequence>
+            <element name="request" type="tns:raks_tootukassa_input"/>
+          </sequence>
+        </complexType>
+      </element>
+
+      <element name="raks_tootukassaResponse">
+        <complexType>
+          <sequence>
+            <element name="request" type="tns:raks_tootukassa_input"/>
+            <element name="response" type="tns:raks_tootukassa_output"/>
+          </sequence>
+        </complexType>
+      </element>
+
+    </schema>
+  </wsdl:types>
+
+  <message name="standardheader">
+    <part name="client" element="xrd:client"/>
+    <part name="service" element="xrd:service"/>
+    <part name="id" element="xrd:id"/>
+    <part name="userId" element="xrd:userId"/>
+    <part name="protocolVersion" element="xrd:protocolVersion"/>
+  </message>
+
+  <message name="raks_tootukassa">
+    <part name="body" element="tns:raks_tootukassa"/>
+  </message>
+
+  <message name="raks_tootukassaResponse">
+    <part name="body" element="tns:raks_tootukassaResponse"/>
+  </message>
+
+  <portType name="xporttype">
+    <operation name="raks_tootukassa">
+      <documentation>
+        <xrd:title xml:lang="et">Töötukassa päring RAKSist</xrd:title>
+      </documentation>
+      <input message="tns:raks_tootukassa"/>
+      <output message="tns:raks_tootukassaResponse"/>
+    </operation>
+  </portType>
+
+  <binding name="xbinding" type="tns:xporttype">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+    <operation name="raks_tootukassa">
+      <xrd:version>v1</xrd:version>
+      <soap:operation soapAction="" style="document"/>
+
+      <input>
+        <soap:body parts="body" use="literal"/>
+        <soap:header message="tns:standardheader" part="client" use="literal"/>
+        <soap:header message="tns:standardheader" part="service" use="literal"/>
+        <soap:header message="tns:standardheader" part="id" use="literal"/>
+        <soap:header message="tns:standardheader" part="userId" use="literal"/>
+        <soap:header message="tns:standardheader" part="protocolVersion" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="body" use="literal"/>
+        <soap:header message="tns:standardheader" part="client" use="literal"/>
+        <soap:header message="tns:standardheader" part="service" use="literal"/>
+        <soap:header message="tns:standardheader" part="id" use="literal"/>
+        <soap:header message="tns:standardheader" part="userId" use="literal"/>
+        <soap:header message="tns:standardheader" part="protocolVersion" use="literal"/>
+      </output>
+    </operation>
+  </binding>
+
+  <service name="raks">
+    <port name="xport" binding="tns:xbinding">
+      <soap:address location="http://proxyserver/cgi-bin/consumer_proxy"/>
+      <xrd:title xml:lang="et">RAKS</xrd:title>
+    </port>
+  </service>
+</wsdl:definitions>
