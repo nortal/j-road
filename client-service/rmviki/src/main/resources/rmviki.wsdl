@@ -246,7 +246,7 @@
               </appinfo>
             </annotation>
           </element>
-          <element name="broneeringud" minOccurs="0" maxOccurs="unbounded" type="tns:Broneeringud">
+          <element name="broneeringud" minOccurs="0" maxOccurs="1" type="tns:Broneeringud">
             <annotation>
               <appinfo>
                 <xtee:title>VTA Broneeringud</xtee:title>
