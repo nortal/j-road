@@ -158,7 +158,7 @@ public class LiiklusregisterXTeeServiceImpl implements LiiklusregisterXTeeServic
     if (kuni != null) {
       Calendar calKuni = Calendar.getInstance();
       calKuni.setTime(kuni);
-      paring.setAlates(calKuni);
+      paring.setKuni(calKuni);
     }
 
     return liiklusregisterXRoadDatabase.tootukassaParingV1(paring);
