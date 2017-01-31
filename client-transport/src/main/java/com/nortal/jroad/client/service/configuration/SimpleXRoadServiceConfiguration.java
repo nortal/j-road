@@ -1,5 +1,6 @@
 package com.nortal.jroad.client.service.configuration;
 
+import com.nortal.jroad.client.enums.XroadObjectType;
 import com.nortal.jroad.enums.XRoadProtocolVersion;
 
 /**
@@ -21,6 +22,7 @@ public class SimpleXRoadServiceConfiguration implements XRoadServiceConfiguratio
   private String clientMemberClass;
   private String clientMemberCode;
   private String clientSubsystemCode;
+  private XroadObjectType clientObjectType;
 
   private String serviceXRoadInstance;
   private String serviceMemberClass;
@@ -237,5 +239,14 @@ public class SimpleXRoadServiceConfiguration implements XRoadServiceConfiguratio
 
   public void setServiceSubsystemCode(String serviceSubsystemCode) {
     this.serviceSubsystemCode = serviceSubsystemCode;
+  }
+
+  @Override
+  public XroadObjectType getClientObjectType() {
+    return clientObjectType;
+  }
+
+  public void setClientObjectType(XroadObjectType clientObjectType) {
+    this.clientObjectType = clientObjectType;
   }
 }

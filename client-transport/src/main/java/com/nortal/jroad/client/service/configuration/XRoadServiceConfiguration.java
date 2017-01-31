@@ -2,6 +2,7 @@ package com.nortal.jroad.client.service.configuration;
 
 import java.io.Serializable;
 
+import com.nortal.jroad.client.enums.XroadObjectType;
 import com.nortal.jroad.enums.XRoadProtocolVersion;
 
 /**
@@ -58,4 +59,6 @@ public interface XRoadServiceConfiguration extends Serializable {
   String getServiceMemberCode();
 
   String getServiceSubsystemCode();
+
+  XroadObjectType getClientObjectType();
 }

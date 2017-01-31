@@ -9,6 +9,7 @@
 
 package com.nortal.jroad.client.service.configuration;
 
+import com.nortal.jroad.client.enums.XroadObjectType;
 import com.nortal.jroad.enums.XRoadProtocolVersion;
 
 /**
@@ -104,5 +105,10 @@ public class DelegatingXRoadServiceConfiguration implements XRoadServiceConfigur
   @Override
   public String getServiceSubsystemCode() {
     return configuration.getServiceSubsystemCode();
+  }
+
+  @Override
+  public XroadObjectType getClientObjectType() {
+    return configuration.getClientObjectType();
   }
 }

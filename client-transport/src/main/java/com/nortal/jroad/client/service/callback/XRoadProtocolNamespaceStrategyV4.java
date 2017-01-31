@@ -48,7 +48,9 @@ public class XRoadProtocolNamespaceStrategyV4 extends MessageCallbackNamespaceSt
   private void addClientElements(SOAPEnvelope env, XRoadServiceConfiguration conf, SOAPHeader header)
       throws SOAPException {
     SOAPElement client = header.addChildElement("client", protocol.getNamespacePrefix());
-    client.addAttribute(env.createName("id:objectType"), XroadObjectType.MEMBER.name());
+    client.addAttribute(env.createName("id:objectType"), conf.getClientObjectType() != null
+                                                                                            ? conf.getClientObjectType().name()
+                                                                                            : XroadObjectType.MEMBER.name());
     SOAPElement clientXRoadInstance = client.addChildElement("xRoadInstance", "id");
     clientXRoadInstance.addTextNode(conf.getClientXRoadInstance());
     SOAPElement clientMemberClass = client.addChildElement("memberClass", "id");
