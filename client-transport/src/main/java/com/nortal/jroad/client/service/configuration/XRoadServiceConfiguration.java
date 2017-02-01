@@ -61,4 +61,6 @@ public interface XRoadServiceConfiguration extends Serializable {
   String getServiceSubsystemCode();
 
   XroadObjectType getClientObjectType();
+
+  XroadObjectType getServiceObjectType();
 }

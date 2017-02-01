@@ -47,10 +47,11 @@ public class XRoadProtocolNamespaceStrategyV4 extends MessageCallbackNamespaceSt
 
   private void addClientElements(SOAPEnvelope env, XRoadServiceConfiguration conf, SOAPHeader header)
       throws SOAPException {
+    // TODO: maybe we should create headers differently according to object type?
+    XroadObjectType objectType =
+        conf.getClientObjectType() != null ? conf.getClientObjectType() : XroadObjectType.SUBSYSTEM;
     SOAPElement client = header.addChildElement("client", protocol.getNamespacePrefix());
-    client.addAttribute(env.createName("id:objectType"), conf.getClientObjectType() != null
-                                                                                            ? conf.getClientObjectType().name()
-                                                                                            : XroadObjectType.MEMBER.name());
+    client.addAttribute(env.createName("id:objectType"), objectType.name());
     SOAPElement clientXRoadInstance = client.addChildElement("xRoadInstance", "id");
     clientXRoadInstance.addTextNode(conf.getClientXRoadInstance());
     SOAPElement clientMemberClass = client.addChildElement("memberClass", "id");
@@ -66,8 +67,13 @@ public class XRoadProtocolNamespaceStrategyV4 extends MessageCallbackNamespaceSt
 
   private void addServiceElements(SOAPEnvelope env, XRoadServiceConfiguration conf, SOAPHeader header)
       throws SOAPException {
+
+    // TODO: maybe we should create headers differently according to object type?
+    XroadObjectType objectType =
+        conf.getServiceObjectType() != null ? conf.getServiceObjectType() : XroadObjectType.SERVICE;
+
     SOAPElement service = header.addChildElement("service", protocol.getNamespacePrefix());
-    service.addAttribute(env.createName("id:objectType"), XroadObjectType.SERVICE.name());
+    service.addAttribute(env.createName("id:objectType"), objectType.name());
     SOAPElement serviceXRoadInstance = service.addChildElement("xRoadInstance", "id");
     serviceXRoadInstance.addTextNode(conf.getServiceXRoadInstance());
     SOAPElement serviceMemberClass = service.addChildElement("memberClass", "id");

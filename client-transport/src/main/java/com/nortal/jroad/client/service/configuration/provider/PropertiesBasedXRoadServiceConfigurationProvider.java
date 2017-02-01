@@ -11,6 +11,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
+import com.nortal.jroad.client.enums.XroadObjectType;
 import com.nortal.jroad.client.service.configuration.SimpleXRoadServiceConfiguration;
 import com.nortal.jroad.client.service.configuration.XRoadServiceConfiguration;
 import com.nortal.jroad.client.util.PropertiesUtil;
@@ -53,6 +54,10 @@ public class PropertiesBasedXRoadServiceConfigurationProvider extends AbstractXR
     configuration.setClientMemberClass(getClientProperty(XROAD_MEMBER_CLASS_FORMAT));
     configuration.setClientMemberCode(getClientProperty(XROAD_MEMBER_CODE_FORMAT));
     configuration.setClientSubsystemCode(getClientProperty(XROAD_SUBSYSTEM_CODE_FORMAT));
+    String objectType = getClientProperty(XROAD_OBJECT_TYPE_FORMAT);
+    if (StringUtils.isNotBlank(objectType)) {
+      configuration.setClientObjectType(XroadObjectType.valueOf(objectType));
+    }
   }
 
   protected void fillServiceProperties(SimpleXRoadServiceConfiguration configuration) {
@@ -63,6 +68,10 @@ public class PropertiesBasedXRoadServiceConfigurationProvider extends AbstractXR
     configuration.setServiceMemberClass(getServiceProperty(XROAD_MEMBER_CLASS_FORMAT, db));
     configuration.setServiceMemberCode(getServiceProperty(XROAD_MEMBER_CODE_FORMAT, db));
     configuration.setServiceSubsystemCode(getServiceProperty(XROAD_SUBSYSTEM_CODE_FORMAT, db));
+    String objectType = getServiceProperty(XROAD_SUBSYSTEM_CODE_FORMAT, db);
+    if (StringUtils.isNotBlank(objectType)) {
+      configuration.setServiceObjectType(XroadObjectType.valueOf(objectType));
+    }
   }
 
   protected String getClientProperty(String pattern) {

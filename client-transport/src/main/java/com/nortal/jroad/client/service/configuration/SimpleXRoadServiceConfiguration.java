@@ -22,12 +22,13 @@ public class SimpleXRoadServiceConfiguration implements XRoadServiceConfiguratio
   private String clientMemberClass;
   private String clientMemberCode;
   private String clientSubsystemCode;
-  private XroadObjectType clientObjectType;
+  private XroadObjectType clientObjectType = XroadObjectType.SUBSYSTEM;
 
   private String serviceXRoadInstance;
   private String serviceMemberClass;
   private String serviceMemberCode;
   private String serviceSubsystemCode;
+  private XroadObjectType serviceObjectType = XroadObjectType.SERVICE;
 
   @Override
   public String getDatabase() {
@@ -209,6 +210,15 @@ public class SimpleXRoadServiceConfiguration implements XRoadServiceConfiguratio
     this.clientSubsystemCode = clientSubsystemCode;
   }
 
+  @Override
+  public XroadObjectType getClientObjectType() {
+    return clientObjectType;
+  }
+
+  public void setClientObjectType(XroadObjectType clientObjectType) {
+    this.clientObjectType = clientObjectType;
+  }
+
   public String getServiceXRoadInstance() {
     return serviceXRoadInstance;
   }
@@ -241,12 +251,11 @@ public class SimpleXRoadServiceConfiguration implements XRoadServiceConfiguratio
     this.serviceSubsystemCode = serviceSubsystemCode;
   }
 
-  @Override
-  public XroadObjectType getClientObjectType() {
-    return clientObjectType;
+  public XroadObjectType getServiceObjectType() {
+    return serviceObjectType;
   }
 
-  public void setClientObjectType(XroadObjectType clientObjectType) {
-    this.clientObjectType = clientObjectType;
+  public void setServiceObjectType(XroadObjectType serviceObjectType) {
+    this.serviceObjectType = serviceObjectType;
   }
 }

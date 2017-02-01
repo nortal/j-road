@@ -13,6 +13,7 @@ public abstract class AbstractXRoadServiceConfigurationProvider implements XRoad
   public static final String XROAD_MEMBER_CLASS_FORMAT = "%s-member-class";
   public static final String XROAD_SUBSYSTEM_CODE_FORMAT = "%s-subsystem-code";
   public static final String XROAD_MEMBER_CODE_FORMAT = "%s-member-code";
+  public static final String XROAD_OBJECT_TYPE_FORMAT = "%s-object-type";
 
   @Override
   public XRoadServiceConfiguration createConfiguration(String database,

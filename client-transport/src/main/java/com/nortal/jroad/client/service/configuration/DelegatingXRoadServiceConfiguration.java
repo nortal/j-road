@@ -88,6 +88,11 @@ public class DelegatingXRoadServiceConfiguration implements XRoadServiceConfigur
   }
 
   @Override
+  public XroadObjectType getClientObjectType() {
+    return configuration.getClientObjectType();
+  }
+
+  @Override
   public String getServiceXRoadInstance() {
     return configuration.getServiceXRoadInstance();
   }
@@ -108,7 +113,7 @@ public class DelegatingXRoadServiceConfiguration implements XRoadServiceConfigur
   }
 
   @Override
-  public XroadObjectType getClientObjectType() {
-    return configuration.getClientObjectType();
+  public XroadObjectType getServiceObjectType() {
+    return configuration.getServiceObjectType();
   }
 }
