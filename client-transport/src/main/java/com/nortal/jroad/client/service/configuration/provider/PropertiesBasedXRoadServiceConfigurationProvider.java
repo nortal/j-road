@@ -68,7 +68,7 @@ public class PropertiesBasedXRoadServiceConfigurationProvider extends AbstractXR
     configuration.setServiceMemberClass(getServiceProperty(XROAD_MEMBER_CLASS_FORMAT, db));
     configuration.setServiceMemberCode(getServiceProperty(XROAD_MEMBER_CODE_FORMAT, db));
     configuration.setServiceSubsystemCode(getServiceProperty(XROAD_SUBSYSTEM_CODE_FORMAT, db));
-    String objectType = getServiceProperty(XROAD_SUBSYSTEM_CODE_FORMAT, db);
+    String objectType = getServiceProperty(XROAD_OBJECT_TYPE_FORMAT, db);
     if (StringUtils.isNotBlank(objectType)) {
       configuration.setServiceObjectType(XroadObjectType.valueOf(objectType));
     }
