@@ -32,6 +32,7 @@
   <modules>
     <module>test</module>
     <module>emkis</module>
+    <module>emtav6</module>
 
 <!-- These modules do compile but needs review - consult with epria or example module -->
 <!--     <module>tor</module> -->
