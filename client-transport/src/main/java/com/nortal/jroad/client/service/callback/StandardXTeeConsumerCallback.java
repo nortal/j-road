@@ -20,6 +20,8 @@ import org.springframework.ws.WebServiceMessage;
 import org.springframework.ws.client.core.WebServiceMessageCallback;
 import org.springframework.ws.soap.saaj.SaajSoapMessage;
 import com.nortal.jroad.model.XmlBeansXTeeMetadata;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  * @author Dmitri Danilkin
@@ -80,13 +82,26 @@ public class StandardXTeeConsumerCallback implements WebServiceMessageCallback {
       }
 
       marshaller.marshal(object, new DOMResult(rootElement));
+
+      if (rootElement.getFirstChild() != null && "xml-fragment".equals(rootElement.getFirstChild().getLocalName())) {
+        NodeList childNodes = rootElement.getFirstChild().getChildNodes();
+        rootElement.removeContents();
+
+        while (childNodes.getLength() > 0) {
+          Node child = childNodes.item(0);
+          if (child != null) {
+            rootElement.appendChild(child);
+          }
+        }
+      }
+      
       body.addChildElement(rootElement);
     } catch (SOAPException e) {
       throw new RuntimeException("Invalid SOAP message");
     }
     callback.doWithMessage(request);
   }
-
+  
   public XTeeMessageCallback getCallback() {
     return callback;
   }

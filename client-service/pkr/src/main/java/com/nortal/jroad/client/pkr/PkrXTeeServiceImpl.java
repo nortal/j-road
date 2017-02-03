@@ -73,7 +73,7 @@ public class PkrXTeeServiceImpl extends XRoadDatabaseService implements PkrXTeeS
         erihk1.setPerAlgus(getCalendar(algusKuup));
         erihk1.setPerLopp(getCalendar(loppKuup));
 
-        XTeeMessage<ERIHK1ResponseDocument.ERIHK1Response> response = send(new XmlBeansXTeeMessage<ERIHK1Document>(erihk1Document), ERIHK1, "v1", new PkrCallback(), null);
+        XTeeMessage<ERIHK1ResponseDocument.ERIHK1Response> response = send(new XmlBeansXTeeMessage<ERIHK1Document>(erihk1Document), ERIHK1, "v1");
         return response.getContent();
     }
 
@@ -84,36 +84,6 @@ public class PkrXTeeServiceImpl extends XRoadDatabaseService implements PkrXTeeS
         Calendar cal = Calendar.getInstance();
         cal.setTime(kuup);
         return cal;
-    }
-
-    private class PkrCallback extends CustomCallback {
-
-        public void doWithMessage(WebServiceMessage message) throws IOException, TransformerException {
-            callback.doWithMessage(message);
-            try {
-                // ERIHK1 service expects the request params directly inside the message element,
-                // but StandardXTeeConsumerCallback generates a structure 1 level too deep.
-                replaceContentWithFirstDescendant((SaajSoapMessage) message);
-            } catch (SOAPException e) {
-                throw new RuntimeException(e);
-            }
-            if (useTestDatabase) {
-                SOAPUtil.substitute(message, getDatabase(), TEST_DATABASE);
-            }
-        }
-
-        private void replaceContentWithFirstDescendant(SaajSoapMessage message) throws SOAPException {
-            SOAPEnvelope env = message.getSaajMessage().getSOAPPart().getEnvelope();
-            SOAPBody body = env.getBody();
-            Iterator elements = body.getChildElements();
-            SOAPElement descendant = null;
-            while (elements.hasNext()) {
-                SOAPElement element = (SOAPElement) elements.next();
-                descendant = (SOAPElement) element.getChildElements().next();
-            }
-            body.removeContents();
-            body.addChildElement(descendant);
-        }
     }
 
     public class PkrExtractor extends CustomExtractor {
