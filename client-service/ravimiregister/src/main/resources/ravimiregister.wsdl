@@ -1,0 +1,2692 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://koodikeskus.x-road.eu" xmlns:xrd="http://x-road.eu/xsd/xroad.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://koodikeskus.x-road.eu">
+  <wsdl:types>
+    <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://koodikeskus.x-road.eu">
+      <import namespace="http://x-road.eu/xsd/xroad.xsd" schemaLocation="http://x-road.eu/xsd/xroad.xsd"/>
+      <element name="ATCKlassifikaatorid">
+        <complexType>
+          <sequence>
+            <element name="keha" type="tns:DateNotRequired"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="ATCKlassifikaatoridResponse">
+        <complexType>
+          <sequence>
+            <element name="paring" type="tns:DateNotRequired"/>
+            <element name="keha" type="tns:ArrayOfString"/>
+          </sequence>
+        </complexType>
+      </element>
+      <complexType name="DateNotRequired">
+        <all>
+          <element minOccurs="0" name="kuupaev" type="date"/>
+          </all>
+        </complexType>
+      <complexType name="ArrayOfString">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="Item" type="xsd:string"/>
+        </sequence>
+      </complexType>
+      <element name="ATCKlassifikaatoridByIDArray">
+        <complexType>
+          <sequence>
+            <element name="keha" type="tns:ArrayOfString"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="ATCKlassifikaatoridByIDArrayResponse">
+        <complexType>
+          <sequence>
+            <element name="paring" type="tns:ArrayOfString"/>
+            <element name="keha" type="tns:ArrayOfATCKlassifikaator"/>
+          </sequence>
+        </complexType>
+      </element>
+      <complexType name="ArrayOfATCKlassifikaator">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="Item" type="tns:ATCKlassifikaator"/>
+        </sequence>
+      </complexType>
+      <complexType name="ATCKlassifikaator">
+        <all>
+          <element name="kood">
+            <simpleType>
+              <restriction base="tns:CharRequired">
+                <maxLength value="8"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element name="nimiEesti">
+            <simpleType>
+              <restriction base="tns:CharRequired">
+                <maxLength value="500"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element minOccurs="0" name="nimiInglise">
+            <simpleType>
+              <restriction base="xsd:string">
+                <maxLength value="500"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element minOccurs="0" name="nimiLadina">
+            <simpleType>
+              <restriction base="xsd:string">
+                <maxLength value="500"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element name="toimeained" type="tns:ArrayOfATCToimeaine"/>
+        </all>
+      </complexType>
+      <complexType name="ArrayOfATCToimeaine">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="Item" type="tns:ATCToimeaine"/>
+        </sequence>
+      </complexType>
+      <complexType name="ATCToimeaine">
+        <all>
+          <element name="toimeaineID" type="xsd:integer"/>
+          <element name="jarjekorraNr" type="xsd:integer"/>
+        </all>
+      </complexType>
+      <simpleType name="CharRequired">
+        <restriction base="xsd:string">
+          <minLength value="1"/>
+          <whiteSpace value="collapse"/>
+        </restriction>
+      </simpleType>
+      <element name="diagnoosid">
+        <complexType>
+          <sequence>
+            <element name="keha" type="tns:DateNotRequired"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="diagnoosidResponse">
+        <complexType>
+          <sequence>
+            <element name="paring" type="tns:DateNotRequired"/>
+            <element name="keha" type="tns:ArrayOfString"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="diagnoosidByIDArray">
+        <complexType>
+          <sequence>
+            <element name="keha" type="tns:ArrayOfString"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="diagnoosidByIDArrayResponse">
+        <complexType>
+          <sequence>
+            <element name="paring" type="tns:ArrayOfString"/>
+            <element name="keha" type="tns:ArrayOfDiagnoos"/>
+          </sequence>
+        </complexType>
+      </element>
+      <complexType name="ArrayOfDiagnoos">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="Item" type="tns:Diagnoos"/>
+        </sequence>
+      </complexType>
+      <complexType name="Diagnoos">
+        <all>
+          <element name="kood" type="xsd:string"/>
+          <element name="nimi" type="xsd:string"/>
+        </all>
+      </complexType>
+      <element name="haigused">
+        <complexType>
+          <sequence>
+            <element name="keha" type="tns:DateNotRequired"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="haigusedResponse">
+        <complexType>
+          <sequence>
+            <element name="paring" type="tns:DateNotRequired"/>
+            <element name="keha" type="tns:ArrayOfString"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="haigusedByIDArray">
+        <complexType>
+          <sequence>
+            <element name="keha" type="tns:ArrayOfString"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="haigusedByIDArrayResponse">
+        <complexType>
+          <sequence>
+            <element name="paring" type="tns:ArrayOfString"/>
+            <element name="keha" type="tns:ArrayOfHaigus"/>
+          </sequence>
+        </complexType>
+      </element>
+      <complexType name="ArrayOfHaigus">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="Item" type="tns:Haigus"/>
+        </sequence>
+      </complexType>
+      <complexType name="Haigus">
+        <all>
+          <element name="diagnoosid" type="tns:ArrayOfSoodustusDiagnoos"/>
+          <element name="kood" type="xsd:string"/>
+        </all>
+      </complexType>
+      <complexType name="ArrayOfSoodustusDiagnoos">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="Item" type="tns:SoodustusDiagnoos"/>
+        </sequence>
+      </complexType>
+      <complexType name="SoodustusDiagnoos">
+        <all>
+          <element name="koodAlates" type="xsd:string"/>
+          <element name="koodKuni" type="xsd:string"/>
+        </all>
+      </complexType>
+      <element name="hinnakokkulepped">
+        <complexType>
+          <sequence>
+            <element name="keha" type="tns:DateNotRequired"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="hinnakokkuleppedResponse">
+        <complexType>
+          <sequence>
+            <element name="paring" type="tns:DateNotRequired"/>
+            <element name="keha" type="tns:ArrayOfString"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="hinnakokkuleppedByIDArray">
+        <complexType>
+          <sequence>
+            <element name="keha" type="tns:ArrayOfString"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="hinnakokkuleppedByIDArrayResponse">
+        <complexType>
+          <sequence>
+            <element name="paring" type="tns:ArrayOfString"/>
+            <element name="keha" type="tns:ArrayOfHinnakokkulepe"/>
+          </sequence>
+        </complexType>
+      </element>
+      <complexType name="ArrayOfHinnakokkulepe">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="Item" type="tns:Hinnakokkulepe"/>
+        </sequence>
+      </complexType>
+      <complexType name="Hinnakokkulepe">
+        <all>
+          <element name="id" type="xsd:integer"/>
+          <element name="pakendiKood" type="xsd:string"/>
+          <element name="hind" type="tns:Currency"/>
+          <element name="valuuta" type="tns:CurrencySymbol"/>
+          <element name="kehtibAlates" type="xsd:dateTime"/>
+          <element minOccurs="0" name="kehtibKuni" type="xsd:dateTime"/>
+        </all>
+      </complexType>
+      <simpleType name="Currency">
+        <restriction base="xsd:decimal">
+          <fractionDigits value="2"/>
+          <totalDigits value="13"/>
+        </restriction>
+      </simpleType>
+      <simpleType name="CurrencySymbol">
+        <restriction base="xsd:string">
+          <minLength value="3"/>
+          <maxLength value="3"/>
+          <whiteSpace value="collapse"/>
+        </restriction>
+      </simpleType>
+      <element name="hyvitamisTingimused">
+        <complexType>
+          <sequence>
+            <element name="keha" type="tns:MuudatusteVahemikRequest"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="hyvitamisTingimusedResponse">
+        <complexType>
+          <sequence>
+            <element name="paring" type="tns:MuudatusteVahemikRequest"/>
+            <element name="keha" type="tns:ArrayOfString"/>
+          </sequence>
+        </complexType>
+      </element>
+      <complexType name="MuudatusteVahemikRequest">
+        <all>
+          <element name="muudatusedAlates" type="xsd:date">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Muudatused alates
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="muudatusedKuni" type="xsd:date">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Muudatused kuni
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+        </all>
+      </complexType>
+      <element name="hyvitamisTingimusedByIDArray">
+        <complexType>
+          <sequence>
+            <element name="keha" type="tns:ArrayOfString"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="hyvitamisTingimusedByIDArrayResponse">
+        <complexType>
+          <sequence>
+            <element name="paring" type="tns:ArrayOfString"/>
+            <element name="keha" type="tns:ArrayOfHyvitamiseTingimus"/>
+          </sequence>
+        </complexType>
+      </element>
+      <complexType name="ArrayOfHyvitamiseTingimus">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="Item" type="tns:HyvitamiseTingimus"/>
+        </sequence>
+      </complexType>
+      <complexType name="HyvitamiseTingimus">
+        <all>
+          <element name="kood" type="xsd:integer">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Kood
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="hyvitamiseTingimuseKood" type="xsd:string">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Hüvitamise tingimuse kood
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="kehtivAlates" type="xsd:dateTime">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Kehtiv alates
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="kehtivKuni" type="xsd:dateTime">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Kehtiv kuni
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="vanusAlates" type="xsd:decimal">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Vanus alates
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="vanusKuni" type="xsd:decimal">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Vanus kuni
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="hyvitamiseTingimuseNimetus" type="xsd:string">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Hüvitamise tingimuse nimetus
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="lubatudKogus" type="xsd:integer">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Lubatud kogus tükkides perioodi kohta
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="lubatudKoguseHyvitamisePerioodiPikkusKuudes" type="xsd:integer">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Lubatud koguse hüvitamise perioodi pikkus kuudes
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="limiitkogusePerioodiKordsus" type="xsd:string">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Limiitkoguse perioodi kordsus
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+        </all>
+      </complexType>
+      <element name="medSeadmePiirhinnad">
+        <complexType>
+          <sequence>
+            <element name="keha" type="tns:MedSeadmePiirhindRequest"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="medSeadmePiirhinnadResponse">
+        <complexType>
+          <sequence>
+            <element name="paring" type="tns:MedSeadmePiirhindRequest"/>
+            <element name="keha" type="tns:ArrayOfString"/>
+          </sequence>
+        </complexType>
+      </element>
+      <complexType name="MedSeadmePiirhindRequest">
+        <all>
+          <element name="muudatusedAlates" type="xsd:date">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Muudatused alates
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="muudatusedKuni" type="xsd:date">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Muudatused kuni
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="piirhinnaKood" type="xsd:string">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Piihinna kood
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="medSeadmeKood" type="xsd:string">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Meditsiiniseadme kood
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+        </all>
+      </complexType>
+      <element name="medSeadmePiirhinnadByIDArray">
+        <complexType>
+          <sequence>
+            <element name="keha" type="tns:ArrayOfString"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="medSeadmePiirhinnadByIDArrayResponse">
+        <complexType>
+          <sequence>
+            <element name="paring" type="tns:ArrayOfString"/>
+            <element name="keha" type="tns:ArrayOfMedseadmePiirhind"/>
+          </sequence>
+        </complexType>
+      </element>
+      <complexType name="ArrayOfMedseadmePiirhind">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="Item" type="tns:MedseadmePiirhind"/>
+        </sequence>
+      </complexType>
+      <complexType name="MedseadmePiirhind">
+        <all>
+          <element name="kood" type="xsd:integer">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Kood
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="piirhinnaKood" type="xsd:string">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Piirhinna kood
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="meditsiiniseadmeKood" type="xsd:string">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Meditsiiniseadme kood
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="meditsiiniseadmePakendipiirhind" type="tns:Currency">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Meditsiiniseadme pakendi piirhind
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="valuuta" type="tns:CurrencySymbol">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Meditsiiniseadme pakendi piirhinna valuuta
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="kehtivAlates" type="xsd:dateTime">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Kehtiv alates
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="kehtivKuni" type="xsd:dateTime">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Kehtiv kuni
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+        </all>
+      </complexType>
+      <element name="medSeadmeRyhmad">
+        <complexType>
+          <sequence>
+            <element name="keha" type="tns:MuudatusteVahemikRequest"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="medSeadmeRyhmadResponse">
+        <complexType>
+          <sequence>
+            <element name="paring" type="tns:MuudatusteVahemikRequest"/>
+            <element name="keha" type="tns:ArrayOfString"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="medSeadmeRyhmadByIDArray">
+        <complexType>
+          <sequence>
+            <element name="keha" type="tns:ArrayOfString"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="medSeadmeRyhmadByIDArrayResponse">
+        <complexType>
+          <sequence>
+            <element name="paring" type="tns:ArrayOfString"/>
+            <element name="keha" type="tns:ArrayOfMedseadeRyhm"/>
+          </sequence>
+        </complexType>
+      </element>
+      <complexType name="ArrayOfMedseadeRyhm">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="Item" type="tns:MedseadeRyhm"/>
+        </sequence>
+      </complexType>
+      <complexType name="MedseadeRyhm">
+        <all>
+          <element name="kood" type="xsd:integer">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Kood
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="meditsiiniseadmeRyhmaNimetuseKood" type="xsd:string">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Meditsiiniseadme rühma nimetuse kood
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="meditsiiniseadmeRyhmaNimetus" type="xsd:string">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Meditsiiniseadme rühma nimetus
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="kehtivAlates" type="xsd:dateTime">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Kehtiv alates
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="kehtivKuni" type="xsd:dateTime">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Kehtiv kuni
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+        </all>
+      </complexType>
+      <element name="medSeadmed">
+        <complexType>
+          <sequence>
+            <element name="keha" type="tns:MuudatusteVahemikRequest"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="medSeadmedResponse">
+        <complexType>
+          <sequence>
+            <element name="paring" type="tns:MuudatusteVahemikRequest"/>
+            <element name="keha" type="tns:ArrayOfString"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="medSeadmedByIDArray">
+        <complexType>
+          <sequence>
+            <element name="keha" type="tns:ArrayOfString"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="medSeadmedByIDArrayResponse">
+        <complexType>
+          <sequence>
+            <element name="paring" type="tns:ArrayOfString"/>
+            <element name="keha" type="tns:ArrayOfMedseade"/>
+          </sequence>
+        </complexType>
+      </element>
+      <complexType name="ArrayOfMedseade">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="Item" type="tns:Medseade"/>
+        </sequence>
+      </complexType>
+      <complexType name="Medseade">
+        <all>
+          <element name="kood" type="xsd:integer">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Kood
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="kehtivAlates" type="xsd:dateTime">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Kehtiv alates
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="kehtivKuni" type="xsd:dateTime">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Kehtiv kuni
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="meditsiiniseadmeKood" type="xsd:string">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Meditsiiniseadme kood
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="meditsiiniseadmeRyhmaNimetuseKood" type="xsd:string">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Meditsiiniseadme rühma nimetuse kood
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="soodusmaar" type="xsd:integer">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Soodusmäär
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="hyvitamiseTingimuseKood" type="xsd:string">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Hüvitamise tingimuse kood
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="meditsiiniseadmePakendiNimetus" type="xsd:string">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Meditsiiniseadme pakendi nimetus
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="kogusPakendis" type="xsd:integer">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Kogus pakendis
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="kogusPakendisyhik" type="xsd:string">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Kogus pakendis ühik
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+        </all>
+      </complexType>
+      <element name="myygiload">
+        <complexType>
+          <sequence>
+            <element name="keha" type="tns:DateNotRequired"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="myygiloadResponse">
+        <complexType>
+          <sequence>
+            <element name="paring" type="tns:DateNotRequired"/>
+            <element name="keha" type="tns:ArrayOfString"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="myygiloadByIDArray">
+        <complexType>
+          <sequence>
+            <element name="keha" type="tns:ArrayOfString"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="myygiloadByIDArrayResponse">
+        <complexType>
+          <sequence>
+            <element name="paring" type="tns:ArrayOfString"/>
+            <element name="keha" type="tns:ArrayOfMyygiluba"/>
+          </sequence>
+        </complexType>
+      </element>
+      <complexType name="ArrayOfMyygiluba">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="Item" type="tns:Myygiluba"/>
+        </sequence>
+      </complexType>
+      <complexType name="Myygiluba">
+        <all>
+          <element name="id" type="tns:CharRequired"/>
+          <element name="ravimikaartID" type="xsd:integer"/>
+          <element minOccurs="0" name="number">
+            <simpleType>
+              <restriction base="xsd:string">
+                <maxLength value="20"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element minOccurs="0" name="valjastamiseAeg" type="xsd:dateTime"/>
+          <element minOccurs="0" name="loppemiseAeg" type="xsd:dateTime"/>
+        </all>
+      </complexType>
+      <element name="pakendMyygiloadByIDArray">
+        <complexType>
+          <sequence>
+            <element name="keha" type="tns:ArrayOfString"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="pakendMyygiloadByIDArrayResponse">
+        <complexType>
+          <sequence>
+            <element name="paring" type="tns:ArrayOfString"/>
+            <element name="keha" type="tns:ArrayOfPakendMyygiluba"/>
+          </sequence>
+        </complexType>
+      </element>
+      <complexType name="ArrayOfPakendMyygiluba">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="Item" type="tns:PakendMyygiluba"/>
+        </sequence>
+      </complexType>
+      <complexType name="PakendMyygiluba">
+        <all>
+          <element name="pakendiKood" type="xsd:integer"/>
+          <element name="id" type="tns:CharRequired"/>
+          <element name="ravimikaartID" type="xsd:integer"/>
+          <element minOccurs="0" name="number">
+            <simpleType>
+              <restriction base="xsd:string">
+                <maxLength value="20"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element minOccurs="0" name="valjastamiseAeg" type="xsd:dateTime"/>
+          <element minOccurs="0" name="loppemiseAeg" type="xsd:dateTime"/>
+        </all>
+      </complexType>
+      <element name="pakendid">
+        <complexType>
+          <sequence>
+            <element name="keha" type="tns:PakendidRequest"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="pakendidResponse">
+        <complexType>
+          <sequence>
+            <element name="paring" type="tns:PakendidRequest"/>
+            <element name="keha" type="tns:ArrayOfString"/>
+          </sequence>
+        </complexType>
+      </element>
+      <complexType name="PakendidRequest">
+        <all>
+          <element name="muudatusedAlates" type="tns:DateNotRequired">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Muudatused alates
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="1" name="ravimiLiik" type="tns:RavimiLiik">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Ravimi liik
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="1" name="retseptinoueLiik" type="tns:RetseptinoueLiik">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Retsepti nõude liik
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+        </all>
+      </complexType>
+      <simpleType name="RavimiLiik">
+        <restriction base="xsd:string">
+          <enumeration value="inim">
+            <annotation>
+              <appinfo>
+                <xrd:title>inim</xrd:title>
+              </appinfo>
+            </annotation>
+          </enumeration>
+          <enumeration value="veterinaar">
+            <annotation>
+              <appinfo>
+                <xrd:title>veterinaar</xrd:title>
+              </appinfo>
+            </annotation>
+          </enumeration>
+        </restriction>
+      </simpleType>
+      <simpleType name="RetseptinoueLiik">
+        <restriction base="xsd:string">
+          <enumeration value="retseptiravim">
+            <annotation>
+              <appinfo>
+                <xrd:title>retseptiravim</xrd:title>
+              </appinfo>
+            </annotation>
+          </enumeration>
+          <enumeration value="haiglapakend">
+            <annotation>
+              <appinfo>
+                <xrd:title>haiglapakend</xrd:title>
+              </appinfo>
+            </annotation>
+          </enumeration>
+          <enumeration value="kasimuugiravim">
+            <annotation>
+              <appinfo>
+                <xrd:title>kasimuugiravim</xrd:title>
+              </appinfo>
+            </annotation>
+          </enumeration>
+          <enumeration value="kxik">
+            <annotation>
+              <appinfo>
+                <xrd:title>kxik</xrd:title>
+              </appinfo>
+            </annotation>
+          </enumeration>
+        </restriction>
+      </simpleType>
+      <element name="pakendidByIDArray">
+        <complexType>
+          <sequence>
+            <element name="keha" type="tns:ArrayOfString"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="pakendidByIDArrayResponse">
+        <complexType>
+          <sequence>
+            <element name="paring" type="tns:ArrayOfString"/>
+            <element name="keha" type="tns:ArrayOfPakend"/>
+          </sequence>
+        </complexType>
+      </element>
+      <complexType name="ArrayOfPakend">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="Item" type="tns:Pakend"/>
+        </sequence>
+      </complexType>
+      <complexType name="Pakend">
+        <all>
+          <element name="kood" type="xsd:string"/>
+          <element name="ravimikaartID" type="xsd:integer"/>
+          <element name="nimetus">
+            <simpleType>
+              <restriction base="tns:CharRequired">
+                <maxLength value="250"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element name="takuuluvus" type="tns:TAkuuluvus"/>
+          <element name="ATCkoodid" type="tns:ArrayOfPakendATCKood"/>
+          <element name="ravimvorm" type="tns:Ravimvorm"/>
+          <element minOccurs="0" name="kogusPakendis" type="xsd:string"/>
+          <element name="toimeained" type="tns:ArrayOfPakendToimeaine"/>
+          <element name="pakendisisu" type="tns:ArrayOfPakendSisu"/>
+          <element minOccurs="0" name="valjastNarkRetseptiga" type="xsd:boolean"/>
+          <element minOccurs="0" name="valjastKorduvRetseptiga" type="xsd:boolean"/>
+          <element minOccurs="0" name="pakendiLisand" type="xsd:string"/>
+          <element minOccurs="0" name="valjastRetseptiga" type="xsd:boolean"/>
+          <element minOccurs="0" name="valjastNarkMaxKogus">
+            <simpleType>
+              <restriction base="xsd:string">
+                <maxLength value="50"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element minOccurs="0" name="valjastMaxKogus">
+            <simpleType>
+              <restriction base="xsd:string">
+                <maxLength value="50"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element minOccurs="0" name="valjastKogusePiirang" type="xsd:boolean"/>
+          <element minOccurs="0" name="maaletoomiseTaotluseLiik">
+            <simpleType>
+              <restriction base="xsd:string">
+                <enumeration value="maaramata"/>
+                <enumeration value="veterinaararstiTaotlus"/>
+                <enumeration value="raviarstiTaotlus"/>
+                <enumeration value="hulgimuujaTaotlus"/>
+                <enumeration value="tervishoiuasutuseTaotlus"/>
+                <enumeration value="naidisteMTLtaotlus"/>
+                <enumeration value="erialaseltsiTaotlus"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element name="PakendiLiik">
+            <simpleType>
+              <restriction base="xsd:string">
+                <enumeration value="ApteegisJaendatavaRavimiPakend"/>
+                <enumeration value="ApteegisExTemporeValmistatudRavimiPakend"/>
+                <enumeration value="EritoiduPakend"/>
+                <enumeration value="MeditsiiniseadmePakend"/>
+                <enumeration value="ApteegisSeeriaviisiliseltValmistatudRavimiPakend"/>
+                <enumeration value="MyygiloaPakend"/>
+                <enumeration value="Maaletoomis-JaKasutusloagaPakend"/>
+              </restriction>
+            </simpleType>
+          </element>
+        </all>
+      </complexType>
+      <complexType name="ArrayOfPakendATCKood">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="Item" type="tns:PakendATCKood"/>
+        </sequence>
+      </complexType>
+      <complexType name="PakendATCKood">
+        <all>
+          <element name="kood" type="tns:CharRequired"/>
+        </all>
+      </complexType>
+      <complexType name="Ravimvorm">
+        <all>
+          <element name="id" type="xsd:integer"/>
+          <element minOccurs="0" name="koodEesti" type="xsd:string"/>
+          <element name="nimiEesti">
+            <simpleType>
+              <restriction base="tns:CharRequired">
+                <maxLength value="150"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element minOccurs="0" name="koodInglise" type="xsd:string"/>
+          <element minOccurs="0" name="nimiInglise" type="xsd:string"/>
+        </all>
+      </complexType>
+      <complexType name="ArrayOfPakendToimeaine">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="Item" type="tns:PakendToimeaine"/>
+        </sequence>
+      </complexType>
+      <complexType name="PakendToimeaine">
+        <all>
+          <element name="jarjekorraNr" type="xsd:integer"/>
+          <element name="toimeaineID" type="xsd:integer"/>
+          <element minOccurs="0" name="toimeaineYhikus" type="xsd:decimal"/>
+          <element minOccurs="0" name="toimeaineYhikusYhik" type="xsd:string"/>
+          <element minOccurs="0" name="yhikusuurus" type="xsd:decimal"/>
+          <element minOccurs="0" name="yhikusuurusYhik" type="xsd:string"/>
+          <element name="pakendisisuID" type="xsd:integer"/>
+        </all>
+      </complexType>
+      <complexType name="ArrayOfPakendSisu">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="Item" type="tns:PakendSisu"/>
+        </sequence>
+      </complexType>
+      <complexType name="PakendSisu">
+        <all>
+          <element name="PakendKood" type="xsd:string"/>
+          <element name="TykkideArv" type="xsd:decimal"/>
+          <element minOccurs="0" name="TykkideArvuYhik" type="xsd:string"/>
+          <element minOccurs="0" name="TykiSuurus" type="xsd:decimal"/>
+          <element minOccurs="0" name="TykiSuurusYhik" type="xsd:string"/>
+          <element name="Kirjeldus" minOccurs="0" type="xsd:string"/>
+          <element name="PakendisisuID" type="xsd:integer"/>
+        </all>
+      </complexType>
+      <simpleType name="TAkuuluvus">
+        <restriction base="xsd:string">
+          <enumeration value="maaramata"/>
+          <enumeration value="narkootiline"/>
+          <enumeration value="psuhhotroopne"/>
+        </restriction>
+      </simpleType>
+      <element name="pakenditeDetailandmed">
+        <complexType>
+          <sequence>
+            <element name="keha" type="tns:PakendidDetailandmedRequest"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="pakenditeDetailandmedResponse">
+        <complexType>
+          <sequence>
+            <element name="paring" type="tns:PakendidDetailandmedRequest"/>
+            <element name="keha" type="tns:ArrayOfString"/>
+          </sequence>
+        </complexType>
+      </element>
+      <complexType name="PakendidDetailandmedRequest">
+        <all>
+          <element name="muudatusedAlates" type="tns:DateNotRequired">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Muudatused alates
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="taotluseLiik" type="tns:TaotluseLiik">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Taotluse liik
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="takuuluvus" type="tns:TAkuuluvus">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Toimeaine kuuluvus
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="retseptiRavim" type="xsd:boolean">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Retseptiravim
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="soodustustegaRavimid" type="xsd:boolean">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Soodustustega ravimid
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+        </all>
+      </complexType>
+      <simpleType name="TaotluseLiik">
+        <restriction base="xsd:string">
+          <enumeration value="k6ik">
+            <annotation>
+              <appinfo>
+                <xrd:title>k6ik</xrd:title>
+              </appinfo>
+            </annotation>
+          </enumeration>
+          <enumeration value="apteegisextemporevalmistatudravim">
+            <annotation>
+              <appinfo>
+                <xrd:title>apteegisextemporevalmistatudravim</xrd:title>
+              </appinfo>
+            </annotation>
+          </enumeration>
+          <enumeration value="apteegisjaendatavravim">
+            <annotation>
+              <appinfo>
+                <xrd:title>apteegisjaendatavravim</xrd:title>
+              </appinfo>
+            </annotation>
+          </enumeration>
+          <enumeration value="apteegisseeriaviisiliseltvalmistatudravim">
+            <annotation>
+              <appinfo>
+                <xrd:title>apteegisseeriaviisiliseltvalmistatudravim</xrd:title>
+              </appinfo>
+            </annotation>
+          </enumeration>
+          <enumeration value="eritoidupakend">
+            <annotation>
+              <appinfo>
+                <xrd:title>eritoidupakend</xrd:title>
+              </appinfo>
+            </annotation>
+          </enumeration>
+          <enumeration value="maaletoomisjakasutusloagavalmistatudpakend">
+            <annotation>
+              <appinfo>
+                <xrd:title>maaletoomisjakasutusloagavalmistatudpakend</xrd:title>
+              </appinfo>
+            </annotation>
+          </enumeration>
+          <enumeration value="myygiloapakend">
+            <annotation>
+              <appinfo>
+                <xrd:title>myygiloapakend</xrd:title>
+              </appinfo>
+            </annotation>
+          </enumeration>
+          <enumeration value="l6ppenudmyygiloagapakend">
+            <annotation>
+              <appinfo>
+                <xrd:title>l6ppenudmyygiloagapakend</xrd:title>
+              </appinfo>
+            </annotation>
+          </enumeration>
+        </restriction>
+      </simpleType>
+      <element name="pakenditeDetailandmedByIDArray">
+        <complexType>
+          <sequence>
+            <element name="keha" type="tns:ArrayOfString"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="pakenditeDetailandmedByIDArrayResponse">
+        <complexType>
+          <sequence>
+            <element name="paring" type="tns:ArrayOfString"/>
+            <element name="keha" type="tns:ArrayOfPakendDetailandmed"/>
+          </sequence>
+        </complexType>
+      </element>
+      <complexType name="ArrayOfPakendDetailandmed">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="Item" type="tns:PakendDetailandmed"/>
+        </sequence>
+      </complexType>
+      <complexType name="PakendDetailandmed">
+        <all>
+          <element name="RavimiKood" type="xsd:string">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Ravimi kood
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="ATC" type="xsd:string">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  ATC
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="RavimiNimetus" type="xsd:string">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Ravimi nimetus
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="Toimeained" type="xsd:string">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Toimeained koos tugevusega
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="RavimVorm" type="xsd:string">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Ravimvorm
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="KogusPakendis" type="xsd:string">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Kogus pakendis
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="RetseptiNoue" type="xsd:string">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Retseptiravim(R),Haiglapakend(H)Käsimüügiravim(K)
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="Soodustus" type="xsd:string">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Soodustus
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="Piirhind" type="xsd:string">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Piirhind
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+        </all>
+      </complexType>
+      <element name="piirhinnad">
+        <complexType>
+          <sequence>
+            <element name="keha" type="tns:DateNotRequired"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="piirhinnadResponse">
+        <complexType>
+          <sequence>
+            <element name="paring" type="tns:DateNotRequired"/>
+            <element name="keha" type="tns:ArrayOfString"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="piirhinnadByIDArray">
+        <complexType>
+          <sequence>
+            <element name="keha" type="tns:ArrayOfString"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="piirhinnadByIDArrayResponse">
+        <complexType>
+          <sequence>
+            <element name="paring" type="tns:ArrayOfString"/>
+            <element name="keha" type="tns:ArrayOfPiirhind"/>
+          </sequence>
+        </complexType>
+      </element>
+      <complexType name="ArrayOfPiirhind">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="Item" type="tns:Piirhind"/>
+        </sequence>
+      </complexType>
+      <complexType name="Piirhind">
+        <all>
+          <element name="id" type="xsd:integer"/>
+          <element name="pakendiKood" type="xsd:string"/>
+          <element name="hind" type="tns:Currency"/>
+          <element name="valuuta" type="tns:CurrencySymbol"/>
+          <element name="kehtibAlates" type="xsd:dateTime"/>
+          <element minOccurs="0" name="kehtibKuni" type="xsd:dateTime"/>
+        </all>
+      </complexType>
+      <element name="ravimvormid">
+        <complexType>
+          <sequence>
+            <element name="keha" type="tns:DateNotRequired"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="ravimvormidResponse">
+        <complexType>
+          <sequence>
+            <element name="paring" type="tns:DateNotRequired"/>
+            <element name="keha" type="tns:ArrayOfString"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="ravimvormidByIDArray">
+        <complexType>
+          <sequence>
+            <element name="keha" type="tns:ArrayOfString"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="ravimvormidByIDArrayResponse">
+        <complexType>
+          <sequence>
+            <element name="paring" type="tns:ArrayOfString"/>
+            <element name="keha" type="tns:ArrayOfRavimvorm"/>
+          </sequence>
+        </complexType>
+      </element>
+      <complexType name="ArrayOfRavimvorm">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="Item" type="tns:Ravimvorm"/>
+        </sequence>
+      </complexType>
+      <element name="registreeritudmeditsiiniseadmed">
+        <complexType>
+          <sequence>
+            <element name="keha" type="tns:DateNotRequired"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="registreeritudmeditsiiniseadmedResponse">
+        <complexType>
+          <sequence>
+            <element name="paring" type="tns:DateNotRequired"/>
+            <element name="keha" type="tns:ArrayOfString"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="registreeritudmeditsiiniseadmedByIDArray">
+        <complexType>
+          <sequence>
+            <element name="keha" type="tns:ArrayOfString"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="registreeritudmeditsiiniseadmedByIDArrayResponse">
+        <complexType>
+          <sequence>
+            <element name="paring" type="tns:ArrayOfString"/>
+            <element name="keha" type="tns:ArrayOfMeditsiiniseade"/>
+          </sequence>
+        </complexType>
+      </element>
+      <complexType name="ArrayOfMeditsiiniseade">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="Item" type="tns:Meditsiiniseade"/>
+        </sequence>
+      </complexType>
+      <complexType name="Meditsiiniseade">
+        <all>
+          <element maxOccurs="1" minOccurs="1" name="kood" type="xsd:integer"/>
+          <element maxOccurs="1" minOccurs="1" name="kehtiv">
+            <simpleType>
+              <restriction base="tns:CharRequired">
+                <maxLength value="3"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="pakendinimetus">
+            <simpleType>
+              <restriction base="tns:CharRequired">
+                <maxLength value="250"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element maxOccurs="1" minOccurs="0" name="koguspakendis" type="xsd:integer"/>
+          <element maxOccurs="1" minOccurs="0" name="koguspakendisyhik" type="xsd:string"/>
+          <element maxOccurs="1" minOccurs="0" name="tootjanimi" type="xsd:string"/>
+          <element maxOccurs="1" minOccurs="0" name="tootjaaadress" type="xsd:string"/>
+          <element maxOccurs="1" minOccurs="0" name="tootjaregkood" type="xsd:string"/>
+        </all>
+      </complexType>
+      <element name="soodustused">
+        <complexType>
+          <sequence>
+            <element name="keha" type="tns:DateNotRequired"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="soodustusedResponse">
+        <complexType>
+          <sequence>
+            <element name="paring" type="tns:DateNotRequired"/>
+            <element name="keha" type="tns:ArrayOfString"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="soodustusedByIDArray">
+        <complexType>
+          <sequence>
+            <element name="keha" type="tns:ArrayOfString"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="soodustusedByIDArrayResponse">
+        <complexType>
+          <sequence>
+            <element name="paring" type="tns:ArrayOfString"/>
+            <element name="keha" type="tns:ArrayOfSoodustus"/>
+          </sequence>
+        </complexType>
+      </element>
+      <complexType name="ArrayOfSoodustus">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="Item" type="tns:Soodustus"/>
+        </sequence>
+      </complexType>
+      <complexType name="Soodustus">
+        <all>
+          <element name="id" type="xsd:integer"/>
+          <element name="pakendiKood" type="xsd:string"/>
+          <element name="protsent" type="xsd:decimal"/>
+          <element name="kehtibAlates" type="xsd:dateTime"/>
+          <element minOccurs="0" name="kehtibKuni" type="xsd:dateTime"/>
+          <element name="haigus" minOccurs="0" type="xsd:integer"/>
+          <element minOccurs="0" name="vanusAlates" type="xsd:decimal"/>
+          <element minOccurs="0" name="vanusKuni" type="xsd:decimal"/>
+          <element name="arstierialad" minOccurs="0" type="tns:ArrayOfArstieriala"/>
+          <element name="esmane" type="xsd:boolean"/>
+          <element name="markused" type="xsd:string"/>
+          <element name="tingitudToovoimetusest" type="xsd:boolean"/>
+          <element name="tingitudVanaduspensionist" type="xsd:boolean"/>
+          <element minOccurs="0" name="soodusaluseKood" type="xsd:string"/>
+        </all>
+      </complexType>
+      <complexType name="ArrayOfArstieriala">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="Item" type="tns:Arstieriala"/>
+        </sequence>
+      </complexType>
+      <complexType name="Arstieriala">
+        <all>
+          <element name="kood" type="xsd:string"/>
+          <element name="nimi" type="xsd:string"/>
+        </all>
+      </complexType>
+      <element name="toimeained">
+        <complexType>
+          <sequence>
+            <element name="keha" type="tns:DateNotRequired"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="toimeainedResponse">
+        <complexType>
+          <sequence>
+            <element name="paring" type="tns:DateNotRequired"/>
+            <element name="keha" type="tns:ArrayOfString"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="toimeainedByIDArray">
+        <complexType>
+          <sequence>
+            <element name="keha" type="tns:ArrayOfString"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="toimeainedByIDArrayResponse">
+        <complexType>
+          <sequence>
+            <element name="paring" type="tns:ArrayOfString"/>
+            <element name="keha" type="tns:ArrayOfToimeaine"/>
+          </sequence>
+        </complexType>
+      </element>
+      <complexType name="ArrayOfToimeaine">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="Item" type="tns:Toimeaine"/>
+        </sequence>
+      </complexType>
+      <complexType name="Toimeaine">
+        <all>
+          <element name="id" type="xsd:integer"/>
+          <element name="nimiEesti">
+            <simpleType>
+              <restriction base="tns:CharRequired">
+                <maxLength value="500"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element name="nimiInglise">
+            <simpleType>
+              <restriction base="xsd:string">
+                <maxLength value="500"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element name="nimiLadina">
+            <simpleType>
+              <restriction base="xsd:string">
+                <maxLength value="500"/>
+              </restriction>
+            </simpleType>
+          </element>
+          <element name="liik" type="tns:TAkuuluvus"/>
+          <element name="kordsus" type="xsd:boolean"/>
+        </all>
+      </complexType>
+    </schema>
+  </wsdl:types>
+  <wsdl:message name="xrdHeader">
+    <wsdl:part element="xrd:client" name="client"/>
+    <wsdl:part element="xrd:service" name="service"/>
+    <wsdl:part element="xrd:id" name="id"/>
+    <wsdl:part element="xrd:userId" name="userId"/>
+    <wsdl:part element="xrd:issue" name="issue"/>
+    <wsdl:part element="xrd:protocolVersion" name="protocolVersion"/>
+  </wsdl:message>
+  <wsdl:message name="ATCKlassifikaatorid">
+    <wsdl:part element="tns:ATCKlassifikaatorid" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="ATCKlassifikaatoridResponse">
+    <wsdl:part element="tns:ATCKlassifikaatoridResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="ATCKlassifikaatoridByIDArray">
+    <wsdl:part element="tns:ATCKlassifikaatoridByIDArray" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="ATCKlassifikaatoridByIDArrayResponse">
+    <wsdl:part element="tns:ATCKlassifikaatoridByIDArrayResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="diagnoosid">
+    <wsdl:part element="tns:diagnoosid" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="diagnoosidResponse">
+    <wsdl:part element="tns:diagnoosidResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="diagnoosidByIDArray">
+    <wsdl:part element="tns:diagnoosidByIDArray" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="diagnoosidByIDArrayResponse">
+    <wsdl:part element="tns:diagnoosidByIDArrayResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="haigused">
+    <wsdl:part element="tns:haigused" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="haigusedResponse">
+    <wsdl:part element="tns:haigusedResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="haigusedByIDArray">
+    <wsdl:part element="tns:haigusedByIDArray" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="haigusedByIDArrayResponse">
+    <wsdl:part element="tns:haigusedByIDArrayResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="hinnakokkulepped">
+    <wsdl:part element="tns:hinnakokkulepped" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="hinnakokkuleppedResponse">
+    <wsdl:part element="tns:hinnakokkuleppedResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="hinnakokkuleppedByIDArray">
+    <wsdl:part element="tns:hinnakokkuleppedByIDArray" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="hinnakokkuleppedByIDArrayResponse">
+    <wsdl:part element="tns:hinnakokkuleppedByIDArrayResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="hyvitamisTingimused">
+    <wsdl:part element="tns:hyvitamisTingimused" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="hyvitamisTingimusedResponse">
+    <wsdl:part element="tns:hyvitamisTingimusedResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="hyvitamisTingimusedByIDArray">
+    <wsdl:part element="tns:hyvitamisTingimusedByIDArray" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="hyvitamisTingimusedByIDArrayResponse">
+    <wsdl:part element="tns:hyvitamisTingimusedByIDArrayResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="medSeadmePiirhinnad">
+    <wsdl:part element="tns:medSeadmePiirhinnad" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="medSeadmePiirhinnadResponse">
+    <wsdl:part element="tns:medSeadmePiirhinnadResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="medSeadmePiirhinnadByIDArray">
+    <wsdl:part element="tns:medSeadmePiirhinnadByIDArray" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="medSeadmePiirhinnadByIDArrayResponse">
+    <wsdl:part element="tns:medSeadmePiirhinnadByIDArrayResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="medSeadmeRyhmad">
+    <wsdl:part element="tns:medSeadmeRyhmad" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="medSeadmeRyhmadResponse">
+    <wsdl:part element="tns:medSeadmeRyhmadResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="medSeadmeRyhmadByIDArray">
+    <wsdl:part element="tns:medSeadmeRyhmadByIDArray" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="medSeadmeRyhmadByIDArrayResponse">
+    <wsdl:part element="tns:medSeadmeRyhmadByIDArrayResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="medSeadmed">
+    <wsdl:part element="tns:medSeadmed" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="medSeadmedResponse">
+    <wsdl:part element="tns:medSeadmedResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="medSeadmedByIDArray">
+    <wsdl:part element="tns:medSeadmedByIDArray" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="medSeadmedByIDArrayResponse">
+    <wsdl:part element="tns:medSeadmedByIDArrayResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="myygiload">
+    <wsdl:part element="tns:myygiload" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="myygiloadResponse">
+    <wsdl:part element="tns:myygiloadResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="myygiloadByIDArray">
+    <wsdl:part element="tns:myygiloadByIDArray" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="myygiloadByIDArrayResponse">
+    <wsdl:part element="tns:myygiloadByIDArrayResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="pakendMyygiloadByIDArray">
+    <wsdl:part element="tns:pakendMyygiloadByIDArray" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="pakendMyygiloadByIDArrayResponse">
+    <wsdl:part element="tns:pakendMyygiloadByIDArrayResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="pakendid">
+    <wsdl:part element="tns:pakendid" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="pakendidResponse">
+    <wsdl:part element="tns:pakendidResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="pakendidByIDArray">
+    <wsdl:part element="tns:pakendidByIDArray" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="pakendidByIDArrayResponse">
+    <wsdl:part element="tns:pakendidByIDArrayResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="pakenditeDetailandmed">
+    <wsdl:part element="tns:pakenditeDetailandmed" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="pakenditeDetailandmedResponse">
+    <wsdl:part element="tns:pakenditeDetailandmedResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="pakenditeDetailandmedByIDArray">
+    <wsdl:part element="tns:pakenditeDetailandmedByIDArray" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="pakenditeDetailandmedByIDArrayResponse">
+    <wsdl:part element="tns:pakenditeDetailandmedByIDArrayResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="piirhinnad">
+    <wsdl:part element="tns:piirhinnad" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="piirhinnadResponse">
+    <wsdl:part element="tns:piirhinnadResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="piirhinnadByIDArray">
+    <wsdl:part element="tns:piirhinnadByIDArray" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="piirhinnadByIDArrayResponse">
+    <wsdl:part element="tns:piirhinnadByIDArrayResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="ravimvormid">
+    <wsdl:part element="tns:ravimvormid" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="ravimvormidResponse">
+    <wsdl:part element="tns:ravimvormidResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="ravimvormidByIDArray">
+    <wsdl:part element="tns:ravimvormidByIDArray" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="ravimvormidByIDArrayResponse">
+    <wsdl:part element="tns:ravimvormidByIDArrayResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="registreeritudmeditsiiniseadmed">
+    <wsdl:part element="tns:registreeritudmeditsiiniseadmed" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="registreeritudmeditsiiniseadmedResponse">
+    <wsdl:part element="tns:registreeritudmeditsiiniseadmedResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="registreeritudmeditsiiniseadmedByIDArray">
+    <wsdl:part element="tns:registreeritudmeditsiiniseadmedByIDArray" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="registreeritudmeditsiiniseadmedByIDArrayResponse">
+    <wsdl:part element="tns:registreeritudmeditsiiniseadmedByIDArrayResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="soodustused">
+    <wsdl:part element="tns:soodustused" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="soodustusedResponse">
+    <wsdl:part element="tns:soodustusedResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="soodustusedByIDArray">
+    <wsdl:part element="tns:soodustusedByIDArray" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="soodustusedByIDArrayResponse">
+    <wsdl:part element="tns:soodustusedByIDArrayResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="toimeained">
+    <wsdl:part element="tns:toimeained" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="toimeainedResponse">
+    <wsdl:part element="tns:toimeainedResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="toimeainedByIDArray">
+    <wsdl:part element="tns:toimeainedByIDArray" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="toimeainedByIDArrayResponse">
+    <wsdl:part element="tns:toimeainedByIDArrayResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:portType name="webServiceInterface">
+    <wsdl:operation name="ATCKlassifikaatorid">
+      <wsdl:documentation>
+        <xrd:title>ATC Klassifikaatori koodid</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:ATCKlassifikaatorid"/>
+      <wsdl:output message="tns:ATCKlassifikaatoridResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="ATCKlassifikaatoridByIDArray">
+      <wsdl:documentation>
+        <xrd:title>ATC Klassifikaatorite loend</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:ATCKlassifikaatoridByIDArray"/>
+      <wsdl:output message="tns:ATCKlassifikaatoridByIDArrayResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="diagnoosid">
+      <wsdl:documentation>
+        <xrd:title>Diagnooside koodide loend</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:diagnoosid"/>
+      <wsdl:output message="tns:diagnoosidResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="diagnoosidByIDArray">
+      <wsdl:documentation>
+        <xrd:title>Diagnooside loend</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:diagnoosidByIDArray"/>
+      <wsdl:output message="tns:diagnoosidByIDArrayResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="haigused">
+      <wsdl:documentation>
+        <xrd:title>Haiguste koodide loend</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:haigused"/>
+      <wsdl:output message="tns:haigusedResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="haigusedByIDArray">
+      <wsdl:documentation>
+        <xrd:title>Haiguste loend</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:haigusedByIDArray"/>
+      <wsdl:output message="tns:haigusedByIDArrayResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="hinnakokkulepped">
+      <wsdl:documentation>
+        <xrd:title>Hinnakokkulepete koodide loend</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:hinnakokkulepped"/>
+      <wsdl:output message="tns:hinnakokkuleppedResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="hinnakokkuleppedByIDArray">
+      <wsdl:documentation>
+        <xrd:title>Hinnakokkulepete loend</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:hinnakokkuleppedByIDArray"/>
+      <wsdl:output message="tns:hinnakokkuleppedByIDArrayResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="hyvitamisTingimused">
+      <wsdl:documentation>
+        <xrd:title>Meditsiiniseadme hüvitamistingimuste koodide loend</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:hyvitamisTingimused"/>
+      <wsdl:output message="tns:hyvitamisTingimusedResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="hyvitamisTingimusedByIDArray">
+      <wsdl:documentation>
+        <xrd:title>Meditsiiniseadme hüvitamistingimuste loend</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:hyvitamisTingimusedByIDArray"/>
+      <wsdl:output message="tns:hyvitamisTingimusedByIDArrayResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="medSeadmePiirhinnad">
+      <wsdl:documentation>
+        <xrd:title>Meditsiiniseadme piirhindade koodide loend</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:medSeadmePiirhinnad"/>
+      <wsdl:output message="tns:medSeadmePiirhinnadResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="medSeadmePiirhinnadByIDArray">
+      <wsdl:documentation>
+        <xrd:title>Meditsiiniseadme piirhindade loend</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:medSeadmePiirhinnadByIDArray"/>
+      <wsdl:output message="tns:medSeadmePiirhinnadByIDArrayResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="medSeadmeRyhmad">
+      <wsdl:documentation>
+        <xrd:title>Meditsiiniseadme rühmade koodide loend</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:medSeadmeRyhmad"/>
+      <wsdl:output message="tns:medSeadmeRyhmadResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="medSeadmeRyhmadByIDArray">
+      <wsdl:documentation>
+        <xrd:title>Meditsiiniseadme rühmade loend</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:medSeadmeRyhmadByIDArray"/>
+      <wsdl:output message="tns:medSeadmeRyhmadByIDArrayResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="medSeadmed">
+      <wsdl:documentation>
+        <xrd:title>Meditsiiniseadmete koodide loend</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:medSeadmed"/>
+      <wsdl:output message="tns:medSeadmedResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="medSeadmedByIDArray">
+      <wsdl:documentation>
+        <xrd:title>Meditsiiniseadmete loend</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:medSeadmedByIDArray"/>
+      <wsdl:output message="tns:medSeadmedByIDArrayResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="myygiload">
+      <wsdl:documentation>
+        <xrd:title>Müügilubade koodide loend</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:myygiload"/>
+      <wsdl:output message="tns:myygiloadResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="myygiloadByIDArray">
+      <wsdl:documentation>
+        <xrd:title>Müügilubade loend</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:myygiloadByIDArray"/>
+      <wsdl:output message="tns:myygiloadByIDArrayResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="pakendMyygiloadByIDArray">
+      <wsdl:documentation>
+        <xrd:title>Pakendite müügilubade loend</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:pakendMyygiloadByIDArray"/>
+      <wsdl:output message="tns:pakendMyygiloadByIDArrayResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="pakendid">
+      <wsdl:documentation>
+        <xrd:title>Pakendite koodid</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:pakendid"/>
+      <wsdl:output message="tns:pakendidResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="pakendidByIDArray">
+      <wsdl:documentation>
+        <xrd:title>Pakendite loend</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:pakendidByIDArray"/>
+      <wsdl:output message="tns:pakendidByIDArrayResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="pakenditeDetailandmed">
+      <wsdl:documentation>
+        <xrd:title>Pakendite detailandmete koodide loend</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:pakenditeDetailandmed"/>
+      <wsdl:output message="tns:pakenditeDetailandmedResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="pakenditeDetailandmedByIDArray">
+      <wsdl:documentation>
+        <xrd:title>Pakendite detailandmete loend</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:pakenditeDetailandmedByIDArray"/>
+      <wsdl:output message="tns:pakenditeDetailandmedByIDArrayResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="piirhinnad">
+      <wsdl:documentation>
+        <xrd:title>Piirhindade koodide loend</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:piirhinnad"/>
+      <wsdl:output message="tns:piirhinnadResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="piirhinnadByIDArray">
+      <wsdl:documentation>
+        <xrd:title>Piirhindade loend</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:piirhinnadByIDArray"/>
+      <wsdl:output message="tns:piirhinnadByIDArrayResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="ravimvormid">
+      <wsdl:documentation>
+        <xrd:title>Ravimvormide koodide loend</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:ravimvormid"/>
+      <wsdl:output message="tns:ravimvormidResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="ravimvormidByIDArray">
+      <wsdl:documentation>
+        <xrd:title>Ravimvormide loend</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:ravimvormidByIDArray"/>
+      <wsdl:output message="tns:ravimvormidByIDArrayResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="registreeritudmeditsiiniseadmed">
+      <wsdl:documentation>
+        <xrd:title>Registreeritud meditsiiniseadmete koodide loend</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:registreeritudmeditsiiniseadmed"/>
+      <wsdl:output message="tns:registreeritudmeditsiiniseadmedResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="registreeritudmeditsiiniseadmedByIDArray">
+      <wsdl:documentation>
+        <xrd:title>Registreeritud meditsiiniseadmete loend</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:registreeritudmeditsiiniseadmedByIDArray"/>
+      <wsdl:output message="tns:registreeritudmeditsiiniseadmedByIDArrayResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="soodustused">
+      <wsdl:documentation>
+        <xrd:title>Soodustuste koodide loend</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:soodustused"/>
+      <wsdl:output message="tns:soodustusedResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="soodustusedByIDArray">
+      <wsdl:documentation>
+        <xrd:title>Soodustuste loend</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:soodustusedByIDArray"/>
+      <wsdl:output message="tns:soodustusedByIDArrayResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="toimeained">
+      <wsdl:documentation>
+        <xrd:title>Toimeaine koodide loetelu</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:toimeained"/>
+      <wsdl:output message="tns:toimeainedResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="toimeainedByIDArray">
+      <wsdl:documentation>
+        <xrd:title>Toimeainete loend</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:toimeainedByIDArray"/>
+      <wsdl:output message="tns:toimeainedByIDArrayResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="soapBindings" type="tns:webServiceInterface">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="ATCKlassifikaatorid">
+      <soap:operation soapAction=""/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ATCKlassifikaatoridByIDArray">
+      <soap:operation soapAction=""/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="diagnoosid">
+      <soap:operation soapAction=""/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="diagnoosidByIDArray">
+      <soap:operation soapAction=""/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="haigused">
+      <soap:operation soapAction=""/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="haigusedByIDArray">
+      <soap:operation soapAction=""/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="hinnakokkulepped">
+      <soap:operation soapAction=""/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="hinnakokkuleppedByIDArray">
+      <soap:operation soapAction=""/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="hyvitamisTingimused">
+      <soap:operation soapAction=""/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="hyvitamisTingimusedByIDArray">
+      <soap:operation soapAction=""/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="medSeadmePiirhinnad">
+      <soap:operation soapAction=""/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="medSeadmePiirhinnadByIDArray">
+      <soap:operation soapAction=""/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="medSeadmeRyhmad">
+      <soap:operation soapAction=""/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="medSeadmeRyhmadByIDArray">
+      <soap:operation soapAction=""/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="medSeadmed">
+      <soap:operation soapAction=""/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="medSeadmedByIDArray">
+      <soap:operation soapAction=""/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="myygiload">
+      <soap:operation soapAction=""/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="myygiloadByIDArray">
+      <soap:operation soapAction=""/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pakendMyygiloadByIDArray">
+      <soap:operation soapAction=""/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pakendid">
+      <soap:operation soapAction=""/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pakendidByIDArray">
+      <soap:operation soapAction=""/>
+      <xrd:version>v2</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pakenditeDetailandmed">
+      <soap:operation soapAction=""/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pakenditeDetailandmedByIDArray">
+      <soap:operation soapAction=""/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="piirhinnad">
+      <soap:operation soapAction=""/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="piirhinnadByIDArray">
+      <soap:operation soapAction=""/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ravimvormid">
+      <soap:operation soapAction=""/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ravimvormidByIDArray">
+      <soap:operation soapAction=""/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="registreeritudmeditsiiniseadmed">
+      <soap:operation soapAction=""/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="registreeritudmeditsiiniseadmedByIDArray">
+      <soap:operation soapAction=""/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="soodustused">
+      <soap:operation soapAction=""/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="soodustusedByIDArray">
+      <soap:operation soapAction=""/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="toimeained">
+      <soap:operation soapAction=""/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="toimeainedByIDArray">
+      <soap:operation soapAction=""/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="webService">
+    <wsdl:port binding="tns:soapBindings" name="port">
+      <soap:address location="http://TURVASERVER/cgi-bin/consumer_proxy"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>xtee-client-koodikeskus</artifactId>
-  <name>Koodikeskus client services</name>
+  <artifactId>xtee-client-ravimiregister</artifactId>
+  <name>Ravimiregister client services</name>
 
   <parent>
     <groupId>com.nortal.jroad</groupId>
     <artifactId>xtee-client-service</artifactId>
- 	<version>4.1-SNAPSHOT</version>
+ 	<version>4.2.0</version>
   </parent>
 
   <properties>
-    <package>koodikeskus</package>
+    <package>ravimiregister</package>
   </properties>
 
 </project>
