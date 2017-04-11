@@ -38,7 +38,7 @@ import com.nortal.jroad.model.XRoadMessage;
 import com.nortal.jroad.model.XmlBeansXRoadMessage;
 import com.nortal.jroad.model.XmlBeansXRoadMetadata;
 import com.nortal.jroad.util.SOAPUtil;
-import com.sun.xml.messaging.saaj.soap.impl.TextImpl;
+import com.sun.xml.internal.messaging.saaj.soap.impl.TextImpl;
 
 /**
  * @author Dmitri Danilkin
