@@ -88,10 +88,7 @@ public class XRoadProtocolNamespaceStrategyV4 extends MessageCallbackNamespaceSt
 
     SOAPElement database = service.addChildElement("serviceCode", "id");
     database.addTextNode(conf.getMethod());
-    //Added by raunor because of kr request doesnt have version
-    if(!conf.getMethod().equals("Kinnistu_Lihtandmed")){
-        SOAPElement serviceVersion = service.addChildElement("serviceVersion", "id");
-        serviceVersion.addTextNode(StringUtils.isNotBlank(conf.getVersion()) ? conf.getVersion() : "v1");
-    }
+    SOAPElement serviceVersion = service.addChildElement("serviceVersion", "id");
+    serviceVersion.addTextNode(StringUtils.isNotBlank(conf.getVersion()) ? conf.getVersion() : "v1");
   }
 }
