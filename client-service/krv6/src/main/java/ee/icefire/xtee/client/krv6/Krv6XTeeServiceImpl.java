@@ -5,6 +5,7 @@ import com.nortal.jroad.client.krv6.database.KrXRoadDatabase;
 import com.nortal.jroad.client.krv6.types.eu.x_road.kr.KinnistuLihtandmedDocument;
 import com.nortal.jroad.client.krv6.types.eu.x_road.kr.KinnistuLihtandmedResponseDocument;
 import com.nortal.jroad.client.krv6.types.org.datacontract.schemas.x2004.x07.kinnistuService.KinnistuLihtandmedRequest;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Calendar;
@@ -13,7 +14,8 @@ import java.util.Calendar;
  * Created by raunor
  * on 11.04.2017.
  */
-public class Krv6XTeeServiceImpl {
+@Service("krv6XTeeService")
+public class Krv6XTeeServiceImpl implements Krv6XTeeService {
     @Resource
     private KrXRoadDatabase krv6XTeeDatabase;
 
