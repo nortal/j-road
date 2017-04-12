@@ -1,4 +1,4 @@
-package ee.icefire.xtee.client.krv6;
+package com.nortal.jroad.client.krv6;
 
 import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.krv6.types.eu.x_road.kr.KinnistuLihtandmedResponseDocument;
