@@ -1,4 +1,4 @@
-package ee.icefire.xtee.client.rr;
+package com.nortal.jroad.client.rrv6;
 
 import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.rrv6.types.eu.x_road.rr.producer.RR84IsikuSeosedResponseDocument;
