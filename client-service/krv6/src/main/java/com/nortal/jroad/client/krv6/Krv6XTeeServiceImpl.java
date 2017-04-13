@@ -1,7 +1,6 @@
 package com.nortal.jroad.client.krv6;
 
 import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
-import com.nortal.jroad.client.krv6.Krv6XTeeService;
 import com.nortal.jroad.client.krv6.database.KrXRoadDatabase;
 import com.nortal.jroad.client.krv6.types.eu.x_road.kr.KinnistuLihtandmedDocument;
 import com.nortal.jroad.client.krv6.types.eu.x_road.kr.KinnistuLihtandmedResponseDocument;
@@ -34,7 +33,7 @@ public class Krv6XTeeServiceImpl implements Krv6XTeeService {
         request.setKinnistuteArvLehel(pageMaxRows);
         lihtandmed.setRequest(request);
         KinnistuLihtandmedResponseDocument.KinnistuLihtandmedResponse
-                paringuVastus = krv6XTeeDatabase.kinnistuLihtandmedV1(lihtandmed);
+                paringuVastus = krv6XTeeDatabase.kinnistuLihtandmed(lihtandmed);
 
         return paringuVastus;
     }
