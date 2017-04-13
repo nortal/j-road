@@ -15,10 +15,10 @@ public class ${databaseClass.implementationName} extends ${databaseClass.baseImp
 <#list method.versions as version>
 
   /**
-   * <code>${databaseClass.database}.${method.name}.v${version.version}</code> X-road service implementation.
+   * <code>${databaseClass.database}.${method.name}<#if version.version??>.v${version.version}</#if></code> X-road service implementation.
    */
   public ${method.outputClass} ${version.name}(${method.inputClass} input) throws XRoadServiceConsumptionException {
-    XRoadMessage<${method.outputClass}> response = send(new XmlBeansXRoadMessage<${method.inputClass}>(input), "${method.name}", "v${version.version}");
+    XRoadMessage<${method.outputClass}> response = send(new XmlBeansXRoadMessage<${method.inputClass}>(input), "${method.name}", <#if version.version??>"v${version.version}"<#else>""</#if>);
 
     return response.getContent();
   }
