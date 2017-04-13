@@ -1,4 +1,4 @@
-package ee.icefire.xtee.client.evkrv6;
+package com.nortal.jroad.client.evkrv6;
 
 import com.nortal.jroad.client.evkrv6.types.eu.x_road.evkr.IsikuAndmeteVastus;
 import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;

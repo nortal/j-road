@@ -1,4 +1,4 @@
-package ee.icefire.xtee.ariregv6;
+package com.nortal.jroad.client.ariregv6;
 import com.nortal.jroad.client.ariregv6.types.eu.x_road.arireg.producer.DetailandmedV5Ettevotja;
 import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import java.util.List;

@@ -33,7 +33,6 @@ public class Krv6XTeeServiceImpl implements Krv6XTeeService {
         request.setLehekyljeNr(pageNr);
         request.setKinnistuteArvLehel(pageMaxRows);
         lihtandmed.setRequest(request);
-
         KinnistuLihtandmedResponseDocument.KinnistuLihtandmedResponse
                 paringuVastus = krv6XTeeDatabase.kinnistuLihtandmedV1(lihtandmed);
 
