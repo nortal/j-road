@@ -38,6 +38,7 @@
     <module>ariregv6</module>
     <module>krv6</module>
     <module>rrv6</module>
+    <module>liiklusregisterv6</module>
 
 <!-- These modules do compile but needs review - consult with epria or example module -->
 <!--     <module>tor</module> -->
