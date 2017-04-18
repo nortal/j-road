@@ -198,6 +198,7 @@ public final class XteeSchemaCodePrinter implements SchemaCodePrinter {
     emit("");
 
     printInnerType(sType, sType.getTypeSystem());
+    _writer.append("//comment out artifacts from xmlbeans");
     _writer.flush();
   }
 
