@@ -39,9 +39,12 @@ public class Lrv6XTeeServiceImpl implements Lrv6XTeeService{
     public Paring2Vastus findSoidukiAndmedParing2(String isikukood) throws XRoadServiceConsumptionException {
 
         Paring2Paring paring = Paring2Paring.Factory.newInstance();
-
-        paring.setIdkood(isikukood);
-
+        if(isikukood != null)
+        {
+            Paring2Paring.OmaAndmed omaAndmed = Paring2Paring.OmaAndmed.Factory.newInstance();
+            omaAndmed.setOmaKood(isikukood);
+            paring.setOmaAndmed(omaAndmed);
+        }
         return liiklusregisterXTeeDatabase.paring2V2(paring);
     }
 
