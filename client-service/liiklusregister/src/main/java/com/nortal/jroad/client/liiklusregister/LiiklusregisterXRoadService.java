@@ -16,7 +16,7 @@ import com.nortal.jroad.client.liiklusregister.types.eu.x_road.liiklusregister.V
 /**
  * <code>liiklusregister</code> (ARK teenused) database X-tee service.
  */
-public interface LiiklusregisterXTeeService {
+public interface LiiklusregisterXRoadService {
 
   /**
    * <code>liiklusregister.pol_soiduk.v1</code> service.

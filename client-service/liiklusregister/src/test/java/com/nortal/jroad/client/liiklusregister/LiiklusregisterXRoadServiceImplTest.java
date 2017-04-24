@@ -17,16 +17,16 @@ import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
 /**
  * @author Dmitri Danilkin
  */
-public class LiiklusregisterXTeeServiceImplTest extends BaseXTeeServiceImplTest {
+public class LiiklusregisterXRoadServiceImplTest extends BaseXTeeServiceImplTest {
 
   private static final String TEST_ISIKUKOOD = "38606282771";
 
   @Resource
-  private LiiklusregisterXTeeServiceImpl liiklusregisterXTeeServiceImpl;
+  private LiiklusregisterXRoadServiceImpl liiklusregisterXRoadServiceImpl;
 
   @Test
   public void getPolJuhtoigus() throws XTeeServiceConsumptionException {
-    PolJuhtoigusVastus polJuhtoigus = liiklusregisterXTeeServiceImpl.polJuhtoigus(TEST_ISIKUKOOD);
+    PolJuhtoigusVastus polJuhtoigus = liiklusregisterXRoadServiceImpl.polJuhtoigus(TEST_ISIKUKOOD);
 
     Assert.assertNotNull(polJuhtoigus);
     Assert.assertNotNull(polJuhtoigus.getKood());
@@ -37,7 +37,7 @@ public class LiiklusregisterXTeeServiceImplTest extends BaseXTeeServiceImplTest 
 
   @Test
   public void getVlaev() throws XTeeServiceConsumptionException {
-    VlaevResponse response = liiklusregisterXTeeServiceImpl.findVLaevAndmed("VLD-935", null, null, null, null);
+    VlaevResponse response = liiklusregisterXRoadServiceImpl.findVLaevAndmed("VLD-935", null, null, null, null);
 
     Assert.assertNotNull(response);
     Assert.assertNotNull(response.getItemList());
@@ -52,7 +52,7 @@ public class LiiklusregisterXTeeServiceImplTest extends BaseXTeeServiceImplTest 
 
   @Test
   public void getVlaevTunn() throws XTeeServiceConsumptionException {
-    VlaevTunnVastus response = liiklusregisterXTeeServiceImpl.findVlaevTunnistused("004737", null, null, null);
+    VlaevTunnVastus response = liiklusregisterXRoadServiceImpl.findVlaevTunnistused("004737", null, null, null);
 
     Assert.assertNotNull(response);
     Assert.assertNotNull(response.getTunnistus());
@@ -66,7 +66,7 @@ public class LiiklusregisterXTeeServiceImplTest extends BaseXTeeServiceImplTest 
 
   @Test
   public void getMuuDokument() throws XTeeServiceConsumptionException {
-    MuuDokVastus vastus = liiklusregisterXTeeServiceImpl.findMuuDok(null, "NIKLUS", null, null);
+    MuuDokVastus vastus = liiklusregisterXRoadServiceImpl.findMuuDok(null, "NIKLUS", null, null);
     Assert.assertNotNull(vastus.getDok());
     Assert.assertFalse(vastus.getDok().getDokList().isEmpty());
   }
