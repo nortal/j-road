@@ -1,15 +1,15 @@
 package com.nortal.jroad.client.ravimiregister;
 
 import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
-import com.nortal.jroad.client.ravimiregister.types.eu.x_road.koodikeskus.ATCKlassifikaator;
-import com.nortal.jroad.client.ravimiregister.types.eu.x_road.koodikeskus.Haigus;
-import com.nortal.jroad.client.ravimiregister.types.eu.x_road.koodikeskus.Hinnakokkulepe;
-import com.nortal.jroad.client.ravimiregister.types.eu.x_road.koodikeskus.Myygiluba;
-import com.nortal.jroad.client.ravimiregister.types.eu.x_road.koodikeskus.Pakend;
-import com.nortal.jroad.client.ravimiregister.types.eu.x_road.koodikeskus.Piirhind;
-import com.nortal.jroad.client.ravimiregister.types.eu.x_road.koodikeskus.Ravimvorm;
-import com.nortal.jroad.client.ravimiregister.types.eu.x_road.koodikeskus.Soodustus;
-import com.nortal.jroad.client.ravimiregister.types.eu.x_road.koodikeskus.Toimeaine;
+import com.nortal.jroad.client.ravimiregister.types.eu.x_road.ravimiregister.ATCKlassifikaator;
+import com.nortal.jroad.client.ravimiregister.types.eu.x_road.ravimiregister.Haigus;
+import com.nortal.jroad.client.ravimiregister.types.eu.x_road.ravimiregister.Hinnakokkulepe;
+import com.nortal.jroad.client.ravimiregister.types.eu.x_road.ravimiregister.Myygiluba;
+import com.nortal.jroad.client.ravimiregister.types.eu.x_road.ravimiregister.Pakend;
+import com.nortal.jroad.client.ravimiregister.types.eu.x_road.ravimiregister.Piirhind;
+import com.nortal.jroad.client.ravimiregister.types.eu.x_road.ravimiregister.Ravimvorm;
+import com.nortal.jroad.client.ravimiregister.types.eu.x_road.ravimiregister.Soodustus;
+import com.nortal.jroad.client.ravimiregister.types.eu.x_road.ravimiregister.Toimeaine;
 import com.nortal.jroad.client.test.BaseXRoadServiceImplTest;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -77,7 +77,7 @@ public class RavimiregisterXRoadServiceImplTest extends BaseXRoadServiceImplTest
   }
 
   @Test
-  public void findPakendidDetailandmedv1() throws XRoadServiceConsumptionException {
+  public void findPakendidDetailandmedv3() throws XRoadServiceConsumptionException {
     String pakendiKood = "1026177";
     List<String> pakendiKoodid = new ArrayList<String>();
     pakendiKoodid.add(pakendiKood);
