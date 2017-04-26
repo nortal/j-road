@@ -13,10 +13,10 @@ import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
-public class StarXTeeServiceImplTest extends BaseXTeeServiceImplTest {
+public class StarXRoadServiceImplTest extends BaseXTeeServiceImplTest {
 
   @Resource
-  private StarXTeeServiceImpl starXTeeServiceImpl;
+  private StarXRoadServiceImpl starXRoadServiceImpl;
 
   @Test
   public void findHooldajaHooldusedMassParingV1_validInput() throws Exception {
@@ -40,14 +40,14 @@ public class StarXTeeServiceImplTest extends BaseXTeeServiceImplTest {
     algus.set(2015, Calendar.JANUARY, 1);
     Calendar lopp = Calendar.getInstance();
     lopp.set(2015, Calendar.DECEMBER, 31);
-    return starXTeeServiceImpl.submitHooldajaHooldusedMassParingV1(isikukoodid, algus.getTime(), lopp.getTime());
+    return starXRoadServiceImpl.submitHooldajaHooldusedMassParingV1(isikukoodid, algus.getTime(), lopp.getTime());
   }
 
   @Test
   public void getAsynchronousParingTulemV1() throws Exception {
     String[] isikukoodid = {"38812192729", "00000000000"};
     HooldajaHooldusedMassParingResponse response = getHooldajaHooldusedMassParingResponse(isikukoodid);
-    AsynchronousParingTulemResponse async = starXTeeServiceImpl.getAsynchronousParingTulemV1(response.getPilet());
+    AsynchronousParingTulemResponse async = starXRoadServiceImpl.getAsynchronousParingTulemV1(response.getPilet());
     Assert.assertNotNull(async);
     Assert.assertNotNull(async.getBase64());
   }
