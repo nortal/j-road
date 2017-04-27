@@ -35,6 +35,7 @@
     <module>emtav6</module>
     <module>ravimiregister</module>
     <module>ljvis</module>
+    <module>jvis</module>
 
 <!-- These modules do compile but needs review - consult with epria or example module -->
 <!--     <module>tor</module> -->
