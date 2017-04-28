@@ -4,8 +4,10 @@ import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
 import com.nortal.jroad.client.rar.types.eu.x_road.rm_v6.RarVtaResponseType;
 
 /**
- * @author Kauri Kägo <kauri.kago@nortal.com>
- */
+*  RAR namespace in wsdl is rm-v6
+*
+*  @author Kauri Kägo <kauri.kago@nortal.com>
+*/
 public interface RarXRoadService {
 
     /**
