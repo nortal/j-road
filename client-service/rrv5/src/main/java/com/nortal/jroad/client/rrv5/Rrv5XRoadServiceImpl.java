@@ -3,10 +3,13 @@ package com.nortal.jroad.client.rrv5;
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
 import com.nortal.jroad.client.rrv5.database.RrXRoadDatabase;
 import com.nortal.jroad.client.rrv5.types.eu.x_road.rr.producer.RR435Document.RR435;
-import com.nortal.jroad.client.rrv5.types.eu.x_road.rr.producer.RR435ResponseDocument;
+import com.nortal.jroad.client.rrv5.types.eu.x_road.rr.producer.RR435ResponseDocument.RR435Response;
 import com.nortal.jroad.client.rrv5.types.eu.x_road.rr.producer.RR436Document.RR436;
 import com.nortal.jroad.client.rrv5.types.eu.x_road.rr.producer.RR436RequestType;
 import com.nortal.jroad.client.rrv5.types.eu.x_road.rr.producer.RR436ResponseDocument.RR436Response;
+import com.nortal.jroad.client.rrv5.types.eu.x_road.rr.producer.RR50SurnudIsikuteLeidmineDocument.RR50SurnudIsikuteLeidmine;
+import com.nortal.jroad.client.rrv5.types.eu.x_road.rr.producer.RR50SurnudIsikuteLeidmineRequestType;
+import com.nortal.jroad.client.rrv5.types.eu.x_road.rr.producer.RR50SurnudIsikuteLeidmineResponseDocument.RR50SurnudIsikuteLeidmineResponse;
 import com.nortal.jroad.client.rrv5.types.eu.x_road.rr.producer.RR71FailDownloadDocument.RR71FailDownload;
 import com.nortal.jroad.client.rrv5.types.eu.x_road.rr.producer.RR71FailDownloadResponseDocument.RR71FailDownloadResponse;
 import com.nortal.jroad.client.service.MetaserviceOperations;
@@ -19,6 +22,8 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -39,7 +44,7 @@ public class Rrv5XRoadServiceImpl extends XRoadDatabaseService implements Rrv5XR
   }
 
   @Override
-  public RR435ResponseDocument.RR435Response findRR435(String legalCode) throws XTeeServiceConsumptionException {
+  public RR435Response findRR435(String legalCode) throws XTeeServiceConsumptionException {
     RR435 paring = RR435.Factory.newInstance();
     paring.addNewRequest().setIsikukood(legalCode);
 
@@ -82,6 +87,15 @@ public class Rrv5XRoadServiceImpl extends XRoadDatabaseService implements Rrv5XR
     paring.addNewRequest().setCFailiNimi(orderNr);
 
     return rrXRoadDatabase.rr71FailDownloadV1(paring);
+  }
+
+  public RR50SurnudIsikuteLeidmineResponse findRR50(Date date) throws XTeeServiceConsumptionException {
+    RR50SurnudIsikuteLeidmine rr50SurnudIsikuteLeidmine = RR50SurnudIsikuteLeidmine.Factory.newInstance();
+    RR50SurnudIsikuteLeidmineRequestType request = rr50SurnudIsikuteLeidmine.addNewRequest();
+    Calendar kuupaev = Calendar.getInstance();
+    kuupaev.setTime(date);
+    request.setKuupaev(kuupaev);
+    return rrXRoadDatabase.rr50SurnudIsikuteLeidmineV1(rr50SurnudIsikuteLeidmine);
   }
 
   @Override

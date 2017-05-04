@@ -3,8 +3,10 @@ package com.nortal.jroad.client.rrv5;
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
 import com.nortal.jroad.client.rrv5.types.eu.x_road.rr.producer.RR435ResponseDocument.RR435Response;
 import com.nortal.jroad.client.rrv5.types.eu.x_road.rr.producer.RR436ResponseDocument.RR436Response;
+import com.nortal.jroad.client.rrv5.types.eu.x_road.rr.producer.RR50SurnudIsikuteLeidmineResponseDocument.RR50SurnudIsikuteLeidmineResponse;
 import com.nortal.jroad.client.rrv5.types.eu.x_road.rr.producer.RR71FailDownloadResponseDocument.RR71FailDownloadResponse;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,7 +26,10 @@ public interface Rrv5XRoadService {
    */
   RR436Response findRR436(List<String> idCodes) throws XTeeServiceConsumptionException;
 
-  public RR71FailDownloadResponse findRR71(String orderNr) throws XTeeServiceConsumptionException;
+  RR71FailDownloadResponse findRR71(String orderNr) throws XTeeServiceConsumptionException;
+
+  RR50SurnudIsikuteLeidmineResponse findRR50(Date date) throws XTeeServiceConsumptionException;
 
   Integer getState() throws XTeeServiceConsumptionException;
+
 }
