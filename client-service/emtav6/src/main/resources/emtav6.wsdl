@@ -1,26 +1,26 @@
-<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-				  xmlns:tns="http://emta-v6.x-road.eu" xmlns:xrd="http://x-road.eu/xsd/xroad.xsd"
-				  targetNamespace="http://emta-v6.x-road.eu" name="mkrliides">
+<?xml version="1.0" encoding="utf-8"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://emta-v6.x-road.eu" xmlns:xrd="http://x-road.eu/xsd/xroad.xsd" name="mkrliides" targetNamespace="http://emta-v6.x-road.eu">
 	<wsdl:types>
 		<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://emta-v6.x-road.eu">
 			<import namespace="http://x-road.eu/xsd/xroad.xsd" schemaLocation="http://x-road.eu/xsd/xroad.xsd"/>
-			<complexType name="preRegCheck">
-				<sequence>
-					<element name="item" type="tns:PreRegCheckRequestItemType" maxOccurs="20"/>
-				</sequence>
-			</complexType>
+			<element name="preRegCheck">
+				<complexType>
+					<sequence>
+						<element maxOccurs="20" name="item" type="tns:PreRegCheckRequestItemType"/>
+					</sequence>
+				</complexType>
+			</element>
 			<complexType name="PreRegCheckRequestItemType">
 				<sequence>
 					<element name="application" type="tns:ArisApplicationType"/>
 					<element name="vechicle" type="tns:ArisVechicleType"/>
 					<element name="vendor" type="tns:ArisVendorType"/>
 					<element name="buyer" type="tns:ArisBuyerType"/>
-					<element name="applicationSubmitter" type="tns:ArisApplicationSubmitterType"/>
+					<element minOccurs="0" name="applicationSubmitter" type="tns:ArisApplicationSubmitterType"/>
 					<element name="transaction" type="tns:ArisTransactionType"/>
-					<element name="documentFiles" minOccurs="0">
+					<element minOccurs="0" name="documentFiles">
 						<complexType>
 							<sequence>
-								<element name="file" type="tns:ArisDocumentFileType" maxOccurs="unbounded"/>
+								<element maxOccurs="unbounded" name="file" type="tns:ArisDocumentFileType"/>
 							</sequence>
 						</complexType>
 					</element>
@@ -63,14 +63,14 @@
 							</appinfo>
 						</annotation>
 					</element>
-					<element name="applicantEmail" type="string" minOccurs="0">
+					<element minOccurs="0" name="applicantEmail" type="string">
 						<annotation>
 							<appinfo>
 								<xrd:title xml:lang="et">Meiliaadress</xrd:title>
 							</appinfo>
 						</annotation>
 					</element>
-					<element name="applicantPhone" type="string" minOccurs="0">
+					<element minOccurs="0" name="applicantPhone" type="string">
 						<annotation>
 							<appinfo>
 								<xrd:title xml:lang="et">Telefon</xrd:title>
@@ -116,7 +116,7 @@
 							</appinfo>
 						</annotation>
 					</element>
-					<element name="firstRegDate" type="date" minOccurs="0">
+					<element minOccurs="0" name="firstRegDate" type="date">
 						<annotation>
 							<appinfo>
 								<xrd:title xml:lang="et">Esmane registreerimine</xrd:title>
@@ -137,7 +137,7 @@
 							</appinfo>
 						</annotation>
 					</element>
-					<element name="previousRegCountry" type="string" minOccurs="0">
+					<element minOccurs="0" name="previousRegCountry" type="string">
 						<annotation>
 							<appinfo>
 								<xrd:title xml:lang="et">Riigi kood</xrd:title>
@@ -162,21 +162,21 @@
 							</appinfo>
 						</annotation>
 					</element>
-					<element name="code" type="string" minOccurs="0">
+					<element minOccurs="0" name="code" type="string">
 						<annotation>
 							<appinfo>
 								<xrd:title xml:lang="et">Müüja kood</xrd:title>
 							</appinfo>
 						</annotation>
 					</element>
-					<element name="vendorType" type="tns:ArisClientType" minOccurs="0">
+					<element minOccurs="0" name="vendorType" type="tns:ArisClientType">
 						<annotation>
 							<appinfo>
 								<xrd:title xml:lang="et">Müüja tüüp</xrd:title>
 							</appinfo>
 						</annotation>
 					</element>
-					<element name="vatNr" type="string" minOccurs="0">
+					<element minOccurs="0" name="vatNr" type="string">
 						<annotation>
 							<appinfo>
 								<xrd:title xml:lang="et">VAT number</xrd:title>
@@ -201,7 +201,7 @@
 			</simpleType>
 			<complexType name="ArisBuyerType">
 				<sequence>
-					<element name="firstName" type="string" minOccurs="0">
+					<element minOccurs="0" name="firstName" type="string">
 						<annotation>
 							<appinfo>
 								<xrd:title xml:lang="et">Ostja eesnimi</xrd:title>
@@ -237,7 +237,7 @@
 							</appinfo>
 						</annotation>
 					</element>
-					<element name="nonResidentAddress" type="string" minOccurs="0">
+					<element minOccurs="0" name="nonResidentAddress" type="string">
 						<annotation>
 							<appinfo>
 								<xrd:title xml:lang="et">Aadress</xrd:title>
@@ -248,21 +248,21 @@
 			</complexType>
 			<complexType name="ArisApplicationSubmitterType">
 				<sequence>
-					<element name="firstName" type="string" minOccurs="0">
+					<element minOccurs="0" name="firstName" type="string">
 						<annotation>
 							<appinfo>
 								<xrd:title xml:lang="et">Taotluse esitaja eesnimi</xrd:title>
 							</appinfo>
 						</annotation>
 					</element>
-					<element name="lastName" type="string" minOccurs="0">
+					<element minOccurs="0" name="lastName" type="string">
 						<annotation>
 							<appinfo>
 								<xrd:title xml:lang="et">Taotluse esitaja perenimi</xrd:title>
 							</appinfo>
 						</annotation>
 					</element>
-					<element name="code" type="string" minOccurs="0">
+					<element minOccurs="0" name="code" type="string">
 						<annotation>
 							<appinfo>
 								<xrd:title xml:lang="et">Taotluse esitaja kood</xrd:title>
@@ -355,7 +355,7 @@
 							</appinfo>
 						</annotation>
 					</element>
-					<element name="documentTypes" type="tns:ArisDocumentType" maxOccurs="unbounded"/>
+					<element name="documentTypes" type="tns:ArisDocumentType"/>
 				</sequence>
 			</complexType>
 			<simpleType name="ArisFileStatusType">
@@ -368,7 +368,7 @@
 			</simpleType>
 			<complexType name="ArisDocumentType">
 				<sequence>
-					<element name="documentType" type="string">
+					<element maxOccurs="unbounded" name="documentType" type="string">
 						<annotation>
 							<appinfo>
 								<xrd:title xml:lang="et">Dokumendi liik</xrd:title>
@@ -377,12 +377,13 @@
 					</element>
 				</sequence>
 			</complexType>
-
-			<complexType name="preRegCheckResponse">
-				<sequence>
-					<element name="item" type="tns:PreRegCheckResponseItemType" maxOccurs="20"/>
-				</sequence>
-			</complexType>
+			<element name="preRegCheckResponse">
+				<complexType>
+					<sequence>
+						<element maxOccurs="20" name="item" type="tns:PreRegCheckResponseItemType"/>
+					</sequence>
+				</complexType>
+			</element>
 			<complexType name="PreRegCheckResponseItemType">
 				<sequence>
 					<element name="arisId" type="long">
@@ -402,7 +403,7 @@
 							</appinfo>
 						</annotation>
 					</element>
-					<element name="error" type="string" minOccurs="0">
+					<element minOccurs="0" name="error" type="string">
 						<annotation>
 							<appinfo>
 								<xrd:title xml:lang="et">Viga</xrd:title>
@@ -420,8 +421,7 @@
 			</simpleType>
 		</schema>
 	</wsdl:types>
-
-	<wsdl:message name="preRegCheckRequest">
+	<wsdl:message name="preRegCheck">
 		<wsdl:part element="tns:preRegCheck" name="parameters"/>
 	</wsdl:message>
 	<wsdl:message name="preRegCheckResponse">
@@ -432,9 +432,9 @@
 		<wsdl:part element="xrd:service" name="service"/>
 		<wsdl:part element="xrd:id" name="id"/>
 		<wsdl:part element="xrd:userId" name="userId"/>
+		<wsdl:part element="xrd:issue" name="issue"/>
 		<wsdl:part element="xrd:protocolVersion" name="protocolVersion"/>
 	</wsdl:message>
-
 	<wsdl:portType name="webServiceInterface">
 		<wsdl:operation name="preRegCheck">
 			<wsdl:documentation>
@@ -443,11 +443,10 @@
 					Sõidukite registreerimiseelse kontrolli taotlused Maanteeametist.
 				</xrd:notes>
 			</wsdl:documentation>
-			<wsdl:input message="tns:preRegCheckRequest"/>
+			<wsdl:input message="tns:preRegCheck"/>
 			<wsdl:output message="tns:preRegCheckResponse"/>
 		</wsdl:operation>
 	</wsdl:portType>
-
 	<wsdl:binding name="soapBindings" type="tns:webServiceInterface">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
 		<wsdl:operation name="preRegCheck">
@@ -471,7 +470,6 @@
 			</wsdl:output>
 		</wsdl:operation>
 	</wsdl:binding>
-
 	<wsdl:service name="webService">
 		<wsdl:port binding="tns:soapBindings" name="port">
 			<soap:address location="http://SERVER_URL"/>
