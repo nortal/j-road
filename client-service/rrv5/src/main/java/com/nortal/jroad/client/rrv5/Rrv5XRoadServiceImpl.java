@@ -1,10 +1,16 @@
 package com.nortal.jroad.client.rrv5;
 
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.rrv5.database.RrV5XRoadDatabase;
-import com.nortal.jroad.client.rrv5.types.ee.x_road.rr_v5.producer.*;
+import com.nortal.jroad.client.rrv5.database.RrXRoadDatabase;
+import com.nortal.jroad.client.rrv5.types.eu.x_road.rr.producer.RR435Document.RR435;
+import com.nortal.jroad.client.rrv5.types.eu.x_road.rr.producer.RR435ResponseDocument;
+import com.nortal.jroad.client.rrv5.types.eu.x_road.rr.producer.RR436Document.RR436;
+import com.nortal.jroad.client.rrv5.types.eu.x_road.rr.producer.RR436RequestType;
+import com.nortal.jroad.client.rrv5.types.eu.x_road.rr.producer.RR436ResponseDocument.RR436Response;
+import com.nortal.jroad.client.rrv5.types.eu.x_road.rr.producer.RR71FailDownloadDocument.RR71FailDownload;
+import com.nortal.jroad.client.rrv5.types.eu.x_road.rr.producer.RR71FailDownloadResponseDocument.RR71FailDownloadResponse;
 import com.nortal.jroad.client.service.MetaserviceOperations;
-import com.nortal.jroad.client.service.callback.v3.XroadMessageNamespaceStrategyV3_1;
+import com.nortal.jroad.client.service.callback.v4.XRoadMessageCallbackNamespaceStrategy;
 import com.nortal.jroad.client.service.v4.XRoadDatabaseService;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.stereotype.Service;
@@ -20,23 +26,24 @@ import java.util.zip.ZipOutputStream;
 /**
  * @author Anti Orgla
  */
-@Service("rrv5XTeeService")
-public class Rrv5XTeeServiceImpl extends XRoadDatabaseService implements Rrv5XTeeService {
+@Service("rrv5XRoadService")
+public class Rrv5XRoadServiceImpl extends XRoadDatabaseService implements Rrv5XRoadService {
 
   @Resource
-  private RrV5XRoadDatabase rrV5XTeeDatabase;
+  private RrXRoadDatabase rrXRoadDatabase;
   private MetaserviceOperations metaserviceOperations;
 
-  @PostConstruct public void setUpCollaborators() {
-    metaserviceOperations = new MetaserviceOperations(rrV5XTeeDatabase);
+  @PostConstruct
+  public void setUpCollaborators() {
+    metaserviceOperations = new MetaserviceOperations(rrXRoadDatabase);
   }
 
   @Override
-  public RR435Response findRR435(String legalCode) throws XTeeServiceConsumptionException {
+  public RR435ResponseDocument.RR435Response findRR435(String legalCode) throws XTeeServiceConsumptionException {
     RR435 paring = RR435.Factory.newInstance();
     paring.addNewRequest().setIsikukood(legalCode);
 
-    return rrV5XTeeDatabase.rr435V1(paring);
+    return rrXRoadDatabase.rr435V1(paring);
   }
 
   @Override
@@ -52,7 +59,7 @@ public class Rrv5XTeeServiceImpl extends XRoadDatabaseService implements Rrv5XTe
         zipStream.write(isikukood.getBytes("UTF-8"));
         zipStream.write(System.getProperty("line.separator").getBytes("UTF-8"));
       }
-      
+
       zipStream.closeEntry();
       zipStream.close();
     } catch (IOException e) {
@@ -66,20 +73,20 @@ public class Rrv5XTeeServiceImpl extends XRoadDatabaseService implements Rrv5XTe
     request.setIsikukoodideArv(String.valueOf(idCodes.size()));
     request.setCFailiSisu(base64);
 
-    return rrV5XTeeDatabase.rr436V1(paring);
+    return rrXRoadDatabase.rr436V1(paring);
   }
-  
+
   @Override
   public RR71FailDownloadResponse findRR71(String orderNr) throws XTeeServiceConsumptionException {
     RR71FailDownload paring = RR71FailDownload.Factory.newInstance();
     paring.addNewRequest().setCFailiNimi(orderNr);
 
-    RR71FailDownloadResponse response = rrV5XTeeDatabase.rr71FailDownloadV1(paring);
-    return response;
+    return rrXRoadDatabase.rr71FailDownloadV1(paring);
   }
 
   @Override
   public Integer getState() throws XTeeServiceConsumptionException {
-       return metaserviceOperations.getState(new XroadMessageNamespaceStrategyV3_1());
+    return metaserviceOperations.getState(new XRoadMessageCallbackNamespaceStrategy());
   }
+
 }
