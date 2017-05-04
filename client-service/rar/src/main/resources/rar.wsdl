@@ -1,0 +1,279 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://rm-v6.x-road.eu" xmlns:xrd="http://x-road.eu/xsd/xroad.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://rm-v6.x-road.eu">
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://rm-v6.x-road.eu">
+            <import namespace="http://x-road.eu/xsd/xroad.xsd" schemaLocation="http://x-road.eu/xsd/xroad.xsd"/>
+            <!--  element declarations  -->
+            <element name="rarVta" type="tns:rarVtaType"/>
+            <element name="rarVtaResponse" type="tns:rarVtaResponseType"/>
+            <!--
+                            <complexType name="rarVtaResponseBodyType">
+                                <sequence>
+                                    <element name="paring" type="tns:rarVtaRequestType"/>
+                                    <element name="keha" type="tns:rarVtaResponseType"/>
+                                </sequence>
+                            </complexType>
+            -->
+            <!--  request type declarations  -->
+            <complexType name="rarVtaType">
+                <sequence>
+                    <element name="keha" type="tns:rarVtaRequestType"/>
+                </sequence>
+            </complexType>
+            <!--  type declarations  -->
+            <xsd:complexType name="rarVtaRequestType">
+                <xsd:sequence>
+                    <xsd:element name="kood" type="tns:koodType">
+                        <xsd:annotation>
+                            <xsd:appinfo>
+                                <xrd:title>Kood</xrd:title>
+                                <xrd:notes>Isikukood või asutuse registrikood</xrd:notes>
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="rarVtaResponseType">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <xrd:title>Isikule antud abide nimekiri</xrd:title>
+                    </xsd:appinfo>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="sgeiJaak" type="xsd:decimal">
+                        <xsd:annotation>
+                            <xsd:appinfo>
+                                <xrd:title>SGEI jääk</xrd:title>
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="vtaJaak" type="xsd:decimal">
+                        <xsd:annotation>
+                            <xsd:appinfo>
+                                <xrd:title>VTA jääk</xrd:title>
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="transpordiVtaJaak" type="xsd:decimal">
+                        <xsd:annotation>
+                            <xsd:appinfo>
+                                <xrd:title>Transpordi VTA jääk</xrd:title>
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="kalanduslikVtaJaak" type="xsd:decimal">
+                        <xsd:annotation>
+                            <xsd:appinfo>
+                                <xrd:title>Kalanduslik VTA jääk</xrd:title>
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="pollumajanduslikVtaJaak" type="xsd:decimal">
+                        <xsd:annotation>
+                            <xsd:appinfo>
+                                <xrd:title>Põllumakanduslik VTA jääk</xrd:title>
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="broneeringud" nillable="true" type="tns:Broneeringud">
+                        <xsd:annotation>
+                            <xsd:appinfo>
+                                <xrd:title>Broneeringud.</xrd:title>
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="abi" minOccurs="0" maxOccurs="unbounded" type="tns:abiType"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="Broneeringud">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" maxOccurs="unbounded" name="broneering" nillable="true" type="tns:Broneering"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="Broneering">
+                <xsd:sequence>
+                    <xsd:element name="number" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:appinfo>
+                                <xrd:title>Broneeringu number.</xrd:title>
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="abiAndja" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:appinfo>
+                                <xrd:title>Abi andja.</xrd:title>
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="eesmark" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:appinfo>
+                                <xrd:title>Antud abi pea- ja alameesmärk.</xrd:title>
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="abiSumma" type="xsd:decimal">
+                        <xsd:annotation>
+                            <xsd:appinfo>
+                                <xrd:title>Antud abi summa.</xrd:title>
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="abiKuupaev" type="xsd:date">
+                        <xsd:annotation>
+                            <xsd:appinfo>
+                                <xrd:title>Abi andmise otsuse kuupäev.</xrd:title>
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="vtaLiik" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:appinfo>
+                                <xrd:title>VTA liik.</xrd:title>
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="abiType">
+                <xsd:sequence>
+                    <xsd:element name="kood" type="tns:koodType"/>
+                    <xsd:element name="nimi" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:appinfo>
+                                <xrd:title>Isiku nimi või asutuse nimi</xrd:title>
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="abiAndjaKood" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:appinfo>
+                                <xrd:title>Abi andja registrikood</xrd:title>
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="abiAndjaNimi" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:appinfo>
+                                <xrd:title>Abi andja nimi</xrd:title>
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="abiAndmiseKpv" type="xsd:date">
+                        <xsd:annotation>
+                            <xsd:appinfo>
+                                <xrd:title>Abi andmise otsuse kuupäev</xrd:title>
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="abiAndmiseOtsus" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:appinfo>
+                                <xrd:title>Abi andmise otsuse number</xrd:title>
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="abiNimetus" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:appinfo>
+                                <xrd:title>Abi nimetus</xrd:title>
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="abiAlus" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:appinfo>
+                                <xrd:title>Õigusakti nimetus, mille alusel toetust anti</xrd:title>
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="abiAlusAlam" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:appinfo>
+                                <xrd:title>Antud abi alameesmärk</xrd:title>
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="abiSumma" type="xsd:decimal">
+                        <xsd:annotation>
+                            <xsd:appinfo>
+                                <xrd:title>Abi summa</xrd:title>
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="vtaLiik" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:appinfo>
+                                <xrd:title>VTA liik.</xrd:title>
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:simpleType name="koodType">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <xrd:title>Isikukood või asutuse registrikood</xrd:title>
+                    </xsd:appinfo>
+                </xsd:annotation>
+                <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="11"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </schema>
+    </wsdl:types>
+    <!--  WSDL:MESSAGE types  -->
+    <wsdl:message name="xrdHeader">
+        <wsdl:part element="xrd:client" name="client"/>
+        <wsdl:part element="xrd:service" name="service"/>
+        <wsdl:part element="xrd:id" name="id"/>
+        <wsdl:part element="xrd:userId" name="userId"/>
+        <wsdl:part element="xrd:issue" name="issue"/>
+        <wsdl:part element="xrd:protocolVersion" name="protocolVersion"/>
+    </wsdl:message>
+    <wsdl:message name="rarVta">
+        <wsdl:part element="tns:rarVta" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="rarVtaResponse">
+        <wsdl:part element="tns:rarVtaResponse" name="parameters"/>
+    </wsdl:message>
+    <!--  WSDL operations  -->
+    <wsdl:portType name="webServiceInterface">
+        <wsdl:operation name="rarVta">
+            <wsdl:documentation>
+                <xrd:title>RAR VTA päring</xrd:title>
+            </wsdl:documentation>
+            <wsdl:input message="tns:rarVta"/>
+            <wsdl:output message="tns:rarVtaResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <!--  SOAP bindings  -->
+    <wsdl:binding name="soapBindings" type="tns:webServiceInterface">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="rarVta">
+            <soap:operation soapAction=""/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input>
+                <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="webService">
+        <wsdl:port binding="tns:soapBindings" name="port">
+            <soap:address location="http://SERVER_URL"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
