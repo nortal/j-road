@@ -1,7 +1,7 @@
 package com.nortal.jroad.client.rrv5;
 
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.rrv5.database.RrXRoadDatabase;
+import com.nortal.jroad.client.rrv5.database.Rrv5XRoadDatabase;
 import com.nortal.jroad.client.rrv5.types.eu.x_road.rr.producer.RR435Document.RR435;
 import com.nortal.jroad.client.rrv5.types.eu.x_road.rr.producer.RR435ResponseDocument.RR435Response;
 import com.nortal.jroad.client.rrv5.types.eu.x_road.rr.producer.RR436Document.RR436;
@@ -35,12 +35,12 @@ import java.util.zip.ZipOutputStream;
 public class Rrv5XRoadServiceImpl extends XRoadDatabaseService implements Rrv5XRoadService {
 
   @Resource
-  private RrXRoadDatabase rrXRoadDatabase;
+  private Rrv5XRoadDatabase rrv5XRoadDatabase;
   private MetaserviceOperations metaserviceOperations;
 
   @PostConstruct
   public void setUpCollaborators() {
-    metaserviceOperations = new MetaserviceOperations(rrXRoadDatabase);
+    metaserviceOperations = new MetaserviceOperations(rrv5XRoadDatabase);
   }
 
   @Override
@@ -48,7 +48,7 @@ public class Rrv5XRoadServiceImpl extends XRoadDatabaseService implements Rrv5XR
     RR435 paring = RR435.Factory.newInstance();
     paring.addNewRequest().setIsikukood(legalCode);
 
-    return rrXRoadDatabase.rr435V1(paring);
+    return rrv5XRoadDatabase.rr435V1(paring);
   }
 
   @Override
@@ -78,7 +78,7 @@ public class Rrv5XRoadServiceImpl extends XRoadDatabaseService implements Rrv5XR
     request.setIsikukoodideArv(String.valueOf(idCodes.size()));
     request.setCFailiSisu(base64);
 
-    return rrXRoadDatabase.rr436V1(paring);
+    return rrv5XRoadDatabase.rr436V1(paring);
   }
 
   @Override
@@ -86,7 +86,7 @@ public class Rrv5XRoadServiceImpl extends XRoadDatabaseService implements Rrv5XR
     RR71FailDownload paring = RR71FailDownload.Factory.newInstance();
     paring.addNewRequest().setCFailiNimi(orderNr);
 
-    return rrXRoadDatabase.rr71FailDownloadV1(paring);
+    return rrv5XRoadDatabase.rr71FailDownloadV1(paring);
   }
 
   public RR50SurnudIsikuteLeidmineResponse findRR50(Date date) throws XTeeServiceConsumptionException {
@@ -95,7 +95,7 @@ public class Rrv5XRoadServiceImpl extends XRoadDatabaseService implements Rrv5XR
     Calendar kuupaev = Calendar.getInstance();
     kuupaev.setTime(date);
     request.setKuupaev(kuupaev);
-    return rrXRoadDatabase.rr50SurnudIsikuteLeidmineV1(rr50SurnudIsikuteLeidmine);
+    return rrv5XRoadDatabase.rr50SurnudIsikuteLeidmineV1(rr50SurnudIsikuteLeidmine);
   }
 
   @Override
