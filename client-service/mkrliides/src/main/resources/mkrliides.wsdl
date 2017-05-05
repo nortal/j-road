@@ -1,0 +1,1788 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:tns="http://emta-v6.x-road.eu"
+                  xmlns:xrd="http://x-road.eu/xsd/xroad.xsd" name="mkrliides"
+                  targetNamespace="http://emta-v6.x-road.eu">
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://emta-v6.x-road.eu">
+            <import namespace="http://x-road.eu/xsd/xroad.xsd" schemaLocation="http://x-road.eu/xsd/xroad.xsd"/>
+            <element name="vpt">
+                <complexType>
+                    <sequence>
+                        <element name="keha" type="tns:VptRequestType"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <complexType name="VptRequestType">
+                <sequence>
+                    <element name="kood" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Kood</xrd:title>
+                                <xrd:notes xml:lang="et">Isikukood või äriregistrikood</xrd:notes>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="millal" type="date">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Kuupäev</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+            <element name="vptResponse">
+                <complexType>
+                    <sequence>
+                        <element name="paring" type="tns:VptRequestType"/>
+                        <element name="keha" type="tns:VptResponseType"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <complexType name="VptResponseType">
+                <sequence>
+                    <element name="kood" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Kood</xrd:title>
+                                <xrd:notes xml:lang="et">0 - ei ole nimekirjas, 1 - on nimekirjas, 2 - viga</xrd:notes>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="teade" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Vastus</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+            <element name="vptRhs">
+                <complexType>
+                    <sequence>
+                        <element name="keha" type="tns:VptRequestType"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="vptRhsResponse">
+                <complexType>
+                    <sequence>
+                        <element name="paring" type="tns:VptRequestType"/>
+                        <element name="keha" type="tns:VptRhsResponseType"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <complexType name="VptRhsResponseType">
+                <sequence>
+                    <element name="vastus">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Vastus</xrd:title>
+                            </appinfo>
+                        </annotation>
+                        <complexType>
+                            <simpleContent>
+                                <extension base="string">
+                                    <attribute name="kood" type="string">
+                                        <annotation>
+                                            <appinfo>
+                                                <xrd:title xml:lang="et">Kood</xrd:title>
+                                                <xrd:notes xml:lang="et">0 - vastab, 1 - ei vasta, 2 - viga</xrd:notes>
+                                            </appinfo>
+                                        </annotation>
+                                    </attribute>
+                                </extension>
+                            </simpleContent>
+                        </complexType>
+                    </element>
+                    <element minOccurs="0" name="teade" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Teade</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+            <element name="vptRhs2">
+                <complexType>
+                    <sequence>
+                        <element name="keha" type="tns:VptRequestType"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="vptRhs2Response">
+                <complexType>
+                    <sequence>
+                        <element name="paring" type="tns:VptRequestType"/>
+                        <element name="keha" type="tns:VptRhsResponseType"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="xteeFie">
+                <complexType>
+                    <sequence>
+                        <element name="keha" type="tns:PersonalIdentityCode"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <complexType name="PersonalIdentityCode">
+                <sequence>
+                    <element name="isikukood" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Isikukood</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+            <element name="xteeFieResponse">
+                <complexType>
+                    <sequence>
+                        <element name="paring" type="tns:PersonalIdentityCode"/>
+                        <element name="keha" type="tns:SimpleResponse"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <complexType name="SimpleResponse">
+                <sequence>
+                    <element name="vastus" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Vastus</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+            <element name="xteeFieAndmed">
+                <complexType>
+                    <sequence>
+                        <element name="keha" type="tns:PersonalIdentityCode"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="xteeFieAndmedResponse">
+                <complexType>
+                    <sequence>
+                        <element name="paring" type="tns:PersonalIdentityCode"/>
+                        <element name="keha" type="tns:XteeFieAndmedResponseType"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <complexType name="XteeFieAndmedResponseType">
+                <sequence>
+                    <element minOccurs="0" name="kokku" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Tulemus</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="lisainfo" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Lisainfo</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="fieJada">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Perioodid</xrd:title>
+                            </appinfo>
+                        </annotation>
+                        <complexType>
+                            <sequence>
+                                <element maxOccurs="unbounded" minOccurs="0" name="item" type="tns:SelfEmployedPerson"/>
+                            </sequence>
+                        </complexType>
+                    </element>
+                </sequence>
+            </complexType>
+            <complexType name="SelfEmployedPerson">
+                <sequence>
+                    <element name="isikukood" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Isikukood</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="algus" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Algus (pp.kk.aaaa)</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="lopp" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Lõpp (pp.kk.aaaa)</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+            <element name="xteeFieAvans">
+                <complexType>
+                    <sequence>
+                        <element name="keha" type="tns:PersonalIdentityCodeAndDate"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <complexType name="PersonalIdentityCodeAndDate">
+                <sequence>
+                    <element name="isikukood" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Isikukood</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="kuupaev" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Kuupäev (pp.kk.aaaa)</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+            <element name="xteeFieAvansResponse">
+                <complexType>
+                    <sequence>
+                        <element name="paring" type="tns:PersonalIdentityCodeAndDate"/>
+                        <element name="keha" type="tns:SelfEmployedEntrepreneurPayInAdvance"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <complexType name="SelfEmployedEntrepreneurPayInAdvance">
+                <sequence>
+                    <element name="eesnimi" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Eesnimi</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="perenimi" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Perenimi</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="alates" type="date">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Kohustus alates</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="kuni" type="date">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Kohustus kuni</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+            <element name="xteeFieInfoRikile">
+                <complexType>
+                    <sequence>
+                        <element name="keha" type="tns:PersonalIdentityCode"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="xteeFieInfoRikileResponse">
+                <complexType>
+                    <sequence>
+                        <element name="paring" type="tns:PersonalIdentityCode"/>
+                        <element name="keha" type="tns:SelfEmployedEntrepreneurActivity"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <complexType name="SelfEmployedEntrepreneurActivity">
+                <sequence>
+                    <element name="fie_stat_kood" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Staatus</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="fie_stat_tekst" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Selgitus</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="fie_reg_kuup" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Registreeritud</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="fie_emtak_kood" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Tegevusala</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+            <element name="xteeFieSKA">
+                <complexType>
+                    <sequence>
+                        <element name="keha" type="tns:PersonalIdentityCode"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="xteeFieSKAResponse">
+                <complexType>
+                    <sequence>
+                        <element name="paring" type="tns:PersonalIdentityCode"/>
+                        <element name="keha" type="tns:SelfEmployedEntrepreneurSuspension"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <complexType name="SelfEmployedEntrepreneurSuspension">
+                <sequence>
+                    <element minOccurs="0" name="alguskp" type="date">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Registreeritud</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="loppkp" type="date">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Registrist mahaarvatud</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="pa_algus" type="date">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Peatamise algus</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="pl_lopp" type="date">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Peatamise lõpp</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="emtak" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Tegevusala</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="viga" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Viga</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+            <element name="xteeFIEAK">
+                <complexType>
+                    <sequence>
+                        <element name="request" type="tns:PersonalIdentityCodeAndPeriod"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="xteeFIEAKResponse">
+                <complexType>
+                    <sequence>
+                        <element name="request" type="tns:PersonalIdentityCodeAndPeriod"/>
+                        <element name="response">
+                            <annotation>
+                                <documentation>
+                                    Tagastatakse andmed, kui isik etteantud perioodis (algus ja lõpp kaasa arvatud) oli
+                                    FIE abikaasana registrisse kantud vähemalt 1 päeva
+                                </documentation>
+                            </annotation>
+                            <complexType>
+                                <sequence>
+                                    <element maxOccurs="unbounded" minOccurs="0" name="period"
+                                             type="tns:SelfEmployedEntrepreneurSpouse">
+                                        <annotation>
+                                            <appinfo>
+                                                <xrd:title xml:lang="et">Periood</xrd:title>
+                                            </appinfo>
+                                        </annotation>
+                                    </element>
+                                </sequence>
+                            </complexType>
+                        </element>
+                    </sequence>
+                </complexType>
+            </element>
+            <complexType name="PersonalIdentityCodeAndPeriod">
+                <sequence>
+                    <element name="id" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Isikukood</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="start" type="date">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Perioodi algus</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="end" type="date">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Perioodi lõpp</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+            <complexType name="SelfEmployedEntrepreneurSpouse">
+                <sequence>
+                    <element name="start" type="date">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">AK reg algus</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="end" type="date">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">AK reg lõpp</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="code" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">FIE registrikood</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="name" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">FIE nimi</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+            <element name="kustutaAriregistrist">
+                <complexType>
+                    <sequence>
+                        <element name="keha" type="tns:CommercialRegisterCode"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="kustutaAriregistristResponse">
+                <complexType>
+                    <sequence>
+                        <element name="paring" type="tns:CommercialRegisterCode"/>
+                        <element name="keha" type="tns:CommercialRegisterDeleteFlag"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <complexType name="CommercialRegisterCode">
+                <sequence>
+                    <element name="ariregistri_kood" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Äriregistri kood</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+            <complexType name="CommercialRegisterDeleteFlag">
+                <sequence>
+                    <element name="vastus">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Jah - kustuta, Ei - ära kustuta</xrd:title>
+                            </appinfo>
+                        </annotation>
+                        <simpleType>
+                            <restriction base="string">
+                                <enumeration value="Jah"/>
+                                <enumeration value="Ei"/>
+                            </restriction>
+                        </simpleType>
+                    </element>
+                </sequence>
+            </complexType>
+            <element name="xteeMetsaInfo">
+                <complexType>
+                    <sequence>
+                        <element name="keha" type="tns:ForestRequest"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="xteeMetsaInfoResponse">
+                <complexType>
+                    <sequence>
+                        <element name="paring" type="tns:ForestRequest"/>
+                        <element name="keha" type="tns:ForestResponse"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <complexType name="ForestRequest">
+                <sequence>
+                    <element name="operatsioon">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Operatsioon (isik/teatis)</xrd:title>
+                            </appinfo>
+                        </annotation>
+                        <simpleType>
+                            <restriction base="string">
+                                <enumeration value="isik"/>
+                                <enumeration value="teatis"/>
+                            </restriction>
+                        </simpleType>
+                    </element>
+                    <element name="kood" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Registri- või isikukood/teatise nr</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="algusAasta" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Valitud perioodi alguse aasta</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="algusK" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Valitud perioodi alguse kvartal</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="loppAasta" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Valitud perioodi lõpu aasta</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="loppK" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Valitud perioodi lõpu kvartal</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+            <complexType name="ForestResponse">
+                <sequence>
+                    <element name="tulemus" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Tulemus</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="data" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Andmed</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+            <element name="keskkonnaTasud">
+                <complexType>
+                    <sequence>
+                        <element name="keha" type="tns:EnvironmentalFeeRequest"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="keskkonnaTasudResponse">
+                <complexType>
+                    <sequence>
+                        <element name="paring" type="tns:EnvironmentalFeeRequest"/>
+                        <element name="keha" type="tns:EnvironmentalFeeResponse"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <complexType name="EnvironmentalFeeRequest">
+                <sequence>
+                    <element name="operatsioon" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Operatsiooni nimi</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="data" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Andmed</xrd:title>
+                                <xrd:techNotes xml:lang="et">
+                                    Kohustuslik element päringus. Päringu vastuses eemaldatud
+                                </xrd:techNotes>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+            <complexType name="EnvironmentalFeeResponse">
+                <sequence>
+                    <element name="tulem" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Tulemus</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="data" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Andmed</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+            <element name="BanklinkPayment">
+                <complexType>
+                    <sequence>
+                        <element name="keha" type="tns:BanklinkPaymentType"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="BanklinkPaymentResponse">
+                <complexType>
+                    <sequence>
+                        <element name="paring" type="tns:BanklinkPaymentType"/>
+                        <element name="keha" type="tns:BanklinkPaymentResponseType"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <complexType name="BanklinkPaymentType">
+                <sequence>
+                    <element name="Treasury">
+                        <annotation>
+                            <documentation>Panga andmed</documentation>
+                        </annotation>
+                        <complexType>
+                            <sequence>
+                                <element name="DocumentNum">
+                                    <annotation>
+                                        <documentation>Dokumendi number</documentation>
+                                    </annotation>
+                                    <simpleType>
+                                        <restriction base="string">
+                                            <maxLength value="50"/>
+                                        </restriction>
+                                    </simpleType>
+                                </element>
+                                <element name="OrderNum">
+                                    <annotation>
+                                        <documentation>Unikaalne kood</documentation>
+                                    </annotation>
+                                    <simpleType>
+                                        <restriction base="string">
+                                            <maxLength value="50"/>
+                                        </restriction>
+                                    </simpleType>
+                                </element>
+                            </sequence>
+                        </complexType>
+                    </element>
+                    <element name="Payer">
+                        <annotation>
+                            <documentation>Maksja andmed</documentation>
+                        </annotation>
+                        <complexType>
+                            <sequence>
+                                <element name="Name">
+                                    <annotation>
+                                        <documentation>Maksja nimi</documentation>
+                                    </annotation>
+                                    <simpleType>
+                                        <restriction base="string">
+                                            <maxLength value="200"/>
+                                        </restriction>
+                                    </simpleType>
+                                </element>
+                                <element name="RegNum">
+                                    <annotation>
+                                        <documentation>Maksja registrikood</documentation>
+                                    </annotation>
+                                    <simpleType>
+                                        <restriction base="string">
+                                            <maxLength value="40"/>
+                                        </restriction>
+                                    </simpleType>
+                                </element>
+                                <element name="AccountNum">
+                                    <annotation>
+                                        <documentation>Maksja kontonumber</documentation>
+                                    </annotation>
+                                    <simpleType>
+                                        <restriction base="string">
+                                            <maxLength value="50"/>
+                                        </restriction>
+                                    </simpleType>
+                                </element>
+                            </sequence>
+                        </complexType>
+                    </element>
+                    <element name="Receiver">
+                        <annotation>
+                            <documentation>Saaja andmed</documentation>
+                        </annotation>
+                        <complexType>
+                            <sequence>
+                                <element name="Name">
+                                    <annotation>
+                                        <documentation>Saaja nimi</documentation>
+                                    </annotation>
+                                    <simpleType>
+                                        <restriction base="string">
+                                            <maxLength value="200"/>
+                                        </restriction>
+                                    </simpleType>
+                                </element>
+                                <element name="AccountNum">
+                                    <annotation>
+                                        <documentation>Saaja kontonumber</documentation>
+                                    </annotation>
+                                    <simpleType>
+                                        <restriction base="string">
+                                            <maxLength value="50"/>
+                                        </restriction>
+                                    </simpleType>
+                                </element>
+                                <element name="RefNum">
+                                    <annotation>
+                                        <documentation>Saaja viitenumber</documentation>
+                                    </annotation>
+                                    <simpleType>
+                                        <restriction base="string">
+                                            <maxLength value="40"/>
+                                        </restriction>
+                                    </simpleType>
+                                </element>
+                                <element name="ReceptionDate" type="date">
+                                    <annotation>
+                                        <documentation>Makse laekumise/saatmise kuupäev</documentation>
+                                    </annotation>
+                                </element>
+                            </sequence>
+                        </complexType>
+                    </element>
+                    <element name="Payment">
+                        <annotation>
+                            <documentation>Ülekanne</documentation>
+                        </annotation>
+                        <complexType>
+                            <sequence>
+                                <element name="Amount">
+                                    <annotation>
+                                        <documentation>Summa EUR'ides</documentation>
+                                    </annotation>
+                                    <simpleType>
+                                        <restriction base="decimal">
+                                            <fractionDigits value="2"/>
+                                        </restriction>
+                                    </simpleType>
+                                </element>
+                            </sequence>
+                        </complexType>
+                    </element>
+                    <element name="PaymentDesc">
+                        <annotation>
+                            <documentation>Makse selgitus</documentation>
+                        </annotation>
+                        <simpleType>
+                            <restriction base="string">
+                                <maxLength value="400"/>
+                            </restriction>
+                        </simpleType>
+                    </element>
+                </sequence>
+            </complexType>
+            <complexType name="BanklinkPaymentResponseType">
+                <sequence>
+                    <element name="Code">
+                        <annotation>
+                            <documentation>
+                                Pangalingi vastuse kood: OK, CLIENT_ERR või SERVER_ERR
+                            </documentation>
+                        </annotation>
+                        <simpleType>
+                            <restriction base="string">
+                                <enumeration value="OK"/>
+                                <enumeration value="CLIENT_ERR"/>
+                                <enumeration value="SERVER_ERR"/>
+                            </restriction>
+                        </simpleType>
+                    </element>
+                    <element name="Description" type="string">
+                        <annotation>
+                            <documentation>Veakirjeldus või eduka laadimise kinnitus</documentation>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+            <element name="preRegCheck">
+                <complexType>
+                    <sequence>
+                        <element maxOccurs="20" name="item" type="tns:PreRegCheckRequestItemType"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="preRegCheckResponse">
+                <complexType>
+                    <sequence>
+                        <element maxOccurs="20" name="item" type="tns:PreRegCheckResponseItemType"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <complexType name="PreRegCheckRequestItemType">
+                <sequence>
+                    <element name="application" type="tns:ArisApplicationType"/>
+                    <element name="vechicle" type="tns:ArisVechicleType"/>
+                    <element name="vendor" type="tns:ArisVendorType"/>
+                    <element name="buyer" type="tns:ArisBuyerType"/>
+                    <element minOccurs="0" name="applicationSubmitter" type="tns:ArisApplicationSubmitterType"/>
+                    <element name="transaction" type="tns:ArisTransactionType"/>
+                    <element minOccurs="0" name="documentFiles">
+                        <complexType>
+                            <sequence>
+                                <element maxOccurs="unbounded" name="file" type="tns:ArisDocumentFileType"/>
+                            </sequence>
+                        </complexType>
+                    </element>
+                </sequence>
+            </complexType>
+            <complexType name="ArisApplicationType">
+                <sequence>
+                    <element name="arisId" type="long">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Päringu ID</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="applicationId" type="long">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Taotluse ID</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="applicationNr" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Taotluse number</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="applicationDate" type="date">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Taotluse kuupäev</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="applicationStatus" type="tns:ArisApplicationStatusType">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Taotluse staatus</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="applicantEmail" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Meiliaadress</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="applicantPhone" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Telefon</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+            <complexType name="ArisVechicleType">
+                <sequence>
+                    <element name="vin" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">VIN kood</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="category" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Kategooria</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="make" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Tootja</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="model" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Mudel</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="firstRegDate" type="date">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Esmane registreerimine</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="distanceCovered" type="long">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Läbisõit</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="distanceUnit" type="tns:ArisDistanceUnitType">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Läbisõidu mõõtühik</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="previousRegCountry" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Riigi kood</xrd:title>
+                                <xrd:notes xml:lang="et">ISO 3166-1 alpha-3 kood.</xrd:notes>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+            <complexType name="ArisVendorType">
+                <sequence>
+                    <element name="name" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Müüja nimi</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="code" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Müüja kood</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="vendorType" type="tns:ArisClientType">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Müüja tüüp</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="vatNr" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">VAT number</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="vendorCountry" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Riigi kood</xrd:title>
+                                <xrd:notes xml:lang="et">ISO 3166-1 alpha-3 kood.</xrd:notes>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+            <complexType name="ArisBuyerType">
+                <sequence>
+                    <element minOccurs="0" name="firstName" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Ostja eesnimi</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="lastName" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Ostja perenimi</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="code" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Ostja kood</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="buyerType" type="tns:ArisClientType">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Ostja tüüp</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="buyerCountry" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Riigi kood</xrd:title>
+                                <xrd:notes xml:lang="et">ISO 3166-1 alpha-3 kood.</xrd:notes>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="nonResidentAddress" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Aadress</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+            <complexType name="ArisApplicationSubmitterType">
+                <sequence>
+                    <element minOccurs="0" name="firstName" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Taotluse esitaja eesnimi</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="lastName" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Taotluse esitaja perenimi</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="code" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Taotluse esitaja kood</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+            <complexType name="ArisTransactionType">
+                <sequence>
+                    <element name="transactionDate" type="date">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Tehingu kuupäev</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="transactionSum" type="decimal">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Tehingu summa</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="currency" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Valuuta kood</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="taxationRule" type="tns:ArisTaxationRuleType">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Maksustamise tüüp</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="buyingPurpose" type="tns:ArisBuyingPurposeType">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Soetamise põhjus</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+            <complexType name="ArisDocumentFileType">
+                <sequence>
+                    <element name="documentFileId" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Dokumendi ID</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="fileName" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Faili nimi</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="fileSize" type="long">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Faili suurus</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="fileStatus" type="tns:ArisFileStatusType">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Maksustamise tüüp</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="documentTypes" type="tns:ArisDocumentType"/>
+                </sequence>
+            </complexType>
+            <complexType name="ArisDocumentType">
+                <sequence>
+                    <element name="documentType" type="string" maxOccurs="unbounded">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Dokumendi liik</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+            <complexType name="PreRegCheckResponseItemType">
+                <sequence>
+                    <element name="arisId" type="long">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Päringu ID</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="status" type="tns:SimpleResponseStatusType">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Staatus</xrd:title>
+                                <xrd:notes xml:lang="et">
+                                    Dokumendi salvestamine õnnestus - OK, ei õnnestunud - NOK.
+                                </xrd:notes>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="error" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Viga</xrd:title>
+                                <xrd:notes xml:lang="et">Vea kirjeldus. Ainult NOK staatuse korral.</xrd:notes>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+            <simpleType name="ArisApplicationStatusType">
+                <restriction base="string">
+                    <enumeration value="MENETLETUD"/>
+                    <enumeration value="MENETLUSES"/>
+                    <enumeration value="TYHISTATUD"/>
+                </restriction>
+            </simpleType>
+            <simpleType name="ArisDistanceUnitType">
+                <restriction base="string">
+                    <enumeration value="KM"/>
+                    <enumeration value="MIIL"/>
+                </restriction>
+            </simpleType>
+            <simpleType name="ArisClientType">
+                <restriction base="string">
+                    <enumeration value="E"/>
+                    <enumeration value="J"/>
+                </restriction>
+            </simpleType>
+            <simpleType name="ArisTaxationRuleType">
+                <restriction base="string">
+                    <enumeration value="ERIREEGEL"/>
+                    <enumeration value="ILMA_KM"/>
+                    <enumeration value="MAAR_0"/>
+                    <enumeration value="TOLL"/>
+                    <enumeration value="VALISRIIGI_KM"/>
+                </restriction>
+            </simpleType>
+            <simpleType name="ArisBuyingPurposeType">
+                <restriction base="string">
+                    <enumeration value="MYYGIKS"/>
+                    <enumeration value="OMA_TARBEKS"/>
+                </restriction>
+            </simpleType>
+            <simpleType name="ArisFileStatusType">
+                <restriction base="string">
+                    <enumeration value="ESITATUD"/>
+                    <enumeration value="KONTROLLITUD"/>
+                    <enumeration value="TYHISTATUD"/>
+                    <enumeration value="VOLTSIMISKAHTLUS"/>
+                </restriction>
+            </simpleType>
+            <simpleType name="SimpleResponseStatusType">
+                <restriction base="string">
+                    <enumeration value="OK"/>
+                    <enumeration value="NOK"/>
+                </restriction>
+            </simpleType>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="vpt">
+        <wsdl:part element="tns:vpt" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="vptResponse">
+        <wsdl:part element="tns:vptResponse" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="xrdHeader">
+        <wsdl:part element="xrd:client" name="client"/>
+        <wsdl:part element="xrd:service" name="service"/>
+        <wsdl:part element="xrd:id" name="id"/>
+        <wsdl:part element="xrd:userId" name="userId"/>
+        <wsdl:part element="xrd:issue" name="issue"/>
+        <wsdl:part element="xrd:protocolVersion" name="protocolVersion"/>
+    </wsdl:message>
+    <wsdl:message name="vptRhs">
+        <wsdl:part element="tns:vptRhs" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="vptRhsResponse">
+        <wsdl:part element="tns:vptRhsResponse" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="vptRhs2">
+        <wsdl:part element="tns:vptRhs2" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="vptRhs2Response">
+        <wsdl:part element="tns:vptRhs2Response" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="xteeFie">
+        <wsdl:part element="tns:xteeFie" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="xteeFieResponse">
+        <wsdl:part element="tns:xteeFieResponse" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="xteeFieAndmed">
+        <wsdl:part element="tns:xteeFieAndmed" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="xteeFieAndmedResponse">
+        <wsdl:part element="tns:xteeFieAndmedResponse" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="xteeFieAvans">
+        <wsdl:part element="tns:xteeFieAvans" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="xteeFieAvansResponse">
+        <wsdl:part element="tns:xteeFieAvansResponse" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="xteeFieInfoRikile">
+        <wsdl:part element="tns:xteeFieInfoRikile" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="xteeFieInfoRikileResponse">
+        <wsdl:part element="tns:xteeFieInfoRikileResponse" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="xteeFieSKA">
+        <wsdl:part element="tns:xteeFieSKA" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="xteeFieSKAResponse">
+        <wsdl:part element="tns:xteeFieSKAResponse" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="xteeFIEAK">
+        <wsdl:part element="tns:xteeFIEAK" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="xteeFIEAKResponse">
+        <wsdl:part element="tns:xteeFIEAKResponse" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="kustutaAriregistrist">
+        <wsdl:part element="tns:kustutaAriregistrist" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="kustutaAriregistristResponse">
+        <wsdl:part element="tns:kustutaAriregistristResponse" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="xteeMetsaInfo">
+        <wsdl:part element="tns:xteeMetsaInfo" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="xteeMetsaInfoResponse">
+        <wsdl:part element="tns:xteeMetsaInfoResponse" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="keskkonnaTasud">
+        <wsdl:part element="tns:keskkonnaTasud" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="keskkonnaTasudResponse">
+        <wsdl:part element="tns:keskkonnaTasudResponse" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="BanklinkPayment">
+        <wsdl:part element="tns:BanklinkPayment" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="BanklinkPaymentResponse">
+        <wsdl:part element="tns:BanklinkPaymentResponse" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="preRegCheck">
+        <wsdl:part element="tns:preRegCheck" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="preRegCheckResponse">
+        <wsdl:part element="tns:preRegCheckResponse" name="parameters"/>
+    </wsdl:message>
+    <wsdl:portType name="webServiceInterface">
+        <wsdl:operation name="vpt">
+            <wsdl:documentation>
+                <xrd:title xml:lang="et">Võlapuudumise kontroll</xrd:title>
+            </wsdl:documentation>
+            <wsdl:input message="tns:vpt"/>
+            <wsdl:output message="tns:vptResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="vptRhs">
+            <wsdl:documentation>
+                <xrd:title xml:lang="et">Võlapuudumise kontroll (Riigihangete register)</xrd:title>
+            </wsdl:documentation>
+            <wsdl:input message="tns:vptRhs"/>
+            <wsdl:output message="tns:vptRhsResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="vptRhs2">
+            <wsdl:documentation>
+                <xrd:title xml:lang="et">Võlapuudumise kontroll v2 (Riigihangete register)</xrd:title>
+            </wsdl:documentation>
+            <wsdl:input message="tns:vptRhs2"/>
+            <wsdl:output message="tns:vptRhs2Response"/>
+        </wsdl:operation>
+        <wsdl:operation name="xteeFie">
+            <wsdl:documentation>
+                <xrd:title xml:lang="et">FIE staatus</xrd:title>
+            </wsdl:documentation>
+            <wsdl:input message="tns:xteeFie"/>
+            <wsdl:output message="tns:xteeFieResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="xteeFieAndmed">
+            <wsdl:documentation>
+                <xrd:title xml:lang="et">FIE andmed</xrd:title>
+            </wsdl:documentation>
+            <wsdl:input message="tns:xteeFieAndmed"/>
+            <wsdl:output message="tns:xteeFieAndmedResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="xteeFieAvans">
+            <wsdl:documentation>
+                <xrd:title xml:lang="et">FIE avansiline sotsiaalmaks</xrd:title>
+            </wsdl:documentation>
+            <wsdl:input message="tns:xteeFieAvans"/>
+            <wsdl:output message="tns:xteeFieAvansResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="xteeFieInfoRikile">
+            <wsdl:documentation>
+                <xrd:title xml:lang="et">FIE andmed (RIK)</xrd:title>
+            </wsdl:documentation>
+            <wsdl:input message="tns:xteeFieInfoRikile"/>
+            <wsdl:output message="tns:xteeFieInfoRikileResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="xteeFieSKA">
+            <wsdl:documentation>
+                <xrd:title xml:lang="et">FIE andmed (SKA)</xrd:title>
+            </wsdl:documentation>
+            <wsdl:input message="tns:xteeFieSKA"/>
+            <wsdl:output message="tns:xteeFieSKAResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="xteeFIEAK">
+            <wsdl:documentation>
+                <xrd:title xml:lang="et">FIE abikaasana registreerituse kontroll</xrd:title>
+            </wsdl:documentation>
+            <wsdl:input message="tns:xteeFIEAK"/>
+            <wsdl:output message="tns:xteeFIEAKResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="kustutaAriregistrist">
+            <wsdl:documentation>
+                <xrd:title xml:lang="et">
+                    Sundlõpetamisel äriühingute kohustuste kontroll (Äriregister)
+                </xrd:title>
+            </wsdl:documentation>
+            <wsdl:input message="tns:kustutaAriregistrist"/>
+            <wsdl:output message="tns:kustutaAriregistristResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="xteeMetsaInfo">
+            <wsdl:documentation>
+                <xrd:title xml:lang="et">Metsainfo teenused (KMIN)</xrd:title>
+            </wsdl:documentation>
+            <wsdl:input message="tns:xteeMetsaInfo"/>
+            <wsdl:output message="tns:xteeMetsaInfoResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="keskkonnaTasud">
+            <wsdl:documentation>
+                <xrd:title xml:lang="et">Keskkonnatasude teenused (KMIN)</xrd:title>
+            </wsdl:documentation>
+            <wsdl:input message="tns:keskkonnaTasud"/>
+            <wsdl:output message="tns:keskkonnaTasudResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="BanklinkPayment">
+            <wsdl:documentation>
+                <xrd:title xml:lang="et">Maksed Maksu- ja Tolliametile</xrd:title>
+            </wsdl:documentation>
+            <wsdl:input message="tns:BanklinkPayment"/>
+            <wsdl:output message="tns:BanklinkPaymentResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="preRegCheck">
+            <wsdl:documentation>
+                <xrd:title xml:lang="et">Sõidukite registreerimiseelne kontroll</xrd:title>
+                <xrd:notes xml:lang="et">
+                    Sõidukite registreerimiseelse kontrolli taotlused Maanteeametist.
+                </xrd:notes>
+            </wsdl:documentation>
+            <wsdl:input message="tns:preRegCheck"/>
+            <wsdl:output message="tns:preRegCheckResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="soapBindings" type="tns:webServiceInterface">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="vpt">
+            <soap:operation soapAction=""/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input>
+                <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="issue" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="issue" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="vptRhs">
+            <soap:operation soapAction=""/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input>
+                <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="issue" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="issue" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="vptRhs2">
+            <soap:operation soapAction=""/>
+            <xrd:version>v2</xrd:version>
+            <wsdl:input>
+                <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="issue" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="issue" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="xteeFie">
+            <soap:operation soapAction=""/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input>
+                <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="issue" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="issue" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="xteeFieAndmed">
+            <soap:operation soapAction=""/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input>
+                <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="issue" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="issue" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="xteeFieAvans">
+            <soap:operation soapAction=""/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input>
+                <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="issue" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="issue" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="xteeFieInfoRikile">
+            <soap:operation soapAction=""/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input>
+                <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="issue" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="issue" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="xteeFieSKA">
+            <soap:operation soapAction=""/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input>
+                <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="issue" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="issue" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="xteeFIEAK">
+            <soap:operation soapAction=""/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input>
+                <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="kustutaAriregistrist">
+            <soap:operation soapAction=""/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input>
+                <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="issue" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="issue" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="xteeMetsaInfo">
+            <soap:operation soapAction=""/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input>
+                <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="issue" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="issue" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="keskkonnaTasud">
+            <soap:operation soapAction=""/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input>
+                <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="issue" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="issue" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="BanklinkPayment">
+            <soap:operation soapAction=""/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input>
+                <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="issue" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="issue" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="preRegCheck">
+            <soap:operation soapAction=""/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input>
+                <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="webService">
+        <wsdl:port binding="tns:soapBindings" name="port">
+            <soap:address location="http://SERVER_URL"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

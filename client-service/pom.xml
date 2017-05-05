@@ -46,7 +46,9 @@
     <module>ehis</module>
     <module>ehr</module>
     <module>emta</module>
-    <module>kutseregister</module>    
+    <module>mkrliides</module>
+    <module>mkrliides-uploader</module>
+    <module>kutseregister</module>
     <module>epria</module>
     <module>esis</module>
     <module>karis</module>
