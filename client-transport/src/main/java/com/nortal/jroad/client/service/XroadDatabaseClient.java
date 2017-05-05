@@ -16,4 +16,7 @@ public interface XroadDatabaseClient {
                              CustomCallback callback,
                              CustomExtractor extractor) throws XTeeServiceConsumptionException;
 
+  void setDatabase(String database);
+
+  String getDatabase();
 }
