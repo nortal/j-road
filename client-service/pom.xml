@@ -75,6 +75,7 @@
     <module>pria-toetusreg</module>
     <module>treasury</module>
     <module>rar</module>
+    <module>digilugu</module>
   </modules>
 
   <build>
