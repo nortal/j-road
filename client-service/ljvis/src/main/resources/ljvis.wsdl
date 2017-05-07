@@ -1,364 +1,1101 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions 
-xmlns="http://schemas.xmlsoap.org/wsdl/" 
-xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-xmlns:tns="http://producers.ljvis.xtee.riik.ee/producer/ljvis" 
-xmlns:xtee="http://x-tee.riik.ee/xsd/xtee.xsd" 
-xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
-xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
-xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" 
-xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" 
-xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" 
-xmlns:ns="http://www.w3.org/1999/xlink" 
-targetNamespace="http://producers.ljvis.xtee.riik.ee/producer/ljvis">
+<wsdl:definitions name="ljvis" targetNamespace="http://ljvis.x-road.eu" xmlns:tns="http://ljvis.x-road.eu" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xrd="http://x-road.eu/xsd/xroad.xsd" xmlns:id="http://x-road.eu/xsd/identifiers" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
 	<wsdl:types>
-		<schema targetNamespace="http://producers.ljvis.xtee.riik.ee/producer/ljvis" 
-				xmlns="http://www.w3.org/2001/XMLSchema">
-			<import namespace="http://x-tee.riik.ee/xsd/xtee.xsd" schemaLocation="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-			<import namespace="http://schemas.xmlsoap.org/soap/encoding/" schemaLocation="http://schemas.xmlsoap.org/soap/encoding/"/>
-			<simpleType name="Isikukood">
-				<restriction base="xsd:string">
-					<pattern value="\d{11}"/>
-				</restriction>
-			</simpleType>
-			<!--ErakorralineYVconfirm_v1-->
-			<complexType name="ErakorralineYVconfirm_v1Request">
-				<sequence>
-					<element name="confirmed">
-						<complexType>
-							<sequence>
-								<element name="item" maxOccurs="unbounded">
-									<complexType>
-										<sequence>
-											<element name="inspection_id" type="string"/>
-											<element name="code" type="string"/>
-											<element name="value" type="string"/>
-										</sequence>
-									</complexType>
-								</element>
-							</sequence>
-							<attribute ref="SOAP-ENC:offset" use="required"/>
-							<attribute name="arrayType" type="string" use="required"/>
-						</complexType>
-					</element>
-				</sequence>
-			</complexType>
-			<complexType name="ErakorralineYVconfirm_v1Response">
-				<sequence>
-					<element name="confirmed" type="int" minOccurs="0" maxOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>Kinnitatud elementide kogus</xtee:title>
-							</appinfo>
-						</annotation>
-					</element>
-				</sequence>
-			</complexType>
-			<!--/ErakorralineYVconfirm_v1-->
-			<complexType name="ErakorralineYVquery_v1Request">
-				<sequence>
-					<element name="sisendparameeter" type="string" minOccurs="0" maxOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>Sisendparameeter</xtee:title>
-							</appinfo>
-						</annotation>
-					</element>
-				</sequence>
-			</complexType>
-			<complexType name="ErakorralineYVquery_v1Response">
-				<sequence>
-					<element name="targeted_for_inspection">
-						<complexType>
-							<sequence>
-								<element name="item" maxOccurs="unbounded">
-									<complexType>
-										<sequence>
-											<element name="licence_plate_no" type="string"/>
-											<element name="inspection_no" type="string"/>
-											<element name="inspection_id" type="string"/>
-											<element name="inspection_date" type="string"/>
-											<element name="inspection_type" type="string"/>
-											<element name="trailer_no" type="string"/>
-											<element name="inspector" type="string"/>
-											<element name="inspection_unit" type="string"/>
-											<element name="inspection_notes" type="string"/>
-											<element name="issues">
-												<complexType>
-													<sequence>
-														<element maxOccurs="unbounded" name="item">
-															<complexType>
-																<sequence>
-																	<element name="code" type="string"/>
-																	<element name="value" type="string"/>
-																</sequence>
-															</complexType>
-														</element>
-													</sequence>													
-												</complexType>
-											</element>
-											<element name="notes">
-												<complexType>
-													<sequence>
-														<element maxOccurs="unbounded" name="item">
-															<complexType>
-																<sequence>
-																	<element name="code" type="string"/>
-																	<element name="value" type="string"/>
-																</sequence>
-															</complexType>
-														</element>
-													</sequence>													
-												</complexType>
-											</element>
-										</sequence>
-									</complexType>
-								</element>
-							</sequence>
-							<attribute ref="SOAP-ENC:offset" use="required"/>
-							<attribute name="arrayType" type="string" use="required"/>
-						</complexType>
-					</element>
-				</sequence>
-			</complexType>
-			<complexType name="IsikuKontroll_v1Request">
-			</complexType>
-			<complexType name="IsikuKontroll_v1Response">
-				<sequence>
-					<element name="kontrollid">
-						<complexType>
-							<sequence>
-								<element name="item">
-									<complexType>
-										<sequence>
-											<element name="kuupaev" type="dateTime"/>
-											<element name="nimetus" type="string"/>
-											<element name="asutus" type="string"/>
-											<element name="soiduki_reg_nr" type="string"/>
-											<element name="rikkumise_liik" type="string"/>
-										</sequence>
-									</complexType>
-								</element>
-							</sequence>
-							<attribute ref="SOAP-ENC:offset" use="required"/>
-							<attribute name="arrayType" type="string" use="required"/>
-						</complexType>
-					</element>
-				</sequence>
-			</complexType>
-			<complexType name="IsikuEttevoteKontrollid_v1Request">
-			</complexType>
-			<complexType name="IsikuEttevoteKontrollid_v1Response">
-				<sequence>
-					<element name="kontrollid">
-						<complexType>
-							<sequence>
-								<element name="item">
-									<complexType>
-										<sequence>
-											<element name="kuupaev" type="dateTime"/>
-											<element name="nimetus" type="string"/>
-											<element name="asutus" type="string"/>
-											<element name="soiduki_reg_nr" type="string"/>
-											<element name="rikkumise_liik" type="string"/>
-											<element name="juhi_nimi" type="string"/>
-										</sequence>
-									</complexType>
-								</element>
-							</sequence>
-							<attribute ref="SOAP-ENC:offset" use="required"/>
-							<attribute name="arrayType" type="string" use="required"/>
-						</complexType>
-					</element>
-				</sequence>
-			</complexType>
-      <complexType name="listMethods_vastus">
-        <complexContent>
-          <restriction base="SOAP-ENC:Array">
-            <sequence>
-              <element name="item" type="string" minOccurs="0" maxOccurs="unbounded"/>
-            </sequence>
-          </restriction>
-        </complexContent>
-      </complexType>
-		</schema>
+		<xs:schema targetNamespace="http://ljvis.x-road.eu" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:import namespace="http://x-road.eu/xsd/xroad.xsd" schemaLocation="http://x-road.eu/xsd/xroad.xsd"/>
+
+			<xs:element name="ErakorralineYVquery">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="request" type="tns:ErakorralineYvQueryRequestType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="ErakorralineYVqueryResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="request" type="tns:ErakorralineYvQueryRequestType"/>
+						<xs:element name="response" type="tns:ErakorralineYvQueryResponseType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="ErakorralineYVconfirm">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="request" type="tns:ErakorralineYvConfirmRequestType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="ErakorralineYVconfirmResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="request" type="tns:ErakorralineYvConfirmRequestType"/>
+						<xs:element name="response" type="tns:ErakorralineYvConfirmResponseType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="IsikuKontroll">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="request" type="tns:IsikuKontrollRequestType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="IsikuKontrollResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="request" type="tns:IsikuKontrollRequestType"/>
+						<xs:element name="response" type="tns:IsikuKontrollResponseType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="IsikuEttevoteKontrollid">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="request" type="tns:IsikuEttevoteKontrollidRequestType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="IsikuEttevoteKontrollidResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="request" type="tns:IsikuEttevoteKontrollidRequestType"/>
+						<xs:element name="response" type="tns:IsikuEttevoteKontrollidResponseType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="RegisterJobInspection">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="request" type="tns:RegisterJobInspectionRequestType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="RegisterJobInspectionResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="request" type="tns:RegisterJobInspectionRequestType"/>
+						<xs:element name="response" type="tns:RegisterJobInspectionResponseType"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:complexType name="ErakorralineYvQueryRequestType">
+				<xs:sequence>
+					<xs:element name="alates" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>Date FROM filter for targeted for inspection items</xrd:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="kuni" type="xs:dateTime" minOccurs="0">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>Date TO filter for targeted for inspection items</xrd:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="ErakorralineYvQueryResponseType">
+				<xs:sequence>
+					<xs:element name="targeted_for_inspection">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>Collection of targeted for inspection items</xrd:title>
+							</xs:appinfo>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="item" minOccurs="0" maxOccurs="unbounded">
+									<xs:annotation>
+										<xs:appinfo>
+											<xrd:title>Targeted for inspection item</xrd:title>
+										</xs:appinfo>
+									</xs:annotation>
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element name="licence_plate_no" type="xs:string">
+												<xs:annotation>
+													<xs:appinfo>
+														<xrd:title>Car registration number</xrd:title>
+													</xs:appinfo>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="trailer_no" type="xs:string">
+												<xs:annotation>
+													<xs:appinfo>
+														<xrd:title>Trailer registration number</xrd:title>
+													</xs:appinfo>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="inspection_id" type="xs:string">
+												<xs:annotation>
+													<xs:appinfo>
+														<xrd:title>Inpection unique id within LJVIS database</xrd:title>
+													</xs:appinfo>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="inspection_no" type="xs:string">
+												<xs:annotation>
+													<xs:appinfo>
+														<xrd:title>Inspection number within LJVIS database</xrd:title>
+													</xs:appinfo>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="inspection_date" type="xs:dateTime">
+												<xs:annotation>
+													<xs:appinfo>
+														<xrd:title>When the inspection was carried</xrd:title>
+													</xs:appinfo>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="inspection_type" type="xs:string">
+												<xs:annotation>
+													<xs:appinfo>
+														<xrd:title>Inspection verdict</xrd:title>
+													</xs:appinfo>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="inspection_unit" type="xs:string">
+												<xs:annotation>
+													<xs:appinfo>
+														<xrd:title>Inspector's establishment</xrd:title>
+													</xs:appinfo>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="inspection_notes" type="xs:string">
+												<xs:annotation>
+													<xs:appinfo>
+														<xrd:title>Additional inspection notes</xrd:title>
+													</xs:appinfo>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="inspector" type="xs:string">
+												<xs:annotation>
+													<xs:appinfo>
+														<xrd:title>Inspector's wok position and full name</xrd:title>
+													</xs:appinfo>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="issues">
+												<xs:annotation>
+													<xs:appinfo>
+														<xrd:title>Collection of problem issues related to inspection</xrd:title>
+													</xs:appinfo>
+												</xs:annotation>
+												<xs:complexType>
+													<xs:sequence>
+														<xs:element name="item" minOccurs="0" maxOccurs="unbounded">
+															<xs:annotation>
+																<xs:appinfo>
+																	<xrd:title>Problem issue related to inspection</xrd:title>
+																</xs:appinfo>
+															</xs:annotation>
+															<xs:complexType>
+																<xs:sequence>
+																	<xs:element name="code" type="xs:string">
+																		<xs:annotation>
+																			<xs:appinfo>
+																				<xrd:title>Unique code of car component within LJVIS database</xrd:title>
+																			</xs:appinfo>
+																		</xs:annotation>
+																	</xs:element>
+																	<xs:element name="value" type="xs:string">
+																		<xs:annotation>
+																			<xs:appinfo>
+																				<xrd:title>Car component name with information about requirements violation</xrd:title>
+																			</xs:appinfo>
+																		</xs:annotation>
+																	</xs:element>
+																</xs:sequence>
+															</xs:complexType>
+														</xs:element>
+													</xs:sequence>
+												</xs:complexType>
+											</xs:element>
+											<xs:element name="notes">
+												<xs:annotation>
+													<xs:appinfo>
+														<xrd:title>Collection of problem car parts related to inspection</xrd:title>
+													</xs:appinfo>
+												</xs:annotation>
+												<xs:complexType>
+													<xs:sequence>
+														<xs:element name="item" minOccurs="0" maxOccurs="unbounded">
+															<xs:annotation>
+																<xs:appinfo>
+																	<xrd:title>Problem car part related to inspection</xrd:title>
+																</xs:appinfo>
+															</xs:annotation>
+															<xs:complexType>
+																<xs:sequence>
+																	<xs:element name="code" type="xs:string">
+																		<xs:annotation>
+																			<xs:appinfo>
+																				<xrd:title>Unique code of car part within LJVIS database</xrd:title>
+																			</xs:appinfo>
+																		</xs:annotation>
+																	</xs:element>
+																	<xs:element name="value" type="xs:string">
+																		<xs:annotation>
+																			<xs:appinfo>
+																				<xrd:title>Car part name</xrd:title>
+																			</xs:appinfo>
+																		</xs:annotation>
+																	</xs:element>
+																</xs:sequence>
+															</xs:complexType>
+														</xs:element>
+													</xs:sequence>
+												</xs:complexType>
+											</xs:element>
+											<xs:element name="inspection_refine_options">
+												<xs:annotation>
+													<xs:appinfo>
+														<xrd:title>Collection of car parts which should be refined in register</xrd:title>
+													</xs:appinfo>
+												</xs:annotation>
+												<xs:complexType>
+													<xs:sequence>
+														<xs:element name="item" minOccurs="0" maxOccurs="unbounded" type="tns:TechnicalInspectionRefineOption">
+															<xs:annotation>
+																<xs:appinfo>
+																	<xrd:title>Suspicious car part</xrd:title>
+																</xs:appinfo>
+															</xs:annotation>
+														</xs:element>
+													</xs:sequence>
+												</xs:complexType>
+											</xs:element>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="ErakorralineYvConfirmRequestType">
+				<xs:sequence>
+					<xs:element name="confirmed">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>Collection of inspections (extraordinary vehicle inspection) for which has been assigned confirmed status</xrd:title>
+							</xs:appinfo>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="item" minOccurs="0" maxOccurs="unbounded">
+									<xs:annotation>
+										<xs:appinfo>
+											<xrd:title>Inspections (extraordinary vehicle inspection) for which has been assigned confirmed status</xrd:title>
+										</xs:appinfo>
+									</xs:annotation>
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element name="inspection_id" type="xs:string">
+												<xs:annotation>
+													<xs:appinfo>
+														<xrd:title>Inpection unique id in LJVIS database</xrd:title>
+													</xs:appinfo>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="code" type="xs:string">
+												<xs:annotation>
+													<xs:appinfo>
+														<xrd:title>Response code</xrd:title>
+													</xs:appinfo>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="value" type="xs:string">
+												<xs:annotation>
+													<xs:appinfo>
+														<xrd:title>Inspection notes</xrd:title>
+													</xs:appinfo>
+												</xs:annotation>
+											</xs:element>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="ErakorralineYvConfirmResponseType">
+				<xs:sequence>
+					<xs:element name="confirmed" type="xs:int">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>The amount of confirmed elements</xrd:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="IsikuKontrollRequestType">
+				<xs:sequence>
+					<xs:element name="isikukood" type="xs:string">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>Estonian personal identification code</xrd:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="IsikuKontrollResponseType">
+				<xs:sequence>
+					<xs:element name="kontrollid">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>Collection of person violations from LJVIS database</xrd:title>
+							</xs:appinfo>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="item" minOccurs="0" maxOccurs="unbounded">
+									<xs:annotation>
+										<xs:appinfo>
+											<xrd:title>Person violation from LJVIS database</xrd:title>
+										</xs:appinfo>
+									</xs:annotation>
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element name="kuupaev" type="xs:dateTime">
+												<xs:annotation>
+													<xs:appinfo>
+														<xrd:title>When the inspection was carried</xrd:title>
+													</xs:appinfo>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="nimetus" type="xs:string">
+												<xs:annotation>
+													<xs:appinfo>
+														<xrd:title>Inspection number within LJVIS database</xrd:title>
+													</xs:appinfo>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="asutus" type="xs:string">
+												<xs:annotation>
+													<xs:appinfo>
+														<xrd:title>Inspector's establishment</xrd:title>
+													</xs:appinfo>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="soiduki_reg_nr" type="xs:string">
+												<xs:annotation>
+													<xs:appinfo>
+														<xrd:title>Car registration number</xrd:title>
+													</xs:appinfo>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="rikkumise_liik" type="xs:string">
+												<xs:annotation>
+													<xs:appinfo>
+														<xrd:title>Inspection verdict</xrd:title>
+													</xs:appinfo>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="kontrolli_nimetus" type="xs:string">
+												<xs:annotation>
+													<xs:appinfo>
+														<xrd:title>Inspection type within LJVIS database</xrd:title>
+													</xs:appinfo>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="soiduki_nimi" type="xs:string">
+												<xs:annotation>
+													<xs:appinfo>
+														<xrd:title>Driver's first name</xrd:title>
+													</xs:appinfo>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="soiduki_perekonnanimi" type="xs:string">
+												<xs:annotation>
+													<xs:appinfo>
+														<xrd:title>Driver's last name</xrd:title>
+													</xs:appinfo>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="rikkumised" type="xs:string">
+												<xs:annotation>
+													<xs:appinfo>
+														<xrd:title>The basis for determining the penalty</xrd:title>
+													</xs:appinfo>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="rikkumised_lopetatud" type="xs:string">
+												<xs:annotation>
+													<xs:appinfo>
+														<xrd:title>Misdemeanor procedure completion basis</xrd:title>
+													</xs:appinfo>
+												</xs:annotation>
+											</xs:element>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="IsikuEttevoteKontrollidRequestType">
+				<xs:sequence>
+					<xs:element name="isikukood" type="xs:string">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>Estonian personal identification code</xrd:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="IsikuEttevoteKontrollidResponseType">
+				<xs:sequence>
+					<xs:element name="Kontrollid">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>Collection of violations from LJVIS database related to person's companies</xrd:title>
+							</xs:appinfo>
+						</xs:annotation>
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="item" minOccurs="0" maxOccurs="unbounded">
+									<xs:annotation>
+										<xs:appinfo>
+											<xrd:title>Violation from LJVIS database related to one of the person's companies</xrd:title>
+										</xs:appinfo>
+									</xs:annotation>
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element name="ettevote_reg_nr" type="xs:string">
+												<xs:annotation>
+													<xs:appinfo>
+														<xrd:title>Company registration number</xrd:title>
+													</xs:appinfo>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="kuupaev" type="xs:dateTime">
+												<xs:annotation>
+													<xs:appinfo>
+														<xrd:title>When the inspection was carried</xrd:title>
+													</xs:appinfo>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="kontrolli_nimetus" type="xs:string">
+												<xs:annotation>
+													<xs:appinfo>
+														<xrd:title>Inspection type within LJVIS database</xrd:title>
+													</xs:appinfo>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="asutus" type="xs:string">
+												<xs:annotation>
+													<xs:appinfo>
+														<xrd:title>Inspector's establishment</xrd:title>
+													</xs:appinfo>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="nimetus" type="xs:string">
+												<xs:annotation>
+													<xs:appinfo>
+														<xrd:title>Inspection number within LJVIS database</xrd:title>
+													</xs:appinfo>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="soiduki_reg_nr" type="xs:string">
+												<xs:annotation>
+													<xs:appinfo>
+														<xrd:title>Car registration number</xrd:title>
+													</xs:appinfo>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="juhi_nimi" type="xs:string">
+												<xs:annotation>
+													<xs:appinfo>
+														<xrd:title>Driver's first name</xrd:title>
+													</xs:appinfo>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="juhi_perekonnanimi" type="xs:string">
+												<xs:annotation>
+													<xs:appinfo>
+														<xrd:title>Driver's last name</xrd:title>
+													</xs:appinfo>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="rikkumise_liik" type="xs:string">
+												<xs:annotation>
+													<xs:appinfo>
+														<xrd:title>Inspection verdict</xrd:title>
+													</xs:appinfo>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="rikkumised" type="xs:string">
+												<xs:annotation>
+													<xs:appinfo>
+														<xrd:title>The basis for determining the penalty</xrd:title>
+													</xs:appinfo>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="rikkumised_lopetatud" type="xs:string">
+												<xs:annotation>
+													<xs:appinfo>
+														<xrd:title>Misdemeanor procedure completion basis</xrd:title>
+													</xs:appinfo>
+												</xs:annotation>
+											</xs:element>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="RegisterJobInspectionRequestType">
+				<xs:sequence>
+					<xs:element name="kontrollija" type="xs:string">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>The person responsible for the conduct of audits</xrd:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="kontrolli_id" type="xs:int">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>Inspection id within Job Inspection database</xrd:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="kontrolli_kp" type="xs:dateTime">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>When the inspection was carried</xrd:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="tooandja_nimi" type="xs:string">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>Controlled employer company</xrd:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="tooandja_reg_kood" type="xs:string">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>Controlled company registration code</xrd:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="soidukite_arv" type="xs:int">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>The number of vehicles in controlled company</xrd:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="koostatatud_ettekirjutus" type="xs:boolean">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>"Prescription composed" flag</xrd:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="kontrollimised" type="tns:KontrollimisteArvud">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>Controlled drivers info</xrd:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="rikkumised" type="tns:RikkumisteArvud">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>Collection of detected violations</xrd:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="vaarteomenetlus" type="tns:VTMOlek">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>Misdemeanor state</xrd:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="KontrollimisteArvud">
+				<xs:sequence>
+					<xs:element name="kontrollitud_kokku" type="xs:int">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>Total count of controlled drivers</xrd:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="kontrollitud_soitjate_veol" type="tns:JuhtideKontrollimine">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>Passenger carriage drivers controlled info</xrd:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="kontrollitud_veose_veol" type="tns:JuhtideKontrollimine">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>Carriage of goods drivers controlled info</xrd:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="kontrollitud_ok_veol" type="tns:JuhtideKontrollimine">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>"At its own expense" carriage drivers controlled info</xrd:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="kontrollitud_tasulisel_veol" type="tns:JuhtideKontrollimine">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>Fee-charging carriage drivers controlled info</xrd:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="JuhtideKontrollimine">
+				<xs:sequence>
+					<xs:element name="arv_analoogmeerik" type="xs:int">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>Count of controlled drivers who use vehicles with analog recorder</xrd:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="arv_digitaalmeerik" type="xs:int">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>Count of controlled drivers who use vehicles with digital recorder</xrd:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="tp_analoogmeerik" type="xs:int">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>Count of working days of controlled drivers who use vehicles with analog recorder</xrd:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="tp_digitaalmeerik" type="xs:int">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>Count of working days of controlled drivers who use vehicles with digital recorder</xrd:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="RikkumisteArvud">
+				<xs:sequence>
+					<xs:element name="maarus_3821_85_art15_p1" type="xs:int">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>Regulation 3821/85, Article 15, p.1 - replacemet of dirty or damaged record sheets</xrd:title>
+							</xs:appinfo>
+							<xs:documentation>Määruse 3821/85 artikkel 15 p.1 -- määrdunud või rikutud salvestuslehtede asendamine</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="maarus_3821_85_art15_lg2" type="xs:int">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>Regulation 3821/85, Article 15, lg 2 - violation of requirements for the use of record sheets</xrd:title>
+							</xs:appinfo>
+							<xs:documentation>Määruse 3821/85 artikkel 15 lg 2 -- salvestuslehtede kasutamise nõuete rikkumine</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="maarus_3821_85_art15_lg3" type="xs:int">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>Regulation 3821/85, Article 15, lg 3 - working and Rest violation of registration requirements (the third and the fourth column of section 5.2 of the report, four rows total)</xrd:title>
+							</xs:appinfo>
+							<xs:documentation>Määruse 3821/85 artikkel 15 lg 3 -- töö- ja puhkeaja registreerimise nõuete rikkumine (aruande punkti 5.2 kolmanda ja neljanda tulba 4. rida kokku)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="maarus_3821_85_art15_lg5" type="xs:int">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>Regulation 3821/85, Article 15, lg 5 - record sheet data entry of non-compliance</xrd:title>
+							</xs:appinfo>
+							<xs:documentation>Määruse 3821/85 artikkel 15 lg 5 -- salvestuslehele andmete kandmise nõuete rikkumine</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="maarus_561_2006_a10_lg5" type="tns:RikkumisteArv">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>Regulation 561/2006, Article 10, lg 5 - data storage and accessibility of the labor inspector of passengers</xrd:title>
+							</xs:appinfo>
+							<xs:documentation>Määruse 561/2006 artikkel 10 lg 5 -- andmete talletamine ja tööinspektorile ligipääsetavus sõitjateveol</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="maarus_561_2006_a6_oop_aeg" type="tns:RikkumisteArv">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>Regulation 561/2006, Article 6 - daily driving time</xrd:title>
+							</xs:appinfo>
+							<xs:documentation>Määruse 561/2006 artikkel 6 -- ööpäevane sõiduaeg</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="maarus_561_2006_a6_nadal_aeg" type="tns:RikkumisteArv">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>Regulation 561/2006, Article 6 - weekly driving time</xrd:title>
+							</xs:appinfo>
+							<xs:documentation>Määruse 561/2006 artikkel 6 -- nädalane sõiduaeg</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="maarus_561_2006_a6_2nadal_aeg" type="tns:RikkumisteArv">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>Regulation 561/2006, Article 6 - two consecutive weeks of traveling</xrd:title>
+							</xs:appinfo>
+							<xs:documentation>Määruse 561/2006 artikkel 6 -- kahe järjestikuse nädala sõiduaeg</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="maarus_561_2006_a7_vaheaeg_45" type="tns:RikkumisteArv">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>Regulation 561/2006, Article 7 - break after 4.5 hours of driving time</xrd:title>
+							</xs:appinfo>
+							<xs:documentation>Määruse 561/2006 artikkel 7 -- vaheaeg pärast 4,5 tunnist sõiduaega</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="maarus_561_2006_a7_vaheaeg_min" type="tns:RikkumisteArv">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>Regulation 561/2006, Article 7 - short break</xrd:title>
+							</xs:appinfo>
+							<xs:documentation>Määruse 561/2006 artikkel 7 -- lühem vaheaeg</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="maarus_561_2006_a8_oop_puhkus" type="tns:RikkumisteArv">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>Regulation 561/2006, Article 8 - daily rest</xrd:title>
+							</xs:appinfo>
+							<xs:documentation>Määruse 561/2006 artikkel 8 -- ööpäevane puhkeaeg</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="maarus_561_2006_a8_nadal_puhkus" type="tns:RikkumisteArv">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>Regulation 561/2006, Article 8 - weekly rest period</xrd:title>
+							</xs:appinfo>
+							<xs:documentation>Määruse 561/2006 artikkel 8 -- iganädalane puhkeaeg</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="maarus_561_2006_a16_puudulik_gr" type="xs:int">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>Regulation 561/2006, Article 16 - poorly prepared timesheet for carriage of passengers</xrd:title>
+							</xs:appinfo>
+							<xs:documentation>Määruse 561/2006 artikkel 16 -- puudulikult koostatud töögraafik sõitjateveol</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="maarus_561_2006_a16_gr_eiramine" type="xs:int">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>Regulation 561/2006, Article 16 - failure to comply with the requirements of carriage of passengers timesheets</xrd:title>
+							</xs:appinfo>
+							<xs:documentation>Määruse 561/2006 artikkel 16 -- töögraafiku nõuete eiramine sõitjateveol</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="RikkumisteArv">
+				<xs:sequence>
+					<xs:element name="soitjateveol" type="xs:int">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>Count of infringements of carriage of passengers</xrd:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="veoseveol" type="xs:int">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>Count of infringements of carriage of goods</xrd:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:simpleType name="VTMOlek">
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="Ei"/>
+					<xs:enumeration value="Alustatud"/>
+					<xs:enumeration value="Lõpetatud"/>
+					<xs:enumeration value="Suuline hoiatus"/>
+					<xs:enumeration value="Hoiatustrahv"/>
+					<xs:enumeration value="Trahv"/>
+				</xs:restriction>
+			</xs:simpleType>
+
+			<xs:simpleType name="TechnicalInspectionRefineOption">
+				<xs:restriction base="xs:string">
+					<xs:enumeration  value="Registreerimisnumber (A)"/>
+					<xs:enumeration value="VIN-kood või TIN-kood (E)"/>
+					<xs:enumeration value="Telgede arv (L)"/>
+					<xs:enumeration value="Istekohtade arv koos juhiga (S.1)"/>
+					<xs:enumeration value="Sõiduk on omavoliliselt ümberehitatud"/>
+				</xs:restriction>
+			</xs:simpleType>
+
+			<xs:complexType name="RegisterJobInspectionResponseType">
+				<xs:sequence>
+					<xs:element name="message" type="xs:string">
+						<xs:annotation>
+							<xs:appinfo>
+								<xrd:title>Result message</xrd:title>
+							</xs:appinfo>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+		</xs:schema>
 	</wsdl:types>
-	<message name="standardpais">
-		<part name="asutus" element="xtee:asutus"/>
-		<part name="andmekogu" element="xtee:andmekogu"/>
-		<part name="isikukood" element="xtee:isikukood"/>
-		<part name="nimi" element="xtee:nimi"/>
-		<part name="id" element="xtee:id"/>
-	</message>
-  <message name="listMethods">
-    <part name="keha" type="xsd:string"/>
-  </message>
-  <message name="listMethodsResponse">
-    <part name="keha" type="tns:listMethods_vastus"/>
-  </message>
-	<message name="ErakorralineYVquery">
-		<part name="keha" type="tns:ErakorralineYVquery_v1Request"/>
-	</message>
-	<message name="ErakorralineYVqueryResponse">
-		<part name="paring" type="tns:ErakorralineYVquery_v1Request"/>
-		<part name="keha" type="tns:ErakorralineYVquery_v1Response"/>
-	</message>
-	<message name="ErakorralineYVconfirm">
-		<part name="keha" type="tns:ErakorralineYVconfirm_v1Request"/>
-	</message>
-	<message name="ErakorralineYVconfirmResponse">
-		<part name="paring" type="tns:ErakorralineYVconfirm_v1Request"/>
-		<part name="keha" type="tns:ErakorralineYVconfirm_v1Response"/>
-	</message>
-	<message name="IsikuKontroll">
-		<part name="keha" type="tns:IsikuKontroll_v1Request"/>
-	</message>
-	<message name="IsikuKontrollResponse">
-		<part name="paring" type="tns:IsikuKontroll_v1Request"/>
-		<part name="keha" type="tns:IsikuKontroll_v1Response"/>
-	</message>
-	<message name="IsikuEttevoteKontrollid">
-		<part name="keha" type="tns:IsikuEttevoteKontrollid_v1Request"/>
-	</message>
-	<message name="IsikuEttevoteKontrollidResponse">
-		<part name="paring" type="tns:IsikuEttevoteKontrollid_v1Request"/>
-		<part name="keha" type="tns:IsikuEttevoteKontrollid_v1Response"/>
-	</message>
-	<portType name="ljvis_porttype">
-		<operation name="ErakorralineYVquery">
-			<documentation>
-				<xtee:title>ErakorralineYVquery - Erakorralisele ülevaatusele suunatud sõidukid</xtee:title>
-				<xtee:notes/>
-				<xtee:technotes/>
-			</documentation>
-			<input message="tns:ErakorralineYVquery"/>
-			<output message="tns:ErakorralineYVqueryResponse"/>
-		</operation>
-		<operation name="ErakorralineYVconfirm">
-			<documentation>
-				<xtee:title>ErakorralineYVquery - Erakorralisele ülevaatusele suunatud sõidukid</xtee:title>
-				<xtee:notes/>
-				<xtee:technotes/>
-			</documentation>
-			<input message="tns:ErakorralineYVconfirm"/>
-			<output message="tns:ErakorralineYVconfirmResponse"/>
-		</operation>
-		<operation name="IsikuKontroll">
-			<documentation>
-				<xtee:title>IsikuKontroll - Isikuga seotud rikkumised</xtee:title>
-				<xtee:notes/>
-				<xtee:technotes/>
-			</documentation>
-			<input message="tns:IsikuKontroll"/>
-			<output message="tns:IsikuKontrollResponse"/>
-		</operation>
-        <operation name="IsikuEttevoteKontrollid">
-            <documentation>
-                <xtee:title>IsikuEttevoteKontrollid - Isikuga seotud ettevõte rikkumised</xtee:title>
-                <xtee:notes/>
-                <xtee:technotes/>
-            </documentation>
-            <input message="tns:IsikuEttevoteKontrollid"/>
-            <output message="tns:IsikuEttevoteKontrollidResponse"/>
-        </operation>
-    <operation name="listMethods">
-      <documentation>
-        <xtee:title>listMethods</xtee:title>
-      </documentation>
-      <input message="tns:listMethods"/>
-      <output message="tns:listMethodsResponse"/>
-    </operation>
-	</portType>
+
+	<wsdl:message name="requestheader">
+		<wsdl:part name="client" element="xrd:client" />
+		<wsdl:part name="service" element="xrd:service" />
+		<wsdl:part name="id" element="xrd:id" />
+		<wsdl:part name="userId" element="xrd:userId" />
+		<wsdl:part name="protocolVersion" element="xrd:protocolVersion" />
+	</wsdl:message>
+
+	<wsdl:message name="ErakorralineYvQueryInputMessage">
+		<wsdl:part name="body" element="tns:ErakorralineYVquery"/>
+	</wsdl:message>
+
+	<wsdl:message name="ErakorralineYvQueryOutputMessage">
+		<wsdl:part name="body" element="tns:ErakorralineYVqueryResponse"/>
+	</wsdl:message>
+
+	<wsdl:message name="ErakorralineYvConfirmInputMessage">
+		<wsdl:part name="body" element="tns:ErakorralineYVconfirm"/>
+	</wsdl:message>
+
+	<wsdl:message name="ErakorralineYvConfirmOutputMessage">
+		<wsdl:part name="body" element="tns:ErakorralineYVconfirmResponse"/>
+	</wsdl:message>
+
+	<wsdl:message name="IsikuKontrollInputMessage">
+		<wsdl:part name="body" element="tns:IsikuKontroll"/>
+	</wsdl:message>
+
+	<wsdl:message name="IsikuKontrollOutputMessage">
+		<wsdl:part name="body" element="tns:IsikuKontrollResponse"/>
+	</wsdl:message>
+
+	<wsdl:message name="IsikuEttevoteKontrollidInputMessage">
+		<wsdl:part name="body" element="tns:IsikuEttevoteKontrollid"/>
+	</wsdl:message>
+
+	<wsdl:message name="IsikuEttevoteKontrollidOutputMessage">
+		<wsdl:part name="body" element="tns:IsikuEttevoteKontrollidResponse"/>
+	</wsdl:message>
+
+	<wsdl:message name="RegisterJobInspectionInputMessage">
+		<wsdl:part name="body" element="tns:RegisterJobInspection"/>
+	</wsdl:message>
+
+	<wsdl:message name="RegisterJobInspectionOutputMessage">
+		<wsdl:part name="body" element="tns:RegisterJobInspectionResponse"/>
+	</wsdl:message>
+
+	<wsdl:portType name="ljvis_porttype">
+		<wsdl:operation name="ErakorralineYVquery">
+			<wsdl:documentation>
+				<xrd:title>ErakorralineYVquery - list of vehicles targeted for extraordinary technical inspection</xrd:title>
+			</wsdl:documentation>
+			<wsdl:input message="tns:ErakorralineYvQueryInputMessage" />
+			<wsdl:output message="tns:ErakorralineYvQueryOutputMessage" />
+		</wsdl:operation>
+
+		<wsdl:operation name="ErakorralineYVconfirm">
+			<wsdl:documentation>
+				<xrd:title>ErakorralineYVconfirm - list of vehicles which have passed extraordinary technical inspection</xrd:title>
+			</wsdl:documentation>
+			<wsdl:input message="tns:ErakorralineYvConfirmInputMessage" />
+			<wsdl:output message="tns:ErakorralineYvConfirmOutputMessage" />
+		</wsdl:operation>
+
+		<wsdl:operation name="IsikuKontroll">
+			<wsdl:documentation>
+				<xrd:title>IsikuKontroll - person-related violations</xrd:title>
+			</wsdl:documentation>
+			<wsdl:input message="tns:IsikuKontrollInputMessage" />
+			<wsdl:output message="tns:IsikuKontrollOutputMessage" />
+		</wsdl:operation>
+
+		<wsdl:operation name="IsikuEttevoteKontrollid">
+			<wsdl:documentation>
+				<xrd:title>IsikuEttevoteKontrollid - person-related company violations</xrd:title>
+			</wsdl:documentation>
+			<wsdl:input message="tns:IsikuEttevoteKontrollidInputMessage" />
+			<wsdl:output message="tns:IsikuEttevoteKontrollidOutputMessage" />
+		</wsdl:operation>
+
+		<wsdl:operation name="RegisterJobInspection">
+			<wsdl:documentation>
+				<xrd:title>RegisterJobInspection - job inspection control item registration</xrd:title>
+			</wsdl:documentation>
+			<wsdl:input message="tns:RegisterJobInspectionInputMessage" />
+			<wsdl:output message="tns:RegisterJobInspectionOutputMessage" />
+		</wsdl:operation>
+	</wsdl:portType>
+
 	<wsdl:binding name="ljvis_binding" type="tns:ljvis_porttype">
-		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
-		<operation name="ErakorralineYVquery">
-			<soap:operation soapAction="http://TURVASERVER.XTEE/cgi-bin/consumer_proxy"/>
-			<xtee:version>v1</xtee:version>
-			<input>
-				<soap:header message="tns:standardpais" part="asutus" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:standardpais" part="andmekogu" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:standardpais" part="isikukood" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:standardpais" part="nimi" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:standardpais" part="id" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:body parts="keha" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.ljvis.xtee.riik.ee/producer/ljvis"/>
-			</input>
-			<output>
-				<soap:body parts="keha" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.ehis.xtee.riik.ee/producer/ehis"/>
-				<soap:header message="tns:standardpais" part="asutus" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:standardpais" part="andmekogu" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:standardpais" part="isikukood" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:standardpais" part="nimi" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:standardpais" part="id" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-			</output>
-		</operation>
-		<operation name="ErakorralineYVconfirm">
-			<input>
-				<soap:body parts="keha" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.ehis.xtee.riik.ee/producer/ehis"/>
-				<soap:header message="tns:standardpais" part="asutus" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:standardpais" part="andmekogu" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:standardpais" part="isikukood" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:standardpais" part="nimi" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:standardpais" part="id" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-			</input>
-			<output>
-				<soap:body parts="keha" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.ehis.xtee.riik.ee/producer/ehis"/>
-				<soap:header message="tns:standardpais" part="asutus" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:standardpais" part="andmekogu" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:standardpais" part="isikukood" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:standardpais" part="nimi" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:standardpais" part="id" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-			</output>
-		</operation>
-		<operation name="IsikuKontroll">
-			<input>
-				<soap:body parts="keha" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.ehis.xtee.riik.ee/producer/ehis"/>
-				<soap:header message="tns:standardpais" part="asutus" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:standardpais" part="andmekogu" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:standardpais" part="isikukood" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:standardpais" part="nimi" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:standardpais" part="id" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-			</input>
-			<output>
-				<soap:body parts="keha" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.ehis.xtee.riik.ee/producer/ehis"/>
-				<soap:header message="tns:standardpais" part="asutus" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:standardpais" part="andmekogu" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:standardpais" part="isikukood" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:standardpais" part="nimi" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:standardpais" part="id" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-			</output>
-		</operation>
-		<operation name="IsikuEttevoteKontrollid">
-			<input>
-				<soap:body parts="keha" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.ehis.xtee.riik.ee/producer/ehis"/>
-				<soap:header message="tns:standardpais" part="asutus" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:standardpais" part="andmekogu" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:standardpais" part="isikukood" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:standardpais" part="nimi" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:standardpais" part="id" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-			</input>
-			<output>
-				<soap:body parts="keha" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.ehis.xtee.riik.ee/producer/ehis"/>
-				<soap:header message="tns:standardpais" part="asutus" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:standardpais" part="andmekogu" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:standardpais" part="isikukood" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:standardpais" part="nimi" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:standardpais" part="id" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-			</output>
-		</operation>
-    <operation name="listMethods">
-      <input>
-        <soap:body parts="keha" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="x-tee.riik.ee/xsd/xtee.xsd"/>
-      </input>
-      <output>
-        <soap:body parts="keha" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="x-tee.riik.ee/xsd/xtee.xsd"/>
-      </output>
-    </operation>
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+
+		<wsdl:operation name="ErakorralineYVquery">
+			<soap:operation soapAction="" />
+			<xrd:version>v2</xrd:version>
+			<wsdl:input>
+				<soap:header message="tns:requestheader" part="client" use="literal"/>
+				<soap:header message="tns:requestheader" part="service" use="literal"/>
+				<soap:header message="tns:requestheader" part="userId" use="literal"/>
+				<soap:header message="tns:requestheader" part="id" use="literal"/>
+				<soap:header message="tns:requestheader" part="protocolVersion" use="literal"/>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:header message="tns:requestheader" part="client" use="literal"/>
+				<soap:header message="tns:requestheader" part="service" use="literal"/>
+				<soap:header message="tns:requestheader" part="userId" use="literal"/>
+				<soap:header message="tns:requestheader" part="id" use="literal"/>
+				<soap:header message="tns:requestheader" part="protocolVersion" use="literal"/>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="ErakorralineYVconfirm">
+			<soap:operation soapAction="" />
+			<xrd:version>v1</xrd:version>
+			<wsdl:input>
+				<soap:header message="tns:requestheader" part="client" use="literal"/>
+				<soap:header message="tns:requestheader" part="service" use="literal"/>
+				<soap:header message="tns:requestheader" part="userId" use="literal"/>
+				<soap:header message="tns:requestheader" part="id" use="literal"/>
+				<soap:header message="tns:requestheader" part="protocolVersion" use="literal"/>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:header message="tns:requestheader" part="client" use="literal"/>
+				<soap:header message="tns:requestheader" part="service" use="literal"/>
+				<soap:header message="tns:requestheader" part="userId" use="literal"/>
+				<soap:header message="tns:requestheader" part="id" use="literal"/>
+				<soap:header message="tns:requestheader" part="protocolVersion" use="literal"/>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="IsikuKontroll">
+			<soap:operation soapAction="" />
+			<xrd:version>v1</xrd:version>
+			<wsdl:input>
+				<soap:header message="tns:requestheader" part="client" use="literal"/>
+				<soap:header message="tns:requestheader" part="service" use="literal"/>
+				<soap:header message="tns:requestheader" part="userId" use="literal"/>
+				<soap:header message="tns:requestheader" part="id" use="literal"/>
+				<soap:header message="tns:requestheader" part="protocolVersion" use="literal"/>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:header message="tns:requestheader" part="client" use="literal"/>
+				<soap:header message="tns:requestheader" part="service" use="literal"/>
+				<soap:header message="tns:requestheader" part="userId" use="literal"/>
+				<soap:header message="tns:requestheader" part="id" use="literal"/>
+				<soap:header message="tns:requestheader" part="protocolVersion" use="literal"/>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="IsikuEttevoteKontrollid">
+			<soap:operation soapAction="" />
+			<xrd:version>v1</xrd:version>
+			<wsdl:input>
+				<soap:header message="tns:requestheader" part="client" use="literal"/>
+				<soap:header message="tns:requestheader" part="service" use="literal"/>
+				<soap:header message="tns:requestheader" part="userId" use="literal"/>
+				<soap:header message="tns:requestheader" part="id" use="literal"/>
+				<soap:header message="tns:requestheader" part="protocolVersion" use="literal"/>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:header message="tns:requestheader" part="client" use="literal"/>
+				<soap:header message="tns:requestheader" part="service" use="literal"/>
+				<soap:header message="tns:requestheader" part="userId" use="literal"/>
+				<soap:header message="tns:requestheader" part="id" use="literal"/>
+				<soap:header message="tns:requestheader" part="protocolVersion" use="literal"/>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="RegisterJobInspection">
+			<soap:operation soapAction="" />
+			<xrd:version>v1</xrd:version>
+			<wsdl:input>
+				<soap:header message="tns:requestheader" part="client" use="literal"/>
+				<soap:header message="tns:requestheader" part="service" use="literal"/>
+				<soap:header message="tns:requestheader" part="userId" use="literal"/>
+				<soap:header message="tns:requestheader" part="id" use="literal"/>
+				<soap:header message="tns:requestheader" part="protocolVersion" use="literal"/>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:header message="tns:requestheader" part="client" use="literal"/>
+				<soap:header message="tns:requestheader" part="service" use="literal"/>
+				<soap:header message="tns:requestheader" part="userId" use="literal"/>
+				<soap:header message="tns:requestheader" part="id" use="literal"/>
+				<soap:header message="tns:requestheader" part="protocolVersion" use="literal"/>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
 	</wsdl:binding>
+
 	<wsdl:service name="ljvis">
-		<port name="ljvis" binding="tns:ljvis_binding">
-			<soap:address location="http://test.liiklusvalve.ee/xtee/service"/>
-			<xtee:title>Liiklusjärelvalve register</xtee:title>
-			<xtee:address producer="ljvis"/>
-		</port>
+		<wsdl:port name="ljvis_porttype" binding="tns:ljvis_binding">
+			<soap:address location="http://TURVASERVER/cgi-bin/consumer_proxy"/>
+			<xrd:title>Liiklusjärelvalve register</xrd:title>
+			<xrd:address producer="ljvis"/>
+		</wsdl:port>
 	</wsdl:service>
 </wsdl:definitions>
