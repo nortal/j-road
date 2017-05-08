@@ -1,695 +1,1648 @@
 <?xml version="1.0" encoding="utf-8"?>
-<definitions name="kutseregister"
-	targetNamespace="http://producers.kutseregister.xtee.riik.ee/producer/kutseregister"
-	xmlns:tns="http://producers.kutseregister.xtee.riik.ee/producer/kutseregister" 
-	xmlns:xtee="http://x-tee.riik.ee/xsd/xtee.xsd"
-	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-	xmlns="http://schemas.xmlsoap.org/wsdl/"
-	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
-	xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:xrd="http://x-road.eu/xsd/xroad.xsd"
+                  xmlns:tns="http://producers.kutseregister.xtee.riik.ee/producer/kutseregister"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:meta="http://metadata.x-road.eu/"
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  xmlns:id="http://x-road.eu/xsd/identifier"
+                  xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+                  xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+                  targetNamespace="http://producers.kutseregister.xtee.riik.ee/producer/kutseregister">
+  <wsdl:types>
+    <schema xmlns="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://producers.kutseregister.xtee.riik.ee/producer/kutseregister"
+            elementFormDefault="qualified">
+      <import namespace="http://x-road.eu/xsd/xroad.xsd"
+              schemaLocation="http://x-road.eu/xsd/xroad.xsd"/>
 
-	<types>
-		<schema targetNamespace="http://producers.kutseregister.xtee.riik.ee/producer/kutseregister" xmlns="http://www.w3.org/2001/XMLSchema" >
-			<import namespace="http://x-tee.riik.ee/xsd/xtee.xsd" schemaLocation="http://x-tee.riik.ee/xsd/xtee.xsd"/>
+      <element name="kutsetunnistus">
+        <complexType>
+          <annotation>
+            <documentation>Kutseregistri kutsetunnistuste otsingu sisendparameetrid</documentation>
+          </annotation>
+          <all>
+            <element name="registrinumber" type="string" minOccurs="0">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Registrinumber</xrd:title>
+                  <xrd:notes>Kutsetunnistuse registrinumber</xrd:notes>
+                  <xrd:technotes>NB! Alati otsitakse täpset vastet!</xrd:technotes>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="nimi" type="string" minOccurs="0">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Isiku nimi</xrd:title>
+                  <xrd:notes>Isiku nimi</xrd:notes>
+                  <xrd:technotes>NB! Alati otsitakse täpset vastet!</xrd:technotes>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="isikukood" type="string" minOccurs="0">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Isikukood</xrd:title>
+                  <xrd:notes>Kutsetunnistuse omaniku isikukood</xrd:notes>
+                  <xrd:technotes>NB! Alati otsitakse täpset vastet!</xrd:technotes>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="tyyp" type="tns:tunnistuseTyypType" minOccurs="0">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Tunnistuse tüüp</xrd:title>
+                  <xrd:notes>Tunnistuse tüüp</xrd:notes>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="kutsestandard" type="string" minOccurs="0">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Kutsestandardi või spetsialiseerumise nimetus</xrd:title>
+                  <xrd:notes>Kutsestandardi või spetsialiseerumise nimetus või selle osa</xrd:notes>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="osakutse" type="string" minOccurs="0">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Osakutse nimetus</xrd:title>
+                  <xrd:notes>Osakutse nimetus või selle osa</xrd:notes>
+                  <xrd:technotes>Kui sisendparameetrites on tunnistuse tüübiks määratud "kutsetunnistus" või "esmane
+                    kutse", siis seda parameetrit ignoreeritakse
+                  </xrd:technotes>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="ekrtase" type="tns:taseType" minOccurs="0">
+              <annotation>
+                <appinfo>
+                  <xrd:title>EKR tase</xrd:title>
+                  <xrd:notes>EKR tase</xrd:notes>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="eqftase" type="tns:taseType" minOccurs="0">
+              <annotation>
+                <appinfo>
+                  <xrd:title>EQF tase</xrd:title>
+                  <xrd:notes>EQF tase</xrd:notes>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="valjastaja" type="string" minOccurs="0">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Kutsetunnistuse väljastaja</xrd:title>
+                  <xrd:notes>Kutsetunnistuse väljaandnud asutuse nimetus või selle osa</xrd:notes>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="valjastatudalgus" type="date" minOccurs="0">
+              <annotation>
+                <appinfo>
+                  <xrd:title>"Väljastatud" vahemiku algus</xrd:title>
+                  <xrd:notes>Kutsetunnistuse väljastamise vahemiku algus</xrd:notes>
+                  <xrd:technotes>Alguskuupäev päeva täpsusega. Täpsustatud kuupäeval väljastatud kutsetunnistused on
+                    tulemustesse kaasa arvatud
+                  </xrd:technotes>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="valjastatudlopp" type="date" minOccurs="0">
+              <annotation>
+                <appinfo>
+                  <xrd:title>"Väljastatud" vahemiku lõpp</xrd:title>
+                  <xrd:notes>Kutsetunnistuse väljastamise vahemiku lõpp</xrd:notes>
+                  <xrd:technotes>Lõpukuupäev päeva täpsusega. Täpsustatud kuupäeval väljastatud kutsetunnistused on
+                    tulemustesse kaasa arvatud
+                  </xrd:technotes>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="kehtibalatesalgus" type="date" minOccurs="0">
+              <annotation>
+                <appinfo>
+                  <xrd:title>"Kehtib alates" vahemiku algus</xrd:title>
+                  <xrd:notes>Kutsetunnistuse kehtima hakkamise vahemiku algus</xrd:notes>
+                  <xrd:technotes>Alguskuupäev päeva täpsusega. Täpsustatud kuupäeval kehtima hakanud kutsetunnistused on
+                    tulemustesse kaasa arvatud
+                  </xrd:technotes>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="kehtibalateslopp" type="date" minOccurs="0">
+              <annotation>
+                <appinfo>
+                  <xrd:title>"Kehtib alates" vahemiku lõpp</xrd:title>
+                  <xrd:notes>Kutsetunnistuse kehtima hakkamise vahemiku lõpp</xrd:notes>
+                  <xrd:technotes>Lõpukuupäev päeva täpsusega. Täpsustatud kuupäeval kehtima hakanud kutsetunnistused on
+                    tulemustesse kaasa arvatud
+                  </xrd:technotes>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="kehtibkunialgus" type="date" minOccurs="0">
+              <annotation>
+                <appinfo>
+                  <xrd:title>"Kehtib kuni" vahemiku algus</xrd:title>
+                  <xrd:notes>Kutsetunnistuse kehtivuse lõppemise vahemiku algus</xrd:notes>
+                  <xrd:technotes>Alguskuupäev päeva täpsusega. Täpsustatud kuupäeval lõppevad kutsetunnistused on
+                    tulemustesse kaasa arvatud
+                  </xrd:technotes>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="kehtibkunilopp" type="date" minOccurs="0">
+              <annotation>
+                <appinfo>
+                  <xrd:title>"Kehtib kuni" vahemiku lõpp</xrd:title>
+                  <xrd:notes>Kutsetunnistuse kehtivuse lõppemise vahemiku lõpp</xrd:notes>
+                  <xrd:technotes>Lõpukuupäev päeva täpsusega. Täpsustatud kuupäeval lõppevad kutsetunnistused on
+                    tulemustesse kaasa arvatud
+                  </xrd:technotes>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="kirjetearv" type="tns:kirjeteArvType" minOccurs="0">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Tagastatav kutsetunnistuste arv</xrd:title>
+                </appinfo>
+              </annotation>
+            </element>
+          </all>
+        </complexType>
+      </element>
+      <!-- kutsetunnistuste päring kodaniku päringuportaalile -->
+      <element name="kodanikKutsetunnistusParing">
+        <complexType>
+          <annotation>
+            <documentation>Kodaniku kutsetunnistuste otsingu sisendparameetrid</documentation>
+          </annotation>
+          <all>
+            <element name="kehtetud" type="boolean" minOccurs="0" default="false">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Näita ka kehtetuid tunnistusi</xrd:title>
+                  <xrd:notes>Otsingutulemuses tagastatakse ka kehtetud tunnistused</xrd:notes>
+                </appinfo>
+              </annotation>
+            </element>
+          </all>
+        </complexType>
+      </element>
+      <!-- Tunnistuse tüübi tüüp -->
+      <simpleType name="tunnistuseTyypType">
+        <restriction base="integer">
+          <enumeration value="1">
+            <annotation>
+              <appinfo>
+                <xrd:title>Kutsetunnistus</xrd:title>
+              </appinfo>
+            </annotation>
+          </enumeration>
+          <enumeration value="2">
+            <annotation>
+              <appinfo>
+                <xrd:title>Osakutsetunnistus</xrd:title>
+              </appinfo>
+            </annotation>
+          </enumeration>
+          <enumeration value="3">
+            <annotation>
+              <appinfo>
+                <xrd:title>Esmane kutse</xrd:title>
+              </appinfo>
+            </annotation>
+          </enumeration>
+        </restriction>
+      </simpleType>
 
-			<!--Kutsetunnistuste otsingu sisend-->
-			<complexType name="KutsetunnistusParing">
-				<annotation>
-					<documentation>Kutseregistri kutsetunnistuste otsingu sisendparameetrid</documentation>
-				</annotation>
-				<all>
-					<element name="registrinumber" type="string" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>Registrinumber</xtee:title>
-								<xtee:notes>Kutsetunnistuse registrinumber</xtee:notes>
-								<xtee:technotes>NB! Alati otsitakse täpset vastet!</xtee:technotes>
-							</appinfo>
-						</annotation>
-					</element>
-					<element name="nimi" type="string" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>Isiku nimi</xtee:title>
-								<xtee:notes>Isiku nimi</xtee:notes>
-								<xtee:technotes>NB! Alati otsitakse täpset vastet!</xtee:technotes>
-							</appinfo>
-						</annotation>
-					</element>
-					<element name="isikukood" type="string" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>Isikukood</xtee:title>
-								<xtee:notes>Kutsetunnistuse omaniku isikukood</xtee:notes>
-								<xtee:technotes>NB! Alati otsitakse täpset vastet!</xtee:technotes>
-							</appinfo>
-						</annotation>
-					</element>
-					<element name="tyyp" type="tns:tunnistuseTyypType" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>Tunnistuse tüüp</xtee:title>
-								<xtee:notes>Tunnistuse tüüp</xtee:notes>
-							</appinfo>
-						</annotation>
-					</element>
-					<element name="kutsestandard" type="string" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>Kutsestandardi või spetsialiseerumise nimetus</xtee:title>
-								<xtee:notes>Kutsestandardi või spetsialiseerumise nimetus või selle osa</xtee:notes>
-							</appinfo>
-						</annotation>
-					</element>
-					<element name="osakutse" type="string" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>Osakutse nimetus</xtee:title>
-								<xtee:notes>Osakutse nimetus või selle osa</xtee:notes>
-								<xtee:technotes>Kui sisendparameetrites on tunnistuse tüübiks määratud "kutsetunnistus" või "esmane kutse", siis seda parameetrit ignoreeritakse</xtee:technotes>
-							</appinfo>
-						</annotation>
-					</element>
-					<element name="ekrtase" type="tns:taseType" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>EKR tase</xtee:title>
-								<xtee:notes>EKR tase</xtee:notes>
-							</appinfo>
-						</annotation>
-					</element>
-					<element name="eqftase" type="tns:taseType" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>EQF tase</xtee:title>
-								<xtee:notes>EQF tase</xtee:notes>
-							</appinfo>
-						</annotation>
-					</element>
-					<element name="valjastaja" type="string" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>Kutsetunnistuse väljastaja</xtee:title>
-								<xtee:notes>Kutsetunnistuse väljaandnud asutuse nimetus või selle osa</xtee:notes>
-							</appinfo>
-						</annotation>
-					</element>
-					<element name="kehtibalatesalgus" type="date" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>"Kehtib alates" vahemiku algus</xtee:title>
-								<xtee:notes>Kutsetunnistuse kehtima hakkamise vahemiku algus</xtee:notes>
-								<xtee:technotes>Alguskuupäev päeva täpsusega. Täpsustatud kuupäeval kehtima hakanud kutsetunnistused on tulemustesse kaasa arvatud</xtee:technotes>
-							</appinfo>
-						</annotation>
-					</element>
-					<element name="kehtibalateslopp" type="date" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>"Kehtib alates" vahemiku lõpp</xtee:title>
-								<xtee:notes>Kutsetunnistuse kehtima hakkamise vahemiku lõpp</xtee:notes>
-								<xtee:technotes>Lõpukuupäev päeva täpsusega. Täpsustatud kuupäeval kehtima hakanud kutsetunnistused on tulemustesse kaasa arvatud</xtee:technotes>
-							</appinfo>
-						</annotation>
-					</element>
-					<element name="kehtibkunialgus" type="date" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>"Kehtib kuni" vahemiku algus</xtee:title>
-								<xtee:notes>Kutsetunnistuse kehtivuse lõppemise vahemiku algus</xtee:notes>
-								<xtee:technotes>Alguskuupäev päeva täpsusega. Täpsustatud kuupäeval lõppevad kutsetunnistused on tulemustesse kaasa arvatud</xtee:technotes>
-							</appinfo>
-						</annotation>
-					</element>
-					<element name="kehtibkunilopp" type="date" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>"Kehtib kuni" vahemiku lõpp</xtee:title>
-								<xtee:notes>Kutsetunnistuse kehtivuse lõppemise vahemiku lõpp</xtee:notes>
-								<xtee:technotes>Lõpukuupäev päeva täpsusega. Täpsustatud kuupäeval lõppevad kutsetunnistused on tulemustesse kaasa arvatud</xtee:technotes>
-							</appinfo>
-						</annotation>
-					</element>
-					<element name="kirjetearv" type="tns:kirjeteArvType" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>Tagastatav kutsetunnistuste arv</xtee:title>
-							</appinfo>
-						</annotation>
-					</element>
-				</all>
-			</complexType>
+      <!-- Taseme tüüp -->
+      <simpleType name="taseType">
+        <restriction base="integer">
+          <enumeration value="1">
+            <annotation>
+              <appinfo>
+                <xrd:title>1</xrd:title>
+              </appinfo>
+            </annotation>
+          </enumeration>
+          <enumeration value="2">
+            <annotation>
+              <appinfo>
+                <xrd:title>2</xrd:title>
+              </appinfo>
+            </annotation>
+          </enumeration>
+          <enumeration value="3">
+            <annotation>
+              <appinfo>
+                <xrd:title>3</xrd:title>
+              </appinfo>
+            </annotation>
+          </enumeration>
+          <enumeration value="4">
+            <annotation>
+              <appinfo>
+                <xrd:title>4</xrd:title>
+              </appinfo>
+            </annotation>
+          </enumeration>
+          <enumeration value="5">
+            <annotation>
+              <appinfo>
+                <xrd:title>5</xrd:title>
+              </appinfo>
+            </annotation>
+          </enumeration>
+          <enumeration value="6">
+            <annotation>
+              <appinfo>
+                <xrd:title>6</xrd:title>
+              </appinfo>
+            </annotation>
+          </enumeration>
+          <enumeration value="7">
+            <annotation>
+              <appinfo>
+                <xrd:title>7</xrd:title>
+              </appinfo>
+            </annotation>
+          </enumeration>
+          <enumeration value="8">
+            <annotation>
+              <appinfo>
+                <xrd:title>8</xrd:title>
+              </appinfo>
+            </annotation>
+          </enumeration>
+        </restriction>
+      </simpleType>
 
-			<!-- kutsetunnistuste päring kodaniku päringuportaalile -->
-			<complexType name="KodanikKutsetunnistusParing">
-				<annotation>
-					<documentation>Kodaniku kutsetunnistuste otsingu sisendparameetrid</documentation>
-				</annotation>
-				<all>
-					<element name="kehtetud" type="boolean" minOccurs="0" default="false">
-						<annotation>
-							<appinfo>
-								<xtee:title>Näita ka kehtetuid tunnistusi</xtee:title>
-								<xtee:notes>Otsingutulemuses tagastatakse ka kehtetud tunnistused</xtee:notes>
-							</appinfo>
-						</annotation>
-					</element>
-				</all>
-			</complexType>
-			
-			<!-- Tunnistuse tüübi tüüp -->
-			<simpleType name="tunnistuseTyypType">
-				<restriction base="integer">
-					<enumeration value="1">
-						<annotation>
-							<appinfo>
-								<xtee:title>Kutsetunnistus</xtee:title>
-							</appinfo>
-						</annotation>
-					</enumeration>
-					<enumeration value="2">
-						<annotation>
-							<appinfo>
-								<xtee:title>Osakutsetunnistus</xtee:title>
-							</appinfo>
-						</annotation>
-					</enumeration>
-					<enumeration value="3">
-						<annotation>
-							<appinfo>
-								<xtee:title>Esmane kutse</xtee:title>
-							</appinfo>
-						</annotation>
-					</enumeration>
-				</restriction>
-			</simpleType>
+      <!-- Kirjete arvu tüüp -->
+      <simpleType name="kirjeteArvType">
+        <restriction base="integer">
+          <enumeration value="10">
+            <annotation>
+              <appinfo>
+                <xrd:title>10</xrd:title>
+              </appinfo>
+            </annotation>
+          </enumeration>
+          <enumeration value="30">
+            <annotation>
+              <appinfo>
+                <xrd:title>30</xrd:title>
+              </appinfo>
+            </annotation>
+          </enumeration>
+          <enumeration value="50">
+            <annotation>
+              <appinfo>
+                <xrd:title>50</xrd:title>
+              </appinfo>
+            </annotation>
+          </enumeration>
+          <enumeration value="100">
+            <annotation>
+              <appinfo>
+                <xrd:title>100</xrd:title>
+              </appinfo>
+            </annotation>
+          </enumeration>
+          <enumeration value="200">
+            <annotation>
+              <appinfo>
+                <xrd:title>200</xrd:title>
+              </appinfo>
+            </annotation>
+          </enumeration>
+          <enumeration value="500">
+            <annotation>
+              <appinfo>
+                <xrd:title>500</xrd:title>
+              </appinfo>
+            </annotation>
+          </enumeration>
+        </restriction>
+      </simpleType>
 
-			<!-- Taseme tüüp -->
-			<simpleType name="taseType">
-				<restriction base="integer">
-					<enumeration value="1">
-						<annotation>
-							<appinfo>
-								<xtee:title>1</xtee:title>
-							</appinfo>
-						</annotation>
-					</enumeration>
-					<enumeration value="2">
-						<annotation>
-							<appinfo>
-								<xtee:title>2</xtee:title>
-							</appinfo>
-						</annotation>
-					</enumeration>
-					<enumeration value="3">
-						<annotation>
-							<appinfo>
-								<xtee:title>3</xtee:title>
-							</appinfo>
-						</annotation>
-					</enumeration>
-					<enumeration value="4">
-						<annotation>
-							<appinfo>
-								<xtee:title>4</xtee:title>
-							</appinfo>
-						</annotation>
-					</enumeration>
-					<enumeration value="5">
-						<annotation>
-							<appinfo>
-								<xtee:title>5</xtee:title>
-							</appinfo>
-						</annotation>
-					</enumeration>
-					<enumeration value="6">
-						<annotation>
-							<appinfo>
-								<xtee:title>6</xtee:title>
-							</appinfo>
-						</annotation>
-					</enumeration>
-					<enumeration value="7">
-						<annotation>
-							<appinfo>
-								<xtee:title>7</xtee:title>
-							</appinfo>
-						</annotation>
-					</enumeration>
-					<enumeration value="8">
-						<annotation>
-							<appinfo>
-								<xtee:title>8</xtee:title>
-							</appinfo>
-						</annotation>
-					</enumeration>
-				</restriction>
-			</simpleType>
+      <!-- Kutsetunnistus V2 Type -->
+      <complexType name="kutsetunnistusV2Type">
+        <sequence>
+          <element name="registrinumber" type="string" minOccurs="0">
+            <annotation>
+              <appinfo>
+                <xrd:title>Registrinumber</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="nimi" type="string" minOccurs="0">
+            <annotation>
+              <appinfo>
+                <xrd:title>Nimi</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="isikukood" type="string" minOccurs="0">
+            <annotation>
+              <appinfo>
+                <xrd:title>Isikukood</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="synniaeg" type="date" minOccurs="0">
+            <annotation>
+              <appinfo>
+                <xrd:title>Sünniaeg</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="tyyp" type="string" minOccurs="0">
+            <annotation>
+              <appinfo>
+                <xrd:title>Tüüp</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="standard" type="string" minOccurs="0">
+            <annotation>
+              <appinfo>
+                <xrd:title>Kutsestandard</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="ekrtase" type="integer" minOccurs="0">
+            <annotation>
+              <appinfo>
+                <xrd:title>EKR tase</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="eqftase" type="integer" minOccurs="0">
+            <annotation>
+              <appinfo>
+                <xrd:title>EQF tase</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="spetsialiseerumine" type="string" minOccurs="0">
+            <annotation>
+              <appinfo>
+                <xrd:title>Spetsialiseerumine</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="osakutse" type="string" minOccurs="0">
+            <annotation>
+              <appinfo>
+                <xrd:title>Osakutse</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="lisavali" type="string" minOccurs="0">
+            <annotation>
+              <appinfo>
+                <xrd:title>Lisaväli</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="kompetentsid" type="string" minOccurs="0">
+            <annotation>
+              <appinfo>
+                <xrd:title>Valitud kompetentsid</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="valdkond" type="string" minOccurs="0">
+            <annotation>
+              <appinfo>
+                <xrd:title>Valdkond</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="kutseala" type="string" minOccurs="0">
+            <annotation>
+              <appinfo>
+                <xrd:title>Kutseala</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="hariduslikkval" type="string" minOccurs="0">
+            <annotation>
+              <appinfo>
+                <xrd:title>Hariduslik kvalifikatsioon</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="keel" type="string" minOccurs="0">
+            <annotation>
+              <appinfo>
+                <xrd:title>Kutseeksami keel</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="valjastaja" type="string" minOccurs="0">
+            <annotation>
+              <appinfo>
+                <xrd:title>Väljastaja</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="valjaantud" type="date" minOccurs="0">
+            <annotation>
+              <appinfo>
+                <xrd:title>Välja antud</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="kehtibalates" type="date" minOccurs="0">
+            <annotation>
+              <appinfo>
+                <xrd:title>Kehtib alates</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="kehtibkuni" type="date" minOccurs="0">
+            <annotation>
+              <appinfo>
+                <xrd:title>Kehtib kuni</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="isco" type="string" minOccurs="0">
+            <annotation>
+              <appinfo>
+                <xrd:title>Ametite (ISCO) klassifikaator</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="duplikaat" type="boolean" minOccurs="0">
+            <annotation>
+              <appinfo>
+                <xrd:title>On duplikaat</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="kehtetu" type="boolean" minOccurs="0">
+            <annotation>
+              <appinfo>
+                <xrd:title>On kehtetu</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="reaid" type="string" minOccurs="0">
+            <annotation>
+              <appinfo>
+                <xrd:title>Rea ID</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="kustutatud" type="boolean" minOccurs="0">
+            <annotation>
+              <appinfo>
+                <xrd:notes>Kas sellise rea ID-ga kirje on kustutatud</xrd:notes>
+              </appinfo>
+            </annotation>
+          </element>
+        </sequence>
+      </complexType>
 
-			<!-- Kirjete arvu tüüp -->
-			<simpleType name="kirjeteArvType">
-				<restriction base="integer">
-					<enumeration value="10">
-						<annotation>
-							<appinfo>
-								<xtee:title>10</xtee:title>
-							</appinfo>
-						</annotation>
-					</enumeration>
-					<enumeration value="30">
-						<annotation>
-							<appinfo>
-								<xtee:title>30</xtee:title>
-							</appinfo>
-						</annotation>
-					</enumeration>
-					<enumeration value="50">
-						<annotation>
-							<appinfo>
-								<xtee:title>50</xtee:title>
-							</appinfo>
-						</annotation>
-					</enumeration>
-					<enumeration value="100">
-						<annotation>
-							<appinfo>
-								<xtee:title>100</xtee:title>
-							</appinfo>
-						</annotation>
-					</enumeration>
-				</restriction>
-			</simpleType>
+      <!-- Kutsetunnistuste otsingute väljund-->
+      <element name="kutsetunnistusVastus">
+        <complexType>
+          <sequence>
+            <element name="teade" type="string" minOccurs="0">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Teade</xrd:title>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="kutsetunnistused" minOccurs="0">
+              <complexType>
+                <sequence>
+                  <element name="kutsetunnistus" type="tns:kutsetunnistusV2Type" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+              </complexType>
+            </element>
+            <element name="kirjeid" type="integer" minOccurs="0">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Kirjete arv</xrd:title>
+                </appinfo>
+              </annotation>
+            </element>
+          </sequence>
+        </complexType>
+      </element>
 
-			<!-- Kutsetunnistus V2 Type -->
-			<complexType name="kutsetunnistusV2Type">
-				<sequence>
-					<element name="registrinumber" type="string" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>Registrinumber</xtee:title>
-							</appinfo>
-						</annotation>
-					</element>
-					<element name="nimi" type="string" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>Nimi</xtee:title>
-							</appinfo>
-						</annotation>
-					</element>
-					<element name="isikukood" type="string" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>Isikukood</xtee:title>
-							</appinfo>
-						</annotation>
-					</element>
-					<element name="synniaeg" type="date" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>Sünniaeg</xtee:title>
-							</appinfo>
-						</annotation>
-					</element>
-					<element name="tyyp" type="string" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>Tüüp</xtee:title>
-							</appinfo>
-						</annotation>
-					</element>
-					<element name="standard" type="string" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>Kutsestandard</xtee:title>
-							</appinfo>
-						</annotation>
-					</element>
-					<element name="ekrtase" type="integer" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>EKR tase</xtee:title>
-							</appinfo>
-						</annotation>
-					</element>
-					<element name="eqftase" type="integer" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>EQF tase</xtee:title>
-							</appinfo>
-						</annotation>
-					</element>
-					<element name="spetsialiseerumine" type="string" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>Spetsialiseerumine</xtee:title>
-							</appinfo>
-						</annotation>
-					</element>
-					<element name="osakutse" type="string" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>Osakutse</xtee:title>
-							</appinfo>
-						</annotation>
-					</element>
-					<element name="lisavali" type="string" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>Lisaväli</xtee:title>
-							</appinfo>
-						</annotation>
-					</element>
-					<element name="kompetentsid" type="string"  minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>Valitud kompetentsid</xtee:title>
-							</appinfo>
-						</annotation>
-					</element>
-					<element name="valdkond" type="string" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>Valdkond</xtee:title>
-							</appinfo>
-						</annotation>
-					</element>
-					<element name="kutseala" type="string" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>Kutseala</xtee:title>
-							</appinfo>
-						</annotation>
-					</element>
-					<element name="hariduslikkval" type="string" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>Hariduslik kvalifikatsioon</xtee:title>
-							</appinfo>
-						</annotation>
-					</element>
-					<element name="keel" type="string" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>Kutseeksami keel</xtee:title>
-							</appinfo>
-						</annotation>
-					</element>
-					<element name="valjastaja" type="string" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>Väljastaja</xtee:title>
-							</appinfo>
-						</annotation>
-					</element>
-					<element name="valjaantud" type="date" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>Välja antud</xtee:title>
-							</appinfo>
-						</annotation>
-					</element>
-					<element name="kehtibalates" type="date" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>Kehtib alates</xtee:title>
-							</appinfo>
-						</annotation>
-					</element>
-					<element name="kehtibkuni" type="date" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>Kehtib kuni</xtee:title>
-							</appinfo>
-						</annotation>
-					</element>
-					<element name="isco" type="string" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>Ametite (ISCO) klassifikaator</xtee:title>
-							</appinfo>
-						</annotation>
-					</element>
-					<element name="duplikaat" type="boolean" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>On duplikaat</xtee:title>
-							</appinfo>
-						</annotation>
-					</element>
-					<element name="kehtetu" type="boolean" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>On kehtetu</xtee:title>
-							</appinfo>
-						</annotation>
-					</element>
-					<element name="reaid" type="string" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>Rea ID</xtee:title>
-							</appinfo>
-						</annotation>
-					</element>
-					<element name="kustutatud" type="boolean" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:notes>Kas sellise rea ID-ga kirje on kustutatud</xtee:notes>
-							</appinfo>
-						</annotation>
-					</element>
-				</sequence>
-			</complexType>			
+      <element name="kodanikKutsetunnistusVastus">
+        <complexType>
+          <sequence>
+            <element name="teade" type="string" minOccurs="0">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Teade</xrd:title>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="kutsetunnistused" minOccurs="0">
+              <complexType>
+                <sequence>
+                  <element name="kutsetunnistus" type="tns:kutsetunnistusV2Type" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+              </complexType>
+            </element>
+            <element name="kirjeid" type="integer" minOccurs="0">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Kirjete arv</xrd:title>
+                </appinfo>
+              </annotation>
+            </element>
+          </sequence>
+        </complexType>
+      </element>
 
-			<!-- Kutsetunnistuste otsingute väljund-->
-			<complexType name="KutsetunnistusVastus">
-				<sequence>
-					<element name="teade" type="string" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>Teade</xtee:title>
-							</appinfo>
-						</annotation>
-					</element>
-					<element name="kutsetunnistused" minOccurs="0">
-						<complexType>
-							<sequence>
-								<element name="kutsetunnistus" type="tns:kutsetunnistusV2Type" minOccurs="0" maxOccurs="unbounded"/>
-							</sequence>
-						</complexType>
-					</element>
-					<element name="kirjeid" type="integer" minOccurs="0">
-						<annotation>
-							<appinfo>
-								<xtee:title>Kirjete arv</xtee:title>
-							</appinfo>
-						</annotation>
-					</element>
-				</sequence>
-			</complexType>
+      <!-- Kutsetunnistuste muudatuste päring -->
+      <element name="kutsetunnistusteMuudatusedParing">
+        <complexType>
+          <annotation>
+            <documentation>Kutsetunnistuste muudatuste päringu sisendparameetrid</documentation>
+          </annotation>
+          <all>
+            <element name="aasta" type="integer">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Aasta</xrd:title>
+                  <xrd:notes>Aasta peab jääma vahemikku 2012 - käesolev aasta.</xrd:notes>
+                </appinfo>
+              </annotation>
+            </element>
+          </all>
+        </complexType>
+      </element>
 
-			<!--listMethods jaoks vastus-->
-			<complexType name="listMethods_vastus">
-				<complexContent>
-					<restriction base="SOAP-ENC:Array">
-						<sequence>
-							<element name="item" type="string" minOccurs="0" maxOccurs="unbounded" />
-						</sequence>
-					</restriction>
-				</complexContent>
-			</complexType>
-      
-      		<!-- Kutsetunnistuste muudatuste päring -->
-			<complexType name="kutsetunnistusteMuudatusedParing">
-				<annotation>
-					<documentation>Kutsetunnistuste muudatuste päringu sisendparameetrid</documentation>
-				</annotation>
-				<all>
-					<element name="aasta" type="integer">
-						<annotation>
-							<appinfo>
-								<xtee:title>Aasta</xtee:title>
-								<xtee:notes>Aasta peab jääma vahemikku 2012 - käesolev aasta.</xtee:notes>
-							</appinfo>
-						</annotation>
-					</element>
-				</all>
-			</complexType>
+      <element name="kutseAndjaInfoParing">
+        <complexType>
+          <annotation>
+            <documentation>Kutse andja info päring</documentation>
+          </annotation>
+          <all>
+            <element name="asutus" type="string" minOccurs="0">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Asutus</xrd:title>
+                </appinfo>
+              </annotation>
+            </element>
+          </all>
+        </complexType>
+      </element>
 
-		</schema>
-	</types>
+      <element name="kutseAndjaInfoVastus">
+        <complexType>
+          <annotation>
+            <documentation>Kutse andja info</documentation>
+          </annotation>
+          <all>
+            <element name="kutseandja" minOccurs="0">
+              <complexType>
+                <all>
+                  <element name="nimetus" type="string"/>
+                  <element name="tunnistusetyybid">
+                    <complexType>
+                      <sequence>
+                        <element name="tunnistusetyyp" type="tns:tunnistuseTyypType" minOccurs="0"
+                                 maxOccurs="unbounded"/>
+                      </sequence>
+                    </complexType>
+                  </element>
+                  <element name="lisavali" type="boolean"/>
+                  <element name="voibinfotpeita" type="boolean"/>
+                </all>
+              </complexType>
+            </element>
+            <element name="kutsestandardid" minOccurs="0">
+              <complexType>
+                <sequence>
+                  <element name="kutsestandard" type="tns:kutsestandardType" minOccurs="1" maxOccurs="unbounded"/>
+                </sequence>
+              </complexType>
+            </element>
+            <element name="kutsekomisjonid" minOccurs="0">
+              <complexType>
+                <sequence>
+                  <element name="kutsekomisjon" type="tns:kutsekomisjonType" minOccurs="1" maxOccurs="unbounded"/>
+                </sequence>
+              </complexType>
+            </element>
+            <element name="kutseeksamikeeled" minOccurs="0">
+              <complexType>
+                <sequence>
+                  <element name="keel" type="tns:idNimetusType" minOccurs="1" maxOccurs="unbounded"/>
+                </sequence>
+              </complexType>
+            </element>
+            <element name="vigadearv" type="integer"/>
+            <element name="vead" type="tns:veadType" minOccurs="0" maxOccurs="1"/>
+          </all>
+        </complexType>
+      </element>
 
-	<message name="kutsetunnistus">
-		<part name="keha" type="tns:KutsetunnistusParing"/>
-	</message>
+      <complexType name="kutsestandardType">
+        <sequence>
+          <element name="id" type="integer">
+            <annotation>
+              <appinfo>
+                <xrd:title>ID</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="nimetus" type="string">
+            <annotation>
+              <appinfo>
+                <xrd:title>Nimetus</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="tyybid">
+            <annotation>
+              <appinfo>
+                <xrd:title>Tüübid</xrd:title>
+              </appinfo>
+            </annotation>
+            <complexType>
+              <sequence>
+                <element name="tyyp" minOccurs="1" maxOccurs="unbounded">
+                  <simpleType>
+                    <restriction base="integer">
+                      <enumeration value="1">
+                        <annotation>
+                          <appinfo>
+                            <xrd:title>Kutsestandard</xrd:title>
+                          </appinfo>
+                        </annotation>
+                      </enumeration>
+                      <enumeration value="2">
+                        <annotation>
+                          <appinfo>
+                            <xrd:title>Osakutse standard</xrd:title>
+                          </appinfo>
+                        </annotation>
+                      </enumeration>
+                      <enumeration value="3">
+                        <annotation>
+                          <appinfo>
+                            <xrd:title>Esmase kutse standard</xrd:title>
+                          </appinfo>
+                        </annotation>
+                      </enumeration>
+                    </restriction>
+                  </simpleType>
+                </element>
+              </sequence>
+            </complexType>
+          </element>
+          <element name="spetsialiseerumised" minOccurs="0" maxOccurs="1">
+            <annotation>
+              <appinfo>
+                <xrd:title>Spetsialiseerumised</xrd:title>
+              </appinfo>
+            </annotation>
+            <complexType>
+              <sequence>
+                <element name="spetsialiseerumine" type="tns:idNimetusType" minOccurs="1" maxOccurs="unbounded"/>
+              </sequence>
+            </complexType>
+          </element>
+          <element name="osakutsed" minOccurs="0" maxOccurs="1">
+            <annotation>
+              <appinfo>
+                <xrd:title>Osakutsed</xrd:title>
+              </appinfo>
+            </annotation>
+            <complexType>
+              <sequence>
+                <element name="osakutse" type="tns:idNimetusType" minOccurs="0" maxOccurs="unbounded"/>
+              </sequence>
+            </complexType>
+          </element>
+          <element name="kompetentsid" minOccurs="0" maxOccurs="unbounded">
+            <annotation>
+              <appinfo>
+                <xrd:title>Kompetentsid</xrd:title>
+                <xrd:notes>Kui standard on korraga mitut tüüpi, siis võib kompetentsid-elementi olla mitu</xrd:notes>
+              </appinfo>
+            </annotation>
+            <complexType>
+              <all>
+                <element name="tunnistusetyybid">
+                  <annotation>
+                    <appinfo>
+                      <xrd:notes>Tunnistuse tüübid, millele antud kompetentsid sobivad</xrd:notes>
+                    </appinfo>
+                  </annotation>
+                  <complexType>
+                    <sequence>
+                      <element name="tunnistusetyyp" type="tns:tunnistuseTyypType" minOccurs="1"
+                               maxOccurs="unbounded"/>
+                    </sequence>
+                  </complexType>
+                </element>
+                <element name="kompetentsinimekiri">
+                  <complexType>
+                    <sequence>
+                      <element name="kompetents" type="tns:idNimetusType" minOccurs="1" maxOccurs="unbounded"/>
+                    </sequence>
+                  </complexType>
+                </element>
+              </all>
+            </complexType>
+          </element>
+          <element name="pohikutse" type="boolean">
+            <annotation>
+              <appinfo>
+                <xrd:title>Võib omistada põhikutset</xrd:title>
+                <xrd:notes>TRUE - spetsialiseerumine pole nõutud; FALSE - spetsialiseerumine peab olema määratud (ei
+                  kehti osakutsetunnistuse puhul)
+                </xrd:notes>
+              </appinfo>
+            </annotation>
+          </element>
+        </sequence>
+      </complexType>
 
-	<message name="kutsetunnistusResponse">
-		<part name="paring" type="tns:KutsetunnistusParing"/>
-		<part name="keha" type="tns:KutsetunnistusVastus"/>
-	</message>
+      <complexType name="idNimetusType">
+        <all>
+          <element name="id" type="integer">
+            <annotation>
+              <appinfo>
+                <xrd:title>ID</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="nimetus" type="string">
+            <annotation>
+              <appinfo>
+                <xrd:title>Nimetus</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+        </all>
+      </complexType>
 
-	<message name="kodanikKutsetunnistus">
-		<part name="keha" type="tns:KodanikKutsetunnistusParing"/>
-	</message>
+      <complexType name="kutsekomisjonType">
+        <all>
+          <element name="nimetus" type="string">
+            <annotation>
+              <appinfo>
+                <xrd:title>Nimetus</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="liikmed">
+            <annotation>
+              <appinfo>
+                <xrd:title>Kutsekomisjoni liikmed</xrd:title>
+              </appinfo>
+            </annotation>
+            <complexType>
+              <sequence>
+                <element name="liige" minOccurs="1" maxOccurs="unbounded">
+                  <complexType>
+                    <all>
+                      <element name="id" type="integer">
+                        <annotation>
+                          <appinfo>
+                            <xrd:title>ID</xrd:title>
+                          </appinfo>
+                        </annotation>
+                      </element>
+                      <element name="nimi" type="string">
+                        <annotation>
+                          <appinfo>
+                            <xrd:title>Nimi</xrd:title>
+                          </appinfo>
+                        </annotation>
+                      </element>
+                      <element name="roll">
+                        <simpleType>
+                          <restriction base="integer">
+                            <enumeration value="1">
+                              <annotation>
+                                <appinfo>
+                                  <xrd:title>Kutsekomisjoni esimees</xrd:title>
+                                </appinfo>
+                              </annotation>
+                            </enumeration>
+                            <enumeration value="2">
+                              <annotation>
+                                <appinfo>
+                                  <xrd:title>Kutsekomisjoni aseesimees</xrd:title>
+                                </appinfo>
+                              </annotation>
+                            </enumeration>
+                            <enumeration value="3">
+                              <annotation>
+                                <appinfo>
+                                  <xrd:title>Kutsekomisjoni liige</xrd:title>
+                                </appinfo>
+                              </annotation>
+                            </enumeration>
+                          </restriction>
+                        </simpleType>
+                      </element>
+                    </all>
+                  </complexType>
+                </element>
+              </sequence>
+            </complexType>
+          </element>
+        </all>
+      </complexType>
 
-	<message name="kodanikKutsetunnistusResponse">
-		<part name="paring" type="tns:KodanikKutsetunnistusParing"/>
-		<part name="keha" type="tns:KutsetunnistusVastus"/>
-	</message>
+      <complexType name="veadType">
+        <sequence>
+          <element name="viga" minOccurs="1" maxOccurs="unbounded">
+            <complexType>
+              <all>
+                <element name="element" type="string" minOccurs="0">
+                  <annotation>
+                    <appinfo>
+                      <xrd:notes>Vea tekitanud element</xrd:notes>
+                    </appinfo>
+                  </annotation>
+                </element>
+                <element name="id" type="string" minOccurs="0">
+                  <annotation>
+                    <appinfo>
+                      <xrd:notes>Vea tekitanud elemendi ID</xrd:notes>
+                    </appinfo>
+                  </annotation>
+                </element>
+                <element name="teade" type="string">
+                  <annotation>
+                    <appinfo>
+                      <xrd:notes>Veateade</xrd:notes>
+                    </appinfo>
+                  </annotation>
+                </element>
+              </all>
+            </complexType>
+          </element>
+        </sequence>
+      </complexType>
 
-	<message name="kutsetunnistusteMuudatused">
-		<part name="keha" type="tns:kutsetunnistusteMuudatusedParing"/>
-	</message>
+      <element name="kutsetunnistuseLisamineParing">
+        <complexType>
+          <annotation>
+            <documentation>Kutsetunnistuse taotluse lisamine</documentation>
+          </annotation>
+          <all>
+            <element name="asutus" type="string" minOccurs="0">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Asutus</xrd:title>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="nimi" type="string">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Isiku nimi</xrd:title>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="isikukood" type="string">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Isikukood</xrd:title>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="tyyp" type="tns:tunnistuseTyypType">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Tunnistuse tüüp</xrd:title>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="kutsestandard" type="integer">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Kutsestandardi ID</xrd:title>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="spetsialiseerumine" type="integer" minOccurs="0">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Spetsialiseerumise ID</xrd:title>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="osakutse" type="integer" minOccurs="0">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Osakutse ID</xrd:title>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="kompetentsid" minOccurs="0">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Kompetentsid</xrd:title>
+                </appinfo>
+              </annotation>
+              <complexType>
+                <sequence>
+                  <element name="kompetents" type="integer" minOccurs="1" maxOccurs="unbounded">
+                    <annotation>
+                      <appinfo>
+                        <xrd:title>Kompetentsi ID</xrd:title>
+                      </appinfo>
+                    </annotation>
+                  </element>
+                </sequence>
+              </complexType>
+            </element>
+            <element name="lisavali" type="string" minOccurs="0">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Vabatekstiline lisaväli</xrd:title>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="hariduslikkval" type="string" minOccurs="0">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Hariduslik kvalifikatsioon</xrd:title>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="kutseeksamikeel" type="integer" minOccurs="0">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Kutseeksami keele ID</xrd:title>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="valjastamisekpv" type="date">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Väljastamise kuupäev</xrd:title>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="kehtivusealgus" type="date">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Kehtivuse algus</xrd:title>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="kehtivuselopp" type="date" minOccurs="0">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Kehtivuse lõpp</xrd:title>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="allkirjastaja" type="integer">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Allkirjastaja ID</xrd:title>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="nimipeidetud" type="boolean" minOccurs="0" default="false">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Nimi peidetud</xrd:title>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="synniaegpeidetud" type="boolean" minOccurs="0" default="false">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Sünniaeg peidetud</xrd:title>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="tunnistuspeidetud" type="boolean" minOccurs="0" default="false">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Tunnistus peidetud</xrd:title>
+                </appinfo>
+              </annotation>
+            </element>
+          </all>
+        </complexType>
+      </element>
 
-	<message name="kutsetunnistusteMuudatusedResponse">
-		<part name="paring" type="tns:kutsetunnistusteMuudatusedParing"/>
-		<part name="keha" type="tns:KutsetunnistusVastus"/>
-	</message>
+      <element name="kutsetunnistuseLisamineVastus">
+        <complexType>
+          <annotation>
+            <documentation>Kutsetunnistuse taotluse lisamise vastus</documentation>
+          </annotation>
+          <all>
+            <element name="vigadearv" type="integer"/>
+            <element name="vead" type="tns:veadType" minOccurs="0"/>
+          </all>
+        </complexType>
+      </element>
 
-	<!--listMethodi küsimine-->
-	<message name="listMethodsRequest">
-	</message>
+      <element name="kutsetunnistuseDuplikaatParing">
+        <complexType>
+          <annotation>
+            <documentation>Kutsetunnistuse duplikaadi taotlemine</documentation>
+          </annotation>
+          <all>
+            <element name="asutus" type="string" minOccurs="0">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Asutus</xrd:title>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="registrinumber" type="string">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Kutsetunnistuse registrinumber</xrd:title>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="tyyp" type="tns:tunnistuseTyypType">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Tunnistuse tüüp</xrd:title>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="pohjus">
+              <simpleType>
+                <restriction base="integer">
+                  <enumeration value="1">
+                    <annotation>
+                      <appinfo>
+                        <xrd:title>ISIK: originaal kadunud</xrd:title>
+                      </appinfo>
+                    </annotation>
+                  </enumeration>
+                  <enumeration value="2">
+                    <annotation>
+                      <appinfo>
+                        <xrd:title>ISIK: originaal kõlbmatu</xrd:title>
+                      </appinfo>
+                    </annotation>
+                  </enumeration>
+                  <enumeration value="3">
+                    <annotation>
+                      <appinfo>
+                        <xrd:title>KAO: viga andmetes</xrd:title>
+                      </appinfo>
+                    </annotation>
+                  </enumeration>
+                </restriction>
+              </simpleType>
+            </element>
+            <element name="kommentaar" type="string" minOccurs="0">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Kommentaar</xrd:title>
+                </appinfo>
+              </annotation>
+            </element>
+          </all>
+        </complexType>
+      </element>
 
-	<!--listMethodi vastus-->
-	<message name="listMethodsResponse">
-		<part name="keha" type="tns:listMethods_vastus" />
-	</message>
+      <element name="kutsetunnistuseDuplikaatVastus">
+        <complexType>
+          <annotation>
+            <documentation>Kutsetunnistuse duplikaadi taotlemise vastus</documentation>
+          </annotation>
+          <all>
+            <element name="vigadearv" type="integer"/>
+            <element name="vead" type="tns:veadType" minOccurs="0"/>
+          </all>
+        </complexType>
+      </element>
 
-	<message name="pais">
-		<part name="asutus" element="xtee:asutus"/>
-		<part name="andmekogu" element="xtee:andmekogu"/>
-		<part name="ametnik" element="xtee:ametnik"/>
-		<part name="isikukood" element="xtee:isikukood"/>
-		<part name="id" element="xtee:id"/>
-		<part name="nimi" element="xtee:nimi"/>
-		<part name="toimik" element="xtee:toimik"/>
-	</message>
+      <element name="kutseAndjaTunnistusedParing">
+        <complexType>
+          <annotation>
+            <documentation>Kutse andja poolt väljastatud tunnistuste päring</documentation>
+          </annotation>
+          <all>
+            <element name="asutus" type="string" minOccurs="0">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Asutus</xrd:title>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="valjastatudalgus" type="date">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Kutsetunnistuste väljastamiskuupäeva vahemiku algus</xrd:title>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="valjastatudlopp" type="date">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Kutsetunnistuste väljastamiskuupäeva vahemiku lõpp</xrd:title>
+                </appinfo>
+              </annotation>
+            </element>
+          </all>
+        </complexType>
+      </element>
 
-	<portType name="xteeport">
-		<operation name="kutsetunnistus">
-			<documentation>
-				<xtee:title>Kutsetunnistuste otsing</xtee:title>
-			</documentation>
-			<input message="tns:kutsetunnistus"/>
-			<output message="tns:kutsetunnistusResponse"/>
-		</operation>
-		<operation name="kodanikKutsetunnistus">
-			<documentation>
-				<xtee:title>Minu kutsetunnistused</xtee:title>
-			</documentation>
-			<input message="tns:kodanikKutsetunnistus"/>
-			<output message="tns:kodanikKutsetunnistusResponse"/>
-		</operation>
-		<operation name="kutsetunnistusteMuudatused">
-			<documentation>
-				<xtee:title>Kutsetunnistuste muudatused</xtee:title>
-			</documentation>
-			<input message="tns:kutsetunnistusteMuudatused"/>
-			<output message="tns:kutsetunnistusteMuudatusedResponse"/>
-		</operation>
-		<operation name="listMethods">
-			<documentation>
-				<xtee:title>listMethods</xtee:title>
-			</documentation>
-			<input message="tns:listMethodsRequest" />
-			<output message="tns:listMethodsResponse" />
-		</operation>
-	</portType>
+      <element name="kutseAndjaTunnistusedVastus">
+        <complexType>
+          <annotation>
+            <documentation>Kutse andja poolt väljastatud tunnistused</documentation>
+          </annotation>
+          <all>
+            <element name="kutsetunnistused" minOccurs="0">
+              <complexType>
+                <sequence>
+                  <element name="kutsetunnistus" type="tns:kutsetunnistusV2Type" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+              </complexType>
+            </element>
+            <element name="kirjeid" type="integer" minOccurs="0">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Kirjete arv</xrd:title>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="vigadearv" type="integer"/>
+            <element name="vead" type="tns:veadType" minOccurs="0"/>
+          </all>
+        </complexType>
+      </element>
 
-	<binding name="xteebinding" type="tns:xteeport">
-		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
-		<operation name="kutsetunnistus">
-			<xtee:version>v2</xtee:version>
-			<soap:operation soapAction="urn:#kutsetunnistus"/>
-			<input>
-				<soap:body use="literal"/>
-				<soap:header message="tns:pais" part="asutus" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:pais" part="andmekogu" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:pais" part="ametnik" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:pais" part="isikukood" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:pais" part="id" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:pais" part="nimi" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:pais" part="toimik" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-			</input>
-			<output>
-				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.kutseregister.xtee.riik.ee/producer/kutseregister"/>
-				<soap:header message="tns:pais" part="asutus" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:pais" part="andmekogu" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:pais" part="ametnik" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:pais" part="isikukood" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:pais" part="id" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:pais" part="nimi" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:pais" part="toimik" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-			</output>
-		</operation>
-		<operation name="kodanikKutsetunnistus">
-			<xtee:version>v2</xtee:version>
-			<soap:operation soapAction="urn:#kodanikKutsetunnistus"/>
-			<input>
-				<soap:body use="literal"/>
-				<soap:header message="tns:pais" part="asutus" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:pais" part="andmekogu" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:pais" part="ametnik" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:pais" part="isikukood" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:pais" part="id" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:pais" part="nimi" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:pais" part="toimik" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-			</input>
-			<output>
-				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.kutseregister.xtee.riik.ee/producer/kutseregister"/>
-				<soap:header message="tns:pais" part="asutus" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:pais" part="andmekogu" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:pais" part="ametnik" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:pais" part="isikukood" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:pais" part="id" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:pais" part="nimi" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:pais" part="toimik" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-			</output>
-		</operation>
-		<operation name="kutsetunnistusteMuudatused">
-			<xtee:version>v1</xtee:version>
-			<soap:operation soapAction="urn:#kutsetunnistusteMuudatused"/>
-			<input>
-				<soap:body use="literal"/>
-				<soap:header message="tns:pais" part="asutus" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:pais" part="andmekogu" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:pais" part="ametnik" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:pais" part="isikukood" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:pais" part="id" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:pais" part="nimi" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:pais" part="toimik" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-			</input>
-			<output>
-				<soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.kutseregister.xtee.riik.ee/producer/kutseregister"/>
-				<soap:header message="tns:pais" part="asutus" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:pais" part="andmekogu" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:pais" part="ametnik" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:pais" part="isikukood" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:pais" part="id" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:pais" part="nimi" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-				<soap:header message="tns:pais" part="toimik" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"/>
-			</output>
-		</operation>
-		<operation name="listMethods">
-			<xtee:version>v1</xtee:version>
-			<soap:operation soapAction="" />
-			<input>
-				<soap:body use="literal" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"  />
-			</input>
-			<output>
-				<soap:body use="literal" parts="keha" namespace="http://x-tee.riik.ee/xsd/xtee.xsd"  />
-			</output>
-		</operation>
-	</binding>
+      <element name="muutunudKutsestandardidParing">
+        <complexType>
+          <annotation>
+            <documentation>Muutunud kutsestandardite päring</documentation>
+          </annotation>
+          <all>
+            <element name="alates" type="dateTime">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Alates</xrd:title>
+                </appinfo>
+              </annotation>
+            </element>
+          </all>
+        </complexType>
+      </element>
 
-	<service name="kutseregister">
-		<port name="xteeport" binding="tns:xteebinding">
-			<soap:address location="http://xtee.kutsekoda.ee/kutseregister"/>
-			<xtee:address producer="kutseregister"/>
-			<xtee:title>Kutseregister</xtee:title>
-		</port>
-	</service>
+      <element name="muutunudKutsestandardidVastus">
+        <complexType>
+          <annotation>
+            <documentation>Muutunud kutsestandardite vastus</documentation>
+          </annotation>
+          <all>
+            <element name="kutsestandardid" minOccurs="0">
+              <complexType>
+                <sequence>
+                  <element name="kutsestandard" type="tns:muutunudKutsestandardType" minOccurs="0"
+                           maxOccurs="unbounded"/>
+                </sequence>
+              </complexType>
+            </element>
+            <element name="viga" type="string" minOccurs="0"/>
+          </all>
+        </complexType>
+      </element>
 
-</definitions>
+      <complexType name="muutunudKutsestandardType">
+        <sequence>
+          <element name="id" type="integer">
+            <annotation>
+              <appinfo>
+                <xrd:title>Rea ID</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="grupp" type="string">
+            <annotation>
+              <appinfo>
+                <xrd:title>Kutsestandardi grupp</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="versioon" type="integer">
+            <annotation>
+              <appinfo>
+                <xrd:title>Kutsestandardi versioon</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="nimetus" type="string">
+            <annotation>
+              <appinfo>
+                <xrd:title>Kutsestandardi nimetus</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="ekrtase" type="tns:taseType">
+            <annotation>
+              <appinfo>
+                <xrd:title>EKR tase</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="kehtivusealgus" type="date">
+            <annotation>
+              <appinfo>
+                <xrd:title>Kutsestandardi versiooni kehtivuse alguskuupäev</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="kehtivuselopp" type="date">
+            <annotation>
+              <appinfo>
+                <xrd:title>Kutsestandardi versiooni kehtivuse lõppkuupäev</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="valdkond" type="string">
+            <annotation>
+              <appinfo>
+                <xrd:title>Kutsestandardi valdkond</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="osakutsed" minOccurs="0" maxOccurs="1">
+            <annotation>
+              <appinfo>
+                <xrd:title>Osakutsed</xrd:title>
+              </appinfo>
+            </annotation>
+            <complexType>
+              <sequence>
+                <element name="osakutse" type="tns:idNimetusType" minOccurs="1" maxOccurs="unbounded"/>
+              </sequence>
+            </complexType>
+          </element>
+          <element name="spetsialiseerumised" minOccurs="0" maxOccurs="1">
+            <annotation>
+              <appinfo>
+                <xrd:title>Spetsialiseerumised</xrd:title>
+              </appinfo>
+            </annotation>
+            <complexType>
+              <sequence>
+                <element name="spetsialiseerumine" type="tns:idNimetusType" minOccurs="1" maxOccurs="unbounded"/>
+              </sequence>
+            </complexType>
+          </element>
+        </sequence>
+      </complexType>
+    </schema>
+  </wsdl:types>
+
+  <wsdl:message name="kutsetunnistus">
+    <wsdl:part name="body" element="tns:kutsetunnistus"/>
+  </wsdl:message>
+
+  <wsdl:message name="kutsetunnistusResponse">
+    <wsdl:part name="body" element="tns:kutsetunnistusVastus"/>
+  </wsdl:message>
+
+  <wsdl:message name="kodanikKutsetunnistus">
+    <wsdl:part name="body" element="tns:kodanikKutsetunnistusParing"/>
+  </wsdl:message>
+
+  <wsdl:message name="kodanikKutsetunnistusResponse">
+    <wsdl:part name="body" element="tns:kodanikKutsetunnistusVastus"/>
+  </wsdl:message>
+
+  <wsdl:message name="kutsetunnistusteMuudatused">
+    <wsdl:part name="body" element="tns:kutsetunnistusteMuudatusedParing"/>
+  </wsdl:message>
+
+  <wsdl:message name="kutsetunnistusteMuudatusedResponse">
+    <wsdl:part name="body" element="tns:kutsetunnistusVastus"/>
+  </wsdl:message>
+
+  <wsdl:message name="kutseAndjaInfo">
+    <wsdl:part name="body" element="tns:kutseAndjaInfoParing"/>
+  </wsdl:message>
+
+  <wsdl:message name="kutseAndjaInfoResponse">
+    <wsdl:part name="body" element="tns:kutseAndjaInfoVastus"/>
+  </wsdl:message>
+
+  <wsdl:message name="kutsetunnistuseLisamine">
+    <wsdl:part name="body" element="tns:kutsetunnistuseLisamineParing"/>
+  </wsdl:message>
+
+  <wsdl:message name="kutsetunnistuseLisamineResponse">
+    <wsdl:part name="body" element="tns:kutsetunnistuseLisamineVastus"/>
+  </wsdl:message>
+
+  <wsdl:message name="kutsetunnistuseDuplikaat">
+    <wsdl:part name="body" element="tns:kutsetunnistuseDuplikaatParing"/>
+  </wsdl:message>
+
+  <wsdl:message name="kutsetunnistuseDuplikaatResponse">
+    <wsdl:part name="body" element="tns:kutsetunnistuseDuplikaatVastus"/>
+  </wsdl:message>
+
+  <wsdl:message name="kutseAndjaTunnistused">
+    <wsdl:part name="body" element="tns:kutseAndjaTunnistusedParing"/>
+  </wsdl:message>
+
+  <wsdl:message name="kutseAndjaTunnistusedResponse">
+    <wsdl:part name="body" element="tns:kutseAndjaTunnistusedVastus"/>
+  </wsdl:message>
+
+  <wsdl:message name="muutunudKutsestandardid">
+    <wsdl:part name="body" element="tns:muutunudKutsestandardidParing"/>
+  </wsdl:message>
+
+  <wsdl:message name="muutunudKutsestandardidResponse">
+    <wsdl:part name="body" element="tns:muutunudKutsestandardidVastus"/>
+  </wsdl:message>
+
+  <wsdl:message name="pais">
+    <wsdl:part name="asutus" element="xrd:asutus"/>
+    <wsdl:part name="andmekogu" element="xrd:andmekogu"/>
+    <wsdl:part name="ametnik" element="xrd:ametnik"/>
+    <wsdl:part name="isikukood" element="xrd:isikukood"/>
+    <wsdl:part name="id" element="xrd:id"/>
+    <wsdl:part name="nimi" element="xrd:nimi"/>
+    <wsdl:part name="toimik" element="xrd:toimik"/>
+  </wsdl:message>
+
+  <wsdl:message name="requestHeader">
+    <wsdl:part name="client" element="xrd:client"/>
+    <wsdl:part name="service" element="xrd:service"/>
+    <wsdl:part name="id" element="xrd:id"/>
+    <wsdl:part name="userId" element="xrd:userId"/>
+    <wsdl:part name="requestHash" element="xrd:requestHash"/>
+    <wsdl:part name="issue" element="xrd:issue"/>
+    <wsdl:part name="protocolVersion" element="xrd:protocolVersion"/>
+  </wsdl:message>
+
+
+  <wsdl:portType name="xteeport">
+    <wsdl:operation name="kutsetunnistus">
+      <wsdl:documentation>
+        <xrd:title>Kutsetunnistuste otsing</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:kutsetunnistus"/>
+      <wsdl:output message="tns:kutsetunnistusResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="kodanikKutsetunnistus">
+      <wsdl:documentation>
+        <xrd:title>Minu kutsetunnistused</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:kodanikKutsetunnistus"/>
+      <wsdl:output message="tns:kodanikKutsetunnistusResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="kutsetunnistusteMuudatused">
+      <wsdl:documentation>
+        <xrd:title>Kutsetunnistuste muudatused</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:kutsetunnistusteMuudatused"/>
+      <wsdl:output message="tns:kutsetunnistusteMuudatusedResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="kutseAndjaInfo">
+      <wsdl:documentation>
+        <xrd:title>Kutse andja info</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:kutseAndjaInfo"/>
+      <wsdl:output message="tns:kutseAndjaInfoResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="kutsetunnistuseLisamine">
+      <wsdl:documentation>
+        <xrd:title>Kutsetunnistuse taotluse esitamine</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:kutsetunnistuseLisamine"/>
+      <wsdl:output message="tns:kutsetunnistuseLisamineResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="kutsetunnistuseDuplikaat">
+      <wsdl:documentation>
+        <xrd:title>Kutsetunnistuse duplikaadi taotlemine</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:kutsetunnistuseDuplikaat"/>
+      <wsdl:output message="tns:kutsetunnistuseDuplikaatResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="kutseAndjaTunnistused">
+      <wsdl:documentation>
+        <xrd:title>Kutse andja poolt väljastatud tunnistused</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:kutseAndjaTunnistused"/>
+      <wsdl:output message="tns:kutseAndjaTunnistusedResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="muutunudKutsestandardid">
+      <wsdl:documentation>
+        <xrd:title>Muutunud kutsestandardid</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:muutunudKutsestandardid"/>
+      <wsdl:output message="tns:muutunudKutsestandardidResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+
+  <wsdl:binding name="xteebinding" type="tns:xteeport">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="kutsetunnistus">
+      <xrd:version>v2</xrd:version>
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="kodanikKutsetunnistus">
+      <xrd:version>v2</xrd:version>
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="kutsetunnistusteMuudatused">
+      <xrd:version>v1</xrd:version>
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="kutseAndjaInfo">
+      <xrd:version>v1</xrd:version>
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="kutsetunnistuseLisamine">
+      <xrd:version>v1</xrd:version>
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="kutsetunnistuseDuplikaat">
+      <xrd:version>v1</xrd:version>
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="kutseAndjaTunnistused">
+      <xrd:version>v1</xrd:version>
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="muutunudKutsestandardid">
+      <xrd:version>v1</xrd:version>
+      <soap:operation soapAction=""/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+        <soap:header message="tns:requestHeader" part="client" use="literal"/>
+        <soap:header message="tns:requestHeader" part="service" use="literal"/>
+        <soap:header message="tns:requestHeader" part="id" use="literal"/>
+        <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+        <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+
+  <wsdl:service name="kutseregister">
+    <wsdl:port name="xteeport" binding="tns:xteebinding">
+      <soap:address location="http://SECURITY_SERVER"/>
+      <xrd:address producer="kutseregister"/>
+      <xrd:title>Kutseregister</xrd:title>
+    </wsdl:port>
+  </wsdl:service>
+
+</wsdl:definitions>
