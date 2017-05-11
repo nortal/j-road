@@ -212,7 +212,7 @@ public class AriregXTeeServiceImpl implements AriregXTeeService {
     });
   }
   
-  public List<DetailandmedV5Ettevotja> findDetailandmedV5(final long ariregistriKood,
+  public List<DetailandmedV5Ettevotja> findDetailandmedV5(final int ariregistriKood,
                                                           boolean yldandmed,
                                                           boolean isikuandmed,
                                                           boolean menetlusesAvaldused,
@@ -227,10 +227,39 @@ public class AriregXTeeServiceImpl implements AriregXTeeService {
                                                                             maarused,
                                                                             ainultKehtivad,
                                                                             maksValjundArv) {
-
       @Override
       protected void doPopulate(DetailandmedV5Query query) {
         query.setAriregistriKood(BigInteger.valueOf(ariregistriKood));
+      }
+    });
+  }
+
+  @Override
+  public List<DetailandmedV5Ettevotja> findDetailandmedV5(final Integer ariregistriKood,
+                                                          final String arinimi,
+                                                          boolean yldandmed,
+                                                          boolean isikuandmed,
+                                                          boolean menetlusesAvaldused,
+                                                          boolean kommertspandiandmed,
+                                                          boolean maarused,
+                                                          boolean ainultKehtivad,
+                                                          long maksValjundArv)
+      throws XTeeServiceConsumptionException {
+    return findDetailandmedV5(new DetailandmedV5ReturnedDataSettingCallback(yldandmed,
+                                                                            isikuandmed,
+                                                                            menetlusesAvaldused,
+                                                                            kommertspandiandmed,
+                                                                            maarused,
+                                                                            ainultKehtivad,
+                                                                            maksValjundArv) {
+      @Override
+      protected void doPopulate(DetailandmedV5Query query) {
+        if (ariregistriKood != null) {
+          query.setAriregistriKood(BigInteger.valueOf(ariregistriKood));
+        }
+        if (arinimi != null) {
+          query.setArinimi(arinimi);
+        }
       }
     });
   }

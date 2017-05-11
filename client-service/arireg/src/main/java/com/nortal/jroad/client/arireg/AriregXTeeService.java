@@ -219,7 +219,17 @@ public interface AriregXTeeService {
   /**
    * <code>arireg.detailandmed_v5.v1</code> service.
    */
-  List<DetailandmedV5Ettevotja> findDetailandmedV5(long ariregistriKood,
+  List<DetailandmedV5Ettevotja> findDetailandmedV5(int ariregistriKood,
+                                                   boolean yldandmed,
+                                                   boolean isikuandmed,
+                                                   boolean menetlusesAvaldused,
+                                                   boolean kommertspandiandmed,
+                                                   boolean maarused,
+                                                   boolean ainultKehtivad,
+                                                   long maksValjundArv) throws XTeeServiceConsumptionException;
+
+  List<DetailandmedV5Ettevotja> findDetailandmedV5(Integer ariregistriKood,
+                                                   String arinimi,
                                                    boolean yldandmed,
                                                    boolean isikuandmed,
                                                    boolean menetlusesAvaldused,
