@@ -1,0 +1,285 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:tns="http://emta-v6.x-road.eu" xmlns:xrd="http://x-road.eu/xsd/xroad.xsd"
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="mkrliides-uploader"
+                  targetNamespace="http://emta-v6.x-road.eu">
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://emta-v6.x-road.eu">
+            <import namespace="http://x-road.eu/xsd/xroad.xsd" schemaLocation="http://x-road.eu/xsd/xroad.xsd"/>
+            <element name="uploadMime">
+                <complexType>
+                    <sequence>
+                        <element name="request" type="tns:UploadMimeRequestType"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="uploadMimeResponse">
+                <complexType>
+                    <sequence>
+                        <element name="request" type="tns:UploadMimeRequestType"/>
+                        <element name="response" type="tns:UploadMimeResponseType"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <complexType name="UploadMimeRequestType">
+                <sequence>
+                    <element name="target" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Teenuse nimi</xrd:title>
+                                <xrd:notes xml:lang="et">Maksu- ja Tolliameti süsteemi lühinimi (TSD, KMD)</xrd:notes>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="operation" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Meetodi nimi</xrd:title>
+                                <xrd:notes xml:lang="et">Käivitatava meetodi nimi (KinnitaDeklaratsioon)</xrd:notes>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="file">
+                        <complexType>
+                            <simpleContent>
+                                <extension base="hexBinary">
+                                    <attribute name="href" type="string"/>
+                                </extension>
+                            </simpleContent>
+                        </complexType>
+                    </element>
+                    <element minOccurs="0" name="props" type="tns:Properties">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Manuse metaandmed</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+            <complexType name="Properties">
+                <sequence>
+                    <element maxOccurs="unbounded" name="prop">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Parameetri väärtus</xrd:title>
+                            </appinfo>
+                        </annotation>
+                        <complexType>
+                            <simpleContent>
+                                <extension base="string">
+                                    <attribute name="key" type="string" use="required">
+                                        <annotation>
+                                            <appinfo>
+                                                <xrd:title xml:lang="et">Parameetri nimi</xrd:title>
+                                            </appinfo>
+                                        </annotation>
+                                    </attribute>
+                                </extension>
+                            </simpleContent>
+                        </complexType>
+                    </element>
+                </sequence>
+            </complexType>
+            <complexType name="UploadMimeResponseType">
+                <sequence>
+                    <element name="messages" type="tns:CodeAndDescription">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Kaugsüsteemi vastus</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+            <complexType name="CodeAndDescription">
+                <sequence>
+                    <element maxOccurs="unbounded" name="item">
+                        <complexType>
+                            <sequence>
+                                <element name="code" type="string">
+                                    <annotation>
+                                        <appinfo>
+                                            <xrd:title xml:lang="et">Kood</xrd:title>
+                                        </appinfo>
+                                    </annotation>
+                                </element>
+                                <element name="description" type="string">
+                                    <annotation>
+                                        <appinfo>
+                                            <xrd:title xml:lang="et">Kirjeldus</xrd:title>
+                                        </appinfo>
+                                    </annotation>
+                                </element>
+                            </sequence>
+                        </complexType>
+                    </element>
+                </sequence>
+            </complexType>
+            <element name="downloadMime">
+                <complexType>
+                    <sequence>
+                        <element name="request" type="tns:DownloadMimeRequestType"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="downloadMimeResponse">
+                <complexType>
+                    <sequence>
+                        <element name="request" type="tns:DownloadMimeRequestType"/>
+                        <element name="response" type="tns:DownloadMimeResponseType"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <complexType name="DownloadMimeRequestType">
+                <sequence>
+                    <element name="target" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Teenuse nimi</xrd:title>
+                                <xrd:notes xml:lang="et">Maksu- ja Tolliameti süsteemi lühinimi (TSD, KMD)</xrd:notes>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="id" type="string" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Sõnumi ID</xrd:title>
+                                <xrd:techNotes xml:lang="et">
+                                    Sõnumite ID väärtused tagastab target = WAITING_LIST_IDS
+                                </xrd:techNotes>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+            <complexType name="DownloadMimeResponseType">
+                <sequence>
+                    <choice>
+                        <sequence>
+                            <element name="faultCode" type="string"/>
+                            <element name="faultString" type="string"/>
+                        </sequence>
+                        <sequence>
+                            <element minOccurs="0" name="file">
+                                <complexType>
+                                    <simpleContent>
+                                        <extension base="hexBinary">
+                                            <attribute name="href" type="string"/>
+                                        </extension>
+                                    </simpleContent>
+                                </complexType>
+                            </element>
+                            <element minOccurs="0" name="props" type="tns:Properties">
+                                <annotation>
+                                    <appinfo>
+                                        <xrd:title xml:lang="et">Manuse metaandmed</xrd:title>
+                                    </appinfo>
+                                </annotation>
+                            </element>
+                        </sequence>
+                    </choice>
+                </sequence>
+            </complexType>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="xrdHeader">
+        <wsdl:part element="xrd:client" name="client"/>
+        <wsdl:part element="xrd:service" name="service"/>
+        <wsdl:part element="xrd:id" name="id"/>
+        <wsdl:part element="xrd:userId" name="userId"/>
+        <wsdl:part element="xrd:issue" name="issue"/>
+        <wsdl:part element="xrd:protocolVersion" name="protocolVersion"/>
+    </wsdl:message>
+    <wsdl:message name="uploadMime">
+        <wsdl:part element="tns:uploadMime" name="parameters"/>
+        <wsdl:part name="attachment" type="xsd:base64Binary"/>
+    </wsdl:message>
+    <wsdl:message name="uploadMimeResponse">
+        <wsdl:part element="tns:uploadMimeResponse" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="downloadMime">
+        <wsdl:part element="tns:downloadMime" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="downloadMimeResponse">
+        <wsdl:part element="tns:downloadMimeResponse" name="parameters"/>
+        <wsdl:part name="attachment" type="xsd:base64Binary"/>
+    </wsdl:message>
+    <wsdl:portType name="webServiceInterface">
+        <wsdl:operation name="uploadMime">
+            <wsdl:documentation>
+                <xrd:title xml:lang="et">Failide edastamise teenus</xrd:title>
+            </wsdl:documentation>
+            <wsdl:input message="tns:uploadMime"/>
+            <wsdl:output message="tns:uploadMimeResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="downloadMime">
+            <wsdl:documentation>
+                <xrd:title xml:lang="et">Failide allalaadimise teenus</xrd:title>
+            </wsdl:documentation>
+            <wsdl:input message="tns:downloadMime"/>
+            <wsdl:output message="tns:downloadMimeResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="soapBindings" type="tns:webServiceInterface">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="uploadMime">
+            <soap:operation soapAction=""/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input>
+                <mime:multipartRelated xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/">
+                    <mime:part>
+                        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                        <soap:body parts="parameters" use="literal"/>
+                    </mime:part>
+                    <mime:part>
+                        <mime:content part="attachment" type="application/octet-stream"/>
+                    </mime:part>
+                </mime:multipartRelated>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="downloadMime">
+            <soap:operation soapAction=""/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input>
+                <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:multipartRelated xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/">
+                    <mime:part>
+                        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                        <soap:body parts="parameters" use="literal"/>
+                    </mime:part>
+                    <mime:part>
+                        <mime:content part="attachment" type="application/octet-stream"/>
+                    </mime:part>
+                </mime:multipartRelated>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="webService">
+        <wsdl:port binding="tns:soapBindings" name="port">
+            <soap:address location="http://SERVER_URL"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

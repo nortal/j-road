@@ -1,0 +1,360 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:tns="http://emta-v6.x-road.eu" xmlns:xrd="http://x-road.eu/xsd/xroad.xsd" name="mrr"
+                  targetNamespace="http://emta-v6.x-road.eu">
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://emta-v6.x-road.eu">
+            <import namespace="http://x-road.eu/xsd/xroad.xsd" schemaLocation="http://x-road.eu/xsd/xroad.xsd"/>
+            <element name="evkRiik">
+                <complexType>
+                    <sequence>
+                        <element name="keha" type="tns:EvkRiikRequestType"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="evkRiikResponse">
+                <complexType>
+                    <sequence>
+                        <element name="paring" type="tns:EvkRiikRequestType"/>
+                        <element name="keha" type="tns:EvkRiikResponseType"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <complexType name="EvkRiikRequestType">
+                <sequence>
+                    <element name="isikud">
+                        <complexType>
+                            <sequence>
+                                <element maxOccurs="100" name="item" type="tns:PersonalIdentityCodeAndDate"/>
+                            </sequence>
+                        </complexType>
+                    </element>
+                </sequence>
+            </complexType>
+            <complexType name="PersonalIdentityCodeAndDate">
+                <sequence>
+                    <element name="isikukood" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Isikukood</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="kuupaev" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Kuupäev (pp.kk.aaaa)</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+            <complexType name="EvkRiikResponseType">
+                <sequence>
+                    <element maxOccurs="100" minOccurs="0" name="item" type="tns:EvkPerson"/>
+                </sequence>
+            </complexType>
+            <complexType name="EvkPerson">
+                <sequence>
+                    <element name="isikukood" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Isikukood</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="kood" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Kood</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="aadress" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Aadress</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="regkp" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Tõendi kuupäev</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="viga" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Viga</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+            <element name="hkSotsmaksRiik">
+                <complexType>
+                    <sequence>
+                        <element name="keha" type="tns:HkSotsmaksRiikRequestType"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="hkSotsmaksRiikResponse">
+                <complexType>
+                    <sequence>
+                        <element name="paring" type="tns:HkSotsmaksRiikRequestType"/>
+                        <element name="keha" type="tns:HkSotsmaksRiikResponseType"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <complexType name="HkSotsmaksRiikRequestType">
+                <sequence>
+                    <element name="isikud">
+                        <complexType>
+                            <sequence>
+                                <element maxOccurs="100" name="item" type="tns:PersonalIdentityCodeAndDate"/>
+                            </sequence>
+                        </complexType>
+                    </element>
+                </sequence>
+            </complexType>
+            <complexType name="HkSotsmaksRiikResponseType">
+                <sequence>
+                    <element maxOccurs="100" minOccurs="0" name="item" type="tns:HkPerson"/>
+                </sequence>
+            </complexType>
+            <complexType name="HkPerson">
+                <sequence>
+                    <element name="isikukood" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Isikukood</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="kood" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Kood</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="viga" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Viga</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+            <element name="skaMitteresident">
+                <complexType>
+                    <sequence>
+                        <element name="request" type="tns:PersonalIdentityCode"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="skaMitteresidentResponse">
+                <complexType>
+                    <sequence>
+                        <element name="request" type="tns:PersonalIdentityCode"/>
+                        <element name="response" type="tns:NonResidency"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <complexType name="PersonalIdentityCode">
+                <sequence>
+                    <element name="registreerimiskood" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Mitteresidendi registreerimiskood</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+            <complexType name="NonResidency">
+                <sequence>
+                    <element name="registreerimiskood" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Mitteresidendi registreerimiskood</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="nimi" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Füüsilise või juriidilise isiku nimi</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="valisriigiKood" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Välisriigi registreerimiskood</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="residentsusriik" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Isiku residentsuse riik</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="registreeritud" type="date">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Eestis registreerimise kuupäev</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="mrKehtivuseAlgus" type="date">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Mitteresidentsuse kehtivuse algus</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="eestiAadress" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Aadress Eestis</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element minOccurs="0" name="valisriigiAadress" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Aadress välisriigis</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="evkRiik">
+        <wsdl:part element="tns:evkRiik" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="evkRiikResponse">
+        <wsdl:part element="tns:evkRiikResponse" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="xrdHeader">
+        <wsdl:part element="xrd:client" name="client"/>
+        <wsdl:part element="xrd:service" name="service"/>
+        <wsdl:part element="xrd:id" name="id"/>
+        <wsdl:part element="xrd:userId" name="userId"/>
+        <wsdl:part element="xrd:issue" name="issue"/>
+        <wsdl:part element="xrd:protocolVersion" name="protocolVersion"/>
+    </wsdl:message>
+    <wsdl:message name="hkSotsmaksRiik">
+        <wsdl:part element="tns:hkSotsmaksRiik" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="hkSotsmaksRiikResponse">
+        <wsdl:part element="tns:hkSotsmaksRiikResponse" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="skaMitteresident">
+        <wsdl:part element="tns:skaMitteresident" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="skaMitteresidentResponse">
+        <wsdl:part element="tns:skaMitteresidentResponse" name="parameters"/>
+    </wsdl:message>
+    <wsdl:portType name="webServiceInterface">
+        <wsdl:operation name="evkRiik">
+            <wsdl:documentation>
+                <xrd:title xml:lang="et">Isiku residentsuse staatus (EVK)</xrd:title>
+            </wsdl:documentation>
+            <wsdl:input message="tns:evkRiik"/>
+            <wsdl:output message="tns:evkRiikResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="hkSotsmaksRiik">
+            <wsdl:documentation>
+                <xrd:title xml:lang="et">Isiku residentsuse staatus (Haigekassa)</xrd:title>
+            </wsdl:documentation>
+            <wsdl:input message="tns:hkSotsmaksRiik"/>
+            <wsdl:output message="tns:hkSotsmaksRiikResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="skaMitteresident">
+            <wsdl:documentation>
+                <xrd:title xml:lang="et">Mitteresidendid (SKA)</xrd:title>
+            </wsdl:documentation>
+            <wsdl:input message="tns:skaMitteresident"/>
+            <wsdl:output message="tns:skaMitteresidentResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="soapBindings" type="tns:webServiceInterface">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="evkRiik">
+            <soap:operation soapAction=""/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input>
+                <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="issue" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="issue" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="hkSotsmaksRiik">
+            <soap:operation soapAction=""/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input>
+                <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="issue" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="issue" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="skaMitteresident">
+            <soap:operation soapAction=""/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input>
+                <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+                <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="webService">
+        <wsdl:port binding="tns:soapBindings" name="port">
+            <soap:address location="http://SERVER_URL"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

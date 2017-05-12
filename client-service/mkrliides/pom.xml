@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>xtee-client-mkrliides</artifactId>
     <name>EMTA mkrliides client services</name>
-    <version>4.1.5-SNAPSHOT</version>
+    <version>4.1.6-SNAPSHOT</version>
 
     <parent>
         <artifactId>xtee-client-service</artifactId>

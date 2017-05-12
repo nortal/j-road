@@ -1,0 +1,15 @@
+<!-- add this element to tor.wsdl for mass response DOWNLOAD -->
+<element name="TORIKMassResponse">
+    <complexType>
+        <sequence>
+            <element name="item" maxOccurs="unbounded">
+                <complexType>
+                    <sequence>
+                        <element name="request" type="tns:torikRequestType"/>
+                        <element name="response" type="tns:torikResponseType"/>
+                    </sequence>
+                </complexType>
+            </element>
+        </sequence>
+    </complexType>
+</element>
