@@ -22,6 +22,15 @@ public class ${databaseClass.implementationName} extends ${databaseClass.baseImp
 
     return response.getContent();
   }
+  
+  /**
+   * <code>${databaseClass.database}.${method.name}.v${version.version}</code> X-road service implementation.
+   */
+  public ${method.outputClass} ${version.name}(${method.inputClass} input, String userId) throws XRoadServiceConsumptionException {
+    XRoadMessage<${method.outputClass}> response = send(new XmlBeansXRoadMessage<${method.inputClass}>(input), "${method.name}", "v${version.version}", userId);
+
+    return response.getContent();
+  }
 </#list>
 </#list>
 
