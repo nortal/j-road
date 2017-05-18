@@ -1,25 +1,23 @@
 package com.nortal.jroad.client.ehis;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
-import javax.annotation.Resource;
-
 import com.nortal.jroad.client.ehis.types.ee.riik.xtee.ehis.producers.producer.ehis.TkAkadPuhkus;
 import com.nortal.jroad.client.ehis.types.ee.riik.xtee.ehis.producers.producer.ehis.TkOppimine;
 import com.nortal.jroad.client.ehis.types.ee.riik.xtee.ehis.producers.producer.ehis.TootukassaleKehtivadIsik;
 import com.nortal.jroad.client.ehis.types.ee.riik.xtee.ehis.producers.producer.ehis.TootukassaleKehtivadV2Isik;
+import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
+import javax.annotation.Resource;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author Margus Hanni
  */
-public class EhisXTeeServiceImplTest extends BaseXTeeServiceImplTest {
+public class EhisXRoadServiceImplTest extends BaseXTeeServiceImplTest {
 
   private static final String TEST_ISIKUKOOD = "38005039562";
   private static final Date TEST_ALGUSKP;
@@ -31,7 +29,7 @@ public class EhisXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   }
 
   @Resource
-  private EhisXTeeServiceImpl ehisXTeeServiceImpl;
+  private EhisXRoadServiceImpl ehisXRoadService;
 
   @Test
   public void findTootukassaleKehtivad() throws XTeeServiceConsumptionException {
@@ -40,27 +38,27 @@ public class EhisXTeeServiceImplTest extends BaseXTeeServiceImplTest {
      * TODO Kui EHIS hakkab kunagi tööle, siis tuleks koodi kommentaarid eemaldada. Praegu EHIS ei tagasta tulemusi
      */
 
-     List<TootukassaleKehtivadIsik> items = ehisXTeeServiceImpl.findTootukassaleKehtivad(
-     TEST_ALGUSKP, TEST_LOPPKP, TEST_ISIKUKOOD);
+    List<TootukassaleKehtivadIsik> items =
+        ehisXRoadService.findTootukassaleKehtivad(TEST_ALGUSKP, TEST_LOPPKP, TEST_ISIKUKOOD);
 
-     Assert.assertNotNull(items);
-     Assert.assertFalse(items.isEmpty());
+    Assert.assertNotNull(items);
+    Assert.assertFalse(items.isEmpty());
 
     TootukassaleKehtivadIsik isik = items.get(0);
-     List<TkOppimine> oppimine = isik.getOppimineList();
-     Assert.assertNotNull(oppimine);
+    List<TkOppimine> oppimine = isik.getOppimineList();
+    Assert.assertNotNull(oppimine);
 
-     List<TkAkadPuhkus> akadPuhkus = isik.getAkadPuhkusList();
-     Assert.assertNotNull(akadPuhkus);
+    List<TkAkadPuhkus> akadPuhkus = isik.getAkadPuhkusList();
+    Assert.assertNotNull(akadPuhkus);
 
   }
 
   @Test
   public void findTootukassaleKehtivadV2() throws Exception {
-    String[] isikud = {"48504270017", "37311186013"};
+    String[] isikud = { "48504270017", "37311186013" };
     Date start = buildDate(2005, Calendar.MARCH, 31);
     Date end = buildDate(2015, Calendar.DECEMBER, 31);
-    List<TootukassaleKehtivadV2Isik> kehtivad = ehisXTeeServiceImpl.findTootukassaleKehtivadV2(start, end, isikud);
+    List<TootukassaleKehtivadV2Isik> kehtivad = ehisXRoadService.findTootukassaleKehtivadV2(start, end, isikud);
     Assert.assertNotNull(kehtivad);
     Assert.assertNotNull(kehtivad.get(0).getOppimineList());
   }
