@@ -28,7 +28,7 @@ public class RrV6XTeeServiceImpl implements RrV6XTeeService {
     public com.nortal.jroad.client.rrv6.types.eu.x_road.rr.producer.RR441ResponseDocument.RR441Response findRr441(String isikukood, String userId) throws XRoadServiceConsumptionException {
 
         if (isikukood == null) {
-            throw new RuntimeException("Isikukood peab olema määratud!");
+            throw new IllegalArgumentException("Parameter 'isikukood' must not be null!");
         }
 
         RR441RequestType rr441RequestType = RR441RequestType.Factory.newInstance();
