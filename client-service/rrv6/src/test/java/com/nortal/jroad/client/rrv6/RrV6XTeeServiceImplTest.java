@@ -4,6 +4,7 @@ import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.rrv6.types.eu.x_road.rr.producer.Kodif1;
 import com.nortal.jroad.client.rrv6.types.eu.x_road.rr.producer.Kodif2;
 import com.nortal.jroad.client.rrv6.types.eu.x_road.rr.producer.RR441ResponseDocument;
+import com.nortal.jroad.client.rrv6.types.eu.x_road.rr.producer.RR442ResponseDocument;
 import com.nortal.jroad.client.rrv6.types.eu.x_road.rr.producer.RR50SurnudIsikuteLeidmineDocument;
 import com.nortal.jroad.client.rrv6.types.eu.x_road.rr.producer.RR50SurnudIsikuteLeidmineRequestType;
 import com.nortal.jroad.client.rrv6.types.eu.x_road.rr.producer.RR50SurnudIsikuteLeidmineResponseDocument;
@@ -33,6 +34,15 @@ public class RrV6XTeeServiceImplTest extends BaseXRoadServiceImplTest {
         RR441ResponseDocument.RR441Response response = rrXTeeService.findRr441("47101010033", "EE12345678");
 
         Assert.assertNull(response.getResponse().getFaultCode());
+    }
+
+    @Test
+    public void findRr442Test() throws XRoadServiceConsumptionException {
+
+        RR442ResponseDocument.RR442Response response = rrXTeeService.findRr442("37709200040", "JOOSEP", "ÖÖVIIUL","EE12345678");
+        
+        Assert.assertNull(response.getResponse().getFaultCode());
+        Assert.assertTrue(response.getResponse().getIsikuAadressid().sizeOfIsikuAadressArray() > 0);
     }
     
     @Test
@@ -121,8 +131,8 @@ public class RrV6XTeeServiceImplTest extends BaseXRoadServiceImplTest {
         kodif2Riik.setKood("EST");
         koostanudAsutus.setRiik(kodif2Riik);
         document.setKoostanudAsutus(koostanudAsutus);
-        document.setAmetnikuIsikukood("48305090291");
-        document.setAmetnikuNimed("Merike Üts");
+        document.setAmetnikuIsikukood("35802028876");
+        document.setAmetnikuNimed("JANIC LLIIMA");
         requestData.setDokument(document);
 
         RRExtDocumentDataRequest.Isikud isikud = RRExtDocumentDataRequest.Isikud.Factory.newInstance();
