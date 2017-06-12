@@ -2,6 +2,7 @@ package ${databaseClass.packageName};
 
 import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.service.${databaseClass.baseImplementationName};
+import com.nortal.jroad.client.service.consumer.XRoadConsumer;
 import com.nortal.jroad.model.XRoadMessage;
 import com.nortal.jroad.model.XmlBeansXRoadMessage;
 import org.springframework.stereotype.Service;
@@ -34,4 +35,7 @@ public class ${databaseClass.implementationName} extends ${databaseClass.baseImp
 </#list>
 </#list>
 
+  public void setXRoadConsumer(XRoadConsumer consumer) {
+    this.xRoadConsumer = consumer;
+  }
 }
