@@ -10,6 +10,7 @@ import com.nortal.jroad.typegen.xmlbeans.SimpleFiler;
 import com.nortal.jroad.typegen.xmlbeans.XteeSchemaCodePrinter;
 import com.nortal.jroad.util.SOAPUtil;
 import freemarker.template.TemplateException;
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.xmlbeans.XmlBeans;
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlObject;
@@ -47,6 +48,7 @@ public class TypeGen {
   private static final String WSDL_SUFFIX = ".wsdl";
   private static final String FILENAME__DATABASE_PROPERTIES = "database.properties";
   private static final String PROPERTY__DATABASE_NAME_OVERRIDE = "databaseNameOverride";
+  private static final String PROPERTY__CREATE_METADATA = "createMetadata";
   private static final String XSD_SUFFIX = ".xsd";
   private static final String OUTPUT_DIR = "sourcedir";
   static final String XSB_DIR = "xsbdir";
@@ -240,13 +242,17 @@ public class TypeGen {
 
       String databaseNameOverride = databaseProps.getProperty(PROPERTY__DATABASE_NAME_OVERRIDE);
       if (databaseNameOverride != null) {
-        logInfo(PROPERTY__DATABASE_NAME_OVERRIDE + " is set to '"
-                + databaseNameOverride + "', will use it as database identifier.");
+        logInfo(String.format("%s is set to '%s', will use it as database identifier.", PROPERTY__DATABASE_NAME_OVERRIDE, databaseNameOverride));
         dbDesc.setId(databaseNameOverride, true);
       }
 
-      createMetadata(xmlWsdl, metaServicesGen);
-      logInfo("Created metadata for database " + dbDesc.getId());
+      String createMetadata = databaseProps.getProperty(PROPERTY__CREATE_METADATA, "true");
+      if (BooleanUtils.toBoolean(createMetadata)) {
+        createMetadata(xmlWsdl, metaServicesGen);
+        logInfo("Created metadata for database " + dbDesc.getId());
+      } else {
+        logInfo(String.format("%s is set to '%s', skipped metadata creation", PROPERTY__CREATE_METADATA, createMetadata));
+      }
     }
   }
 
