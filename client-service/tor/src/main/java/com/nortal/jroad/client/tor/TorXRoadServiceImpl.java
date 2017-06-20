@@ -1,21 +1,15 @@
 package com.nortal.jroad.client.tor;
 
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.service.v3.XRoadDatabaseService;
 import com.nortal.jroad.client.tor.database.TorXRoadDatabase;
 import com.nortal.jroad.client.tor.types.eu.x_road.emta_v6.TORIKDocument;
 import com.nortal.jroad.client.tor.types.eu.x_road.emta_v6.TORIKResponseDocument;
 import com.nortal.jroad.client.tor.types.eu.x_road.emta_v6.TorikRequestType;
-import com.nortal.jroad.model.XTeeMessage;
-import com.nortal.jroad.model.XmlBeansXTeeMessage;
-
 import java.util.Calendar;
 import java.util.Date;
-
-import org.springframework.stereotype.Service;
-
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import org.springframework.stereotype.Service;
 
 /**
  * <code>TOR</code> database X-tee service implementation<br>
@@ -59,8 +53,12 @@ public class TorXRoadServiceImpl implements TorXRoadService {
     TorikRequestType request = input.addNewRequest();
 
     request.setParinguLiik(TorikRequestType.ParinguLiik.Enum.forString(paringuLiik));
-    request.setTootAlgus(getCalendar(tootAlgusKp));
-    request.setTootLopp(getCalendar(tootLoppKp));
+    if (tootAlgusKp != null) {
+      request.setTootAlgus(getCalendar(tootAlgusKp));
+    }
+    if (tootLoppKp != null) {
+      request.setTootLopp(getCalendar(tootLoppKp));
+    }
 
     if (TorikRequestType.ParinguLiik.Enum.forString(paringuLiik).equals(TorikRequestType.ParinguLiik.PM)) {
       request.setMuutAlg(getCalendar(muutAlgKp));
