@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions name="mydef" targetNamespace="http://digilugu.x-road.eu/producer/"
+<definitions name="mydef" targetNamespace="http://digilugu.x-road.ee/producer/"
              xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns="http://schemas.xmlsoap.org/wsdl/"
-             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://digilugu.x-road.eu/producer/"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://digilugu.x-road.ee/producer/"
              xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
              xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xrd="http://x-road.eu/xsd/xroad.xsd"
              xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/">
   <types>
-    <schema targetNamespace="http://digilugu.x-road.eu/producer/" xmlns="http://www.w3.org/2001/XMLSchema">
+    <schema targetNamespace="http://digilugu.x-road.ee/producer/" xmlns="http://www.w3.org/2001/XMLSchema">
       <import namespace="http://x-road.eu/xsd/xroad.xsd" schemaLocation="http://x-road.eu/xsd/xroad.xsd"/>
       <import namespace="http://schemas.xmlsoap.org/soap/encoding/"
               schemaLocation="http://schemas.xmlsoap.org/soap/encoding/"/>

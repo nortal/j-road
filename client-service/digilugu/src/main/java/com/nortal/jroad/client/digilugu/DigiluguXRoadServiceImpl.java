@@ -1,13 +1,13 @@
 package com.nortal.jroad.client.digilugu;
 
 import com.nortal.jroad.client.digilugu.database.DigiluguXRoadDatabase;
-import com.nortal.jroad.client.digilugu.types.eu.x_road.digilugu.producer.Hl7Document;
-import com.nortal.jroad.client.digilugu.types.eu.x_road.digilugu.producer.Hl7Paring;
-import com.nortal.jroad.client.digilugu.types.eu.x_road.digilugu.producer.Hl7ResponseDocument.Hl7Response;
-import com.nortal.jroad.client.digilugu.types.hl7BAoljorgV3.RCMRIN000030UV01Document;
-import com.nortal.jroad.client.digilugu.types.hl7EvFkkorgV3.RCMRIN000032UV01Document;
-import com.nortal.jroad.client.digilugu.types.hl7VMlkLorgV3.RCMRIN000029UV01Document;
+import com.nortal.jroad.client.digilugu.types.ee.x_road.digilugu.producer.Hl7Document;
+import com.nortal.jroad.client.digilugu.types.ee.x_road.digilugu.producer.Hl7Paring;
+import com.nortal.jroad.client.digilugu.types.ee.x_road.digilugu.producer.Hl7ResponseDocument.Hl7Response;
+import com.nortal.jroad.client.digilugu.types.hl7BCHVoorgV3.RCMRIN000030UV01Document;
+import com.nortal.jroad.client.digilugu.types.hl7VakqiorgV3.RCMRIN000029UV01Document;
 import com.nortal.jroad.client.digilugu.types.hl7_orgV3.RCMRIN000031UV01Document;
+import com.nortal.jroad.client.digilugu.types.hl7_orgV3.RCMRIN000032UV01Document;
 import com.nortal.jroad.client.exception.NonTechnicalFaultException;
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
 import org.apache.xmlbeans.XmlException;
