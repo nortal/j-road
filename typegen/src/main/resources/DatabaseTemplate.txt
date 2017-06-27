@@ -1,6 +1,7 @@
 package ${databaseClass.packageName};
 
 import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
+import com.nortal.jroad.client.service.consumer.XRoadConsumer;
 
 /**
  * <code>${databaseClass.database}</code> X-road database.
@@ -13,7 +14,14 @@ public interface ${databaseClass.interfaceName} {
    * <code>${databaseClass.database}.${method.name}<#if version.version??>.v${version.version}</#if></code> X-road service.
    */
   ${method.outputClass} ${version.name}(${method.inputClass} input) throws XRoadServiceConsumptionException;
+  
+  /**
+   * <code>${databaseClass.database}.${method.name}.v${version.version}</code> X-road service.
+   */
+  ${method.outputClass} ${version.name}(${method.inputClass} input, String UserId) throws XRoadServiceConsumptionException;  
+
 </#list>
 </#list>
 
+  void setXRoadConsumer(XRoadConsumer consumer);
 }

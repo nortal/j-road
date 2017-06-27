@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.nortal.jroad.client.emtav6.database.EmtaV6XRoadDatabase;
-import com.nortal.jroad.client.emtav6.types.eu.x_road.emta_v6.PreRegCheck;
+import com.nortal.jroad.client.emtav6.types.eu.x_road.emta_v6.PreRegCheckDocument.PreRegCheck;
 import com.nortal.jroad.client.emtav6.types.eu.x_road.emta_v6.PreRegCheckResponseItemType;
 import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.service.XRoadDatabaseService;

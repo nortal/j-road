@@ -39,6 +39,11 @@
     <module>krv6</module>
     <module>rrv6</module>
     <module>liiklusregisterv6</module>
+    <module>ljvis</module>
+    <module>jvis</module>
+    <module>digiluguv6</module>
+    <module>lkfv6</module>
+
 
 <!-- These modules do compile but needs review - consult with epria or example module -->
 <!--     <module>tor</module> -->
@@ -58,7 +63,7 @@
 <!--     <module>kirst</module> -->
 <!--     <module>koodikeskus</module> -->
 <!--     <module>liiklusregister</module> -->
-<!--     <module>ljvis</module> -->
+
 <!--     <module>lkf</module> -->
 <!--     <module>mteenus</module> -->
 <!--     <module>pkr</module> -->

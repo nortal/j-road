@@ -2,7 +2,8 @@
 <project>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>xtee-client-rrv6</artifactId>
-    <name>rrv6 client services</name>
+    <name>RR v6 client services</name>
+    <version>4.2.1</version>
 
     <parent>
         <groupId>com.nortal.jroad</groupId>
@@ -15,3 +16,4 @@
     </properties>
 
 </project>
+

@@ -38,7 +38,6 @@ import com.nortal.jroad.model.XRoadMessage;
 import com.nortal.jroad.model.XmlBeansXRoadMessage;
 import com.nortal.jroad.model.XmlBeansXRoadMetadata;
 import com.nortal.jroad.util.SOAPUtil;
-import com.sun.xml.messaging.saaj.soap.impl.TextImpl;
 
 /**
  * @author Dmitri Danilkin
@@ -59,7 +58,7 @@ public class StandardXRoadConsumerMessageExtractor implements WebServiceMessageE
       Element body = mes.getSOAPBody();
       NodeList kehaNodes = body.getChildNodes();
       kehaNode = body.getChildNodes().item(0);
-      if (kehaNode instanceof TextImpl) {
+      if (kehaNode.getTextContent().contains("\n")) {
         kehaNode = kehaNodes.item(1);
       }
       if (kehaNodes.getLength() > 1) {

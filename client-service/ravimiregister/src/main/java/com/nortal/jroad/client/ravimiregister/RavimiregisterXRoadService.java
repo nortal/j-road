@@ -1,15 +1,15 @@
 package com.nortal.jroad.client.ravimiregister;
 
 import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
-import com.nortal.jroad.client.ravimiregister.types.eu.x_road.koodikeskus.ATCKlassifikaator;
-import com.nortal.jroad.client.ravimiregister.types.eu.x_road.koodikeskus.Haigus;
-import com.nortal.jroad.client.ravimiregister.types.eu.x_road.koodikeskus.Hinnakokkulepe;
-import com.nortal.jroad.client.ravimiregister.types.eu.x_road.koodikeskus.Myygiluba;
-import com.nortal.jroad.client.ravimiregister.types.eu.x_road.koodikeskus.Pakend;
-import com.nortal.jroad.client.ravimiregister.types.eu.x_road.koodikeskus.Piirhind;
-import com.nortal.jroad.client.ravimiregister.types.eu.x_road.koodikeskus.Ravimvorm;
-import com.nortal.jroad.client.ravimiregister.types.eu.x_road.koodikeskus.Soodustus;
-import com.nortal.jroad.client.ravimiregister.types.eu.x_road.koodikeskus.Toimeaine;
+import com.nortal.jroad.client.ravimiregister.types.eu.x_road.ravimiregister.ATCKlassifikaator;
+import com.nortal.jroad.client.ravimiregister.types.eu.x_road.ravimiregister.Haigus;
+import com.nortal.jroad.client.ravimiregister.types.eu.x_road.ravimiregister.Hinnakokkulepe;
+import com.nortal.jroad.client.ravimiregister.types.eu.x_road.ravimiregister.Myygiluba;
+import com.nortal.jroad.client.ravimiregister.types.eu.x_road.ravimiregister.Pakend;
+import com.nortal.jroad.client.ravimiregister.types.eu.x_road.ravimiregister.Piirhind;
+import com.nortal.jroad.client.ravimiregister.types.eu.x_road.ravimiregister.Ravimvorm;
+import com.nortal.jroad.client.ravimiregister.types.eu.x_road.ravimiregister.Soodustus;
+import com.nortal.jroad.client.ravimiregister.types.eu.x_road.ravimiregister.Toimeaine;
 import java.util.Date;
 import java.util.List;
 
@@ -57,7 +57,7 @@ public interface RavimiregisterXRoadService {
   List<String> findPakendid(Date date) throws XRoadServiceConsumptionException;
 
   /**
-   * <code>ravimiregister.PakendidByIDArray.v2</code> service.
+   * <code>ravimiregister.PakendidByIDArray.v3</code> service.
    */
   List<Pakend> findPakendidDetailandmed(List<String> items) throws XRoadServiceConsumptionException;
 
