@@ -9,6 +9,7 @@ cache:
   directories:
   - $HOME/.m2
 install: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -q
+script:  mvn test -B -q
 after_success:
 - openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in $DEPLOY_DIR/pubring.gpg.enc -out $DEPLOY_DIR/pubring.gpg -d
 - openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in $DEPLOY_DIR/secring.gpg.enc -out $DEPLOY_DIR/secring.gpg -d
