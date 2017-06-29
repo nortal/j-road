@@ -11,12 +11,12 @@ public interface ${databaseClass.interfaceName} {
 <#list method.versions as version>
 
   /**
-   * <code>${databaseClass.database}.${method.name}.v${version.version}</code> X-road service.
+   * <code>${databaseClass.database}.${method.name}<#if version.version??>.v${version.version}</#if></code> X-road service.
    */
   ${method.outputClass} ${version.name}(${method.inputClass} input) throws XRoadServiceConsumptionException;
   
   /**
-   * <code>${databaseClass.database}.${method.name}.v${version.version}</code> X-road service.
+   * <code>${databaseClass.database}.${method.name}<#if version.version??>.v${version.version}</#if></code> X-road service.
    */
   ${method.outputClass} ${version.name}(${method.inputClass} input, String UserId) throws XRoadServiceConsumptionException;  
 

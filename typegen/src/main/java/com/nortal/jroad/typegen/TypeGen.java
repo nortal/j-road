@@ -362,12 +362,6 @@ public class TypeGen {
             break;
           }
         }
-
-        if (version == null) {
-          System.out.println("WARNING: Did not find version of operation \"" + opname + "\". Assuming version 1");
-          version = "v1";
-        }
-
         versionMap.put(opname, version);
       }
     }

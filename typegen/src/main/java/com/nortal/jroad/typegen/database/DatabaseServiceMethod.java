@@ -8,6 +8,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.namespace.QName;
+
+import org.apache.commons.lang.StringUtils;
 import org.apache.xmlbeans.SchemaType;
 import org.apache.xmlbeans.SchemaTypeSystem;
 import org.apache.xmlbeans.XmlBeans;
@@ -58,12 +60,18 @@ public class DatabaseServiceMethod {
     // According to specification only the last version of a service needs to be defined
     // in WSDL but the database adapter must also support all previous versions.
 
-    int lastVersion = Integer.valueOf(metadata.getVersion().substring(1));
+    if(!StringUtils.isBlank(metadata.getVersion())){
+        int lastVersion = Integer.valueOf(metadata.getVersion().substring(1));
 
-    versions = new ArrayList<DatabaseServiceMethodVersion>(lastVersion);
-    for (int i = 1; i <= lastVersion; i++) {
-      versions.add(new DatabaseServiceMethodVersion(metadata, i));
+        versions = new ArrayList<DatabaseServiceMethodVersion>(lastVersion);
+        for (int i = 1; i <= lastVersion; i++) {
+            versions.add(new DatabaseServiceMethodVersion(metadata, i));
+        }
+    }else{
+        versions = new ArrayList<DatabaseServiceMethodVersion>();
+        versions.add(new DatabaseServiceMethodVersion(metadata));
     }
+
   }
 
 

@@ -1,0 +1,2592 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://evkr.x-road.eu" xmlns:xrd="http://x-road.eu/xsd/xroad.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+				  xmlns:id="http://x-road.eu/xsd/identifiers" targetNamespace="http://evkr.x-road.eu">
+<wsdl:types>
+<schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xrd="http://x-road.eu/xsd/xroad.xsd" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://evkr.x-road.eu" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:id="http://x-road.eu/xsd/identifiers" xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://evkr.x-road.eu">
+  <import namespace="http://x-road.eu/xsd/xroad.xsd" schemaLocation="http://x-road.eu/xsd/xroad.xsd"/>
+  <element name="isiku_andmed_kt">
+    <complexType>
+      <sequence>
+        <element name="request" type="tns:isiku_andmete_paring"/>
+      </sequence>
+    </complexType>
+  </element>
+  <element name="isiku_andmed_ktResponse">
+    <complexType>
+      <sequence>
+        <element name="request" type="tns:isiku_andmete_paring"/>
+        <element name="response" type="tns:isiku_andmete_vastus"/>
+      </sequence>
+    </complexType>
+  </element>
+  <complexType name="isiku_andmete_paring">
+    <sequence>
+      <choice>
+        <element name="tapne">
+          <annotation>
+            <appinfo>
+              <xrd:title>Täpse vaste otsimine</xrd:title>
+            </appinfo>
+          </annotation>
+          <complexType>
+            <choice maxOccurs="3" minOccurs="1">
+              <sequence>
+                <element maxOccurs="1" minOccurs="1" name="kood">
+                  <annotation>
+                    <appinfo>
+                      <xrd:title>Omaniku isikukood/registrikood</xrd:title>
+                    </appinfo>
+                  </annotation>
+                  <simpleType>
+                    <restriction base="string">
+                      <maxLength value="20"/>
+                      <minLength value="1"/>
+                    </restriction>
+                  </simpleType>
+                </element>
+                <element maxOccurs="1" minOccurs="0" name="Eesti_resident" type="boolean">
+                  <annotation>
+                    <appinfo>
+                                                    
+                      <xrd:title>Märge omaniku Eesti residentsuse kohta</xrd:title>
+                                                
+                    </appinfo>
+                                            
+                  </annotation>
+                                        
+                </element>
+                                    
+              </sequence>
+                                    
+              <element maxOccurs="1" minOccurs="1" name="synniaeg" type="date">
+                                        
+                <annotation>
+                                            
+                  <appinfo>
+                                                
+                    <xrd:title>Omaniku sünniaeg</xrd:title>
+                                            
+                  </appinfo>
+                                        
+                </annotation>
+                                    
+              </element>
+                                    
+              <element maxOccurs="1" minOccurs="1" name="nimi" type="tns:komponentnimi">
+                                        
+                <annotation>
+                                            
+                  <appinfo>
+                                                
+                    <xrd:title>Omaniku nimi</xrd:title>
+                                            
+                  </appinfo>
+                                        
+                </annotation>
+                                    
+              </element>
+                                
+            </choice>
+                            
+          </complexType>
+                        
+        </element>
+                        
+        <element name="sobivaim_vaste">
+                            
+          <annotation>
+                                
+            <appinfo>
+                                    
+              <xrd:title>Sobivaima vaste otsimine</xrd:title>
+                                
+            </appinfo>
+                            
+          </annotation>
+                            
+          <complexType>
+                                
+            <all>
+                                    
+              <element maxOccurs="1" minOccurs="0" name="kood">
+                                        
+                <annotation>
+                                            
+                  <appinfo>
+                                                
+                    <xrd:title>Omaniku isikukood/registrikood</xrd:title>
+                                            
+                  </appinfo>
+                                        
+                </annotation>
+                                        
+                <simpleType>
+                                            
+                  <restriction base="string">
+                                                
+                    <maxLength value="20"/>
+                                                
+                    <minLength value="1"/>
+                                            
+                  </restriction>
+                                        
+                </simpleType>
+                                    
+              </element>
+                                    
+              <element maxOccurs="1" minOccurs="0" name="Eesti_resident" type="boolean">
+                                        
+                <annotation>
+                                            
+                  <appinfo>
+                                                
+                    <xrd:title>Märge omaniku Eesti residentsuse kohta</xrd:title>
+                                            
+                  </appinfo>
+                                        
+                </annotation>
+                                    
+              </element>
+                                    
+              <element maxOccurs="1" minOccurs="0" name="synniaeg" type="date">
+                                        
+                <annotation>
+                                            
+                  <appinfo>
+                                                
+                    <xrd:title>Omaniku sünniaeg</xrd:title>
+                                            
+                  </appinfo>
+                                        
+                </annotation>
+                                    
+              </element>
+                                    
+              <element maxOccurs="1" minOccurs="0" name="nimi" type="tns:komponentnimi">
+                                        
+                <annotation>
+                                            
+                  <appinfo>
+                                                
+                    <xrd:title>Omaniku nimi</xrd:title>
+                                            
+                  </appinfo>
+                                        
+                </annotation>
+                                    
+              </element>
+                                
+            </all>
+                            
+          </complexType>
+                        
+        </element>
+                    
+      </choice>
+                    
+      <element maxOccurs="1" minOccurs="0" name="alguskuupaev" type="date">
+                        
+        <annotation>
+                            
+          <appinfo>
+                                
+            <xrd:title>Väljavõtte perioodi alguskuupäev (tühi = varaseim võimalik aeg)</xrd:title>
+                            
+          </appinfo>
+                        
+        </annotation>
+                    
+      </element>
+                    
+      <sequence maxOccurs="1" minOccurs="0">
+                        
+        <element maxOccurs="1" minOccurs="1" name="loppkuupaev" type="date">
+                            
+          <annotation>
+                                
+            <appinfo>
+                                    
+              <xrd:title>Väljavõtte perioodi lõppkuupäev (tühi = päringu tegemise päev)</xrd:title>
+                                
+            </appinfo>
+                            
+          </annotation>
+                        
+        </element>
+                        
+        <element maxOccurs="1" minOccurs="0" name="loppkell" type="time">
+                            
+          <annotation>
+                                
+            <appinfo>
+                                    
+              <xrd:title>Soovi korral perioodi lõppkellaaeg, mille seisuga soovitakse andmeid saada</xrd:title>
+                                
+            </appinfo>
+                            
+          </annotation>
+                        
+        </element>
+                    
+      </sequence>
+                
+    </sequence>
+            
+  </complexType>
+            
+  <complexType name="komponentnimi">
+                
+    <choice>
+                    
+      <sequence>
+                        
+        <element maxOccurs="1" minOccurs="0" name="eesnimi" type="string">
+                            
+          <annotation>
+                                
+            <appinfo>
+                                    
+              <xrd:title>Füüsilise isiku eesnimi</xrd:title>
+                                
+            </appinfo>
+                            
+          </annotation>
+                        
+        </element>
+                        
+        <element maxOccurs="1" minOccurs="0" name="perekonnanimi" type="string">
+                            
+          <annotation>
+                                
+            <appinfo>
+                                    
+              <xrd:title>Füüsilise isiku perekonnanimi</xrd:title>
+                                
+            </appinfo>
+                            
+          </annotation>
+                        
+        </element>
+                    
+      </sequence>
+                    
+      <element maxOccurs="1" minOccurs="0" name="jur_nimi" type="string">
+                        
+        <annotation>
+                            
+          <appinfo>
+                                
+            <xrd:title>Juriidilise isiku juriidiline nimi</xrd:title>
+                            
+          </appinfo>
+                        
+        </annotation>
+                    
+      </element>
+                
+    </choice>
+            
+  </complexType>
+            
+  <complexType name="isiku_andmete_vastus">
+                
+    <choice>
+                    
+      <sequence>
+                        
+        <element maxOccurs="1" minOccurs="1" name="alguskuupaev" type="date">
+                            
+          <annotation>
+                                
+            <appinfo>
+                                    
+              <xrd:title>Andmete kuvamise perioodi algusaeg</xrd:title>
+                                
+            </appinfo>
+                            
+          </annotation>
+                        
+        </element>
+                        
+        <element maxOccurs="1" minOccurs="1" name="loppkuupaev" type="dateTime">
+                            
+          <annotation>
+                                
+            <appinfo>
+                                    
+              <xrd:title>Andmete kuvamise perioodi lõppaeg</xrd:title>
+                                
+            </appinfo>
+                            
+          </annotation>
+                        
+        </element>
+                        
+        <element maxOccurs="1" minOccurs="1" name="vaartpaberikontod">
+                            
+          <annotation>
+                                
+            <appinfo>
+                                    
+              <xrd:title>Omaniku väärtpaberikontod</xrd:title>
+                                
+            </appinfo>
+                            
+          </annotation>
+                            
+          <complexType>
+                                
+            <sequence>
+                                    
+              <element maxOccurs="unbounded" minOccurs="0" name="vaartpaberikonto">
+                                        
+                <complexType>
+                                            
+                  <sequence>
+                                                
+                    <element maxOccurs="1" minOccurs="1" name="omanik" type="tns:omanik_">
+                                                    
+                      <annotation>
+                                                        
+                        <appinfo>
+                                                            
+                          <xrd:title>Väärtpaberikonto omaniku andmed</xrd:title>
+                                                        
+                        </appinfo>
+                                                    
+                      </annotation>
+                                                
+                    </element>
+                                                
+                    <element maxOccurs="1" minOccurs="0" name="kontohaldur" type="string">
+                                                    
+                      <annotation>
+                                                        
+                        <appinfo>
+                                                            
+                          <xrd:title>Väärtpaberikonto kontohaldur</xrd:title>
+                                                        
+                        </appinfo>
+                                                    
+                      </annotation>
+                                                
+                    </element>
+                                                
+                    <element maxOccurs="1" minOccurs="1" name="kontonumber" type="string">
+                                                    
+                      <annotation>
+                                                        
+                        <appinfo>
+                                                            
+                          <xrd:title>Väärtpaberikonto kontonumber</xrd:title>
+                                                        
+                        </appinfo>
+                                                    
+                      </annotation>
+                                                
+                    </element>
+                                                
+                    <element maxOccurs="1" minOccurs="0" name="pangakonto" type="tns:pangakonto">
+                                                    
+                      <annotation>
+                                                        
+                        <appinfo>
+                                                            
+                          <xrd:title>Väärtpaberikontot teenindav peamine pangakonto</xrd:title>
+                                                        
+                        </appinfo>
+                                                    
+                      </annotation>
+                                                
+                    </element>
+                                                
+                    <element maxOccurs="1" minOccurs="1" name="vaartpaberid">
+                                                    
+                      <annotation>
+                                                        
+                        <appinfo>
+                                                            
+                          <xrd:title>Kontoga seotud väärtpaberid</xrd:title>
+                                                        
+                        </appinfo>
+                                                    
+                      </annotation>
+                                                    
+                      <complexType>
+                                                        
+                        <sequence>
+                                                            
+                          <element maxOccurs="unbounded" minOccurs="0" name="vaartpaber">
+                                                                
+                            <complexType>
+                                                                    
+                              <complexContent>
+                                                                        
+                                <extension base="tns:vaartpaber2">
+                                                                            
+                                  <sequence>
+                                                                                
+                                    <element maxOccurs="1" minOccurs="1" name="saldo" type="decimal">
+                                                                                    
+                                      <annotation>
+                                                                                        
+                                        <appinfo>
+                                                                                            
+                                          <xrd:title>Omaniku väärtpaberite saldo (kogus) perioodi lõpus</xrd:title>
+                                                                                        
+                                        </appinfo>
+                                                                                    
+                                      </annotation>
+                                                                                
+                                    </element>
+                                                                                
+                                    <element maxOccurs="1" minOccurs="0" name="osalus">
+                                                                                    
+                                      <annotation>
+                                                                                        
+                                        <appinfo>
+                                                                                            
+                                          <xrd:title>Omanikule kuuluv osalus väärtpaberite koguarvust (%)</xrd:title>
+                                                                                        
+                                        </appinfo>
+                                                                                    
+                                      </annotation>
+                                                                                    
+                                      <simpleType>
+                                                                                        
+                                        <restriction base="decimal">
+                                                                                            
+                                          <maxInclusive value="100"/>
+                                                                                            
+                                          <minInclusive value="0"/>
+                                                                                        
+                                        </restriction>
+                                                                                    
+                                      </simpleType>
+                                                                                
+                                    </element>
+                                                                                
+                                    <element maxOccurs="1" minOccurs="0" name="tehingud">
+                                                                                    
+                                      <annotation>
+                                                                                        
+                                        <appinfo>
+                                                                                            
+                                          <xrd:title>Väärtpaberiga perioodi jooksul toimunud tehingud</xrd:title>
+                                                                                        
+                                        </appinfo>
+                                                                                    
+                                      </annotation>
+                                                                                    
+                                      <complexType>
+                                                                                        
+                                        <sequence>
+                                                                                            
+                                          <element maxOccurs="unbounded" minOccurs="0" name="tehing">
+                                                                                                
+                                            <complexType>
+                                                                                                    
+                                              <sequence>
+                                                                                                        
+                                                <element maxOccurs="1" minOccurs="1" name="kuupaev" type="date">
+                                                                                                            
+                                                  <annotation>
+                                                                                                                
+                                                    <appinfo>
+                                                                                                                    
+                                                      <xrd:title>Tehingu toimumise kuupäev</xrd:title>
+                                                                                                                
+                                                    </appinfo>
+                                                                                                            
+                                                  </annotation>
+                                                                                                        
+                                                </element>
+                                                                                                        
+                                                <element maxOccurs="1" minOccurs="1" name="kogus" type="decimal">
+                                                                                                            
+                                                  <annotation>
+                                                                                                                
+                                                    <appinfo>
+                                                                                                                    
+                                                      <xrd:title>Tehingu suund ja väärtpaberite kogus</xrd:title>
+                                                                                                                
+                                                    </appinfo>
+                                                                                                            
+                                                  </annotation>
+                                                                                                        
+                                                </element>
+                                                                                                        
+                                                <element maxOccurs="1" minOccurs="0" name="kirjeldus" type="string">
+                                                                                                            
+                                                  <annotation>
+                                                                                                                
+                                                    <appinfo>
+                                                                                                                    
+                                                      <xrd:title>Tehingu sisu kirjeldus</xrd:title>
+                                                                                                                
+                                                    </appinfo>
+                                                                                                            
+                                                  </annotation>
+                                                                                                        
+                                                </element>
+                                                                                                    
+                                              </sequence>
+                                                                                                
+                                            </complexType>
+                                                                                            
+                                          </element>
+                                                                                        
+                                        </sequence>
+                                                                                    
+                                      </complexType>
+                                                                                
+                                    </element>
+                                                                                
+                                    <element maxOccurs="1" minOccurs="0" name="piirangud">
+                                                                                    
+                                      <annotation>
+                                                                                        
+                                        <appinfo>
+                                                                                            
+                                          <xrd:title>Omaniku väärtpaberitele perioodi lõpus kehtivad piirangud (pandid, finantstagatised, blokeeringud jms)</xrd:title>
+                                                                                        
+                                        </appinfo>
+                                                                                    
+                                      </annotation>
+                                                                                    
+                                      <complexType>
+                                                                                        
+                                        <sequence>
+                                                                                            
+                                          <element maxOccurs="unbounded" minOccurs="0" name="piirang" type="tns:laiendatud_piirang"/>
+                                                                                        
+                                        </sequence>
+                                                                                    
+                                      </complexType>
+                                                                                
+                                    </element>
+                                                                            
+                                  </sequence>
+                                                                        
+                                </extension>
+                                                                    
+                              </complexContent>
+                                                                
+                            </complexType>
+                                                            
+                          </element>
+                                                        
+                        </sequence>
+                                                    
+                      </complexType>
+                                                
+                    </element>
+                                                
+                    <element maxOccurs="1" minOccurs="0" name="piirangud">
+                                                    
+                      <annotation>
+                                                        
+                        <appinfo>
+                                                            
+                          <xrd:title>Väärtpaberikontole kehtivad piirangud</xrd:title>
+                                                        
+                        </appinfo>
+                                                    
+                      </annotation>
+                                                    
+                      <complexType>
+                                                        
+                        <sequence>
+                                                            
+                          <element maxOccurs="unbounded" minOccurs="0" name="piirang" type="tns:laiendatud_kontopiirang"/>
+                                                        
+                        </sequence>
+                                                    
+                      </complexType>
+                                                
+                    </element>
+                                            
+                  </sequence>
+                                            
+                  <attribute name="olek" type="string" use="optional">
+                                                
+                    <annotation>
+                                                    
+                      <appinfo>
+                                                        
+                        <xrd:title>Väärtpaberikonto olek (avatud/suletud)</xrd:title>
+                                                    
+                      </appinfo>
+                                                
+                    </annotation>
+                                            
+                  </attribute>
+                                        
+                </complexType>
+                                    
+              </element>
+                                
+            </sequence>
+                            
+          </complexType>
+                        
+        </element>
+                    
+      </sequence>
+                
+    </choice>
+            
+  </complexType>
+            
+  <complexType name="omanik_">
+                
+    <sequence>
+                    
+      <element maxOccurs="1" minOccurs="1" name="nimi" type="tns:isiku_nimi">
+                        
+        <annotation>
+                            
+          <appinfo>
+                                
+            <xrd:title>Omaniku nimi</xrd:title>
+                            
+          </appinfo>
+                        
+        </annotation>
+                    
+      </element>
+                    
+      <element maxOccurs="1" minOccurs="1" name="kood" type="string">
+                        
+        <annotation>
+                            
+          <appinfo>
+                                
+            <xrd:title>Omaniku isikukood/registrikood</xrd:title>
+                            
+          </appinfo>
+                        
+        </annotation>
+                    
+      </element>
+                    
+      <element maxOccurs="1" minOccurs="0" name="residentsus" type="string">
+                        
+        <annotation>
+                            
+          <appinfo>
+                                
+            <xrd:title>Omaniku residentsus</xrd:title>
+                            
+          </appinfo>
+                        
+        </annotation>
+                    
+      </element>
+                    
+      <element maxOccurs="1" minOccurs="0" name="aadress" type="tns:aadress">
+                        
+        <annotation>
+                            
+          <appinfo>
+                                
+            <xrd:title>Omaniku aadress</xrd:title>
+                            
+          </appinfo>
+                        
+        </annotation>
+                    
+      </element>
+                
+    </sequence>
+            
+  </complexType>
+            
+  <complexType name="isiku_nimi">
+                
+    <complexContent>
+                    
+      <extension base="tns:komponentnimi">
+                        
+        <sequence>
+                            
+          <element maxOccurs="1" minOccurs="0" name="nimi" type="string">
+                                
+            <annotation>
+                                    
+              <appinfo>
+                                        
+                <xrd:title>Füüsilise isiku eesnimi ja perekonnanimi või juriidilise isiku juuridiline nimi</xrd:title>
+                                    
+              </appinfo>
+                                
+            </annotation>
+                            
+          </element>
+                        
+        </sequence>
+                    
+      </extension>
+                
+    </complexContent>
+            
+  </complexType>
+            
+  <complexType name="aadress">
+                
+    <sequence>
+                    
+      <element name="aadress" type="string">
+                        
+        <annotation>
+                            
+          <appinfo>
+                                
+            <xrd:title>Tänava, maja, korteri, talu aadress</xrd:title>
+                            
+          </appinfo>
+                        
+        </annotation>
+                    
+      </element>
+                    
+      <element maxOccurs="1" minOccurs="0" name="maakond" type="string">
+                        
+        <annotation>
+                            
+          <appinfo>
+                                
+            <xrd:title>Maakond</xrd:title>
+                            
+          </appinfo>
+                        
+        </annotation>
+                    
+      </element>
+                    
+      <element maxOccurs="1" minOccurs="0" name="asula" type="string">
+                        
+        <annotation>
+                            
+          <appinfo>
+                                
+            <xrd:title>Asula/linn</xrd:title>
+                            
+          </appinfo>
+                        
+        </annotation>
+                    
+      </element>
+                    
+      <element maxOccurs="1" minOccurs="0" name="riik" type="string">
+                        
+        <annotation>
+                            
+          <appinfo>
+                                
+            <xrd:title>Riik</xrd:title>
+                            
+          </appinfo>
+                        
+        </annotation>
+                    
+      </element>
+                    
+      <element maxOccurs="1" minOccurs="0" name="postiindeks" type="string">
+                        
+        <annotation>
+                            
+          <appinfo>
+                                
+            <xrd:title>Postiindeks</xrd:title>
+                            
+          </appinfo>
+                        
+        </annotation>
+                    
+      </element>
+                
+    </sequence>
+                
+    <attribute name="riigikood" use="optional">
+                    
+      <annotation>
+                        
+        <appinfo>
+                            
+          <xrd:title>2- või 3-täheline ISO 3166-1 riigikood</xrd:title>
+                        
+        </appinfo>
+                    
+      </annotation>
+                    
+      <simpleType>
+                        
+        <restriction base="string">
+                            
+          <minLength value="2"/>
+                            
+          <maxLength value="3"/>
+                        
+        </restriction>
+                    
+      </simpleType>
+                
+    </attribute>
+            
+  </complexType>
+            
+  <complexType name="pangakonto">
+                
+    <sequence>
+                    
+      <element maxOccurs="1" minOccurs="0" name="kontonumber" type="string">
+                        
+        <annotation>
+                            
+          <appinfo>
+                                
+            <xrd:title>Pangakonto tunnus</xrd:title>
+                            
+          </appinfo>
+                        
+        </annotation>
+                    
+      </element>
+                    
+      <element maxOccurs="1" minOccurs="0" name="pangakood" type="string">
+                        
+        <annotation>
+                            
+          <appinfo>
+                                
+            <xrd:title>Pangakontot teenindava finantsasutuse tunnus</xrd:title>
+                            
+          </appinfo>
+                        
+        </annotation>
+                    
+      </element>
+                
+    </sequence>
+            
+  </complexType>
+            
+  <complexType name="laiendatud_piirang">
+                
+    <complexContent>
+                    
+      <extension base="tns:piirang">
+                        
+        <sequence>
+                            
+          <element maxOccurs="1" minOccurs="0" name="piirang_seatud" type="date">
+                                
+            <annotation>
+                                    
+              <appinfo>
+                                        
+                <xrd:title>Piirangu seadmise/registreerimise aeg</xrd:title>
+                                    
+              </appinfo>
+                                
+            </annotation>
+                            
+          </element>
+                            
+          <element maxOccurs="1" minOccurs="0" name="piirangu_selgitus" type="string">
+                                
+            <annotation>
+                                    
+              <appinfo>
+                                        
+                <xrd:title>Piirangu sisu täpsem kirjeldus</xrd:title>
+                                    
+              </appinfo>
+                                
+            </annotation>
+                            
+          </element>
+                        
+        </sequence>
+                    
+      </extension>
+                
+    </complexContent>
+            
+  </complexType>
+            
+  <complexType name="piirang">
+                
+    <sequence>
+                    
+      <element maxOccurs="1" minOccurs="1" name="piirangu_liik" type="string">
+                        
+        <annotation>
+                            
+          <appinfo>
+                                
+            <xrd:title>Piirangu liik</xrd:title>
+                            
+          </appinfo>
+                        
+        </annotation>
+                    
+      </element>
+                    
+      <element maxOccurs="1" minOccurs="1" name="paberite_arv" type="decimal">
+                        
+        <annotation>
+                            
+          <appinfo>
+                                
+            <xrd:title>Blokeeritud väärtpaberite arv</xrd:title>
+                            
+          </appinfo>
+                        
+        </annotation>
+                    
+      </element>
+                
+    </sequence>
+            
+  </complexType>
+            
+  <complexType name="laiendatud_kontopiirang">
+                
+    <complexContent>
+                    
+      <extension base="tns:kontopiirang">
+                        
+        <sequence>
+                            
+          <element maxOccurs="1" minOccurs="0" name="piirang_seatud" type="date">
+                                
+            <annotation>
+                                    
+              <appinfo>
+                                        
+                <xrd:title>Piirangu seadmise/registreerimise aeg</xrd:title>
+                                    
+              </appinfo>
+                                
+            </annotation>
+                            
+          </element>
+                            
+          <element maxOccurs="1" minOccurs="0" name="piirangu_selgitus" type="string">
+                                
+            <annotation>
+                                    
+              <appinfo>
+                                        
+                <xrd:title>Piirangu sisu täpsem kirjeldus</xrd:title>
+                                    
+              </appinfo>
+                                
+            </annotation>
+                            
+          </element>
+                        
+        </sequence>
+                    
+      </extension>
+                
+    </complexContent>
+            
+  </complexType>
+            
+  <complexType name="kontopiirang">
+                
+    <sequence>
+                    
+      <element name="kirjeldus" type="string">
+                        
+        <annotation>
+                            
+          <appinfo>
+                                
+            <xrd:title>Väärtpaberikontole seatud piirangu kirjeldus</xrd:title>
+                            
+          </appinfo>
+                        
+        </annotation>
+                    
+      </element>
+                
+    </sequence>
+            
+  </complexType>
+            
+  <complexType name="vaartpaber2">
+                
+    <sequence>
+                    
+      <element maxOccurs="1" minOccurs="1" name="nimi" type="string">
+                        
+        <annotation>
+                            
+          <appinfo>
+                                
+            <xrd:title>Väärtpaberi nimi</xrd:title>
+                            
+          </appinfo>
+                        
+        </annotation>
+                    
+      </element>
+                    
+      <element maxOccurs="1" minOccurs="1" name="ISIN" type="string">
+                        
+        <annotation>
+                            
+          <appinfo>
+                                
+            <xrd:title>Väärtpaberi ISIN kood</xrd:title>
+                            
+          </appinfo>
+                        
+        </annotation>
+                    
+      </element>
+                    
+      <element maxOccurs="1" minOccurs="1" name="arv" type="decimal">
+                        
+        <annotation>
+                            
+          <appinfo>
+                                
+            <xrd:title>Emitendi väärtpaberite koguarv</xrd:title>
+                            
+          </appinfo>
+                        
+        </annotation>
+                    
+      </element>
+                    
+      <element maxOccurs="1" minOccurs="1" name="nimivaartus" type="tns:nimivaartus">
+                        
+        <annotation>
+                            
+          <appinfo>
+                                
+            <xrd:title>Väärtpaberi nimiväärtus (või arvestuslik nimiväärtus)</xrd:title>
+                            
+          </appinfo>
+                        
+        </annotation>
+                    
+      </element>
+                    
+      <element maxOccurs="1" minOccurs="0" name="nimivaartuseta" type="boolean">
+                        
+        <annotation>
+                            
+          <appinfo>
+                                
+            <xrd:title>Nimiväärtuseta aktsia</xrd:title>
+                            
+          </appinfo>
+                        
+        </annotation>
+                    
+      </element>
+                    
+      <element maxOccurs="1" minOccurs="0" name="ostueesoigus" type="boolean">
+                        
+        <annotation>
+                            
+          <appinfo>
+                                
+            <xrd:title>Väärtpaberi ostueesõiguse olemasolu</xrd:title>
+                            
+          </appinfo>
+                        
+        </annotation>
+                    
+      </element>
+                
+    </sequence>
+            
+  </complexType>
+            
+  <complexType name="nimivaartus">
+                
+    <all>
+                    
+      <element maxOccurs="1" minOccurs="0" name="vaartus" type="decimal"/>
+                    
+      <element name="valuuta">
+                        
+        <annotation>
+                            
+          <appinfo>
+                                
+            <xrd:title>3-täheline ISO 4217 valuutakood</xrd:title>
+                            
+          </appinfo>
+                        
+        </annotation>
+                        
+        <simpleType>
+                            
+          <restriction base="string">
+                                
+            <length value="3"/>
+                                
+            <pattern value="[A-Z]{3}"/>
+                            
+          </restriction>
+                        
+        </simpleType>
+                    
+      </element>
+                
+    </all>
+            
+  </complexType>
+            
+  <element name="isiku_andmed_n">
+                
+    <complexType>
+                    
+      <sequence>
+                        
+        <element name="request" type="tns:isiku_andmete_paring"/>
+                    
+      </sequence>
+                
+    </complexType>
+            
+  </element>
+            
+  <element name="isiku_andmed_nResponse">
+                
+    <complexType>
+                    
+      <sequence>
+                        
+        <element name="request" type="tns:isiku_andmete_paring"/>
+                        
+        <element name="response" type="tns:isiku_andmete_vastus"/>
+                    
+      </sequence>
+                
+    </complexType>
+            
+  </element>
+            
+  <element name="omanikud">
+                
+    <complexType>
+                    
+      <sequence>
+                        
+        <element name="request" type="tns:omanike_nimekiri_paring"/>
+                    
+      </sequence>
+                
+    </complexType>
+            
+  </element>
+            
+  <element name="omanikudResponse">
+                
+    <complexType>
+                    
+      <sequence>
+                        
+        <element name="request" type="tns:omanike_nimekiri_paring"/>
+                        
+        <element name="response" type="tns:omanikud_vastus"/>
+                    
+      </sequence>
+                
+    </complexType>
+            
+  </element>
+            
+  <complexType name="omanike_nimekiri_paring">
+                
+    <sequence>
+                    
+      <element maxOccurs="1" minOccurs="1" name="registrikood">
+                        
+        <annotation>
+                            
+          <appinfo>
+                                
+            <xrd:title>Ettevõtte registrikood (Eesti äriregistri väljastatud registrikood)</xrd:title>
+                                
+            <xrd:fieldSize>15</xrd:fieldSize>
+                            
+          </appinfo>
+                        
+        </annotation>
+                        
+        <simpleType>
+                            
+          <restriction base="string">
+                                
+            <maxLength value="20"/>
+                                
+            <minLength value="1"/>
+                            
+          </restriction>
+                        
+        </simpleType>
+                    
+      </element>
+                    
+      <sequence maxOccurs="1" minOccurs="0">
+                        
+        <element maxOccurs="1" minOccurs="1" name="kuupaev" type="date">
+                            
+          <annotation>
+                                
+            <appinfo>
+                                    
+              <xrd:title>Kuupäev, mille seisuga soovitakse vastuse andmeid (tühi = päringu tegemise päev)</xrd:title>
+                                
+            </appinfo>
+                            
+          </annotation>
+                        
+        </element>
+                        
+        <element maxOccurs="1" minOccurs="0" name="kellaaeg" type="time">
+                            
+          <annotation>
+                                
+            <appinfo>
+                                    
+              <xrd:title>Soovi korral kellaaeg, mille seisuga soovitakse vastuse andmeid (tühi = hiliseim võimalik hetk)</xrd:title>
+                                
+            </appinfo>
+                            
+          </annotation>
+                        
+        </element>
+                    
+      </sequence>
+                
+    </sequence>
+            
+  </complexType>
+            
+  <complexType name="omanikud_vastus">
+                
+    <choice>
+                    
+      <sequence>
+                        
+        <element maxOccurs="1" minOccurs="1" name="aeg" type="dateTime">
+                            
+          <annotation>
+                                
+            <appinfo>
+                                    
+              <xrd:title>Andmed kuvatud seisuga (kuupäev, kellaaeg)</xrd:title>
+                                
+            </appinfo>
+                            
+          </annotation>
+                        
+        </element>
+                        
+        <element maxOccurs="1" minOccurs="1" name="ettevote">
+                            
+          <annotation>
+                                
+            <appinfo>
+                                    
+              <xrd:title>Ettevõtte üldandmed</xrd:title>
+                                
+            </appinfo>
+                            
+          </annotation>
+                            
+          <complexType>
+                                
+            <all>
+                                    
+              <element maxOccurs="1" minOccurs="1" name="nimi" type="string">
+                                        
+                <annotation>
+                                            
+                  <appinfo>
+                                                
+                    <xrd:title>Ettevõtte nimi</xrd:title>
+                                            
+                  </appinfo>
+                                        
+                </annotation>
+                                    
+              </element>
+                                    
+              <element maxOccurs="1" minOccurs="1" name="registrikood" type="string">
+                                        
+                <annotation>
+                                            
+                  <appinfo>
+                                                
+                    <xrd:title>Ettevõtte registrikood</xrd:title>
+                                            
+                  </appinfo>
+                                        
+                </annotation>
+                                    
+              </element>
+                                
+            </all>
+                            
+          </complexType>
+                        
+        </element>
+                        
+        <element maxOccurs="1" minOccurs="1" name="vaartpaberid">
+                            
+          <annotation>
+                                
+            <appinfo>
+                                    
+              <xrd:title>Ettevõtte väärtpaberid</xrd:title>
+                                
+            </appinfo>
+                            
+          </annotation>
+                            
+          <complexType>
+                                
+            <sequence>
+                                    
+              <element maxOccurs="unbounded" minOccurs="1" name="vaartpaber">
+                                        
+                <complexType>
+                                            
+                  <complexContent>
+                                                
+                    <extension base="tns:vaartpaber2">
+                                                    
+                      <sequence>
+                                                        
+                        <element maxOccurs="1" minOccurs="1" name="omanikud">
+                                                            
+                          <annotation>
+                                                                
+                            <appinfo>
+                                                                    
+                              <xrd:title>Väärtpaberi omanike nimekiri</xrd:title>
+                                                                
+                            </appinfo>
+                                                            
+                          </annotation>
+                                                            
+                          <complexType>
+                                                                
+                            <sequence>
+                                                                    
+                              <element maxOccurs="unbounded" minOccurs="1" name="omanik">
+                                                                        
+                                <complexType>
+                                                                            
+                                  <complexContent>
+                                                                                
+                                    <extension base="tns:omanik_">
+                                                                                    
+                                      <sequence>
+                                                                                        
+                                        <element maxOccurs="1" minOccurs="1" name="konto_liik" type="string">
+                                                                                            
+                                          <annotation>
+                                                                                                
+                                            <appinfo>
+                                                                                                    
+                                              <xrd:title>Väärtpaberikonto liik</xrd:title>
+                                                                                                
+                                            </appinfo>
+                                                                                            
+                                          </annotation>
+                                                                                        
+                                        </element>
+																						
+                                        <element maxOccurs="1" minOccurs="0" name="kontonumber" type="string">
+																							
+                                          <annotation>
+																								
+                                            <appinfo>
+																									
+                                              <xrd:title>Pangakonto tunnus</xrd:title>
+																								
+                                            </appinfo>
+																							
+                                          </annotation>
+																						
+                                        </element>
+																						
+                                        <element maxOccurs="1" minOccurs="1" name="saldo" type="decimal">
+                                                                                            
+                                          <annotation>
+                                                                                                
+                                            <appinfo>
+                                                                                                    
+                                              <xrd:title>Omanduses olevate väärtpaberite arv</xrd:title>
+                                                                                                
+                                            </appinfo>
+                                                                                            
+                                          </annotation>
+                                                                                        
+                                        </element>
+																						
+                                        <element maxOccurs="1" minOccurs="0" name="osalus">
+																							
+                                          <annotation>
+																								
+                                            <appinfo>
+																									
+                                              <xrd:title>Omanikule kuuluv osalus hääleõiguslike väärtpaberite koguarvust (%)</xrd:title>
+																								
+                                            </appinfo>
+																							
+                                          </annotation>
+																							
+                                          <simpleType>
+																								
+                                            <restriction base="decimal">
+																									
+                                              <minExclusive value="0"/>
+																									
+                                              <maxInclusive value="100"/>
+																								
+                                            </restriction>
+																							
+                                          </simpleType>
+																						
+                                        </element>
+																						
+                                        <element maxOccurs="1" minOccurs="0" name="piirangud">
+																							
+                                          <annotation>
+																								
+                                            <appinfo>
+																									
+                                              <xrd:title>Omaniku väärtpaberitele perioodi lõpus kehtivad piirangud (pandid, finantstagatised, blokeeringud jms)</xrd:title>
+																								
+                                            </appinfo>
+																							
+                                          </annotation>
+																							
+                                          <complexType>
+																								
+                                            <sequence>
+																									
+                                              <element maxOccurs="unbounded" minOccurs="0" name="piirang" type="tns:piirang"/>
+																								
+                                            </sequence>
+																							
+                                          </complexType>
+																						
+                                        </element>
+																					
+                                      </sequence>
+                                                                                
+                                    </extension>
+                                                                            
+                                  </complexContent>
+                                                                        
+                                </complexType>
+                                                                    
+                              </element>
+                                                                
+                            </sequence>
+                                                            
+                          </complexType>
+                                                        
+                        </element>
+                                                    
+                      </sequence>
+                                                
+                    </extension>
+                                            
+                  </complexContent>
+                                        
+                </complexType>
+                                    
+              </element>
+                                
+            </sequence>
+                            
+          </complexType>
+                        
+        </element>
+                    
+      </sequence>
+                
+    </choice>
+            
+  </complexType>
+            
+  <element name="omanikud_detailne">
+                
+    <complexType>
+                    
+      <sequence>
+                        
+        <element name="request" type="tns:omanike_nimekiri_paring"/>
+                    
+      </sequence>
+                
+    </complexType>
+            
+  </element>
+            
+  <element name="omanikud_detailneResponse">
+                
+    <complexType>
+                    
+      <sequence>
+                        
+        <element name="request" type="tns:omanike_nimekiri_paring"/>
+                        
+        <element name="response" type="tns:omanike_nimekiri_vastus2"/>
+                    
+      </sequence>
+                
+    </complexType>
+            
+  </element>
+			
+  <complexType name="omanike_nimekiri_vastus2">
+                
+    <choice>
+                    
+      <sequence>
+                        
+        <element maxOccurs="1" minOccurs="1" name="aeg" type="dateTime">
+                            
+          <annotation>
+                                
+            <appinfo>
+                                    
+              <xrd:title>Andmed kuvatud seisuga (kuupäev, kellaaeg)</xrd:title>
+                                
+            </appinfo>
+                            
+          </annotation>
+                        
+        </element>
+                        
+        <element maxOccurs="1" minOccurs="1" name="ettevote">
+                            
+          <annotation>
+                                
+            <appinfo>
+                                    
+              <xrd:title>Ettevõtte üldandmed</xrd:title>
+                                
+            </appinfo>
+                            
+          </annotation>
+                            
+          <complexType>
+                                
+            <all>
+                                    
+              <element maxOccurs="1" minOccurs="1" name="nimi" type="string">
+                                        
+                <annotation>
+                                            
+                  <appinfo>
+                                                
+                    <xrd:title>Ettevõtte nimi</xrd:title>
+                                            
+                  </appinfo>
+                                        
+                </annotation>
+                                    
+              </element>
+                                    
+              <element maxOccurs="1" minOccurs="1" name="registrikood" type="string">
+                                        
+                <annotation>
+                                            
+                  <appinfo>
+                                                
+                    <xrd:title>Ettevõtte registrikood</xrd:title>
+                                            
+                  </appinfo>
+                                        
+                </annotation>
+                                    
+              </element>
+                                
+            </all>
+                            
+          </complexType>
+                        
+        </element>
+                        
+        <element maxOccurs="1" minOccurs="1" name="vaartpaberid">
+                            
+          <annotation>
+                                
+            <appinfo>
+                                    
+              <xrd:title>Ettevõtte väärtpaberid</xrd:title>
+                                
+            </appinfo>
+                            
+          </annotation>
+                            
+          <complexType>
+                                
+            <sequence>
+                                    
+              <element maxOccurs="unbounded" minOccurs="1" name="vaartpaber">
+                                        
+                <complexType>
+                                            
+                  <complexContent>
+                                                
+                    <extension base="tns:vaartpaber2">
+                                                    
+                      <sequence>
+                                                        
+                        <element maxOccurs="1" minOccurs="1" name="omanikud">
+                                                            
+                          <annotation>
+                                                                
+                            <appinfo>
+                                                                    
+                              <xrd:title>Väärtpaberi omanike nimekiri</xrd:title>
+                                                                
+                            </appinfo>
+                                                            
+                          </annotation>
+                                                            
+                          <complexType>
+                                                                
+                            <sequence>
+                                                                    
+                              <element maxOccurs="unbounded" minOccurs="1" name="omanik">
+                                                                        
+                                <complexType>
+                                                                            
+                                  <complexContent>
+                                                                                
+                                    <extension base="tns:omanik_">
+                                                                                    
+                                      <sequence>
+                                                                                        
+                                        <element maxOccurs="1" minOccurs="1" name="konto_liik" type="string">
+                                                                                            
+                                          <annotation>
+                                                                                                
+                                            <appinfo>
+                                                                                                    
+                                              <xrd:title>Väärtpaberikonto liik</xrd:title>
+                                                                                                
+                                            </appinfo>
+                                                                                            
+                                          </annotation>
+                                                                                        
+                                        </element>
+                                                                                        
+                                        <element maxOccurs="1" minOccurs="1" name="kontonumber" type="string">
+                                                                                            
+                                          <annotation>
+                                                                                                
+                                            <appinfo>
+                                                                                                    
+                                              <xrd:title>Väärtpaberikonto number</xrd:title>
+                                                                                                
+                                            </appinfo>
+                                                                                            
+                                          </annotation>
+                                                                                        
+                                        </element>
+                                                                                        
+                                        <element maxOccurs="1" minOccurs="1" name="saldo" type="decimal">
+                                                                                            
+                                          <annotation>
+                                                                                                
+                                            <appinfo>
+                                                                                                    
+                                              <xrd:title>Omanduses olevate väärtpaberite arv</xrd:title>
+                                                                                                
+                                            </appinfo>
+                                                                                            
+                                          </annotation>
+                                                                                        
+                                        </element>
+                                                                                        
+                                        <element maxOccurs="1" minOccurs="0" name="osalus">
+                                                                                            
+                                          <annotation>
+                                                                                                
+                                            <appinfo>
+                                                                                                    
+                                              <xrd:title>Omanikule kuuluv osalus väärtpaberite koguarvust (%)</xrd:title>
+                                                                                                
+                                            </appinfo>
+                                                                                            
+                                          </annotation>
+                                                                                            
+                                          <simpleType>
+                                                                                                
+                                            <restriction base="decimal">
+                                                                                                    
+                                              <minInclusive value="0"/>
+                                                                                                    
+                                              <maxInclusive value="100"/>
+                                                                                                
+                                            </restriction>
+                                                                                            
+                                          </simpleType>
+                                                                                        
+                                        </element>
+                                                                                        
+                                        <element maxOccurs="1" minOccurs="0" name="piirangud">
+                                                                                            
+                                          <annotation>
+                                                                                                
+                                            <appinfo>
+                                                                                                    
+                                              <xrd:title>Omaniku väärtpaberitele seatud piirangud (pandid, finantstagatised, blokeeringud jms)</xrd:title>
+                                                                                                
+                                            </appinfo>
+                                                                                            
+                                          </annotation>
+                                                                                            
+                                          <complexType>
+                                                                                                
+                                            <sequence>
+                                                                                                    
+                                              <element maxOccurs="unbounded" minOccurs="0" name="piirang" type="tns:piirang"/>
+                                                                                                
+                                            </sequence>
+                                                                                            
+                                          </complexType>
+                                                                                        
+                                        </element>
+                                                                                    
+                                      </sequence>
+                                                                                
+                                    </extension>
+                                                                            
+                                  </complexContent>
+                                                                        
+                                </complexType>
+                                                                    
+                              </element>
+                                                                
+                            </sequence>
+                                                            
+                          </complexType>
+                                                        
+                        </element>
+                                                    
+                      </sequence>
+                                                
+                    </extension>
+                                            
+                  </complexContent>
+                                        
+                </complexType>
+                                    
+              </element>
+                                
+            </sequence>
+                            
+          </complexType>
+                        
+        </element>
+                    
+      </sequence>
+                
+    </choice>
+            
+  </complexType>
+            
+  <element name="yle_10_omanikud_ar">
+                
+    <complexType>
+                    
+      <sequence>
+                        
+        <element name="request" type="tns:yle_10_omanikud_paring"/>
+                    
+      </sequence>
+                
+    </complexType>
+            
+  </element>
+            
+  <element name="yle_10_omanikud_arResponse">
+                
+    <complexType>
+                    
+      <sequence>
+                        
+        <element name="request" type="tns:yle_10_omanikud_paring"/>
+                        
+        <element name="response" type="tns:yle_10_omanikud_vastus2"/>
+                    
+      </sequence>
+                
+    </complexType>
+            
+  </element>
+            
+  <complexType name="yle_10_omanikud_paring">
+                
+    <sequence>
+                    
+      <element maxOccurs="1" minOccurs="0" name="kuupaev" type="date">
+                        
+        <annotation>
+                            
+          <appinfo>
+                                
+            <xrd:title>Kuupäev, mille seisuga soovitakse vastuse andmeid (tühi = päringu tegemise päev)</xrd:title>
+                            
+          </appinfo>
+                        
+        </annotation>
+                    
+      </element>
+                
+    </sequence>
+            
+  </complexType>
+            
+  <complexType name="yle_10_omanikud_vastus2">
+                
+    <choice>
+                    
+      <sequence>
+                        
+        <element maxOccurs="1" minOccurs="1" name="aeg" type="dateTime">
+                            
+          <annotation>
+                                
+            <appinfo>
+                                    
+              <xrd:title>Andmed kuvatud seisuga (kuupäev, kellaaeg)</xrd:title>
+                                
+            </appinfo>
+                            
+          </annotation>
+                        
+        </element>
+                        
+        <element maxOccurs="1" minOccurs="1" name="ettevotted">
+                            
+          <annotation>
+                                
+            <appinfo>
+                                    
+              <xrd:title>Ettevõtte üldandmed</xrd:title>
+                                
+            </appinfo>
+                            
+          </annotation>
+                            
+          <complexType>
+                                
+            <sequence>
+                                    
+              <element maxOccurs="unbounded" minOccurs="1" name="ettevote">
+                                        
+                <complexType>
+                                            
+                  <all>
+                                                
+                    <element maxOccurs="1" minOccurs="0" name="nimi" type="string">
+                                                    
+                      <annotation>
+                                                        
+                        <appinfo>
+                                                            
+                          <xrd:title>Ettevõtte nimi</xrd:title>
+                                                        
+                        </appinfo>
+                                                    
+                      </annotation>
+                                                
+                    </element>
+                                                
+                    <element maxOccurs="1" minOccurs="1" name="registrikood" type="string">
+                                                    
+                      <annotation>
+                                                        
+                        <appinfo>
+                                                            
+                          <xrd:title>Ettevõtte registrikood</xrd:title>
+                                                        
+                        </appinfo>
+                                                    
+                      </annotation>
+                                                
+                    </element>
+                                                
+                    <element maxOccurs="1" minOccurs="0" name="registrikoodi_valjaandja" type="string">
+                                                    
+                      <annotation>
+                                                        
+                        <appinfo>
+                                                            
+                          <xrd:title>Ettevõtte registrikoodi väljaandjariik või -asutus</xrd:title>
+                                                        
+                        </appinfo>
+                                                    
+                      </annotation>
+                                                
+                    </element>
+                                                
+                    <element maxOccurs="1" minOccurs="1" name="vp_liik" type="string">
+                                                    
+                      <annotation>
+                                                        
+                        <appinfo>
+                                                            
+                          <xrd:title>Väärtpaberite liik (aktsia = "A", osa = "O")</xrd:title>
+                                                        
+                        </appinfo>
+                                                    
+                      </annotation>
+                                                
+                    </element>
+                                                
+                    <element maxOccurs="1" minOccurs="1" name="omanikud">
+                                                    
+                      <annotation>
+                                                        
+                        <appinfo>
+                                                            
+                          <xrd:title>Ettevõtte omanikud</xrd:title>
+                                                        
+                        </appinfo>
+                                                    
+                      </annotation>
+                                                    
+                      <complexType>
+                                                        
+                        <sequence>
+                                                            
+                          <element maxOccurs="unbounded" minOccurs="1" name="omanik">
+                                                                
+                            <complexType>
+                                                                    
+                              <complexContent>
+                                                                        
+                                <extension base="tns:omanik2_">
+                                                                            
+                                  <sequence>
+                                                                                
+                                    <element maxOccurs="1" minOccurs="1" name="konto_liik" type="string">
+                                                                                    
+                                      <annotation>
+                                                                                        
+                                        <appinfo>
+                                                                                            
+                                          <xrd:title>Väärtpaberikonto liik</xrd:title>
+                                                                                        
+                                        </appinfo>
+                                                                                    
+                                      </annotation>
+                                                                                
+                                    </element>
+                                                                                
+                                    <element maxOccurs="1" minOccurs="1" name="summa" type="tns:raha2">
+                                                                                    
+                                      <annotation>
+                                                                                        
+                                        <appinfo>
+                                                                                            
+                                          <xrd:title>Omanduses olevate aktsiate nimiväärtuste summa või osa nimiväärtus</xrd:title>
+                                                                                        
+                                        </appinfo>
+                                                                                    
+                                      </annotation>
+                                                                                
+                                    </element>
+                                                                                
+                                    <element maxOccurs="1" minOccurs="0" name="osalus">
+                                                                                    
+                                      <annotation>
+                                                                                        
+                                        <appinfo>
+                                                                                            
+                                          <xrd:title>Omanikule kuuluv osalus hääleõiguslike väärtpaberite koguarvust (%)</xrd:title>
+                                                                                        
+                                        </appinfo>
+                                                                                    
+                                      </annotation>
+                                                                                    
+                                      <simpleType>
+                                                                                        
+                                        <restriction base="decimal">
+                                                                                            
+                                          <minExclusive value="0"/>
+                                                                                            
+                                          <maxInclusive value="100"/>
+                                                                                        
+                                        </restriction>
+                                                                                    
+                                      </simpleType>
+                                                                                
+                                    </element>
+                                                                                
+                                    <element maxOccurs="1" minOccurs="1" name="viimane_muudatus" type="date">
+                                                                                    
+                                      <annotation>
+                                                                                        
+                                        <appinfo>
+                                                                                            
+                                          <xrd:title>EVK-s viimase muudatuse registreerimise kuupäev</xrd:title>
+                                                                                        
+                                        </appinfo>
+                                                                                    
+                                      </annotation>
+                                                                                
+                                    </element>
+                                                                            
+                                  </sequence>
+                                                                        
+                                </extension>
+                                                                    
+                              </complexContent>
+                                                                
+                            </complexType>
+                                                            
+                          </element>
+                                                        
+                        </sequence>
+                                                    
+                      </complexType>
+                                                
+                    </element>
+                                            
+                  </all>
+                                        
+                </complexType>
+                                    
+              </element>
+                                
+            </sequence>
+                            
+          </complexType>
+                        
+        </element>
+                    
+      </sequence>
+                
+    </choice>
+            
+  </complexType>
+            
+  <complexType name="raha2">
+                
+    <all>
+                    
+      <element maxOccurs="1" minOccurs="1" name="vaartus" type="decimal"/>
+                    
+      <element name="valuuta">
+                        
+        <annotation>
+                            
+          <appinfo>
+                                
+            <xrd:title>3-täheline ISO 4217 valuutakood</xrd:title>
+                            
+          </appinfo>
+                        
+        </annotation>
+                        
+        <simpleType>
+                            
+          <restriction base="string">
+                                
+            <length value="3"/>
+                                
+            <pattern value="[A-Z]{3}"/>
+                            
+          </restriction>
+                        
+        </simpleType>
+                    
+      </element>
+                
+    </all>
+            
+  </complexType>
+            
+  <complexType name="omanik2_">
+                
+    <sequence>
+                    
+      <element maxOccurs="1" minOccurs="1" name="isiku_liik" type="string">
+                        
+        <annotation>
+                            
+          <appinfo>
+                                
+            <xrd:title>Isiku liik (juriidiline isik = "J", füüsiline isik = "F")</xrd:title>
+                            
+          </appinfo>
+                        
+        </annotation>
+                    
+      </element>
+                    
+      <element maxOccurs="1" minOccurs="1" name="nimi" type="tns:isiku_nimi">
+                        
+        <annotation>
+                            
+          <appinfo>
+                                
+            <xrd:title>Omaniku nimi</xrd:title>
+                            
+          </appinfo>
+                        
+        </annotation>
+                    
+      </element>
+                    
+      <choice maxOccurs="2" minOccurs="1">
+                        
+        <element maxOccurs="1" minOccurs="1" name="kood" type="string">
+                            
+          <annotation>
+                                
+            <appinfo>
+                                    
+              <xrd:title>Omaniku isikukood/registrikood</xrd:title>
+                                
+            </appinfo>
+                            
+          </annotation>
+                        
+        </element>
+                        
+        <element maxOccurs="1" minOccurs="1" name="synniaeg" type="date">
+                            
+          <annotation>
+                                
+            <appinfo>
+                                    
+              <xrd:title>Omaniku sünniaeg</xrd:title>
+                                
+            </appinfo>
+                            
+          </annotation>
+                        
+        </element>
+                    
+      </choice>
+                    
+      <element maxOccurs="1" minOccurs="0" name="koodi_valjaandja" type="string">
+                        
+        <annotation>
+                            
+          <appinfo>
+                                
+            <xrd:title>Omaniku isikukoodi/registrikoodi väljaandjariik või –asutus</xrd:title>
+                            
+          </appinfo>
+                        
+        </annotation>
+                    
+      </element>
+                    
+      <element maxOccurs="1" minOccurs="0" name="residentsus" type="string">
+                        
+        <annotation>
+                            
+          <appinfo>
+                                
+            <xrd:title>Omaniku residentsus</xrd:title>
+                            
+          </appinfo>
+                        
+        </annotation>
+                    
+      </element>
+                    
+      <element maxOccurs="1" minOccurs="0" name="aadress" type="tns:aadress">
+                        
+        <annotation>
+                            
+          <appinfo>
+                                
+            <xrd:title>Omaniku aadress</xrd:title>
+                            
+          </appinfo>
+                        
+        </annotation>
+                    
+      </element>
+                    
+      <element maxOccurs="1" minOccurs="0" name="e_post" type="string">
+                        
+        <annotation>
+                            
+          <appinfo>
+                                
+            <xrd:title>Omaniku e-postiaadress</xrd:title>
+                            
+          </appinfo>
+                        
+        </annotation>
+                    
+      </element>
+                
+    </sequence>
+            
+  </complexType>
+			
+  <element name="listMethods">
+				
+    <complexType>
+					
+      <sequence/>
+				
+    </complexType>
+			
+  </element>
+			
+  <element name="listMethodsResponse">
+				
+    <complexType>
+					
+      <sequence>
+						
+        <element maxOccurs="unbounded" minOccurs="0" name="serviceCode" type="string"/>
+					
+      </sequence>
+				
+    </complexType>
+  </element>
+</schema>
+  </wsdl:types>
+  <wsdl:message name="isiku_andmed_kt">
+    <wsdl:part element="tns:isiku_andmed_kt" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="omanikud_detailne">
+    <wsdl:part element="tns:omanikud_detailne" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="listMethods">
+    <wsdl:part element="tns:listMethods" name="listMethods">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="xrdHeader">
+    <wsdl:part element="xrd:client" name="client">
+    </wsdl:part>
+    <wsdl:part element="xrd:service" name="service">
+    </wsdl:part>
+    <wsdl:part element="xrd:id" name="id">
+    </wsdl:part>
+    <wsdl:part element="xrd:userId" name="userId">
+    </wsdl:part>
+    <wsdl:part element="xrd:issue" name="issue">
+    </wsdl:part>
+    <wsdl:part element="xrd:protocolVersion" name="protocolVersion">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="omanikud">
+    <wsdl:part element="tns:omanikud" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="yle_10_omanikud_arResponse">
+    <wsdl:part element="tns:yle_10_omanikud_arResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="omanikudResponse">
+    <wsdl:part element="tns:omanikudResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="yle_10_omanikud_ar">
+    <wsdl:part element="tns:yle_10_omanikud_ar" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="isiku_andmed_n">
+    <wsdl:part element="tns:isiku_andmed_n" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="isiku_andmed_ktResponse">
+    <wsdl:part element="tns:isiku_andmed_ktResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="isiku_andmed_nResponse">
+    <wsdl:part element="tns:isiku_andmed_nResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="omanikud_detailneResponse">
+    <wsdl:part element="tns:omanikud_detailneResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="listMethodsResponse">
+    <wsdl:part element="tns:listMethodsResponse" name="listMethodsResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="webServiceInterface">
+    <wsdl:operation name="isiku_andmed_kt">
+<wsdl:documentation>
+                <xrd:title>Isiku andmete päring (väärtpaberikontod ja -tehingud)</xrd:title>
+                <xrd:notes>Isiku väärtpaberikontod, saldo, tehingute ajalugu ja kehtivad piirangud</xrd:notes>
+                <xrd:actionTitle>Saada päring</xrd:actionTitle>
+            </wsdl:documentation>
+      <wsdl:input message="tns:isiku_andmed_kt">
+    </wsdl:input>
+      <wsdl:output message="tns:isiku_andmed_ktResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="isiku_andmed_n">
+<wsdl:documentation>
+                <xrd:title>Isiku andmete päring (väärtpaberikontod ja -tehingud)</xrd:title>
+<xrd:notes>Isiku väärtpaberikontod, saldo, tehingute ajalugu ja kehtivad piirangud</xrd:notes>
+                <xrd:actionTitle>Saada päring</xrd:actionTitle>
+            </wsdl:documentation>
+      <wsdl:input message="tns:isiku_andmed_n">
+    </wsdl:input>
+      <wsdl:output message="tns:isiku_andmed_nResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="omanikud">
+<wsdl:documentation>
+                <xrd:title>Omanike (aktsionärid/osanikud) nimekiri</xrd:title>
+               <xrd:notes>Ettevõtte väärtpaberite omanike nimekiri, vastavalt väärtpaberi liigile aktsiaraamat või osanike nimekiri</xrd:notes>
+                <xrd:actionTitle>Saada päring</xrd:actionTitle>
+            </wsdl:documentation>
+      <wsdl:input message="tns:omanikud">
+    </wsdl:input>
+      <wsdl:output message="tns:omanikudResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="omanikud_detailne">
+<wsdl:documentation>
+                <xrd:title>Omanike (aktsionärid/osanikud) nimekiri (detailne)</xrd:title>
+                <xrd:notes>Ettevõtte väärtpaberite omanike nimekiri, vastavalt väärtpaberi liigile aktsiaraamat või osanike nimekiri</xrd:notes>
+                <xrd:actionTitle>Saada päring</xrd:actionTitle>
+            </wsdl:documentation>
+      <wsdl:input message="tns:omanikud_detailne">
+    </wsdl:input>
+      <wsdl:output message="tns:omanikud_detailneResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="yle_10_omanikud_ar">
+<wsdl:documentation>
+                <xrd:title>Üle 10% aktsionäride ning osanike nimekiri</xrd:title>
+                <xrd:notes>Üle 10% hääleõiguslikke aktsiad omavad aktsionärid ning osanikud vastavalt justiitsministri määrusele (RTL 2008, 99, 1388 ; RT I, 02.10.2012, 5)</xrd:notes>
+                <xrd:actionTitle>Saada päring</xrd:actionTitle>
+
+            </wsdl:documentation>
+      <wsdl:input message="tns:yle_10_omanikud_ar">
+    </wsdl:input>
+      <wsdl:output message="tns:yle_10_omanikud_arResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="listMethods">
+<wsdl:documentation>
+				<xrd:title>
+					Adapterserveri teenus system.listMethods peab olema realiseeritud adapterserveris ning see
+					tagastab loetelu kõigist adapterserveris pakutavatest meetoditest. See meetod on mõeldud
+					kasutamiseks ainult andmekogu oma turvaserverile.
+				</xrd:title>
+			</wsdl:documentation>
+      <wsdl:input message="tns:listMethods" name="listMethods">
+    </wsdl:input>
+      <wsdl:output message="tns:listMethodsResponse" name="listMethodsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="soapBindings" type="tns:webServiceInterface">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="isiku_andmed_kt">
+      <soap:operation soapAction=""/>
+    <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="service" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="id" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal">
+        </soap:header>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="service" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="id" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal">
+        </soap:header>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="isiku_andmed_n">
+      <soap:operation soapAction=""/>
+    <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="service" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="id" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal">
+        </soap:header>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="service" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="id" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal">
+        </soap:header>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="omanikud">
+      <soap:operation soapAction=""/>
+    <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="service" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="id" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal">
+        </soap:header>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="service" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="id" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal">
+        </soap:header>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="omanikud_detailne">
+      <soap:operation soapAction=""/>
+    <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="service" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="id" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal">
+        </soap:header>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="service" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="id" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal">
+        </soap:header>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="yle_10_omanikud_ar">
+      <soap:operation soapAction=""/>
+    <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="service" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="id" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal">
+        </soap:header>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="service" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="id" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal">
+        </soap:header>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="listMethods">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="listMethods">
+        <soap:body use="literal"/>
+        <soap:header message="tns:xrdHeader" part="client" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="service" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="id" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal">
+        </soap:header>
+      </wsdl:input>
+      <wsdl:output name="listMethodsResponse">
+        <soap:body use="literal"/>
+        <soap:header message="tns:xrdHeader" part="client" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="service" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="id" use="literal">
+        </soap:header>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal">
+        </soap:header>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="vaartpaberite_keskregister">
+    <wsdl:port binding="tns:soapBindings" name="vaartpaberite_keskregister_port">
+      <soap:address location="https://84.50.230.150:443/xtee-ws-evkr/webservices/evkrSoap"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
