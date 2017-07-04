@@ -145,7 +145,6 @@ public class StandardXRoadConsumer extends WebServiceGatewaySupport implements X
                                                                       finalCallback,
                                                                       finalExtractor);
     } catch (Exception e) {
-      e.printStackTrace();
       XRoadServiceConsumptionException consumptionException = resolveException(e, xroadServiceConfiguration);
 
       if (consumptionException != null) {
