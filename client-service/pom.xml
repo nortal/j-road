@@ -80,6 +80,7 @@
     <module>treasury</module>
     <module>rar</module>
     <module>digilugu</module>
+    <module>statistikaamet</module>
   </modules>
 
   <build>

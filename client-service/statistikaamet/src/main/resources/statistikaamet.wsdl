@@ -1,0 +1,320 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:tns="http://stat-v6.x-road.eu"
+                  xmlns:wsi="http://ws-i.org/profiles/basic/1.1/xsd"
+                  xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+                  xmlns:xrd="http://x-road.eu/xsd/xroad.xsd"
+                  targetNamespace="http://stat-v6.x-road.eu" name="estat">
+  <wsdl:types>
+    <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://stat-v6.x-road.eu">
+      <import namespace="http://x-road.eu/xsd/xroad.xsd" schemaLocation="http://x-road.eu/xsd/xroad.xsd"/>
+      <import namespace="http://ws-i.org/profiles/basic/1.1/xsd"
+              schemaLocation="http://ws-i.org/profiles/basic/1.1/swaref.xsd"/>
+      <import namespace="http://schemas.xmlsoap.org/soap/encoding/"
+              schemaLocation="http://schemas.xmlsoap.org/soap/encoding/"/>
+
+      <element name="legacyAuth" type="tns:legacyAuthType"/>
+      <element name="legacyAuthResponse" type="tns:legacy_response"/>
+
+      <complexType name="legacyAuthType">
+        <sequence>
+          <element name="keha" type="tns:ArrayOfString"/>
+        </sequence>
+      </complexType>
+
+      <complexType name="legacy_response">
+        <sequence>
+          <element name="url" type="tns:url">
+            <annotation>
+              <appinfo>
+                <xrd:title>Infosüsteemi sissepääsu URL</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+        </sequence>
+      </complexType>
+
+      <simpleType name="url">
+        <annotation>
+          <appinfo>
+            <xrd:title>Link</xrd:title>
+            <xrd:techNotes>WWW URL</xrd:techNotes>
+          </appinfo>
+        </annotation>
+        <restriction base="anyURI"/>
+      </simpleType>
+
+      <complexType name="ArrayOfString">
+        <complexContent>
+          <restriction base="soapenc:Array">
+            <attribute ref="soapenc:arrayType" wsdl:arrayType="string[]"/>
+          </restriction>
+        </complexContent>
+      </complexType>
+
+      <element name="ReturnData">
+        <complexType>
+          <sequence>
+            <element name="keha" type="tns:ReturnDataRequest"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="ReturnDataResponse">
+        <complexType>
+          <sequence>
+            <element name="paring" type="tns:ReturnDataRequest"/>
+            <element name="keha" type="tns:ReturnDataResponse"/>
+          </sequence>
+        </complexType>
+      </element>
+      <complexType name="ReturnDataRequest">
+        <sequence>
+          <element name="SubmitId" type="string"/>
+        </sequence>
+      </complexType>
+      <complexType name="ReturnDataResponse">
+        <sequence>
+          <element minOccurs="0" name="DataFile" type="wsi:swaRef"/>
+        </sequence>
+      </complexType>
+      <element name="ReturnError">
+        <complexType>
+          <sequence>
+            <element name="keha" type="tns:ReturnErrorRequest"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="ReturnErrorResponse">
+        <complexType>
+          <sequence>
+            <element name="paring" type="tns:ReturnErrorRequest"/>
+            <element name="keha" type="tns:ReturnErrorResponse"/>
+          </sequence>
+        </complexType>
+      </element>
+      <complexType name="ReturnErrorRequest">
+        <sequence>
+          <element name="SubmitId" type="string"/>
+        </sequence>
+      </complexType>
+      <complexType name="ReturnErrorResponse">
+        <sequence>
+          <element name="ProcessingStatus" type="tns:ProcessingStatus"/>
+          <element minOccurs="0" name="ValidationResult" type="tns:ValidationResult"/>
+          <element minOccurs="0" name="DataFile" type="wsi:swaRef"/>
+        </sequence>
+      </complexType>
+      <simpleType name="ProcessingStatus">
+        <restriction base="token">
+          <enumeration value="0"/>
+          <enumeration value="1"/>
+        </restriction>
+      </simpleType>
+      <simpleType name="ValidationResult">
+        <restriction base="token">
+          <enumeration value="0"/>
+          <enumeration value="1"/>
+          <enumeration value="2"/>
+        </restriction>
+      </simpleType>
+      <element name="SubmitData">
+        <complexType>
+          <sequence>
+            <element name="keha" type="tns:SubmitDataRequest"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="SubmitDataResponse">
+        <complexType>
+          <sequence>
+            <element name="paring" type="tns:SubmitDataRequest"/>
+            <element name="keha" type="tns:SubmitDataResponse"/>
+          </sequence>
+        </complexType>
+      </element>
+      <complexType name="SubmitDataRequest">
+        <sequence>
+          <element name="DataFile" type="wsi:swaRef">
+            <annotation>
+              <documentation/>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="XSDValidationOnly" type="int">
+            <annotation>
+              <documentation/>
+            </annotation>
+          </element>
+        </sequence>
+      </complexType>
+      <complexType name="SubmitDataResponse">
+        <sequence>
+          <element name="SubmitId" type="string">
+            <annotation>
+              <documentation/>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="XSDValidationErrorMessage" type="string">
+            <annotation>
+              <documentation/>
+            </annotation>
+          </element>
+        </sequence>
+      </complexType>
+    </schema>
+  </wsdl:types>
+
+  <wsdl:message name="xrdHeader">
+    <wsdl:part element="xrd:client" name="client"/>
+    <wsdl:part element="xrd:service" name="service"/>
+    <wsdl:part element="xrd:id" name="id"/>
+    <wsdl:part element="xrd:userId" name="userId"/>
+    <wsdl:part element="xrd:issue" name="issue"/>
+    <wsdl:part element="xrd:protocolVersion" name="protocolVersion"/>
+  </wsdl:message>
+  <wsdl:message name="ReturnData">
+    <wsdl:part element="tns:ReturnData" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="ReturnDataResponse">
+    <wsdl:part element="tns:ReturnDataResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="ReturnError">
+    <wsdl:part element="tns:ReturnError" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="ReturnErrorResponse">
+    <wsdl:part element="tns:ReturnErrorResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="SubmitData">
+    <wsdl:part element="tns:SubmitData" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="SubmitDataResponse">
+    <wsdl:part element="tns:SubmitDataResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="legacyAuthRequest">
+    <wsdl:part element="tns:legacyAuth" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="legacyAuthResponse">
+    <wsdl:part element="tns:legacyAuthResponse" name="parameters"/>
+  </wsdl:message>
+
+  <wsdl:portType name="webServiceInterface">
+    <wsdl:operation name="ReturnData">
+      <wsdl:documentation>
+        <xrd:title>Return earlier submitted XML</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:ReturnData"/>
+      <wsdl:output message="tns:ReturnDataResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="ReturnError">
+      <wsdl:documentation>
+        <xrd:title>Return validation errors for earlier submitted XML</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:ReturnError"/>
+      <wsdl:output message="tns:ReturnErrorResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="SubmitData">
+      <wsdl:documentation>
+        <xrd:title>XML report receiving service</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:SubmitData"/>
+      <wsdl:output message="tns:SubmitDataResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="legacyAuth">
+      <wsdl:documentation>
+        <xrd:title>Legacy user authentication service</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:legacyAuthRequest"/>
+      <wsdl:output message="tns:legacyAuthResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+
+  <wsdl:binding name="soapBindings" type="tns:webServiceInterface">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="ReturnData">
+      <soap:operation soapAction=""/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReturnError">
+      <soap:operation soapAction=""/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SubmitData">
+      <soap:operation soapAction=""/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="legacyAuth">
+      <soap:operation soapAction=""/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+
+  <wsdl:service name="webService">
+    <wsdl:port binding="tns:soapBindings" name="port">
+      <soap:address location="http://SERVER_URL/cgi-bin/consumer_proxy"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
+
