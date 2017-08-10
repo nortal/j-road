@@ -18,6 +18,17 @@ public interface Ariregv6XTeeService {
                                                                  boolean ainultKehtivad,
                                                                  long maksValjundArv) throws XRoadServiceConsumptionException;
 
+    public List<DetailandmedV5Ettevotja> findDetailandmedV1Step2(final String jurisikArk,
+                                                                 final String[] jurisikRollJadaArray,
+                                                                 boolean yldandmed,
+                                                                 boolean isikuandmed,
+                                                                 boolean menetlusesAvaldused,
+                                                                 boolean kommertspandiandmed,
+                                                                 boolean maarused,
+                                                                 boolean ainultKehtivad,
+                                                                 long maksValjundArv,
+                                                                 String userIdCode) throws XRoadServiceConsumptionException;
+
     public List<DetailandmedV5Ettevotja> findDetailandmedV1(final long ariregistriKood,
                                                             final String[] fyysIsikuRollideJada,
                                                             boolean yldandmed,
@@ -28,7 +39,18 @@ public interface Ariregv6XTeeService {
                                                             boolean ainultKehtivad,
                                                             long maksValjundArv) throws XRoadServiceConsumptionException;
 
-    public List<DetailandmedV5Ettevotja> findDetailandmedV1(final String fyysiliseIsikuKood,
+    public List<DetailandmedV5Ettevotja> findDetailandmedV1(final long ariregistriKood,
+                                                            final String[] fyysIsikuRollideJada,
+                                                            boolean yldandmed,
+                                                            boolean isikuandmed,
+                                                            boolean menetlusesAvaldused,
+                                                            boolean kommertspandiandmed,
+                                                            boolean maarused,
+                                                            boolean ainultKehtivad,
+                                                            long maksValjundArv,
+                                                            String userIdCode) throws XRoadServiceConsumptionException;
+
+    public List<DetailandmedV5Ettevotja> findDetailandmedV5(final String fyysiliseIsikuKood,
                                                             final String[] fyysIsikuRollideJada,
                                                             boolean yldandmed,
                                                             boolean isikuandmed,
@@ -37,5 +59,16 @@ public interface Ariregv6XTeeService {
                                                             boolean maarused,
                                                             boolean ainultKehtivad,
                                                             long maksValjundArv) throws XRoadServiceConsumptionException;
+
+    public List<DetailandmedV5Ettevotja> findDetailandmedV5(final String fyysiliseIsikuKood,
+                                                            final String[] fyysIsikuRollideJada,
+                                                            boolean yldandmed,
+                                                            boolean isikuandmed,
+                                                            boolean menetlusesAvaldused,
+                                                            boolean kommertspandiandmed,
+                                                            boolean maarused,
+                                                            boolean ainultKehtivad,
+                                                            long maksValjundArv,
+                                                            String userIdCode) throws XRoadServiceConsumptionException;
 }
 
