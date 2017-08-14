@@ -26,12 +26,12 @@ public class StatV6XRoadServiceImpl extends XRoadDatabaseService implements Stat
   private StatV6XRoadDatabase statV6XRoadDatabase;
 
   @Override
-  public SubmitDataResponse submitData(String filename, DataHandler data, int validationOnly)
+  public SubmitDataResponse submitData(String filename, DataHandler data, boolean validationOnly)
       throws XTeeServiceConsumptionException {
     SubmitDataDocument.SubmitData submitData = SubmitDataDocument.SubmitData.Factory.newInstance();
     SubmitDataRequest body = submitData.addNewKeha();
 
-    body.setXSDValidationOnly(validationOnly);
+    body.setXSDValidationOnly(validationOnly ? 1 : 0);
     body.setDataFile("cid:".concat(filename));
     body.setDataFileHandler(data);
 

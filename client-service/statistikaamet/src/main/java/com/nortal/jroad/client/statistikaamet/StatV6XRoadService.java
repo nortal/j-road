@@ -11,7 +11,7 @@ import javax.activation.DataHandler;
  */
 public interface StatV6XRoadService {
 
-  SubmitDataResponse submitData(String filename, DataHandler data, int validationOnly)
+  SubmitDataResponse submitData(String filename, DataHandler data, boolean validationOnly)
       throws XTeeServiceConsumptionException;
 
   ReturnDataResponse returnData(String submitId) throws XTeeServiceConsumptionException;
