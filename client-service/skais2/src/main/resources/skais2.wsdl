@@ -3,6 +3,7 @@
                   xmlns:xrd="http://x-road.eu/xsd/xroad.xsd"
                   xmlns:tns="http://skais2.som.ee/producer/skais2"
                   xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+				  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                   targetNamespace="http://skais2.som.ee/producer/skais2">
     <wsdl:types>
         <schema xmlns="http://www.w3.org/2001/XMLSchema"
@@ -14,6 +15,7 @@
             <import namespace="http://www.w3.org/2001/XMLSchema"/>
             <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
             <import namespace="http://x-road.eu/xsd/xroad.xsd" schemaLocation="http://x-road.eu/xsd/xroad.xsd"/>
+			<xsd:include schemaLocation="https://eteenindus.sotsiaalkindlustusamet.ee/xsd/test/schemas/tk/tkToovoimPuueHyvitised.xsd"/>
 
             <element name="TVHTaotlusYksUks" type="tns:TVHYhisTaotlusRequest"/>
 
@@ -1158,7 +1160,6 @@
             </complexType>
         </schema>
     </wsdl:types>
-
     <!-- SKAIS2 wsdl:message -->
     <wsdl:message name="requestHeader">
         <wsdl:part name="client" element="xrd:client"/>
@@ -1176,6 +1177,12 @@
     <wsdl:message name="TVHTaotlusYksUksResponse">
         <wsdl:part name="body" element="tns:TVHYhisTaotlusResponse"/>
     </wsdl:message>
+	<wsdl:message name="TKToovoimPuueHyvitised">
+        <wsdl:part name="body" element="tns:TKToovoimPuueHyvitised"/>
+    </wsdl:message>
+    <wsdl:message name="TKToovoimPuueHyvitisedResponse">
+        <wsdl:part name="body" element="tns:TKToovoimPuueHyvitisedResponse"/>
+    </wsdl:message>
 
     <!-- SKAIS2 portType -->
     <wsdl:portType name="skais2PortType">
@@ -1186,11 +1193,41 @@
             <wsdl:input message="tns:TVHTaotlusYksUksRequest"/>
             <wsdl:output message="tns:TVHTaotlusYksUksResponse"/>
         </wsdl:operation>
+		<wsdl:operation name="TKToovoimPuueHyvitised">
+            <wsdl:documentation>
+                <xrd:title>TK: töövõimetuste, puuete ja hüvitiste andmed - üksikpäring</xrd:title>
+            </wsdl:documentation>
+            <wsdl:input message="tns:TKToovoimPuueHyvitised"/>
+            <wsdl:output message="tns:TKToovoimPuueHyvitisedResponse"/>
+        </wsdl:operation>
     </wsdl:portType>
     <!-- SKAIS2 binding -->
     <wsdl:binding name="skais2Binding" type="tns:skais2PortType">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsdl:operation name="TVHTaotlusYksUks">
+            <soap:operation soapAction="http://TURVASERVER.XTEE/cgi-bin/consumer_proxy" style="document"/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input>
+                <soap:body use="literal"/>
+                <soap:header message="tns:requestHeader" part="client" use="literal"/>
+                <soap:header message="tns:requestHeader" part="service" use="literal"/>
+                <soap:header message="tns:requestHeader" part="id" use="literal"/>
+                <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+                <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+                <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+                <soap:header message="tns:requestHeader" part="client" use="literal"/>
+                <soap:header message="tns:requestHeader" part="service" use="literal"/>
+                <soap:header message="tns:requestHeader" part="id" use="literal"/>
+                <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+                <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+                <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+                <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+		<wsdl:operation name="TKToovoimPuueHyvitised">
             <soap:operation soapAction="http://TURVASERVER.XTEE/cgi-bin/consumer_proxy" style="document"/>
             <xrd:version>v1</xrd:version>
             <wsdl:input>
