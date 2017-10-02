@@ -2,9 +2,9 @@ package com.nortal.jroad.client.raks;
 
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
 import com.nortal.jroad.client.raks.database.RaksXRoadDatabase;
-import com.nortal.jroad.client.raks.types.eu.x_road.raks.producer.RaksTootukassaDocument.RaksTootukassa;
-import com.nortal.jroad.client.raks.types.eu.x_road.raks.producer.RaksTootukassaInput;
-import com.nortal.jroad.client.raks.types.eu.x_road.raks.producer.RaksTootukassaResponseDocument.RaksTootukassaResponse;
+import com.nortal.jroad.client.raks.types.eu.x_road.raks.producer.TaotlejaKaitseSaajaV1Document.TaotlejaKaitseSaajaV1;
+import com.nortal.jroad.client.raks.types.eu.x_road.raks.producer.TaotlejaKaitseSaajaV1Input;
+import com.nortal.jroad.client.raks.types.eu.x_road.raks.producer.TaotlejaKaitseSaajaV1ResponseDocument.TaotlejaKaitseSaajaV1Response;
 import java.util.Calendar;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -18,15 +18,15 @@ public class RaksXteeServiceImpl implements RaksXteeService {
   @Resource
   private RaksXRoadDatabase raksXRoadDatabase;
 
-  public RaksTootukassaResponse raksTootukassa(String isikukood, String vptunnistusNr, Calendar kuupaev)
+  public TaotlejaKaitseSaajaV1Response taotlejaKaitseSaaja(String isikukood, String vptunnistusNr, Calendar kuupaev)
       throws XTeeServiceConsumptionException {
-    RaksTootukassa input = RaksTootukassa.Factory.newInstance();
-    RaksTootukassaInput raksTootukassaInput = RaksTootukassaInput.Factory.newInstance();
+    TaotlejaKaitseSaajaV1 input = TaotlejaKaitseSaajaV1.Factory.newInstance();
+    TaotlejaKaitseSaajaV1Input raksTootukassaInput = TaotlejaKaitseSaajaV1Input.Factory.newInstance();
     raksTootukassaInput.setIsikukood(isikukood);
     raksTootukassaInput.setVptunnistusNr(vptunnistusNr);
     raksTootukassaInput.setKuupaev(kuupaev);
     input.setRequest(raksTootukassaInput);
-    return raksXRoadDatabase.raksTootukassaV1(input);
+    return raksXRoadDatabase.taotlejaKaitseSaajaV1V1(input);
   }
 
 }
