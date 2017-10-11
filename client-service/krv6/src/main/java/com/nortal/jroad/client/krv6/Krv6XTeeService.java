@@ -17,4 +17,12 @@ public interface Krv6XTeeService {
             String eesnimi, String perenimiJuriidilinenimi, String isikukood, Calendar synniaeg,
             Integer pageNr, Integer pageMaxRows)
             throws XRoadServiceConsumptionException;
+
+    /**
+     * <code>kr.kinnistu_lihtandmed_paring.v1</code> service
+     */
+    KinnistuLihtandmedResponseDocument.KinnistuLihtandmedResponse findKinnistuLihtandmed(
+            String eesnimi, String perenimiJuriidilinenimi, String isikukood, Calendar synniaeg,
+            Integer pageNr, Integer pageMaxRows, String userIdCode)
+            throws XRoadServiceConsumptionException;
 }

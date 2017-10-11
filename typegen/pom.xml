@@ -2,7 +2,7 @@
   <parent>
     <artifactId>xtee-root</artifactId>
     <groupId>com.nortal.jroad</groupId>
- 	<version>4.2.2</version>
+ 	<version>4.2.4</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>xtee-typegen</artifactId>

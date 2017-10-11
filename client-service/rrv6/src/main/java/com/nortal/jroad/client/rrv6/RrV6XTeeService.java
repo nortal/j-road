@@ -20,4 +20,6 @@ public interface RrV6XTeeService {
      * <code>rr.RR84IsikuSeosed.v1</code>
      */
     RR84IsikuSeosedResponseDocument.RR84IsikuSeosedResponse findIsikuSeosedV1(String isikukood) throws XRoadServiceConsumptionException;
+
+    RR84IsikuSeosedResponseDocument.RR84IsikuSeosedResponse findIsikuSeosedV1(String isikukood, String userIdCode) throws XRoadServiceConsumptionException;
 }

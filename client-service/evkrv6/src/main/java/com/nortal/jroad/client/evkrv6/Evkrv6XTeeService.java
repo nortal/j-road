@@ -14,4 +14,9 @@ public interface Evkrv6XTeeService {
     * <code>evkr.isiku_andmed_n.v1</code> service.
     */
     public IsikuAndmeteVastus findIsikuAndmednv1(Calendar alguskuupaev, String kood) throws XRoadServiceConsumptionException;
+
+    /**
+     * <code>evkr.isiku_andmed_n.v1</code> service.
+     */
+    public IsikuAndmeteVastus findIsikuAndmednv1(Calendar alguskuupaev, String kood, String userIdCode) throws XRoadServiceConsumptionException;
 }

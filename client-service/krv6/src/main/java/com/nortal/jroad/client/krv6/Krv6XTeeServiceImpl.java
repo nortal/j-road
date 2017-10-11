@@ -38,4 +38,23 @@ public class Krv6XTeeServiceImpl implements Krv6XTeeService {
         return paringuVastus;
     }
 
+    public KinnistuLihtandmedResponseDocument.KinnistuLihtandmedResponse findKinnistuLihtandmed(
+            String eesnimi, String perenimiJuriidilinenimi, String isikukood, Calendar synniaeg,
+            Integer pageNr, Integer pageMaxRows, String userIdCode)
+            throws XRoadServiceConsumptionException {
+        KinnistuLihtandmedDocument.KinnistuLihtandmed lihtandmed = KinnistuLihtandmedDocument.KinnistuLihtandmed.Factory.newInstance();
+        KinnistuLihtandmedRequest request = KinnistuLihtandmedRequest.Factory.newInstance();
+        request.setEesnimi(eesnimi);
+        request.setNimi(perenimiJuriidilinenimi);
+        request.setKood(isikukood);
+        request.setSynniaeg(synniaeg);
+        request.setLehekyljeNr(pageNr);
+        request.setKinnistuteArvLehel(pageMaxRows);
+        lihtandmed.setRequest(request);
+        KinnistuLihtandmedResponseDocument.KinnistuLihtandmedResponse
+                paringuVastus = krv6XTeeDatabase.kinnistuLihtandmed(lihtandmed, userIdCode);
+
+        return paringuVastus;
+    }
+
 }

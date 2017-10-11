@@ -65,4 +65,13 @@ public class RrV6XTeeServiceImpl implements RrV6XTeeService {
         paring.setRequest(requestType);
         return rrXRoadDatabase.rr84IsikuSeosedV1(paring);
     }
+
+    public RR84IsikuSeosedResponseDocument.RR84IsikuSeosedResponse findIsikuSeosedV1(String isikukood, String userIdCode) throws XRoadServiceConsumptionException {
+        RR84IsikuSeosedDocument.RR84IsikuSeosed paring = RR84IsikuSeosedDocument.RR84IsikuSeosed.Factory.newInstance();
+        RR84IsikuSeosedRequestType requestType = RR84IsikuSeosedRequestType.Factory.newInstance();
+        requestType.setIsikukood(isikukood);
+        paring.setRequest(requestType);
+        return rrXRoadDatabase.rr84IsikuSeosedV1(paring, userIdCode);
+    }
+
 }
