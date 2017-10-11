@@ -58,7 +58,7 @@ public class StandardXRoadConsumerMessageExtractor implements WebServiceMessageE
       Element body = mes.getSOAPBody();
       NodeList kehaNodes = body.getChildNodes();
       kehaNode = body.getChildNodes().item(0);
-      if (kehaNode.getTextContent().contains("\n")) {
+      if (kehaNode instanceof javax.xml.soap.Text) {
         kehaNode = kehaNodes.item(1);
       }
       if (kehaNodes.getLength() > 1) {
