@@ -21,6 +21,10 @@
         </xroad:service>
     </SOAP-ENV:Header>
     <SOAP-ENV:Body xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+        <!-- some comment here 1 -->
+        <!-- some comment here 2 -->
+        <!-- some comment here 3 -->
+        <!-- some comment here 4 -->
         <era:MulleSaabunudAsjadResponse xmlns:era="http://earest.x-road.eu/">
             <request>
                 <ParinguKoostamiseAeg>2017-10-06T15:51:00</ParinguKoostamiseAeg>
