@@ -17,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 
 public class StandardXRoadConsumerMessageExtractorTest {
 
-    private final static String TEST_MESSAGE = "<response xmlns:era=\"http://earest.x-road.eu/\" xmlns=\"f\">\n" +
+    private final static String RESULT_PEM_FORMAT = "<response xmlns:era=\"http://earest.x-road.eu/\" xmlns=\"f\">\n" +
             "  <request xmlns=\"\">\n" +
             "    <ParinguKoostamiseAeg>2017-10-06T15:51:00</ParinguKoostamiseAeg>\n" +
             "  </request>\n" +
@@ -47,7 +47,7 @@ public class StandardXRoadConsumerMessageExtractorTest {
             "</response>";
 
 
-    private final static String TEST_MESSAGE2 = "<response xmlns:era=\"http://earest.x-road.eu/\" xmlns=\"f\">\n" +
+    private final static String RESULT_SINGLE_ROW_FORMAT = "<response xmlns:era=\"http://earest.x-road.eu/\" xmlns=\"f\">\n" +
             "  <request xmlns=\"\">\n" +
             "    <ParinguKoostamiseAeg>2017-10-06T15:51:00</ParinguKoostamiseAeg>\n" +
             "  </request>\n" +
@@ -76,6 +76,15 @@ public class StandardXRoadConsumerMessageExtractorTest {
             "  </response>\n" +
             "</response>";
 
+    public static final StandardXRoadConsumerMessageExtractor EXTRACTOR =
+            new StandardXRoadConsumerMessageExtractor(new XmlBeansXRoadMetadata("operation",
+            "b",
+            "request",
+            "d",
+            "response",
+            "f",
+            "1"));
+
 
     private SOAPMessage getMessageFromString(String filename) throws SOAPException, IOException {
         InputStream is = (new ClassPathResource(filename)).getInputStream();
@@ -85,61 +94,35 @@ public class StandardXRoadConsumerMessageExtractorTest {
 
     @Test
     public void testExtractDataWithComment() throws IOException, SOAPException {
-        StandardXRoadConsumerMessageExtractor extractor =
-                new StandardXRoadConsumerMessageExtractor(new XmlBeansXRoadMetadata("operation",
-                        "b",
-                        "request",
-                        "d",
-                        "response",
-                        "f",
-                        "1"));
         // with comment
-        XRoadMessage message = extractor.extractData(new SaajSoapMessage(getMessageFromString("extractor/EarestFail6.xml")));
-        assertEquals(TEST_MESSAGE, message.getContent().toString());
+        XRoadMessage message = EXTRACTOR.extractData(new SaajSoapMessage(getMessageFromString("extractor/EarestFail6.xml")));
+        assertEquals(RESULT_PEM_FORMAT, message.getContent().toString());
     }
 
 
     @Test
     public void testExtractDataBase64SingleRow() throws IOException, SOAPException {
-        StandardXRoadConsumerMessageExtractor extractor =
-                new StandardXRoadConsumerMessageExtractor(new XmlBeansXRoadMetadata("operation",
-                        "b",
-                        "request",
-                        "d",
-                        "response",
-                        "f",
-                        "1"));
         // whole file in a single row (base64binary in a single row)
-        XRoadMessage message = extractor.extractData(new SaajSoapMessage(getMessageFromString("extractor/EarestFail4.xml")));
-        assertEquals(TEST_MESSAGE2, message.getContent().toString());
+        XRoadMessage message = EXTRACTOR.extractData(new SaajSoapMessage(getMessageFromString("extractor/EarestFail4.xml")));
+        assertEquals(RESULT_SINGLE_ROW_FORMAT, message.getContent().toString());
     }
 
     @Test
     public void testExtractDataBase64PEMFormat() throws IOException, SOAPException {
-        StandardXRoadConsumerMessageExtractor extractor =
-                new StandardXRoadConsumerMessageExtractor(new XmlBeansXRoadMetadata("operation",
-                        "b",
-                        "request",
-                        "d",
-                        "response",
-                        "f",
-                        "1"));
-
-
         // xml elements in a single row, but base64binary part on different rows (PEM format)
-        XRoadMessage message1 = extractor.extractData(new SaajSoapMessage(getMessageFromString("extractor/EarestFail1.xml")));
-        assertEquals(TEST_MESSAGE, message1.getContent().toString());
+        XRoadMessage message1 = EXTRACTOR.extractData(new SaajSoapMessage(getMessageFromString("extractor/EarestFail1.xml")));
+        assertEquals(RESULT_PEM_FORMAT, message1.getContent().toString());
 
         // manually formated file with whitespaces between elements without new row (base64binary in PEM format)
-        XRoadMessage message2 = extractor.extractData(new SaajSoapMessage(getMessageFromString("extractor/EarestFail2.xml")));
-        assertEquals(TEST_MESSAGE, message2.getContent().toString());
+        XRoadMessage message2 = EXTRACTOR.extractData(new SaajSoapMessage(getMessageFromString("extractor/EarestFail2.xml")));
+        assertEquals(RESULT_PEM_FORMAT, message2.getContent().toString());
 
         // menually formated file without whitespaces between elements and without new row (base64binary in PEM format)
-        XRoadMessage message3 = extractor.extractData(new SaajSoapMessage(getMessageFromString("extractor/EarestFail3.xml")));
-        assertEquals(TEST_MESSAGE, message3.getContent().toString());
+        XRoadMessage message3 = EXTRACTOR.extractData(new SaajSoapMessage(getMessageFromString("extractor/EarestFail3.xml")));
+        assertEquals(RESULT_PEM_FORMAT, message3.getContent().toString());
 
         // menually formated file with whitespaces between elements and without new row (base64binary in PEM format)
-        XRoadMessage message5 = extractor.extractData(new SaajSoapMessage(getMessageFromString("extractor/EarestFail5.xml")));
-        assertEquals(TEST_MESSAGE, message5.getContent().toString());
+        XRoadMessage message5 = EXTRACTOR.extractData(new SaajSoapMessage(getMessageFromString("extractor/EarestFail5.xml")));
+        assertEquals(RESULT_PEM_FORMAT, message5.getContent().toString());
     }
 }
