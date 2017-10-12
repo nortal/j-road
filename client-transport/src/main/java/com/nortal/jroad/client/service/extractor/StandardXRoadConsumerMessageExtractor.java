@@ -58,8 +58,8 @@ public class StandardXRoadConsumerMessageExtractor implements WebServiceMessageE
       Element body = mes.getSOAPBody();
       NodeList kehaNodes = body.getChildNodes();
       kehaNode = body.getChildNodes().item(0);
-      if (kehaNode.getTextContent().contains("\n")) {
-        kehaNode = kehaNodes.item(1);
+      if (kehaNode instanceof javax.xml.soap.Text) {
+        kehaNode = getKehaNode(kehaNodes, 1);
       }
       if (kehaNodes.getLength() > 1) {
         // In case of multiple elements take the first one that matches specified hierarchy
@@ -138,6 +138,14 @@ public class StandardXRoadConsumerMessageExtractor implements WebServiceMessageE
       throw new RuntimeException(e);
     }
 
+  }
+
+  private Node getKehaNode(NodeList kehaNodes, int nextIndex) {
+    Node kehaNode = kehaNodes.item(nextIndex);
+    if (kehaNode instanceof javax.xml.soap.Text) {
+      kehaNode = getKehaNode(kehaNodes, ++nextIndex);
+    }
+    return kehaNode;
   }
 
   private void checkForNonTechnicalFault(Node kehaNode) throws NonTechnicalFaultException {
