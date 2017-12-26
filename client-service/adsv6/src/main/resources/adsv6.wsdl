@@ -1,0 +1,323 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:xrd="http://x-road.eu/xsd/xroad.xsd"
+    xmlns:tns="http://www.maaamet.ee"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://www.maaamet.ee">
+    <wsdl:types>
+
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.maaamet.ee" xmlns:xrd="http://x-road.eu/xsd/xroad.xsd"	xmlns:ads="http://www.maaamet.ee">
+  <import namespace="http://x-road.eu/xsd/xroad.xsd" schemaLocation="http://x-road.eu/xsd/xroad.xsd" />
+  <include schemaLocation="http://www.maaamet.ee/schemas/xtee6/test/ads_types.xsd"></include>
+  <element name="ADSnormal" type="ads:ADSnormalRequestType"/>
+  <complexType name="ADSnormalRequestType">
+    <annotation>
+      <appinfo>
+        <xrd:title>Aadressteksti normaliseerimine</xrd:title>
+      </appinfo>
+    </annotation>
+    <sequence>
+      <element name="aadressid" minOccurs="1" maxOccurs="1">
+        <complexType>
+          <sequence >
+            <element name="aadress" minOccurs="1" maxOccurs="unbounded">
+              <complexType>
+                <sequence >
+                  <element name="adsTase1" minOccurs="0" type="ads:adsTaseType" >
+                    <annotation>
+                      <appinfo>
+                        <xrd:title>Olemasolev komponent - Tase 1</xrd:title>
+                      </appinfo>
+                    </annotation>
+                  </element>
+                  <element name="adsTase2" minOccurs="0" type="ads:adsTaseType">
+                    <annotation>
+                      <appinfo>
+                        <xrd:title>Olemasolev komponent - Tase 2</xrd:title>
+                      </appinfo>
+                    </annotation>
+                  </element>
+                  <element name="adsTase3" minOccurs="0" type="ads:adsTaseType">
+                    <annotation>
+                      <appinfo>
+                        <xrd:title>Olemasolev komponent - Tase 3</xrd:title>
+                      </appinfo>
+                    </annotation>
+                  </element>
+                  <element name="adsTase4" minOccurs="0" type="ads:adsTaseType">
+                    <annotation>
+                      <appinfo>
+                        <xrd:title>Olemasolev komponent - Tase 4</xrd:title>
+                      </appinfo>
+                    </annotation>
+                  </element>
+                  <element name="adsTase5" minOccurs="0" type="ads:adsTaseType">
+                    <annotation>
+                      <appinfo>
+                        <xrd:title>Olemasolev komponent - Tase 5</xrd:title>
+                      </appinfo>
+                    </annotation>
+                  </element>
+                  <element name="adsTase6" minOccurs="0" type="ads:adsTaseType">
+                    <annotation>
+                      <appinfo>
+                        <xrd:title>Olemasolev komponent - Tase 6</xrd:title>
+                      </appinfo>
+                    </annotation>
+                  </element>
+                  <element name="adsTase7" minOccurs="0" type="ads:adsTaseType">
+                    <annotation>
+                      <appinfo>
+                        <xrd:title>Olemasolev komponent - Tase 7</xrd:title>
+                      </appinfo>
+                    </annotation>
+                  </element>
+                  <element name="adsTase8" minOccurs="0" type="ads:adsTaseType">
+                    <annotation>
+                      <appinfo>
+                        <xrd:title>Olemasolev komponent - Tase 8</xrd:title>
+                      </appinfo>
+                    </annotation>
+                  </element>
+                  <element name="tekst" type="string" minOccurs="0">
+                    <annotation>
+                      <appinfo>
+                        <xrd:title>Aadressi normaliseerimata osa tekstilisel kujul</xrd:title>
+                        <xrd:fieldsize>70</xrd:fieldsize>
+                      </appinfo>
+                    </annotation>
+                  </element>
+                </sequence>
+              </complexType>
+            </element>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="objektiLiik" minOccurs="0" type="ads:adsobjliikKlassifikaator">
+        <annotation>
+          <appinfo>
+            <xrd:title>Objekti liik</xrd:title>
+            <xrd:notes>Objekti liik, mille aadressi üritatakse normaliseerida. Vajalik initsialiseerivate tasandite tuvastamiseks.</xrd:notes>
+          </appinfo>
+        </annotation>
+      </element>
+    </sequence>
+  </complexType>
+  <element name="ADSnormalResponse" type="ads:ADSnormalVastusType"/>
+  <complexType name="ADSnormalVastusType">
+    <sequence>
+      <element name="normalTulem" type="string">             <annotation>
+                <appinfo>
+                  <xrd:title>Tulem</xrd:title>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="teade" minOccurs="0" type="string" >             <annotation>
+                <appinfo>
+                  <xrd:title>Teade</xrd:title>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="taisAadress" minOccurs="0" type="string">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Täisaadress</xrd:title>
+                  <xrd:notes>Objekti normaliseeritud täielik tekstiline aadress, mis sisaldab kõiki paralleelaadresse pikal optimeerimata kujul</xrd:notes>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="optiAadress" minOccurs="0" type="string">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Optimeeritud aadress</xrd:title>
+                  <xrd:notes>Objekti normaliseeritud ja optimeeritud täisaadress, mis sisaldab kõiki paralleelaadresse, kus korduvad komponendid on ühekordselt</xrd:notes>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="lahiAadress" type="string">
+              <annotation>
+                <appinfo>
+                  <xrd:title>Objekti normaliseeritud lähiaadress stringina</xrd:title>
+                </appinfo>
+              </annotation>
+            </element>
+            <element name="aadressid" minOccurs="0">
+              <complexType>
+                <sequence>
+                  <element name="aadress" minOccurs="0" maxOccurs="unbounded">
+                    <complexType>
+                      <sequence>
+                        <element name="adsTase1" type="ads:adsTaseType" minOccurs="0">
+                          <annotation>
+                            <appinfo>
+                              <xrd:title>Tase 1</xrd:title>
+                            </appinfo>
+                          </annotation>
+                        </element>
+                        <element name="adsTase2" type="ads:adsTaseType" minOccurs="0">
+                          <annotation>
+                            <appinfo>
+                              <xrd:title>Tase 2</xrd:title>
+                            </appinfo>
+                          </annotation>
+                        </element>
+                        <element name="adsTase3" type="ads:adsTaseType" minOccurs="0">
+                          <annotation>
+                            <appinfo>
+                              <xrd:title>Tase 3</xrd:title>
+                            </appinfo>
+                          </annotation>
+                        </element>
+                        <element name="adsTase4" type="ads:adsTaseType" minOccurs="0">
+                          <annotation>
+                            <appinfo>
+                              <xrd:title>Tase 4</xrd:title>
+                            </appinfo>
+                          </annotation>
+                        </element>
+                        <element name="adsTase5" type="ads:adsTaseType" minOccurs="0">
+                          <annotation>
+                            <appinfo>
+                              <xrd:title>Tase 5</xrd:title>
+                            </appinfo>
+                          </annotation>
+                        </element>
+                        <element name="adsTase6" type="ads:adsTaseType" minOccurs="0">
+                          <annotation>
+                            <appinfo>
+                              <xrd:title>Tase 6</xrd:title>
+                            </appinfo>
+                          </annotation>
+                        </element>
+                        <element name="adsTase7" type="ads:adsTaseType" minOccurs="0">
+                          <annotation>
+                            <appinfo>
+                              <xrd:title>Tase 7</xrd:title>
+                            </appinfo>
+                          </annotation>
+                        </element>
+                        <element name="adsTase8" type="ads:adsTaseType" minOccurs="0">
+                          <annotation>
+                            <appinfo>
+                              <xrd:title>Tase 8</xrd:title>
+                            </appinfo>
+                          </annotation>
+                        </element>
+                        <element name="tekst" minOccurs="0" type="string">
+                          <annotation>
+                            <appinfo>
+                              <xrd:title>Aadressi normaliseerimata osa tekstilisel kujul</xrd:title>
+                            </appinfo>
+                          </annotation>
+                        </element>
+                        <element name="adrId" type="integer">
+                          <annotation>
+                            <appinfo>
+                              <xrd:title>Aadressi unikaalne võti(ADR_ID)</xrd:title>
+                              <xrd:notes>Kui normaliseerimine õnnestus täielikult ja tegemist on olemasoleva (süsteemis registreeritud) aadressiga, siis selle aadressi id</xrd:notes>
+                            </appinfo>
+                          </annotation>
+                        </element>
+                        <element name="koodaadress" minOccurs="0" type="string">
+                          <annotation>
+                            <appinfo>
+                              <xrd:title>Koodaadress</xrd:title>
+                              <xrd:notes>Kui normaliseerimine õnnestus täielikult ja tegemist on olemasoleva (süsteemis registreeritud) aadressiga, siis see koodaadress</xrd:notes>
+                            </appinfo>
+                          </annotation>
+                        </element>
+                        <element name="punktX" type="double" minOccurs="0">
+                          <annotation>
+                            <appinfo>
+                              <xrd:title>Aadressi esinduspunkti x-koordinaat</xrd:title>
+                            </appinfo>
+                          </annotation>
+                        </element>
+                        <element name="punktY" type="double" minOccurs="0">
+                          <annotation>
+                            <appinfo>
+                              <xrd:title>Aadressi esinduspunkti y-koordinaat</xrd:title>
+                            </appinfo>
+                          </annotation>
+                        </element>
+                      </sequence>
+                    </complexType>
+                  </element>
+                </sequence>
+              </complexType>
+            </element>
+          </sequence>
+        </complexType>
+</schema>
+</wsdl:types>
+    <wsdl:message name="requestHeader">
+        <wsdl:part name="client" element="xrd:client"/>
+        <wsdl:part name="service" element="xrd:service"/>
+        <wsdl:part name="id" element="xrd:id"/>
+        <wsdl:part name="userId" element="xrd:userId"/>
+        <wsdl:part name="requestHash" element="xrd:requestHash"/>
+        <wsdl:part name="issue" element="xrd:issue"/>
+        <wsdl:part name="protocolVersion" element="xrd:protocolVersion"/>
+    </wsdl:message>
+    <wsdl:message name="ADSnormal">
+        <wsdl:part name="body" element="tns:ADSnormal"/>
+    </wsdl:message>
+    <wsdl:message name="ADSnormalResponse">
+        <wsdl:part name="body" element="tns:ADSnormalResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="servicePortType">
+        <wsdl:operation name="ADSnormal">
+          <wsdl:documentation>
+            <xrd:title xml:lang="et">Aadressteksti normaliseerimine</xrd:title>
+          </wsdl:documentation>
+          <wsdl:input message="tns:ADSnormal"/>
+            <wsdl:output message="tns:ADSnormalResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="serviceBinding" type="tns:servicePortType">
+        <soap:binding style="document"
+            transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="ADSnormal">
+            <soap:operation soapAction="" style="document"/>
+            <xrd:version>v2</xrd:version>
+            <wsdl:input>
+                <soap:body use="literal"/>
+                <soap:header message="tns:requestHeader"
+                    part="client" use="literal"/>
+                <soap:header message="tns:requestHeader"
+                    part="service" use="literal"/>
+                <soap:header message="tns:requestHeader"
+                    part="id" use="literal"/>
+                <soap:header message="tns:requestHeader"
+                    part="userId" use="literal"/>
+                <soap:header message="tns:requestHeader"
+                    part="issue" use="literal"/>
+                <soap:header message="tns:requestHeader"
+                    part="protocolVersion" use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+                <soap:header message="tns:requestHeader"
+                    part="client" use="literal"/>
+                <soap:header message="tns:requestHeader"
+                    part="service" use="literal"/>
+                <soap:header message="tns:requestHeader"
+                    part="id" use="literal"/>
+                <soap:header message="tns:requestHeader"
+                    part="userId" use="literal"/>
+                <soap:header message="tns:requestHeader"
+                    part="requestHash" use="literal"/>
+                <soap:header message="tns:requestHeader"
+                    part="issue" use="literal"/>
+                <soap:header message="tns:requestHeader"
+                    part="protocolVersion" use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="xroadeuService">
+        <wsdl:port binding="tns:serviceBinding" name="xroadeuServicePort">
+            <soap:address location="http://TURVASERVER/xtee-proxy"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

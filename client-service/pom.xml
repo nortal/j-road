@@ -43,6 +43,7 @@
     <module>jvis</module>
     <module>digiluguv6</module>
     <module>lkfv6</module>
+    <module>adsv6</module>
 
 
 <!-- These modules do compile but needs review - consult with epria or example module -->

@@ -3,8 +3,15 @@ package com.nortal.jroad.client.rrv6;
 
 import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.rrv6.types.eu.x_road.rr.producer.*;
+import com.nortal.jroad.client.util.XmlBeansUtil;
+import org.apache.commons.lang.StringUtils;
+import org.apache.xmlbeans.XmlString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service("Rrv6XTeeServiceImpl")
@@ -72,6 +79,45 @@ public class RrV6XTeeServiceImpl implements RrV6XTeeService {
         requestType.setIsikukood(isikukood);
         paring.setRequest(requestType);
         return rrXRoadDatabase.rr84IsikuSeosedV1(paring, userIdCode);
+    }
+
+    @Override
+    public List<RR72IsikResponseType.TtIsik.TtIsikud> findRR72Isik(String... idCodes) throws XRoadServiceConsumptionException {
+        RR72IsikDocument.RR72Isik rr72Isik = RR72IsikDocument.RR72Isik.Factory.newInstance();
+        RR72IsikRequestType rr72IsikRequestType = RR72IsikRequestType.Factory.newInstance();
+        String isikukoodid = StringUtils.join(idCodes, ",");
+        XmlString isikukoodidElement = XmlBeansUtil
+            .getAttributedXmlString(isikukoodid);
+        rr72IsikRequestType.xsetCIsikukoodid(isikukoodidElement);
+        rr72Isik.setRequest(rr72IsikRequestType);
+
+        RR72IsikResponseType.TtIsik ttIsik = rrXRoadDatabase.rr72IsikV1(rr72Isik).getResponse().getTtIsik();
+        return ttIsik != null ? ttIsik.getTtIsikudList() : new ArrayList<RR72IsikResponseType.TtIsik.TtIsikud>(0);
+    }
+
+    public List<RR67MuutusResponseType.TtKood.TtKoodid> findRR67MuutusV1(java.util.Date algus, java.util.Date lopp,
+                                                                         String... koodid) throws XRoadServiceConsumptionException {
+        RR67MuutusDocument.RR67Muutus rr67Muutus = RR67MuutusDocument.RR67Muutus.Factory.newInstance();
+        RR67MuutusRequestType rr67MuutusRequestType = RR67MuutusRequestType.Factory.newInstance();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        if (koodid != null) {
+            String codes = StringUtils.join(koodid);
+            rr67MuutusRequestType.setCMuutused(codes);
+        }
+        if (algus != null) {
+            rr67MuutusRequestType.setCAlgKpv(dateFormat.format(algus));
+            rr67MuutusRequestType.setCAlgKell(timeFormat.format(algus));
+        }
+        if (lopp != null) {
+            rr67MuutusRequestType.setCLoppKpv(dateFormat.format(lopp));
+            rr67MuutusRequestType.setCLoppKell(timeFormat.format(lopp));
+        }
+
+        rr67Muutus.setRequest(rr67MuutusRequestType);
+        RR67MuutusResponseType.TtKood ttKood = rrXRoadDatabase.rr67MuutusV1(rr67Muutus).getResponse().getTtKood();
+        return ttKood != null ? ttKood.getTtKoodidList() : new ArrayList<RR67MuutusResponseType.TtKood.TtKoodid>();
     }
 
 }
