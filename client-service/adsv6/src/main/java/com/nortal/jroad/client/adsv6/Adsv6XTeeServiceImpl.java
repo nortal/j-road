@@ -20,6 +20,6 @@ public class Adsv6XTeeServiceImpl implements Adsv6XTeeService {
     ADSnormalRequestType.Aadressid.Aadress aadress = aadressid.addNewAadress();
     aadress.setTekst(aadressTekst);
 
-    return adsv6XRoadDatabase.adSnormalV1(request);
+    return adsv6XRoadDatabase.adSnormalV2(request);
   }
 }
