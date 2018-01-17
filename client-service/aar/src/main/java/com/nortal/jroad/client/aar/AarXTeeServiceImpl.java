@@ -1,32 +1,30 @@
 package com.nortal.jroad.client.aar;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-
-import org.apache.xmlbeans.XmlException;
-import org.apache.xmlbeans.XmlObject;
-import org.apache.xmlbeans.XmlOptions;
-import org.springframework.stereotype.Service;
-
 import com.nortal.jroad.client.aar.types.ee.riik.xtee.aar.producers.producer.aar.AsutusedParing;
 import com.nortal.jroad.client.aar.types.ee.riik.xtee.aar.producers.producer.aar.AsutusedParingManus;
+import com.nortal.jroad.client.aar.types.ee.riik.xtee.aar.producers.producer.aar.AsutusedParingManus.Asutused;
 import com.nortal.jroad.client.aar.types.ee.riik.xtee.aar.producers.producer.aar.AsutusedVastus;
 import com.nortal.jroad.client.aar.types.ee.riik.xtee.aar.producers.producer.aar.AsutusedVastusManus;
 import com.nortal.jroad.client.aar.types.ee.riik.xtee.aar.producers.producer.aar.TaitmisedParing;
 import com.nortal.jroad.client.aar.types.ee.riik.xtee.aar.producers.producer.aar.TaitmisedParingManus;
+import com.nortal.jroad.client.aar.types.ee.riik.xtee.aar.producers.producer.aar.TaitmisedParingManus.Taitmised;
 import com.nortal.jroad.client.aar.types.ee.riik.xtee.aar.producers.producer.aar.TaitmisedVastus;
 import com.nortal.jroad.client.aar.types.ee.riik.xtee.aar.producers.producer.aar.TaitmisedVastusManus;
-import com.nortal.jroad.client.aar.types.ee.riik.xtee.aar.producers.producer.aar.AsutusedParingManus.Asutused;
-import com.nortal.jroad.client.aar.types.ee.riik.xtee.aar.producers.producer.aar.TaitmisedParingManus.Taitmised;
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.service.XTeeDatabaseService;
-import com.nortal.jroad.client.service.configuration.DelegatingXTeeServiceConfiguration;
-import com.nortal.jroad.client.service.configuration.XTeeServiceConfiguration;
-import com.nortal.jroad.model.XTeeAttachment;
-import com.nortal.jroad.model.XTeeMessage;
-import com.nortal.jroad.model.XmlBeansXTeeMessage;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
+import com.nortal.jroad.client.service.configuration.XRoadServiceConfiguration;
+import com.nortal.jroad.client.service.configuration.DelegatingXRoadServiceConfiguration;
+import com.nortal.jroad.client.service.XRoadDatabaseService;
+import com.nortal.jroad.model.XRoadAttachment;
+import com.nortal.jroad.model.XRoadMessage;
+import com.nortal.jroad.model.XmlBeansXRoadMessage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import org.apache.xmlbeans.XmlException;
+import org.apache.xmlbeans.XmlObject;
+import org.apache.xmlbeans.XmlOptions;
+import org.springframework.stereotype.Service;
 
 /**
  * Aar andmekogu xtee teenused
@@ -35,15 +33,15 @@ import com.nortal.jroad.model.XmlBeansXTeeMessage;
  * @date 08.10.2010
  */
 @Service("aarXTeeService")
-public class AarXTeeServiceImpl extends XTeeDatabaseService implements AarXTeeService {
+public class AarXTeeServiceImpl extends XRoadDatabaseService implements AarXTeeService {
 
-	public AsutusedVastusManus asutusedParingRegistriKoodiJargi(final String paringuIsikukood, String regKood) throws XTeeServiceConsumptionException {
+	public AsutusedVastusManus asutusedParingRegistriKoodiJargi(final String paringuIsikukood, String regKood) throws XRoadServiceConsumptionException {
 		if (regKood == null) {
 			throw new RuntimeException("Asutuse registrikood peab olema määratud");
 		}
 
 		AsutusedVastusManus responseObj = null;
-		XTeeMessage<AsutusedParing> request = new XmlBeansXTeeMessage<AsutusedParing>(AsutusedParing.Factory.newInstance());
+		XRoadMessage<AsutusedParing> request = new XmlBeansXRoadMessage<AsutusedParing>(AsutusedParing.Factory.newInstance());
 		AsutusedParingManus paringManus = AsutusedParingManus.Factory.newInstance();
 
 		Asutused asutused = paringManus.addNewAsutused();
@@ -55,8 +53,8 @@ public class AarXTeeServiceImpl extends XTeeDatabaseService implements AarXTeeSe
 		callback.addElementAttribute("asutused", "xsi:type", "xsd:base64Binary");
 
 		// Teeme päringu
-		final XTeeServiceConfiguration xteeConfiguration = xTeeServiceConfigurationProvider.createConfiguration(getDatabase(), getDatabase(), "asutused", "v1");
-		DelegatingXTeeServiceConfiguration configuration = new DelegatingXTeeServiceConfiguration(xteeConfiguration) {
+		final XRoadServiceConfiguration xteeConfiguration = xRoadServiceConfigurationProvider.createConfiguration(getDatabase(), getDatabase(), "asutused", "v1");
+		DelegatingXRoadServiceConfiguration configuration = new DelegatingXRoadServiceConfiguration(xteeConfiguration) {
 			@Override
 			public String getIdCode() {
 				// Kasutame konfis etteantud isikukoodi
@@ -67,7 +65,7 @@ public class AarXTeeServiceImpl extends XTeeDatabaseService implements AarXTeeSe
 				return idCode;
 			}
 		};
-		XTeeMessage<AsutusedVastus> response = xTeeConsumer.sendRequest(request, configuration, callback, null);
+		XRoadMessage<AsutusedVastus> response = xRoadConsumer.sendRequest(request, configuration, callback, null);
 
 		if (!response.getAttachments().isEmpty()) {
 			ByteArrayOutputStream out = this.readResponse(response.getAttachments().get(0));
@@ -85,14 +83,14 @@ public class AarXTeeServiceImpl extends XTeeDatabaseService implements AarXTeeSe
 		return responseObj;
 	}
 
-	public TaitmisedVastusManus isikuRollidAsutuses(final String paringuIsikukood, Long asutusId, String isikukood, RollEnum... rollid) throws XTeeServiceConsumptionException {
+	public TaitmisedVastusManus isikuRollidAsutuses(final String paringuIsikukood, Long asutusId, String isikukood, RollEnum... rollid) throws XRoadServiceConsumptionException {
 		if (asutusId == null || (rollid == null || rollid.length == 0)) {
 			throw new RuntimeException("Kohustuslikud parameetrid: asutuseId ja rollid peavad olema määratud");
 		}
 
 		TaitmisedVastusManus responseObj = null;
 
-		XTeeMessage<TaitmisedParing> request = new XmlBeansXTeeMessage<TaitmisedParing>(TaitmisedParing.Factory.newInstance());
+		XRoadMessage<TaitmisedParing> request = new XmlBeansXRoadMessage<TaitmisedParing>(TaitmisedParing.Factory.newInstance());
 
 		TaitmisedParingManus paringManus = TaitmisedParingManus.Factory.newInstance();
 		Taitmised taitmised = paringManus.addNewTaitmised();
@@ -111,8 +109,8 @@ public class AarXTeeServiceImpl extends XTeeDatabaseService implements AarXTeeSe
 		callback.addElementAttribute("taitmised", "xsi:type", "xsd:base64Binary");
 
 		// Teeme päringu
-		final XTeeServiceConfiguration xteeConfiguration = xTeeServiceConfigurationProvider.createConfiguration(getDatabase(), getDatabase(), "taitmised", "v1");
-		DelegatingXTeeServiceConfiguration configuration = new DelegatingXTeeServiceConfiguration(xteeConfiguration) {
+		final XRoadServiceConfiguration xteeConfiguration = xRoadServiceConfigurationProvider.createConfiguration(getDatabase(), getDatabase(), "taitmised", "v1");
+		DelegatingXRoadServiceConfiguration configuration = new DelegatingXRoadServiceConfiguration(xteeConfiguration) {
 			@Override
 			public String getIdCode() {
 				// Kasutame konfis etteantud isikukoodi
@@ -123,7 +121,7 @@ public class AarXTeeServiceImpl extends XTeeDatabaseService implements AarXTeeSe
 				return idCode;
 			}
 		};
-		XTeeMessage<TaitmisedVastus> response = xTeeConsumer.sendRequest(request, configuration, callback, null);
+		XRoadMessage<TaitmisedVastus> response = xRoadConsumer.sendRequest(request, configuration, callback, null);
 
 		if (!response.getAttachments().isEmpty()) {
 			ByteArrayOutputStream out = this.readResponse(response.getAttachments().get(0));
@@ -141,7 +139,7 @@ public class AarXTeeServiceImpl extends XTeeDatabaseService implements AarXTeeSe
 		return responseObj;
 	}
 
-	private ByteArrayOutputStream readResponse(XTeeAttachment attachment) {
+	private ByteArrayOutputStream readResponse(XRoadAttachment attachment) {
 	    ByteArrayOutputStream out = null;
 		if (attachment != null) {
 			try {

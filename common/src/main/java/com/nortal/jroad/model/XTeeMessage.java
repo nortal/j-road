@@ -8,6 +8,8 @@ import java.util.List;
  * @author Dmitri Danilkin
  * @param <T> type of body element
  */
+// Should switch to X-road implementation
+@Deprecated
 public interface XTeeMessage<T> {
   XTeeHeader getHeader();
 

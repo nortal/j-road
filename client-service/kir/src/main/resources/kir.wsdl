@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xrd="http://x-road.ee/xsd/x-road.xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns="http://kir.x-road.ee/producer/" targetNamespace="http://kir.x-road.ee/producer/" xmlns:kir="http://kir.x-road.ee/producer/"  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Kinnipeetavate register; versioon: 1.0.140.340 | X-tee sõnumiprotokolli versioon: 3.1 | Genereerimise aeg: 19.04.2016 11:00:00</wsdl:documentation>
+    <wsdl:types>
+        <xsd:schema targetNamespace="http://kir.x-road.ee/producer/">
+            <xsd:import namespace="http://x-road.ee/xsd/x-road.xsd" />
+            <xsd:complexType name="AnnaArvelolekuAndmedRequest">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <xrd:title xml:lang="et">Teenus kinnipeetavate arveloleku andmete saamiseks.</xrd:title>
+                    </xsd:appinfo>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="PerioodiAlgusKP" type="xsd:date">
+                        <xsd:annotation>
+                            <xsd:appinfo>
+                                <xrd:title xml:lang="et">Kinnipidamise perioodi vahemiku alguse kuupäev.</xrd:title>
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="PerioodiLoppKP" type="xsd:date">
+                        <xsd:annotation>
+                            <xsd:appinfo>
+                                <xrd:title xml:lang="et">Kinnipidamise perioodi vahemiku lõpu kuupäev.</xrd:title>
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="unbounded" name="ParinguLiik" type="kir:IsikuStaatus">
+                        <xsd:annotation>
+                            <xsd:appinfo>
+                                <xrd:title xml:lang="et">Loetletakse päringu liigid, mille raames valitud isikuid otsitakse.</xrd:title>
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element maxOccurs="unbounded" name="Isikukood" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:appinfo>
+                                <xrd:title xml:lang="et">Kinnipeetavate isikute isikukoodid, kelle kohta infot soovitakse.</xrd:title>
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:simpleType name="IsikuStaatus">
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="eeluurimisalune" />
+                    <xsd:enumeration value="kohtualune" />
+                    <xsd:enumeration value="suudimoistetu" />
+                    <xsd:enumeration value="vabastatu" />
+                    <xsd:enumeration value="ositi vangistuses" />
+                    <xsd:enumeration value="arestialune" />
+                    <xsd:enumeration value="valjaantav" />
+                    <xsd:enumeration value="valjasaadetav" />
+                    <xsd:enumeration value="loovutatav" />
+                </xsd:restriction>
+            </xsd:simpleType>
+            <xsd:complexType name="LeiaMuudetudAndmetegaKinnipeetavadRequest">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <xrd:title xml:lang="et">Teenus kinnipeetavate tuvastamiseks, kelle kinnipidamise andmetes on etteantud ajavahemikus toimunud muudatusi.</xrd:title>
+                    </xsd:appinfo>
+                </xsd:annotation>
+                <xsd:sequence>
+                    <xsd:element name="PerioodiAlgusKP" type="xsd:date">
+                        <xsd:annotation>
+                            <xsd:appinfo>
+                                <xrd:title xml:lang="et">Muudatuse toimumise aja vahemiku alguse kuupäev.</xrd:title>
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="PerioodiLoppKP" type="xsd:date">
+                        <xsd:annotation>
+                            <xsd:appinfo>
+                                <xrd:title xml:lang="et">Muudatuse toimumise aja vahemiku lõpu kuupäev.</xrd:title>
+                            </xsd:appinfo>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="AnnaArvelolekuAndmed">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="request" type="kir:AnnaArvelolekuAndmedRequest" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="AnnaArvelolekuAndmedResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="request" type="kir:AnnaArvelolekuAndmedRequest" />
+                        <xsd:element name="response">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:choice>
+                                        <xsd:element minOccurs="0" maxOccurs="unbounded" name="Arvelolek">
+                                            <xsd:complexType>
+                                                <xsd:annotation>
+                                                    <xsd:appinfo>
+                                                        <xrd:title xml:lang="et">Andmed kinnipeetava arveloleku kohta.</xrd:title>
+                                                    </xsd:appinfo>
+                                                </xsd:annotation>
+                                                <xsd:sequence>
+                                                    <xsd:element name="Isikukood" type="xsd:string">
+                                                        <xsd:annotation>
+                                                            <xsd:appinfo>
+                                                                <xrd:title xml:lang="et">Kinnipeetava isikukood.</xrd:title>
+                                                            </xsd:appinfo>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                    <xsd:element name="Nimi" nillable="true" type="xsd:string">
+                                                        <xsd:annotation>
+                                                            <xsd:appinfo>
+                                                                <xrd:title xml:lang="et">Isiku nimi.</xrd:title>
+                                                            </xsd:appinfo>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                    <xsd:element name="IsikuStaatus" nillable="true" type="kir:IsikuStaatus">
+                                                        <xsd:annotation>
+                                                            <xsd:appinfo>
+                                                                <xrd:title xml:lang="et">Isiku staatus VangIS-es päringu tegemise hetkel.</xrd:title>
+                                                            </xsd:appinfo>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                    <xsd:element name="Vangla" nillable="true" type="xsd:string">
+                                                        <xsd:annotation>
+                                                            <xsd:appinfo>
+                                                                <xrd:title xml:lang="et">Vangla nimetus, kus isik päringu tegemise hetkel asub.</xrd:title>
+                                                            </xsd:appinfo>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                    <xsd:element name="KinnipidamiseAlgusKP" nillable="true" type="xsd:date">
+                                                        <xsd:annotation>
+                                                            <xsd:appinfo>
+                                                                <xrd:title xml:lang="et">Isiku kinnipidamise alguse kuupäev (istumise alguse kuupäev).</xrd:title>
+                                                            </xsd:appinfo>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                    <xsd:element name="KinnipidamiseLoppKP" nillable="true" type="xsd:date">
+                                                        <xsd:annotation>
+                                                            <xsd:appinfo>
+                                                                <xrd:title xml:lang="et">Isiku kinnipidamise lõpu kuupäev (isiku vanglast vabanemise kuupäev).</xrd:title>
+                                                            </xsd:appinfo>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:sequence>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                        <xsd:sequence>
+                                            <xsd:element name="faultCode" type="xsd:string" />
+                                            <xsd:element name="faultString" type="xsd:string" />
+                                        </xsd:sequence>
+                                    </xsd:choice>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="LeiaMuudetudAndmetegaKinnipeetavad">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="request" type="kir:LeiaMuudetudAndmetegaKinnipeetavadRequest" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="LeiaMuudetudAndmetegaKinnipeetavadResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="request" type="kir:LeiaMuudetudAndmetegaKinnipeetavadRequest" />
+                        <xsd:element name="response">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:choice>
+                                        <xsd:element minOccurs="0" maxOccurs="unbounded" name="Isikukood" type="xsd:string" />
+                                        <xsd:sequence>
+                                            <xsd:element name="faultCode" type="xsd:string" />
+                                            <xsd:element name="faultString" type="xsd:string" />
+                                        </xsd:sequence>
+                                    </xsd:choice>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="RequiredHeaders">
+        <wsdl:part name="consumer" element="xrd:consumer" />
+        <wsdl:part name="id" element="xrd:id" />
+        <wsdl:part name="producer" element="xrd:producer" />
+        <wsdl:part name="service" element="xrd:service" />
+        <wsdl:part name="userId" element="xrd:userId" />
+        <wsdl:part name="userName" element="xrd:userName" />
+    </wsdl:message>
+    <wsdl:message name="AnnaArvelolekuAndmed">
+        <wsdl:part name="body" element="kir:AnnaArvelolekuAndmed" />
+    </wsdl:message>
+    <wsdl:message name="AnnaArvelolekuAndmedResponse">
+        <wsdl:part name="body" element="kir:AnnaArvelolekuAndmedResponse" />
+    </wsdl:message>
+    <wsdl:message name="LeiaMuudetudAndmetegaKinnipeetavad">
+        <wsdl:part name="body" element="kir:LeiaMuudetudAndmetegaKinnipeetavad" />
+    </wsdl:message>
+    <wsdl:message name="LeiaMuudetudAndmetegaKinnipeetavadResponse">
+        <wsdl:part name="body" element="kir:LeiaMuudetudAndmetegaKinnipeetavadResponse" />
+    </wsdl:message>
+    <wsdl:portType name="KirPortType">
+        <wsdl:operation name="AnnaArvelolekuAndmed">
+            <wsdl:documentation>
+                <xrd:title xml:lang="et">Teenus kinnipeetavate arveloleku andmete saamiseks.</xrd:title>
+            </wsdl:documentation>
+            <wsdl:input message="kir:AnnaArvelolekuAndmed" />
+            <wsdl:output message="kir:AnnaArvelolekuAndmedResponse" />
+        </wsdl:operation>
+        <wsdl:operation name="LeiaMuudetudAndmetegaKinnipeetavad">
+            <wsdl:documentation>
+                <xrd:title xml:lang="et">Teenus kinnipeetavate tuvastamiseks, kelle kinnipidamise andmetes on etteantud ajavahemikus toimunud muudatusi.</xrd:title>
+            </wsdl:documentation>
+            <wsdl:input message="kir:LeiaMuudetudAndmetegaKinnipeetavad" />
+            <wsdl:output message="kir:LeiaMuudetudAndmetegaKinnipeetavadResponse" />
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="KirBinding" type="kir:KirPortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+        <wsdl:operation name="AnnaArvelolekuAndmed">
+            <xrd:version>v1</xrd:version>
+            <soap:operation soapAction="" style="document" />
+            <wsdl:input>
+                <soap:body use="literal" />
+                <soap:header message="kir:RequiredHeaders" part="consumer" use="literal" />
+                <soap:header message="kir:RequiredHeaders" part="id" use="literal" />
+                <soap:header message="kir:RequiredHeaders" part="producer" use="literal" />
+                <soap:header message="kir:RequiredHeaders" part="service" use="literal" />
+                <soap:header message="kir:RequiredHeaders" part="userId" use="literal" />
+                <soap:header message="kir:RequiredHeaders" part="userName" use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+                <soap:header message="kir:RequiredHeaders" part="consumer" use="literal" />
+                <soap:header message="kir:RequiredHeaders" part="id" use="literal" />
+                <soap:header message="kir:RequiredHeaders" part="producer" use="literal" />
+                <soap:header message="kir:RequiredHeaders" part="service" use="literal" />
+                <soap:header message="kir:RequiredHeaders" part="userId" use="literal" />
+                <soap:header message="kir:RequiredHeaders" part="userName" use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="LeiaMuudetudAndmetegaKinnipeetavad">
+            <xrd:version>v1</xrd:version>
+            <soap:operation soapAction="" style="document" />
+            <wsdl:input>
+                <soap:body use="literal" />
+                <soap:header message="kir:RequiredHeaders" part="consumer" use="literal" />
+                <soap:header message="kir:RequiredHeaders" part="id" use="literal" />
+                <soap:header message="kir:RequiredHeaders" part="producer" use="literal" />
+                <soap:header message="kir:RequiredHeaders" part="service" use="literal" />
+                <soap:header message="kir:RequiredHeaders" part="userId" use="literal" />
+                <soap:header message="kir:RequiredHeaders" part="userName" use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+                <soap:header message="kir:RequiredHeaders" part="consumer" use="literal" />
+                <soap:header message="kir:RequiredHeaders" part="id" use="literal" />
+                <soap:header message="kir:RequiredHeaders" part="producer" use="literal" />
+                <soap:header message="kir:RequiredHeaders" part="service" use="literal" />
+                <soap:header message="kir:RequiredHeaders" part="userId" use="literal" />
+                <soap:header message="kir:RequiredHeaders" part="userName" use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="KirService">
+        <wsdl:port name="KirPort" binding="kir:KirBinding">
+            <soap:address location="http://10.1.211.2/kir.asmx" />
+            <xrd:address producer="kir" />
+            <xrd:title xml:lang="et">Kinnipeetavate register</xrd:title>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

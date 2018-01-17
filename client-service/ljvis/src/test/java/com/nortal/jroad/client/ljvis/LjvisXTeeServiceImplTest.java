@@ -1,64 +1,62 @@
 package com.nortal.jroad.client.ljvis;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.ljvis.LjvisXTeeServiceImpl;
-import com.nortal.jroad.client.ljvis.types.ee.riik.xtee.ljvis.producers.producer.ljvis.ErakorralineYVconfirmV1Request;
-import com.nortal.jroad.client.ljvis.types.ee.riik.xtee.ljvis.producers.producer.ljvis.ErakorralineYVconfirmV1Response;
-import com.nortal.jroad.client.ljvis.types.ee.riik.xtee.ljvis.producers.producer.ljvis.ErakorralineYVqueryV1Response;
-import com.nortal.jroad.client.ljvis.types.ee.riik.xtee.ljvis.producers.producer.ljvis.ErakorralineYVconfirmV1Request.Confirmed;
-import com.nortal.jroad.client.ljvis.types.ee.riik.xtee.ljvis.producers.producer.ljvis.ErakorralineYVconfirmV1Request.Confirmed.Item;
-import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
+import com.nortal.jroad.client.ljvis.types.eu.x_road.ljvis.ErakorralineYvConfirmRequestType;
+import com.nortal.jroad.client.ljvis.types.eu.x_road.ljvis.ErakorralineYvConfirmResponseType;
+import com.nortal.jroad.client.ljvis.types.eu.x_road.ljvis.ErakorralineYvQueryResponseType;
+import com.nortal.jroad.client.test.BaseXRoadServiceImplTest;
 
-/**
- * @author Tatjana Kulikova
- */
-public class LjvisXTeeServiceImplTest extends BaseXTeeServiceImplTest {
+import static org.junit.Assert.*;
 
-  @Resource
-  private LjvisXTeeServiceImpl ljvisXTeeServiceImpl;
+public class LjvisXTeeServiceImplTest extends BaseXRoadServiceImplTest {
 
-  @Test
-  public void erakorralineYlevaatused() {
-    try {
-      ErakorralineYVqueryV1Response response = ljvisXTeeServiceImpl.erakorralineYlevaatused();
+	@Resource
+	private LjvisXTeeServiceImpl ljvisXTeeServiceImpl;
 
-      Assert.assertNotNull(response);
-      Assert.assertNotNull(response.getTargetedForInspection().getItemList().get(0).getLicencePlateNo());
-      Assert.assertNotNull(response.getTargetedForInspection().getItemList().get(0).getInspector());
-    } catch (XTeeServiceConsumptionException e) {
-     //nothing
-    }
-  }
+	@Test
+	public void erakorralineYlevaatused() {
+		try {
+			ErakorralineYvQueryResponseType response = ljvisXTeeServiceImpl.erakorralineYlevaatused();
 
-  @Test
-  public void erakorralineConfirm() throws XTeeServiceConsumptionException {
-   ErakorralineYVconfirmV1Request request = ErakorralineYVconfirmV1Request.Factory.newInstance();
+			assertNotNull(response);
+		}
+		catch (XRoadServiceConsumptionException e) {
+			//nothing
+		}
+	}
 
-    Confirmed confirmed = request.addNewConfirmed();
+	@Test
+	public void erakorralineConfirm() throws XRoadServiceConsumptionException {
+		ErakorralineYvConfirmRequestType request = ErakorralineYvConfirmRequestType.Factory.newInstance();
 
-    Item item = confirmed.addNewItem();
-    item.setInspectionId("1");
-    item.setCode("00");
-    item.setValue("Andmed salvestatud");
+		ErakorralineYvConfirmRequestType.Confirmed confirmed = request.addNewConfirmed();
 
-    confirmed.setItemArray(0, item);
+		ErakorralineYvConfirmRequestType.Confirmed.Item item = confirmed.addNewItem();
+		item.setInspectionId("1");
+		item.setCode("00");
+		item.setValue("Andmed salvestatud");
 
-    Item item1 = confirmed.addNewItem();
-    item1.setInspectionId("2");
-    item1.setCode("01");
-    item1.setValue("Sõiduk on juba erakorralisele suunatud");
+		confirmed.setItemArray(0, item);
 
-    confirmed.setItemArray(1, item1);
+		ErakorralineYvConfirmRequestType.Confirmed.Item item1 = confirmed.addNewItem();
+		item1.setInspectionId("2");
+		item1.setCode("01");
+		item1.setValue("Sõiduk on juba erakorralisele suunatud");
 
-    request.setConfirmed(confirmed);
-    ErakorralineYVconfirmV1Response response = ljvisXTeeServiceImpl.erakorralineConfirm(request);
+		confirmed.setItemArray(1, item1);
 
-    Assert.assertNotNull(response);
+		request.setConfirmed(confirmed);
+		ErakorralineYvConfirmResponseType response = ljvisXTeeServiceImpl.erakorralineConfirm(request);
 
-  }
+		assertNotNull(response);
+		assertEquals(2 ,response.getConfirmed());
+
+	}
 }

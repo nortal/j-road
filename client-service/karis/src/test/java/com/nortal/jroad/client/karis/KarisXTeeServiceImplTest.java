@@ -5,21 +5,21 @@ import javax.annotation.Resource;
 import org.junit.Test;
 import org.junit.Assert;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.karis.KarisXTeeServiceImpl;
 import com.nortal.jroad.client.karis.types.ee.riik.xtee.karis.producers.producer.karis.KrIsikIdVastus;
 import com.nortal.jroad.client.karis.types.ee.riik.xtee.karis.producers.producer.karis.KrIsikVastus;
 import com.nortal.jroad.client.karis.types.ee.riik.xtee.karis.producers.producer.karis.KrIsikudVastus;
-import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
+import com.nortal.jroad.client.test.BaseXRoadServiceImplTest;
 
-public class KarisXTeeServiceImplTest extends BaseXTeeServiceImplTest{
+public class KarisXTeeServiceImplTest extends BaseXRoadServiceImplTest{
 
 	@Resource
 	private KarisXTeeServiceImpl karisXTeeServiceImpl;
 	
 	
 	@Test
-	public void findKrIsikId() throws XTeeServiceConsumptionException{
+	public void findKrIsikId() throws XRoadServiceConsumptionException{
 		
 		KrIsikIdVastus vastus = karisXTeeServiceImpl.findKrIsikId("11");
 		Assert.assertNotNull(vastus);
@@ -31,7 +31,7 @@ public class KarisXTeeServiceImplTest extends BaseXTeeServiceImplTest{
 	}
 	
 	@Test
-	public void findKrIsik() throws XTeeServiceConsumptionException{
+	public void findKrIsik() throws XRoadServiceConsumptionException{
 		
 		KrIsikVastus vastus = karisXTeeServiceImpl.findKrIsik("35401130242");
 		Assert.assertNotNull(vastus);
@@ -43,7 +43,7 @@ public class KarisXTeeServiceImplTest extends BaseXTeeServiceImplTest{
 	}
 	
 	@Test
-	public void findKrIsikud() throws XTeeServiceConsumptionException{
+	public void findKrIsikud() throws XRoadServiceConsumptionException{
 		
 		KrIsikudVastus vastus = karisXTeeServiceImpl.findKrIsikud("", "Arvo", "Weeber", "");
 		Assert.assertNotNull(vastus);

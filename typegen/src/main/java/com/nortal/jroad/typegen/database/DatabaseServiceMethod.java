@@ -1,24 +1,22 @@
 package com.nortal.jroad.typegen.database;
 
+import com.nortal.jroad.model.XmlBeansXRoadMetadata;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.namespace.QName;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.xmlbeans.SchemaType;
-import org.apache.xmlbeans.SchemaType.Ref;
 import org.apache.xmlbeans.SchemaTypeSystem;
 import org.apache.xmlbeans.XmlBeans;
 import org.apache.xmlbeans.impl.common.QNameHelper;
 import org.apache.xmlbeans.impl.schema.FileResourceLoader;
 import org.apache.xmlbeans.impl.schema.SchemaTypeLoaderImpl;
 import org.apache.xmlbeans.impl.schema.SchemaTypeSystemImpl;
-
-import com.nortal.jroad.model.XmlBeansXTeeMetadata;
 
 /**
  * @author Roman Tekhov
@@ -35,7 +33,7 @@ public class DatabaseServiceMethod {
   private String baseDirectory;
 
 
-  public DatabaseServiceMethod(XmlBeansXTeeMetadata metadata, String baseDirectory)
+  public DatabaseServiceMethod(XmlBeansXRoadMetadata metadata, String baseDirectory)
         throws IOException, NoDescriptionFoundException {
 
     this.baseDirectory = baseDirectory;
@@ -51,23 +49,29 @@ public class DatabaseServiceMethod {
     SchemaType requestElementType = find(requestElementQName);
     SchemaType responseElementType = find(responseElementQName);
 
-    inputClass = requestElementType.getFullJavaName();
-    outputClass = responseElementType.getFullJavaName();
+    inputClass = requestElementType.getFullJavaName().replaceAll("\\$", ".");
+    outputClass = responseElementType.getFullJavaName().replaceAll("\\$", ".");
 
     createVersions(metadata);
   }
 
 
-  private void createVersions(XmlBeansXTeeMetadata metadata) {
+  private void createVersions(XmlBeansXRoadMetadata metadata) {
     // According to specification only the last version of a service needs to be defined
     // in WSDL but the database adapter must also support all previous versions.
 
-    int lastVersion = Integer.valueOf(metadata.getVersion().substring(1));
+    if(!StringUtils.isBlank(metadata.getVersion())){
+        int lastVersion = Integer.valueOf(metadata.getVersion().substring(1));
 
-    versions = new ArrayList<DatabaseServiceMethodVersion>(lastVersion);
-    for (int i = 1; i <= lastVersion; i++) {
-      versions.add(new DatabaseServiceMethodVersion(metadata, i));
+        versions = new ArrayList<DatabaseServiceMethodVersion>(lastVersion);
+        for (int i = 1; i <= lastVersion; i++) {
+            versions.add(new DatabaseServiceMethodVersion(metadata, i));
+        }
+    }else{
+        versions = new ArrayList<DatabaseServiceMethodVersion>();
+        versions.add(new DatabaseServiceMethodVersion(metadata));
     }
+
   }
 
 
@@ -79,13 +83,21 @@ public class DatabaseServiceMethod {
       return type;
     }
 
-    String location = baseDirectory + "/schema" +
-          SchemaTypeLoaderImpl.METADATA_PACKAGE_LOAD + "/type/" +
-          QNameHelper.hexsafedir(name) + ".xsb";
+    String typeLocation =
+        baseDirectory + "/schema" + SchemaTypeLoaderImpl.METADATA_PACKAGE_LOAD + "/type/"
+            + QNameHelper.hexsafedir(name) + ".xsb";
 
-    File file = new File(location);
+    File file = new File(typeLocation);
+    boolean isTypeFile = true;
     if (!file.exists()) {
-      throw new NoDescriptionFoundException();
+      isTypeFile = false;
+      String elementLocation =
+          baseDirectory + "/schema" + SchemaTypeLoaderImpl.METADATA_PACKAGE_LOAD + "/element/"
+              + QNameHelper.hexsafedir(name) + ".xsb";
+      file = new File(elementLocation);
+      if (!file.exists()) {
+        throw new NoDescriptionFoundException();
+      }
     }
 
     SchemaTypeSystem ts = null;
@@ -101,9 +113,11 @@ public class DatabaseServiceMethod {
       }
     }
 
-    Ref ref = ts.findTypeRef(name);
-
-    return ref.get();
+    if (isTypeFile) {
+      return ts.findTypeRef(name).get();
+    } else {
+      return ts.findElementRef(name).get().getType();
+    }
   }
 
 

@@ -1,6 +1,6 @@
 package com.nortal.jroad.client.rmviki;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.rmviki.types.ee.riik.xtee.rmviki.producers.producer.rmviki.RarVtaResponseType;
 import com.nortal.jroad.client.rmviki.types.ee.riik.xtee.rmviki.producers.producer.rmviki.ZRKOVAR;
 import com.nortal.jroad.client.rmviki.types.ee.riik.xtee.rmviki.producers.producer.rmviki.ZRKOVARResponse;
@@ -13,7 +13,7 @@ public interface RmvikiXTeeService {
   /**
    * <code>rmviki.Z_RKOVAR.v1</code> X-tee service.
    */
-  ZRKOVARResponse zRKOVARV1(String kood) throws XTeeServiceConsumptionException;
+  ZRKOVARResponse zRKOVARV1(String kood) throws XRoadServiceConsumptionException;
 
   /**
    * Returns first not empty ZRKOVAR object, which KOOD is not empty,
@@ -24,5 +24,5 @@ public interface RmvikiXTeeService {
   /**
    * <code>rmviki.rarVta.v1</code> X-tee service.
    */
-  RarVtaResponseType rarVtaV1(String kood) throws XTeeServiceConsumptionException;
+  RarVtaResponseType rarVtaV1(String kood) throws XRoadServiceConsumptionException;
 }

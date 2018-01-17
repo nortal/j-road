@@ -2,7 +2,7 @@ package com.nortal.jroad.typegen.database;
 
 import org.apache.xmlbeans.impl.common.NameUtil;
 
-import com.nortal.jroad.model.XmlBeansXTeeMetadata;
+import com.nortal.jroad.model.XmlBeansXRoadMetadata;
 
 /**
  * @author Roman Tekhov
@@ -10,12 +10,15 @@ import com.nortal.jroad.model.XmlBeansXTeeMetadata;
 public class DatabaseServiceMethodVersion {
 
   private String name;
-  private int version;
+  private Integer version;
 
+  public DatabaseServiceMethodVersion(XmlBeansXRoadMetadata serviceMetadata) {
+    this.name = NameUtil.lowerCamelCase(serviceMetadata.getOperationName());
+  }
 
-  public DatabaseServiceMethodVersion(XmlBeansXTeeMetadata serviceMetadata, int version) {
+  public DatabaseServiceMethodVersion(XmlBeansXRoadMetadata serviceMetadata, int version) {
     this.version = version;
-    name = NameUtil.lowerCamelCase(serviceMetadata.getOperationName() + "_v" + version);
+    this.name = NameUtil.lowerCamelCase(serviceMetadata.getOperationName() + "_v" + version);
   }
 
 
@@ -23,7 +26,7 @@ public class DatabaseServiceMethodVersion {
     return name;
   }
 
-  public int getVersion() {
+  public Integer getVersion() {
     return version;
   }
 }

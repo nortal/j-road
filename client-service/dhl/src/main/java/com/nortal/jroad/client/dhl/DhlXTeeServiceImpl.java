@@ -96,18 +96,18 @@ import com.nortal.jroad.client.dhl.types.ee.riik.xtee.dhl.producers.producer.dhl
 import com.nortal.jroad.client.dhl.types.ee.riik.xtee.dhl.producers.producer.dhl.TagasisideArrayType;
 import com.nortal.jroad.client.dhl.types.ee.sk.digiDoc.v13.DataFileType;
 import com.nortal.jroad.client.dhl.types.ee.sk.digiDoc.v13.SignedDocType;
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.service.XTeeDatabaseService;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
+import com.nortal.jroad.client.service.XRoadDatabaseService;
 import com.nortal.jroad.client.service.extractor.CustomExtractor;
-import com.nortal.jroad.model.XTeeAttachment;
-import com.nortal.jroad.model.XTeeMessage;
-import com.nortal.jroad.model.XmlBeansXTeeMessage;
+import com.nortal.jroad.model.XRoadAttachment;
+import com.nortal.jroad.model.XRoadMessage;
+import com.nortal.jroad.model.XmlBeansXRoadMessage;
 import com.nortal.jroad.util.AttachmentUtil;
 
 /**
  * @author Ats Uiboupin
  */
-public class DhlXTeeServiceImpl extends XTeeDatabaseService implements DhlXTeeService {
+public class DhlXTeeServiceImpl extends XRoadDatabaseService implements DhlXTeeService {
     private static Log log = LogFactory.getLog(DhlXTeeServiceImpl.class);
 
     // START: XTEE DVK service names and versions
@@ -164,13 +164,13 @@ public class DhlXTeeServiceImpl extends XTeeDatabaseService implements DhlXTeeSe
      * RunSystemCheckRequestType request = RunSystemCheckRequestType.Factory.newInstance();
      * log.debug("executing " + queryMethod);
      * try {
-     * XTeeMessage<RunSystemCheckResponseType> response //
-     * = send(new XmlBeansXTeeMessage<RunSystemCheckRequestType>(request), RUN_SYSTEM_CHECK,
+     * XRoadMessage<RunSystemCheckResponseType> response //
+     * = send(new XmlBeansXRoadMessage<RunSystemCheckRequestType>(request), RUN_SYSTEM_CHECK,
      * RUN_SYSTEM_CHECK_VERSION);
      * if (!response.getContent().getStringValue().equalsIgnoreCase("OK")) {
      * throw new RuntimeException("Service didn't respond with 'OK': " + response.getContent().getStringValue());
      * }
-     * } catch (XTeeServiceConsumptionException e) {
+     * } catch (XRoadServiceConsumptionException e) {
      * throw new RuntimeException(resolveMessage(queryMethod, e), e);
      * }
      * }
@@ -188,17 +188,17 @@ public class DhlXTeeServiceImpl extends XTeeDatabaseService implements DhlXTeeSe
         node.setAttribute("href", "cid:" + cid);
         cursor.dispose();
 
-        XTeeAttachment attachment = new XTeeAttachment(cid, "{http://www.w3.org/2001/XMLSchema}base64Binary", attachmentBody);
+        XRoadAttachment attachment = new XRoadAttachment(cid, "{http://www.w3.org/2001/XMLSchema}base64Binary", attachmentBody);
         log.debug("executing " + queryMethod);
         try {
-            XTeeMessage<MarkDocumentsReceivedResponseType> response //
-            = send(new XmlBeansXTeeMessage<MarkDocumentsReceivedRequestType>(request, Arrays.asList(attachment)), MARK_DOCUMENTS_RECEIVED,
+            XRoadMessage<MarkDocumentsReceivedResponseType> response //
+            = send(new XmlBeansXRoadMessage<MarkDocumentsReceivedRequestType>(request, Arrays.asList(attachment)), MARK_DOCUMENTS_RECEIVED,
                     MARK_DOCUMENTS_RECEIVED_VERSION);
             if (!response.getContent().getStringValue().equalsIgnoreCase("OK")) {
                 throw new RuntimeException("Service didn't respond with 'OK': " + response.getContent().getStringValue());
             }
-        } catch (XTeeServiceConsumptionException e) {
-            throw new WrappedXTeeServiceConsumptionException(e);
+        } catch (XRoadServiceConsumptionException e) {
+            throw new WrappedXRoadServiceConsumptionException(e);
         }
     }
 
@@ -207,18 +207,18 @@ public class DhlXTeeServiceImpl extends XTeeDatabaseService implements DhlXTeeSe
         MarkDocumentsReceivedRequestType request = MarkDocumentsReceivedRequestType.Factory.newInstance();
         byte[] attachmentBody = createMarkDocumentsReceivedV2AttachmentBody(receivedDocsInfos);
         request.setDokumendid(null);
-        final XTeeAttachment attachment = setDokumendidHrefToAttachment(attachmentBody, request);
+        final XRoadAttachment attachment = setDokumendidHrefToAttachment(attachmentBody, request);
 
         log.debug("executing " + queryMethod);
         try {
-            XTeeMessage<MarkDocumentsReceivedResponseType> response //
-            = send(new XmlBeansXTeeMessage<MarkDocumentsReceivedRequestType>(request, Arrays.asList(attachment)), MARK_DOCUMENTS_RECEIVED,
+            XRoadMessage<MarkDocumentsReceivedResponseType> response //
+            = send(new XmlBeansXRoadMessage<MarkDocumentsReceivedRequestType>(request, Arrays.asList(attachment)), MARK_DOCUMENTS_RECEIVED,
                     MARK_DOCUMENTS_RECEIVED_VERSION_2);
             if (!response.getContent().getStringValue().equalsIgnoreCase("OK")) {
                 throw new RuntimeException("Service didn't respond with 'OK': " + response.getContent().getStringValue());
             }
-        } catch (XTeeServiceConsumptionException e) {
-            throw new WrappedXTeeServiceConsumptionException(e);
+        } catch (XRoadServiceConsumptionException e) {
+            throw new WrappedXRoadServiceConsumptionException(e);
         }
     }
 
@@ -228,11 +228,11 @@ public class DhlXTeeServiceImpl extends XTeeDatabaseService implements DhlXTeeSe
         request.setArv(BigInteger.valueOf(maxNrOfDocuments));
         log.debug("executing " + queryMethod);
         try {
-            XTeeMessage<ReceiveDocumentsResponseTypeUnencoded> response //
-            = send(new XmlBeansXTeeMessage<ReceiveDocumentsRequestType>(request), RECEIVE_DOCUMENTS, RECEIVE_DOCUMENTS_VERSION);
+            XRoadMessage<ReceiveDocumentsResponseTypeUnencoded> response //
+            = send(new XmlBeansXRoadMessage<ReceiveDocumentsRequestType>(request), RECEIVE_DOCUMENTS, RECEIVE_DOCUMENTS_VERSION);
             return new ReceivedDocumentsWrapperImpl(response, maxNrOfDocuments);
-        } catch (XTeeServiceConsumptionException e) {
-            throw new WrappedXTeeServiceConsumptionException(e);
+        } catch (XRoadServiceConsumptionException e) {
+            throw new WrappedXRoadServiceConsumptionException(e);
         }
     }
 
@@ -292,7 +292,7 @@ public class DhlXTeeServiceImpl extends XTeeDatabaseService implements DhlXTeeSe
         private File responseXml;
         private int maxNrOfDocuments;
 
-        public ReceivedDocumentsWrapperImpl(XTeeMessage<ReceiveDocumentsResponseTypeUnencoded> response, int maxNrOfDocuments) {
+        public ReceivedDocumentsWrapperImpl(XRoadMessage<ReceiveDocumentsResponseTypeUnencoded> response, int maxNrOfDocuments) {
             List<DokumentDocument> dokumentDocuments;
             try {
                 this.maxNrOfDocuments = maxNrOfDocuments;
@@ -322,7 +322,7 @@ public class DhlXTeeServiceImpl extends XTeeDatabaseService implements DhlXTeeSe
          *         otherwise return wrappedInputStream that will write response into file under <code>receivedDocumentsFolder</code>
          * @throws IOException
          */
-        private InputStream getInputStream(XTeeMessage<ReceiveDocumentsResponseTypeUnencoded> response) throws IOException {
+        private InputStream getInputStream(XRoadMessage<ReceiveDocumentsResponseTypeUnencoded> response) throws IOException {
             final InputStream originalInputStream = response.getAttachments().get(0).getInputStream();
             if (StringUtils.isBlank(receivedDocumentsFolder)) {
                 return originalInputStream;
@@ -519,7 +519,7 @@ public class DhlXTeeServiceImpl extends XTeeDatabaseService implements DhlXTeeSe
         SendDocumentsV2RequestType request = SendDocumentsV2RequestType.Factory.newInstance();
 
         request.setDokumendid(null);
-        final XTeeAttachment attachment = setDokumendidHrefToAttachment(base64Doc, request);
+        final XRoadAttachment attachment = setDokumendidHrefToAttachment(base64Doc, request);
 
         if (requestCallback != null) {
             requestCallback.doWithRequest(request);
@@ -527,7 +527,7 @@ public class DhlXTeeServiceImpl extends XTeeDatabaseService implements DhlXTeeSe
 
         log.debug("executing " + queryMethod);
         try {
-            XTeeMessage<SendDocumentsResponseType> response = send(new XmlBeansXTeeMessage<SendDocumentsV2RequestType>(request, Collections
+            XRoadMessage<SendDocumentsResponseType> response = send(new XmlBeansXRoadMessage<SendDocumentsV2RequestType>(request, Collections
                     .singletonList(attachment)), SEND_DOCUMENTS, SEND_DOCUMENTS_VERSION);
 
             List<DhlDokIDType> dokumentDocuments //
@@ -537,8 +537,8 @@ public class DhlXTeeServiceImpl extends XTeeDatabaseService implements DhlXTeeSe
                 sentDocumentsDhlIds.add(dokIDType.getStringValue());
             }
             return sentDocumentsDhlIds;
-        } catch (XTeeServiceConsumptionException e) {
-            throw new WrappedXTeeServiceConsumptionException(e);
+        } catch (XRoadServiceConsumptionException e) {
+            throw new WrappedXRoadServiceConsumptionException(e);
         } catch (IOException e) {
             throw new RuntimeException("Failed to extract response " + queryMethod, e);
         }
@@ -552,11 +552,11 @@ public class DhlXTeeServiceImpl extends XTeeDatabaseService implements DhlXTeeSe
         }
         log.debug("executing " + queryMethod);
         try {
-            XTeeMessage<OccupationArrayType> response = send(new XmlBeansXTeeMessage<InstitutionRefsArrayType>(request)//
+            XRoadMessage<OccupationArrayType> response = send(new XmlBeansXRoadMessage<InstitutionRefsArrayType>(request)//
                     , GET_OCCUPATION_LIST, GET_OCCUPATION_LIST_VERSION);
             return response.getContent().getAmetikohtList();
-        } catch (XTeeServiceConsumptionException e) {
-            throw new WrappedXTeeServiceConsumptionException(e);
+        } catch (XRoadServiceConsumptionException e) {
+            throw new WrappedXRoadServiceConsumptionException(e);
         }
     }
 
@@ -565,7 +565,7 @@ public class DhlXTeeServiceImpl extends XTeeDatabaseService implements DhlXTeeSe
         log.debug("executing " + queryMethod);
         GetSendingOptionsV2RequestType request = GetSendingOptionsV2RequestType.Factory.newInstance();
         try {
-            final XTeeMessage<InstitutionArrayType> response = send(new XmlBeansXTeeMessage<GetSendingOptionsV2RequestType>(request)//
+            final XRoadMessage<InstitutionArrayType> response = send(new XmlBeansXRoadMessage<GetSendingOptionsV2RequestType>(request)//
                     , GET_SENDING_OPTIONS, GET_SENDING_OPTIONS_VERSION);
             if (log.isTraceEnabled()) {
                 log.trace("execution result#1 response:\t" + ToStringBuilder.reflectionToString(response) + "'");
@@ -579,8 +579,8 @@ public class DhlXTeeServiceImpl extends XTeeDatabaseService implements DhlXTeeSe
                 log.debug("\t" + institutionType.getRegnr() + ":\t" + institutionType.getNimi());
             }
             return dvkCapableOrganizations;
-        } catch (XTeeServiceConsumptionException e) {
-            throw new WrappedXTeeServiceConsumptionException(e);
+        } catch (XRoadServiceConsumptionException e) {
+            throw new WrappedXRoadServiceConsumptionException(e);
         }
     }
 
@@ -605,16 +605,16 @@ public class DhlXTeeServiceImpl extends XTeeDatabaseService implements DhlXTeeSe
             cursor.insertAttributeWithValue("href", "cid:" + cid);
             cursor.dispose();
             byte[] base64 = gzipAndEncodeString(attachmentBodyUnencoded);
-            XTeeAttachment attachment = new XTeeAttachment(cid, "{http://www.w3.org/2001/XMLSchema}base64Binary", base64);
-            XTeeMessage<GetSendStatusRequestType> reqMessage = new XmlBeansXTeeMessage<GetSendStatusRequestType>(request, Arrays.asList(attachment));
+            XRoadAttachment attachment = new XRoadAttachment(cid, "{http://www.w3.org/2001/XMLSchema}base64Binary", base64);
+            XRoadMessage<GetSendStatusRequestType> reqMessage = new XmlBeansXRoadMessage<GetSendStatusRequestType>(request, Arrays.asList(attachment));
 
             log.debug("executing " + queryMethod);
-            XTeeMessage<GetSendStatusResponseTypeUnencoded> response = send(reqMessage, XTEE_METHOD_GET_SEND_STATUS, GET_SEND_STATUS_VERSION, null,
+            XRoadMessage<GetSendStatusResponseTypeUnencoded> response = send(reqMessage, XTEE_METHOD_GET_SEND_STATUS, GET_SEND_STATUS_VERSION, null,
                     new GetSendStatusExtractor());
             final GetSendStatusResponseTypeUnencoded unencoded = response.getContent();
             return unencoded.getItemList();
-        } catch (XTeeServiceConsumptionException e) {
-            throw new WrappedXTeeServiceConsumptionException(e);
+        } catch (XRoadServiceConsumptionException e) {
+            throw new WrappedXRoadServiceConsumptionException(e);
         } catch (Exception e) {
             throw new RuntimeException("Failed to execute xtee query " + queryMethod, e);
         }
@@ -622,11 +622,11 @@ public class DhlXTeeServiceImpl extends XTeeDatabaseService implements DhlXTeeSe
 
     private static class GetSendStatusExtractor extends CustomExtractor {
 
-        public XTeeMessage<GetSendStatusResponseTypeUnencoded> extractData(WebServiceMessage message) throws IOException, TransformerException {
+        public XRoadMessage<GetSendStatusResponseTypeUnencoded> extractData(WebServiceMessage message) throws IOException, TransformerException {
             Attachment attachment = (Attachment) ((SaajSoapMessage) message).getAttachments().next();
             String xml = new String(unzipAndDecode(attachment.getInputStream()), DVK_MESSAGE_CHARSET);
             final GetSendStatusResponseTypeUnencoded content = getTypeFromXml(addCorrectNamespaces(xml), GetSendStatusResponseTypeUnencoded.class);
-            return new XmlBeansXTeeMessage<GetSendStatusResponseTypeUnencoded>(content);
+            return new XmlBeansXRoadMessage<GetSendStatusResponseTypeUnencoded>(content);
         }
 
         private String addCorrectNamespaces(String xml) {
@@ -958,9 +958,9 @@ public class DhlXTeeServiceImpl extends XTeeDatabaseService implements DhlXTeeSe
         }
     }
 
-    private XTeeAttachment setDokumendidHrefToAttachment(byte[] base64Attachment, XmlObject request) {
+    private XRoadAttachment setDokumendidHrefToAttachment(byte[] base64Attachment, XmlObject request) {
         final String cid = AttachmentUtil.getUniqueCid();
-        final XTeeAttachment attachment = new XTeeAttachment(cid, "{http://www.w3.org/2001/XMLSchema}base64Binary", base64Attachment);
+        final XRoadAttachment attachment = new XRoadAttachment(cid, "{http://www.w3.org/2001/XMLSchema}base64Binary", base64Attachment);
 
         XmlCursor cursor = request.newCursor();
         cursor.toNextToken();

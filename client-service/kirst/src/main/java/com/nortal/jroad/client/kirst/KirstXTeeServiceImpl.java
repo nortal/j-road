@@ -1,63 +1,62 @@
 package com.nortal.jroad.client.kirst;
 
-import javax.annotation.Resource;
-
+import com.nortal.jroad.client.exception.NonTechnicalFaultException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
+import com.nortal.jroad.client.kirst.types.ee.x_road.kirst.producer.*;
+import com.nortal.jroad.client.service.XRoadDatabaseService;
+import com.nortal.jroad.model.XRoadMessage;
+import com.nortal.jroad.model.XmlBeansXRoadMessage;
+import org.apache.xmlbeans.XmlException;
+import org.apache.xmlbeans.XmlObject;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.kirst.database.KirstXTeeDatabase;
-import com.nortal.jroad.client.kirst.types.ee.riik.xtee.kirst.producers.producer.kirst.XTKehaKindlustusalus;
-import com.nortal.jroad.client.kirst.types.ee.riik.xtee.kirst.producers.producer.kirst.XTKehaKindlustused;
-import com.nortal.jroad.client.kirst.types.ee.riik.xtee.kirst.producers.producer.kirst.XTKehaKindlustused2;
-import com.nortal.jroad.client.kirst.types.ee.riik.xtee.kirst.producers.producer.kirst.XTParingKindlustusalus;
-import com.nortal.jroad.client.kirst.types.ee.riik.xtee.kirst.producers.producer.kirst.XTParingKindlustused;
-import com.nortal.jroad.client.kirst.types.ee.riik.xtee.kirst.producers.producer.kirst.XTParingKindlustused2;
-import com.nortal.jroad.client.service.XTeeDatabaseService;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Set;
 
 /**
  * @author Roman Tekhov
  */
 @Service("kirstXTeeService")
-public class KirstXTeeServiceImpl extends XTeeDatabaseService implements KirstXTeeService {
+public class KirstXTeeServiceImpl extends XRoadDatabaseService implements KirstXTeeService {
 
-  @Resource
-  private KirstXTeeDatabase kirstXTeeDatabase;
-
-
-  public XTKehaKindlustused findKindlustusV1(XTParingKindlustusedCallback callback)
-      throws XTeeServiceConsumptionException {
-    if (callback == null) {
-      throw new IllegalArgumentException("Callback can not be null!");
+  public TvlLoetelu2ResponseType findTvlLoetelu2V1(Set<String> isikukoodid, Date alates, Date kuni) throws XRoadServiceConsumptionException {
+    if (CollectionUtils.isEmpty(isikukoodid)) {
+      throw new IllegalArgumentException("At least one 'isikukood' must be provided");
     }
-    XTParingKindlustused paring = XTParingKindlustused.Factory.newInstance();
-
-    callback.populate(paring);
-
-    return kirstXTeeDatabase.kindlustusedV1(paring);
-  }
-
-  public XTKehaKindlustused2 findKindlustus2(XTParingKindlustused2 paring) throws XTeeServiceConsumptionException {
-    return kirstXTeeDatabase.kindlustused2V1(paring);
-  }
-
-  public XTKehaKindlustusalus findKindlustusalusV2(KindlustusalusKanneJadaCallback callback)
-      throws XTeeServiceConsumptionException {
-
-    if (callback == null) {
-      throw new IllegalArgumentException("Callback can not be null!");
+    TvlLoetelu2RequestType request = createTvlLoetelu2V1Request(isikukoodid, alates, kuni);
+    XRoadMessage<XmlObject> response = send(new XmlBeansXRoadMessage<TvlLoetelu2RequestType>(request), "tvl_loetelu2", "v1");
+    try {
+      return TvlLoetelu2ResponseType.Factory.parse(response.getContent().xmlText());
+    } catch (XmlException e) {
+      throw new XRoadServiceConsumptionException(new NonTechnicalFaultException("", "Unable to parse response"), "kirst", "tvl_loetelu2", "v1");
     }
-
-    XTParingKindlustusalus keha = XTParingKindlustusalus.Factory.newInstance();
-    XTParingKindlustusalus.KanneJada kanneJada = keha.addNewKanneJada();
-
-    callback.populate(kanneJada);
-
-    return kirstXTeeDatabase.kindlustusalusV2(keha);
   }
 
+  private TvlLoetelu2RequestType createTvlLoetelu2V1Request(Set<String> isikukoodid, Date alates, Date kuni) {
+    TvlLoetelu2RequestType request = TvlLoetelu2RequestType.Factory.newInstance();
+    TvlOtsingType isikud = request.addNewIsikud();
+    int count = 0;
+    TvlOtsingItemType[] items = new TvlOtsingItemType[isikukoodid.size()];
+    for (String isikukood : isikukoodid) {
+      TvlOtsingItemType item = TvlOtsingItemType.Factory.newInstance();
+      item.setTvpAlates(toCalendar(alates));
+      item.setTvpKuni(toCalendar(kuni));
+      item.setIsikukood(isikukood);
+      items[count++] = item;
+    }
+    isikud.setItemArray(items);
+    return request;
+  }
 
-  public void setKirstXTeeDatabase(KirstXTeeDatabase kirstXTeeDatabase) {
-    this.kirstXTeeDatabase = kirstXTeeDatabase;
+  private Calendar toCalendar(Date date) {
+    if (date == null) {
+      return null;
+    }
+    Calendar cal = Calendar.getInstance();
+    cal.setTime(date);
+    return cal;
   }
 
 }

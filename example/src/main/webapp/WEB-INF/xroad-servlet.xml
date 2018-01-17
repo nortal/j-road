@@ -1,0 +1,39 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd	   
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+	<context:annotation-config />
+
+	<bean id="axisContextHelper" class="com.nortal.jroad.endpoint.helper.AxisContextHelper">
+		<constructor-arg type="java.lang.Class" value="ee.riik.xtee.naidis.producers.producer.naidis.MyportSoap11Stub" />
+	</bean>
+
+	<!-- Context path for X-road JAXB implementation endpoints -->
+	<bean id="contextPath" class="java.lang.String">
+		<constructor-arg type="java.lang.String" value="com.nortal.jroad.example.model" />
+	</bean>
+	<!-- X-road service schema -->
+	<bean id="schema" class="org.springframework.xml.xsd.SimpleXsdSchema">
+		<property name="xsd" value="/WEB-INF/schema/naidis.xsd" />
+	</bean>
+	<!-- X-road service WSDL generator -->
+	<bean id="naidis" class="com.nortal.jroad.wsdl.XTeeWsdlDefinition">
+		<property name="schema" ref="schema" />
+		<property name="portTypeName" value="naidisPort" />
+	</bean>
+	<!-- X-road database name -->
+	<bean id="xteeDatabase" class="java.lang.String">
+		<constructor-arg value="naidis" />
+	</bean>
+
+	<!-- X-road metaservice which returns all services provided by database -->
+	<bean id="listMethodsEndpoint" class="com.nortal.jroad.endpoint.ListMethodsEndpoint" />
+	<!-- X-road service endpoints -->
+	<bean id="attachmentEchoEndpoint" class="com.nortal.jroad.example.endpoints.AttachmentEchoEndpoint" />
+	<bean id="axisEchoEndpoint" class="com.nortal.jroad.example.endpoints.AxisEchoEndpoint" />
+	<bean id="echoEndpoint" class="com.nortal.jroad.example.endpoints.EchoEndpoint" />
+
+	<!-- X-road service endpoints mapper -->
+	<bean id="xteeEndpointMapping" class="com.nortal.jroad.mapping.XTeeEndpointMapping" />
+</beans>

@@ -1,19 +1,27 @@
 package ${databaseClass.packageName};
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
+import com.nortal.jroad.client.service.consumer.XRoadConsumer;
 
 /**
- * <code>${databaseClass.database}</code> X-tee database.
+ * <code>${databaseClass.database}</code> X-road database.
  */
 public interface ${databaseClass.interfaceName} {
 <#list databaseClass.methods as method>
 <#list method.versions as version>
 
   /**
-   * <code>${databaseClass.database}.${method.name}.v${version.version}</code> X-tee service.
+   * <code>${databaseClass.database}.${method.name}<#if version.version??>.v${version.version}</#if></code> X-road service.
    */
-  ${method.outputClass} ${version.name}(${method.inputClass} input) throws XTeeServiceConsumptionException;
+  ${method.outputClass} ${version.name}(${method.inputClass} input) throws XRoadServiceConsumptionException;
+  
+  /**
+   * <code>${databaseClass.database}.${method.name}<#if version.version??>.v${version.version}</#if></code> X-road service.
+   */
+  ${method.outputClass} ${version.name}(${method.inputClass} input, String UserId) throws XRoadServiceConsumptionException;  
+
 </#list>
 </#list>
 
+  void setXRoadConsumer(XRoadConsumer consumer);
 }

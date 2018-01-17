@@ -1,28 +1,41 @@
 package ${databaseClass.packageName};
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.service.${databaseClass.baseImplementationName};
-import com.nortal.jroad.model.XTeeMessage;
-import com.nortal.jroad.model.XmlBeansXTeeMessage;
+import com.nortal.jroad.client.service.consumer.XRoadConsumer;
+import com.nortal.jroad.model.XRoadMessage;
+import com.nortal.jroad.model.XmlBeansXRoadMessage;
 import org.springframework.stereotype.Service;
 
 /**
- * <code>${databaseClass.database}</code> X-tee database implementation.
+ * <code>${databaseClass.database}</code> X-road database implementation.
  */
 @Service("${databaseClass.interfaceNameDecapitalized}")
-public class ${databaseClass.implementationName} extends ${databaseClass.baseImplementationName}  implements ${databaseClass.interfaceName} {
+public class ${databaseClass.implementationName} extends ${databaseClass.baseImplementationName} implements ${databaseClass.interfaceName} {
 <#list databaseClass.methods as method>
 <#list method.versions as version>
 
   /**
-   * <code>${databaseClass.database}.${method.name}.v${version.version}</code> X-tee service implementation.
+   * <code>${databaseClass.database}.${method.name}<#if version.version??>.v${version.version}</#if></code> X-road service implementation.
    */
-  public ${method.outputClass} ${version.name}(${method.inputClass} input) throws XTeeServiceConsumptionException {
-    XTeeMessage<${method.outputClass}> response = send(new XmlBeansXTeeMessage<${method.inputClass}>(input), "${method.name}", "v${version.version}");
+  public ${method.outputClass} ${version.name}(${method.inputClass} input) throws XRoadServiceConsumptionException {
+    XRoadMessage<${method.outputClass}> response = send(new XmlBeansXRoadMessage<${method.inputClass}>(input), "${method.name}", <#if version.version??>"v${version.version}"<#else>""</#if>);
+
+    return response.getContent();
+  }
+  
+  /**
+   * <code>${databaseClass.database}.${method.name}<#if version.version??>.v${version.version}</#if></code> X-road service implementation.
+   */
+  public ${method.outputClass} ${version.name}(${method.inputClass} input, String userId) throws XRoadServiceConsumptionException {
+    XRoadMessage<${method.outputClass}> response = send(new XmlBeansXRoadMessage<${method.inputClass}>(input), "${method.name}", <#if version.version??>"v${version.version}"<#else>""</#if>, userId);
 
     return response.getContent();
   }
 </#list>
 </#list>
 
+  public void setXRoadConsumer(XRoadConsumer consumer) {
+    this.xRoadConsumer = consumer;
+  }
 }

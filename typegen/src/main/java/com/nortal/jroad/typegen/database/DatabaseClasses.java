@@ -1,10 +1,10 @@
 package com.nortal.jroad.typegen.database;
 
+import com.nortal.jroad.enums.XRoadProtocolVersion;
+import com.nortal.jroad.model.XmlBeansXRoadMetadata;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.nortal.jroad.model.XmlBeansXTeeMetadata;
 
 /**
  * @author Roman Tekhov
@@ -13,22 +13,22 @@ public class DatabaseClasses {
 
   private String baseDirectory;
   private String packageName;
-  private boolean useXRoadNamespace;
+  private XRoadProtocolVersion version;
 
   private Map<String, DatabaseClass> classes = new HashMap<String, DatabaseClass>();
 
 
-  public DatabaseClasses(String baseDirectory, String packageName, boolean useXRoadNamespace) {
+  public DatabaseClasses(String baseDirectory, String packageName, XRoadProtocolVersion version) {
     this.baseDirectory = baseDirectory;
     this.packageName = packageName;
-    this.useXRoadNamespace = useXRoadNamespace;
+    this.version = version;
   }
 
 
-  public void add(String database, XmlBeansXTeeMetadata metadata) throws IOException {
+  public void add(String database, XmlBeansXRoadMetadata metadata) throws IOException {
     DatabaseClass databaseClass = classes.get(database);
     if (databaseClass == null) {
-      databaseClass = new DatabaseClass(database, packageName, useXRoadNamespace);
+      databaseClass = new DatabaseClass(database, packageName, version);
       classes.put(database, databaseClass);
     }
 

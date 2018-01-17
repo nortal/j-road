@@ -2,28 +2,28 @@ package com.nortal.jroad.client.service;
 
 import javax.annotation.Resource;
 
-import com.nortal.jroad.client.service.consumer.XTeeConsumer;
+import com.nortal.jroad.client.service.configuration.provider.XRoadServiceConfigurationProvider;
+import com.nortal.jroad.client.service.consumer.XRoadConsumer;
 
 /**
- * Base class for all standard X-tee services implementations. Database name will be determined automatically based on
- * the class name unless it is explicitly defined. The following naming convention is used for that:
- * <code>implementation class name = database name + XTeeServiceImpl</code>
- *
- * @author Roman Tekhov
- * @author Dmitri Danilkin
+ * @author Aleksei Bogdanov (aleksei.bogdanov@nortal.com)
  */
-public abstract class XTeeDatabaseService extends BaseXTeeDatabaseService {
+// TODO Lauri: replace with XRoadDatabaseService
+@Deprecated
+public abstract class XTeeDatabaseService extends BaseXRoadDatabaseService {
 
-	@Resource
-	protected XTeeConsumer xTeeConsumer;
+  @Resource
+  protected XRoadConsumer xRoadConsumer;
+  @Resource
+  protected XRoadServiceConfigurationProvider xRoadServiceConfigurationProvider;
 
-	@Override
-	protected XTeeConsumer getXTeeConsumer() {
-		return xTeeConsumer;
-	}
+  @Override
+  protected XRoadConsumer getXRoadConsumer() {
+    return xRoadConsumer;
+  }
 
-	public void setxTeeConsumer(XTeeConsumer xTeeConsumer) {
-		this.xTeeConsumer = xTeeConsumer;
-	}
-
+  @Override
+  protected XRoadServiceConfigurationProvider getXRoadServiceConfigurationProvider() {
+    return xRoadServiceConfigurationProvider;
+  }
 }

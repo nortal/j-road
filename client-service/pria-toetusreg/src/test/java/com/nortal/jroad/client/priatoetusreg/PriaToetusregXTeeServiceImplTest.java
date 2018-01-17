@@ -8,7 +8,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.priatoetusreg.PriaToetusregXteeService;
 import com.nortal.jroad.client.priatoetusreg.types.ee.riik.xtee.pria_toetusreg.producers.producer.pria_toetusreg.VtaJaakResponse;
 import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
@@ -22,7 +22,7 @@ public class PriaToetusregXTeeServiceImplTest extends BaseXTeeServiceImplTest {
   private PriaToetusregXteeService priaToetusregXteeService;
 
   @Test
-  public void vtaJaakV1() throws XTeeServiceConsumptionException {
+  public void vtaJaakV1() throws XRoadServiceConsumptionException {
     VtaJaakResponse rsp = priaToetusregXteeService.vtaJaakV1(null, null);
 
     Assert.assertNull(rsp.getPriaIsikVtaJaak());

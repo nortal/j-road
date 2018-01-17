@@ -1,0 +1,2399 @@
+<wsdl:definitions xmlns:sawsdl="http://www.w3.org/ns/sawsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:swa="http://ws-i.org/profiles/basic/1.1/xsd" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xrd="http://x-road.eu/xsd/xroad.xsd" xmlns:xid="http://x-road.eu/xsd/identifiers" xmlns:ar="http://arireg.x-road.eu/producer/" name="ariregv6API" targetNamespace="http://arireg.x-road.eu/producer/">
+<wsdl:types>
+<xsd:schema targetNamespace="http://arireg.x-road.eu/producer/" elementFormDefault="qualified">
+<xsd:import namespace="http://x-road.eu/xsd/xroad.xsd" schemaLocation="http://x-road.eu/xsd/xroad.xsd"/>
+<xsd:import namespace="http://ws-i.org/profiles/basic/1.1/xsd" schemaLocation="http://ws-i.org/profiles/basic/1.1/swaref.xsd"/>
+<!--  debugAdapter_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_debugAdapter_v1.xsd"/>
+<!--  detailandmed_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_detailandmed_v1.xsd"/>
+<!--  ettevotjaDokumentideLoetelu_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_ettevotjaDokumentideLoetelu_v1.xsd"/>
+<!--  ettevotjaEsmakanded_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_ettevotjaEsmakanded_v1.xsd"/>
+<!--  ettevotjaMuudatusedTasuline_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_ettevotjaMuudatusedTasuline_v1.xsd"/>
+<!--  ettevotjaRekvisiididFail_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_ettevotjaRekvisiididFail_v1.xsd"/>
+<!--  ettevotjaRekvisiidid_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_ettevotjaRekvisiidid_v1.xsd"/>
+<!--  ettevottegaSeotudIsikud_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_ettevottegaSeotudIsikud_v1.xsd"/>
+<!--  esindus_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_esindus_v1.xsd"/>
+<!--  klassifikaatorid_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_klassifikaatorid_v1.xsd"/>
+<!--  lihtandmedTasuta_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_lihtandmedTasuta_v1.xsd"/>
+<!--  lihtandmed_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_lihtandmed_v1.xsd"/>
+<!--  majandusaastaAruanneteLoetelu_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_majandusaastaAruanneteLoetelu_v1.xsd"/>
+<!--  majandusaastaAruanneteKirjed_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_majandusaastaAruanneteKirjed_v1.xsd"/>
+<!--  seotudIsikuOtsing_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_seotudIsikuOtsing_v1.xsd"/>
+<!--  aruandeAuditeerimiseAndmed_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_aruandeAuditeerimiseAndmed_v1.xsd"/>
+<!--  aruandeMyygituluEMTAKjargi_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_aruandeMyygituluEMTAKjargi_v1.xsd"/>
+<!--  STARTBLOCK:xroad_services  -->
+<!--  arikeelud_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_arikeelud_v1.xsd"/>
+<!--  ariregistriToimik_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_ariregistriToimik_v1.xsd"/>
+<!--  detailandmedEP_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_detailandmedEP_v1.xsd"/>
+<!--  erakondaKuuluvus_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_erakondaKuuluvus_v1.xsd"/>
+<!--  erakonnaNimekiri_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_erakonnaNimekiri_v1.xsd"/>
+<!--  esindusIseendaKohta_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_esindusIseendaKohta_v1.xsd"/>
+<!--  evportaalDigiteeriDokumendid_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_evportaalDigiteeriDokumendid_v1.xsd"/>
+<!--  evportaalDigiteeriToimik_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_evportaalDigiteeriToimik_v1.xsd"/>
+<!--  evportaalMargiKattetoimetatuks_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_evportaalMargiKattetoimetatuks_v1.xsd"/>
+<!--  ettevotjaMuudatusedTasutaTootukassa_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_ettevotjaMuudatusedTasutaTootukassa_v1.xsd"/>
+<!--  ettevotjaMuudatusedTasuta_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_ettevotjaMuudatusedTasuta_v1.xsd"/>
+<!--  EVKKanded_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_EVKKanded_v1.xsd"/>
+<!--  kyMenetlusinfo_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_kyMenetlusinfo_v1.xsd"/>
+<!--  kyRegistriosaMuutused_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_kyRegistriosaMuutused_v1.xsd"/>
+<!--  maaruseDokument_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_maaruseDokument_v1.xsd"/>
+<!--  menetlusinfo_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_menetlusinfo_v1.xsd"/>
+<!--  mtaBilanss_v1, mtaBilanssFail_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_mtaBilanss_v1.xsd"/>
+<!--  mtaBilSisu_v1, mtaBilSisuFail_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_mtaBilSisu_v1.xsd"/>
+<!--  mtaEvSeisundid_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_mtaEvSeisundid_v1.xsd"/>
+<!--  mtaPortsTeenuseid  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_mtaparingud.xsd"/>
+<!--  napTasumiseLisamine_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_napTasumiseLisamine_v1.xsd"/>
+<!--  nimeSobivus_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_nimeSobivus_v1.xsd"/>
+<!--  rkoarr_asutused_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_rkoarr_asutused_v1.xsd"/>
+<!--  registrikaart_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_registrikaart_v1.xsd"/>
+<!--  sooritaKanne_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_sooritaKanne_v1.xsd"/>
+<!--  toimikuDokumendid_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_toimikuDokumendid_v1.xsd"/>
+<!--  toimikuDokument_v1  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_toimikuDokument_v1.xsd"/>
+<!--  transactionStatement  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_transactionStatement.xsd"/>
+<!--  Haigekassa teenused -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_haigekassa.xsd"/>
+<!--  xbrl teenused -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_xbrl.xsd"/>
+<!--  evapi teenused -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_evapi.xsd"/>
+<!--  ENDBLOCK:xroad_services  -->
+<!--  e-arve registri teenused  -->
+<xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/test/xroad6_earve.xsd"/>
+</xsd:schema>
+</wsdl:types>
+<!--  Messages for ARIREG  -->
+<wsdl:message name="XroadHeaderMsg">
+<wsdl:part name="client" element="xrd:client"/>
+<wsdl:part name="service" element="xrd:service"/>
+<wsdl:part name="id" element="xrd:id"/>
+<wsdl:part name="userId" element="xrd:userId"/>
+<wsdl:part name="protocolVersion" element="xrd:protocolVersion"/>
+</wsdl:message>
+<wsdl:message name="debugAdapter_v1">
+<wsdl:part name="debugAdapter_v1" element="ar:debugAdapter_v1"/>
+</wsdl:message>
+<wsdl:message name="debugAdapter_v1Response">
+<wsdl:part name="debugAdapter_v1Response" element="ar:debugAdapter_v1Response"/>
+</wsdl:message>
+<wsdl:message name="detailandmed_v1">
+<wsdl:part name="detailandmed_v1" element="ar:detailandmed_v1"/>
+</wsdl:message>
+<wsdl:message name="detailandmed_v1Response">
+<wsdl:part name="detailandmed_v1Response" element="ar:detailandmed_v1Response"/>
+</wsdl:message>
+<wsdl:message name="ettevotjaDokumentideLoetelu_v1">
+<wsdl:part name="ettevotjaDokumentideLoetelu_v1" element="ar:ettevotjaDokumentideLoetelu_v1"/>
+</wsdl:message>
+<wsdl:message name="ettevotjaDokumentideLoetelu_v1Response">
+<wsdl:part name="ettevotjaDokumentideLoetelu_v1Response" element="ar:ettevotjaDokumentideLoetelu_v1Response"/>
+</wsdl:message>
+<wsdl:message name="ettevotjaEsmakanded_v1">
+<wsdl:part name="ettevotjaEsmakanded_v1" element="ar:ettevotjaEsmakanded_v1"/>
+</wsdl:message>
+<wsdl:message name="ettevotjaEsmakanded_v1Response">
+<wsdl:part name="ettevotjaEsmakanded_v1Response" element="ar:ettevotjaEsmakanded_v1Response"/>
+</wsdl:message>
+<wsdl:message name="ettevotjaMuudatusedTasuline_v1">
+<wsdl:part name="ettevotjaMuudatusedTasuline_v1" element="ar:ettevotjaMuudatusedTasuline_v1"/>
+</wsdl:message>
+<wsdl:message name="ettevotjaMuudatusedTasuline_v1Response">
+<wsdl:part name="ettevotjaMuudatusedTasuline_v1Response" element="ar:ettevotjaMuudatusedTasuline_v1Response"/>
+</wsdl:message>
+<wsdl:message name="ettevotjaRekvisiididFail_v1">
+<wsdl:part name="ettevotjaRekvisiididFail_v1" element="ar:ettevotjaRekvisiididFail_v1"/>
+</wsdl:message>
+<wsdl:message name="ettevotjaRekvisiididFail_v1Response">
+<wsdl:part name="ettevotjaRekvisiididFail_v1Response" element="ar:ettevotjaRekvisiididFail_v1Response"/>
+</wsdl:message>
+<wsdl:message name="ettevotjaRekvisiidid_v1">
+<wsdl:part name="ettevotjaRekvisiidid_v1" element="ar:ettevotjaRekvisiidid_v1"/>
+</wsdl:message>
+<wsdl:message name="ettevotjaRekvisiidid_v1Response">
+<wsdl:part name="ettevotjaRekvisiidid_v1Response" element="ar:ettevotjaRekvisiidid_v1Response"/>
+</wsdl:message>
+<wsdl:message name="ettevottegaSeotudIsikud_v1">
+<wsdl:part name="ettevottegaSeotudIsikud_v1" element="ar:ettevottegaSeotudIsikud_v1"/>
+</wsdl:message>
+<wsdl:message name="ettevottegaSeotudIsikud_v1Response">
+<wsdl:part name="ettevottegaSeotudIsikud_v1Response" element="ar:ettevottegaSeotudIsikud_v1Response"/>
+</wsdl:message>
+<wsdl:message name="esindus_v1">
+<wsdl:part name="esindus_v1" element="ar:esindus_v1"/>
+</wsdl:message>
+<wsdl:message name="esindus_v1Response">
+<wsdl:part name="esindus_v1Response" element="ar:esindus_v1Response"/>
+</wsdl:message>
+<wsdl:message name="klassifikaatorid_v1">
+<wsdl:part name="klassifikaatorid_v1" element="ar:klassifikaatorid_v1"/>
+</wsdl:message>
+<wsdl:message name="klassifikaatorid_v1Response">
+<wsdl:part name="klassifikaatorid_v1Response" element="ar:klassifikaatorid_v1Response"/>
+</wsdl:message>
+<wsdl:message name="lihtandmedTasuta_v1">
+<wsdl:part name="lihtandmedTasuta_v1" element="ar:lihtandmedTasuta_v1"/>
+</wsdl:message>
+<wsdl:message name="lihtandmedTasuta_v1Response">
+<wsdl:part name="lihtandmedTasuta_v1Response" element="ar:lihtandmedTasuta_v1Response"/>
+</wsdl:message>
+<wsdl:message name="lihtandmed_v1">
+<wsdl:part name="lihtandmed_v1" element="ar:lihtandmed_v1"/>
+</wsdl:message>
+<wsdl:message name="lihtandmed_v1Response">
+<wsdl:part name="lihtandmed_v1Response" element="ar:lihtandmed_v1Response"/>
+</wsdl:message>
+<wsdl:message name="majandusaastaAruanneteLoetelu_v1">
+<wsdl:part name="majandusaastaAruanneteLoetelu_v1" element="ar:majandusaastaAruanneteLoetelu_v1"/>
+</wsdl:message>
+<wsdl:message name="majandusaastaAruanneteLoetelu_v1Response">
+<wsdl:part name="majandusaastaAruanneteLoetelu_v1Response" element="ar:majandusaastaAruanneteLoetelu_v1Response"/>
+</wsdl:message>
+<wsdl:message name="majandusaastaAruanneteKirjed_v1">
+<wsdl:part name="majandusaastaAruanneteKirjed_v1" element="ar:majandusaastaAruanneteKirjed_v1"/>
+</wsdl:message>
+<wsdl:message name="majandusaastaAruanneteKirjed_v1Response">
+<wsdl:part name="majandusaastaAruanneteKirjed_v1Response" element="ar:majandusaastaAruanneteKirjed_v1Response"/>
+</wsdl:message>
+<wsdl:message name="seotudIsikuOtsing_v1">
+<wsdl:part name="seotudIsikuOtsing_v1" element="ar:seotudIsikuOtsing_v1"/>
+</wsdl:message>
+<wsdl:message name="seotudIsikuOtsing_v1Response">
+<wsdl:part name="seotudIsikuOtsing_v1Response" element="ar:seotudIsikuOtsing_v1Response"/>
+</wsdl:message>
+<wsdl:message name="aruandeAuditeerimiseAndmed_v1">
+<wsdl:part name="aruandeAuditeerimiseAndmed_v1" element="ar:aruandeAuditeerimiseAndmed_v1"/>
+</wsdl:message>
+<wsdl:message name="aruandeAuditeerimiseAndmed_v1Response">
+<wsdl:part name="aruandeAuditeerimiseAndmed_v1Response" element="ar:aruandeAuditeerimiseAndmed_v1Response"/>
+</wsdl:message>
+<wsdl:message name="aruandeMyygituluEMTAKjargi_v1">
+<wsdl:part name="aruandeMyygituluEMTAKjargi_v1" element="ar:aruandeMyygituluEMTAKjargi_v1"/>
+</wsdl:message>
+<wsdl:message name="aruandeMyygituluEMTAKjargi_v1Response">
+<wsdl:part name="aruandeMyygituluEMTAKjargi_v1Response" element="ar:aruandeMyygituluEMTAKjargi_v1Response"/>
+</wsdl:message>
+<!--  STARTBLOCK:xroad_services  -->
+<wsdl:message name="arikeelud_v1">
+<wsdl:part name="arikeelud_v1" element="ar:arikeelud_v1"/>
+</wsdl:message>
+<wsdl:message name="arikeelud_v1Response">
+<wsdl:part name="arikeelud_v1Response" element="ar:arikeelud_v1Response"/>
+</wsdl:message>
+<wsdl:message name="ariregistriToimik_v1">
+<wsdl:part name="ariregistriToimik_v1" element="ar:ariregistriToimik_v1"/>
+</wsdl:message>
+<wsdl:message name="ariregistriToimik_v1Response">
+<wsdl:part name="ariregistriToimik_v1Response" element="ar:ariregistriToimik_v1Response"/>
+</wsdl:message>
+<wsdl:message name="detailandmedEP_v1">
+<wsdl:part name="detailandmedEP_v1" element="ar:detailandmedEP_v1"/>
+</wsdl:message>
+<wsdl:message name="detailandmedEP_v1Response">
+<wsdl:part name="detailandmedEP_v1Response" element="ar:detailandmedEP_v1Response"/>
+</wsdl:message>
+<wsdl:message name="erakondaKuuluvus_v1">
+<wsdl:part name="erakondaKuuluvus_v1" element="ar:erakondaKuuluvus_v1"/>
+</wsdl:message>
+<wsdl:message name="erakondaKuuluvus_v1Response">
+<wsdl:part name="erakondaKuuluvus_v1Response" element="ar:erakondaKuuluvus_v1Response"/>
+</wsdl:message>
+<wsdl:message name="erakonnaNimekiri_v1">
+<wsdl:part name="erakonnaNimekiri_v1" element="ar:erakonnaNimekiri_v1"/>
+</wsdl:message>
+<wsdl:message name="erakonnaNimekiri_v1Response">
+<wsdl:part name="erakonnaNimekiri_v1Response" element="ar:erakonnaNimekiri_v1Response"/>
+</wsdl:message>
+<wsdl:message name="esindusIseendaKohta_v1">
+<wsdl:part name="esindusIseendaKohta_v1" element="ar:esindusIseendaKohta_v1"/>
+</wsdl:message>
+<wsdl:message name="esindusIseendaKohta_v1Response">
+<wsdl:part name="esindusIseendaKohta_v1Response" element="ar:esindusIseendaKohta_v1Response"/>
+</wsdl:message>
+<wsdl:message name="evportaalDigiteeriDokumendid_v1">
+<wsdl:part name="evportaalDigiteeriDokumendid_v1" element="ar:evportaalDigiteeriDokumendid_v1"/>
+</wsdl:message>
+<wsdl:message name="evportaalDigiteeriDokumendid_v1Response">
+<wsdl:part name="evportaalDigiteeriDokumendid_v1Response" element="ar:evportaalDigiteeriDokumendid_v1Response"/>
+</wsdl:message>
+<wsdl:message name="evportaalDigiteeriToimik_v1">
+<wsdl:part name="evportaalDigiteeriToimik_v1" element="ar:evportaalDigiteeriToimik_v1"/>
+</wsdl:message>
+<wsdl:message name="evportaalDigiteeriToimik_v1Response">
+<wsdl:part name="evportaalDigiteeriToimik_v1Response" element="ar:evportaalDigiteeriToimik_v1Response"/>
+</wsdl:message>
+<wsdl:message name="evportaalMargiKattetoimetatuks_v1">
+<wsdl:part name="evportaalMargiKattetoimetatuks_v1" element="ar:evportaalMargiKattetoimetatuks_v1"/>
+</wsdl:message>
+<wsdl:message name="evportaalMargiKattetoimetatuks_v1Response">
+<wsdl:part name="evportaalMargiKattetoimetatuks_v1Response" element="ar:evportaalMargiKattetoimetatuks_v1Response"/>
+</wsdl:message>
+<wsdl:message name="ettevotjaMuudatusedTasutaTootukassa_v1">
+<wsdl:part name="ettevotjaMuudatusedTasutaTootukassa_v1" element="ar:ettevotjaMuudatusedTasutaTootukassa_v1"/>
+</wsdl:message>
+<wsdl:message name="ettevotjaMuudatusedTasutaTootukassa_v1Response">
+<wsdl:part name="ettevotjaMuudatusedTasutaTootukassa_v1Response" element="ar:ettevotjaMuudatusedTasutaTootukassa_v1Response"/>
+</wsdl:message>
+<wsdl:message name="ettevotjaMuudatusedTasuta_v1">
+<wsdl:part name="ettevotjaMuudatusedTasuta_v1" element="ar:ettevotjaMuudatusedTasuta_v1"/>
+</wsdl:message>
+<wsdl:message name="ettevotjaMuudatusedTasuta_v1Response">
+<wsdl:part name="ettevotjaMuudatusedTasuta_v1Response" element="ar:ettevotjaMuudatusedTasuta_v1Response"/>
+</wsdl:message>
+<wsdl:message name="EVKKanded_v1">
+<wsdl:part name="EVKKanded_v1" element="ar:EVKKanded_v1"/>
+</wsdl:message>
+<wsdl:message name="EVKKanded_v1Response">
+<wsdl:part name="EVKKanded_v1Response" element="ar:EVKKanded_v1Response"/>
+</wsdl:message>
+<wsdl:message name="kustutamine_v1">
+<wsdl:part name="kustutamine_v1" element="ar:kustutamine_v1"/>
+</wsdl:message>
+<wsdl:message name="kustutamine_v1Response">
+<wsdl:part name="kustutamine_v1Response" element="ar:kustutamine_v1Response"/>
+</wsdl:message>
+<wsdl:message name="kyMenetlusinfo_v1">
+<wsdl:part name="kyMenetlusinfo_v1" element="ar:kyMenetlusinfo_v1"/>
+</wsdl:message>
+<wsdl:message name="kyMenetlusinfo_v1Response">
+<wsdl:part name="kyMenetlusinfo_v1Response" element="ar:kyMenetlusinfo_v1Response"/>
+</wsdl:message>
+<wsdl:message name="kyRegistriosaMuutused_v1">
+<wsdl:part name="kyRegistriosaMuutused_v1" element="ar:kyRegistriosaMuutused_v1"/>
+</wsdl:message>
+<wsdl:message name="kyRegistriosaMuutused_v1Response">
+<wsdl:part name="kyRegistriosaMuutused_v1Response" element="ar:kyRegistriosaMuutused_v1Response"/>
+</wsdl:message>
+<wsdl:message name="maaruseDokument_v1">
+<wsdl:part name="maaruseDokument_v1" element="ar:maaruseDokument_v1"/>
+</wsdl:message>
+<wsdl:message name="maaruseDokument_v1Response">
+<wsdl:part name="maaruseDokument_v1Response" element="ar:maaruseDokument_v1Response"/>
+</wsdl:message>
+<wsdl:message name="menetlusinfo_v1">
+<wsdl:part name="menetlusinfo_v1" element="ar:menetlusinfo_v1"/>
+</wsdl:message>
+<wsdl:message name="menetlusinfo_v1Response">
+<wsdl:part name="menetlusinfo_v1Response" element="ar:menetlusinfo_v1Response"/>
+</wsdl:message>
+<wsdl:message name="mtaBilanss_v1">
+<wsdl:part name="mtaBilanss_v1" element="ar:mtaBilanss_v1"/>
+</wsdl:message>
+<wsdl:message name="mtaBilanss_v1Response">
+<wsdl:part name="mtaBilanss_v1Response" element="ar:mtaBilanss_v1Response"/>
+</wsdl:message>
+<wsdl:message name="mtaBilanssFail_v1">
+<wsdl:part name="mtaBilanssFail_v1" element="ar:mtaBilanssFail_v1"/>
+</wsdl:message>
+<wsdl:message name="mtaBilanssFail_v1Response">
+<wsdl:part name="mtaBilanssFail_v1Response" element="ar:mtaBilanssFail_v1Response"/>
+</wsdl:message>
+<wsdl:message name="mtaBilSisu_v1">
+<wsdl:part name="mtaBilSisu_v1" element="ar:mtaBilSisu_v1"/>
+</wsdl:message>
+<wsdl:message name="mtaBilSisu_v1Response">
+<wsdl:part name="mtaBilSisu_v1Response" element="ar:mtaBilSisu_v1Response"/>
+</wsdl:message>
+<wsdl:message name="mtaBilSisuFail_v1">
+<wsdl:part name="mtaBilSisuFail_v1" element="ar:mtaBilSisuFail_v1"/>
+</wsdl:message>
+<wsdl:message name="mtaBilSisuFail_v1Response">
+<wsdl:part name="mtaBilSisuFail_v1Response" element="ar:mtaBilSisuFail_v1Response"/>
+</wsdl:message>
+<wsdl:message name="mtaEvSeisundid_v1">
+<wsdl:part name="mtaEvSeisundid_v1" element="ar:mtaEvSeisundid_v1"/>
+</wsdl:message>
+<wsdl:message name="mtaEvSeisundid_v1Response">
+<wsdl:part name="mtaEvSeisundid_v1Response" element="ar:mtaEvSeisundid_v1Response"/>
+</wsdl:message>
+<wsdl:message name="mtaHoiatused_v1">
+<wsdl:part name="mtaHoiatused_v1" element="ar:mtaHoiatused_v1"/>
+</wsdl:message>
+<wsdl:message name="mtaHoiatused_v1Response">
+<wsdl:part name="mtaHoiatused_v1Response" element="ar:mtaHoiatused_v1Response"/>
+</wsdl:message>
+<wsdl:message name="mtaMajPaevik_v1">
+<wsdl:part name="mtaMajPaevik_v1" element="ar:mtaMajPaevik_v1"/>
+</wsdl:message>
+<wsdl:message name="mtaMajPaevik_v1Response">
+<wsdl:part name="mtaMajPaevik_v1Response" element="ar:mtaMajPaevik_v1Response"/>
+</wsdl:message>
+<wsdl:message name="mtaMajAruOsad_v1">
+<wsdl:part name="mtaMajAruOsad_v1" element="ar:mtaMajAruOsad_v1"/>
+</wsdl:message>
+<wsdl:message name="mtaMajAruOsad_v1Response">
+<wsdl:part name="mtaMajAruOsad_v1Response" element="ar:mtaMajAruOsad_v1Response"/>
+</wsdl:message>
+<wsdl:message name="mtaOtsused_v1">
+<wsdl:part name="mtaOtsused_v1" element="ar:mtaOtsused_v1"/>
+</wsdl:message>
+<wsdl:message name="mtaOtsused_v1Response">
+<wsdl:part name="mtaOtsused_v1Response" element="ar:mtaOtsused_v1Response"/>
+</wsdl:message>
+<wsdl:message name="mtaPaevik_v1">
+<wsdl:part name="mtaPaevik_v1" element="ar:mtaPaevik_v1"/>
+</wsdl:message>
+<wsdl:message name="mtaPaevik_v1Response">
+<wsdl:part name="mtaPaevik_v1Response" element="ar:mtaPaevik_v1Response"/>
+</wsdl:message>
+<wsdl:message name="mtaTrahvid_v1">
+<wsdl:part name="mtaTrahvid_v1" element="ar:mtaTrahvid_v1"/>
+</wsdl:message>
+<wsdl:message name="mtaTrahvid_v1Response">
+<wsdl:part name="mtaTrahvid_v1Response" element="ar:mtaTrahvid_v1Response"/>
+</wsdl:message>
+<wsdl:message name="napTasumiseLisamine_v1">
+<wsdl:part name="napTasumiseLisamine_v1" element="ar:napTasumiseLisamine_v1"/>
+</wsdl:message>
+<wsdl:message name="napTasumiseLisamine_v1Response">
+<wsdl:part name="napTasumiseLisamine_v1Response" element="ar:napTasumiseLisamine_v1Response"/>
+</wsdl:message>
+<wsdl:message name="nimeSobivus_v1">
+<wsdl:part name="nimeSobivus_v1" element="ar:nimeSobivus_v1"/>
+</wsdl:message>
+<wsdl:message name="nimeSobivus_v1Response">
+<wsdl:part name="nimeSobivus_v1Response" element="ar:nimeSobivus_v1Response"/>
+</wsdl:message>
+<wsdl:message name="rkoarr_asutused_v1">
+<wsdl:part name="rkoarr_asutused_v1" element="ar:rkoarr_asutused_v1"/>
+</wsdl:message>
+<wsdl:message name="rkoarr_asutused_v1Response">
+<wsdl:part name="rkoarr_asutused_v1Response" element="ar:rkoarr_asutused_v1Response"/>
+</wsdl:message>
+<wsdl:message name="registrikaart_v1">
+<wsdl:part name="registrikaart_v1" element="ar:registrikaart_v1"/>
+</wsdl:message>
+<wsdl:message name="registrikaart_v1Response">
+<wsdl:part name="registrikaart_v1Response" element="ar:registrikaart_v1Response"/>
+</wsdl:message>
+<wsdl:message name="sooritaKanne_v1">
+<wsdl:part name="sooritaKanne_v1" element="ar:sooritaKanne_v1"/>
+</wsdl:message>
+<wsdl:message name="sooritaKanne_v1Response">
+<wsdl:part name="sooritaKanne_v1Response" element="ar:sooritaKanne_v1Response"/>
+</wsdl:message>
+<wsdl:message name="toimikuDokumendid_v1">
+<wsdl:part name="toimikuDokumendid_v1" element="ar:toimikuDokumendid_v1"/>
+</wsdl:message>
+<wsdl:message name="toimikuDokumendid_v1Response">
+<wsdl:part name="toimikuDokumendid_v1Response" element="ar:toimikuDokumendid_v1Response"/>
+</wsdl:message>
+<wsdl:message name="toimikuDokument_v1">
+<wsdl:part name="toimikuDokument_v1" element="ar:toimikuDokument_v1"/>
+</wsdl:message>
+<wsdl:message name="toimikuDokument_v1Response">
+<wsdl:part name="toimikuDokument_v1Response" element="ar:toimikuDokument_v1Response"/>
+</wsdl:message>
+<wsdl:message name="transactionStatement">
+<wsdl:part name="transactionStatement" element="ar:transactionStatement"/>
+</wsdl:message>
+<wsdl:message name="transactionStatementResponse">
+<wsdl:part name="transactionStatementResponse" element="ar:transactionStatementResponse"/>
+</wsdl:message>
+<wsdl:message name="evapiLooKanne_v1">
+<wsdl:part name="evapiLooKanne_v1" element="ar:evapiLooKanne_v1"/>
+</wsdl:message>
+<wsdl:message name="evapiLooKanne_v1Response">
+<wsdl:part name="evapiLooKanne_v1Response" element="ar:evapiLooKanne_v1Response"/>
+</wsdl:message>
+<wsdl:message name="evapiKinnitaKanne_v1">
+<wsdl:part name="evapiKinnitaKanne_v1" element="ar:evapiKinnitaKanne_v1"/>
+</wsdl:message>
+<wsdl:message name="evapiKinnitaKanne_v1Response">
+<wsdl:part name="evapiKinnitaKanne_v1Response" element="ar:evapiKinnitaKanne_v1Response"/>
+</wsdl:message>
+<wsdl:message name="evapiKustutaKanne_v1">
+<wsdl:part name="evapiKustutaKanne_v1" element="ar:evapiKustutaKanne_v1"/>
+</wsdl:message>
+<wsdl:message name="evapiKustutaKanne_v1Response">
+<wsdl:part name="evapiKustutaKanne_v1Response" element="ar:evapiKustutaKanne_v1Response"/>
+</wsdl:message>
+<wsdl:message name="evapiMaaruseDokument_v1">
+<wsdl:part name="evapiMaaruseDokument_v1" element="ar:evapiMaaruseDokument_v1"/>
+</wsdl:message>
+<wsdl:message name="evapiMaaruseDokument_v1Response">
+<wsdl:part name="evapiMaaruseDokument_v1Response" element="ar:evapiMaaruseDokument_v1Response"/>
+</wsdl:message>
+<wsdl:message name="evapiMenetlusinfo_v1">
+<wsdl:part name="evapiMenetlusinfo_v1" element="ar:evapiMenetlusinfo_v1"/>
+</wsdl:message>
+<wsdl:message name="evapiMenetlusinfo_v1Response">
+<wsdl:part name="evapiMenetlusinfo_v1Response" element="ar:evapiMenetlusinfo_v1Response"/>
+</wsdl:message>
+<wsdl:message name="evapiRiigiloivuViitenumber_v1">
+<wsdl:part name="evapiRiigiloivuViitenumber_v1" element="ar:evapiRiigiloivuViitenumber_v1"/>
+</wsdl:message>
+<wsdl:message name="evapiRiigiloivuViitenumber_v1Response">
+<wsdl:part name="evapiRiigiloivuViitenumber_v1Response" element="ar:evapiRiigiloivuViitenumber_v1Response"/>
+</wsdl:message>
+<wsdl:message name="xbrlAruandeNaitajad_v1">
+<wsdl:part name="xbrlAruandeNaitajad_v1" element="ar:xbrlAruandeNaitajad_v1"/>
+</wsdl:message>
+<wsdl:message name="xbrlAruandeNaitajad_v1Response">
+<wsdl:part name="xbrlAruandeNaitajad_v1Response" element="ar:xbrlAruandeNaitajad_v1Response"/>
+</wsdl:message>
+<wsdl:message name="xbrlEsita_v1">
+<wsdl:part name="xbrlEsita_v1" element="ar:xbrlEsita_v1"/>
+</wsdl:message>
+<wsdl:message name="xbrlEsita_v1Response">
+<wsdl:part name="xbrlEsita_v1Response" element="ar:xbrlEsita_v1Response"/>
+</wsdl:message>
+<wsdl:message name="xbrlPdfEsita_v1">
+<wsdl:part name="xbrlPdfEsita_v1" element="ar:xbrlPdfEsita_v1"/>
+</wsdl:message>
+<wsdl:message name="xbrlPdfEsita_v1Response">
+<wsdl:part name="xbrlPdfEsita_v1Response" element="ar:xbrlPdfEsita_v1Response"/>
+</wsdl:message>
+<wsdl:message name="xbrlEsindus_v1">
+<wsdl:part name="xbrlEsindus_v1" element="ar:xbrlEsindus_v1"/>
+</wsdl:message>
+<wsdl:message name="xbrlEsindus_v1Response">
+<wsdl:part name="xbrlEsindus_v1Response" element="ar:xbrlEsindus_v1Response"/>
+</wsdl:message>
+<!--  ENDBLOCK:xroad_services  -->
+<wsdl:message name="earveLisaKlient_v1">
+<wsdl:part name="earveLisaKlient_v1" element="ar:earveLisaKlient_v1"/>
+</wsdl:message>
+<wsdl:message name="earveLisaKlient_v1Response">
+<wsdl:part name="earveLisaKlient_v1Response" element="ar:earveLisaKlient_v1Response"/>
+</wsdl:message>
+<wsdl:message name="earveEemaldaKlient_v1">
+<wsdl:part name="earveEemaldaKlient_v1" element="ar:earveEemaldaKlient_v1"/>
+</wsdl:message>
+<wsdl:message name="earveEemaldaKlient_v1Response">
+<wsdl:part name="earveEemaldaKlient_v1Response" element="ar:earveEemaldaKlient_v1Response"/>
+</wsdl:message>
+<wsdl:message name="earveRegistriParing_v1">
+<wsdl:part name="earveRegistriParing_v1" element="ar:earveRegistriParing_v1"/>
+</wsdl:message>
+<wsdl:message name="earveRegistriParing_v1Response">
+<wsdl:part name="earveRegistriParing_v1Response" element="ar:earveRegistriParing_v1Response"/>
+</wsdl:message>
+<!--  Port for ARIREG  -->
+<wsdl:portType name="AriregXtee">
+<wsdl:operation name="debugAdapter_v1" parameterOrder="debugAdapter_v1">
+<wsdl:documentation>
+<xrd:title>Adapteri sisemine debug-teenus</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="debugAdapter_v1" message="ar:debugAdapter_v1"/>
+<wsdl:output name="debugAdapter_v1Response" message="ar:debugAdapter_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="detailandmed_v1" parameterOrder="detailandmed_v1">
+<wsdl:documentation>
+<xrd:title>Ettevõtja detailandmete päring</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="detailandmed_v1" message="ar:detailandmed_v1"/>
+<wsdl:output name="detailandmed_v1Response" message="ar:detailandmed_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="ettevotjaDokumentideLoetelu_v1" parameterOrder="ettevotjaDokumentideLoetelu_v1">
+<wsdl:documentation>
+<xrd:title>Ettevõtjaga seotud dokumentide loetelu päring</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="ettevotjaDokumentideLoetelu_v1" message="ar:ettevotjaDokumentideLoetelu_v1"/>
+<wsdl:output name="ettevotjaDokumentideLoetelu_v1Response" message="ar:ettevotjaDokumentideLoetelu_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="ettevotjaEsmakanded_v1" parameterOrder="ettevotjaEsmakanded_v1">
+<wsdl:documentation>
+<xrd:title>Ettevõtja esmakannete päring</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="ettevotjaEsmakanded_v1" message="ar:ettevotjaEsmakanded_v1"/>
+<wsdl:output name="ettevotjaEsmakanded_v1Response" message="ar:ettevotjaEsmakanded_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="ettevotjaMuudatusedTasuline_v1" parameterOrder="ettevotjaMuudatusedTasuline_v1">
+<wsdl:documentation>
+<xrd:title>Ettevõtja muudatuste loetelu tasuline päring</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="ettevotjaMuudatusedTasuline_v1" message="ar:ettevotjaMuudatusedTasuline_v1"/>
+<wsdl:output name="ettevotjaMuudatusedTasuline_v1Response" message="ar:ettevotjaMuudatusedTasuline_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="ettevotjaRekvisiididFail_v1" parameterOrder="ettevotjaRekvisiididFail_v1">
+<wsdl:documentation>
+<xrd:title>Ettevotja rekvisiitide fail</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="ettevotjaRekvisiididFail_v1" message="ar:ettevotjaRekvisiididFail_v1"/>
+<wsdl:output name="ettevotjaRekvisiididFail_v1Response" message="ar:ettevotjaRekvisiididFail_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="ettevotjaRekvisiidid_v1" parameterOrder="ettevotjaRekvisiidid_v1">
+<wsdl:documentation>
+<xrd:title>Ettevotja rekvisiitide päring</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="ettevotjaRekvisiidid_v1" message="ar:ettevotjaRekvisiidid_v1"/>
+<wsdl:output name="ettevotjaRekvisiidid_v1Response" message="ar:ettevotjaRekvisiidid_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="ettevottegaSeotudIsikud_v1" parameterOrder="ettevottegaSeotudIsikud_v1">
+<wsdl:documentation>
+<xrd:title>
+Visuaalse Äriregistri ettevõtete-isikute vaheliste seoste päring
+</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="ettevottegaSeotudIsikud_v1" message="ar:ettevottegaSeotudIsikud_v1"/>
+<wsdl:output name="ettevottegaSeotudIsikud_v1Response" message="ar:ettevottegaSeotudIsikud_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="esindus_v1" parameterOrder="esindus_v1">
+<wsdl:documentation>
+<xrd:title>Esindusõiguste päring</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="esindus_v1" message="ar:esindus_v1"/>
+<wsdl:output name="esindus_v1Response" message="ar:esindus_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="klassifikaatorid_v1" parameterOrder="klassifikaatorid_v1">
+<wsdl:documentation>
+<xrd:title>Klassifikaatorite päring</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="klassifikaatorid_v1" message="ar:klassifikaatorid_v1"/>
+<wsdl:output name="klassifikaatorid_v1Response" message="ar:klassifikaatorid_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="lihtandmedTasuta_v1" parameterOrder="lihtandmedTasuta_v1">
+<wsdl:documentation>
+<xrd:title>Ettevõtja lihtandmete päring tasuta</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="lihtandmedTasuta_v1" message="ar:lihtandmedTasuta_v1"/>
+<wsdl:output name="lihtandmedTasuta_v1Response" message="ar:lihtandmedTasuta_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="lihtandmed_v1" parameterOrder="lihtandmed_v1">
+<wsdl:documentation>
+<xrd:title>Ettevõtja lihtandmete päring</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="lihtandmed_v1" message="ar:lihtandmed_v1"/>
+<wsdl:output name="lihtandmed_v1Response" message="ar:lihtandmed_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="majandusaastaAruanneteLoetelu_v1" parameterOrder="majandusaastaAruanneteLoetelu_v1">
+<wsdl:documentation>
+<xrd:title>Ettevõtja majandusaasta aruande loetelu päring</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="majandusaastaAruanneteLoetelu_v1" message="ar:majandusaastaAruanneteLoetelu_v1"/>
+<wsdl:output name="majandusaastaAruanneteLoetelu_v1Response" message="ar:majandusaastaAruanneteLoetelu_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="majandusaastaAruanneteKirjed_v1" parameterOrder="majandusaastaAruanneteKirjed_v1">
+<wsdl:documentation>
+<xrd:title>Ettevõtja majandusaasta aruande päring</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="majandusaastaAruanneteKirjed_v1" message="ar:majandusaastaAruanneteKirjed_v1"/>
+<wsdl:output name="majandusaastaAruanneteKirjed_v1Response" message="ar:majandusaastaAruanneteKirjed_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="seotudIsikuOtsing_v1" parameterOrder="seotudIsikuOtsing_v1">
+<wsdl:documentation>
+<xrd:title>Isikute otsing</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="seotudIsikuOtsing_v1" message="ar:seotudIsikuOtsing_v1"/>
+<wsdl:output name="seotudIsikuOtsing_v1Response" message="ar:seotudIsikuOtsing_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="aruandeAuditeerimiseAndmed_v1" parameterOrder="aruandeAuditeerimiseAndmed_v1">
+<wsdl:documentation>
+<xrd:title>Isikute otsing</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="aruandeAuditeerimiseAndmed_v1" message="ar:aruandeAuditeerimiseAndmed_v1"/>
+<wsdl:output name="aruandeAuditeerimiseAndmed_v1Response" message="ar:aruandeAuditeerimiseAndmed_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="aruandeMyygituluEMTAKjargi_v1" parameterOrder="aruandeMyygituluEMTAKjargi_v1">
+<wsdl:documentation>
+<xrd:title>Isikute otsing</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="aruandeMyygituluEMTAKjargi_v1" message="ar:aruandeMyygituluEMTAKjargi_v1"/>
+<wsdl:output name="aruandeMyygituluEMTAKjargi_v1Response" message="ar:aruandeMyygituluEMTAKjargi_v1Response"/>
+</wsdl:operation>
+<!--  STARTBLOCK:xroad_services  -->
+<wsdl:operation name="arikeelud_v1" parameterOrder="arikeelud_v1">
+<wsdl:documentation>
+<xrd:title>Ärikeeldude päring</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="arikeelud_v1" message="ar:arikeelud_v1"/>
+<wsdl:output name="arikeelud_v1Response" message="ar:arikeelud_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="ariregistriToimik_v1" parameterOrder="ariregistriToimik_v1">
+<wsdl:documentation>
+<xrd:title>Äriregistri toimiku päring</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="ariregistriToimik_v1" message="ar:ariregistriToimik_v1"/>
+<wsdl:output name="ariregistriToimik_v1Response" message="ar:ariregistriToimik_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="detailandmedEP_v1" parameterOrder="detailandmedEP_v1">
+<wsdl:documentation>
+<xrd:title>Ettevõtja detailandmete päring Eesti Pangale</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="detailandmedEP_v1" message="ar:detailandmedEP_v1"/>
+<wsdl:output name="detailandmedEP_v1Response" message="ar:detailandmedEP_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="erakondaKuuluvus_v1" parameterOrder="erakondaKuuluvus_v1">
+<wsdl:documentation>
+<xrd:title>Erakonda kuuluvuse päring</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="erakondaKuuluvus_v1" message="ar:erakondaKuuluvus_v1"/>
+<wsdl:output name="erakondaKuuluvus_v1Response" message="ar:erakondaKuuluvus_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="erakonnaNimekiri_v1" parameterOrder="erakonnaNimekiri_v1">
+<wsdl:documentation>
+<xrd:title>Erakonnanimekirja päring</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="erakonnaNimekiri_v1" message="ar:erakonnaNimekiri_v1"/>
+<wsdl:output name="erakonnaNimekiri_v1Response" message="ar:erakonnaNimekiri_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="esindusIseendaKohta_v1" parameterOrder="esindusIseendaKohta_v1">
+<wsdl:documentation>
+<xrd:title>Esindusõiguste päring iseenda kohta</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="esindusIseendaKohta_v1" message="ar:esindusIseendaKohta_v1"/>
+<wsdl:output name="esindusIseendaKohta_v1Response" message="ar:esindusIseendaKohta_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="evportaalDigiteeriDokumendid_v1" parameterOrder="evportaalDigiteeriDokumendid_v1">
+<wsdl:documentation>
+<xrd:title>
+Dokumendi digiteerimise tellimus, kasutab ettevõtjaportaal
+</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="evportaalDigiteeriDokumendid_v1" message="ar:evportaalDigiteeriDokumendid_v1"/>
+<wsdl:output name="evportaalDigiteeriDokumendid_v1Response" message="ar:evportaalDigiteeriDokumendid_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="evportaalDigiteeriToimik_v1" parameterOrder="evportaalDigiteeriToimik_v1">
+<wsdl:documentation>
+<xrd:title>
+Toimiku digiteerimise tellimus, kasutab ettevõtjaportaal/teabesüsteem
+</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="evportaalDigiteeriToimik_v1" message="ar:evportaalDigiteeriToimik_v1"/>
+<wsdl:output name="evportaalDigiteeriToimik_v1Response" message="ar:evportaalDigiteeriToimik_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="evportaalMargiKattetoimetatuks_v1" parameterOrder="evportaalMargiKattetoimetatuks_v1">
+<wsdl:documentation>
+<xrd:title>
+Määruse kättetoimetatuks märkimine, kasutab ettevõtjaportaal
+</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="evportaalMargiKattetoimetatuks_v1" message="ar:evportaalMargiKattetoimetatuks_v1"/>
+<wsdl:output name="evportaalMargiKattetoimetatuks_v1Response" message="ar:evportaalMargiKattetoimetatuks_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="ettevotjaMuudatusedTasutaTootukassa_v1" parameterOrder="ettevotjaMuudatusedTasutaTootukassa_v1">
+<wsdl:documentation>
+<xrd:title>
+Ettevõtja muudatuste loetelu riigiasutustele päring töötukassale
+</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="ettevotjaMuudatusedTasutaTootukassa_v1" message="ar:ettevotjaMuudatusedTasutaTootukassa_v1"/>
+<wsdl:output name="ettevotjaMuudatusedTasutaTootukassa_v1Response" message="ar:ettevotjaMuudatusedTasutaTootukassa_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="ettevotjaMuudatusedTasuta_v1" parameterOrder="ettevotjaMuudatusedTasuta_v1">
+<wsdl:documentation>
+<xrd:title>
+Ettevõtja muudatuste loetelu riigiasutustele päring
+</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="ettevotjaMuudatusedTasuta_v1" message="ar:ettevotjaMuudatusedTasuta_v1"/>
+<wsdl:output name="ettevotjaMuudatusedTasuta_v1Response" message="ar:ettevotjaMuudatusedTasuta_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="EVKKanded_v1" parameterOrder="EVKKanded_v1">
+<wsdl:documentation>
+<xrd:title>
+EVK märkega aktsiaseltside ja osaühingute muutunud kandeandmed etteantud ajavahemikul
+</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="EVKKanded_v1" message="ar:EVKKanded_v1"/>
+<wsdl:output name="EVKKanded_v1Response" message="ar:EVKKanded_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="kustutamine_v1" parameterOrder="kustutamine_v1">
+<wsdl:documentation>
+<xrd:title>EHK: Kustutamise päring</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="kustutamine_v1" message="ar:kustutamine_v1"/>
+<wsdl:output name="kustutamine_v1Response" message="ar:kustutamine_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="kyMenetlusinfo_v1" parameterOrder="kyMenetlusinfo_v1">
+<wsdl:documentation>
+<xrd:title>KÜ menetlusinfo KR-le</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="kyMenetlusinfo_v1" message="ar:kyMenetlusinfo_v1"/>
+<wsdl:output name="kyMenetlusinfo_v1Response" message="ar:kyMenetlusinfo_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="kyRegistriosaMuutused_v1" parameterOrder="kyRegistriosaMuutused_v1">
+<wsdl:documentation>
+<xrd:title>KÜ-de muudatuste info KR-le</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="kyRegistriosaMuutused_v1" message="ar:kyRegistriosaMuutused_v1"/>
+<wsdl:output name="kyRegistriosaMuutused_v1Response" message="ar:kyRegistriosaMuutused_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="maaruseDokument_v1" parameterOrder="maaruseDokument_v1">
+<wsdl:documentation>
+<xrd:title>Määruse dokumendi sisu</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="maaruseDokument_v1" message="ar:maaruseDokument_v1"/>
+<wsdl:output name="maaruseDokument_v1Response" message="ar:maaruseDokument_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="menetlusinfo_v1" parameterOrder="menetlusinfo_v1">
+<wsdl:documentation>
+<xrd:title>E-notar: Menetlusinfo päring</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="menetlusinfo_v1" message="ar:menetlusinfo_v1"/>
+<wsdl:output name="menetlusinfo_v1Response" message="ar:menetlusinfo_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="mtaBilanss_v1" parameterOrder="mtaBilanss_v1">
+<wsdl:documentation>
+<xrd:title>MTA: mtaBilanss_v1</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="mtaBilanss_v1" message="ar:mtaBilanss_v1"/>
+<wsdl:output name="mtaBilanss_v1Response" message="ar:mtaBilanss_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="mtaBilanssFail_v1" parameterOrder="mtaBilanssFail_v1">
+<wsdl:documentation>
+<xrd:title>MTA: mtaBilanssFail_v1</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="mtaBilanssFail_v1" message="ar:mtaBilanssFail_v1"/>
+<wsdl:output name="mtaBilanssFail_v1Response" message="ar:mtaBilanssFail_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="mtaBilSisu_v1" parameterOrder="mtaBilSisu_v1">
+<wsdl:documentation>
+<xrd:title>MTA: mtaBilSisu_v1</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="mtaBilSisu_v1" message="ar:mtaBilSisu_v1"/>
+<wsdl:output name="mtaBilSisu_v1Response" message="ar:mtaBilSisu_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="mtaBilSisuFail_v1" parameterOrder="mtaBilSisuFail_v1">
+<wsdl:documentation>
+<xrd:title>MTA: mtaBilSisuFail_v1</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="mtaBilSisuFail_v1" message="ar:mtaBilSisuFail_v1"/>
+<wsdl:output name="mtaBilSisuFail_v1Response" message="ar:mtaBilSisuFail_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="mtaEvSeisundid_v1" parameterOrder="mtaEvSeisundid_v1">
+<wsdl:documentation>
+<xrd:title>MTA: mtaEvSeisundid_v1</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="mtaEvSeisundid_v1" message="ar:mtaEvSeisundid_v1"/>
+<wsdl:output name="mtaEvSeisundid_v1Response" message="ar:mtaEvSeisundid_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="mtaHoiatused_v1" parameterOrder="mtaHoiatused_v1">
+<wsdl:documentation>
+<xrd:title>MTA: mtaHoiatused_v1</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="mtaHoiatused_v1" message="ar:mtaHoiatused_v1"/>
+<wsdl:output name="mtaHoiatused_v1Response" message="ar:mtaHoiatused_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="mtaMajPaevik_v1" parameterOrder="mtaMajPaevik_v1">
+<wsdl:documentation>
+<xrd:title>MTA: mtaMajPaevik_v1</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="mtaMajPaevik_v1" message="ar:mtaMajPaevik_v1"/>
+<wsdl:output name="mtaMajPaevik_v1Response" message="ar:mtaMajPaevik_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="mtaMajAruOsad_v1" parameterOrder="mtaMajAruOsad_v1">
+<wsdl:documentation>
+<xrd:title>MTA: mtaMajAruOsad_v1</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="mtaMajAruOsad_v1" message="ar:mtaMajAruOsad_v1"/>
+<wsdl:output name="mtaMajAruOsad_v1Response" message="ar:mtaMajAruOsad_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="mtaOtsused_v1" parameterOrder="mtaOtsused_v1">
+<wsdl:documentation>
+<xrd:title>MTA: mtaOtsused_v1</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="mtaOtsused_v1" message="ar:mtaOtsused_v1"/>
+<wsdl:output name="mtaOtsused_v1Response" message="ar:mtaOtsused_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="mtaPaevik_v1" parameterOrder="mtaPaevik_v1">
+<wsdl:documentation>
+<xrd:title>MTA: mtaPaevik_v1</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="mtaPaevik_v1" message="ar:mtaPaevik_v1"/>
+<wsdl:output name="mtaPaevik_v1Response" message="ar:mtaPaevik_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="mtaTrahvid_v1" parameterOrder="mtaTrahvid_v1">
+<wsdl:documentation>
+<xrd:title>MTA: mtaTrahvid_v1</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="mtaTrahvid_v1" message="ar:mtaTrahvid_v1"/>
+<wsdl:output name="mtaTrahvid_v1Response" message="ar:mtaTrahvid_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="napTasumiseLisamine_v1" parameterOrder="napTasumiseLisamine_v1">
+<wsdl:documentation>
+<xrd:title>NAP tasumise lisamise teenus</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="napTasumiseLisamine_v1" message="ar:napTasumiseLisamine_v1"/>
+<wsdl:output name="napTasumiseLisamine_v1Response" message="ar:napTasumiseLisamine_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="nimeSobivus_v1" parameterOrder="nimeSobivus_v1">
+<wsdl:documentation>
+<xrd:title>Nimesobivuse päring</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="nimeSobivus_v1" message="ar:nimeSobivus_v1"/>
+<wsdl:output name="nimeSobivus_v1Response" message="ar:nimeSobivus_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="registrikaart_v1" parameterOrder="registrikaart_v1">
+<wsdl:documentation>
+<xrd:title>
+Ettevõtja registrikaardi ja kommertspandi registrikaardi väljatrükk
+</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="registrikaart_v1" message="ar:registrikaart_v1"/>
+<wsdl:output name="registrikaart_v1Response" message="ar:registrikaart_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="rkoarr_asutused_v1" parameterOrder="rkoarr_asutused_v1">
+<wsdl:documentation>
+<xrd:title>RKOARR asutuste päring</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="rkoarr_asutused_v1" message="ar:rkoarr_asutused_v1"/>
+<wsdl:output name="rkoarr_asutused_v1Response" message="ar:rkoarr_asutused_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="sooritaKanne_v1" parameterOrder="sooritaKanne_v1">
+<wsdl:documentation>
+<xrd:title>
+Avalduse esitamise päring, kasutavad e-notar ja ettevõtjaportaal
+</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="sooritaKanne_v1" message="ar:sooritaKanne_v1"/>
+<wsdl:output name="sooritaKanne_v1Response" message="ar:sooritaKanne_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="toimikuDokumendid_v1" parameterOrder="toimikuDokumendid_v1">
+<wsdl:documentation>
+<xrd:title>E-notar: toimiku dokumendid</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="toimikuDokumendid_v1" message="ar:toimikuDokumendid_v1"/>
+<wsdl:output name="toimikuDokumendid_v1Response" message="ar:toimikuDokumendid_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="toimikuDokument_v1" parameterOrder="toimikuDokument_v1">
+<wsdl:documentation>
+<xrd:title>Toimiku dokumendi sisu</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="toimikuDokument_v1" message="ar:toimikuDokument_v1"/>
+<wsdl:output name="toimikuDokument_v1Response" message="ar:toimikuDokument_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="transactionStatement" parameterOrder="transactionStatement">
+<wsdl:documentation>
+<xrd:title>Riigikassa kiirteavitusteenus</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="transactionStatement" message="ar:transactionStatement"/>
+<wsdl:output name="transactionStatementResponse" message="ar:transactionStatementResponse"/>
+</wsdl:operation>
+<wsdl:operation name="evapiLooKanne_v1" parameterOrder="evapiLooKanne_v1">
+<wsdl:documentation>
+<xrd:title>EVAPI kandeavalduse loomise teenus</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="evapiLooKanne_v1" message="ar:evapiLooKanne_v1"/>
+<wsdl:output name="evapiLooKanne_v1Response" message="ar:evapiLooKanne_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="evapiKinnitaKanne_v1" parameterOrder="evapiKinnitaKanne_v1">
+<wsdl:documentation>
+<xrd:title>EVAPI kandeavalduse kinnitamise teenus</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="evapiKinnitaKanne_v1" message="ar:evapiKinnitaKanne_v1"/>
+<wsdl:output name="evapiKinnitaKanne_v1Response" message="ar:evapiKinnitaKanne_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="evapiKustutaKanne_v1" parameterOrder="evapiKustutaKanne_v1">
+<wsdl:documentation>
+<xrd:title>EVAPI kandeavalduse kustutamise teenus</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="evapiKustutaKanne_v1" message="ar:evapiKustutaKanne_v1"/>
+<wsdl:output name="evapiKustutaKanne_v1Response" message="ar:evapiKustutaKanne_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="evapiMaaruseDokument_v1" parameterOrder="evapiMaaruseDokument_v1">
+<wsdl:documentation>
+<xrd:title>EVAPI määruse dokumendi teenus</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="evapiMaaruseDokument_v1" message="ar:evapiMaaruseDokument_v1"/>
+<wsdl:output name="evapiMaaruseDokument_v1Response" message="ar:evapiMaaruseDokument_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="evapiMenetlusinfo_v1" parameterOrder="evapiMenetlusinfo_v1">
+<wsdl:documentation>
+<xrd:title>EVAPI menetlusinfo teenus</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="evapiMenetlusinfo_v1" message="ar:evapiMenetlusinfo_v1"/>
+<wsdl:output name="evapiMenetlusinfo_v1Response" message="ar:evapiMenetlusinfo_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="evapiRiigiloivuViitenumber_v1" parameterOrder="evapiRiigiloivuViitenumber_v1">
+<wsdl:documentation>
+<xrd:title>EVAPI riigilõivu viitenumbri teenus</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="evapiRiigiloivuViitenumber_v1" message="ar:evapiRiigiloivuViitenumber_v1"/>
+<wsdl:output name="evapiRiigiloivuViitenumber_v1Response" message="ar:evapiRiigiloivuViitenumber_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="xbrlAruandeNaitajad_v1" parameterOrder="xbrlAruandeNaitajad_v1">
+<wsdl:documentation>
+<xrd:title>XBRL aruande vormide veergude väärtuste edastamine</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="xbrlAruandeNaitajad_v1" message="ar:xbrlAruandeNaitajad_v1"/>
+<wsdl:output name="xbrlAruandeNaitajad_v1Response" message="ar:xbrlAruandeNaitajad_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="xbrlEsita_v1" parameterOrder="xbrlEsita_v1">
+<wsdl:documentation>
+<xrd:title>
+XBRL portaali jaoks aruande esitamine Äriregistrisse
+</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="xbrlEsita_v1" message="ar:xbrlEsita_v1"/>
+<wsdl:output name="xbrlEsita_v1Response" message="ar:xbrlEsita_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="xbrlPdfEsita_v1" parameterOrder="xbrlPdfEsita_v1">
+<wsdl:documentation>
+<xrd:title>
+XBRL portaali jaoks PDF sisestuste esitamine Äriregistrisse
+</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="xbrlPdfEsita_v1" message="ar:xbrlPdfEsita_v1"/>
+<wsdl:output name="xbrlPdfEsita_v1Response" message="ar:xbrlPdfEsita_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="xbrlEsindus_v1" parameterOrder="xbrlEsindus_v1">
+<wsdl:documentation>
+<xrd:title>XBRL portaali jaoks esindusõiguste päring</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="xbrlEsindus_v1" message="ar:xbrlEsindus_v1"/>
+<wsdl:output name="xbrlEsindus_v1Response" message="ar:xbrlEsindus_v1Response"/>
+</wsdl:operation>
+<!--  ENDBLOCK:xroad_services  -->
+<wsdl:operation name="earveLisaKlient_v1" parameterOrder="earveLisaKlient_v1">
+<wsdl:documentation>
+<xrd:title>
+Masintöödeldavate algdokumentide vastuvõtjate registri kliendiseose lisamise teenus
+</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="earveLisaKlient_v1" message="ar:earveLisaKlient_v1"/>
+<wsdl:output name="earveLisaKlient_v1Response" message="ar:earveLisaKlient_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="earveEemaldaKlient_v1" parameterOrder="earveEemaldaKlient_v1">
+<wsdl:documentation>
+<xrd:title>
+Masintöödeldavate algdokumentide vastuvõtjate registri kliendiseose eemaldamise teenus
+</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="earveEemaldaKlient_v1" message="ar:earveEemaldaKlient_v1"/>
+<wsdl:output name="earveEemaldaKlient_v1Response" message="ar:earveEemaldaKlient_v1Response"/>
+</wsdl:operation>
+<wsdl:operation name="earveRegistriParing_v1" parameterOrder="earveRegistriParing_v1">
+<wsdl:documentation>
+<xrd:title>
+Masintöödeldavate algdokumentide vastuvõtjate registri andmepäring
+</xrd:title>
+</wsdl:documentation>
+<wsdl:input name="earveRegistriParing_v1" message="ar:earveRegistriParing_v1"/>
+<wsdl:output name="earveRegistriParing_v1Response" message="ar:earveRegistriParing_v1Response"/>
+</wsdl:operation>
+</wsdl:portType>
+<!--
+ Binding for ARIREG - document/literal wrapped, SOAP over HTTP 
+-->
+<wsdl:binding name="AriregXtee" type="ar:AriregXtee">
+<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+<wsdl:operation name="debugAdapter_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="debugAdapter_v1">
+<mime:multipartRelated>
+<mime:part name="bodyWithAttachments">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</mime:part>
+</mime:multipartRelated>
+</wsdl:input>
+<wsdl:output name="debugAdapter_v1Response">
+<mime:multipartRelated>
+<mime:part name="bodyWithAttachments">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</mime:part>
+</mime:multipartRelated>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="detailandmed_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="detailandmed_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="detailandmed_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ettevotjaDokumentideLoetelu_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="ettevotjaDokumentideLoetelu_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="ettevotjaDokumentideLoetelu_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ettevotjaEsmakanded_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="ettevotjaEsmakanded_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="ettevotjaEsmakanded_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ettevotjaMuudatusedTasuline_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="ettevotjaMuudatusedTasuline_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="ettevotjaMuudatusedTasuline_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ettevotjaRekvisiididFail_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="ettevotjaRekvisiididFail_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="ettevotjaRekvisiididFail_v1Response">
+<mime:multipartRelated>
+<mime:part name="bodyWithAttachments">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</mime:part>
+</mime:multipartRelated>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ettevotjaRekvisiidid_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="ettevotjaRekvisiidid_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="ettevotjaRekvisiidid_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ettevottegaSeotudIsikud_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="ettevottegaSeotudIsikud_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="ettevottegaSeotudIsikud_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="esindus_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="esindus_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="esindus_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="klassifikaatorid_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="klassifikaatorid_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="klassifikaatorid_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="lihtandmedTasuta_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="lihtandmedTasuta_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="lihtandmedTasuta_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="lihtandmed_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="lihtandmed_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="lihtandmed_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="majandusaastaAruanneteLoetelu_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="majandusaastaAruanneteLoetelu_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="majandusaastaAruanneteLoetelu_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="majandusaastaAruanneteKirjed_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="majandusaastaAruanneteKirjed_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="majandusaastaAruanneteKirjed_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="seotudIsikuOtsing_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="seotudIsikuOtsing_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="seotudIsikuOtsing_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="aruandeAuditeerimiseAndmed_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="aruandeAuditeerimiseAndmed_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="aruandeAuditeerimiseAndmed_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="aruandeMyygituluEMTAKjargi_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="aruandeMyygituluEMTAKjargi_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="aruandeMyygituluEMTAKjargi_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<!--  STARTBLOCK:xroad_services  -->
+<wsdl:operation name="arikeelud_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="arikeelud_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="arikeelud_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ariregistriToimik_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="ariregistriToimik_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="ariregistriToimik_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="detailandmedEP_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="detailandmedEP_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="detailandmedEP_v1Response">
+<mime:multipartRelated>
+<mime:part name="bodyWithAttachments">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</mime:part>
+</mime:multipartRelated>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="erakondaKuuluvus_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="erakondaKuuluvus_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="erakondaKuuluvus_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="erakonnaNimekiri_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="erakonnaNimekiri_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="erakonnaNimekiri_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="esindusIseendaKohta_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="esindusIseendaKohta_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="esindusIseendaKohta_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="evportaalDigiteeriDokumendid_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="evportaalDigiteeriDokumendid_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="evportaalDigiteeriDokumendid_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="evportaalDigiteeriToimik_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="evportaalDigiteeriToimik_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="evportaalDigiteeriToimik_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="evportaalMargiKattetoimetatuks_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="evportaalMargiKattetoimetatuks_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="evportaalMargiKattetoimetatuks_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ettevotjaMuudatusedTasutaTootukassa_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="ettevotjaMuudatusedTasutaTootukassa_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="ettevotjaMuudatusedTasutaTootukassa_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="ettevotjaMuudatusedTasuta_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="ettevotjaMuudatusedTasuta_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="ettevotjaMuudatusedTasuta_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="EVKKanded_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="EVKKanded_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="EVKKanded_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="kustutamine_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="kustutamine_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="kustutamine_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="kyMenetlusinfo_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="kyMenetlusinfo_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="kyMenetlusinfo_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="kyRegistriosaMuutused_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="kyRegistriosaMuutused_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="kyRegistriosaMuutused_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="maaruseDokument_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="maaruseDokument_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="maaruseDokument_v1Response">
+<mime:multipartRelated>
+<mime:part name="bodyWithAttachments">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</mime:part>
+</mime:multipartRelated>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="menetlusinfo_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="menetlusinfo_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="menetlusinfo_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="mtaBilanss_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="mtaBilanss_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="mtaBilanss_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="mtaBilanssFail_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="mtaBilanssFail_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="mtaBilanssFail_v1Response">
+<mime:multipartRelated>
+<mime:part name="bodyWithAttachments">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</mime:part>
+</mime:multipartRelated>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="mtaBilSisu_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="mtaBilSisu_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="mtaBilSisu_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="mtaBilSisuFail_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="mtaBilSisuFail_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="mtaBilSisuFail_v1Response">
+<mime:multipartRelated>
+<mime:part name="bodyWithAttachments">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</mime:part>
+</mime:multipartRelated>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="mtaEvSeisundid_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="mtaEvSeisundid_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="mtaEvSeisundid_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="mtaHoiatused_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="mtaHoiatused_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="mtaHoiatused_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="mtaMajPaevik_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="mtaMajPaevik_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="mtaMajPaevik_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="mtaMajAruOsad_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="mtaMajAruOsad_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="mtaMajAruOsad_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="mtaOtsused_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="mtaOtsused_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="mtaOtsused_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="mtaPaevik_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="mtaPaevik_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="mtaPaevik_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="mtaTrahvid_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="mtaTrahvid_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="mtaTrahvid_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="napTasumiseLisamine_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="napTasumiseLisamine_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="napTasumiseLisamine_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="nimeSobivus_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="nimeSobivus_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="nimeSobivus_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="rkoarr_asutused_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="rkoarr_asutused_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="rkoarr_asutused_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="registrikaart_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="registrikaart_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="registrikaart_v1Response">
+<mime:multipartRelated>
+<mime:part name="bodyWithAttachments">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</mime:part>
+</mime:multipartRelated>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="sooritaKanne_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="sooritaKanne_v1">
+<mime:multipartRelated>
+<mime:part name="bodyWithAttachments">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</mime:part>
+</mime:multipartRelated>
+</wsdl:input>
+<wsdl:output name="sooritaKanne_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="toimikuDokumendid_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="toimikuDokumendid_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="toimikuDokumendid_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="toimikuDokument_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="toimikuDokument_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="toimikuDokument_v1Response">
+<mime:multipartRelated>
+<mime:part name="bodyWithAttachments">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</mime:part>
+</mime:multipartRelated>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="transactionStatement">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="transactionStatement">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="transactionStatementResponse">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="evapiLooKanne_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="evapiLooKanne_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="evapiLooKanne_v1Response">
+<mime:multipartRelated>
+<mime:part name="bodyWithAttachments">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</mime:part>
+</mime:multipartRelated>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="evapiKinnitaKanne_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="evapiKinnitaKanne_v1">
+<mime:multipartRelated>
+<mime:part name="bodyWithAttachments">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</mime:part>
+</mime:multipartRelated>
+</wsdl:input>
+<wsdl:output name="evapiKinnitaKanne_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="evapiKustutaKanne_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="evapiKustutaKanne_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="evapiKustutaKanne_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="evapiMaaruseDokument_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="evapiMaaruseDokument_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="evapiMaaruseDokument_v1Response">
+<mime:multipartRelated>
+<mime:part name="bodyWithAttachments">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</mime:part>
+</mime:multipartRelated>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="evapiMenetlusinfo_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="evapiMenetlusinfo_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="evapiMenetlusinfo_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="evapiRiigiloivuViitenumber_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="evapiRiigiloivuViitenumber_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="evapiRiigiloivuViitenumber_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="xbrlAruandeNaitajad_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="xbrlAruandeNaitajad_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="xbrlAruandeNaitajad_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="xbrlEsita_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="xbrlEsita_v1">
+<mime:multipartRelated>
+<mime:part name="bodyWithAttachments">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</mime:part>
+</mime:multipartRelated>
+</wsdl:input>
+<wsdl:output name="xbrlEsita_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="xbrlPdfEsita_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="xbrlPdfEsita_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="xbrlPdfEsita_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="xbrlEsindus_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="xbrlEsindus_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="xbrlEsindus_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<!--  ENDBLOCK:xroad_services  -->
+<wsdl:operation name="earveLisaKlient_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="earveLisaKlient_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="earveLisaKlient_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="earveEemaldaKlient_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="earveEemaldaKlient_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="earveEemaldaKlient_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="earveRegistriParing_v1">
+<soap:operation soapAction="" style="document"/>
+<xrd:version>v1</xrd:version>
+<wsdl:input name="earveRegistriParing_v1">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:input>
+<wsdl:output name="earveRegistriParing_v1Response">
+<soap:body use="literal"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+<soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+</wsdl:output>
+</wsdl:operation>
+</wsdl:binding>
+<!--  Endpoint for ARIREG  -->
+<wsdl:service name="arireg">
+<wsdl:port binding="ar:AriregXtee" name="AriregXtee">
+<soap:address location="http://TURVASERVER/cgi-bin/consumer_proxy"/>
+</wsdl:port>
+</wsdl:service>
+</wsdl:definitions>

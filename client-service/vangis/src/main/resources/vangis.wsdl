@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions name="mydef" targetNamespace="http://producers.vangis.xtee.riik.ee/producer/vangis" xmlns:tns="http://producers.vangis.xtee.riik.ee/producer/vangis" xmlns:xtee="http://x-tee.riik.ee/xsd/xtee.xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+<definitions targetNamespace="http://producers.vangis.xtee.riik.ee/producer/vangis" xmlns:tns="http://producers.vangis.xtee.riik.ee/producer/vangis" xmlns:xtee="http://x-tee.riik.ee/xsd/xtee.xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
     <types>
         <schema targetNamespace="http://producers.vangis.xtee.riik.ee/producer/vangis" xmlns="http://www.w3.org/2001/XMLSchema">
             <import namespace="http://x-tee.riik.ee/xsd/xtee.xsd" schemaLocation="http://x-tee.riik.ee/xsd/xtee.xsd"/>

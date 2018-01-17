@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<definitions name="tarnDef"
+<definitions
 	xmlns:xrd="http://x-rd.net/xsd/xroad.xsd"
 	targetNamespace="http://producers.tarn.xtee.riik.ee/producer/tarn"
 	xmlns:tarn="http://producers.tarn.xtee.riik.ee/producer/tarn"

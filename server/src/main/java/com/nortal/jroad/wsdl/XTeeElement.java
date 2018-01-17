@@ -13,10 +13,11 @@ import javax.xml.namespace.QName;
  * Element implementation for WSDL generator
  * 
  * @author Dmitri Danilkin
+ * @author Lauri Lättemäe (lauri.lattemae@nortal.com) - protocol 4.0
  */
 public class XTeeElement implements ExtensibilityElement {
   public static final QName VERSION_TYPE =
-      new QName(XTeeWsdlDefinition.XTEE_NAMESPACE, "version", XTeeWsdlDefinition.XTEE_PREFIX);
+      new QName(XTeeWsdlDefinition.XROAD_NAMESPACE, "version", XTeeWsdlDefinition.XROAD_PREFIX);
   private QName elementType;
   private Boolean required = null;
   private String value;
@@ -45,17 +46,17 @@ public class XTeeElement implements ExtensibilityElement {
     this.required = required;
   }
 
-  public static class XteeElementSerializer implements ExtensionSerializer {
-    @SuppressWarnings("unchecked")
+  public static class XRoadElementSerializer implements ExtensionSerializer {
+    @SuppressWarnings({ "rawtypes" })
     public void marshall(Class parentType,
                          QName elementType,
                          ExtensibilityElement extension,
                          PrintWriter pw,
                          Definition def,
                          ExtensionRegistry extReg) throws WSDLException {
-      pw.append("        <xtee:" + elementType.getLocalPart() + ">");
+      pw.append("        <" + XTeeWsdlDefinition.XROAD_PREFIX + ":" + elementType.getLocalPart() + ">");
       pw.append(((XTeeElement) extension).getValue());
-      pw.append("</xtee:" + elementType.getLocalPart() + ">\n");
+      pw.append("</" + XTeeWsdlDefinition.XROAD_PREFIX + ":" + elementType.getLocalPart() + ">\n");
     }
   }
 }

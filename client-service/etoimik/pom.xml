@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>xtee-client-etoimik</artifactId>
+  <name>e-toimik client services</name>
+
+  <parent>
+    <groupId>com.nortal.jroad</groupId>
+    <artifactId>xtee-client-service</artifactId>
+    <version>4.1-SNAPSHOT</version>
+  </parent>
+
+  <properties>
+    <package>etoimik</package>
+  </properties>
+
+</project>

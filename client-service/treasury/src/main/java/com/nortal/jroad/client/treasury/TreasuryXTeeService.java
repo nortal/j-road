@@ -1,6 +1,6 @@
 package com.nortal.jroad.client.treasury;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.treasury.types.ee.riik.xtee.treasury.producers.producer.treasury.SendDocumentResponseType;
 
 /**
@@ -18,8 +18,8 @@ public interface TreasuryXTeeService {
    * @param type Type specified by their service analysis document
    * @param document A signed digidoc container containing the document
    * @return
-   * @throws XTeeServiceConsumptionException
+   * @throws XRoadServiceConsumptionException
    */
   SendDocumentResponseType sendDocument(String uniqueId, String type, byte[] document)
-      throws XTeeServiceConsumptionException;
+      throws XRoadServiceConsumptionException;
 }

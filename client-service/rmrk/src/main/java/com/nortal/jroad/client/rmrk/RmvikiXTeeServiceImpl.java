@@ -14,14 +14,14 @@ import org.apache.xmlbeans.impl.util.Base64;
 import org.springframework.ws.WebServiceMessage;
 import org.w3c.dom.Node;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.rmrk.types.ee.riik.xtee.treasury.producers.producer.treasury.SendDocumentRequestType;
 import com.nortal.jroad.client.rmrk.types.ee.riik.xtee.treasury.producers.producer.treasury.SendDocumentResponseType;
-import com.nortal.jroad.client.service.XTeeDatabaseService;
+import com.nortal.jroad.client.service.XRoadDatabaseService;
 import com.nortal.jroad.client.service.callback.CustomCallback;
-import com.nortal.jroad.model.XTeeAttachment;
-import com.nortal.jroad.model.XTeeMessage;
-import com.nortal.jroad.model.XmlBeansXTeeMessage;
+import com.nortal.jroad.model.XRoadAttachment;
+import com.nortal.jroad.model.XRoadMessage;
+import com.nortal.jroad.model.XmlBeansXRoadMessage;
 import com.nortal.jroad.util.SOAPUtil;
 
 /**
@@ -32,21 +32,21 @@ import com.nortal.jroad.util.SOAPUtil;
  * 
  * @author Dmitri Danilkin
  */
-public class RmvikiXTeeServiceImpl extends XTeeDatabaseService implements RmrkXTeeService {
+public class RmvikiXTeeServiceImpl extends XRoadDatabaseService implements RmrkXTeeService {
   private static final String SEND_DOCUMENT = "sendDocument";
   private static final String VERSION = "v1";
 
-  public String sendDocument(String uniqueId, String type, byte[] manus) throws XTeeServiceConsumptionException {
+  public String sendDocument(String uniqueId, String type, byte[] manus) throws XRoadServiceConsumptionException {
     SendDocumentRequestType kassaReq = SendDocumentRequestType.Factory.newInstance();
 
     kassaReq.setUniqueId(uniqueId);
     kassaReq.setType(type);
 
-    List<XTeeAttachment> attachments = new ArrayList<XTeeAttachment>();
-    attachments.add(new XTeeAttachment("manus", "application/octet-stream", Base64.encode(manus)));
+    List<XRoadAttachment> attachments = new ArrayList<XRoadAttachment>();
+    attachments.add(new XRoadAttachment("manus", "application/octet-stream", Base64.encode(manus)));
 
-    XTeeMessage<SendDocumentResponseType> response =
-        send(new XmlBeansXTeeMessage<SendDocumentRequestType>(kassaReq, attachments),
+    XRoadMessage<SendDocumentResponseType> response =
+        send(new XmlBeansXRoadMessage<SendDocumentRequestType>(kassaReq, attachments),
              SEND_DOCUMENT,
              VERSION,
              new RmvikiCallback(),

@@ -5,7 +5,7 @@ import javax.annotation.Resource;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.liiklusregister.LiiklusregisterXTeeServiceImpl;
 import com.nortal.jroad.client.liiklusregister.types.ee.riik.xtee.liiklusregister.producers.producer.liiklusregister.MuuDokVastus;
 import com.nortal.jroad.client.liiklusregister.types.ee.riik.xtee.liiklusregister.producers.producer.liiklusregister.PolJuhtoigusVastus;
@@ -13,12 +13,12 @@ import com.nortal.jroad.client.liiklusregister.types.ee.riik.xtee.liiklusregiste
 import com.nortal.jroad.client.liiklusregister.types.ee.riik.xtee.liiklusregister.producers.producer.liiklusregister.VlaevTunnVastus;
 import com.nortal.jroad.client.liiklusregister.types.ee.riik.xtee.liiklusregister.producers.producer.liiklusregister.VlaevTunnistus;
 import com.nortal.jroad.client.liiklusregister.types.ee.riik.xtee.liiklusregister.producers.producer.liiklusregister.VlaevVastusLaevaandmed;
-import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
+import com.nortal.jroad.client.test.BaseXRoadServiceImplTest;
 
 /**
  * @author Dmitri Danilkin
  */
-public class LiiklusregisterXTeeServiceImplTest extends BaseXTeeServiceImplTest {
+public class LiiklusregisterXTeeServiceImplTest extends BaseXRoadServiceImplTest {
 
   private static final String TEST_ISIKUKOOD = "38606282771";
 
@@ -26,7 +26,7 @@ public class LiiklusregisterXTeeServiceImplTest extends BaseXTeeServiceImplTest 
   private LiiklusregisterXTeeServiceImpl liiklusregisterXTeeServiceImpl;
 
   @Test
-  public void getPolJuhtoigus() throws XTeeServiceConsumptionException {
+  public void getPolJuhtoigus() throws XRoadServiceConsumptionException {
     PolJuhtoigusVastus polJuhtoigus = liiklusregisterXTeeServiceImpl.polJuhtoigus(TEST_ISIKUKOOD);
 
     Assert.assertNotNull(polJuhtoigus);
@@ -37,7 +37,7 @@ public class LiiklusregisterXTeeServiceImplTest extends BaseXTeeServiceImplTest 
   }
   
   @Test
-  public void getVlaev() throws XTeeServiceConsumptionException {
+  public void getVlaev() throws XRoadServiceConsumptionException {
 	  VlaevResponse response = liiklusregisterXTeeServiceImpl.findVLaevAndmed("VLD-935", null, null, null, null);
 	  
 	  Assert.assertNotNull(response);
@@ -52,7 +52,7 @@ public class LiiklusregisterXTeeServiceImplTest extends BaseXTeeServiceImplTest 
   }
   
   @Test
-  public void getVlaevTunn() throws XTeeServiceConsumptionException {
+  public void getVlaevTunn() throws XRoadServiceConsumptionException {
 	  VlaevTunnVastus response = liiklusregisterXTeeServiceImpl.findVlaevTunnistused("004737", null, null, null);
 	  
 	  Assert.assertNotNull(response);
@@ -66,7 +66,7 @@ public class LiiklusregisterXTeeServiceImplTest extends BaseXTeeServiceImplTest 
   }
   
   @Test
-  public void getMuuDokument() throws XTeeServiceConsumptionException {
+  public void getMuuDokument() throws XRoadServiceConsumptionException {
     MuuDokVastus vastus = liiklusregisterXTeeServiceImpl.findMuuDok(null, "NIKLUS", null, null);
     Assert.assertNotNull(vastus.getDok());
     Assert.assertFalse(vastus.getDok().getDokList().isEmpty());

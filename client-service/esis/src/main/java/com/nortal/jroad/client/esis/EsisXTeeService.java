@@ -12,7 +12,7 @@ import com.nortal.jroad.client.esis.types.com.tietoenator.sis.common.dto.result.
 import com.nortal.jroad.client.esis.types.com.tietoenator.sis.common.dto.result.sis1Result.IssuedDocumentResultDTO;
 import com.nortal.jroad.client.esis.types.com.tietoenator.sis.common.dto.result.sis1Result.PersonResultDTO;
 import com.nortal.jroad.client.esis.types.com.tietoenator.sis.common.dto.result.sis1Result.VehicleResultDTO;
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 
 /**
  * <code>esis</code> Esis database X-tee service.
@@ -24,15 +24,15 @@ public interface EsisXTeeService {
   /**
    * <code>esis.queryVehicle.v1</code> service.
    */
-  VehicleResultDTO findVehicle(VehicleQueryDTO request) throws XTeeServiceConsumptionException;
+  VehicleResultDTO findVehicle(VehicleQueryDTO request) throws XRoadServiceConsumptionException;
   
-  PersonResultDTO findPerson(PersonQueryDTO request) throws XTeeServiceConsumptionException;
+  PersonResultDTO findPerson(PersonQueryDTO request) throws XRoadServiceConsumptionException;
   
-  FirearmResultDTO findFirearm(FirearmQueryDTO request) throws XTeeServiceConsumptionException;
+  FirearmResultDTO findFirearm(FirearmQueryDTO request) throws XRoadServiceConsumptionException;
   
-  BlankDocumentResultDTO findBlankDocument(BlankDocumentQueryDTO request) throws XTeeServiceConsumptionException;
+  BlankDocumentResultDTO findBlankDocument(BlankDocumentQueryDTO request) throws XRoadServiceConsumptionException;
   
-  IssuedDocumentResultDTO findIssuedDocument(IssuedDocumentQueryDTO request) throws XTeeServiceConsumptionException;
+  IssuedDocumentResultDTO findIssuedDocument(IssuedDocumentQueryDTO request) throws XRoadServiceConsumptionException;
   
-  BanknoteResultDTO findBanknote(BanknoteQueryDTO request) throws XTeeServiceConsumptionException;
+  BanknoteResultDTO findBanknote(BanknoteQueryDTO request) throws XRoadServiceConsumptionException;
 }

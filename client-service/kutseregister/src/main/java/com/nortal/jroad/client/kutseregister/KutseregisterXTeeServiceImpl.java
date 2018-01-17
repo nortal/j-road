@@ -6,8 +6,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.kutseregister.database.KutseregisterXTeeDatabase;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
+import com.nortal.jroad.client.kutseregister.database.KutseregisterXRoadDatabase;
 import com.nortal.jroad.client.kutseregister.types.ee.riik.xtee.kutseregister.producers.producer.kutseregister.KutsetunnistusParing;
 import com.nortal.jroad.client.kutseregister.types.ee.riik.xtee.kutseregister.producers.producer.kutseregister.KutsetunnistusVastus;
 
@@ -18,10 +18,10 @@ import com.nortal.jroad.client.kutseregister.types.ee.riik.xtee.kutseregister.pr
 public class KutseregisterXTeeServiceImpl implements KutseregisterXTeeService {
 
   @Resource
-  private KutseregisterXTeeDatabase kutseregisterXTeeDatabase;
+  private KutseregisterXRoadDatabase kutseregisterXRoadDatabase;
 
   @Override
-  public KutsetunnistusVastus findKutseTunnistus(String isikukood, String nimi) throws XTeeServiceConsumptionException {
+  public KutsetunnistusVastus findKutseTunnistus(String isikukood, String nimi) throws XRoadServiceConsumptionException {
     KutsetunnistusParing paring = KutsetunnistusParing.Factory.newInstance();
 	if(isikukood != null){
     	paring.setIsikukood(isikukood);
@@ -29,7 +29,7 @@ public class KutseregisterXTeeServiceImpl implements KutseregisterXTeeService {
 	if(nimi != null){
 		paring.setNimi(nimi);
 	}
-    return kutseregisterXTeeDatabase.kutsetunnistusV2(paring);
+    return kutseregisterXRoadDatabase.kutsetunnistusV2(paring);
 
   }
 }

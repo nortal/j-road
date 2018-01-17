@@ -1,8 +1,8 @@
 package com.nortal.jroad.wsdl;
 
 import java.util.List;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.naming.NameNotFoundException;
 import javax.wsdl.Definition;
@@ -26,9 +26,10 @@ import com.nortal.jroad.mapping.XTeeEndpointMapping;
  * Part of the serverside WSDL generator
  * 
  * @author Dmitri Danilkin
+ * @author Lauri Lättemäe (lauri.lattemae@nortal.com) - protocol 4.0
  */
 public class XTeePortTypesProvider extends SuffixBasedPortTypesProvider {
-  private XTeeEndpointMapping xTeeEndpointMapping;
+  private XTeeEndpointMapping xRoadEndpointMapping;
 
   @Override
   @SuppressWarnings("unchecked")
@@ -45,16 +46,16 @@ public class XTeePortTypesProvider extends SuffixBasedPortTypesProvider {
       for (Operation operation : (List<Operation>) entry.getValue().getOperations()) {
         Element docElement = doc.createElementNS(Constants.NS_URI_WSDL, "documentation");
         docElement.setPrefix("wsdl");
-        Element titleEelement = doc.createElementNS(XTeeWsdlDefinition.XTEE_NAMESPACE, "title");
-        titleEelement.setPrefix(XTeeWsdlDefinition.XTEE_PREFIX);
+        Element titleEelement = doc.createElementNS(XTeeWsdlDefinition.XROAD_NAMESPACE, "title");
+        titleEelement.setPrefix(XTeeWsdlDefinition.XROAD_PREFIX);
 
         try {
           // Get endpoint
           MessageEndpoint endpoint = null;
-          for (String method : xTeeEndpointMapping.getMethods()) {
+          for (String method : xRoadEndpointMapping.getMethods()) {
             String methodTail = method.substring(method.indexOf('.') + 1).toLowerCase();
             if (methodTail.startsWith(operation.getName().toLowerCase() + ".")) {
-              endpoint = xTeeEndpointMapping.getMethodMap().get(method);
+              endpoint = xRoadEndpointMapping.getMethodMap().get(method);
               break;
             }
           }
@@ -62,11 +63,11 @@ public class XTeePortTypesProvider extends SuffixBasedPortTypesProvider {
             throw new NameNotFoundException();
 
           // Get annotation from endpoint and check that it contains a name.
-          XTeeService xTeeServiceAnnotation = endpoint.getClass().getAnnotation(XTeeService.class);
-          if (xTeeServiceAnnotation == null || xTeeServiceAnnotation.title().equals(""))
+          XTeeService xRoadServiceAnnotation = endpoint.getClass().getAnnotation(XTeeService.class);
+          if (xRoadServiceAnnotation == null || xRoadServiceAnnotation.title().equals(""))
             throw new NameNotFoundException();
 
-          titleEelement.appendChild(doc.createTextNode(xTeeServiceAnnotation.title()));
+          titleEelement.appendChild(doc.createTextNode(xRoadServiceAnnotation.title()));
         } catch (NameNotFoundException e) {
           titleEelement.appendChild(doc.createTextNode(operation.getName()));
         }
@@ -78,8 +79,7 @@ public class XTeePortTypesProvider extends SuffixBasedPortTypesProvider {
 
   }
 
-  public void setxTeeEndpointMapping(XTeeEndpointMapping xTeeEndpointMapping) {
-    this.xTeeEndpointMapping = xTeeEndpointMapping;
+  public void setXRoadEndpointMapping(XTeeEndpointMapping xRoadEndpointMapping) {
+    this.xRoadEndpointMapping = xRoadEndpointMapping;
   }
-
 }

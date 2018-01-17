@@ -1,12 +1,12 @@
 package com.nortal.jroad.client.kr;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.kr.types.ee.riik.xtee.kr.producers.producer.kr.KinnistuDetailMaVastus;
 import com.nortal.jroad.client.kr.types.ee.riik.xtee.kr.producers.producer.kr.KinnistuJadaItem;
 import com.nortal.jroad.client.kr.types.ee.riik.xtee.kr.producers.producer.kr.KinnistuVastus;
 import com.nortal.jroad.client.kr.types.ee.riik.xtee.kr.producers.producer.kr.KpijIsikType;
 import com.nortal.jroad.client.kr.types.ee.riik.xtee.kr.producers.producer.kr.PolitseiEhakVastus;
-import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
+import com.nortal.jroad.client.test.BaseXRoadServiceImplTest;
 import java.util.Calendar;
 import java.util.List;
 import javax.annotation.Resource;
@@ -16,13 +16,13 @@ import org.junit.Test;
 /**
  * @author Allar Saarnak
  */
-public class KrXTeeServiceImplTest extends BaseXTeeServiceImplTest {
+public class KrXTeeServiceImplTest extends BaseXRoadServiceImplTest {
 
 	@Resource
 	private KrXTeeServiceImpl krXTeeServiceImpl;
 
 	@Test
-	public void findKinnistuV2() throws XTeeServiceConsumptionException {
+	public void findKinnistuV2() throws XRoadServiceConsumptionException {
 
 		String katastritunnus = "13402:002:0250";
 
@@ -32,7 +32,7 @@ public class KrXTeeServiceImplTest extends BaseXTeeServiceImplTest {
 	}
 
 	@Test
-	public void findKpijV2() throws XTeeServiceConsumptionException {
+	public void findKpijV2() throws XRoadServiceConsumptionException {
 
 		String eesnimi = "Teo";
 		String perenimi_juriidilinenimi = "Niklus";
@@ -47,7 +47,7 @@ public class KrXTeeServiceImplTest extends BaseXTeeServiceImplTest {
 	}
 
 	 @Test
-	public void findPolitseiEhakV2() throws XTeeServiceConsumptionException {
+	public void findPolitseiEhakV2() throws XRoadServiceConsumptionException {
 
 		PolitseiEhakVastus vastus = krXTeeServiceImpl.findPolitseiEhakV2(86L, 143L, 3214L, null, null, "8614332140000000079V7000000000000", null);
 		
@@ -58,7 +58,7 @@ public class KrXTeeServiceImplTest extends BaseXTeeServiceImplTest {
 	}
 	
 	 @Test
-	public void findKinnstuDetailMa() throws XTeeServiceConsumptionException {
+	public void findKinnstuDetailMa() throws XRoadServiceConsumptionException {
 
 		KinnistuDetailMaVastus vastus = krXTeeServiceImpl.findKinnstuDetailMa("1315141", true);
 		Assert.assertNotNull(vastus.getNimi());

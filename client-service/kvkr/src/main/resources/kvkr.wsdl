@@ -1,0 +1,1648 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions
+        xmlns="http://schemas.xmlsoap.org/wsdl/"
+        xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+        xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+        xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+        xmlns:wsdl="http://www.w3.org/ns/wsdl"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+        xmlns:xmime="http://www.w3.org/2005/05/xmlmime"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+        xmlns:ns="http://schemas.xmlsoap.org/soap/encoding/"
+        xmlns:xrd="http://x-road.ee/xsd/x-road.xsd"
+        xmlns:tns="http://kvkr.x-road.ee/producer" targetNamespace="http://kvkr.x-road.ee/producer" >
+    <types>
+        <xsd:schema targetNamespace="http://kvkr.x-road.ee/producer" xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://x-road.ee/xsd/x-road.xsd" schemaLocation="http://x-road.ee/xsd/x-road.xsd" />
+            <complexType name="ArrayOfSummon">
+                <sequence>
+                    <element maxOccurs="unbounded" minOccurs="0" name="item" type="tns:Summon"/>
+                </sequence>
+            </complexType>
+            <complexType name="Summon">
+                <all>
+                    <element name="document_type" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Kutsumise tüüp</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="summons_date" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Toimumise/ilmumise kuupäev</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="summons_time" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Toimumise/ilmumise kellaeg</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="summons_location" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Toimumise/ilmumise koht</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </all>
+            </complexType>
+
+            <complexType name="serviceinfoRespData">
+                <all>
+                    <element name="faultCode" nillable="true" type="xrd:faultCode"/>
+                    <element name="faultString" nillable="true" type="xrd:faultString"/>
+                    <element name="national_id" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Isikukood</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="firstname" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Eesnimi</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="surname" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Perekonnanimi</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="documents" type="tns:serviceinfoArrayOfDocument" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Kehtivad teenistuskirjed, reservi määramise otsused</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="service_records" type="tns:ArrayOfServiceRecordT66tukassa" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Teenistuskirjed</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </all>
+            </complexType>
+
+            <complexType name="ArrayOfDeliveryDoc">
+                <sequence>
+                    <element maxOccurs="unbounded" minOccurs="0" name="item" type="tns:DeliveryDoc"/>
+                </sequence>
+            </complexType>
+            <complexType name="DeliveryDoc">
+                <all>
+                    <element name="doc_title" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Dokumendi pealkiri</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="doc_no" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Number</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="sdid" type="string" nillable="true" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>ID</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </all>
+            </complexType>
+
+            <complexType name="infoqueryArrayOfDocument">
+                <sequence>
+                    <element maxOccurs="unbounded" minOccurs="0" name="item" type="tns:infoqueryDocument"/>
+                </sequence>
+            </complexType>
+            <complexType name="infoqueryDocument">
+                <all>
+                    <element name="document_type" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Dokumendi tüüp</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="doc_title" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Dokumendi pealkiri</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="sdid" type="string" nillable="true" minOccurs="0">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>ID</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="doc_no" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Dokumendi number</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="doc_issuer_name" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Väljastaja</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="doc_issued" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Väljastatud</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </all>
+            </complexType>
+
+            <complexType name="personinfoArrayOfDocument">
+                <sequence>
+                    <element maxOccurs="unbounded" minOccurs="0" name="item" type="tns:personinfoDocument"/>
+                </sequence>
+            </complexType>
+            <complexType name="personinfoDocument">
+                <all>
+                    <element name="document_type" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Dokumendi tüüp</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="doc_title" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Dokumendi pealkiri</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="doc_file" type="base64Binary" nillable="true" minOccurs="0" xmime:expectedContentTypes="application/msword, application/rtf, application/pdf, application/ddoc">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Fail</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="doc_no" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Dokumendi number</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="doc_issuer_name" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Väljastaja</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="doc_issued" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Väljastatud</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </all>
+            </complexType>
+
+            <complexType name="serviceinfoArrayOfDocument">
+                <sequence>
+                    <element maxOccurs="unbounded" minOccurs="0" name="item" type="tns:serviceinfoDocument"/>
+                </sequence>
+            </complexType>
+            <complexType name="serviceinfoDocument">
+                <all>
+                    <element name="document_type" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Dokumendi tüüp</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="doc_title" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Dokumendi pealkiri</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="doc_no" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Dokumendi number</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="doc_issuer_name" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Väljastaja</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="doc_issued" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Väljastatud</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </all>
+            </complexType>
+
+
+            <complexType name="ArrayOfDraftDeferment">
+                <sequence>
+                    <element maxOccurs="unbounded" minOccurs="0" name="item" type="tns:DraftDeferment"/>
+                </sequence>
+            </complexType>
+            <complexType name="DraftDeferment">
+                <all>
+                    <element name="doc_title" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Ajapikendus</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="doc_issued" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Väljastamise kuupäev</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="defer_until" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Tähtaeg</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="basis" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Põhjus</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </all>
+            </complexType>
+            <complexType name="ArrayOfMainContact">
+                <sequence>
+                    <element maxOccurs="unbounded" minOccurs="0" name="item" type="tns:MainContact"/>
+                </sequence>
+            </complexType>
+            <complexType name="MainContact">
+                <all>
+                    <element name="main_address_text" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Aadress</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="phone_number" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Telefon</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="email" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>E-post</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </all>
+            </complexType>
+            <complexType name="ArrayOfServiceRecord">
+                <sequence>
+                    <element maxOccurs="unbounded" minOccurs="0" name="item" type="tns:ServiceRecord"/>
+                </sequence>
+            </complexType>
+            <complexType name="ServiceRecord">
+                <all>
+                    <element name="start_date" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Teenistuse algus</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="end_date" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Teenistuse lõpp</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="record_type" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Teenistuse liik</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="facility" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Teenistuskoht</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="facility_desc" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Teenistuskoha kirjeldus</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </all>
+            </complexType>
+
+            <complexType name="ArrayOfServiceRecordT66tukassa">
+                <sequence>
+                    <element maxOccurs="unbounded" minOccurs="0" name="item" type="tns:ServiceRecordT66tukassa"/>
+                </sequence>
+            </complexType>
+            <complexType name="ServiceRecordT66tukassa">
+                <all>
+                    <element name="start_date" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Teenistuse algus</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="end_date" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Teenistuse lõpp</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="record_type" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Teenistuse liik</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="facility_desc" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Teenistuskoha kirjeldus</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="retire_decree_basis" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Teenistuse lõpetamise otsuse alus</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="record_length" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Teenistuse aeg (aa/kk/pp)</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="host_system" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Andmeallikas</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </all>
+            </complexType>
+            <complexType name="WtpDocument">
+                <all>
+                    <element name="speciality" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Ametikoht</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="speciality_date" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Ametikohale määramise kuupäev</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="document_date" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Määramise alusdokumendi kuupäev</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="document_no" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Alusdokumendi number</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="document_issuer" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Alusdokumendi väljaandja</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="military_unit_code" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Sõjaaja üksuse kood, kuhu isik on ametikohale määratud</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="mob_address" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Väeosa kogunemiskoha aadress, kuhu reservväelane peab ilmuma mobilisatsiooni korral</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="issuer_contact" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Teatise väljastaja ametinimetus, nimi ning kontaktandmed</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="position_no" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Teatise number</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="issued_date" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Teatise väljastamise kuupäev</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="military_code" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Määratud sõjalise eriala arvestuskood</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </all>
+            </complexType>
+            <complexType name="Rank">
+                <all>
+                    <element name="rank_name" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Auaste</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="rank_date" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Omistamise kuupäev</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="until_date" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Tähtaeg</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="rank_decree_no" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Otsuse number</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="rank_decree_date" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Otsuse kuupäev</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="rank_decree_issuer" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Otsuse väljastaja</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </all>
+            </complexType>
+            <complexType name="TestResults">
+                <all>
+                    <element name="profile1_result" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Jaoülem</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="profile2_result" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Autojuht</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </all>
+            </complexType>
+
+            <complexType name="infoqueryFileRespData">
+                <all>
+                    <element name="faultCode" nillable="true" type="xrd:faultCode">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title> </xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="faultString" nillable="true" type="xrd:faultString">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title> </xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="attachment" minOccurs="0" maxOccurs="1" nillable="true" type="base64Binary">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="en">The content of file</xrd:title>
+                                <xrd:title xml:lang="et">Soovitud faili sisu</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </all>
+            </complexType>
+
+            <complexType name="infoqueryRespData">
+                <all>
+                    <element name="faultCode" nillable="true" type="xrd:faultCode"/>
+                    <element name="faultString" nillable="true" type="xrd:faultString"/>
+
+                    <element name="delivery_mess" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Teavitus</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+
+                    <element name="delivery_docs" type="tns:ArrayOfDeliveryDoc" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Dokumendid</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+
+                    <element name="national_id" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Isikukood</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="firstname" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Eesnimi</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="surname" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Perekonnanimi</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="birth_location" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Sünnikoht</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="driverlicense" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Juhtimisõiguste kategooriate loetelu</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="children_count" type="int" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Alaealiste laste arv</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="education_level" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Haridustase</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="status" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Arvestuskategooria</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="admissibility" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Vastavus kaitseväeteenistuskohustuslase tervisenõuetele</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="admissibility_sa" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Vastavus tegevväelase tervisenõuetele</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="is_booked" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Mobiliseerimispiirang</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="is_dismissed_from_training" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Vabastatud õppekogunemistest</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="oath_date" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Kaitseväelase tõotuse kuupäev</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="mil_code" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Sõjaaja ametikoha kood (SAK)</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="mil_code_name" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>SAK nimetus</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="religion_type" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Usund</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="id_code" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Identifitseerimiskood </xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="idtag_status" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Isikuplaadi staatus</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="idtag_date" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Isikuplaadi väljastamise kuupäev</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="main_contacts" type="tns:ArrayOfMainContact" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Kontaktid</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+
+                    <element name="summons" type="tns:ArrayOfSummon" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Kutsumised</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="draft_deferments" type="tns:ArrayOfDraftDeferment" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Ajapikendused ja ajateenistusse kutsumata jätmised</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="documents" type="tns:infoqueryArrayOfDocument" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Dokumendid</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="rank" type="tns:Rank" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Kehtiv auaste</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="service_records" type="tns:ArrayOfServiceRecord" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Teenistuskirjed</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="wtp_document" type="tns:WtpDocument" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Sõjaaja ametikohale määramise teatis</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="test_results" type="tns:TestResults" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Testimise tulemused</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </all>
+            </complexType>
+
+            <complexType name="personinfoRespData">
+                <all>
+                    <element name="faultCode" nillable="true" type="xrd:faultCode"/>
+                    <element name="faultString" nillable="true" type="xrd:faultString"/>
+
+                    <element name="national_id" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Isikukood</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="firstname" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Eesnimi</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="surname" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Perekonnanimi</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="birth_location" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Sünnikoht</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="driverlicense" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Juhtimisõiguste kategooriate loetelu</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="children_count" type="int" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Alaealiste laste arv</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="education_level" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Haridustase</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="status" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Arvestuskategooria</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="admissibility" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Vastavus kaitseväeteenistuskohustuslase tervisenõuetele</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="admissibility_sa" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Vastavus tegevväelase tervisenõuetele</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="is_booked" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Mobiliseerimispiirang</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="is_dismissed_from_training" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Vabastatud õppekogunemistest</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="oath_date" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Kaitseväelase tõotuse kuupäev</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="mil_code" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Sõjaaja ametikoha kood (SAK)</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="mil_code_name" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>SAK nimetus</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="religion_type" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Usund</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="id_code" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Identifitseerimiskood </xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="idtag_status" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Isikuplaadi staatus</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="idtag_date" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Isikuplaadi väljastamise kuupäev</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="main_contacts" type="tns:ArrayOfMainContact" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Kontaktid</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+
+                    <element name="summons" type="tns:ArrayOfSummon" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Kutsumised</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="draft_deferments" type="tns:ArrayOfDraftDeferment" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Ajapikendused ja ajateenistusse kutsumata jätmised</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="documents" type="tns:personinfoArrayOfDocument" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Dokumendid</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="rank" type="tns:Rank" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Kehtiv auaste</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="service_records" type="tns:ArrayOfServiceRecord" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Teenistuskirjed</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="wtp_document" type="tns:WtpDocument" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Sõjaaja ametikohale määramise teatis</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="test_results" type="tns:TestResults" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Testimise tulemused</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </all>
+            </complexType>
+
+            <complexType name="ArrayOfecrecp">
+                <sequence>
+                    <element maxOccurs="unbounded" minOccurs="0" name="item" type="tns:lubakeeld"/>
+                </sequence>
+            </complexType>
+            <complexType name="lubakeeld">
+                <all>
+                    <element name="isikukood" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Isikukood</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="kasKeeld" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Kas isikul on Eestist lahkumise keeld (jah/ei)</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="keeldAlgus" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Eestist lahkumise keelu kehtivuse algus </xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="keeldLopp" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Eestist lahkumise keelu kehtivuse lõpp </xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="kasLuba" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Kas isikul on Eestist lahkumise luba (jah/ei)</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="lubaAlgus" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Eestist lahkumise loa kehtivuse algus </xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="lubaLopp" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Eestist lahkumise loa kehtivuse lõpp </xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="eesnimi" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Eesnimi </xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="perenimi" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Perenimi </xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="eesnimiMrz" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Eesnimi ICAO 9303</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                    <element name="perenimiMrz" type="string" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Perenimi ICAO 9303</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </all>
+            </complexType>
+
+            <complexType name="ecrecpRespData">
+                <all>
+                    <element name="faultCode" nillable="true" type="xrd:faultCode"/>
+                    <element name="faultString" nillable="true" type="xrd:faultString"/>
+
+                    <element name="leitudIsikuid" type="integer" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>leitud KVK subjektide arv </xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+
+                    <element name="isikud" type="tns:ArrayOfecrecp" nillable="true">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title>Keelud Load</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </all>
+            </complexType>
+
+
+
+            <element name="listMethods">
+                <complexType>
+                    <sequence>
+                        <element minOccurs="0" name="sisu" type="string"></element>
+                    </sequence>
+                </complexType>
+            </element>
+
+            <!---
+             <element name="testSystem" nillable="true" type="string"/>
+             <element name="testSystemResponse" nillable="true" type="string"/>
+
+             <element name="listMethodsResponse">
+               <complexType>
+                  <sequence>
+                    <element name="response" type="tns:listMethodsKeha"/>
+                  </sequence>
+               </complexType>
+             </element>
+
+             <complexType name="listMethodsKeha">
+               <sequence>
+                 <element maxOccurs="unbounded" minOccurs="0" name="item" nillable="true" type="string"/>
+               </sequence>
+             </complexType>
+              -->
+
+            <!--- Selleks et portaal (eest.ee) t66taks on allapoole lisatud: <part name="parameters" type="xsd:string" />
+            -->
+            <element name="infoquery">
+                <complexType>
+                    <sequence>
+                        <element name="request">
+                            <complexType>
+                                <all>
+                                </all>
+                            </complexType>
+                        </element>
+                    </sequence>
+                </complexType>
+            </element>
+
+            <element name="infoqueryResponse">
+                <complexType>
+                    <sequence>
+                        <element name="request">
+                            <complexType>
+                                <sequence>
+                                    <element name="national_id" minOccurs="0" nillable="true" type="string"/>
+                                </sequence>
+                            </complexType>
+                        </element>
+                        <element name="response" type="tns:infoqueryRespData">
+                        </element>
+                    </sequence>
+                </complexType>
+            </element>
+
+            <element name="infoqueryFile">
+                <complexType>
+                    <sequence>
+                        <element name="request">
+                            <complexType>
+                                <sequence>
+                                    <element name="subject_document_id" type="string">
+                                        <annotation>
+                                            <appinfo>
+                                                <xrd:title>Dokumendi id</xrd:title>
+                                            </appinfo>
+                                        </annotation>
+                                    </element>
+                                </sequence>
+                            </complexType>
+                        </element>
+                    </sequence>
+                </complexType>
+            </element>
+
+            <element name="infoqueryFileResponse">
+                <complexType>
+                    <sequence>
+                        <element name="request">
+                            <complexType>
+                                <sequence>
+                                    <element name="subject_document_id" minOccurs="0" nillable="true" type="string"/>
+                                </sequence>
+                            </complexType>
+                        </element>
+                        <element name="response" type="tns:infoqueryFileRespData">
+                        </element>
+                    </sequence>
+                </complexType>
+            </element>
+
+            <element name="personinfo">
+                <complexType>
+                    <sequence>
+                        <element name="request">
+                            <complexType>
+                                <sequence>
+                                    <element name="national_id" type="string">
+                                        <annotation>
+                                            <appinfo>
+                                                <xrd:title>Isikukood</xrd:title>
+                                            </appinfo>
+                                        </annotation>
+                                    </element>
+                                    <element name="query_grounds" type="string">
+                                        <annotation>
+                                            <appinfo>
+                                                <xrd:title>Päringu sooritamise põhjus</xrd:title>
+                                            </appinfo>
+                                        </annotation>
+                                    </element>
+                                </sequence>
+                            </complexType>
+                        </element>
+                    </sequence>
+                </complexType>
+            </element>
+
+            <element name="personinfoResponse">
+                <complexType>
+                    <sequence>
+                        <element name="request">
+                            <complexType>
+                                <sequence>
+                                    <element name="national_id" minOccurs="1" nillable="true" type="string"/>
+                                    <element name="query_grounds" minOccurs="0" nillable="true" type="string"/>
+                                </sequence>
+                            </complexType>
+                        </element>
+                        <element name="response" type="tns:personinfoRespData">
+                        </element>
+                    </sequence>
+                </complexType>
+            </element>
+
+            <element name="serviceinfo">
+                <complexType>
+                    <sequence>
+                        <element name="request">
+                            <complexType>
+                                <sequence>
+                                    <element name="national_id" type="string">
+                                        <annotation>
+                                            <appinfo>
+                                                <xrd:title>Isikukood</xrd:title>
+                                            </appinfo>
+                                        </annotation>
+                                    </element>
+                                    <element name="query_grounds" type="string">
+                                        <annotation>
+                                            <appinfo>
+                                                <xrd:title>Päringu sooritamise põhjus</xrd:title>
+                                            </appinfo>
+                                        </annotation>
+                                    </element>
+                                </sequence>
+                            </complexType>
+                        </element>
+                    </sequence>
+                </complexType>
+            </element>
+
+            <element name="serviceinfoResponse">
+                <complexType>
+                    <sequence>
+                        <element name="request">
+                            <complexType>
+                                <sequence>
+                                    <element name="national_id" minOccurs="1" nillable="true" type="string"/>
+                                    <element name="query_grounds" minOccurs="0" nillable="true" type="string"/>
+                                </sequence>
+                            </complexType>
+                        </element>
+                        <element name="response" type="tns:serviceinfoRespData">
+                        </element>
+                    </sequence>
+                </complexType>
+            </element>
+
+
+            <element name="ecrecp">
+                <complexType>
+                    <sequence>
+                        <element name="request">
+                            <complexType>
+                                <sequence>
+                                    <element name="synniaeg" type="string" nillable="true">
+                                        <annotation>
+                                            <appinfo>
+                                                <xrd:title>Sünniaeg YYMMDD</xrd:title>
+                                            </appinfo>
+                                        </annotation>
+                                    </element>
+                                    <element name="perenimed" type="string" nillable="true">
+                                        <annotation>
+                                            <appinfo>
+                                                <xrd:title>Perenimi ICAO 9303</xrd:title>
+                                            </appinfo>
+                                        </annotation>
+                                    </element>
+                                    <element name="eesnimed" type="string" nillable="true">
+                                        <annotation>
+                                            <appinfo>
+                                                <xrd:title>Eesnimi ICAO 9303</xrd:title>
+                                            </appinfo>
+                                        </annotation>
+                                    </element>
+                                    <element name="isikukood" type="string" nillable="true">
+                                        <annotation>
+                                            <appinfo>
+                                                <xrd:title>Isikukood</xrd:title>
+                                            </appinfo>
+                                        </annotation>
+                                    </element>
+                                </sequence>
+                            </complexType>
+                        </element>
+                    </sequence>
+                </complexType>
+            </element>
+
+            <element name="ecrecpResponse">
+                <complexType>
+                    <sequence>
+                        <element name="request">
+                            <complexType>
+                                <sequence>
+                                    <element name="synniaeg" minOccurs="0" nillable="true" type="string"/>
+                                    <element name="perenimed" minOccurs="0" nillable="true" type="string"/>
+                                    <element name="eesnimed" minOccurs="0" nillable="true" type="string"/>
+                                    <element name="isikukood" minOccurs="0" nillable="true" type="string"/>
+                                </sequence>
+                            </complexType>
+                        </element>
+                        <element name="response" type="tns:ecrecpRespData">
+                        </element>
+                    </sequence>
+                </complexType>
+            </element>
+
+        </xsd:schema>
+    </types>
+    <message name="xtheader">
+        <part name="consumer" element="xrd:consumer"/>
+        <part name="producer" element="xrd:producer"/>
+        <part name="userId" element="xrd:userId"/>
+        <part name="service" element="xrd:service"/>
+        <part name="id" element="xrd:id"/>
+    </message>
+
+    <message name="listMethods"> <part element="xrd:listMethods" name="listMethodsIn"/> </message>
+    <message name="listMethodsResponse"> <part element="xrd:listMethodsResponse" name="listMethodsOut"/> </message>
+    <message name="testSystem"> <part element="xrd:testSystem" name="body"/> </message>
+    <message name="testSystemResponse"> <part element="xrd:testSystemResponse" name="body"/> </message>
+
+    <message name="infoquery">
+        <part name="keha" element="tns:infoquery"/>
+    </message>
+
+    <message name="infoqueryResponse">
+        <part name="keha" element="tns:infoqueryResponse"/>
+    </message>
+
+    <message name="infoqueryFile">
+        <part name="keha" element="tns:infoqueryFile"/>
+    </message>
+
+    <message name="infoqueryFileResponse">
+        <part name="keha" element="tns:infoqueryFileResponse"/>
+    </message>
+
+    <message name="personinfo">
+        <part name="keha" element="tns:personinfo" />
+    </message>
+
+    <message name="personinfoResponse">
+        <part name="keha" element="tns:personinfoResponse"/>
+    </message>
+
+    <message name="serviceinfo">
+        <part name="keha" element="tns:serviceinfo" />
+    </message>
+
+    <message name="serviceinfoResponse">
+        <part name="keha" element="tns:serviceinfoResponse"/>
+    </message>
+
+    <message name="ecrecp">
+        <part name="keha" element="tns:ecrecp" />
+    </message>
+
+    <message name="ecrecpResponse">
+        <part name="keha" element="tns:ecrecpResponse"/>
+    </message>
+
+    <portType name="kvkr">
+
+        <!--
+        <operation name="listMethods">
+          <documentation>
+                    <xrd:title xml:lang="en">listMethods</xrd:title>
+          </documentation>
+          <input message="tns:listMethods"/>
+          <output message="tns:listMethodsResponse"/>
+        </operation>
+
+        <operation name="testSystem">
+          <documentation>
+                    <xrd:title xml:lang="en">testSystem</xrd:title>
+          </documentation>
+          <input message="tns:testSystem"/>
+          <output message="tns:testSystemResponse"/>
+        </operation>
+        -->
+
+        <operation name="infoquery">
+            <documentation>
+                <xrd:title>Isiku päring enda andmete kohta</xrd:title>
+            </documentation>
+            <input message="tns:infoquery"/>
+            <output message="tns:infoqueryResponse"/>
+        </operation>
+
+        <operation name="infoqueryFile">
+            <documentation>
+                <xrd:title>Dokumendi andmed</xrd:title>
+            </documentation>
+            <input message="tns:infoqueryFile"/>
+            <output message="tns:infoqueryFileResponse"/>
+        </operation>
+
+        <operation name="personinfo">
+            <documentation>
+                <xrd:title>Päring isiku andmete kohta</xrd:title>
+            </documentation>
+            <input message="tns:personinfo"/>
+            <output message="tns:personinfoResponse"/>
+        </operation>
+
+        <operation name="serviceinfo">
+            <documentation>
+                <xrd:title>Teenistuskäigu andmed</xrd:title>
+            </documentation>
+            <input message="tns:serviceinfo"/>
+            <output message="tns:serviceinfoResponse"/>
+        </operation>
+
+        <operation name="ecrecp">
+            <documentation>
+                <xrd:title>Eestist lahkumise keelud/load </xrd:title>
+            </documentation>
+            <input message="tns:ecrecp"/>
+            <output message="tns:ecrecpResponse"/>
+        </operation>
+
+
+    </portType>
+
+    <binding name="kvkr" type="tns:kvkr">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+        <!--
+        <operation name="listMethods">
+          <soap:operation soapAction="" style="document"/>
+          <input><soap:body parts="listMethodsIn" use="literal"/></input>
+          <output><soap:body parts="listMethodsOut" use="literal"/></output>
+        </operation>
+
+        <operation name="testSystem">
+          <soap:operation soapAction="" style="document"/>
+          <input><soap:body parts="body" use="literal"/></input>
+          <output><soap:body parts="body" use="literal"/></output>
+        </operation>
+        -->
+
+        <operation name="infoquery">
+            <soap:operation soapAction="infoquery"/>
+            <xrd:version>v1</xrd:version>
+            <input>
+                <soap:body parts="parameters" use="literal"/>
+                <soap:header message="tns:xtheader" part="consumer" use="literal"/>
+                <soap:header message="tns:xtheader" part="producer" use="literal"/>
+                <soap:header message="tns:xtheader" part="userId" use="literal"/>
+                <soap:header message="tns:xtheader" part="id" use="literal"/>
+                <soap:header message="tns:xtheader" part="service" use="literal"/>
+            </input>
+            <output>
+                <soap:body parts="parameters" use="literal"/>
+                <soap:header message="tns:xtheader" part="consumer" use="literal"/>
+                <soap:header message="tns:xtheader" part="producer" use="literal"/>
+                <soap:header message="tns:xtheader" part="userId" use="literal"/>
+                <soap:header message="tns:xtheader" part="id" use="literal"/>
+                <soap:header message="tns:xtheader" part="service" use="literal"/>
+            </output>
+        </operation>
+
+        <operation name="infoqueryFile">
+            <soap:operation soapAction="infoqueryFile"/>
+            <xrd:version>v1</xrd:version>
+            <input>
+                <soap:body parts="parameters" use="literal"/>
+                <soap:header message="tns:xtheader" part="consumer" use="literal"/>
+                <soap:header message="tns:xtheader" part="producer" use="literal"/>
+                <soap:header message="tns:xtheader" part="userId" use="literal"/>
+                <soap:header message="tns:xtheader" part="id" use="literal"/>
+                <soap:header message="tns:xtheader" part="service" use="literal"/>
+            </input>
+            <output>
+
+                <soap:body parts="infoqueryFile" use="literal"/>
+                <mime:multipartRelated>
+                    <mime:part>
+                        <soap:body parts="infoqueryFileResponse" use="literal"/>
+                        <soap:header message="tns:xtheader" part="consumer" use="literal"/>
+                        <soap:header message="tns:xtheader" part="producer" use="literal"/>
+                        <soap:header message="tns:xtheader" part="userId" use="literal"/>
+                        <soap:header message="tns:xtheader" part="id" use="literal"/>
+                        <soap:header message="tns:xtheader" part="service" use="literal"/>
+                    </mime:part>
+                    <mime:part>
+                        <mime:content part="attachment" type="application/binary" />
+                    </mime:part>
+                </mime:multipartRelated>
+
+            </output>
+        </operation>
+
+        <operation name="personinfo">
+            <soap:operation soapAction="personinfo"/>
+            <xrd:version>v1</xrd:version>
+            <input>
+                <soap:body parts="parameters" use="literal"/>
+                <soap:header message="tns:xtheader" part="consumer" use="literal"/>
+                <soap:header message="tns:xtheader" part="producer" use="literal"/>
+                <soap:header message="tns:xtheader" part="userId" use="literal"/>
+                <soap:header message="tns:xtheader" part="id" use="literal"/>
+                <soap:header message="tns:xtheader" part="service" use="literal"/>
+            </input>
+            <output>
+                <soap:body parts="parameters" use="literal"/>
+                <soap:header message="tns:xtheader" part="consumer" use="literal"/>
+                <soap:header message="tns:xtheader" part="producer" use="literal"/>
+                <soap:header message="tns:xtheader" part="userId" use="literal"/>
+                <soap:header message="tns:xtheader" part="id" use="literal"/>
+                <soap:header message="tns:xtheader" part="service" use="literal"/>
+            </output>
+        </operation>
+
+        <operation name="serviceinfo">
+            <soap:operation soapAction="serviceinfo"/>
+            <xrd:version>v1</xrd:version>
+            <input>
+                <soap:body parts="parameters" use="literal"/>
+                <soap:header message="tns:xtheader" part="consumer" use="literal"/>
+                <soap:header message="tns:xtheader" part="producer" use="literal"/>
+                <soap:header message="tns:xtheader" part="userId" use="literal"/>
+                <soap:header message="tns:xtheader" part="id" use="literal"/>
+                <soap:header message="tns:xtheader" part="service" use="literal"/>
+            </input>
+            <output>
+                <soap:body parts="parameters" use="literal"/>
+                <soap:header message="tns:xtheader" part="consumer" use="literal"/>
+                <soap:header message="tns:xtheader" part="producer" use="literal"/>
+                <soap:header message="tns:xtheader" part="userId" use="literal"/>
+                <soap:header message="tns:xtheader" part="id" use="literal"/>
+                <soap:header message="tns:xtheader" part="service" use="literal"/>
+            </output>
+        </operation>
+
+        <operation name="ecrecp">
+            <soap:operation soapAction="ecrecp"/>
+            <xrd:version>v1</xrd:version>
+            <input>
+                <soap:body parts="parameters" use="literal"/>
+                <soap:header message="tns:xtheader" part="consumer" use="literal"/>
+                <soap:header message="tns:xtheader" part="producer" use="literal"/>
+                <soap:header message="tns:xtheader" part="userId" use="literal"/>
+                <soap:header message="tns:xtheader" part="id" use="literal"/>
+                <soap:header message="tns:xtheader" part="service" use="literal"/>
+            </input>
+            <output>
+                <soap:body parts="parameters" use="literal"/>
+                <soap:header message="tns:xtheader" part="consumer" use="literal"/>
+                <soap:header message="tns:xtheader" part="producer" use="literal"/>
+                <soap:header message="tns:xtheader" part="userId" use="literal"/>
+                <soap:header message="tns:xtheader" part="id" use="literal"/>
+                <soap:header message="tns:xtheader" part="service" use="literal"/>
+            </output>
+        </operation>
+
+    </binding>
+    <service name="KVKTEENUS">
+        <port name="kvkr" binding="tns:kvkr">
+            <soap:address location="http://TURVASERVER/cgi-bin/consumer_proxy"/>
+            <xrd:title>KVKTEENUS</xrd:title>
+            <xrd:address producer="kvkr"/>
+        </port>
+    </service>
+</definitions>

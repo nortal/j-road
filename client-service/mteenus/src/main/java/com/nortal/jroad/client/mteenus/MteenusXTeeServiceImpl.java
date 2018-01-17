@@ -4,22 +4,22 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.mteenus.database.MteenusXTeeDatabase;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
+import com.nortal.jroad.client.mteenus.database.MteenusXRoadDatabase;
 import com.nortal.jroad.client.mteenus.types.ee.riik.xtee.mteenus.producers.producer.mteenus.TeavitusSisu;
 import com.nortal.jroad.client.mteenus.types.ee.riik.xtee.mteenus.producers.producer.mteenus.TeavitusVastus;
-import com.nortal.jroad.client.service.XTeeDatabaseService;
+import com.nortal.jroad.client.service.XRoadDatabaseService;
 
 /**
  * @author Aleksandr.Koltakov
  */
 @Service("mteenusXTeeService")
-public class MteenusXTeeServiceImpl extends XTeeDatabaseService implements MteenusXTeeService {
+public class MteenusXTeeServiceImpl extends XRoadDatabaseService implements MteenusXTeeService {
 
   @Resource
-  private MteenusXTeeDatabase mteenusXTeeDatabase;
+  private MteenusXRoadDatabase mteenusXRoadDatabase;
 
-  public TeavitusVastus send(Sms sms) throws XTeeServiceConsumptionException {
+  public TeavitusVastus send(Sms sms) throws XRoadServiceConsumptionException {
 
     TeavitusSisu sisu = TeavitusSisu.Factory.newInstance();
     sisu.setTeenusId(sms.getTeenusId());
@@ -29,10 +29,10 @@ public class MteenusXTeeServiceImpl extends XTeeDatabaseService implements Mteen
     sisu.setKinnitus(sms.isKinnitus());
     sisu.setSaadaWap(sms.isSaadaWap());
 
-    return mteenusXTeeDatabase.smSteavitusV1(sisu);
+    return mteenusXRoadDatabase.smSteavitusV1(sisu);
   }
 
-  public void setMteenusXTeeDatabase(MteenusXTeeDatabase mteenusXTeeDatabase) {
-    this.mteenusXTeeDatabase = mteenusXTeeDatabase;
+  public void setMteenusXRoadDatabase(MteenusXRoadDatabase mteenusXRoadDatabase) {
+    this.mteenusXRoadDatabase = mteenusXRoadDatabase;
   }
 }
