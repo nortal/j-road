@@ -2,6 +2,8 @@ package com.nortal.jroad.client.lrv6;
 
 import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.lrv6.database.LiiklusregisterXRoadDatabase;
+import com.nortal.jroad.client.lrv6.types.eu.x_road.liiklusregister.AdrJuhtRequest;
+import com.nortal.jroad.client.lrv6.types.eu.x_road.liiklusregister.AdrJuhtResponse;
 import com.nortal.jroad.client.lrv6.types.eu.x_road.liiklusregister.Paring2Paring;
 import com.nortal.jroad.client.lrv6.types.eu.x_road.liiklusregister.Paring2Vastus;
 import com.nortal.jroad.client.lrv6.types.eu.x_road.liiklusregister.VlaevRequest;
@@ -9,6 +11,7 @@ import com.nortal.jroad.client.lrv6.types.eu.x_road.liiklusregister.VlaevRespons
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Calendar;
 
 /**
  * Created by raunor
@@ -81,4 +84,15 @@ public class Lrv6XTeeServiceImpl implements Lrv6XTeeService{
         return liiklusregisterXTeeDatabase.paring2V2(paring, userIdCode);
     }
 
+    public AdrJuhtResponse findAdrJuht(Calendar calendar) throws  XRoadServiceConsumptionException {
+
+        AdrJuhtRequest adrJuhtRequest = AdrJuhtRequest.Factory.newInstance();
+
+        if (calendar != null)
+        {
+        adrJuhtRequest.setKuupaev(calendar);
+        }
+
+      return liiklusregisterXTeeDatabase.adrJuhtV1(adrJuhtRequest);
+    }
 }

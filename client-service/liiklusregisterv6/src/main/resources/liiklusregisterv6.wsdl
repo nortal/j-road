@@ -6825,7 +6825,7 @@
     </element>
    </all>
   </complexType>
-  
+
   <complexType name="saarteLaevPiletSoodustResponse">
    <all>
     <element name="ok" type="string">
@@ -6837,10 +6837,10 @@
     </element>
    </all>
   </complexType>
-  
+
   <element name="paring5" type="liiklusregister:paring5Request"/>
   <element name="paring5Response" type="liiklusregister:paring5Response"/>
-  
+
   <complexType name="paring5Request">
    <all>
     <element name="kood" type="string">
@@ -6859,7 +6859,7 @@
     </element>
    </all>
   </complexType>
-  
+
   <complexType name="paring5Response">
    <all>
     <element name="isikId" type="long">
@@ -6890,7 +6890,7 @@
     </element>
    </all>
   </complexType>
-  
+
   <complexType name="paring5_soiduk">
    <all>
     <element name="soidukId" type="long">
@@ -6923,10 +6923,10 @@
     </element>
    </all>
   </complexType>
-  
+
   <element name="tootukassaParing" type="liiklusregister:tootukassaParingRequest"/>
   <element name="tootukassaParingResponse" type="liiklusregister:tootukassaParingResponse"/>
-  
+
   <complexType name="tootukassaParingRequest">
    <all>
     <element name="kood" type="string">
@@ -6959,7 +6959,7 @@
     </element>
    </all>
   </complexType>
-  
+
   <simpleType name="eksamiTulemus">
     <restriction base="string">
       <enumeration value="SOORITATUD">
@@ -6985,10 +6985,10 @@
       </enumeration>
     </restriction>
   </simpleType>
-  
+
   <complexType name="tootukassaParingEksam">
     <all>
-      <element name="kateg" type="string"> 
+      <element name="kateg" type="string">
         <annotation>
           <appinfo>
             <xtee:title>Eksami kategooria</xtee:title>
@@ -7018,7 +7018,7 @@
       </element>
     </all>
   </complexType>
-  
+
   <complexType name="tootukassaParingDokument">
     <all>
       <element name="kp" type="date">
@@ -7058,7 +7058,7 @@
       </element>
     </all>
   </complexType>
-  
+
   <complexType name="tootukassaParingResponse">
     <all>
       <element name="kood" type="string">
@@ -7106,10 +7106,10 @@
       </element>
     </all>
   </complexType>
-  
+
   <element name="paring6" type="liiklusregister:paring6Request"/>
   <element name="paring6Response" type="liiklusregister:paring6Response"/>
-  
+
   <complexType name="paring6Request">
     <all>
       <element minOccurs="0" name="telefon" type="string">
@@ -7121,7 +7121,7 @@
       </element>
     </all>
   </complexType>
-  
+
   <complexType name="paring6Response">
    <all>
     <element name="isikud">
@@ -7138,7 +7138,7 @@
     </element>
    </all>
   </complexType>
-  
+
   <complexType name="paring6_isik">
    <all>
     <element name="telefon" type="string">
@@ -7283,10 +7283,247 @@
     </all>
   </complexType>
 
+      <element name="adrMta" type="liiklusregister:adrMtaRequest" xmlns="http://www.w3.org/2001/XMLSchema"/>
+      <element name="adrMtaResponse" type="liiklusregister:adrMtaResponse" xmlns="http://www.w3.org/2001/XMLSchema"/>
+
+      <complexType name="adrMtaRequest" xmlns="http://www.w3.org/2001/XMLSchema">
+        <all xmlns="http://www.w3.org/2001/XMLSchema">
+          <element minOccurs="1" name="kuupaev" type="dateTime" xmlns="http://www.w3.org/2001/XMLSchema">
+            <annotation xmlns="http://www.w3.org/2001/XMLSchema">
+              <appinfo xmlns="http://www.w3.org/2001/XMLSchema">
+                <xtee:title xmlns:xtee="http://x-road.eu/xsd/xroad.xsd">Kuupäev koos kellaajaga.</xtee:title>
+                <xtee:notes xmlns:xtee="http://x-road.eu/xsd/xroad.xsd">Kujul: yyyy-mm-ddThh:mm:ss</xtee:notes>
+              </appinfo>
+            </annotation>
+          </element>
+        </all>
+      </complexType>
+
+      <complexType name="adrMtaResponse" xmlns="http://www.w3.org/2001/XMLSchema">
+        <all xmlns="http://www.w3.org/2001/XMLSchema">
+          <element name="adrMtaAndmed" xmlns="http://www.w3.org/2001/XMLSchema">
+            <annotation xmlns="http://www.w3.org/2001/XMLSchema">
+              <appinfo xmlns="http://www.w3.org/2001/XMLSchema">
+                <xtee:title xmlns:xtee="http://x-road.eu/xsd/xroad.xsd">ADR andmete edastamine</xtee:title>
+              </appinfo>
+            </annotation>
+            <complexType xmlns="http://www.w3.org/2001/XMLSchema">
+              <sequence xmlns="http://www.w3.org/2001/XMLSchema">
+                <element maxOccurs="unbounded" minOccurs="1" name="adrAndmekomplekt" type="liiklusregister:adrAndmekomplekt" xmlns="http://www.w3.org/2001/XMLSchema"/>
+              </sequence>
+            </complexType>
+          </element>
+        </all>
+      </complexType>
+
+      <complexType name="adrAndmekomplekt" xmlns="http://www.w3.org/2001/XMLSchema">
+        <all xmlns="http://www.w3.org/2001/XMLSchema">
+          <element minOccurs="0" name="soidIdId" type="long" xmlns="http://www.w3.org/2001/XMLSchema">
+            <annotation xmlns="http://www.w3.org/2001/XMLSchema">
+              <appinfo xmlns="http://www.w3.org/2001/XMLSchema">
+                <xtee:title xmlns:xtee="http://x-road.eu/xsd/xroad.xsd">Sõiduki ID (saab kokku viia sõidukite andmed sõidukiga)</xtee:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="kehtibKuni" type="dateTime" xmlns="http://www.w3.org/2001/XMLSchema">
+            <annotation xmlns="http://www.w3.org/2001/XMLSchema">
+              <appinfo xmlns="http://www.w3.org/2001/XMLSchema">
+                <xtee:title xmlns:xtee="http://x-road.eu/xsd/xroad.xsd">Ülevaatus kehtib kuni (kuupäev, mis ajani ADR ülevaatus kehtib)</xtee:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="dokumendiNr" type="string" xmlns="http://www.w3.org/2001/XMLSchema">
+            <annotation xmlns="http://www.w3.org/2001/XMLSchema">
+              <appinfo xmlns="http://www.w3.org/2001/XMLSchema">
+                <xtee:title xmlns:xtee="http://x-road.eu/xsd/xroad.xsd">ADR tunnistuse number</xtee:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="regMark" type="string" xmlns="http://www.w3.org/2001/XMLSchema">
+            <annotation xmlns="http://www.w3.org/2001/XMLSchema">
+              <appinfo xmlns="http://www.w3.org/2001/XMLSchema">
+                <xtee:title xmlns:xtee="http://x-road.eu/xsd/xroad.xsd">Registreerimismärk</xtee:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="kategooria" type="string" xmlns="http://www.w3.org/2001/XMLSchema">
+            <annotation xmlns="http://www.w3.org/2001/XMLSchema">
+              <appinfo xmlns="http://www.w3.org/2001/XMLSchema">
+                <xtee:title xmlns:xtee="http://x-road.eu/xsd/xroad.xsd">Sõiduki kategooria</xtee:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="yvKuupaev" type="dateTime" xmlns="http://www.w3.org/2001/XMLSchema">
+            <annotation xmlns="http://www.w3.org/2001/XMLSchema">
+              <appinfo xmlns="http://www.w3.org/2001/XMLSchema">
+                <xtee:title xmlns:xtee="http://x-road.eu/xsd/xroad.xsd">Ülevaatuse aeg</xtee:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="adr" type="boolean" xmlns="http://www.w3.org/2001/XMLSchema">
+            <annotation xmlns="http://www.w3.org/2001/XMLSchema">
+              <appinfo xmlns="http://www.w3.org/2001/XMLSchema">
+                <xtee:title xmlns:xtee="http://x-road.eu/xsd/xroad.xsd">Kas on ADR sõiduk (true/false)</xtee:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="adrPaaksoiduk" type="boolean" xmlns="http://www.w3.org/2001/XMLSchema">
+            <annotation xmlns="http://www.w3.org/2001/XMLSchema">
+              <appinfo xmlns="http://www.w3.org/2001/XMLSchema">
+                <xtee:title xmlns:xtee="http://x-road.eu/xsd/xroad.xsd">Kas on paaksõiduk (true/false)</xtee:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="adrExii" type="boolean" xmlns="http://www.w3.org/2001/XMLSchema">
+            <annotation xmlns="http://www.w3.org/2001/XMLSchema">
+              <appinfo xmlns="http://www.w3.org/2001/XMLSchema">
+                <xtee:title xmlns:xtee="http://x-road.eu/xsd/xroad.xsd">Kas on lubatud ainete kategooria EXII (true/false)</xtee:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="adrExiii" type="boolean" xmlns="http://www.w3.org/2001/XMLSchema">
+            <annotation xmlns="http://www.w3.org/2001/XMLSchema">
+              <appinfo xmlns="http://www.w3.org/2001/XMLSchema">
+                <xtee:title xmlns:xtee="http://x-road.eu/xsd/xroad.xsd">Kas on lubatud ainete kategooria EXIII (true/false)</xtee:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="adrFl" type="boolean" xmlns="http://www.w3.org/2001/XMLSchema">
+            <annotation xmlns="http://www.w3.org/2001/XMLSchema">
+              <appinfo xmlns="http://www.w3.org/2001/XMLSchema">
+                <xtee:title xmlns:xtee="http://x-road.eu/xsd/xroad.xsd">Kas on lubatud ainete kategooria FL (true/false)</xtee:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="adrOx" type="boolean" xmlns="http://www.w3.org/2001/XMLSchema">
+            <annotation xmlns="http://www.w3.org/2001/XMLSchema">
+              <appinfo xmlns="http://www.w3.org/2001/XMLSchema">
+                <xtee:title xmlns:xtee="http://x-road.eu/xsd/xroad.xsd">Kas on lubatud ainete kategooria OX (true/false)</xtee:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="adrAt" type="boolean" xmlns="http://www.w3.org/2001/XMLSchema">
+            <annotation xmlns="http://www.w3.org/2001/XMLSchema">
+              <appinfo xmlns="http://www.w3.org/2001/XMLSchema">
+                <xtee:title xmlns:xtee="http://x-road.eu/xsd/xroad.xsd">Kas on lubatud ainete kategooria AT (true/false)</xtee:title>
+              </appinfo>
+            </annotation>
+          </element>
+        </all>
+      </complexType>
+
+      <element name="adrJuht" type="liiklusregister:adrJuhtRequest" xmlns="http://www.w3.org/2001/XMLSchema"/>
+      <element name="adrJuhtResponse" type="liiklusregister:adrJuhtResponse" xmlns="http://www.w3.org/2001/XMLSchema"/>
+
+      <complexType name="adrJuhtRequest" xmlns="http://www.w3.org/2001/XMLSchema">
+        <all xmlns="http://www.w3.org/2001/XMLSchema">
+          <element minOccurs="1" name="kuupaev" type="dateTime" xmlns="http://www.w3.org/2001/XMLSchema">
+            <annotation xmlns="http://www.w3.org/2001/XMLSchema">
+              <appinfo xmlns="http://www.w3.org/2001/XMLSchema">
+                <xtee:title xmlns:xtee="http://x-road.eu/xsd/xroad.xsd">Kuupäev koos kellaajaga.</xtee:title>
+                <xtee:notes xmlns:xtee="http://x-road.eu/xsd/xroad.xsd">Kujul: yyyy-mm-ddThh:mm:ss</xtee:notes>
+              </appinfo>
+            </annotation>
+          </element>
+        </all>
+      </complexType>
+
+      <complexType name="adrJuhtResponse" xmlns="http://www.w3.org/2001/XMLSchema">
+        <all xmlns="http://www.w3.org/2001/XMLSchema">
+          <element name="adrJuhtAndmed" xmlns="http://www.w3.org/2001/XMLSchema">
+            <annotation xmlns="http://www.w3.org/2001/XMLSchema">
+              <appinfo xmlns="http://www.w3.org/2001/XMLSchema">
+                <xtee:title xmlns:xtee="http://x-road.eu/xsd/xroad.xsd">ADR juht andmete edastamine</xtee:title>
+              </appinfo>
+            </annotation>
+            <complexType xmlns="http://www.w3.org/2001/XMLSchema">
+              <sequence xmlns="http://www.w3.org/2001/XMLSchema">
+                <element maxOccurs="unbounded" minOccurs="1" name="adrJuhtAndmekomplekt" type="liiklusregister:adrJuhtAndmekomplekt" xmlns="http://www.w3.org/2001/XMLSchema"/>
+              </sequence>
+            </complexType>
+          </element>
+        </all>
+      </complexType>
+
+      <complexType name="adrJuhtAndmekomplekt" xmlns="http://www.w3.org/2001/XMLSchema">
+        <all xmlns="http://www.w3.org/2001/XMLSchema">
+          <element minOccurs="0" name="isikId" type="long" xmlns="http://www.w3.org/2001/XMLSchema">
+            <annotation xmlns="http://www.w3.org/2001/XMLSchema">
+              <appinfo xmlns="http://www.w3.org/2001/XMLSchema">
+                <xtee:title xmlns:xtee="http://x-road.eu/xsd/xroad.xsd">Juhiloaga isiku ID</xtee:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="isikukood" type="string" xmlns="http://www.w3.org/2001/XMLSchema">
+            <annotation xmlns="http://www.w3.org/2001/XMLSchema">
+              <appinfo xmlns="http://www.w3.org/2001/XMLSchema">
+                <xtee:title xmlns:xtee="http://x-road.eu/xsd/xroad.xsd">Juhiloa isikukood</xtee:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="perenimi" type="string" xmlns="http://www.w3.org/2001/XMLSchema">
+            <annotation xmlns="http://www.w3.org/2001/XMLSchema">
+              <appinfo xmlns="http://www.w3.org/2001/XMLSchema">
+                <xtee:title xmlns:xtee="http://x-road.eu/xsd/xroad.xsd">Juhiloa perenimi</xtee:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="eesnimi" type="string" xmlns="http://www.w3.org/2001/XMLSchema">
+            <annotation xmlns="http://www.w3.org/2001/XMLSchema">
+              <appinfo xmlns="http://www.w3.org/2001/XMLSchema">
+                <xtee:title xmlns:xtee="http://x-road.eu/xsd/xroad.xsd">Juhiloa eesnimi</xtee:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="loaNumber" type="string" xmlns="http://www.w3.org/2001/XMLSchema">
+            <annotation xmlns="http://www.w3.org/2001/XMLSchema">
+              <appinfo xmlns="http://www.w3.org/2001/XMLSchema">
+                <xtee:title xmlns:xtee="http://x-road.eu/xsd/xroad.xsd">Juhiloa number (ADR tunnistuse number)</xtee:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="kehtivAlates" type="date" xmlns="http://www.w3.org/2001/XMLSchema">
+            <annotation xmlns="http://www.w3.org/2001/XMLSchema">
+              <appinfo xmlns="http://www.w3.org/2001/XMLSchema">
+                <xtee:title xmlns:xtee="http://x-road.eu/xsd/xroad.xsd">Juhiloa kehtivuse algus (ADR tunnistuse kehtivuse alguse kuupäev)</xtee:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="kehtivKuni" type="date" xmlns="http://www.w3.org/2001/XMLSchema">
+            <annotation xmlns="http://www.w3.org/2001/XMLSchema">
+              <appinfo xmlns="http://www.w3.org/2001/XMLSchema">
+                <xtee:title xmlns:xtee="http://x-road.eu/xsd/xroad.xsd">Juhiloa kehtivuse lõpp (ADR tunnistuse kehtivuse lõpu kuupäev)</xtee:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="paagid" type="boolean" xmlns="http://www.w3.org/2001/XMLSchema">
+            <annotation xmlns="http://www.w3.org/2001/XMLSchema">
+              <appinfo xmlns="http://www.w3.org/2001/XMLSchema">
+                <xtee:title xmlns:xtee="http://x-road.eu/xsd/xroad.xsd">Kas paaksõidukid lubatud (true/false)</xtee:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="olek" type="string" xmlns="http://www.w3.org/2001/XMLSchema">
+            <annotation xmlns="http://www.w3.org/2001/XMLSchema">
+              <appinfo xmlns="http://www.w3.org/2001/XMLSchema">
+                <xtee:title xmlns:xtee="http://x-road.eu/xsd/xroad.xsd">Juhiloa olek</xtee:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element minOccurs="0" name="olekKuupaev" type="dateTime" xmlns="http://www.w3.org/2001/XMLSchema">
+            <annotation xmlns="http://www.w3.org/2001/XMLSchema">
+              <appinfo xmlns="http://www.w3.org/2001/XMLSchema">
+                <xtee:title xmlns:xtee="http://x-road.eu/xsd/xroad.xsd">Juhiloa oleku kuupäev</xtee:title>
+              </appinfo>
+            </annotation>
+          </element>
+        </all>
+      </complexType>
+
   <simpleType name="XMLString">
     <annotation>
       <appinfo>
-        
+
       </appinfo>
     </annotation>
     <restriction base="string"/>
@@ -7297,7 +7534,7 @@
       <xtee:title>Liiklusregistri XTee teenuste kogu</xtee:title>
     </appinfo>
   </annotation>
-  
+
 </schema>
   </wsdl:types>
   <wsdl:message name="isikuteAndmedRequest">
@@ -7680,6 +7917,22 @@
     <wsdl:part element="tns:koik_dokResponse" name="koik_dokResponse">
     </wsdl:part>
   </wsdl:message>
+  <wsdl:message name="adrMtaRequest">
+      <wsdl:part element="tns:adrMta" name="body">
+      </wsdl:part>
+  </wsdl:message>
+    <wsdl:message name="adrMtaResponse">
+    <wsdl:part element="tns:adrMtaResponse" name="adrMtaResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="adrJuhtRequest">
+     <wsdl:part element="tns:adrJuht" name="body">
+     </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="adrJuhtResponse">
+    <wsdl:part element="tns:adrJuhtResponse" name="adrJuhtResponse">
+    </wsdl:part>
+  </wsdl:message>
   <wsdl:portType name="liiklusregisterPort">
     <wsdl:operation name="paring6">
 <wsdl:documentation><xroad:title>Telefoni numbri põhjal isiku andmete ja teiste numbrite päring</xroad:title></wsdl:documentation>
@@ -8002,6 +8255,20 @@
     </wsdl:input>
       <wsdl:output message="tns:pol_isikud2Response" name="pol_isikud2Response">
     </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="adrMta">
+<wsdl:documentation><xroad:title>ADR andmete päringu vastused</xroad:title></wsdl:documentation>
+      <wsdl:input message="tns:adrMtaRequest" name="adrMtaRequest">
+      </wsdl:input>
+      <wsdl:output message="tns:adrMtaResponse" name="adrMtaResponse">
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="adrJuht">
+<wsdl:documentation><xroad:title>ADR juht andmete päringu vastused</xroad:title></wsdl:documentation>
+      <wsdl:input message="tns:adrJuhtRequest" name="adrJuhtRequest">
+      </wsdl:input>
+      <wsdl:output message="tns:adrJuhtResponse" name="adrJuhtResponse">
+      </wsdl:output>
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="liiklusregisterPortSoap11" type="tns:liiklusregisterPort">
@@ -9373,6 +9640,66 @@
         <soap:body use="literal"/>
       </wsdl:input>
       <wsdl:output name="pol_isikud2Response">
+        <soap:header message="tns:requestheader" part="client" use="literal">
+        </soap:header>
+        <soap:header message="tns:requestheader" part="service" use="literal">
+        </soap:header>
+        <soap:header message="tns:requestheader" part="userId" use="literal">
+        </soap:header>
+        <soap:header message="tns:requestheader" part="id" use="literal">
+        </soap:header>
+        <soap:header message="tns:requestheader" part="protocolVersion" use="literal">
+        </soap:header>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="adrMta">
+      <soap:operation soapAction=""/>
+      <xroad:version>v1</xroad:version>
+      <wsdl:input name="adrMtaRequest">
+        <soap:header message="tns:requestheader" part="client" use="literal">
+        </soap:header>
+        <soap:header message="tns:requestheader" part="service" use="literal">
+        </soap:header>
+        <soap:header message="tns:requestheader" part="userId" use="literal">
+        </soap:header>
+        <soap:header message="tns:requestheader" part="id" use="literal">
+        </soap:header>
+        <soap:header message="tns:requestheader" part="protocolVersion" use="literal">
+        </soap:header>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="adrMtaResponse">
+        <soap:header message="tns:requestheader" part="client" use="literal">
+        </soap:header>
+        <soap:header message="tns:requestheader" part="service" use="literal">
+        </soap:header>
+        <soap:header message="tns:requestheader" part="userId" use="literal">
+        </soap:header>
+        <soap:header message="tns:requestheader" part="id" use="literal">
+        </soap:header>
+        <soap:header message="tns:requestheader" part="protocolVersion" use="literal">
+        </soap:header>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="adrJuht">
+      <soap:operation soapAction=""/>
+      <xroad:version>v1</xroad:version>
+      <wsdl:input name="adrJuhtRequest">
+        <soap:header message="tns:requestheader" part="client" use="literal">
+        </soap:header>
+        <soap:header message="tns:requestheader" part="service" use="literal">
+        </soap:header>
+        <soap:header message="tns:requestheader" part="userId" use="literal">
+        </soap:header>
+        <soap:header message="tns:requestheader" part="id" use="literal">
+        </soap:header>
+        <soap:header message="tns:requestheader" part="protocolVersion" use="literal">
+        </soap:header>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="adrJuhtResponse">
         <soap:header message="tns:requestheader" part="client" use="literal">
         </soap:header>
         <soap:header message="tns:requestheader" part="service" use="literal">
