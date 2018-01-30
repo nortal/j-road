@@ -2,13 +2,10 @@ package com.nortal.jroad.model;
 
 import java.util.List;
 
-import org.w3c.dom.Node;
-
 /**
  * DOM Based {@link XTeeMessage} implementation.
  * 
  * @author Dmitri Danilkin
- * @param <T extends {@link Node}>
  */
 // Should switch to X-road implementation
 @Deprecated
