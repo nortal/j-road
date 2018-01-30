@@ -9,10 +9,16 @@
 
 package com.nortal.jroad.endpoint;
 
+import com.nortal.jroad.enums.XRoadProtocolVersion;
+import com.nortal.jroad.model.BeanXTeeMessage;
+import com.nortal.jroad.model.XTeeAttachment;
+import com.nortal.jroad.model.XTeeHeader;
+import com.nortal.jroad.model.XTeeMessage;
+import com.nortal.jroad.util.SOAPUtil;
+import com.nortal.jroad.wsdl.XTeeWsdlDefinition;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.soap.AttachmentPart;
@@ -21,7 +27,6 @@ import javax.xml.soap.SOAPEnvelope;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPHeader;
 import javax.xml.soap.SOAPMessage;
-
 import org.springframework.ws.context.MessageContext;
 import org.springframework.ws.server.endpoint.MessageEndpoint;
 import org.springframework.ws.wsdl.wsdl11.provider.SuffixBasedMessagesProvider;
@@ -30,14 +35,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
-import com.nortal.jroad.enums.XRoadProtocolVersion;
-import com.nortal.jroad.model.BeanXTeeMessage;
-import com.nortal.jroad.model.XTeeAttachment;
-import com.nortal.jroad.model.XTeeHeader;
-import com.nortal.jroad.model.XTeeMessage;
-import com.nortal.jroad.util.SOAPUtil;
-import com.nortal.jroad.wsdl.XTeeWsdlDefinition;
 
 /**
  * Base class for X-Tee Spring web-service endpoints, extension classes must implement
@@ -89,7 +86,7 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
     SOAPEnvelope soapEnv = requestMessage.getSOAPPart().getEnvelope();
     Iterator<String> prefixes = soapEnv.getNamespacePrefixes();
     while (prefixes.hasNext()) {
-      String nsPrefix = (String) prefixes.next();
+      String nsPrefix = prefixes.next();
       String nsURI = soapEnv.getNamespaceURI(nsPrefix).toLowerCase();
       if ((version = XRoadProtocolVersion.getValueByNamespaceURI(nsURI)) != null) {
         return version;
@@ -182,7 +179,7 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
 
       Iterator<String> prefixes = requestMessage.getSOAPPart().getEnvelope().getNamespacePrefixes();
       while (prefixes.hasNext()) {
-        String nsPrefix = (String) prefixes.next();
+        String nsPrefix = prefixes.next();
         String nsURI = requestMessage.getSOAPPart().getEnvelope().getNamespaceURI(nsPrefix).toLowerCase();
         if (xteeNamespaces.contains(nsURI)) {
           SOAPUtil.addNamespace(responseMessage, nsPrefix, nsURI);
@@ -263,12 +260,12 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
   }
 
   /**
-   * Method which must implement the service logic, receives <code>request</code> and <code>response<code>.
+   * Method which must implement the service logic, receives <code>request</code> and <code>response</code>.
    * 
    * @param request
    * @param response
    */
   protected void invokeInternal(XTeeMessage<Document> request, XTeeMessage<Element> response) throws Exception {
     throw new IllegalStateException("You must override either the 'invokeInternal' or the 'invokeInternalEx' method!");
-  };
+  }
 }

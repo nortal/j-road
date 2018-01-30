@@ -9,6 +9,12 @@
 
 package com.nortal.jroad.endpoint;
 
+import com.nortal.jroad.enums.XRoadProtocolVersion;
+import com.nortal.jroad.model.BeanXTeeMessage;
+import com.nortal.jroad.model.XTeeAttachment;
+import com.nortal.jroad.model.XTeeMessage;
+import com.nortal.jroad.util.AttachmentUtil;
+import com.nortal.jroad.util.SOAPUtil;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -16,7 +22,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.activation.DataHandler;
 import javax.annotation.Resource;
 import javax.xml.bind.JAXBContext;
@@ -30,21 +35,13 @@ import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import com.nortal.jroad.enums.XRoadProtocolVersion;
-import com.nortal.jroad.model.BeanXTeeMessage;
-import com.nortal.jroad.model.XTeeAttachment;
-import com.nortal.jroad.model.XTeeMessage;
-import com.nortal.jroad.util.AttachmentUtil;
-import com.nortal.jroad.util.SOAPUtil;
-
 /**
  * X-Tee endpoint that provides request/response manipulation using Java objects via JAXB API. All extension classes
- * must implement the method method {@link AbstractXTeeJAXBEndpoint#invokeBean(T requestBean)}.
+ * must implement the method method {@link AbstractXTeeJAXBEndpoint#invokeBean(Object)}.
  *
  * @author Dmitri Danilkin
  * @author Lauri Lättemäe (lauri.lattemae@nortal.com) - protocol 4.0
