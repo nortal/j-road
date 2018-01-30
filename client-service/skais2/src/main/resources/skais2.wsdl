@@ -6,6 +6,548 @@
 				  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                   targetNamespace="http://skais2.som.ee/producer/skais2">
     <wsdl:types>
+        <schema targetNamespace="http://skais2.som.ee/producer/skais2"
+                xmlns="http://www.w3.org/2001/XMLSchema"
+                xmlns:tns="http://skais2.som.ee/producer/skais2">
+
+            <import namespace="http://www.w3.org/2001/XMLSchema"/>
+            <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+
+            <!-- Teenus: TKToovoimPuueHyvitised päring -->
+            <element name="TKToovoimPuueHyvitised" type="tns:TKToovoimPuueHyvitisedRequest"/>
+
+            <complexType name="TKToovoimPuueHyvitisedRequest">
+                <sequence>
+                    <element name="isikukood">
+                        <annotation>
+                            <documentation>päritava isiku isikukood</documentation>
+                        </annotation>
+                        <simpleType>
+                            <restriction base="string">
+                                <maxLength value="50"/>
+                            </restriction>
+                        </simpleType>
+                    </element>
+                    <element name="perioodAlgusKpv" type="date">
+                        <annotation>
+                            <documentation>päritava isiku kehtivate andmete perioodi algushetk</documentation>
+                        </annotation>
+                    </element>
+                    <element name="perioodLoppKpv" type="date">
+                        <annotation>
+                            <documentation>päritava isiku kehtivate andmete perioodi lõpphetk</documentation>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+
+            <!-- Teenus: TKToovoimPuueHyvitised vastus -->
+            <element name="TKToovoimPuueHyvitisedResponse" type="tns:TKToovoimPuueHyvitisedResponse"/>
+
+            <complexType name="TKToovoimPuueHyvitisedResponse">
+                <sequence>
+                    <element name="isik" type="tns:isikType" minOccurs="1" maxOccurs="1"/>
+                    <element name="toovoimetused" minOccurs="0" maxOccurs="1">
+                        <complexType>
+                            <sequence>
+                                <element name="toovoimetus" type="tns:toovoimetusType" minOccurs="1" maxOccurs="unbounded"/>
+                            </sequence>
+                        </complexType>
+                    </element>
+                    <element name="hyvitised" minOccurs="0" maxOccurs="1">
+                        <complexType>
+                            <sequence>
+                                <element name="hyvitis" type="tns:hyvitisType" minOccurs="1" maxOccurs="unbounded"/>
+                            </sequence>
+                        </complexType>
+                    </element>
+                    <element name="seosedValisriigiga" minOccurs="0" maxOccurs="1">
+                        <complexType>
+                            <sequence>
+                                <element name="seotusValisriigiga" type="tns:seotusValisriigigaType" minOccurs="1" maxOccurs="unbounded"/>
+                            </sequence>
+                        </complexType>
+                    </element>
+                    <element name="kinnipeetudTulumaksud" minOccurs="0" maxOccurs="1">
+                        <complexType>
+                            <sequence>
+                                <element name="kinnipeetudTulumaks" type="tns:kinnipeetudTulumaksType" minOccurs="1" maxOccurs="unbounded"/>
+                            </sequence>
+                        </complexType>
+                    </element>
+                    <element name="puuded" minOccurs="0" maxOccurs="1">
+                        <complexType>
+                            <sequence>
+                                <element name="puue" type="tns:puueType" minOccurs="1" maxOccurs="unbounded"/>
+                            </sequence>
+                        </complexType>
+                    </element>
+                    <element name="staatus" type="tns:staatusType" minOccurs="1" maxOccurs="1"/>
+                </sequence>
+            </complexType>
+
+            <complexType name="isikType">
+                <sequence>
+                    <element name="isikukood" type="string" minOccurs="1" maxOccurs="1" nillable="false">
+                        <annotation>
+                            <documentation>Eesti isikukood</documentation>
+                        </annotation>
+                    </element>
+                    <element name="eesnimi" type="string" minOccurs="1" maxOccurs="1" nillable="false">
+                        <annotation>
+                            <documentation>Eesnimi</documentation>
+                        </annotation>
+                    </element>
+                    <element name="perekonnanimi" type="string" minOccurs="1" maxOccurs="1" nillable="false">
+                        <annotation>
+                            <documentation>Perekonnanimi</documentation>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+
+            <complexType name="toovoimetusType">
+                <sequence>
+                    <element name="otsusKpv" type="date">
+                        <annotation>
+                            <documentation>Otsuse kuupäev</documentation>
+                        </annotation>
+                    </element>
+                    <element name="perioodAlgusKpv" type="date">
+                        <annotation>
+                            <documentation>Töövõimetuse perioodi algus</documentation>
+                        </annotation>
+                    </element>
+                    <element name="perioodLoppKpv" type="date" minOccurs="0">
+                        <annotation>
+                            <documentation>Töövõimetuse perioodi lõpp</documentation>
+                        </annotation>
+                    </element>
+                    <element name="enneTahtaegLoppKpv" type="date" minOccurs="0">
+                        <annotation>
+                            <documentation>Ennetähtaegse lõpetamise kuupäev</documentation>
+                        </annotation>
+                    </element>
+                    <element name="korduvHindamineKpv" type="date" minOccurs="0">
+                        <annotation>
+                            <documentation>Korduvhindamise perioodi algus</documentation>
+                        </annotation>
+                    </element>
+                    <element name="TMVVaartus">
+                        <annotation>
+                            <documentation>Töövõimetuse protsent</documentation>
+                        </annotation>
+                        <simpleType>
+                            <restriction base="string">
+                                <maxLength value="50"/>
+                            </restriction>
+                        </simpleType>
+                    </element>
+                </sequence>
+            </complexType>
+
+            <complexType name="hyvitisType">
+                <sequence>
+                    <element name="taotlusEsitamineKpv" type="date" minOccurs="0">
+                        <annotation>
+                            <documentation>Taotluse esitamise kuupäev</documentation>
+                        </annotation>
+                    </element>
+                    <element name="hyvitisLiik" type="string">
+                        <annotation>
+                            <documentation>Hüvitise liik</documentation>
+                        </annotation>
+                    </element>
+                    <element name="nimetus" type="string">
+                        <annotation>
+                            <documentation>Hüvitise nimetus</documentation>
+                        </annotation>
+                    </element>
+                    <element name="otsusKpv" type="date">
+                        <annotation>
+                            <documentation>Otsuse kuupäev</documentation>
+                        </annotation>
+                    </element>
+                    <element name="perioodAlgusKpv" type="date">
+                        <annotation>
+                            <documentation>Hüvitise alguse aeg</documentation>
+                        </annotation>
+                    </element>
+                    <element name="perioodLoppKpv" type="date" minOccurs="0">
+                        <annotation>
+                            <documentation>Hüvitise lõppaeg</documentation>
+                        </annotation>
+                    </element>
+                    <element name="enneTahtaegLoppKpv" type="date" minOccurs="0">
+                        <annotation>
+                            <documentation>Hüvitise ennetähtaegne lõpetamine</documentation>
+                        </annotation>
+                    </element>
+                    <element name="peatamised" minOccurs="0">
+                        <complexType>
+                            <sequence>
+                                <element name="peatamine" type="tns:peatamineType" maxOccurs="unbounded"/>
+                            </sequence>
+                        </complexType>
+                    </element>
+                    <element name="rahalisedHyvitised" minOccurs="0">
+                        <complexType>
+                            <sequence>
+                                <element name="rahalineHyvitis" type="tns:hyvitisRahalineType" maxOccurs="unbounded"/>
+                            </sequence>
+                        </complexType>
+                    </element>
+                </sequence>
+            </complexType>
+
+            <complexType name="peatamineType">
+                <sequence>
+                    <element name="perioodAlgusKpv" type="date">
+                        <annotation>
+                            <documentation>Peatamise perioodi algus</documentation>
+                        </annotation>
+                    </element>
+                    <element name="perioodLoppKpv" type="date">
+                        <annotation>
+                            <documentation>Peatamise perioodi lõpp</documentation>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+
+            <complexType name="hyvitisRahalineType">
+                <sequence>
+                    <element name="summa" type="decimal">
+                        <annotation>
+                            <documentation>Hüvitise summa</documentation>
+                        </annotation>
+                    </element>
+                    <element name="perioodAlgusKpv" type="date">
+                        <annotation>
+                            <documentation>Hüvitise summa perioodi algus</documentation>
+                        </annotation>
+                    </element>
+                    <element name="perioodLoppKpv" type="date">
+                        <annotation>
+                            <documentation>Hüvitise summa perioodi lõpp</documentation>
+                        </annotation>
+                    </element>
+                    <element name="valjamaksed" minOccurs="0">
+                        <complexType>
+                            <sequence>
+                                <element name="valjamakse" type="tns:valjamakseType" maxOccurs="unbounded"/>
+                            </sequence>
+                        </complexType>
+                    </element>
+                </sequence>
+            </complexType>
+
+            <complexType name="valjamakseType">
+                <sequence>
+                    <element name="summa" type="decimal">
+                        <annotation>
+                            <documentation>Väljamakse summa</documentation>
+                        </annotation>
+                    </element>
+                    <element name="perioodAlgusKpv" type="date">
+                        <annotation>
+                            <documentation>Makse perioodi algus</documentation>
+                        </annotation>
+                    </element>
+                    <element name="perioodLoppKpv" type="date">
+                        <annotation>
+                            <documentation>Makse perioodi lõpp</documentation>
+                        </annotation>
+                    </element>
+                    <element name="tehingKpv" type="date" minOccurs="0">
+                        <annotation>
+                            <documentation>Väljamakse tegemise kuupäev</documentation>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+
+            <complexType name="seotusValisriigigaType">
+                <sequence>
+                    <element name="perioodAlgusKpv" type="date">
+                        <annotation>
+                            <documentation>Välisriigiga seotuse perioodi algus</documentation>
+                        </annotation>
+                    </element>
+                    <element name="perioodLoppKpv" type="date">
+                        <annotation>
+                            <documentation>Välisriigiga seotuse perioodi lopp</documentation>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+
+            <complexType name="kinnipeetudTulumaksType">
+                <sequence>
+                    <element name="perioodAlgusKpv" type="date">
+                        <annotation>
+                            <documentation>Arvestatud tulumaksu perioodi algus</documentation>
+                        </annotation>
+                    </element>
+                    <element name="perioodLoppKpv" type="date">
+                        <annotation>
+                            <documentation>Arvestatud tulumaksu perioodi lopp</documentation>
+                        </annotation>
+                    </element>
+                    <element name="summaKinnipeetudTulumaks" type="decimal">
+                        <annotation>
+                            <documentation>Arvestatud tulumaksu summa</documentation>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+
+            <complexType name="puueType">
+                <sequence>
+                    <element name="taotlusEsitamineKpv" type="date" minOccurs="0">
+                        <annotation>
+                            <documentation>Puude taotluse esitamise aeg</documentation>
+                        </annotation>
+                    </element>
+                    <element name="otsusKpv" type="date">
+                        <annotation>
+                            <documentation>Puude määramise kuupäev</documentation>
+                        </annotation>
+                    </element>
+                    <element name="perioodAlgusKpv" type="date">
+                        <annotation>
+                            <documentation>Puude perioodi algus</documentation>
+                        </annotation>
+                    </element>
+                    <element name="perioodLoppKpv" type="date">
+                        <annotation>
+                            <documentation>Puude perioodi lõpp</documentation>
+                        </annotation>
+                    </element>
+                    <element name="kood" type="string">
+                        <annotation>
+                            <documentation>Puude raskusaste kood</documentation>
+                        </annotation>
+                    </element>
+                    <element name="nimetus" type="string">
+                        <annotation>
+                            <documentation>Puude raskusaste</documentation>
+                        </annotation>
+                    </element>
+                    <element name="enneTahtaegLoppKpv" type="date" minOccurs="0">
+                        <annotation>
+                            <documentation>Puude ennetähtaegse lõpetamise kuupäev</documentation>
+                        </annotation>
+                    </element>
+                    <element name="korduvEkspertiisPerioodAlgusKpv" type="date" minOccurs="0">
+                        <annotation>
+                            <documentation>Korduvekspertiisi taotlemise perioodi algus</documentation>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+
+            <complexType name="staatusType">
+                <sequence>
+                    <element name="kood" type="integer" minOccurs="1">
+                        <annotation>
+                            <documentation>Staatuse kood</documentation>
+                        </annotation>
+                    </element>
+                    <element name="selgitus" minOccurs="0">
+                        <annotation>
+                            <documentation>Staatuse kirjeldus</documentation>
+                        </annotation>
+                        <simpleType>
+                            <restriction base="string">
+                                <maxLength value="500"/>
+                            </restriction>
+                        </simpleType>
+                    </element>
+                </sequence>
+            </complexType>
+        </schema>
+
+        <schema targetNamespace="http://skais2.som.ee/producer/skais2"
+                xmlns="http://www.w3.org/2001/XMLSchema"
+                xmlns:xrd="http://x-road.eu/xsd/xroad.xsd"
+                xmlns:tns="http://skais2.som.ee/producer/skais2"
+                xmlns:ref="http://ws-i.org/profiles/basic/1.1/xsd">
+
+            <import namespace="http://www.w3.org/2001/XMLSchema"/>
+            <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+            <import namespace="http://ws-i.org/profiles/basic/1.1/xsd" schemaLocation="http://ws-i.org/profiles/basic/1.1/swaref.xsd" xmlns="http://www.w3.org/2001/XMLSchema"/>
+
+            <!-- Teenus: TKToovoimPuueHyvitisedMassTeenus päring -->
+            <element name="TKToovoimPuueHyvitisedMassTeenus" type="tns:TKToovoimPuueHyvitisedMassTeenusRequest"/>
+
+            <complexType name="TKToovoimPuueHyvitisedMassTeenusRequest">
+                <sequence>
+                    <element name="perioodAlgusKpv" type="date" maxOccurs="1" minOccurs="1" nillable="false">
+                        <annotation>
+                            <documentation>Päritava perioodi algus (kaasaarvatud)</documentation>
+                        </annotation>
+                    </element>
+                    <element name="perioodLoppKpv" type="date" maxOccurs="1" minOccurs="1" nillable="false">
+                        <annotation>
+                            <documentation>Päritava perioodi lõpp (kaasaarvatud)</documentation>
+                        </annotation>
+                    </element>
+                    <element name="viide" type="ref:swaRef" maxOccurs="1" minOccurs="0"/>
+                </sequence>
+            </complexType>
+
+            <!-- Teenus: TKToovoimPuueHyvitisedMassTeenus vastus -->
+            <element name="TKToovoimPuueHyvitisedMassTeenusResponse" type="tns:TKToovoimPuueHyvitisedMassTeenusResponse"/>
+
+            <complexType name="TKToovoimPuueHyvitisedMassTeenusResponse">
+                <sequence>
+                    <element name="protsessID" type="long" minOccurs="0" maxOccurs="1">
+                        <annotation>
+                            <documentation>Protsessi ID</documentation>
+                        </annotation>
+                    </element>
+                    <element name="kood" type="long" minOccurs="1" nillable="false">
+                        <annotation>
+                            <documentation>Staatuse kood</documentation>
+                        </annotation>
+                    </element>
+                    <element name="selgitus" type="string" minOccurs="0" maxOccurs="1">
+                        <annotation>
+                            <documentation>Staatuse kirjeldus</documentation>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+
+        </schema>
+
+        <schema targetNamespace="http://skais2.som.ee/producer/skais2"
+                xmlns="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:tns="http://skais2.som.ee/producer/skais2"
+                xmlns:ref="http://ws-i.org/profiles/basic/1.1/xsd">
+
+            <import namespace="http://www.w3.org/2001/XMLSchema"/>
+            <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+            <import namespace="http://ws-i.org/profiles/basic/1.1/xsd" schemaLocation="http://ws-i.org/profiles/basic/1.1/swaref.xsd"/>
+
+            <!-- Teenus: TKToovoimPuueHyvitisedMassTeenusVastus päring -->
+            <element name="TKToovoimPuueHyvitisedMassTeenusVastus" type="tns:TKToovoimPuueHyvitisedMassTeenusVastusRequest"/>
+
+            <complexType name="TKToovoimPuueHyvitisedMassTeenusVastusRequest">
+                <sequence>
+                    <element name="protsessID" type="xsd:long">
+                        <annotation>
+                            <documentation>Protsessi ID</documentation>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+
+            <!-- Teenus: TKToovoimPuueHyvitisedMassTeenusVastus päring -->
+            <element name="TKToovoimPuueHyvitisedMassTeenusVastusResponse" type="tns:TKToovoimPuueHyvitisedMassTeenusVastusResponse"/>
+
+            <complexType name="TKToovoimPuueHyvitisedMassTeenusVastusResponse">
+                <sequence>
+                    <element name="kood" type="xsd:long">
+                        <annotation>
+                            <documentation>Staatuse kood</documentation>
+                        </annotation>
+                    </element>
+                    <element name="selgitus" type="xsd:string" minOccurs="0">
+                        <annotation>
+                            <documentation>Staatuse kirjeldus</documentation>
+                        </annotation>
+                    </element>
+                    <element name="viide" type="ref:swaRef" minOccurs="0"/>
+                </sequence>
+            </complexType>
+
+            <element name="TKMassIsikud" type="tns:TKMassIsikud" />
+
+            <complexType name="TKMassIsikud">
+                <sequence>
+                    <element name="isik" type="tns:TKMassIsik" maxOccurs="unbounded"/>
+                </sequence>
+            </complexType>
+
+            <complexType name="TKMassIsik">
+                <sequence>
+                    <element name="isikukood" type="xsd:string"/>
+                    <element name="toovoimetused" type="tns:TKMassToovoimetused" minOccurs="0"/>
+                    <element name="hyvitised" type="tns:TKMassHyvitised" minOccurs="0"/>
+                    <element name="puuded" type="tns:TKMassPuuded" minOccurs="0"/>
+                    <element name="staatus" type="tns:TKMassStaatus"/>
+                </sequence>
+            </complexType>
+
+            <complexType name="TKMassToovoimetused">
+                <sequence>
+                    <element name="toovoimetus" type="tns:TKMassToovoimetus" maxOccurs="unbounded"/>
+                </sequence>
+            </complexType>
+
+            <complexType name="TKMassToovoimetus">
+                <sequence>
+                    <element name="perioodAlgusKpv" type="xsd:date"/>
+                    <element name="perioodLoppKpv" type="xsd:date" minOccurs="0"/>
+                </sequence>
+            </complexType>
+
+            <complexType name="TKMassHyvitised">
+                <sequence>
+                    <element name="hyvitis" type="tns:TKMassHyvitis" maxOccurs="unbounded"/>
+                </sequence>
+            </complexType>
+
+            <complexType name="TKMassHyvitis">
+                <sequence>
+                    <element name="hyvitisLiik" type="xsd:string"/>
+                    <element name="nimetus" type="xsd:string"/>
+                    <element name="perioodAlgusKpv" type="xsd:date"/>
+                    <element name="perioodLoppKpv" type="xsd:date" minOccurs="0"/>
+                    <element name="peatamised" type="tns:TKMassHyvitisPeatamised" minOccurs="0"/>
+                </sequence>
+            </complexType>
+
+            <complexType name="TKMassHyvitisPeatamised">
+                <sequence>
+                    <element name="peatamine" type="tns:TKMassHyvitisPeatamine" maxOccurs="unbounded"/>
+                </sequence>
+            </complexType>
+
+            <complexType name="TKMassHyvitisPeatamine">
+                <sequence>
+                    <element name="perioodAlgusKpv" type="xsd:date"/>
+                    <element name="perioodLoppKpv" type="xsd:date" minOccurs="0"/>
+                </sequence>
+            </complexType>
+
+            <complexType name="TKMassPuuded">
+                <sequence>
+                    <element name="puue" type="tns:TKMassPuue" maxOccurs="unbounded"/>
+                </sequence>
+            </complexType>
+
+            <complexType name="TKMassPuue">
+                <sequence>
+                    <element name="perioodAlgusKpv" type="xsd:date"/>
+                    <element name="perioodLoppKpv" type="xsd:date" minOccurs="0"/>
+                    <element name="puueLiik" type="xsd:string"/>
+                    <element name="nimetus" type="xsd:string"/>
+                </sequence>
+            </complexType>
+
+            <complexType name="TKMassStaatus">
+                <sequence>
+                    <element name="kood" type="xsd:long"/>
+                    <element name="selgitus" type="xsd:string" minOccurs="0"/>
+                </sequence>
+            </complexType>
+
+        </schema>
+
         <schema xmlns="http://www.w3.org/2001/XMLSchema"
                 xmlns:tns="http://skais2.som.ee/producer/skais2"
                 xmlns:xrd="http://x-road.eu/xsd/xroad.xsd"
@@ -15,7 +557,6 @@
             <import namespace="http://www.w3.org/2001/XMLSchema"/>
             <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
             <import namespace="http://x-road.eu/xsd/xroad.xsd" schemaLocation="http://x-road.eu/xsd/xroad.xsd"/>
-			<xsd:include schemaLocation="https://eteenindus.sotsiaalkindlustusamet.ee/xsd/test/schemas/tk/tkToovoimPuueHyvitised.xsd"/>
 
             <element name="TVHTaotlusYksUks" type="tns:TVHYhisTaotlusRequest"/>
 
@@ -1183,6 +1724,18 @@
     <wsdl:message name="TKToovoimPuueHyvitisedResponse">
         <wsdl:part name="body" element="tns:TKToovoimPuueHyvitisedResponse"/>
     </wsdl:message>
+    <wsdl:message name="TKToovoimPuueHyvitisedMassTeenus">
+        <wsdl:part name="body" element="tns:TKToovoimPuueHyvitisedMassTeenus"/>
+    </wsdl:message>
+    <wsdl:message name="TKToovoimPuueHyvitisedMassTeenusResponse">
+        <wsdl:part name="body" element="tns:TKToovoimPuueHyvitisedMassTeenusResponse"/>
+    </wsdl:message>
+    <wsdl:message name="TKToovoimPuueHyvitisedMassTeenusVastus">
+        <wsdl:part name="body" element="tns:TKToovoimPuueHyvitisedMassTeenusVastus"/>
+    </wsdl:message>
+    <wsdl:message name="TKToovoimPuueHyvitisedMassTeenusVastusResponse">
+        <wsdl:part name="body" element="tns:TKToovoimPuueHyvitisedMassTeenusVastusResponse"/>
+    </wsdl:message>
 
     <!-- SKAIS2 portType -->
     <wsdl:portType name="skais2PortType">
@@ -1199,6 +1752,20 @@
             </wsdl:documentation>
             <wsdl:input message="tns:TKToovoimPuueHyvitised"/>
             <wsdl:output message="tns:TKToovoimPuueHyvitisedResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="TKToovoimPuueHyvitisedMassTeenus">
+            <wsdl:documentation>
+                <xrd:title>TK: töövõimetuste, puuete ja hüvitiste andmed - masspäring</xrd:title>
+            </wsdl:documentation>
+            <wsdl:input message="tns:TKToovoimPuueHyvitisedMassTeenus"/>
+            <wsdl:output message="tns:TKToovoimPuueHyvitisedMassTeenusResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="TKToovoimPuueHyvitisedMassTeenusVastus">
+            <wsdl:documentation>
+                <xrd:title>TK: töövõimetuste, puuete ja hüvitiste andmed - masspäring vastus</xrd:title>
+            </wsdl:documentation>
+            <wsdl:input message="tns:TKToovoimPuueHyvitisedMassTeenusVastus"/>
+            <wsdl:output message="tns:TKToovoimPuueHyvitisedMassTeenusVastusResponse"/>
         </wsdl:operation>
     </wsdl:portType>
     <!-- SKAIS2 binding -->
@@ -1228,6 +1795,52 @@
             </wsdl:output>
         </wsdl:operation>
 		<wsdl:operation name="TKToovoimPuueHyvitised">
+            <soap:operation soapAction="http://TURVASERVER.XTEE/cgi-bin/consumer_proxy" style="document"/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input>
+                <soap:body use="literal"/>
+                <soap:header message="tns:requestHeader" part="client" use="literal"/>
+                <soap:header message="tns:requestHeader" part="service" use="literal"/>
+                <soap:header message="tns:requestHeader" part="id" use="literal"/>
+                <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+                <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+                <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+                <soap:header message="tns:requestHeader" part="client" use="literal"/>
+                <soap:header message="tns:requestHeader" part="service" use="literal"/>
+                <soap:header message="tns:requestHeader" part="id" use="literal"/>
+                <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+                <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+                <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+                <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="TKToovoimPuueHyvitisedMassTeenus">
+            <soap:operation soapAction="http://TURVASERVER.XTEE/cgi-bin/consumer_proxy" style="document"/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input>
+                <soap:body use="literal"/>
+                <soap:header message="tns:requestHeader" part="client" use="literal"/>
+                <soap:header message="tns:requestHeader" part="service" use="literal"/>
+                <soap:header message="tns:requestHeader" part="id" use="literal"/>
+                <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+                <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+                <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+                <soap:header message="tns:requestHeader" part="client" use="literal"/>
+                <soap:header message="tns:requestHeader" part="service" use="literal"/>
+                <soap:header message="tns:requestHeader" part="id" use="literal"/>
+                <soap:header message="tns:requestHeader" part="userId" use="literal"/>
+                <soap:header message="tns:requestHeader" part="requestHash" use="literal"/>
+                <soap:header message="tns:requestHeader" part="issue" use="literal"/>
+                <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="TKToovoimPuueHyvitisedMassTeenusVastus">
             <soap:operation soapAction="http://TURVASERVER.XTEE/cgi-bin/consumer_proxy" style="document"/>
             <xrd:version>v1</xrd:version>
             <wsdl:input>
