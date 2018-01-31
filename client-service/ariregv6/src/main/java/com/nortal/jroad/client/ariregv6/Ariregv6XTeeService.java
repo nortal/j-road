@@ -63,6 +63,15 @@ public interface Ariregv6XTeeService {
                                                             boolean maarused,
                                                             boolean ainultKehtivad,
                                                             long maksValjundArv) throws XRoadServiceConsumptionException;
+    public List<DetailandmedV5Ettevotja> findDetailandmedV5(final Integer registriKood,
+                                                            boolean yldandmed,
+                                                            boolean isikuandmed,
+                                                            boolean menetlusesAvaldused,
+                                                            boolean kommertspandiandmed,
+                                                            boolean maarused,
+                                                            boolean ainultKehtivad,
+                                                            long maksValjundArv) throws XRoadServiceConsumptionException;
+
 
     public List<DetailandmedV5Ettevotja> findDetailandmedV5(final String fyysiliseIsikuKood,
                                                             final String[] fyysIsikuRollideJada,

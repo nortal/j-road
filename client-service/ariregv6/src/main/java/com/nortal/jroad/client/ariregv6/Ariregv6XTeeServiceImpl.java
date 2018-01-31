@@ -159,6 +159,23 @@ public class Ariregv6XTeeServiceImpl implements Ariregv6XTeeService {
     return ariregXRoadDatabase.detailandmedV1V1(detailandmedV1).getKeha().getEttevotjad().getItemList();
   }
 
+  @Override
+  public List<DetailandmedV5Ettevotja> findDetailandmedV5(Integer ariregistriKood, boolean yldandmed, boolean isikuandmed, boolean menetlusesAvaldused, boolean kommertspandiandmed, boolean maarused, boolean ainultKehtivad, long maksValjundArv) throws XRoadServiceConsumptionException {
+    DetailandmedV1 detailandmedV1 = DetailandmedV1.Factory.newInstance();
+    DetailandmedV5Query query = DetailandmedV5Query.Factory.newInstance();
+    query.setAriregistriKood(BigInteger.valueOf(ariregistriKood));
+    query.setYandmed(yldandmed);
+    query.setIandmed(isikuandmed);
+    query.setDandmed(menetlusesAvaldused);
+    query.setKandmed(kommertspandiandmed);
+    query.setMaarused(maarused);
+    query.setAinultKehtivad(ainultKehtivad);
+    query.setEvarv(BigInteger.valueOf(maksValjundArv));
+    detailandmedV1.setKeha(query);
+
+    return ariregXRoadDatabase.detailandmedV1V1(detailandmedV1).getKeha().getEttevotjad().getItemList();
+  }
+
   public List<DetailandmedV5Ettevotja> findDetailandmedV5(final String fyysiliseIsikuKood,
                                                           final String[] fyysIsikuRollideJada,
                                                           boolean yldandmed,
