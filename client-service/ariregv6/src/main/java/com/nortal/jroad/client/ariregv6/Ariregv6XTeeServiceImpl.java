@@ -220,12 +220,15 @@ public class Ariregv6XTeeServiceImpl implements Ariregv6XTeeService {
   }
 
   @Override
-  public List<ParingesindusV4Ettevote> findParingesindusV4(Integer ariregistriKood, String fyysiliseIsikuKood, String fyysiliseIsikuEesnimi, String fyysiliseIsikuPerenimi, String ariregisterValjundiFormaat) throws XRoadServiceConsumptionException {
+  public List<ParingesindusV4Ettevote> findParingesindusV4(Integer ariregistriKood, String fyysiliseIsikuKoodiRiik, String fyysiliseIsikuKood, String fyysiliseIsikuEesnimi, String fyysiliseIsikuPerenimi, String ariregisterValjundiFormaat) throws XRoadServiceConsumptionException {
 
     ParingesindusV4Paring paring = ParingesindusV4Paring.Factory.newInstance();
 
     if (ariregistriKood != null) {
       paring.setAriregistriKood(ariregistriKood);
+    }
+    if(fyysiliseIsikuKoodiRiik != null) {
+      paring.setFyysiliseIsikuKoodiRiik(fyysiliseIsikuKoodiRiik);
     }
     if (fyysiliseIsikuKood != null) {
       paring.setFyysiliseIsikuKood(fyysiliseIsikuKood);
