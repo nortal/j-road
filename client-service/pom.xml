@@ -44,7 +44,7 @@
     <module>jvis</module>
     <module>digiluguv6</module>
     <module>lkfv6</module>
-
+    <module>esis</module>
 
 <!-- These modules do compile but needs review - consult with epria or example module -->
 <!--     <module>tor</module> -->
@@ -59,7 +59,6 @@
 <!--     <module>ehr</module> -->
 <!--     <module>emta</module> -->
 <!--     <module>kutseregister</module> -->
-<!--     <module>esis</module> -->
 <!--     <module>karis</module> -->
 <!--     <module>kirst</module> -->
 <!--     <module>koodikeskus</module> -->

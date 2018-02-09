@@ -5,7 +5,7 @@
 
   <import resource="classpath:client-test-common.xml" />
 
-  <bean id="esisXTeeService" class="com.nortal.jroad.client.esis.EsisXTeeServiceImpl"
+  <bean id="esisXTeeService" class="com.nortal.jroad.client.esis.EsisXRoadServiceImpl"
     parent="xteeDatabaseService" />
 
 </beans>

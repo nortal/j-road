@@ -19,7 +19,7 @@ import com.nortal.jroad.client.jvis.types.eu.x_road.jvisv6.producer.Vedurijuhilo
 import com.nortal.jroad.client.jvis.types.eu.x_road.jvisv6.producer.VedurijuhiloaTaotlusParingDocument.VedurijuhiloaTaotlusParing;
 import com.nortal.jroad.client.jvis.types.eu.x_road.jvisv6.producer.VedurijuhiloaTaotlusVastusDocument.VedurijuhiloaTaotlusVastus;
 
-@Service("jvisv6XTeeService")
+@Service("jvisv6XRoadService")
 public class Jvisv6XRoadServiceImpl implements Jvisv6XRoadService {
 
 	@Resource
