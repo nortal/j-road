@@ -8,10 +8,10 @@ import org.springframework.ws.client.core.WebServiceMessageExtractor;
  * 
  * @author Dmitri Danilkin
  */
-public abstract class CustomExtractor implements WebServiceMessageExtractor {
-  protected WebServiceMessageExtractor extractor;
+public abstract class CustomExtractor<T> implements WebServiceMessageExtractor<T> {
+  protected WebServiceMessageExtractor<T> extractor;
 
-  public void setOriginalExtractor(WebServiceMessageExtractor extractor) {
+  public void setOriginalExtractor(WebServiceMessageExtractor<T> extractor) {
     this.extractor = extractor;
   }
 }

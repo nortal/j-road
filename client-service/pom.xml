@@ -16,7 +16,7 @@
     <dependency>
       <groupId>com.nortal.jroad</groupId>
       <artifactId>xtee-client-transport</artifactId>
-      <version>4.1.6-SNAPSHOT</version>
+      <version>4.1.7-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.nortal.jroad</groupId>

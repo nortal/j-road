@@ -63,10 +63,11 @@ public class StandardXTeeConsumerCallback implements WebServiceMessageCallback {
       if (serviceConfiguration.getForceDatabaseNamespace() && !metadata.getOperationNs().equals(namespace)) {
         mes.getSOAPPart().getEnvelope().addNamespaceDeclaration(ROOT_NS, namespace);
         rootElement = factory.createElement(metadata.getOperationName(), ROOT_NS, namespace);
-        XmlCursor c = ((XmlObject)object).newCursor();
+        XmlCursor c = ((XmlObject) object).newCursor();
         c.toNextToken();
         while (c.hasNextToken()) {
-          if ((c.isStart() || c.isAttr() || c.isNamespace()) && metadata.getOperationNs().equals(c.getName().getNamespaceURI())) {
+          if ((c.isStart() || c.isAttr() || c.isNamespace())
+              && metadata.getOperationNs().equals(c.getName().getNamespaceURI())) {
             c.setName(new QName(namespace, c.getName().getLocalPart()));
           }
           c.toNextToken();
@@ -77,13 +78,14 @@ public class StandardXTeeConsumerCallback implements WebServiceMessageCallback {
         rootElement = factory.createElement(metadata.getOperationName(), ROOT_NS, metadata.getOperationNs());
       }
 
-      if(setEncodingStyle) {
-    	  rootElement.setEncodingStyle("http://schemas.xmlsoap.org/soap/encoding/");
+      if (setEncodingStyle) {
+        rootElement.setEncodingStyle("http://schemas.xmlsoap.org/soap/encoding/");
       }
 
       marshaller.marshal(object, new DOMResult(rootElement));
 
-      if (rootElement.getFirstChild() != null && "xml-fragment".equals(rootElement.getFirstChild().getLocalName())) {
+      if (rootElement.getFirstChild() != null && ("xml-fragment".equals(rootElement.getFirstChild().getLocalName())
+          || metadata.getOperationName().equals(rootElement.getFirstChild().getLocalName()))) {
         NodeList childNodes = rootElement.getFirstChild().getChildNodes();
         rootElement.removeContents();
 
@@ -94,14 +96,14 @@ public class StandardXTeeConsumerCallback implements WebServiceMessageCallback {
           }
         }
       }
-      
+
       body.addChildElement(rootElement);
     } catch (SOAPException e) {
       throw new RuntimeException("Invalid SOAP message");
     }
     callback.doWithMessage(request);
   }
-  
+
   public XTeeMessageCallback getCallback() {
     return callback;
   }
