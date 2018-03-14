@@ -2,6 +2,7 @@ package com.nortal.jroad.client.lrv6;
 
 import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.lrv6.types.eu.x_road.liiklusregister.AdrJuhtResponse;
+import com.nortal.jroad.client.lrv6.types.eu.x_road.liiklusregister.AdrMtaResponse;
 import com.nortal.jroad.client.lrv6.types.eu.x_road.liiklusregister.Paring2Vastus;
 import com.nortal.jroad.client.lrv6.types.eu.x_road.liiklusregister.VlaevResponse;
 
@@ -40,5 +41,11 @@ public interface Lrv6XTeeService {
      *  <code>liiklusregister.adrJuht.v1</code> X-road service.
      * @return AdrJuhtResponse
      */
-    public AdrJuhtResponse findAdrJuht(Calendar calendar) throws  XRoadServiceConsumptionException;
+     AdrJuhtResponse findAdrJuht(Calendar calendar) throws  XRoadServiceConsumptionException;
+
+    /**
+     * <code>liiklusregister.adrMta.v1</code> X-road service.
+     * @return AdrMtaResponse
+     */
+     AdrMtaResponse findAdrSoiduk(Calendar calendar) throws XRoadServiceConsumptionException;
 }
