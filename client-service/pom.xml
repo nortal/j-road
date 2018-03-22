@@ -81,6 +81,7 @@
     <module>rar</module>
     <module>digilugu</module>
     <module>statistikaamet</module>
+    <module>kir</module>
   </modules>
 
   <build>

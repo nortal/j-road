@@ -1,15 +1,15 @@
 package com.nortal.jroad.client.kir;
 
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.kir.types.ee.x_road.kir.producer.AnnaArvelolekuAndmedDocument.AnnaArvelolekuAndmed;
-import com.nortal.jroad.client.kir.types.ee.x_road.kir.producer.AnnaArvelolekuAndmedRequest;
-import com.nortal.jroad.client.kir.types.ee.x_road.kir.producer.AnnaArvelolekuAndmedResponseDocument.AnnaArvelolekuAndmedResponse;
-import com.nortal.jroad.client.kir.types.ee.x_road.kir.producer.IsikuStaatus;
-import com.nortal.jroad.client.kir.types.ee.x_road.kir.producer.LeiaMuudetudAndmetegaKinnipeetavadDocument.LeiaMuudetudAndmetegaKinnipeetavad;
-import com.nortal.jroad.client.kir.types.ee.x_road.kir.producer.LeiaMuudetudAndmetegaKinnipeetavadRequest;
-import com.nortal.jroad.client.kir.types.ee.x_road.kir.producer.LeiaMuudetudAndmetegaKinnipeetavadResponseDocument.LeiaMuudetudAndmetegaKinnipeetavadResponse;
+import com.nortal.jroad.client.kir.types.eu.x_road.kir.AnnaArvelolekuAndmedDocument.AnnaArvelolekuAndmed;
+import com.nortal.jroad.client.kir.types.eu.x_road.kir.AnnaArvelolekuAndmedRequest;
+import com.nortal.jroad.client.kir.types.eu.x_road.kir.AnnaArvelolekuAndmedResponseDocument.AnnaArvelolekuAndmedResponse;
+import com.nortal.jroad.client.kir.types.eu.x_road.kir.ArvelolekuSisendTaiendavOlek;
+import com.nortal.jroad.client.kir.types.eu.x_road.kir.LeiaMuudetudAndmetegaKinnipeetavadDocument.LeiaMuudetudAndmetegaKinnipeetavad;
+import com.nortal.jroad.client.kir.types.eu.x_road.kir.LeiaMuudetudAndmetegaKinnipeetavadRequest;
+import com.nortal.jroad.client.kir.types.eu.x_road.kir.LeiaMuudetudAndmetegaKinnipeetavadResponseDocument.LeiaMuudetudAndmetegaKinnipeetavadResponse;
 import com.nortal.jroad.client.service.callback.CustomCallback;
-import com.nortal.jroad.client.service.v3.XRoadDatabaseService;
+import com.nortal.jroad.client.service.v4.XRoadDatabaseService;
 import com.nortal.jroad.enums.XRoadProtocolVersion;
 import com.nortal.jroad.model.XTeeMessage;
 import com.nortal.jroad.model.XmlBeansXTeeMessage;
@@ -36,15 +36,19 @@ import java.util.Set;
 /**
  * @author Marti Laast
  */
-@Service("kirXTeeService")
-public class KirXTeeServiceImpl extends XRoadDatabaseService implements KirXTeeService {
+@Service("kirXRoadService")
+public class KirXRoadServiceImpl extends XRoadDatabaseService implements KirXRoadService {
 
-    public AnnaArvelolekuAndmedResponse annaArvelolekuAndmedV1(Date start, Date end, Set<IsikuStaatus.Enum> requestTypes, Set<String> idCodes) throws XTeeServiceConsumptionException {
+    public AnnaArvelolekuAndmedResponse annaArvelolekuAndmedV1(Date start,
+                                                               Date end,
+                                                               Set<ArvelolekuSisendTaiendavOlek.Enum> requestTypes,
+                                                               Set<String> idCodes)
+        throws XTeeServiceConsumptionException {
         AnnaArvelolekuAndmed requestWrapper = AnnaArvelolekuAndmed.Factory.newInstance();
         AnnaArvelolekuAndmedRequest request = requestWrapper.addNewRequest();
-        request.setPerioodiAlgusKP(toCalendar(start));
-        request.setPerioodiLoppKP(toCalendar(end));
-        request.setParinguLiikArray(requestTypes.toArray(new IsikuStaatus.Enum[requestTypes.size()]));
+        request.setPerioodiAlgusKp(toCalendar(start));
+        request.setPerioodiLoppKp(toCalendar(end));
+        request.setTaiendavOlekArray(requestTypes.toArray(new ArvelolekuSisendTaiendavOlek.Enum[requestTypes.size()]));
         request.setIsikukoodArray(idCodes.toArray(new String[idCodes.size()]));
 
         XmlBeansXTeeMessage<AnnaArvelolekuAndmed> xRoadMsg =
@@ -58,8 +62,8 @@ public class KirXTeeServiceImpl extends XRoadDatabaseService implements KirXTeeS
         LeiaMuudetudAndmetegaKinnipeetavad requestWrapper = LeiaMuudetudAndmetegaKinnipeetavad.Factory.newInstance();
         LeiaMuudetudAndmetegaKinnipeetavadRequest request = requestWrapper.addNewRequest();
 
-        request.setPerioodiAlgusKP(toCalendar(start));
-        request.setPerioodiLoppKP(toCalendar(end));
+        request.setPerioodiAlgusKp(toCalendar(start));
+        request.setPerioodiLoppKp(toCalendar(end));
 
         XmlBeansXTeeMessage<LeiaMuudetudAndmetegaKinnipeetavadRequest> xRoadMsg =
                 new XmlBeansXTeeMessage<LeiaMuudetudAndmetegaKinnipeetavadRequest>(request);

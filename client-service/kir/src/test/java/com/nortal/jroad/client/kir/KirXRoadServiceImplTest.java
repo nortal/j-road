@@ -1,9 +1,9 @@
 package com.nortal.jroad.client.kir;
 
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.kir.types.ee.x_road.kir.producer.AnnaArvelolekuAndmedResponseDocument.AnnaArvelolekuAndmedResponse;
-import com.nortal.jroad.client.kir.types.ee.x_road.kir.producer.IsikuStaatus.Enum;
-import com.nortal.jroad.client.kir.types.ee.x_road.kir.producer.LeiaMuudetudAndmetegaKinnipeetavadResponseDocument.LeiaMuudetudAndmetegaKinnipeetavadResponse;
+import com.nortal.jroad.client.kir.types.eu.x_road.kir.AnnaArvelolekuAndmedResponseDocument.AnnaArvelolekuAndmedResponse;
+import com.nortal.jroad.client.kir.types.eu.x_road.kir.LeiaMuudetudAndmetegaKinnipeetavadResponseDocument.LeiaMuudetudAndmetegaKinnipeetavadResponse;
+import com.nortal.jroad.client.kir.types.eu.x_road.kir.ArvelolekuSisendTaiendavOlek.Enum;
 import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,17 +14,17 @@ import java.util.*;
 /**
  * @author Marti Laast
  */
-public class KirXTeeServiceImplTest extends BaseXTeeServiceImplTest {
+public class KirXRoadServiceImplTest extends BaseXTeeServiceImplTest {
 
     @Resource
-    private KirXTeeServiceImpl kirXTeeService;
+    private KirXRoadServiceImpl kirXRoadService;
 
     @Test
     public void annaArvelolekuAndmedV1() throws XTeeServiceConsumptionException {
         Date start = createDate(2014, Calendar.JANUARY, 1);
         Date end = createDate(2016, Calendar.JANUARY, 1);
         Set<String> ids = new HashSet<String>(Arrays.asList("12345678", "23456789"));
-        AnnaArvelolekuAndmedResponse response = kirXTeeService.annaArvelolekuAndmedV1(start, end, getAllTypes(), ids);
+        AnnaArvelolekuAndmedResponse response = kirXRoadService.annaArvelolekuAndmedV1(start, end, getAllTypes(), ids);
 
         List<AnnaArvelolekuAndmedResponse.Response.Arvelolek> records = response.getResponse().getArvelolekList();
         Assert.assertNotNull(records);
@@ -42,7 +42,7 @@ public class KirXTeeServiceImplTest extends BaseXTeeServiceImplTest {
     public void leiaMuudetudAndmetegaKinnipeetavadV1() throws XTeeServiceConsumptionException {
         Date start = createDate(2014, Calendar.JANUARY, 1);
         Date end = createDate(2016, Calendar.JANUARY, 1);
-        LeiaMuudetudAndmetegaKinnipeetavadResponse response = kirXTeeService.leiaMuudetudAndmetegaKinnipeetavadV1(start, end);
+        LeiaMuudetudAndmetegaKinnipeetavadResponse response = kirXRoadService.leiaMuudetudAndmetegaKinnipeetavadV1(start, end);
 
         List<String> idCodesList = response.getResponse().getIsikukoodList();
         Assert.assertNotNull(idCodesList);
