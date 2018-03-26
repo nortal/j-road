@@ -1,6 +1,7 @@
 package com.nortal.jroad.client.kirstv6;
 
 import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
+import com.nortal.jroad.client.kirstv6.types.eu.x_road.kirst.KindlustusParingType;
 import com.nortal.jroad.client.kirstv6.types.eu.x_road.kirst.Kindlustused2ResponseType;
 
 /**
@@ -8,10 +9,11 @@ import com.nortal.jroad.client.kirstv6.types.eu.x_road.kirst.Kindlustused2Respon
  *
  * @author Merilyn Renser
  */
-public interface Kirstv6XTeeService {
+public interface Kirstv6XRoadService {
 
   /**
    * <code>kirstv6.kindlustused2.v1</code> service.
    */
-  Kindlustused2ResponseType findKindlustused2(String isikukood, String userId) throws XRoadServiceConsumptionException;
+  Kindlustused2ResponseType findKindlustused2V1(String isikukood, String userId, KindlustusParingType.Enum paringType)
+      throws XRoadServiceConsumptionException;
 }
