@@ -15,7 +15,7 @@ import java.lang.annotation.RetentionPolicy;
 /**
  * Annotation for X-Tee service endpoints, allows setting name and version of the service. Service <code>name</code> is
  * arbitrary, <code>version</code> number must be given in the form <code>vN</code> where
- * <code>N<code> is the version number.
+ * <code>N</code> is the version number.
  * <code>value</code> is provided for convenience and is equal to setting <code>name</code>.
  * 
  * @author Dmitri Danilkin
