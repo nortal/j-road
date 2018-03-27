@@ -1,12 +1,5 @@
 package com.nortal.jroad.example.client;
 
-import java.util.Arrays;
-
-import javax.activation.DataHandler;
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-
 import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.service.XRoadDatabaseService;
 import com.nortal.jroad.example.client.database.NaidisXRoadDatabase;
@@ -18,9 +11,13 @@ import com.nortal.jroad.jaxb.ByteArrayDataSource;
 import com.nortal.jroad.model.BeanXRoadMessage;
 import com.nortal.jroad.model.XRoadAttachment;
 import com.nortal.jroad.model.XRoadMessage;
+import java.util.Arrays;
+import javax.activation.DataHandler;
+import javax.annotation.Resource;
+import org.springframework.stereotype.Service;
 
 /**
- * @author Lauri Lättemäe <lauri.lattemae@nortal.com>
+ * @author Lauri Lättemäe (lauri.lattemae@nortal.com)
  */
 @Service("naidisXRoadService")
 public class NaidisXRoadServiceImpl extends XRoadDatabaseService implements NaidisXRoadService {
