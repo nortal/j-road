@@ -82,6 +82,7 @@
     <module>digilugu</module>
     <module>statistikaamet</module>
     <module>kir</module>
+    <module>etoimik</module>
   </modules>
 
   <build>
