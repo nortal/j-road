@@ -2,31 +2,18 @@ package com.nortal.jroad.client.rrv5;
 
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
 import com.nortal.jroad.client.rrv5.database.Rrv5XRoadDatabase;
-import com.nortal.jroad.client.rrv5.types.eu.x_road.rr.producer.RR435Document.RR435;
-import com.nortal.jroad.client.rrv5.types.eu.x_road.rr.producer.RR435ResponseDocument.RR435Response;
-import com.nortal.jroad.client.rrv5.types.eu.x_road.rr.producer.RR436Document.RR436;
-import com.nortal.jroad.client.rrv5.types.eu.x_road.rr.producer.RR436RequestType;
-import com.nortal.jroad.client.rrv5.types.eu.x_road.rr.producer.RR436ResponseDocument.RR436Response;
-import com.nortal.jroad.client.rrv5.types.eu.x_road.rr.producer.RR50SurnudIsikuteLeidmineDocument.RR50SurnudIsikuteLeidmine;
-import com.nortal.jroad.client.rrv5.types.eu.x_road.rr.producer.RR50SurnudIsikuteLeidmineRequestType;
-import com.nortal.jroad.client.rrv5.types.eu.x_road.rr.producer.RR50SurnudIsikuteLeidmineResponseDocument.RR50SurnudIsikuteLeidmineResponse;
-import com.nortal.jroad.client.rrv5.types.eu.x_road.rr.producer.RR71FailDownloadDocument.RR71FailDownload;
-import com.nortal.jroad.client.rrv5.types.eu.x_road.rr.producer.RR71FailDownloadResponseDocument.RR71FailDownloadResponse;
+import com.nortal.jroad.client.rrv5.types.eu.x_road.rr.producer.RR81KMAisikkontrollDocument.RR81KMAisikkontroll;
+import com.nortal.jroad.client.rrv5.types.eu.x_road.rr.producer.RR81KMAisikkontrollRequestType;
+import com.nortal.jroad.client.rrv5.types.eu.x_road.rr.producer.RR81KMAisikkontrollResponseDocument.RR81KMAisikkontrollResponse;
 import com.nortal.jroad.client.service.MetaserviceOperations;
 import com.nortal.jroad.client.service.callback.v4.XRoadMessageCallbackNamespaceStrategy;
 import com.nortal.jroad.client.service.v4.XRoadDatabaseService;
-import org.apache.commons.codec.binary.Base64;
+import com.nortal.jroad.client.util.XmlBeansUtil;
+import org.apache.xmlbeans.XmlString;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
 
 /**
  * @author Anti Orgla
@@ -44,63 +31,20 @@ public class Rrv5XRoadServiceImpl extends XRoadDatabaseService implements Rrv5XR
   }
 
   @Override
-  public RR435Response findRR435(String legalCode) throws XTeeServiceConsumptionException {
-    RR435 paring = RR435.Factory.newInstance();
-    paring.addNewRequest().setIsikukood(legalCode);
-
-    return rrv5XRoadDatabase.rr435V1(paring);
-  }
-
-  @Override
-  public RR436Response findRR436(List<String> idCodes) throws XTeeServiceConsumptionException {
-
-    String base64 = null;
-    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    ZipOutputStream zipStream = new ZipOutputStream(outputStream);
-    ZipEntry entry = new ZipEntry("rr436_idcodes.txt");
-    try {
-      zipStream.putNextEntry(entry);
-      for (String isikukood : idCodes) {
-        zipStream.write(isikukood.getBytes("UTF-8"));
-        zipStream.write(System.getProperty("line.separator").getBytes("UTF-8"));
-      }
-
-      zipStream.closeEntry();
-      zipStream.close();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    byte[] bytes = outputStream.toByteArray();
-    base64 = Base64.encodeBase64String(bytes);
-
-    RR436 paring = RR436.Factory.newInstance();
-    RR436RequestType request = paring.addNewRequest();
-    request.setIsikukoodideArv(String.valueOf(idCodes.size()));
-    request.setCFailiSisu(base64);
-
-    return rrv5XRoadDatabase.rr436V1(paring);
-  }
-
-  @Override
-  public RR71FailDownloadResponse findRR71(String orderNr) throws XTeeServiceConsumptionException {
-    RR71FailDownload paring = RR71FailDownload.Factory.newInstance();
-    paring.addNewRequest().setCFailiNimi(orderNr);
-
-    return rrv5XRoadDatabase.rr71FailDownloadV1(paring);
-  }
-
-  public RR50SurnudIsikuteLeidmineResponse findRR50(Date date) throws XTeeServiceConsumptionException {
-    RR50SurnudIsikuteLeidmine rr50SurnudIsikuteLeidmine = RR50SurnudIsikuteLeidmine.Factory.newInstance();
-    RR50SurnudIsikuteLeidmineRequestType request = rr50SurnudIsikuteLeidmine.addNewRequest();
-    Calendar kuupaev = Calendar.getInstance();
-    kuupaev.setTime(date);
-    request.setKuupaev(kuupaev);
-    return rrv5XRoadDatabase.rr50SurnudIsikuteLeidmineV1(rr50SurnudIsikuteLeidmine);
-  }
-
-  @Override
   public Integer getState() throws XTeeServiceConsumptionException {
     return metaserviceOperations.getState(new XRoadMessageCallbackNamespaceStrategy());
+  }
+
+  @Override
+  public RR81KMAisikkontrollResponse getRR81KMAisikkontrollV2(String idCode) throws XTeeServiceConsumptionException {
+    RR81KMAisikkontroll rr81KMAisikkontroll = RR81KMAisikkontroll.Factory.newInstance();
+
+    RR81KMAisikkontrollRequestType request = rr81KMAisikkontroll.addNewRequest();
+
+    XmlString isikukoodElement = XmlBeansUtil.getAttributedXmlString(idCode);
+    request.xsetIsikukood(isikukoodElement);
+
+    return rrv5XRoadDatabase.rr81KMAisikkontrollV2(rr81KMAisikkontroll);
   }
 
 }

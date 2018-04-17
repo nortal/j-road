@@ -9,12 +9,20 @@ import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR41IsikPohiandmed
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR41IsikPohiandmedResponseDocument.RR41IsikPohiandmedResponse;
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR42IsikAadressKoodDocument.RR42IsikAadressKood;
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR42IsikAadressKoodResponseDocument.RR42IsikAadressKoodResponse;
+import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR435Document.RR435;
+import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR435ResponseDocument.RR435Response;
+import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR436Document.RR436;
+import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR436ResponseDocument.RR436Response;
+import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR50SurnudIsikuteLeidmineDocument.RR50SurnudIsikuteLeidmine;
+import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR50SurnudIsikuteLeidmineResponseDocument.RR50SurnudIsikuteLeidmineResponse;
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR52Document.RR52;
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR52ResponseDocument.RR52Response;
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR63IsikAadrDokDocument.RR63IsikAadrDok;
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR63IsikAadrDokResponseDocument.RR63IsikAadrDokResponse;
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR67MuutusResponseDocument.RR67MuutusResponse;
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR67MuutusResponseType.TtKood.TtKoodid;
+import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR71FailDownloadDocument.RR71FailDownload;
+import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR71FailDownloadResponseDocument.RR71FailDownloadResponse;
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR72IsikResponseType.TtIsik;
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR72IsikResponseType.TtIsik.TtIsikud;
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR81KMAisikkontrollDocument.RR81KMAisikkontroll;
@@ -25,16 +33,22 @@ import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR96IsikDokElukSuh
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR96IsikDokElukSuheResponseDocument.RR96IsikDokElukSuheResponse;
 import com.nortal.jroad.client.service.MetaserviceOperations;
 import com.nortal.jroad.client.util.XmlBeansUtil;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import org.apache.xmlbeans.XmlString;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 /**
  * @author Roman Tekhov
@@ -52,10 +66,12 @@ public class RrXRoadServiceImpl implements RrXRoadService {
     metaserviceOperations = new MetaserviceOperations(rrXRoadDatabase);
   }
 
+  @Override
   public Integer getState() throws XTeeServiceConsumptionException {
     return metaserviceOperations.getState();
   }
 
+  @Override
   public RR42IsikAadressKoodResponse findRR42isikAadressKood(RR42RequestCallback callback)
       throws XTeeServiceConsumptionException {
     RR42IsikAadressKood paring = RR42IsikAadressKood.Factory.newInstance();
@@ -65,6 +81,7 @@ public class RrXRoadServiceImpl implements RrXRoadService {
     return rrXRoadDatabase.rr42IsikAadressKoodV1(paring);
   }
 
+  @Override
   public RR40IsikTaielikIsikukoodResponse findRR40isikTaielikIsikukood(String isikukood)
       throws XTeeServiceConsumptionException {
     RR40IsikTaielikIsikukood rr40IsikTaielikIsikukood = RR40IsikTaielikIsikukood.Factory.newInstance();
@@ -75,6 +92,7 @@ public class RrXRoadServiceImpl implements RrXRoadService {
     return rrXRoadDatabase.rr40IsikTaielikIsikukoodV1(rr40IsikTaielikIsikukood);
   }
 
+  @Override
   public List<TtIsikud> findRR72Isik(String... idCodes) throws XTeeServiceConsumptionException {
     RR72IsikDocument.RR72Isik rr72Isik = RR72IsikDocument.RR72Isik.Factory.newInstance();
     RR72IsikRequestType request = rr72Isik.addNewRequest();
@@ -88,6 +106,7 @@ public class RrXRoadServiceImpl implements RrXRoadService {
     return ttIsik != null ? ttIsik.getTtIsikudList() : Collections.<TtIsikud> emptyList();
   }
 
+  @Override
   public RR63IsikAadrDokResponse findRR63IsikAadrDok(String surname, String firstName, String idCode, String birthDate)
       throws XTeeServiceConsumptionException {
     RR63IsikAadrDok rr63IsikAadrDok = RR63IsikAadrDok.Factory.newInstance();
@@ -105,6 +124,7 @@ public class RrXRoadServiceImpl implements RrXRoadService {
     return rrXRoadDatabase.rr63IsikAadrDokV1(rr63IsikAadrDok);
   }
 
+  @Override
   public RR81KMAisikkontrollResponse getRR81KMAisikkontrollV1(String idCode) throws XTeeServiceConsumptionException {
     RR81KMAisikkontroll rr81KMAisikkontroll = RR81KMAisikkontroll.Factory.newInstance();
 
@@ -116,17 +136,7 @@ public class RrXRoadServiceImpl implements RrXRoadService {
     return rrXRoadDatabase.rr81KMAisikkontrollV1(rr81KMAisikkontroll);
   }
 
-  public RR81KMAisikkontrollResponse getRR81KMAisikkontrollV2(String idCode) throws XTeeServiceConsumptionException {
-    RR81KMAisikkontroll rr81KMAisikkontroll = RR81KMAisikkontroll.Factory.newInstance();
-
-    RR81KMAisikkontrollRequestType request = rr81KMAisikkontroll.addNewRequest();
-
-    XmlString isikukoodElement = XmlBeansUtil.getAttributedXmlString(idCode);
-    request.xsetIsikukood(isikukoodElement);
-
-    return rrXRoadDatabase.rr81KMAisikkontrollV2(rr81KMAisikkontroll);
-  }
-
+  @Override
   public RR52Response getRR52(String idCode, String forename, String surname) throws XTeeServiceConsumptionException {
     RR52 rr52 = RR52.Factory.newInstance();
 
@@ -144,6 +154,7 @@ public class RrXRoadServiceImpl implements RrXRoadService {
     return rrXRoadDatabase.rr52V1(rr52);
   }
 
+  @Override
   public RR96IsikDokElukSuheResponse getRR96isikDokElukSuhe(final String isikueesnimi,
                                                             final String isikuperenimi,
                                                             final String isikukood,
@@ -161,6 +172,7 @@ public class RrXRoadServiceImpl implements RrXRoadService {
     return rrXRoadDatabase.rr96IsikDokElukSuheV1(rr96IsikDokElukSuhe);
   }
 
+  @Override
   public List<TtKoodid> findRR67MuutusV1(Date algus, Date lopp, String... koodid)
       throws XTeeServiceConsumptionException {
     RR67MuutusDocument.RR67Muutus rr67Muutus = RR67MuutusDocument.RR67Muutus.Factory.newInstance();
@@ -191,6 +203,7 @@ public class RrXRoadServiceImpl implements RrXRoadService {
     return ttKood != null ? ttKood.getTtKoodidList() : Collections.<TtKoodid> emptyList();
   }
 
+  @Override
   public RR84IsikuSeosedResponse findRR84IsikuSeosed(String isikukood) throws XTeeServiceConsumptionException {
     RR84IsikuSeosed rr84IsikuSeosed = RR84IsikuSeosed.Factory.newInstance();
     RR84IsikuSeosedRequestType request = rr84IsikuSeosed.addNewRequest();
@@ -198,6 +211,7 @@ public class RrXRoadServiceImpl implements RrXRoadService {
     return rrXRoadDatabase.rr84IsikuSeosedV1(rr84IsikuSeosed);
   }
 
+  @Override
   public RR41IsikPohiandmedResponse findRR41isikPohiandmedV1(String perenimi,
                                                              String eesnimi,
                                                              String isikukood,
@@ -217,6 +231,60 @@ public class RrXRoadServiceImpl implements RrXRoadService {
     request.setMitu(String.valueOf(vastusteArv));
 
     return rrXRoadDatabase.rr41IsikPohiandmedV1(rr41IsikPohiandmed);
+  }
+
+  @Override
+  public RR435Response findRR435(String legalCode) throws XTeeServiceConsumptionException {
+    RR435 paring = RR435.Factory.newInstance();
+    paring.addNewRequest().setIsikukood(legalCode);
+
+    return rrXRoadDatabase.rr435V1(paring);
+  }
+
+  @Override
+  public RR436Response findRR436(List<String> idCodes) throws XTeeServiceConsumptionException {
+
+    String base64 = null;
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    ZipOutputStream zipStream = new ZipOutputStream(outputStream);
+    ZipEntry entry = new ZipEntry("rr436_idcodes.txt");
+    try {
+      zipStream.putNextEntry(entry);
+      for (String isikukood : idCodes) {
+        zipStream.write(isikukood.getBytes("UTF-8"));
+        zipStream.write(System.getProperty("line.separator").getBytes("UTF-8"));
+      }
+
+      zipStream.closeEntry();
+      zipStream.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    byte[] bytes = outputStream.toByteArray();
+    base64 = Base64.encodeBase64String(bytes);
+
+    RR436 paring = RR436.Factory.newInstance();
+    RR436RequestType request = paring.addNewRequest();
+    request.setIsikukoodideArv(String.valueOf(idCodes.size()));
+    request.setCFailiSisu(base64);
+
+    return rrXRoadDatabase.rr436V1(paring);
+  }
+
+  @Override
+  public RR71FailDownloadResponse findRR71(String orderNr) throws XTeeServiceConsumptionException {
+    RR71FailDownload paring = RR71FailDownload.Factory.newInstance();
+    paring.addNewRequest().setCFailiNimi(orderNr);
+
+    return rrXRoadDatabase.rr71FailDownloadV1(paring);
+  }
+
+  @Override
+  public RR50SurnudIsikuteLeidmineResponse findRR50(Date date) throws XTeeServiceConsumptionException {
+    RR50SurnudIsikuteLeidmine rr50SurnudIsikuteLeidmine = RR50SurnudIsikuteLeidmine.Factory.newInstance();
+    RR50SurnudIsikuteLeidmineRequestType request = rr50SurnudIsikuteLeidmine.addNewRequest();
+    request.setKuupaev(new SimpleDateFormat("dd.MM.yyyy").format(date));
+    return rrXRoadDatabase.rr50SurnudIsikuteLeidmineV1(rr50SurnudIsikuteLeidmine);
   }
 
 }

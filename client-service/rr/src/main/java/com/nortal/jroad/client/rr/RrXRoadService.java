@@ -6,9 +6,13 @@ import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR40IsikTaielikIsi
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR41IsikPohiandmedResponseDocument.RR41IsikPohiandmedResponse;
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR42IsikAadressKoodDocument.RR42IsikAadressKood;
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR42IsikAadressKoodResponseDocument.RR42IsikAadressKoodResponse;
+import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR435ResponseDocument.RR435Response;
+import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR436ResponseDocument.RR436Response;
+import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR50SurnudIsikuteLeidmineResponseDocument.RR50SurnudIsikuteLeidmineResponse;
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR52ResponseDocument.RR52Response;
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR63IsikAadrDokResponseDocument.RR63IsikAadrDokResponse;
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR67MuutusResponseType.TtKood.TtKoodid;
+import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR71FailDownloadResponseDocument.RR71FailDownloadResponse;
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR72IsikResponseType.TtIsik.TtIsikud;
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR81KMAisikkontrollResponseDocument.RR81KMAisikkontrollResponse;
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR84IsikuSeosedResponseDocument.RR84IsikuSeosedResponse;
@@ -41,11 +45,6 @@ public interface RrXRoadService {
    * <code>rr.RR81KMAisikkontroll.v1</code> service.
    */
   RR81KMAisikkontrollResponse getRR81KMAisikkontrollV1(String idCode) throws XTeeServiceConsumptionException;
-
-  /**
-   * <code>rr.RR81KMAisikkontroll.v2</code> service.
-   */
-  RR81KMAisikkontrollResponse getRR81KMAisikkontrollV2(String idCode) throws XTeeServiceConsumptionException;
 
   /**
    * <code>rr.RR40isikTaielikIsikukood.v1</code> service.
@@ -96,5 +95,19 @@ public interface RrXRoadService {
                                                       IsikuStaatus staatus,
                                                       Long vastusteArv)
       throws XTeeServiceConsumptionException;
+
+  /**
+   * <code>rr.RR435.v1</code> service.
+   */
+  RR435Response findRR435(String legalCode) throws XTeeServiceConsumptionException;
+
+  /**
+   * <code>rr.RR436.v1</code> service.
+   */
+  RR436Response findRR436(List<String> idCodes) throws XTeeServiceConsumptionException;
+
+  RR71FailDownloadResponse findRR71(String orderNr) throws XTeeServiceConsumptionException;
+
+  RR50SurnudIsikuteLeidmineResponse findRR50(Date date) throws XTeeServiceConsumptionException;
 
 }
