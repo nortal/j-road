@@ -25,8 +25,6 @@ import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR71FailDownloadDo
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR71FailDownloadResponseDocument.RR71FailDownloadResponse;
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR72IsikResponseType.TtIsik;
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR72IsikResponseType.TtIsik.TtIsikud;
-import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR81KMAisikkontrollDocument.RR81KMAisikkontroll;
-import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR81KMAisikkontrollResponseDocument.RR81KMAisikkontrollResponse;
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR84IsikuSeosedDocument.RR84IsikuSeosed;
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR84IsikuSeosedResponseDocument.RR84IsikuSeosedResponse;
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR96IsikDokElukSuheDocument.RR96IsikDokElukSuhe;
@@ -43,7 +41,6 @@ import javax.annotation.Resource;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -122,18 +119,6 @@ public class RrXRoadServiceImpl implements RrXRoadService {
     request.xsetIsikuSynnikuupaev(synnikpElement);
 
     return rrXRoadDatabase.rr63IsikAadrDokV1(rr63IsikAadrDok);
-  }
-
-  @Override
-  public RR81KMAisikkontrollResponse getRR81KMAisikkontrollV1(String idCode) throws XTeeServiceConsumptionException {
-    RR81KMAisikkontroll rr81KMAisikkontroll = RR81KMAisikkontroll.Factory.newInstance();
-
-    RR81KMAisikkontrollRequestType request = rr81KMAisikkontroll.addNewRequest();
-
-    XmlString isikukoodElement = XmlBeansUtil.getAttributedXmlString(idCode);
-    request.xsetIsikukood(isikukoodElement);
-
-    return rrXRoadDatabase.rr81KMAisikkontrollV1(rr81KMAisikkontroll);
   }
 
   @Override

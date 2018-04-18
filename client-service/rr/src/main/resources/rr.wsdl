@@ -7,6 +7,7 @@
   <types>
     <schema targetNamespace="http://rr.x-road.eu/producer" xmlns="http://www.w3.org/2001/XMLSchema">
       <import namespace="http://x-road.eu/xsd/xroad.xsd" schemaLocation="http://x-road.eu/xsd/xroad.xsd"></import>
+      <import namespace="http://schemas.xmlsoap.org/soap/encoding/" schemaLocation="http://schemas.xmlsoap.org/soap/encoding/"/>
       <complexType name="XRoadResponseBaseType" abstract="true">
         <sequence>
           <element name="faultCode" type="string" minOccurs="0"/>
@@ -13856,6 +13857,190 @@
         </complexContent>
       </complexType>
 
+      <complexType name="RR436InnerResponseType">
+        <complexContent>
+          <extension base="tns:XRoadResponseBaseType">
+            <sequence>
+
+              <element name="RR436" minOccurs="1" maxOccurs="1">
+                <complexType>
+                  <sequence>
+                    <element name="Veakood" type="integer" minOccurs="0">
+                      <annotation>
+                        <appinfo>
+                          <xrd:title>Kui otsingu tulemusena isik leiti, siis 0, vastasel juhul veakood</xrd:title>
+                        </appinfo>
+                      </annotation>
+                    </element>
+                    <element name="Veatekst" type="string" minOccurs="0">
+                      <annotation>
+                        <appinfo>
+                          <xrd:title>Vea põhjust iseloomustav tekst</xrd:title>
+                        </appinfo>
+                      </annotation>
+                    </element>
+
+                    <element name="Isik" minOccurs="0" maxOccurs="unbounded">
+                      <complexType>
+                        <sequence>
+                          <element name="Isikukood" type="tns:PersonalCode">
+                            <annotation>
+                              <appinfo>
+                                <xrd:title>Isikukood</xrd:title>
+                              </appinfo>
+                            </annotation>
+                          </element>
+                          <element name="Isik.SeotudIsikud">
+                            <annotation>
+                              <appinfo>
+                                <xrd:title>Isiku seosed</xrd:title>
+                              </appinfo>
+                            </annotation>
+                            <complexType>
+                              <complexContent>
+                                <restriction base="SOAP-ENC:Array">
+                                  <sequence>
+                                    <element name="SeotudIsik" minOccurs="0" maxOccurs="unbounded">
+                                      <complexType>
+                                        <sequence>
+                                          <element name="SeotudIsik.SeoseEesNimi" type="string" minOccurs="0"
+                                                   maxOccurs="1">
+                                            <annotation>
+                                              <appinfo>
+                                                <xrd:title>Seoses oleva teise isiku eesnimi</xrd:title>
+                                              </appinfo>
+                                            </annotation>
+                                          </element>
+                                          <element name="SeotudIsik.SeoseNimi" type="string" minOccurs="1"
+                                                   maxOccurs="1">
+                                            <annotation>
+                                              <appinfo>
+                                                <xrd:title>Seoses oleva teise isiku perenimi</xrd:title>
+                                              </appinfo>
+                                            </annotation>
+                                          </element>
+                                          <element name="SeotudIsik.SeoseIsikukood" type="string" minOccurs="0"
+                                                   maxOccurs="1">
+                                            <annotation>
+                                              <appinfo>
+                                                <xrd:title>Seoses oleva teise isiku isikukood</xrd:title>
+                                              </appinfo>
+                                            </annotation>
+                                          </element>
+                                          <element name="SeotudIsik.SeoseTyypKood" type="string" minOccurs="1"
+                                                   maxOccurs="1">
+                                            <annotation>
+                                              <appinfo>
+                                                <xrd:title>Seose liik</xrd:title>
+                                              </appinfo>
+                                            </annotation>
+                                          </element>
+                                          <element name="SeotudIsik.SeoseTyyp" type="string" minOccurs="1"
+                                                   maxOccurs="1">
+                                            <annotation>
+                                              <appinfo>
+                                                <xrd:title>Seose liik</xrd:title>
+                                              </appinfo>
+                                            </annotation>
+                                          </element>
+                                          <element name="SeotudIsik.KehtivAlates" type="tns:date" minOccurs="0"
+                                                   maxOccurs="1">
+                                            <annotation>
+                                              <appinfo>
+                                                <xrd:title>Seose algus</xrd:title>
+                                              </appinfo>
+                                            </annotation>
+                                          </element>
+
+                                          <element name="SeotudIsik.Hooldusoigused" minOccurs="0" maxOccurs="1">
+                                            <complexType>
+                                              <sequence>
+
+                                                <element name="Hooldusoigus" minOccurs="0" maxOccurs="unbounded">
+                                                  <annotation>
+                                                    <appinfo>
+                                                      <xrd:title>Hooldusoigus</xrd:title>
+                                                    </appinfo>
+                                                  </annotation>
+                                                  <complexType>
+                                                    <sequence>
+                                                      <element name="Hooldusoigus.TyypKood" type="string">
+                                                        <annotation>
+                                                          <appinfo>
+                                                            <xrd:title>Hooldusõiguse liigi kood</xrd:title>
+                                                          </appinfo>
+                                                        </annotation>
+                                                      </element>
+
+                                                      <element name="Hooldusoigus.Tyyp" type="string">
+                                                        <annotation>
+                                                          <appinfo>
+                                                            <xrd:title>Hooldusõiguse liik</xrd:title>
+                                                          </appinfo>
+                                                        </annotation>
+                                                      </element>
+                                                      <element name="Hooldusoigus.KehtivAlates" type="tns:date"
+                                                               minOccurs="0">
+                                                        <annotation>
+                                                          <appinfo>
+                                                            <xrd:title>Hooldusõiguse algus</xrd:title>
+                                                          </appinfo>
+                                                        </annotation>
+                                                      </element>
+                                                      <element name="Hooldusoigus.KehtivKuni" type="tns:date"
+                                                               minOccurs="0">
+                                                        <annotation>
+                                                          <appinfo>
+                                                            <xrd:title>Hooldusõiguse lõpp</xrd:title>
+                                                          </appinfo>
+                                                        </annotation>
+                                                      </element>
+                                                      <element name="Hooldusoigus.StaatusKood" type="string"
+                                                               minOccurs="1" maxOccurs="1">
+                                                        <annotation>
+                                                          <appinfo>
+                                                            <xrd:title>Hooldusõiguse staatuse kood</xrd:title>
+                                                          </appinfo>
+                                                        </annotation>
+                                                      </element>
+                                                      <element name="Hooldusoigus.Staatus" type="string"
+                                                               minOccurs="1" maxOccurs="1">
+                                                        <annotation>
+                                                          <appinfo>
+                                                            <xrd:title>Hooldusõiguse staatus</xrd:title>
+                                                          </appinfo>
+                                                        </annotation>
+                                                      </element>
+                                                    </sequence>
+                                                  </complexType>
+                                                </element>
+                                              </sequence>
+                                            </complexType>
+                                          </element>
+
+                                        </sequence>
+                                      </complexType>
+
+
+                                    </element>
+                                  </sequence>
+                                </restriction>
+                              </complexContent>
+
+                            </complexType>
+                          </element>
+
+                        </sequence>
+                      </complexType>
+                    </element>
+                  </sequence>
+                </complexType>
+              </element>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+
       <element name="RR436Response">
         <complexType>
           <sequence>
@@ -25903,499 +26088,6 @@
         </complexType>
       </element>
 
-
-      <complexType name="RR81KMAisikkontrollRequestType">
-        <sequence>
-          <element name="Isikukood" type="string" minOccurs="1" maxOccurs="1">
-            <annotation>
-              <appinfo>
-                <xrd:title>Otsitava isiku isikukood</xrd:title>
-              </appinfo>
-            </annotation>
-          </element>
-          <element name="Eesnimi" type="string" minOccurs="0" maxOccurs="1">
-            <annotation>
-              <appinfo>
-                <xrd:title>Otsitava isiku eesnimi</xrd:title>
-              </appinfo>
-            </annotation>
-          </element>
-          <element name="Perenimi" type="string" minOccurs="0" maxOccurs="1">
-            <annotation>
-              <appinfo>
-                <xrd:title>Otsitava isiku perenimi</xrd:title>
-              </appinfo>
-            </annotation>
-          </element>
-        </sequence>
-      </complexType>
-
-      <element name="RR81KMAisikkontroll">
-        <complexType>
-          <sequence>
-            <element name="request" type="tns:RR81KMAisikkontrollRequestType"></element>
-          </sequence>
-        </complexType>
-      </element>
-
-      <complexType name="RR81KMAisikkontrollResponseType">
-        <complexContent>
-          <extension base="tns:XRoadResponseBaseType">
-            <sequence>
-              <element name="Eesnimi" type="string">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>Eesnimi</xrd:title>
-                  </appinfo>
-                </annotation>
-              </element>
-              <element name="Perenimi" type="string">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>Perenimi</xrd:title>
-                  </appinfo>
-                </annotation>
-              </element>
-              <element name="Isikukood" type="string">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>Isikukood</xrd:title>
-                  </appinfo>
-                </annotation>
-              </element>
-              <element name="Sugu" type="string">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>Sugu</xrd:title>
-                  </appinfo>
-                </annotation>
-              </element>
-              <element name="Synniaeg" type="string">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>Sünniaeg</xrd:title>
-                  </appinfo>
-                </annotation>
-              </element>
-              <element name="Vanaeesnimi" type="string">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>Eelmised, muud eesnimed</xrd:title>
-                  </appinfo>
-                </annotation>
-              </element>
-              <element name="Vanaperenimi" type="string">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>Eelmised, muud perenimed</xrd:title>
-                  </appinfo>
-                </annotation>
-              </element>
-              <element name="Istaatuskd" type="string">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>Isiku oleku kood</xrd:title>
-                  </appinfo>
-                </annotation>
-              </element>
-              <element name="Istaatus" type="string">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>Isiku olek</xrd:title>
-                  </appinfo>
-                </annotation>
-              </element>
-              <element name="Kstaatuskd" type="string">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>Kirje oleku kood</xrd:title>
-                  </appinfo>
-                </annotation>
-              </element>
-              <element name="Kstaatus" type="string">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>Kirje olek</xrd:title>
-                  </appinfo>
-                </annotation>
-              </element>
-              <element name="Kodakondsus" type="string">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>Kodakondsus</xrd:title>
-                  </appinfo>
-                </annotation>
-              </element>
-              <element name="Synnikoht" type="string">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>Sünnikoht</xrd:title>
-                  </appinfo>
-                </annotation>
-              </element>
-              <element name="EOkuni" type="string">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>Elamisõiguse kehtivus kuni</xrd:title>
-                  </appinfo>
-                </annotation>
-              </element>
-              <element name="EOalates" type="string">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>Elamisõiguse kehtivus alates</xrd:title>
-                  </appinfo>
-                </annotation>
-              </element>
-              <element name="EOstaatus" type="string">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>Elamisõiguse kehtivus</xrd:title>
-                  </appinfo>
-                </annotation>
-              </element>
-              <element name="Pereseis" type="string">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>Perekonnaseisu kood</xrd:title>
-                  </appinfo>
-                </annotation>
-              </element>
-              <element name="Pereseisukuup" type="string">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>Perekonnaseisu muutmise kuupäev</xrd:title>
-                  </appinfo>
-                </annotation>
-              </element>
-              <element name="Surmaaktnr" type="string">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>Surmaakti number</xrd:title>
-                  </appinfo>
-                </annotation>
-              </element>
-              <element name="Surmakuupaev" type="string">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>Surmakuupäev</xrd:title>
-                  </appinfo>
-                </annotation>
-              </element>
-              <element name="Veakood" type="integer">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>veakood</xrd:title>
-                  </appinfo>
-                </annotation>
-              </element>
-              <element name="Veatekst" type="string">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>Veatekst</xrd:title>
-                  </appinfo>
-                </annotation>
-              </element>
-              <element name="Isikudokid">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>Dokumentide loetelu</xrd:title>
-                  </appinfo>
-                </annotation>
-                <complexType>
-                  <sequence>
-                    <element name="Isikudok" minOccurs="0" maxOccurs="unbounded">
-                      <complexType>
-                        <sequence>
-                          <element name="Isikudok.Dokliik" type="string">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Dokumendi nimetus</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="Isikudok.Doknr" type="string">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Dokumendi number</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                        </sequence>
-                      </complexType>
-                    </element>
-                  </sequence>
-                </complexType>
-              </element>
-              <element name="Seotud_isikud">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>Isiku seosed</xrd:title>
-                  </appinfo>
-                </annotation>
-                <complexType>
-                  <sequence>
-                    <element name="Seotud_isik" minOccurs="0" maxOccurs="unbounded">
-                      <complexType>
-                        <sequence>
-                          <element name="Seotud_isikud.Eesnimi" type="string">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Eesnimi</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="Seotud_isikud.Perenimi" type="string">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Perenimi</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="Seotud_isikud.Isikukood" type="string">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Isikukood</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="Seotud_isikud.Sugu" type="string">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Isiku sugu</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="Seotud_isikud.Synniaeg" type="string">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Sünniaeg</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="Seotud_isikud.IstaatusKd" type="string">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Isiku oleku kood</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="Seotud_isikud.Istaatus" type="string">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Isiku olek</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="Seotud_isikud.Kstaatuskd" type="string">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Kirje oleku kood</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="Seotud_isikud.Kstaatus" type="string">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Kirje olek</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="Seotud_isikud.Alates" type="string">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Alates</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="Seotud_isikud.Kuni" type="string">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Kuni</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="Seotud_isikud.SuheTyyp" type="string">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Seose tüüp</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                        </sequence>
-                      </complexType>
-                    </element>
-                  </sequence>
-                </complexType>
-              </element>
-              <element name="Sama_aadressiga">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>Samal aadressil elavad isikud</xrd:title>
-                  </appinfo>
-                </annotation>
-                <complexType>
-                  <sequence>
-                    <element name="Sama_aadress" minOccurs="0" maxOccurs="unbounded">
-                      <complexType>
-                        <sequence>
-                          <element name="Sama_aadressiga.Eesnimi" type="string">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Eesnimi</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="Sama_aadressiga.Perenimi" type="string">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Perenimi</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="Sama_aadressiga.Isikukood" type="string">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Isikukood</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="Sama_aadressiga.Sugu" type="string">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Sugu</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="Sama_aadressiga.Synniaeg" type="string">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Isiku sünniaeg</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                        </sequence>
-                      </complexType>
-                    </element>
-                  </sequence>
-                </complexType>
-              </element>
-              <element name="Elukohad">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>Põhielukoha andmed</xrd:title>
-                  </appinfo>
-                </annotation>
-                <complexType>
-                  <sequence>
-                    <element name="Elukoht" minOccurs="0" maxOccurs="unbounded">
-                      <complexType>
-                        <sequence>
-                          <element name="Elukoht.Riikkd" type="string">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Riik</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="Elukoht.Maakond" type="string">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Maakond</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="Elukoht.Linn" type="string">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Vald, Linn</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="Elukoht.Asula" type="string">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Asula, linnaosa</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="Elukoht.Vkoht" type="string">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Väikekoht</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="Elukoht.Tanav" type="string">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Tänav</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="Elukoht.Nimi" type="string">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Nimi</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="Elukoht.Maja" type="string">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Maja</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="Elukoht.Korter" type="string">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Korter</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="Elukoht.Sihtnumber" type="string">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Sihtnumber</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="Elukoht.Alates" type="string">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Alates</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="Elukoht.Kuni" type="string">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Kuni</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                        </sequence>
-                      </complexType>
-                    </element>
-                  </sequence>
-                </complexType>
-              </element>
-            </sequence>
-          </extension>
-        </complexContent>
-      </complexType>
-
-      <element name="RR81KMAisikkontrollResponse">
-        <complexType>
-          <sequence>
-            <element name="request" type="tns:RR81KMAisikkontrollRequestType"></element>
-            <element name="response" type="tns:RR81KMAisikkontrollResponseType"></element>
-          </sequence>
-        </complexType>
-      </element>
-
-
       <complexType name="RR82KMAviisaandmedRequestType">
         <sequence>
           <element name="Isikukood" type="string" minOccurs="1" maxOccurs="1">
@@ -33643,12 +33335,6 @@
   <message name="RR80KMAisikuandmedResponse">
     <part name="body" element="tns:RR80KMAisikuandmedResponse"></part>
   </message>
-  <message name="RR81KMAisikkontroll">
-    <part name="body" element="tns:RR81KMAisikkontroll"></part>
-  </message>
-  <message name="RR81KMAisikkontrollResponse">
-    <part name="body" element="tns:RR81KMAisikkontrollResponse"></part>
-  </message>
   <message name="RR82KMAviisaandmed">
     <part name="body" element="tns:RR82KMAviisaandmed"></part>
   </message>
@@ -34847,20 +34533,6 @@
       </documentation>
       <input message="tns:RR80KMAisikuandmed"></input>
       <output message="tns:RR80KMAisikuandmedResponse"></output>
-    </operation>
-    <operation name="RR81KMAisikkontroll">
-      <documentation>
-        <xrd:title xml:lang="et">RR81_v1 - Isikuandmete, dokumentide ja suhete päring isikukoodi ja nimede järgi
-          infosüsteemi jaoks.
-        </xrd:title>
-        <xrd:notes xml:lang="et">RR81_v1 - Teenus tagastab sisendis edastatud isikukoodile ja/või eesnimele või
-          algusele ja/või perenimele või algusele vastava isiku põhiandmed, elamisõiguse kehtivuse andmed,
-          surmaandmed, dokumentide andmed, suhete andmed, samal aadressil elavate isikute andmed, põhielukoha
-          andmed
-        </xrd:notes>
-      </documentation>
-      <input message="tns:RR81KMAisikkontroll"></input>
-      <output message="tns:RR81KMAisikkontrollResponse"></output>
     </operation>
     <operation name="RR82KMAviisaandmed">
       <documentation>
@@ -37209,27 +36881,6 @@
       </output>
     </operation>
     <operation name="RR80KMAisikuandmed">
-      <soap:operation soapAction="uri" style="document"></soap:operation>
-      <xrd:version>v1</xrd:version>
-      <input>
-        <soap:body use="literal"></soap:body>
-        <soap:header message="tns:requestHeader" part="client" use="literal"></soap:header>
-        <soap:header message="tns:requestHeader" part="service" use="literal"></soap:header>
-        <soap:header message="tns:requestHeader" part="userId" use="literal"></soap:header>
-        <soap:header message="tns:requestHeader" part="id" use="literal"></soap:header>
-        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"></soap:header>
-      </input>
-      <output>
-        <soap:body use="literal"></soap:body>
-        <soap:header message="tns:requestHeader" part="client" use="literal"></soap:header>
-        <soap:header message="tns:requestHeader" part="service" use="literal"></soap:header>
-        <soap:header message="tns:requestHeader" part="userId" use="literal"></soap:header>
-        <soap:header message="tns:requestHeader" part="id" use="literal"></soap:header>
-        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"></soap:header>
-        <soap:header message="tns:requestHeader" part="requestHash" use="literal"></soap:header>
-      </output>
-    </operation>
-    <operation name="RR81KMAisikkontroll">
       <soap:operation soapAction="uri" style="document"></soap:operation>
       <xrd:version>v1</xrd:version>
       <input>

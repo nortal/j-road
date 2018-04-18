@@ -12,7 +12,6 @@ import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR52ResponseType.D
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR63IsikAadrDokResponseDocument.RR63IsikAadrDokResponse;
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR67MuutusResponseType.TtKood.TtKoodid;
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR72IsikResponseType.TtIsik.TtIsikud;
-import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR81KMAisikkontrollResponseDocument.RR81KMAisikkontrollResponse;
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR96IsikDokElukSuheResponseDocument.RR96IsikDokElukSuheResponse;
 import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
 import com.nortal.jroad.client.util.XmlBeansUtil;
@@ -55,15 +54,6 @@ public class RrXRoadServiceImplTest extends BaseXTeeServiceImplTest {
 
     Assert.assertNotNull(response.getResponse());
     Assert.assertTrue(response.getResponse().getIsikud().sizeOfIsikuandmedArray() > 0);
-  }
-
-  @Test
-  public void getRR81KMAisikkontroll() throws XTeeServiceConsumptionException {
-    RR81KMAisikkontrollResponse response = rrXRoadServiceImpl.getRR81KMAisikkontrollV1("37707010014");
-
-    Assert.assertNotNull(response.getResponse());
-    Assert.assertEquals("PEKKA", response.getResponse().getEesnimi());
-    Assert.assertEquals("01.07.1977", response.getResponse().getSynniaeg());
   }
 
   @Test

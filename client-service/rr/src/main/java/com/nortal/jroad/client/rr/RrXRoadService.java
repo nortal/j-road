@@ -14,7 +14,6 @@ import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR63IsikAadrDokRes
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR67MuutusResponseType.TtKood.TtKoodid;
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR71FailDownloadResponseDocument.RR71FailDownloadResponse;
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR72IsikResponseType.TtIsik.TtIsikud;
-import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR81KMAisikkontrollResponseDocument.RR81KMAisikkontrollResponse;
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR84IsikuSeosedResponseDocument.RR84IsikuSeosedResponse;
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR96IsikDokElukSuheResponseDocument.RR96IsikDokElukSuheResponse;
 
@@ -40,11 +39,6 @@ public interface RrXRoadService {
    */
   RR63IsikAadrDokResponse findRR63IsikAadrDok(String surname, String firstName, String idCode, String birthDate)
       throws XTeeServiceConsumptionException;
-
-  /**
-   * <code>rr.RR81KMAisikkontroll.v1</code> service.
-   */
-  RR81KMAisikkontrollResponse getRR81KMAisikkontrollV1(String idCode) throws XTeeServiceConsumptionException;
 
   /**
    * <code>rr.RR40isikTaielikIsikukood.v1</code> service.
