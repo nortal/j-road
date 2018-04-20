@@ -10,6 +10,7 @@ import com.nortal.jroad.client.digilugu.types.hl7_orgV3.RCMRIN000031UV01Document
 import com.nortal.jroad.client.exception.NonTechnicalFaultException;
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
 import com.nortal.jroad.client.service.callback.CustomCallback;
+import com.nortal.jroad.client.service.extractor.CustomExtractor;
 import com.nortal.jroad.client.service.v4.XRoadDatabaseService;
 import com.nortal.jroad.model.XTeeMessage;
 import com.nortal.jroad.model.XmlBeansXTeeMessage;
@@ -30,9 +31,10 @@ public class DigiluguXRoadServiceImpl extends XRoadDatabaseService implements Di
     private static final String V1 = "v1";
 
     @Override
-    public RCMRIN000030UV01Document getHl7Document(RCMRIN000029UV01Document input, CustomCallback callback)
+    public RCMRIN000030UV01Document getHl7Document(RCMRIN000029UV01Document input, CustomCallback callback,
+                                                   CustomExtractor customExtractor)
             throws XTeeServiceConsumptionException {
-        Hl7Response vastus = send(input.xmlText(), callback);
+        Hl7Response vastus = send(input.xmlText(), callback, customExtractor);
 
         RCMRIN000030UV01Document document;
         try {
@@ -48,9 +50,10 @@ public class DigiluguXRoadServiceImpl extends XRoadDatabaseService implements Di
     }
 
     @Override
-    public RCMRIN000032UV01Document getHl7TSK(RCMRIN000031UV01Document input, CustomCallback callback) throws
+    public RCMRIN000032UV01Document getHl7TSK(RCMRIN000031UV01Document input, CustomCallback callback,
+                                              CustomExtractor customExtractor) throws
             XTeeServiceConsumptionException {
-        Hl7Response vastus = send(input.xmlText(), callback);
+        Hl7Response vastus = send(input.xmlText(), callback, customExtractor);
 
         RCMRIN000032UV01Document document;
         try {
@@ -65,12 +68,13 @@ public class DigiluguXRoadServiceImpl extends XRoadDatabaseService implements Di
 
     }
 
-    private Hl7Response send(String input, CustomCallback callback) throws XTeeServiceConsumptionException {
+    private Hl7Response send(String input, CustomCallback callback, CustomExtractor customExtractor) throws
+            XTeeServiceConsumptionException {
         Hl7Document.Hl7 hl7 = Hl7Document.Hl7.Factory.newInstance();
         Hl7Paring paring = hl7.addNewRequest();
         paring.setHl7InputMessage(XML + input);
         XTeeMessage<Hl7Response> response = send(new XmlBeansXTeeMessage<Hl7Document.Hl7>(hl7), "hl7", "v1", callback,
-                null);
+                customExtractor);
         return response.getContent();
     }
 
