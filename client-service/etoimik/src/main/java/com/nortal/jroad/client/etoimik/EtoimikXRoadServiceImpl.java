@@ -1,6 +1,5 @@
 package com.nortal.jroad.client.etoimik;
 
-import com.nortal.jroad.client.etoimik.types.eu.x_road.etoimik.KARRParinguVastus.KarrIsikuteValjavote;
 import com.nortal.jroad.client.etoimik.types.eu.x_road.etoimik.LeiaToovoimetuteKaristusedDocument;
 import com.nortal.jroad.client.etoimik.types.eu.x_road.etoimik.LeiaToovoimetuteKaristusedResponseDocument;
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
@@ -30,7 +29,7 @@ public class EtoimikXRoadServiceImpl extends XRoadDatabaseService implements Eto
         super.init();
     }
 
-    public KarrIsikuteValjavote leiaToovoimetuteKaristused(LeiaToovoimetuteKaristusedDocument.LeiaToovoimetuteKaristused request)
+    public LeiaToovoimetuteKaristusedResponseDocument.LeiaToovoimetuteKaristusedResponse leiaToovoimetuteKaristused(LeiaToovoimetuteKaristusedDocument.LeiaToovoimetuteKaristused request)
             throws XTeeServiceConsumptionException {
         Etoimikv6Callback callback = new Etoimikv6Callback();
         callback.setName(request.getRequest().getKasutaja().getKoosnimi());
@@ -38,7 +37,7 @@ public class EtoimikXRoadServiceImpl extends XRoadDatabaseService implements Eto
                 send(new XmlBeansXTeeMessage<LeiaToovoimetuteKaristusedDocument.LeiaToovoimetuteKaristused>(request),
                         "LeiaToovoimetuteKaristused", "v5", callback, null);
 
-        return karrVastus.getContent().getResponse().getKarrIsikuteValjavote();
+        return karrVastus.getContent();
     }
 
     private class Etoimikv6Callback extends CustomCallback {
