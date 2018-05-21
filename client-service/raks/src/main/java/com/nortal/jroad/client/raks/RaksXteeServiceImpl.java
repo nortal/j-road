@@ -22,7 +22,9 @@ public class RaksXteeServiceImpl implements RaksXteeService {
       throws XTeeServiceConsumptionException {
     TaotlejaKaitseSaajaV1 input = TaotlejaKaitseSaajaV1.Factory.newInstance();
     TaotlejaKaitseSaajaV1Input raksTootukassaInput = TaotlejaKaitseSaajaV1Input.Factory.newInstance();
-    raksTootukassaInput.setIsikukood(isikukood);
+    if(isikukood != null){
+      raksTootukassaInput.setIsikukood(isikukood);
+    }
     raksTootukassaInput.setVptunnistusNr(vptunnistusNr);
     raksTootukassaInput.setKuupaev(kuupaev);
     input.setRequest(raksTootukassaInput);
