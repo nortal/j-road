@@ -1,135 +1,159 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://raks.x-road.eu/producer/" xmlns:xrd="http://x-road.eu/xsd/xroad.xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" targetNamespace="http://raks.x-road.eu/producer/">
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  xmlns:tns="http://raks.x-road.eu/producer/"
+                  xmlns:xrd="http://x-road.eu/xsd/xroad.xsd"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+                  xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+                  targetNamespace="http://raks.x-road.eu/producer/">
   <wsdl:types>
-    <schema targetNamespace="http://raks.x-road.eu/producer/" xmlns="http://www.w3.org/2001/XMLSchema">
+    <schema targetNamespace="http://raks.x-road.eu/producer/"
+            xmlns="http://www.w3.org/2001/XMLSchema">
 
-      <import namespace="http://x-road.eu/xsd/x-road.xsd" schemaLocation="http://x-road.eu/xsd/x-road.xsd"/>
+      <xsd:import namespace="http://x-road.eu/xsd/xroad.xsd" schemaLocation="http://x-road.eu/xsd/xroad.xsd"/>
 
       <complexType name="taotleja_kaitse_saaja_v1_input">
-	<sequence>
-	  <element name="isikukood" type="string" minOccurs="0">
-	    <annotation>
+        <sequence>
+          <element name="isikukood" type="string" minOccurs="0">
+            <annotation>
               <appinfo>
-		<xrd:title xml:lang="et">Isikukood</xrd:title>
+                <xrd:title xml:lang="et">Isikukood</xrd:title>
               </appinfo>
-	    </annotation>
-	  </element>
-	  <element name="vptunnistus_nr" type="string" minOccurs="0">
-	    <annotation>
+            </annotation>
+          </element>
+          <element name="vptunnistus_nr" type="string" minOccurs="0">
+            <annotation>
               <appinfo>
-		<xrd:title xml:lang="et">Varjupaigataotleja tunnistuse number</xrd:title>
+                <xrd:title xml:lang="et">Varjupaigataotleja tunnistuse number</xrd:title>
               </appinfo>
-	    </annotation>
-	  </element>
-	  <element name="kuupaev" type="date" minOccurs="0">
-	    <annotation>
+            </annotation>
+          </element>
+          <element name="kuupaev" type="date" minOccurs="0">
+            <annotation>
               <appinfo>
-		<xrd:title xml:lang="et">Kuupäev</xrd:title>
+                <xrd:title xml:lang="et">Kuupäev</xrd:title>
               </appinfo>
-	    </annotation>
-	  </element>
-	</sequence>
+            </annotation>
+          </element>
+        </sequence>
       </complexType>
-      
+
       <complexType name="taotleja_kaitse_saaja_v1_output">
-	<sequence>
-	  <element name="viga" type="string" minOccurs="0">
-	    <annotation>
+        <sequence>
+          <element name="viga" type="string" minOccurs="0">
+            <annotation>
               <appinfo>
-		<xrd:title xml:lang="et">Viga</xrd:title>
+                <xrd:title xml:lang="et">Viga</xrd:title>
               </appinfo>
-	    </annotation>
-	  </element>
-	  <element name="andmed" type="tns:andmed" minOccurs="0">
-	    <annotation>
+            </annotation>
+          </element>
+          <element name="andmed" type="tns:andmed" minOccurs="0">
+            <annotation>
               <appinfo>
-		<xrd:title xml:lang="et">Leitud andmed</xrd:title>
+                <xrd:title xml:lang="et">Leitud andmed</xrd:title>
               </appinfo>
-	    </annotation>
-	  </element>
-	</sequence>
+            </annotation>
+          </element>
+        </sequence>
       </complexType>
-      
+
       <complexType name="andmed">
-	<sequence>
-	  <element name="isikukood" type="string">
-	    <annotation>
+        <sequence>
+          <element name="isikukood" type="string">
+            <annotation>
               <appinfo>
-		<xrd:title xml:lang="et">Isikukood</xrd:title>
+                <xrd:title xml:lang="et">Isikukood</xrd:title>
               </appinfo>
-	    </annotation>
-	  </element>
-	  <element name="eesnimi" type="string">
-	    <annotation>
+            </annotation>
+          </element>
+          <element name="eesnimi" type="string">
+            <annotation>
               <appinfo>
-		<xrd:title xml:lang="et">Eesnimi</xrd:title>
+                <xrd:title xml:lang="et">Eesnimi</xrd:title>
               </appinfo>
-	    </annotation>
-	  </element>
-	  <element name="perenimi" type="string">
-	    <annotation>
+            </annotation>
+          </element>
+          <element name="perenimi" type="string">
+            <annotation>
               <appinfo>
-		<xrd:title xml:lang="et">Perekonnanimi</xrd:title>
+                <xrd:title xml:lang="et">Perekonnanimi</xrd:title>
               </appinfo>
-	    </annotation>
-	  </element>
-	  <element name="kaitse" type="boolean">
-	    <annotation>
+            </annotation>
+          </element>
+          <element name="kaitse" type="boolean">
+            <annotation>
               <appinfo>
-		<xrd:title xml:lang="et">Kas taotlejale on määratud kaitse ja elamisluba</xrd:title>
+                <xrd:title xml:lang="et">Kas taotlejale on määratud kaitse ja elamisluba</xrd:title>
               </appinfo>
-	    </annotation>
-	  </element>
-	  <element name="vptunnistus" type="tns:vptunnistus" minOccurs="0">
-	    <annotation>
+            </annotation>
+          </element>
+          <element name="otsuse_kuupaev" type="date" minOccurs="0">
+            <annotation>
               <appinfo>
-		<xrd:title xml:lang="et">Varjupaigataotleja tunnistus</xrd:title>
+                <xrd:title xml:lang="et">Otsuse tegemise kuupaev</xrd:title>
               </appinfo>
-	    </annotation>
-	  </element>
-	  <element name="lahkumine" type="date" minOccurs="0">
-	    <annotation>
+            </annotation>
+          </element>
+          <element name="vptunnistus" type="tns:vptunnistus" minOccurs="0">
+            <annotation>
               <appinfo>
-		<xrd:title xml:lang="et">Eestist lahkumise kuupäev</xrd:title>
+                <xrd:title xml:lang="et">Varjupaigataotleja tunnistus</xrd:title>
               </appinfo>
-	    </annotation>
-	  </element>
-	</sequence>
+            </annotation>
+          </element>
+          <element name="lahkumine" type="date" minOccurs="0">
+            <annotation>
+              <appinfo>
+                <xrd:title xml:lang="et">Eestist lahkumise kuupäev</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+        </sequence>
       </complexType>
-      
+
       <complexType name="vptunnistus">
-	<sequence>
-	  <element name="vptunnistus_nr" type="string">
-	    <annotation>
+        <sequence>
+          <element name="vptunnistus_nr" type="string">
+            <annotation>
               <appinfo>
-		<xrd:title xml:lang="et">Tunnistuse nr</xrd:title>
+                <xrd:title xml:lang="et">Tunnistuse nr</xrd:title>
               </appinfo>
-	    </annotation>
-	  </element>
-	  <element name="kehtiv_alates" type="date">
-	    <annotation>
+            </annotation>
+          </element>
+          <element name="kehtiv_alates" type="date">
+            <annotation>
               <appinfo>
-		<xrd:title xml:lang="et">Kehtivuse algus</xrd:title>
+                <xrd:title xml:lang="et">Kehtivuse algus</xrd:title>
               </appinfo>
-	    </annotation>
-	  </element>
-	  <element name="kehtiv_lopp" type="date">
-	    <annotation>
+            </annotation>
+          </element>
+          <element name="kehtiv_lopp" type="date">
+            <annotation>
               <appinfo>
-		<xrd:title xml:lang="et">Kehtivuse lõpp</xrd:title>
+                <xrd:title xml:lang="et">Kehtivuse lõpp</xrd:title>
               </appinfo>
-	    </annotation>
-	  </element>
-	  <element name="tootamisoigus" type="boolean">
-	    <annotation>
+            </annotation>
+          </element>
+          <element name="tootamisoigus" type="boolean">
+            <annotation>
               <appinfo>
-					<xrd:title xml:lang="et">Kas on õigus töötada</xrd:title>
+                <xrd:title xml:lang="et">Kas on õigus töötada</xrd:title>
               </appinfo>
-	    </annotation>
-	  </element>
-	</sequence>
+            </annotation>
+          </element>
+          <element name="tootamisoigus_algus" type="date">
+            <annotation>
+              <appinfo>
+                <xrd:title xml:lang="et">Tootamisoigus alguse kuupaev</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+        </sequence>
       </complexType>
-      
+
       <element name="taotleja_kaitse_saaja_v1">
         <complexType>
           <sequence>
@@ -169,7 +193,7 @@
   <portType name="xporttype">
     <operation name="taotleja_kaitse_saaja_v1">
       <documentation>
-  <xrd:title xml:lang="et">Töötukassa päring RAKSist</xrd:title>
+        <xrd:title xml:lang="et">Töötukassa päring RAKSist</xrd:title>
       </documentation>
       <input message="tns:taotleja_kaitse_saaja_v1"/>
       <output message="tns:taotleja_kaitse_saaja_v1Response"/>
@@ -182,9 +206,9 @@
     <operation name="taotleja_kaitse_saaja_v1">
       <xrd:version>v1</xrd:version>
       <soap:operation soapAction="" style="document"/>
-      
+
       <input>
-  <soap:body parts="body" use="literal"/>
+        <soap:body parts="body" use="literal"/>
         <soap:header message="tns:standardheader" part="client" use="literal"/>
         <soap:header message="tns:standardheader" part="service" use="literal"/>
         <soap:header message="tns:standardheader" part="id" use="literal"/>
