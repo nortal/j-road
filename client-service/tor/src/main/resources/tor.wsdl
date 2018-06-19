@@ -4270,7 +4270,7 @@
         </wsdl:operation>
         <wsdl:operation name="TORIK">
             <soap:operation soapAction=""/>
-            <xrd:version>v1</xrd:version>
+            <xrd:version>v2</xrd:version>
             <wsdl:input>
                 <soap:header message="tns:xrdHeader" part="client" use="literal"/>
                 <soap:header message="tns:xrdHeader" part="service" use="literal"/>

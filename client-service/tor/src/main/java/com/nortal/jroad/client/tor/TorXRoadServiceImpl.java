@@ -38,7 +38,7 @@ public class TorXRoadServiceImpl implements TorXRoadService {
 
     TORIKDocument.TORIK torik = getTorikRequest(paringuLiik, tootAlgusKp, tootLoppKp, muutAlgKp, muutLoppKp, isikukood);
 
-    return torXRoadDatabase.torikV1(torik);
+    return torXRoadDatabase.torikV2(torik);
 
   }
 

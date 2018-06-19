@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>xtee-client-tor</artifactId>
   <name>TOR client services</name>
-  <version>4.1.7-SNAPSHOT</version>
+  <version>4.1.9-SNAPSHOT</version>
 
   <parent>
     <groupId>com.nortal.jroad</groupId>
