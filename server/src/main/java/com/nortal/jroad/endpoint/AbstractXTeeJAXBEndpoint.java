@@ -114,6 +114,14 @@ public abstract class AbstractXTeeJAXBEndpoint<T> extends AbstractXTeeBaseEndpoi
     return paringKehaClass;
   }
 
+  protected void updateUnmarshaller(Unmarshaller unmarshaller) throws Exception {
+    // define schema validation, etc here in child endpoint classes
+  }
+
+  protected void updateMarshaller(Marshaller marshaller) throws Exception {
+    // define your schema validation, etc here in child endpoint classes
+  }
+
   @Override
   @SuppressWarnings({ "unchecked", "rawtypes" })
   protected void invokeInternal(final XTeeMessage<Document> request, final XTeeMessage<Element> response)
@@ -125,6 +133,8 @@ public abstract class AbstractXTeeJAXBEndpoint<T> extends AbstractXTeeBaseEndpoi
     JAXBContext requestJc = getJAXBContextInstance();
     Unmarshaller requestUnmarshaller = requestJc.createUnmarshaller();
     requestUnmarshaller.setAttachmentUnmarshaller(new XTeeAttachmentUnmarshaller(request));
+
+    updateUnmarshaller(requestUnmarshaller);
 
     Document requestOnly = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
     if (XRoadProtocolVersion.V2_0 == version) {
@@ -151,6 +161,7 @@ public abstract class AbstractXTeeJAXBEndpoint<T> extends AbstractXTeeBaseEndpoi
       JAXBContext responseJc = getJAXBContextInstance();
       Marshaller responseMarshaller = responseJc.createMarshaller();
       responseMarshaller.setAttachmentMarshaller(new XTeeAttachmentMarshaller(response));
+      updateMarshaller(responseMarshaller);
       // TODO Lauri: some namespace hacking might be needed if existing service schema is changed according to new
       // standard while upgrading. J-road clients do not mind tho :)
       if (XRoadProtocolVersion.V2_0 == version) {
