@@ -3,13 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>xtee-common</artifactId>
   <name>x-tee common</name>
-
   <parent>
     <groupId>com.nortal.jroad</groupId>
     <artifactId>xtee-root</artifactId>
     <version>4.2.7</version>
   </parent>
-
   <dependencies>
     <dependency>
       <groupId>org.springframework.ws</groupId>

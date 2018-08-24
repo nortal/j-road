@@ -6,29 +6,17 @@
   <artifactId>xtee-client-transport</artifactId>
   <name>x-tee client transport</name>
   <description>x-tee client API</description>
-
   <parent>
     <groupId>com.nortal.jroad</groupId>
     <artifactId>xtee-root</artifactId>
     <version>4.2.7</version>
   </parent>
-
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.4.3</version>
-        <configuration>
-          <includes>
-            <include>**/*Test.java</include>
-          </includes>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
-
   <dependencies>
+    <dependency>
+      <groupId>com.nortal.jroad</groupId>
+      <artifactId>xtee-common</artifactId>
+      <version>${project.parent.version}</version>
+    </dependency>
     <dependency>
       <groupId>javax.activation</groupId>
       <artifactId>activation</artifactId>
@@ -81,10 +69,20 @@
       <version>4.0</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>com.nortal.jroad</groupId>
-      <artifactId>xtee-common</artifactId>
-      <version>${project.parent.version}</version>
-    </dependency>
   </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.4.3</version>
+        <configuration>
+          <includes>
+            <include>**/*Test.java</include>
+          </includes>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>

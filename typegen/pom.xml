@@ -1,19 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>xtee-typegen</artifactId>
+  <name>x-tee typegen</name>
   <parent>
     <artifactId>xtee-root</artifactId>
     <groupId>com.nortal.jroad</groupId>
     <version>4.2.7</version>
   </parent>
-  <modelVersion>4.0.0</modelVersion>
-  <artifactId>xtee-typegen</artifactId>
-  <name>x-tee typegen</name>
   <dependencies>
-    <dependency>
-      <groupId>org.apache.xmlbeans</groupId>
-      <artifactId>xmlbeans</artifactId>
-      <version>2.6.0</version>
-    </dependency>
     <dependency>
       <groupId>com.nortal.jroad</groupId>
       <artifactId>xtee-common</artifactId>
@@ -23,6 +18,11 @@
       <groupId>com.nortal.jroad</groupId>
       <artifactId>xtee-client-transport</artifactId>
       <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.xmlbeans</groupId>
+      <artifactId>xmlbeans</artifactId>
+      <version>2.6.0</version>
     </dependency>
     <dependency>
       <groupId>commons-io</groupId>
