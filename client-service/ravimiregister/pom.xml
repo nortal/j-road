@@ -7,11 +7,10 @@
   <parent>
     <groupId>com.nortal.jroad</groupId>
     <artifactId>xtee-client-service</artifactId>
- 	<version>4.2.5</version>
+    <version>4.2.5</version>
   </parent>
 
   <properties>
     <package>ravimiregister</package>
   </properties>
-
 </project>

@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <artifactId>xtee-client-service</artifactId>
   <name>X-Tee Client parent</name>
@@ -46,42 +47,42 @@
     <module>lkfv6</module>
 
 
-<!-- These modules do compile but needs review - consult with epria or example module -->
-<!--     <module>tor</module> -->
-<!--     <module>rmviki</module> -->
-<!--     <module>emtav5</module> -->
-<!--     <module>aar</module> -->
-<!--     <module>ads</module> -->
-<!--     <module>arireg</module> -->
-<!--     <module>kvkr</module> -->
-<!--     <module>star</module> -->
-<!--     <module>ehis</module> -->
-<!--     <module>ehr</module> -->
-<!--     <module>emta</module> -->
-<!--     <module>kutseregister</module> -->
-<!--     <module>esis</module> -->
-<!--     <module>karis</module> -->
-<!--     <module>kirst</module> -->
-<!--     <module>koodikeskus</module> -->
-<!--     <module>liiklusregister</module> -->
+    <!-- These modules do compile but needs review - consult with epria or example module -->
+    <!--     <module>tor</module> -->
+    <!--     <module>rmviki</module> -->
+    <!--     <module>emtav5</module> -->
+    <!--     <module>aar</module> -->
+    <!--     <module>ads</module> -->
+    <!--     <module>arireg</module> -->
+    <!--     <module>kvkr</module> -->
+    <!--     <module>star</module> -->
+    <!--     <module>ehis</module> -->
+    <!--     <module>ehr</module> -->
+    <!--     <module>emta</module> -->
+    <!--     <module>kutseregister</module> -->
+    <!--     <module>esis</module> -->
+    <!--     <module>karis</module> -->
+    <!--     <module>kirst</module> -->
+    <!--     <module>koodikeskus</module> -->
+    <!--     <module>liiklusregister</module> -->
 
-<!--     <module>lkf</module> -->
-<!--     <module>mteenus</module> -->
-<!--     <module>pkr</module> -->
-<!--     <module>polis</module> -->
-<!--     <module>rets</module> -->
-<!--     <module>rmrk</module> -->
-<!--     <module>rr</module> -->
-<!--     <module>rrv5</module> -->
-<!--     <module>tam</module> -->
-<!-- 	<module>tarn</module> -->
-<!--     <module>teavituskalender</module> -->
+    <!--     <module>lkf</module> -->
+    <!--     <module>mteenus</module> -->
+    <!--     <module>pkr</module> -->
+    <!--     <module>polis</module> -->
+    <!--     <module>rets</module> -->
+    <!--     <module>rmrk</module> -->
+    <!--     <module>rr</module> -->
+    <!--     <module>rrv5</module> -->
+    <!--     <module>tam</module> -->
+    <!-- 	<module>tarn</module> -->
+    <!--     <module>teavituskalender</module> -->
 
-<!-- These modules are broken  -->
-<!--     <module>adsv5</module> -->
-<!--     <module>dhl</module> -->
-<!--     <module>kmais</module> -->
-<!--     <module>kr</module> -->
+    <!-- These modules are broken  -->
+    <!--     <module>adsv5</module> -->
+    <!--     <module>dhl</module> -->
+    <!--     <module>kmais</module> -->
+    <!--     <module>kr</module> -->
   </modules>
 
   <build>
@@ -92,7 +93,7 @@
         <artifactId>exec-maven-plugin</artifactId>
         <version>1.1.1</version>
         <executions>
-        <execution>
+          <execution>
             <phase>generate-sources</phase>
             <goals>
               <goal>java</goal>
@@ -105,8 +106,8 @@
                 <argument>sourcedir=${basedir}/src/main/java</argument>
                 <argument>xsbdir=${basedir}/target/classes</argument>
                 <argument>basepackage=com.nortal.jroad.client.${package}.types</argument>
-                <argument>dbclassespackage=com.nortal.jroad.client.${package}.database</argument>				
-              </arguments>			  
+                <argument>dbclassespackage=com.nortal.jroad.client.${package}.database</argument>
+              </arguments>
             </configuration>
           </execution>
         </executions>
@@ -130,7 +131,7 @@
       </plugin>
 
       <plugin>
-    	<inherited>true</inherited>
+        <inherited>true</inherited>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>2.0.2</version>
@@ -180,5 +181,4 @@
       </plugin>
     </plugins>
   </build>
-
 </project>
