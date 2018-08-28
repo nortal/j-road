@@ -2,20 +2,24 @@ sudo: false
 language: java
 jdk:
 - oraclejdk8
-branches:
+branches: 
 only:
 - master
 cache:
   directories:
-  - $HOME/.m2
+  - "$HOME/.m2"
 install: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -q
-script:  mvn test -B -q
+script: mvn test -B -q
 after_success:
-- $DEPLOY_DIR/publish.sh
+- "$DEPLOY_DIR/publish.sh"
 env:
   global:
   - DEPLOY_DIR="`pwd`/deploy"
+  ## SONATYPE_USERNAME
   - secure: K5PQkPIAC1xMkzKO0y/jbUxt+A+0M6x8LvmvkQutDITySUs3sMk5wvAn/CrHODOR2m/JGM4W+0FJNZRGfWLr6EEXmsMpEipZ3+d7LThaw/c+SImqb7iZ0Ic0Fj28Tk6nhkHUh7wn6RejJyFEkT3syHVUYUOL2xfvhc0yKYriiPA=
+  ## SONATYPE_PASSWORD
   - secure: NYZKwZAU5uAKHiX7IaFIdCXk+XCOSfc7MSSg86wOLug6YRAYbbxzttplWPsi/zZqc0GL4oDPC/bFhIU6iGhcsgqQqb6yajpsahsX+uDpmWciV/lwV6dIBNUgxGpfIk5R6RlsP+nkHtj6NVCPELz+ixE/W2wVEvDsUf7yUdOKaWk=
-  - secure: YKSlR/cBGg0XzOLh/l8OjW54cLGHupvVC59MbI+rMsRMjBUvqGWH32Wp5CbltmHMeB7QyplpwTPSzgYJwmX1PamU6E1Ulbyo0JbS+myz2HpdmAYP1yHoSXkRPs5ll/a5JOu0OM8QI4/GUk9KNyRh9h8kXnu+IKkFUBovFKMw2Rw=
+  ## GPG_KEYNAME
+  - secure: CyZCyC26XYZMz6+oVhIAOSdCpv8nYWT+ojACppqehvmcD0UdPUqWO+yGLZ/c54nUz0ekXoJmBHz8Fj5YNdVKLRMUykEJgYYoetUstHuYg0suJ/8zDhyFZYmHC4p3WVWNWuTpcekMU9t21kVUaodJDZkfdWHxdcbI8YyX4+dGFuI=
+  ## GPG_PASSPHRASE
   - secure: D1eK9wcUBkkALVu2NpIU3bdfYU5E9rMM4NiXNbjEmIB+TwA2eBaci9VGHL83O/6+icG2VUhYiTc6Y0HeDSbjfz2tSDK3qXSZIssZEg0uZUM+uq+heNiyi3CGyVD2dVNH1lLKHktn4v6+4oP96dHAuVLwtsH/yvdoFSxM9UaP0sg=
