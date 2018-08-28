@@ -8,8 +8,6 @@ only:
 cache:
   directories:
   - $HOME/.m2
-before_install:
-  - "curl -H \"https://sonar.nortal.com/PW/$ENCRYPTION_PASSWORD/$GPG_KEYNAME/$GPG_PASSPHRASE\""
 install: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -q
 script:  mvn test -B -q
 after_success:
