@@ -2,13 +2,10 @@ package com.nortal.jroad.model;
 
 import java.util.List;
 
-import org.w3c.dom.Node;
-
 /**
  * DOM Based {@link XRoadMessage} implementation.
  * 
  * @author Dmitri Danilkin
- * @param <T extends {@link Node}>
  */
 public class BeanXRoadMessage<T> implements XRoadMessage<T> {
   private List<XRoadAttachment> attachments;

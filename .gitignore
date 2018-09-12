@@ -22,6 +22,14 @@ local.properties
 .settings/
 .loadpath
 
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+/out/
+
+
 # External tool builders
 .externalToolBuilders/
 

@@ -8,14 +8,14 @@
   <parent>
     <groupId>com.nortal.jroad</groupId>
     <artifactId>xtee-client-service</artifactId>
- 	<version>4.1-SNAPSHOT</version>
+    <version>4.1-SNAPSHOT</version>
   </parent>
 
   <properties>
     <package>rr</package>
   </properties>
 
-    <build>
+  <build>
     <plugins>
 
       <plugin>
@@ -52,5 +52,4 @@
 
     </plugins>
   </build>
-
 </project>

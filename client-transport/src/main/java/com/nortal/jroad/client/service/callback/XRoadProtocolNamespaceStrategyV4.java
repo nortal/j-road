@@ -1,15 +1,13 @@
 package com.nortal.jroad.client.service.callback;
 
+import com.nortal.jroad.client.enums.XroadObjectType;
+import com.nortal.jroad.client.service.configuration.XRoadServiceConfiguration;
+import com.nortal.jroad.enums.XRoadProtocolVersion;
 import javax.xml.soap.SOAPElement;
 import javax.xml.soap.SOAPEnvelope;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPHeader;
-
 import org.apache.commons.lang.StringUtils;
-
-import com.nortal.jroad.client.enums.XroadObjectType;
-import com.nortal.jroad.client.service.configuration.XRoadServiceConfiguration;
-import com.nortal.jroad.enums.XRoadProtocolVersion;
 
 /**
  * @author Aleksei Bogdanov (aleksei.bogdanov@nortal.com)
@@ -30,8 +28,10 @@ public class XRoadProtocolNamespaceStrategyV4 extends MessageCallbackNamespaceSt
   @Override
   public void addXTeeHeaderElements(SOAPEnvelope env, XRoadServiceConfiguration conf) throws SOAPException {
     SOAPHeader header = env.getHeader();
-    SOAPElement userId = header.addChildElement("userId", protocol.getNamespacePrefix());
-    userId.addTextNode(conf.getIdCode());
+    if(StringUtils.isNotBlank(conf.getIdCode())) {
+      SOAPElement userId = header.addChildElement("userId", protocol.getNamespacePrefix());
+      userId.addTextNode(conf.getIdCode());
+    }
     SOAPElement id = header.addChildElement("id", protocol.getNamespacePrefix());
     id.addTextNode(generateUniqueMessageId(conf));
     if (StringUtils.isNotBlank(conf.getFile())) {

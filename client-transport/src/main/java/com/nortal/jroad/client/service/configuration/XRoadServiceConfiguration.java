@@ -1,9 +1,8 @@
 package com.nortal.jroad.client.service.configuration;
 
-import java.io.Serializable;
-
 import com.nortal.jroad.client.enums.XroadObjectType;
 import com.nortal.jroad.enums.XRoadProtocolVersion;
+import java.io.Serializable;
 
 /**
  * @author Aleksei Bogdanov (aleksei.bogdanov@nortal.com)
@@ -36,7 +35,7 @@ public interface XRoadServiceConfiguration extends Serializable {
   /** Returns the service-to-be-invoked version. */
   String getVersion();
 
-  /** Returns the name of the (service's) <code>method<code> that will be called. */
+  /** Returns the name of the (service's) <code>method</code> that will be called. */
   String getMethod();
 
   /**
