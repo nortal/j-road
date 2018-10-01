@@ -81,20 +81,9 @@ public class XRoadHeader implements Serializable {
   }
 
   /**
-   * Get Header element by QNames, the ordering of the QNames is important
-   * as the levels are searched in the provided order
-   * <p>
-   * e.g.
-   * <xroad:client id:objectType="SUBSYSTEM">
-   * <id:xRoadInstance>ee-dev</id:xRoadInstance>
-   * <id:memberClass>GOV</id:memberClass>
-   * <id:memberCode>10117341</id:memberCode>
-   * <id:userId>43009090226</id:userId>
-   * <id:subsystemCode>generic-consumer</id:subsystemCode>
-   * </xroad:client>
-   * <p>
-   * Getting memberCode would require the path with 2 QNames
-   * First one for the xroad:client element and second one for id:memberCode element
+   * Get Header element by QNames, the ordering of the QNames is important as the levels are searched in the provided
+   * order. For example, getting memberCode would require the path with 2 QNames. First one for the xroad:client
+   * element and second one for id:memberCode element
    *
    * @param names
    */
