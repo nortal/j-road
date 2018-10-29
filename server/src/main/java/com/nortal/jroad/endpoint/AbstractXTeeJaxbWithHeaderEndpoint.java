@@ -1,9 +1,11 @@
 package com.nortal.jroad.endpoint;
 
+import com.nortal.jroad.model.XTeeMessage;
 import com.nortal.jroad.util.header.XRoadHeader;
 import com.nortal.jroad.util.header.XRoadHeaderUtil;
 import org.w3c.dom.Document;
 
+import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPMessage;
 
 /**
@@ -14,15 +16,15 @@ import javax.xml.soap.SOAPMessage;
  * @param <T>
  */
 public class AbstractXTeeJaxbWithHeaderEndpoint<T> extends AbstractXTeeJAXBEndpoint<T> {
-  private XRoadHeader xroadHeader;
-
-  public XRoadHeader getXRoadHeader() {
-    return this.xroadHeader;
+  protected XRoadHeader getXRoadHeader(XTeeMessage<?> message) {
+    return getXRoadHeader(message);
   }
 
-  @Override
-  protected void getResponse(Document query, SOAPMessage responseMessage, SOAPMessage requestMessage) throws Exception {
-    this.xroadHeader = metaService ? null : XRoadHeaderUtil.parseXRoadHeader(requestMessage);
-    super.getResponse(query, responseMessage, requestMessage);
+  protected XRoadHeader getXRoadHeader(SOAPMessage message) {
+    try {
+      return metaService ? null : XRoadHeaderUtil.parseXRoadHeader(message);
+    } catch (SOAPException e) {
+      throw new RuntimeException(e);
+    }
   }
 }
