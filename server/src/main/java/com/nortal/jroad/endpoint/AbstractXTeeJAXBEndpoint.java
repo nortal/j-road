@@ -287,16 +287,4 @@ public abstract class AbstractXTeeJAXBEndpoint<T> extends AbstractXTeeBaseEndpoi
   protected Object invokeBean(final T requestBean) throws IOException {
     throw new IllegalStateException("You must override either the 'invokeBean' or the 'invoke' method!");
   }
-
-  protected XRoadHeader getXRoadHeader(XTeeMessage<?> message) {
-    return getXRoadHeader((SOAPMessage) message);
-  }
-
-  protected XRoadHeader getXRoadHeader(SOAPMessage message) {
-    try {
-      return metaService ? null : XRoadHeaderUtil.parseXRoadHeader(message);
-    } catch (SOAPException e) {
-      throw new RuntimeException(e);
-    }
-  }
 }
