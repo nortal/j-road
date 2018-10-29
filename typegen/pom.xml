@@ -6,7 +6,7 @@
   <parent>
     <artifactId>xtee-root</artifactId>
     <groupId>com.nortal.jroad</groupId>
-    <version>4.2.9</version>
+    <version>4.2.10</version>
   </parent>
   <dependencies>
     <dependency>
