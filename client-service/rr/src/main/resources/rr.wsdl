@@ -13570,6 +13570,15 @@
                                     </appinfo>
                                   </annotation>
                                 </element>
+                                <element name="SeotudIsik.Surmaaeg" type="string"
+                                         minOccurs="0" maxOccurs="1">
+                                  <annotation>
+                                    <appinfo>
+                                      <xrd:title>Seoses oleva teise isiku
+                                        surmaaeg</xrd:title>
+                                    </appinfo>
+                                  </annotation>
+                                </element>
                                 <element name="SeotudIsik.Registrikood" type="string"
                                          minOccurs="0" maxOccurs="1">
                                   <annotation>
@@ -13692,8 +13701,8 @@
                                         <complexType>
                                           <sequence>
                                             <element
-                                                name="Hooldusoigus.PohiIsikuRoll"
-                                                type="string">
+                                                    name="Hooldusoigus.PohiIsikuRoll"
+                                                    type="string">
                                               <annotation>
                                                 <appinfo>
                                                   <xrd:title>
@@ -13704,8 +13713,8 @@
                                               </annotation>
                                             </element>
                                             <element
-                                                name="Hooldusoigus.TyypKood"
-                                                type="string">
+                                                    name="Hooldusoigus.TyypKood"
+                                                    type="string">
                                               <annotation>
                                                 <appinfo>
                                                   <xrd:title>
@@ -13716,8 +13725,8 @@
                                               </annotation>
                                             </element>
                                             <element
-                                                name="Hooldusoigus.Tyyp"
-                                                type="string">
+                                                    name="Hooldusoigus.Tyyp"
+                                                    type="string">
                                               <annotation>
                                                 <appinfo>
                                                   <xrd:title>
@@ -13728,9 +13737,9 @@
                                               </annotation>
                                             </element>
                                             <element
-                                                name="Hooldusoigus.KehtivAlates"
-                                                type="tns:date"
-                                                minOccurs="0">
+                                                    name="Hooldusoigus.KehtivAlates"
+                                                    type="tns:date"
+                                                    minOccurs="0">
                                               <annotation>
                                                 <appinfo>
                                                   <xrd:title>
@@ -13741,9 +13750,9 @@
                                               </annotation>
                                             </element>
                                             <element
-                                                name="Hooldusoigus.KehtivKuni"
-                                                type="tns:date"
-                                                minOccurs="0">
+                                                    name="Hooldusoigus.KehtivKuni"
+                                                    type="tns:date"
+                                                    minOccurs="0">
                                               <annotation>
                                                 <appinfo>
                                                   <xrd:title>
@@ -13754,10 +13763,10 @@
                                               </annotation>
                                             </element>
                                             <element
-                                                name="Hooldusoigus.StaatusKood"
-                                                type="string"
-                                                minOccurs="1"
-                                                maxOccurs="1">
+                                                    name="Hooldusoigus.StaatusKood"
+                                                    type="string"
+                                                    minOccurs="1"
+                                                    maxOccurs="1">
                                               <annotation>
                                                 <appinfo>
                                                   <xrd:title>
@@ -13768,10 +13777,10 @@
                                               </annotation>
                                             </element>
                                             <element
-                                                name="Hooldusoigus.Staatus"
-                                                type="string"
-                                                minOccurs="1"
-                                                maxOccurs="1">
+                                                    name="Hooldusoigus.Staatus"
+                                                    type="string"
+                                                    minOccurs="1"
+                                                    maxOccurs="1">
                                               <annotation>
                                                 <appinfo>
                                                   <xrd:title>
@@ -18730,8 +18739,8 @@
                                   <complexType>
                                     <sequence>
                                       <element
-                                          name="Isik.ValisriigiIsikukood.VrRiik"
-                                          type="string">
+                                              name="Isik.ValisriigiIsikukood.VrRiik"
+                                              type="string">
                                         <annotation>
                                           <appinfo>
                                             <xrd:title>Välisriigi isikukoodi
@@ -18741,8 +18750,8 @@
                                         </annotation>
                                       </element>
                                       <element
-                                          name="Isik.ValisriigiIsikukood.VrIK"
-                                          type="string">
+                                              name="Isik.ValisriigiIsikukood.VrIK"
+                                              type="string">
                                         <annotation>
                                           <appinfo>
                                             <xrd:title>Välisriigi

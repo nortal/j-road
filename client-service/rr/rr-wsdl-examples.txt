@@ -1,0 +1,188 @@
+Definition of SOAP-ENC namespace: xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+import of SOAP-ENC namespace: <import namespace="http://schemas.xmlsoap.org/soap/encoding/" schemaLocation="http://schemas.xmlsoap.org/soap/encoding/"/>
+
+RR436InnerResponseType definition:
+
+<complexType name="RR436InnerResponseType">
+  <complexContent>
+    <extension base="tns:XRoadResponseBaseType">
+      <sequence>
+
+        <element name="RR436" minOccurs="1" maxOccurs="1">
+          <complexType>
+            <sequence>
+              <element name="Veakood" type="integer" minOccurs="0">
+                <annotation>
+                  <appinfo>
+                    <xrd:title>Kui otsingu tulemusena isik leiti, siis 0, vastasel juhul veakood</xrd:title>
+                  </appinfo>
+                </annotation>
+              </element>
+              <element name="Veatekst" type="string" minOccurs="0">
+                <annotation>
+                  <appinfo>
+                    <xrd:title>Vea põhjust iseloomustav tekst</xrd:title>
+                  </appinfo>
+                </annotation>
+              </element>
+
+              <element name="Isik" minOccurs="0" maxOccurs="unbounded">
+                <complexType>
+                  <sequence>
+                    <element name="Isikukood" type="tns:PersonalCode">
+                      <annotation>
+                        <appinfo>
+                          <xrd:title>Isikukood</xrd:title>
+                        </appinfo>
+                      </annotation>
+                    </element>
+                    <element name="Isik.SeotudIsikud">
+                      <annotation>
+                        <appinfo>
+                          <xrd:title>Isiku seosed</xrd:title>
+                        </appinfo>
+                      </annotation>
+                      <complexType>
+                        <complexContent>
+                          <restriction base="SOAP-ENC:Array">
+                            <sequence>
+                              <element name="SeotudIsik" minOccurs="0" maxOccurs="unbounded">
+                                <complexType>
+                                  <sequence>
+                                    <element name="SeotudIsik.SeoseEesNimi" type="string" minOccurs="0"
+                                             maxOccurs="1">
+                                      <annotation>
+                                        <appinfo>
+                                          <xrd:title>Seoses oleva teise isiku eesnimi</xrd:title>
+                                        </appinfo>
+                                      </annotation>
+                                    </element>
+                                    <element name="SeotudIsik.SeoseNimi" type="string" minOccurs="1"
+                                             maxOccurs="1">
+                                      <annotation>
+                                        <appinfo>
+                                          <xrd:title>Seoses oleva teise isiku perenimi</xrd:title>
+                                        </appinfo>
+                                      </annotation>
+                                    </element>
+                                    <element name="SeotudIsik.SeoseIsikukood" type="string" minOccurs="0"
+                                             maxOccurs="1">
+                                      <annotation>
+                                        <appinfo>
+                                          <xrd:title>Seoses oleva teise isiku isikukood</xrd:title>
+                                        </appinfo>
+                                      </annotation>
+                                    </element>
+                                    <element name="SeotudIsik.SeoseTyypKood" type="string" minOccurs="1"
+                                             maxOccurs="1">
+                                      <annotation>
+                                        <appinfo>
+                                          <xrd:title>Seose liik</xrd:title>
+                                        </appinfo>
+                                      </annotation>
+                                    </element>
+                                    <element name="SeotudIsik.SeoseTyyp" type="string" minOccurs="1"
+                                             maxOccurs="1">
+                                      <annotation>
+                                        <appinfo>
+                                          <xrd:title>Seose liik</xrd:title>
+                                        </appinfo>
+                                      </annotation>
+                                    </element>
+                                    <element name="SeotudIsik.KehtivAlates" type="tns:date" minOccurs="0"
+                                             maxOccurs="1">
+                                      <annotation>
+                                        <appinfo>
+                                          <xrd:title>Seose algus</xrd:title>
+                                        </appinfo>
+                                      </annotation>
+                                    </element>
+
+                                    <element name="SeotudIsik.Hooldusoigused" minOccurs="0" maxOccurs="1">
+                                      <complexType>
+                                        <sequence>
+
+                                          <element name="Hooldusoigus" minOccurs="0" maxOccurs="unbounded">
+                                            <annotation>
+                                              <appinfo>
+                                                <xrd:title>Hooldusoigus</xrd:title>
+                                              </appinfo>
+                                            </annotation>
+                                            <complexType>
+                                              <sequence>
+                                                <element name="Hooldusoigus.TyypKood" type="string">
+                                                  <annotation>
+                                                    <appinfo>
+                                                      <xrd:title>Hooldusõiguse liigi kood</xrd:title>
+                                                    </appinfo>
+                                                  </annotation>
+                                                </element>
+
+                                                <element name="Hooldusoigus.Tyyp" type="string">
+                                                  <annotation>
+                                                    <appinfo>
+                                                      <xrd:title>Hooldusõiguse liik</xrd:title>
+                                                    </appinfo>
+                                                  </annotation>
+                                                </element>
+                                                <element name="Hooldusoigus.KehtivAlates" type="tns:date"
+                                                         minOccurs="0">
+                                                  <annotation>
+                                                    <appinfo>
+                                                      <xrd:title>Hooldusõiguse algus</xrd:title>
+                                                    </appinfo>
+                                                  </annotation>
+                                                </element>
+                                                <element name="Hooldusoigus.KehtivKuni" type="tns:date"
+                                                         minOccurs="0">
+                                                  <annotation>
+                                                    <appinfo>
+                                                      <xrd:title>Hooldusõiguse lõpp</xrd:title>
+                                                    </appinfo>
+                                                  </annotation>
+                                                </element>
+                                                <element name="Hooldusoigus.StaatusKood" type="string"
+                                                         minOccurs="1" maxOccurs="1">
+                                                  <annotation>
+                                                    <appinfo>
+                                                      <xrd:title>Hooldusõiguse staatuse kood</xrd:title>
+                                                    </appinfo>
+                                                  </annotation>
+                                                </element>
+                                                <element name="Hooldusoigus.Staatus" type="string"
+                                                         minOccurs="1" maxOccurs="1">
+                                                  <annotation>
+                                                    <appinfo>
+                                                      <xrd:title>Hooldusõiguse staatus</xrd:title>
+                                                    </appinfo>
+                                                  </annotation>
+                                                </element>
+                                              </sequence>
+                                            </complexType>
+                                          </element>
+                                        </sequence>
+                                      </complexType>
+                                    </element>
+
+                                  </sequence>
+                                </complexType>
+
+
+                              </element>
+                            </sequence>
+                          </restriction>
+                        </complexContent>
+
+                      </complexType>
+                    </element>
+
+                  </sequence>
+                </complexType>
+              </element>
+            </sequence>
+          </complexType>
+        </element>
+      </sequence>
+    </extension>
+  </complexContent>
+</complexType>
