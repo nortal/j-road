@@ -200,10 +200,11 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
     responseMessage.getSOAPPart().getEnvelope().setEncodingStyle("http://schemas.xmlsoap.org/soap/encoding/");
 
     Node teenusElement = SOAPUtil.getFirstNonTextChild(requestMessage.getSOAPBody());
-    if (teenusElement.getPrefix() == null || teenusElement.getNamespaceURI() == null) {
+    if (teenusElement.getNamespaceURI() == null) {
       throw new IllegalStateException("Service request is missing namespace.");
     }
-    SOAPUtil.addNamespace(responseMessage, teenusElement.getPrefix(), teenusElement.getNamespaceURI());
+    String prefix = teenusElement.getPrefix() == null ? "rsp" : teenusElement.getPrefix(); 
+    SOAPUtil.addNamespace(responseMessage, prefix, teenusElement.getNamespaceURI());
 
     String teenusElementName = teenusElement.getLocalName();
     if (teenusElementName.endsWith(SuffixBasedMessagesProvider.DEFAULT_REQUEST_SUFFIX)) {
@@ -213,7 +214,7 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
     }
     teenusElementName += SuffixBasedMessagesProvider.DEFAULT_RESPONSE_SUFFIX;
     return responseMessage.getSOAPBody().addChildElement(teenusElementName,
-                                                         teenusElement.getPrefix(),
+                                                         prefix,
                                                          teenusElement.getNamespaceURI());
   }
 
