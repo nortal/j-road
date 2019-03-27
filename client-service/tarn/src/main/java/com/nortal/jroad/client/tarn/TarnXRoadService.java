@@ -7,6 +7,10 @@ import com.nortal.jroad.client.tarn.types.eu.x_road.tarn.TaitemenetluseMuutmineT
 import com.nortal.jroad.client.tarn.types.eu.x_road.tarn.TaitemenetluseMuutmineTaSisend;
 import com.nortal.jroad.client.tarn.types.eu.x_road.tarn.TaitmisavalduseEsitamineResponseDocument
     .TaitmisavalduseEsitamineResponse;
+import com.nortal.jroad.client.tarn.types.eu.x_road.tarn.TarnToiming;
+import com.nortal.jroad.model.XTeeAttachment;
+
+import java.util.List;
 
 /**
  * <code>TARN</code> database X-tee service<br>
@@ -24,7 +28,8 @@ public interface TarnXRoadService {
   /**
    * <code>tarn.TaitmisavalduseEsitamine.v1</code> X-road service.
    */
-  TaitmisavalduseEsitamineResponse taitmisavalduseEsitamineV1(Toiming input)
+  TaitmisavalduseEsitamineResponse taitmisavalduseEsitamineV1(TarnToiming input,
+                                                              List<XTeeAttachment> attachments)
       throws XTeeServiceConsumptionException;
 
 }
