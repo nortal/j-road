@@ -160,19 +160,19 @@ public class RrXRoadServiceImpl implements RrXRoadService {
   @Override
   public List<TtKoodid> findRR67MuutusV1(Date algus, Date lopp, String... koodid)
       throws XTeeServiceConsumptionException {
-    RR67MuutusDocument.RR67Muutus rr67Muutus = RR67MuutusDocument.RR67Muutus.Factory.newInstance();
+    RR67MuutusResponse rsp = rrXRoadDatabase.rr67MuutusV1(createRr67MuutusRequestInput(algus,lopp, koodid));
+    RR67MuutusResponseType.TtKood ttKood = rsp.getResponse().getTtKood();
+    return ttKood != null ? ttKood.getTtKoodidList() : Collections.<TtKoodid> emptyList();
+  }
 
+  private RR67MuutusDocument.RR67Muutus createRr67MuutusRequestInput(Date algus, Date lopp, String... koodid){
+    RR67MuutusDocument.RR67Muutus rr67Muutus = RR67MuutusDocument.RR67Muutus.Factory.newInstance();
     RR67MuutusRequestType request = rr67Muutus.addNewRequest();
 
     SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
     SimpleDateFormat tf = new SimpleDateFormat("HH:mm");
     if (koodid != null) {
-      StringBuilder codes = new StringBuilder();
-      for (String item : koodid) {
-        codes.append(codes.length() > 0 ? "," : "");
-        codes.append(item);
-      }
-      request.setCMuutused(codes.toString());
+      request.setCMuutused(getTtKoodidString(koodid));
     }
     if (algus != null) {
       request.setCAlgKpv(df.format(algus));
@@ -183,9 +183,23 @@ public class RrXRoadServiceImpl implements RrXRoadService {
       request.setCLoppKpv(df.format(lopp));
       request.setCLoppKell(tf.format(lopp));
     }
-    RR67MuutusResponse rsp = rrXRoadDatabase.rr67MuutusV1(rr67Muutus);
-    RR67MuutusResponseType.TtKood ttKood = rsp.getResponse().getTtKood();
-    return ttKood != null ? ttKood.getTtKoodidList() : Collections.<TtKoodid> emptyList();
+
+    return rr67Muutus;
+  }
+
+  private String getTtKoodidString(String[] koodid){
+    StringBuilder codes = new StringBuilder();
+    for (String item : koodid) {
+      codes.append(codes.length() > 0 ? "," : "");
+      codes.append(item);
+    }
+    return codes.toString();
+  }
+
+  @Override
+  public RR67MuutusResponseDocument.RR67MuutusResponse findRR67MuutusV1Response(Date algus, Date lopp, String... koodid)
+          throws XTeeServiceConsumptionException {
+    return rrXRoadDatabase.rr67MuutusV1(createRr67MuutusRequestInput(algus, lopp, koodid));
   }
 
   @Override

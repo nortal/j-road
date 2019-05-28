@@ -11,6 +11,7 @@ import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR436ResponseDocum
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR50SurnudIsikuteLeidmineResponseDocument.RR50SurnudIsikuteLeidmineResponse;
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR52ResponseDocument.RR52Response;
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR63IsikAadrDokResponseDocument.RR63IsikAadrDokResponse;
+import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR67MuutusResponseDocument;
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR67MuutusResponseType.TtKood.TtKoodid;
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR71FailDownloadResponseDocument.RR71FailDownloadResponse;
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR72IsikResponseType.TtIsik.TtIsikud;
@@ -73,6 +74,9 @@ public interface RrXRoadService {
    * <code>rr.RR67MuutusV1.v1</code> service.
    */
   List<TtKoodid> findRR67MuutusV1(Date algus, Date lopp, String... koodid) throws XTeeServiceConsumptionException;
+
+  RR67MuutusResponseDocument.RR67MuutusResponse findRR67MuutusV1Response(Date algus, Date lopp, String... koodid) throws XTeeServiceConsumptionException;
+
 
   /**
    * <code>rr.RR84IsikuSeosed.v1</code> service.
