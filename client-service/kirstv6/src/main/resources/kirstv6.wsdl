@@ -621,6 +621,52 @@
                <xsd:whiteSpace value="collapse"/>
             </xsd:restriction>
          </xsd:simpleType>
+         <xsd:simpleType name="kindlustusParingType">
+            <xsd:restriction base="xsd:string">
+               <xsd:enumeration value="T1">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title>Töötajana kindlustatud [T1]</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:enumeration>
+               <xsd:enumeration value="T2">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title>SKA liigid [T2]</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:enumeration>
+               <xsd:enumeration value="T3">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title>Tööandja poolt kindlustatud [T3]</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:enumeration>
+               <xsd:enumeration value="T4">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title>Kõik kindlustusliigid [T4]</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:enumeration>
+               <xsd:enumeration value="T6">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title>Õppurid [T6]</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:enumeration>
+               <xsd:enumeration value="T7">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title>Kaitseväe päringuliik [T7]</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:enumeration>
+            </xsd:restriction>
+         </xsd:simpleType>
          <xsd:simpleType name="tvlStaatusType">
             <xsd:annotation>
                <xsd:appinfo/>
@@ -763,6 +809,31 @@
                   <xsd:annotation>
                      <xsd:appinfo>
                         <xroad:title xml:lang="et">Haigekassa ei hüvita</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:enumeration>
+            </xsd:restriction>
+         </xsd:simpleType>
+         <xsd:simpleType name="tvlRaviEiraminePohjusType">
+            <xsd:restriction base="xsd:string">
+               <xsd:enumeration value="J">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Joove</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:enumeration>
+               <xsd:enumeration value="M">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Ravi eiramine</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:enumeration>
+               <xsd:enumeration value="V">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Vastuvõtule mitte ilmumine</xroad:title>
                      </xsd:appinfo>
                   </xsd:annotation>
                </xsd:enumeration>
@@ -1401,6 +1472,13 @@
                      </xsd:appinfo>
                   </xsd:annotation>
                </xsd:element>
+               <xsd:element name="bt_esmaseTvlId" type="xsd:string" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Esmase lehe ID</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
                <xsd:element name="ea_andmedEsitatud" type="xsd:date" minOccurs="0">
                   <xsd:annotation>
                      <xsd:appinfo>
@@ -1773,6 +1851,42 @@
                </xsd:element>
             </xsd:sequence>
          </xsd:complexType>
+         <xsd:complexType name="hooldatavIsikLihtType">
+            <xsd:sequence>
+               <xsd:element name="isikukood" type="ehk:eeIsikukoodType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Eesti isikukood</xroad:title>
+                        <xroad:notes xml:lang="et">Täidetakse Eesti isikukoodi olemasolul, teised andmed pole vajalikud</xroad:notes>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="perenimi" type="xsd:string" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Perenimi</xroad:title>
+                        <xroad:notes xml:lang="et">Täidetakse Eesti isikukoodi puudumisel</xroad:notes>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="eesnimi" type="xsd:string" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Eesnimi</xroad:title>
+                        <xroad:notes xml:lang="et">Täidetakse Eesti isikukoodi puudumisel</xroad:notes>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="synnikuupaev" type="xsd:date" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Sünniaeg</xroad:title>
+                        <xroad:notes xml:lang="et">Täidetakse Eesti isikukoodi puudumisel</xroad:notes>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:complexType>
          <xsd:complexType name="jurIsikLihtType">
             <xsd:annotation>
                <xsd:appinfo/>
@@ -1846,7 +1960,7 @@
                <xsd:enumeration value="la">
                   <xsd:annotation>
                      <xsd:appinfo>
-                        <xroad:title xml:lang="et">Lapsendusleht</xroad:title>
+                        <xroad:title xml:lang="et">Lapsendamisleht</xroad:title>
                      </xsd:appinfo>
                   </xsd:annotation>
                </xsd:enumeration>
@@ -1932,14 +2046,14 @@
                <xsd:enumeration value="13">
                   <xsd:annotation>
                      <xsd:appinfo>
-                        <xroad:title xml:lang="et">13 - alla 3a lapse või alla 16a puudega lapse hooldamine, kui hooldaja on haige</xroad:title>
+                        <xroad:title xml:lang="et">13 - alla 3a lapse või alla 16a puudega lapse hooldamine, kui last hooldav isik on haige või talle osutatakse sünnitusabi</xroad:title>
                      </xsd:appinfo>
                   </xsd:annotation>
                </xsd:enumeration>
                <xsd:enumeration value="14">
                   <xsd:annotation>
                      <xsd:appinfo>
-                        <xroad:title xml:lang="et">14 - alla 12-aastase lapse või alla 19-aastase puudega kindlustatud isiku põetamine</xroad:title>
+                        <xroad:title xml:lang="et">14 - alla 12-aastase haige lapse või alla 19-aastase puudega kindlustatud isiku põetamine</xroad:title>
                      </xsd:appinfo>
                   </xsd:annotation>
                </xsd:enumeration>
@@ -1960,7 +2074,7 @@
                <xsd:enumeration value="17">
                   <xsd:annotation>
                      <xsd:appinfo>
-                        <xroad:title xml:lang="et">17 - üleviimine kergemale tööle</xroad:title>
+                        <xroad:title xml:lang="et">17 - terviseseisundile vastava töö andmine või üleviimine kergemale ametikohale</xroad:title>
                      </xsd:appinfo>
                   </xsd:annotation>
                </xsd:enumeration>
@@ -1974,14 +2088,14 @@
                <xsd:enumeration value="19">
                   <xsd:annotation>
                      <xsd:appinfo>
-                        <xroad:title xml:lang="et">19 - Haigestumine või vigastus raseduse ajal</xroad:title>
+                        <xroad:title xml:lang="et">19 - haigestumine või vigastus raseduse ajal</xroad:title>
                      </xsd:appinfo>
                   </xsd:annotation>
                </xsd:enumeration>
                <xsd:enumeration value="20">
                   <xsd:annotation>
                      <xsd:appinfo>
-                        <xroad:title xml:lang="et">20 - Elundi või vereloome tüvirakkude annetus</xroad:title>
+                        <xroad:title xml:lang="et">20 - elundi või vereloome tüvirakkude annetus</xroad:title>
                      </xsd:appinfo>
                   </xsd:annotation>
                </xsd:enumeration>
@@ -2094,45 +2208,39 @@
                      </xsd:appinfo>
                   </xsd:annotation>
                </xsd:element>
-               <xsd:element name="pohjus">
+               <xsd:element name="pohjus" type="ehk:tvlRaviEiraminePohjusType">
                   <xsd:annotation>
                      <xsd:appinfo>
                         <xroad:title xml:lang="et">Põhjus</xroad:title>
                      </xsd:appinfo>
-                     <xsd:documentation xml:lang="EN">J - Joove; M - Muu ravi eiramine; V -
-								Vastuvõtule mitte ilmumine</xsd:documentation>
                   </xsd:annotation>
-                  <xsd:simpleType>
-                     <xsd:restriction base="xsd:string">
-                        <xsd:enumeration value="J">
-                           <xsd:annotation>
-                              <xsd:appinfo>
-                                 <xroad:title xml:lang="et">Joove</xroad:title>
-                              </xsd:appinfo>
-                           </xsd:annotation>
-                        </xsd:enumeration>
-                        <xsd:enumeration value="M">
-                           <xsd:annotation>
-                              <xsd:appinfo>
-                                 <xroad:title xml:lang="et">Muu ravi eiramine</xroad:title>
-                              </xsd:appinfo>
-                           </xsd:annotation>
-                        </xsd:enumeration>
-                        <xsd:enumeration value="V">
-                           <xsd:annotation>
-                              <xsd:appinfo>
-                                 <xroad:title xml:lang="et">Vastuvõtule mitte ilmumine</xroad:title>
-                              </xsd:appinfo>
-                           </xsd:annotation>
-                        </xsd:enumeration>
-                     </xsd:restriction>
-                  </xsd:simpleType>
                </xsd:element>
                <xsd:element name="muuTekst" type="xsd:string" minOccurs="0">
                   <xsd:annotation>
                      <xsd:appinfo>
                         <xroad:title xml:lang="et">Muu põhjus</xroad:title>
                         <xroad:note>Täita juhul kui põhjuse tüübiks on valitud "Muu põhjus"</xroad:note>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:complexType>
+         <xsd:complexType name="tvlRaviEiramine2Type">
+            <xsd:annotation>
+               <xsd:appinfo/>
+            </xsd:annotation>
+            <xsd:sequence>
+               <xsd:element name="aeg" type="xsd:date">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Kuupäev</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="pohjus" type="ehk:tvlRaviEiraminePohjusType">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Põhjus</xroad:title>
                      </xsd:appinfo>
                   </xsd:annotation>
                </xsd:element>
@@ -2178,6 +2286,13 @@
                      </xsd:appinfo>
                   </xsd:annotation>
                </xsd:enumeration>
+               <xsd:enumeration value="6">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">6 - Leht lõpetatud</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:enumeration>
                <xsd:maxLength value="1"/>
             </xsd:restriction>
          </xsd:simpleType>
@@ -2191,8 +2306,6 @@
                      <xsd:appinfo>
                         <xroad:title xml:lang="et">Otsuse kood</xroad:title>
                      </xsd:appinfo>
-                     <xsd:documentation xml:lang="EN">1 - asudatööle; 2 - suunatud; 3 -
-								järgleht; 4 - surnud; 5 - püsiv töövõimetus</xsd:documentation>
                   </xsd:annotation>
                </xsd:element>
                <xsd:element name="otsusAeg" type="xsd:date" minOccurs="0">
@@ -2202,6 +2315,20 @@
                         <xroad:notes xml:lang="et">Kohustuslik täita, kui lõpetamise otsus on "Asuda tööle (1)"</xroad:notes>
                      </xsd:appinfo>
                      <xsd:documentation xml:lang="et">Kasutatakse otsusKood == 1 korral</xsd:documentation>
+                  </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:complexType>
+         <xsd:complexType name="tvlLopetamiseOtsus2Type">
+            <xsd:annotation>
+               <xsd:appinfo/>
+            </xsd:annotation>
+            <xsd:sequence>
+               <xsd:element name="otsusKood" type="ehk:tvlLopetamiseOtsusKoodType">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Otsuse kood</xroad:title>
+                     </xsd:appinfo>
                   </xsd:annotation>
                </xsd:element>
             </xsd:sequence>
@@ -2370,6 +2497,218 @@
                </xsd:element>
             </xsd:sequence>
          </xsd:complexType>
+         <xsd:complexType name="tvlArstilt2Type">
+            <xsd:annotation>
+               <xsd:appinfo>
+                  <xroad:title xml:lang="et">Töövõimetusleht</xroad:title>
+               </xsd:appinfo>
+            </xsd:annotation>
+            <xsd:sequence>
+               <xsd:element name="tvlNumber" type="xsd:string" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Arstipoolnt TVL number</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="arst">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Lehe väljastaja andmed</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+                  <xsd:complexType>
+                     <xsd:sequence>
+                        <xsd:element name="arstiKood" type="xsd:string">
+                           <xsd:annotation>
+                              <xsd:appinfo>
+                                 <xroad:title>Arsti kood</xroad:title>
+                              </xsd:appinfo>
+                           </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="telefon" type="ehk:telefonType" minOccurs="0">
+                           <xsd:annotation>
+                              <xsd:appinfo>
+                                 <xroad:title xml:lang="et">Telefon</xroad:title>
+                              </xsd:appinfo>
+                           </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="arstiEriala" type="ehk:arstiErialaType">
+                           <xsd:annotation>
+                              <xsd:appinfo>
+                                 <xroad:title xml:lang="et">Eriala kood</xroad:title>
+                                 <xroad:notes xml:lang="et">Kujul "Exxx"</xroad:notes>
+                              </xsd:appinfo>
+                           </xsd:annotation>
+                        </xsd:element>
+                     </xsd:sequence>
+                  </xsd:complexType>
+               </xsd:element>
+               <xsd:element name="tvlLiik" type="ehk:tvlLiikType">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Töövõimetuslehe liik</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="tvPohjus" type="ehk:tvPohjusType">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Töövõimetuslehe põhjus</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="esmaseTvlId" type="xsd:string" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Esmase lehe ID</xroad:title>
+                        <xroad:notes xml:lang="et">Sisestatakse ainult järglehe korral</xroad:notes>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="tvPeriood">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Töövabastuse periood</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+                  <xsd:complexType>
+                     <xsd:sequence>
+                        <xsd:element name="alates" type="xsd:date">
+                           <xsd:annotation>
+                              <xsd:appinfo>
+                                 <xroad:title xml:lang="et">Töövabastus alates</xroad:title>
+                              </xsd:appinfo>
+                           </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="kuni" type="xsd:date">
+                           <xsd:annotation>
+                              <xsd:appinfo>
+                                 <xroad:title xml:lang="et">Töövabastus kuni</xroad:title>
+                              </xsd:appinfo>
+                           </xsd:annotation>
+                        </xsd:element>
+                     </xsd:sequence>
+                  </xsd:complexType>
+               </xsd:element>
+               <xsd:element name="tvlIsik">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Isiku andmed</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+                  <xsd:complexType>
+                     <xsd:sequence>
+                        <xsd:element name="isikukood" type="ehk:eeIsikukoodType">
+                           <xsd:annotation>
+                              <xsd:appinfo/>
+                           </xsd:annotation>
+                        </xsd:element>
+                     </xsd:sequence>
+                  </xsd:complexType>
+               </xsd:element>
+               <xsd:element name="hooldatavIsik" type="ehk:hooldatavIsikLihtType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Hooldatav isik</xroad:title>
+                        <xroad:notes xml:lang="et">Täidetakse ainult hoolduslehel. Hooldatava korral, kellel pole Eesti isikukoodi, sisestage sünniaeg, ees- ja perenimi.</xroad:notes>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="diagnoos" type="xsd:string">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Diagnoosi kood</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="synnituseAeg" type="xsd:date" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Eeldatav sünnitamiskuupäev</xroad:title>
+                        <xroad:notes xml:lang="et">Raseduskaardile märgitud eeldatav sünnitamise kuupäev</xroad:notes>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="raviEiramine" type="ehk:tvlRaviEiramine2Type" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Ravi eiramine</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="lehtLopetatud" type="xsd:boolean" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Kas leht on lõpetatud</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:complexType>
+         <xsd:complexType name="tvlArstiltSulgemineType">
+            <xsd:annotation>
+               <xsd:appinfo>
+                  <xroad:title xml:lang="et">Töövõimetuslehe sulgemise info</xroad:title>
+               </xsd:appinfo>
+            </xsd:annotation>
+            <xsd:sequence>
+               <xsd:element name="tvlId" type="xsd:string">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">TVL ID</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="tvPohjus" type="ehk:tvPohjusType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Töövõimetuslehe põhjus</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="tvPeriood" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Töövabastuse periood</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+                  <xsd:complexType>
+                     <xsd:sequence>
+                        <xsd:element name="kuni" type="xsd:date" minOccurs="0">
+                           <xsd:annotation>
+                              <xsd:appinfo>
+                                 <xroad:title xml:lang="et">Töövabastus kuni</xroad:title>
+                              </xsd:appinfo>
+                           </xsd:annotation>
+                        </xsd:element>
+                     </xsd:sequence>
+                  </xsd:complexType>
+               </xsd:element>
+               <xsd:element name="hooldatavIsik" type="ehk:hooldatavIsikLihtType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Hooldatav isik</xroad:title>
+                        <xroad:notes xml:lang="et">Täidetakse ainult hoolduslehel. Hooldatava korral, kellel pole Eesti isikukoodi, sisestage hooldatava sünnikuupäev kujul aasta-kuu-kuupäev (nt 2008-09-29).</xroad:notes>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="diagnoos" type="xsd:string" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Diagnoosi kood</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="raviEiramine" type="ehk:tvlRaviEiramine2Type" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Ravi eiramine</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:complexType>
          <xsd:complexType name="tvlTooandjaltType">
             <xsd:annotation>
                <xsd:appinfo/>
@@ -2391,6 +2730,36 @@
                   </xsd:annotation>
                </xsd:element>
                <xsd:element name="kergemToo" type="ehk:tvlKergemTooType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Info kergema töö kohta</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="puudubOigusHyvitisele"
+                            type="ehk:tvlPuudubOigusType"
+                            minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Info hüvitisele õiguse puudumise kohta</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:complexType>
+         <xsd:complexType name="tvlTooandjaltLoeteluType">
+            <xsd:annotation>
+               <xsd:appinfo/>
+            </xsd:annotation>
+            <xsd:sequence>
+               <xsd:element name="tooOnnetuseAeg" type="xsd:date" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Tööõnnetuse toimumise või kutsehaigestumise kuupäev</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="kergemToo" type="ehk:tvlKergemTooLoeteluType" minOccurs="0">
                   <xsd:annotation>
                      <xsd:appinfo>
                         <xroad:title xml:lang="et">Info kergema töö kohta</xroad:title>
@@ -2434,6 +2803,27 @@
                      </xsd:appinfo>
                   </xsd:annotation>
                </xsd:element>
+            </xsd:sequence>
+         </xsd:complexType>
+         <xsd:complexType name="tvlKergemTooLoeteluType">
+            <xsd:annotation>
+               <xsd:appinfo/>
+            </xsd:annotation>
+            <xsd:sequence>
+               <xsd:element name="alates" type="xsd:date">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Kergem töö alates</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="kuni" type="xsd:date">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Kergem töö kuni</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
                <xsd:element name="toostVabastamiseAeg" type="xsd:date" minOccurs="0">
                   <xsd:annotation>
                      <xsd:appinfo>
@@ -2470,13 +2860,6 @@
                   </xsd:annotation>
                   <xsd:simpleType>
                      <xsd:restriction base="xsd:string">
-                        <xsd:enumeration value="HL">
-                           <xsd:annotation>
-                              <xsd:appinfo>
-                                 <xroad:title xml:lang="et">Hooldusleht</xroad:title>
-                              </xsd:appinfo>
-                           </xsd:annotation>
-                        </xsd:enumeration>
                         <xsd:enumeration value="TO">
                            <xsd:annotation>
                               <xsd:appinfo>
@@ -2488,13 +2871,6 @@
                            <xsd:annotation>
                               <xsd:appinfo>
                                  <xroad:title xml:lang="et">Puhkus</xroad:title>
-                              </xsd:appinfo>
-                           </xsd:annotation>
-                        </xsd:enumeration>
-                        <xsd:enumeration value="KP">
-                           <xsd:annotation>
-                              <xsd:appinfo>
-                                 <xroad:title xml:lang="et">Kindlustuskaitse on peatunud</xroad:title>
                               </xsd:appinfo>
                            </xsd:annotation>
                         </xsd:enumeration>
@@ -5175,7 +5551,14 @@
             </xsd:complexType>
          </xsd:element>
          <xsd:complexType name="kindlustused2RequestType">
-            <xsd:sequence>
+            <xsd:all>
+               <xsd:element name="tyyp" type="ehk:kindlustusParingType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Päringu tüüp</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
                <xsd:element name="isikukood" minOccurs="0">
                   <xsd:annotation>
                      <xsd:appinfo>
@@ -5190,7 +5573,7 @@
                      </xsd:restriction>
                   </xsd:simpleType>
                </xsd:element>
-            </xsd:sequence>
+            </xsd:all>
          </xsd:complexType>
          <xsd:complexType name="kindlustused2ResponseType">
             <xsd:annotation>
@@ -5408,11 +5791,11 @@
                <xsd:element name="id" type="xsd:string">
                   <xsd:annotation>
                      <xsd:appinfo>
-                        <xroad:title xml:lang="et">TVLi id</xroad:title>
+                        <xroad:title xml:lang="et">TVL ID</xroad:title>
                      </xsd:appinfo>
                   </xsd:annotation>
                </xsd:element>
-               <xsd:element name="tvlNumber" type="xsd:string">
+               <xsd:element name="tvlNumber" type="xsd:string" minOccurs="0">
                   <xsd:annotation>
                      <xsd:appinfo>
                         <xroad:title xml:lang="et">TVL number</xroad:title>
@@ -5428,6 +5811,142 @@
                </xsd:element>
             </xsd:sequence>
          </xsd:complexType>
+         <xsd:complexType name="tvl_registreerimineRequestType">
+            <xsd:annotation>
+               <xsd:appinfo>
+                  <xroad:title xml:lang="et">Töövõimetuslehe registreerimine (2018)</xroad:title>
+               </xsd:appinfo>
+            </xsd:annotation>
+            <xsd:sequence>
+               <xsd:element name="testimine" type="xsd:boolean" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Kas tegemist on testiga (andmeid ei salvestata)</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="tvl" type="ehk:tvlArstilt2Type">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Tõõvõimetuslehe info</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:complexType>
+         <xsd:complexType name="tvl_registreerimineResponseType">
+            <xsd:annotation>
+               <xsd:appinfo/>
+            </xsd:annotation>
+            <xsd:sequence>
+               <xsd:element name="tvl">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Tõõvõimetuslehe info</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+                  <xsd:complexType>
+                     <xsd:sequence>
+                        <xsd:element name="tvlId" type="xsd:string" minOccurs="0">
+                           <xsd:annotation>
+                              <xsd:appinfo>
+                                 <xroad:title xml:lang="et">TVL ID</xroad:title>
+                              </xsd:appinfo>
+                           </xsd:annotation>
+                        </xsd:element>
+                     </xsd:sequence>
+                  </xsd:complexType>
+               </xsd:element>
+               <xsd:element name="vead" type="ehk:veadLoeteluType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:appinfo/>
+                  </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:complexType>
+         <xsd:element name="tvl_registreerimine">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="request" type="ehk:tvl_registreerimineRequestType"/>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="tvl_registreerimineResponse">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="request" type="ehk:tvl_registreerimineRequestType"/>
+                  <xsd:element name="response" type="ehk:tvl_registreerimineResponseType"/>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:complexType name="tvl_sulgemineRequestType">
+            <xsd:annotation>
+               <xsd:appinfo>
+                  <xroad:title xml:lang="et">Töövõimetuslehe sulgemine (2018)</xroad:title>
+               </xsd:appinfo>
+            </xsd:annotation>
+            <xsd:sequence>
+               <xsd:element name="testimine" type="xsd:boolean" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Kas tegemist on testiga (andmeid ei salvestata)</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="tvl" type="ehk:tvlArstiltSulgemineType">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Tõõvõimetuslehe sulgemine</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:complexType>
+         <xsd:complexType name="tvl_sulgemineResponseType">
+            <xsd:annotation>
+               <xsd:appinfo/>
+            </xsd:annotation>
+            <xsd:sequence>
+               <xsd:element name="tvl">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Tõõvõimetuslehe info</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+                  <xsd:complexType>
+                     <xsd:sequence>
+                        <xsd:element name="tvlId" type="xsd:string" minOccurs="0">
+                           <xsd:annotation>
+                              <xsd:appinfo>
+                                 <xroad:title xml:lang="et">TVL ID</xroad:title>
+                              </xsd:appinfo>
+                           </xsd:annotation>
+                        </xsd:element>
+                     </xsd:sequence>
+                  </xsd:complexType>
+               </xsd:element>
+               <xsd:element name="vead" type="ehk:veadLoeteluType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:appinfo/>
+                  </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:complexType>
+         <xsd:element name="tvl_sulgemine">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="request" type="ehk:tvl_sulgemineRequestType"/>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="tvl_sulgemineResponse">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="request" type="ehk:tvl_sulgemineRequestType"/>
+                  <xsd:element name="response" type="ehk:tvl_sulgemineResponseType"/>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
          <xsd:complexType name="tvl_taiendamineResponseType">
             <xsd:annotation>
                <xsd:appinfo/>
@@ -7168,6 +7687,13 @@
                <xsd:appinfo/>
             </xsd:annotation>
             <xsd:restriction base="xsd:string">
+               <xsd:enumeration value="oote">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title>Arsti poolt lõpetamata</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:enumeration>
                <xsd:enumeration value="vavo">
                   <xsd:annotation>
                      <xsd:appinfo>
@@ -7179,13 +7705,6 @@
                   <xsd:annotation>
                      <xsd:appinfo>
                         <xroad:title>Tööandja andmete ootel</xroad:title>
-                     </xsd:appinfo>
-                  </xsd:annotation>
-               </xsd:enumeration>
-               <xsd:enumeration value="eitea">
-                  <xsd:annotation>
-                     <xsd:appinfo>
-                        <xroad:title>Teadmata</xroad:title>
                      </xsd:appinfo>
                   </xsd:annotation>
                </xsd:enumeration>
@@ -7221,6 +7740,7 @@
                   <xsd:annotation>
                      <xsd:appinfo>
                         <xroad:visibility>0</xroad:visibility>
+                        <xroad:title xml:lang="et">TVL id</xroad:title>
                      </xsd:appinfo>
                   </xsd:annotation>
                </xsd:element>
@@ -7277,7 +7797,7 @@
                      </xsd:appinfo>
                   </xsd:annotation>
                </xsd:element>
-               <xsd:element name="tvPerioodLopp" type="xsd:date">
+               <xsd:element name="tvPerioodLopp" type="xsd:date" minOccurs="0">
                   <xsd:annotation>
                      <xsd:appinfo>
                         <xroad:title>TV perioodi lõpp</xroad:title>
@@ -7291,12 +7811,14 @@
                      </xsd:appinfo>
                   </xsd:annotation>
                </xsd:element>
-               <xsd:element name="raviEiramine" type="ehk:tvlRaviEiramineType" minOccurs="0">
+               <xsd:element name="raviEiramine" type="ehk:tvlRaviEiramine2Type" minOccurs="0">
                   <xsd:annotation>
                      <xsd:appinfo/>
                   </xsd:annotation>
                </xsd:element>
-               <xsd:element name="leheLopetamiseOtsus" type="ehk:tvlLopetamiseOtsusType">
+               <xsd:element name="leheLopetamiseOtsus"
+                            type="ehk:tvlLopetamiseOtsus2Type"
+                            minOccurs="0">
                   <xsd:annotation>
                      <xsd:appinfo/>
                   </xsd:annotation>
@@ -7308,7 +7830,7 @@
                      </xsd:appinfo>
                   </xsd:annotation>
                </xsd:element>
-               <xsd:element name="tooandjalt" type="ehk:tvlTooandjaltType" minOccurs="0">
+               <xsd:element name="tooandjalt" type="ehk:tvlTooandjaltLoeteluType" minOccurs="0">
                   <xsd:annotation>
                      <xsd:appinfo/>
                   </xsd:annotation>
@@ -7846,6 +8368,262 @@
                <xsd:sequence>
                   <xsd:element name="request" type="ehk:tvl_loetelu_arstRequestType"/>
                   <xsd:element name="response" type="ehk:tvl_loetelu_arstResponseType"/>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:complexType name="tvlArst2Type">
+            <xsd:annotation>
+               <xsd:appinfo/>
+            </xsd:annotation>
+            <xsd:sequence>
+               <xsd:element name="tvlId" type="xsd:string">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title>TVL ID</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="tvlNumber" type="xsd:string" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title>Arstipoolne TVL number</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="tvlIsik" type="ehk:isikLihtType">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title>Patsient</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="tvPeriood">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title>Töövõimetuse periood</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+                  <xsd:complexType>
+                     <xsd:sequence>
+                        <xsd:element name="alates" type="xsd:date">
+                           <xsd:annotation>
+                              <xsd:appinfo>
+                                 <xroad:title>Alates</xroad:title>
+                              </xsd:appinfo>
+                           </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="kuni" type="xsd:date">
+                           <xsd:annotation>
+                              <xsd:appinfo>
+                                 <xroad:title>Kuni</xroad:title>
+                              </xsd:appinfo>
+                           </xsd:annotation>
+                        </xsd:element>
+                     </xsd:sequence>
+                  </xsd:complexType>
+               </xsd:element>
+               <xsd:element name="arst">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Lehe väljastaja andmed</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+                  <xsd:complexType>
+                     <xsd:sequence>
+                        <xsd:element name="arstiKood" type="xsd:string">
+                           <xsd:annotation>
+                              <xsd:appinfo>
+                                 <xroad:title>Arsti kood</xroad:title>
+                              </xsd:appinfo>
+                           </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="perenimi" type="xsd:string" minOccurs="0">
+                           <xsd:annotation>
+                              <xsd:appinfo>
+                                 <xroad:title xml:lang="et">Perenimi</xroad:title>
+                              </xsd:appinfo>
+                           </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="eesnimi" type="xsd:string" minOccurs="0">
+                           <xsd:annotation>
+                              <xsd:appinfo>
+                                 <xroad:title xml:lang="et">Eesnimi</xroad:title>
+                              </xsd:appinfo>
+                           </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="telefon" type="ehk:telefonType" minOccurs="0">
+                           <xsd:annotation>
+                              <xsd:appinfo>
+                                 <xroad:title xml:lang="et">Telefon</xroad:title>
+                              </xsd:appinfo>
+                           </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="arstiEriala" type="ehk:arstiErialaType">
+                           <xsd:annotation>
+                              <xsd:appinfo>
+                                 <xroad:title xml:lang="et">Eriala kood</xroad:title>
+                                 <xroad:notes xml:lang="et">Kujul "Exxx"</xroad:notes>
+                              </xsd:appinfo>
+                           </xsd:annotation>
+                        </xsd:element>
+                     </xsd:sequence>
+                  </xsd:complexType>
+               </xsd:element>
+               <xsd:element name="tto" type="ehk:jurIsikLihtType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title>Raviasutus</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="esmaseTvlId" type="xsd:string" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title>Esmase TVL ID</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="tvlLiik" type="ehk:tvlLiikType">
+                  <xsd:annotation>
+                     <xsd:appinfo/>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="tvPohjus" type="ehk:tvPohjusType">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title>Töövabastuse põhjus</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="hooldatavIsik" type="ehk:hooldatavIsikLihtType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title>Hooldatav isik</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="diagnoos" type="xsd:string">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title>Diagnoos</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="tooOnnetuseAeg" type="xsd:date" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title>Tööõnnetuse aeg</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="synnituseAeg" type="xsd:date" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title>Sünnituse aeg</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="raviEiramine" type="ehk:tvlRaviEiramine2Type" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:appinfo/>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="leheLopetamiseOtsus" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title>Lehe lõpetamise otsus</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+                  <xsd:complexType>
+                     <xsd:sequence>
+                        <xsd:element name="otsusKood" type="ehk:tvlLopetamiseOtsusKoodType">
+                           <xsd:annotation>
+                              <xsd:appinfo>
+                                 <xroad:title xml:lang="et">Otsuse kood</xroad:title>
+                              </xsd:appinfo>
+                           </xsd:annotation>
+                        </xsd:element>
+                     </xsd:sequence>
+                  </xsd:complexType>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:complexType>
+         <xsd:complexType name="tvlLoeteluArst2Type">
+            <xsd:annotation>
+               <xsd:appinfo/>
+            </xsd:annotation>
+            <xsd:sequence>
+               <xsd:element name="item"
+                            type="ehk:tvlArst2Type"
+                            minOccurs="0"
+                            maxOccurs="unbounded">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title>Töövõimetusleht</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:complexType>
+         <xsd:complexType name="tvl_loetelu_arst2RequestType">
+            <xsd:annotation>
+               <xsd:appinfo/>
+            </xsd:annotation>
+            <xsd:sequence>
+               <xsd:element name="isikukood" type="ehk:eeIsikukoodType">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title>Patsiendi isikukood</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="tvlLiik" type="ehk:tvlLiikType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title>TVL liik</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="alates" type="xsd:date" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title>Periood alates</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="kuni" type="xsd:date" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title>Periood kuni</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:complexType>
+         <xsd:complexType name="tvl_loetelu_arst2ResponseType">
+            <xsd:annotation>
+               <xsd:appinfo/>
+            </xsd:annotation>
+            <xsd:sequence>
+               <xsd:element name="tvlid" type="ehk:tvlLoeteluArst2Type" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:appinfo/>
+                  </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:complexType>
+         <xsd:element name="tvl_loetelu_arst2">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="request" type="ehk:tvl_loetelu_arst2RequestType"/>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="tvl_loetelu_arst2Response">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="request" type="ehk:tvl_loetelu_arst2RequestType"/>
+                  <xsd:element name="response" type="ehk:tvl_loetelu_arst2ResponseType"/>
                </xsd:sequence>
             </xsd:complexType>
          </xsd:element>
@@ -9991,58 +10769,12 @@
                <xsd:appinfo/>
             </xsd:annotation>
             <xsd:sequence>
-               <xsd:element name="tyyp">
+               <xsd:element name="tyyp" type="ehk:kindlustusParingType">
                   <xsd:annotation>
                      <xsd:appinfo>
                         <xroad:title>Päringu tüüp</xroad:title>
                      </xsd:appinfo>
                   </xsd:annotation>
-                  <xsd:simpleType>
-                     <xsd:restriction base="xsd:string">
-                        <xsd:enumeration value="T1">
-                           <xsd:annotation>
-                              <xsd:appinfo>
-                                 <xroad:title>Töötajana kindlustatud [T1]</xroad:title>
-                              </xsd:appinfo>
-                           </xsd:annotation>
-                        </xsd:enumeration>
-                        <xsd:enumeration value="T2">
-                           <xsd:annotation>
-                              <xsd:appinfo>
-                                 <xroad:title>SKA liigid [T2]</xroad:title>
-                              </xsd:appinfo>
-                           </xsd:annotation>
-                        </xsd:enumeration>
-                        <xsd:enumeration value="T3">
-                           <xsd:annotation>
-                              <xsd:appinfo>
-                                 <xroad:title>Tööandja poolt kindlustatud [T3]</xroad:title>
-                              </xsd:appinfo>
-                           </xsd:annotation>
-                        </xsd:enumeration>
-                        <xsd:enumeration value="T4">
-                           <xsd:annotation>
-                              <xsd:appinfo>
-                                 <xroad:title>Kõik kindlustusliigid [T4]</xroad:title>
-                              </xsd:appinfo>
-                           </xsd:annotation>
-                        </xsd:enumeration>
-                        <xsd:enumeration value="T5">
-                           <xsd:annotation>
-                              <xsd:appinfo>
-                                 <xroad:title>Õppurid [T5]</xroad:title>
-                              </xsd:appinfo>
-                           </xsd:annotation>
-                        </xsd:enumeration>
-                        <xsd:enumeration value="T6">
-                           <xsd:annotation>
-                              <xsd:appinfo>
-                                 <xroad:title>Kaitseväe päringuliik [T6]</xroad:title>
-                              </xsd:appinfo>
-                           </xsd:annotation>
-                        </xsd:enumeration>
-                     </xsd:restriction>
-                  </xsd:simpleType>
                </xsd:element>
                <xsd:element name="kindlustatudisikud" minOccurs="0">
                   <xsd:annotation>
@@ -10104,58 +10836,12 @@
                <xsd:appinfo/>
             </xsd:annotation>
             <xsd:sequence>
-               <xsd:element name="tyyp">
+               <xsd:element name="tyyp" type="ehk:kindlustusParingType">
                   <xsd:annotation>
                      <xsd:appinfo>
                         <xroad:visibility>0</xroad:visibility>
                      </xsd:appinfo>
                   </xsd:annotation>
-                  <xsd:simpleType>
-                     <xsd:restriction base="xsd:string">
-                        <xsd:enumeration value="T1">
-                           <xsd:annotation>
-                              <xsd:appinfo>
-                                 <xroad:title>Töötajana kindlustatud [T1]</xroad:title>
-                              </xsd:appinfo>
-                           </xsd:annotation>
-                        </xsd:enumeration>
-                        <xsd:enumeration value="T2">
-                           <xsd:annotation>
-                              <xsd:appinfo>
-                                 <xroad:title>SKA liigid [T2]</xroad:title>
-                              </xsd:appinfo>
-                           </xsd:annotation>
-                        </xsd:enumeration>
-                        <xsd:enumeration value="T3">
-                           <xsd:annotation>
-                              <xsd:appinfo>
-                                 <xroad:title>Tööandja poolt kindlustatud [T3]</xroad:title>
-                              </xsd:appinfo>
-                           </xsd:annotation>
-                        </xsd:enumeration>
-                        <xsd:enumeration value="T4">
-                           <xsd:annotation>
-                              <xsd:appinfo>
-                                 <xroad:title>Kõik kindlustusliigid [T4]</xroad:title>
-                              </xsd:appinfo>
-                           </xsd:annotation>
-                        </xsd:enumeration>
-                        <xsd:enumeration value="T5">
-                           <xsd:annotation>
-                              <xsd:appinfo>
-                                 <xroad:title>Õppurid [T5]</xroad:title>
-                              </xsd:appinfo>
-                           </xsd:annotation>
-                        </xsd:enumeration>
-                        <xsd:enumeration value="T6">
-                           <xsd:annotation>
-                              <xsd:appinfo>
-                                 <xroad:title>Kaitseväe päringuliik [T6]</xroad:title>
-                              </xsd:appinfo>
-                           </xsd:annotation>
-                        </xsd:enumeration>
-                     </xsd:restriction>
-                  </xsd:simpleType>
                </xsd:element>
                <xsd:element name="kindlustatudisikud" minOccurs="1">
                   <xsd:annotation>
@@ -10387,58 +11073,12 @@
                <xsd:appinfo/>
             </xsd:annotation>
             <xsd:sequence>
-               <xsd:element name="tyyp">
+               <xsd:element name="tyyp" type="ehk:kindlustusParingType">
                   <xsd:annotation>
                      <xsd:appinfo>
                         <xroad:visibility>0</xroad:visibility>
                      </xsd:appinfo>
                   </xsd:annotation>
-                  <xsd:simpleType>
-                     <xsd:restriction base="xsd:string">
-                        <xsd:enumeration value="T1">
-                           <xsd:annotation>
-                              <xsd:appinfo>
-                                 <xroad:title>Töötajana kindlustatud [T1]</xroad:title>
-                              </xsd:appinfo>
-                           </xsd:annotation>
-                        </xsd:enumeration>
-                        <xsd:enumeration value="T2">
-                           <xsd:annotation>
-                              <xsd:appinfo>
-                                 <xroad:title>SKA liigid [T2]</xroad:title>
-                              </xsd:appinfo>
-                           </xsd:annotation>
-                        </xsd:enumeration>
-                        <xsd:enumeration value="T3">
-                           <xsd:annotation>
-                              <xsd:appinfo>
-                                 <xroad:title>Tööandja poolt kindlustatud [T3]</xroad:title>
-                              </xsd:appinfo>
-                           </xsd:annotation>
-                        </xsd:enumeration>
-                        <xsd:enumeration value="T4">
-                           <xsd:annotation>
-                              <xsd:appinfo>
-                                 <xroad:title>Kõik kindlustusliigid [T4]</xroad:title>
-                              </xsd:appinfo>
-                           </xsd:annotation>
-                        </xsd:enumeration>
-                        <xsd:enumeration value="T5">
-                           <xsd:annotation>
-                              <xsd:appinfo>
-                                 <xroad:title>Õppurid [T5]</xroad:title>
-                              </xsd:appinfo>
-                           </xsd:annotation>
-                        </xsd:enumeration>
-                        <xsd:enumeration value="T6">
-                           <xsd:annotation>
-                              <xsd:appinfo>
-                                 <xroad:title>Kaitseväe päringuliik [T6]</xroad:title>
-                              </xsd:appinfo>
-                           </xsd:annotation>
-                        </xsd:enumeration>
-                     </xsd:restriction>
-                  </xsd:simpleType>
                </xsd:element>
                <xsd:element name="kindlustatudisikud" minOccurs="0">
                   <xsd:annotation>
@@ -11194,6 +11834,29 @@
                </xsd:enumeration>
             </xsd:restriction>
          </xsd:simpleType>
+         <xsd:simpleType name="mp_lisaminePohjusType">
+            <xsd:annotation>
+               <xsd:appinfo>
+                  <xroad:title xml:lang="et">Isiku nimekirja lisamise põhjus</xroad:title>
+               </xsd:appinfo>
+            </xsd:annotation>
+            <xsd:restriction base="xsd:string">
+               <xsd:enumeration value="P0001">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Vajab erilähenemist</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:enumeration>
+               <xsd:enumeration value="P0002">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Halb ravisoostumus</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:enumeration>
+            </xsd:restriction>
+         </xsd:simpleType>
          <xsd:group name="mp_patsientPAInfoGroup">
             <xsd:sequence>
                <xsd:element name="kutse_edast_kp" type="xsd:date" minOccurs="0">
@@ -11562,6 +12225,13 @@
                               </xsd:sequence>
                            </xsd:complexType>
                         </xsd:element>
+                        <xsd:element name="viimane_emo_visiit_kp" type="xsd:date" minOccurs="0">
+                           <xsd:annotation>
+                              <xsd:appinfo>
+                                 <xroad:title xml:lang="et">Viimase EMO visiidi kuupäev</xroad:title>
+                              </xsd:appinfo>
+                           </xsd:annotation>
+                        </xsd:element>
                      </xsd:all>
                   </xsd:complexType>
                </xsd:element>
@@ -11645,6 +12315,65 @@
                <xsd:sequence>
                   <xsd:element name="request" type="ehk:mp_khj_saatmineRequestType"/>
                   <xsd:element name="response" type="ehk:mp_khj_saatmineResponseType"/>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:complexType name="mp_khj_isiku_lisamineRequestType">
+            <xsd:sequence>
+               <xsd:element name="asutus_kood" type="xsd:string" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Perearstikeskuse Äriregistri kood</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="nimistu_kood" type="ehk:nimistuKoodType">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Nimistu kood</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="pats_isikukood" type="ehk:igaIsikukoodType">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Patsiendi isikukood</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+               <xsd:element name="lisamine_pohjus_kood" type="ehk:mp_lisaminePohjusType">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title xml:lang="et">Põhjuse kood, miks isik nimekirja lisatakse</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:complexType>
+         <xsd:complexType name="mp_khj_isiku_lisamineResponseType">
+            <xsd:annotation>
+               <xsd:appinfo/>
+            </xsd:annotation>
+            <xsd:sequence>
+               <xsd:element name="vead" type="ehk:veadLoeteluType" minOccurs="0">
+                  <xsd:annotation>
+                     <xsd:appinfo/>
+                  </xsd:annotation>
+               </xsd:element>
+            </xsd:sequence>
+         </xsd:complexType>
+         <xsd:element name="mp_khj_isiku_lisamine">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="request" type="ehk:mp_khj_isiku_lisamineRequestType"/>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="mp_khj_isiku_lisamineResponse">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="request" type="ehk:mp_khj_isiku_lisamineRequestType"/>
+                  <xsd:element name="response" type="ehk:mp_khj_isiku_lisamineResponseType"/>
                </xsd:sequence>
             </xsd:complexType>
          </xsd:element>
@@ -12462,7 +13191,7 @@
                <xsd:enumeration value="12">
                   <xsd:annotation>
                      <xsd:appinfo>
-                        <xroad:title/>
+                        <xroad:title>(kehtetu)</xroad:title>
                      </xsd:appinfo>
                   </xsd:annotation>
                </xsd:enumeration>
@@ -12766,10 +13495,34 @@
                </xsd:appinfo>
             </xsd:annotation>
             <xsd:restriction base="xsd:string">
-               <xsd:enumeration value="1"/>
-               <xsd:enumeration value="2"/>
-               <xsd:enumeration value="3"/>
-               <xsd:enumeration value="4"/>
+               <xsd:enumeration value="1">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title>1.aste</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:enumeration>
+               <xsd:enumeration value="2">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title>2.aste</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:enumeration>
+               <xsd:enumeration value="3">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title>3.aste</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:enumeration>
+               <xsd:enumeration value="4">
+                  <xsd:annotation>
+                     <xsd:appinfo>
+                        <xroad:title>4.aste</xroad:title>
+                     </xsd:appinfo>
+                  </xsd:annotation>
+               </xsd:enumeration>
             </xsd:restriction>
          </xsd:simpleType>
          <xsd:simpleType name="rtaStaatusType">
@@ -12868,7 +13621,7 @@
             <xsd:sequence>
                <xsd:element name="item"
                             type="ehk:rtaKoefitsentType"
-                            minOccurs="1"
+                            minOccurs="0"
                             maxOccurs="unbounded"/>
             </xsd:sequence>
          </xsd:complexType>
@@ -12892,7 +13645,7 @@
          </xsd:complexType>
          <xsd:complexType name="rtaHambaraviType">
             <xsd:sequence>
-               <xsd:element name="hambavalemAlates">
+               <xsd:element name="hambavalemAlates" minOccurs="0">
                   <xsd:annotation>
                      <xsd:appinfo>
                         <xroad:title>Hambavalem alates</xroad:title>
@@ -12904,7 +13657,7 @@
                      </xsd:restriction>
                   </xsd:simpleType>
                </xsd:element>
-               <xsd:element name="hambavalemKuni">
+               <xsd:element name="hambavalemKuni" minOccurs="0">
                   <xsd:annotation>
                      <xsd:appinfo>
                         <xroad:title>Hambavalem kuni</xroad:title>
@@ -12916,7 +13669,7 @@
                      </xsd:restriction>
                   </xsd:simpleType>
                </xsd:element>
-               <xsd:element name="dmfKood" type="xsd:integer">
+               <xsd:element name="dmfKood" type="xsd:integer" minOccurs="0">
                   <xsd:annotation>
                      <xsd:appinfo>
                         <xroad:title>DMF kood</xroad:title>
@@ -12968,7 +13721,7 @@
                      </xsd:restriction>
                   </xsd:simpleType>
                </xsd:element>
-               <xsd:element name="emo" type="xsd:boolean">
+               <xsd:element name="emo" type="xsd:boolean" minOccurs="0">
                   <xsd:annotation>
                      <xsd:appinfo>
                         <xroad:title>EMO</xroad:title>
@@ -13029,42 +13782,42 @@
          </xsd:complexType>
          <xsd:complexType name="rtaPatsientType">
             <xsd:sequence>
-               <xsd:element name="isikukood" type="ehk:igaIsikukoodType">
+               <xsd:element name="isikukood" type="ehk:igaIsikukoodType" minOccurs="0">
                   <xsd:annotation>
                      <xsd:appinfo>
                         <xroad:title>Patsiendi isikukood</xroad:title>
                      </xsd:appinfo>
                   </xsd:annotation>
                </xsd:element>
-               <xsd:element name="eesnimi" type="xsd:string">
+               <xsd:element name="eesnimi" type="xsd:string" minOccurs="0">
                   <xsd:annotation>
                      <xsd:appinfo>
-                        <xroad:title>Patsiendi eesnimi</xroad:title>
+                        <xroad:title>Patsiendi eesnimi </xroad:title>
                      </xsd:appinfo>
                   </xsd:annotation>
                </xsd:element>
-               <xsd:element name="perekonnanimi" type="xsd:string">
+               <xsd:element name="perekonnanimi" type="xsd:string" minOccurs="0">
                   <xsd:annotation>
                      <xsd:appinfo>
                         <xroad:title>Patsiendi perekonnanimi</xroad:title>
                      </xsd:appinfo>
                   </xsd:annotation>
                </xsd:element>
-               <xsd:element name="synniKp" type="xsd:date">
+               <xsd:element name="synniKp" type="xsd:date" minOccurs="0">
                   <xsd:annotation>
                      <xsd:appinfo>
                         <xroad:title>Patsiendi sünniaeg</xroad:title>
                      </xsd:appinfo>
                   </xsd:annotation>
                </xsd:element>
-               <xsd:element name="sugu" type="ehk:suguType">
+               <xsd:element name="sugu" type="ehk:suguType" minOccurs="0">
                   <xsd:annotation>
                      <xsd:appinfo>
                         <xroad:title>Patsiendi sugu</xroad:title>
                      </xsd:appinfo>
                   </xsd:annotation>
                </xsd:element>
-               <xsd:element name="elukohaRiik" type="ehk:riikType">
+               <xsd:element name="elukohaRiik" type="ehk:riikType" minOccurs="0">
                   <xsd:annotation>
                      <xsd:appinfo>
                         <xroad:title xml:lang="et">Patsiendi elukoha riik</xroad:title>
@@ -13089,14 +13842,14 @@
                      </xsd:appinfo>
                   </xsd:annotation>
                </xsd:element>
-               <xsd:element name="valjastatudKp" type="xsd:date">
+               <xsd:element name="valjastatudKp" type="xsd:date" minOccurs="0">
                   <xsd:annotation>
                      <xsd:appinfo>
                         <xroad:title>Väljastatud</xroad:title>
                      </xsd:appinfo>
                   </xsd:annotation>
                </xsd:element>
-               <xsd:element name="kehtibAlatesKp" type="xsd:date">
+               <xsd:element name="kehtibAlatesKp" type="xsd:date" minOccurs="0">
                   <xsd:annotation>
                      <xsd:appinfo>
                         <xroad:title>Kehtib alates</xroad:title>
@@ -13110,7 +13863,7 @@
                      </xsd:appinfo>
                   </xsd:annotation>
                </xsd:element>
-               <xsd:element name="padevaAsutuseKood" type="xsd:string">
+               <xsd:element name="padevaAsutuseKood" type="xsd:string" minOccurs="0">
                   <xsd:annotation>
                      <xsd:appinfo>
                         <xroad:title>Pädeva asutuse kood</xroad:title>
@@ -13205,35 +13958,35 @@
                      </xsd:appinfo>
                   </xsd:annotation>
                </xsd:element>
-               <xsd:element name="suunanudArstiKood" type="ehk:arstiKoodType">
+               <xsd:element name="suunanudArstiKood" type="ehk:arstiKoodType" minOccurs="0">
                   <xsd:annotation>
                      <xsd:appinfo>
                         <xroad:title>Suunanud arsti kood</xroad:title>
                      </xsd:appinfo>
                   </xsd:annotation>
                </xsd:element>
-               <xsd:element name="jargarve" type="xsd:string">
+               <xsd:element name="jargarve" type="xsd:string" minOccurs="0">
                   <xsd:annotation>
                      <xsd:appinfo>
                         <xroad:title>Järgarve</xroad:title>
                      </xsd:appinfo>
                   </xsd:annotation>
                </xsd:element>
-               <xsd:element name="valtimatuAbi" type="xsd:boolean">
+               <xsd:element name="valtimatuAbi" type="xsd:boolean" minOccurs="0">
                   <xsd:annotation>
                      <xsd:appinfo>
                         <xroad:title>Vältimatu abi</xroad:title>
                      </xsd:appinfo>
                   </xsd:annotation>
                </xsd:element>
-               <xsd:element name="saatekirjaNr" type="xsd:string">
+               <xsd:element name="saatekirjaNr" type="xsd:string" minOccurs="0">
                   <xsd:annotation>
                      <xsd:appinfo>
                         <xroad:title>Digiloo saatekirja number</xroad:title>
                      </xsd:appinfo>
                   </xsd:annotation>
                </xsd:element>
-               <xsd:element name="tvlJuhtum" type="ehk:rtaTvlJuhtumType">
+               <xsd:element name="tvlJuhtum" type="ehk:rtaTvlJuhtumType" minOccurs="0">
                   <xsd:annotation>
                      <xsd:appinfo>
                         <xroad:title>TVL juhtumi esmase lehe haigekassa poolne number</xroad:title>
@@ -13374,7 +14127,7 @@
             <xsd:sequence>
                <xsd:element name="item"
                             type="ehk:rtaTeenusVastusType"
-                            minOccurs="1"
+                            minOccurs="0"
                             maxOccurs="unbounded"/>
             </xsd:sequence>
          </xsd:complexType>
@@ -13560,7 +14313,8 @@
                <xsd:element name="testimine" type="xsd:boolean" minOccurs="0" maxOccurs="1">
                   <xsd:annotation>
                      <xsd:appinfo>
-                        <xroad:title>Testimisele minevad arved</xroad:title>
+                        <xroad:title xml:lang="et">Kas tegemist on testiga</xroad:title>
+                        <xroad:notes xml:lang="et">Kui tegemist on testiga, siis andmeid ei salvestata</xroad:notes>
                      </xsd:appinfo>
                   </xsd:annotation>
                </xsd:element>
@@ -13690,6 +14444,18 @@
    <message name="tvl_saatmine_valideeriResponse">
       <part name="body" element="ehk:tvl_saatmine_valideeriResponse"/>
    </message>
+   <message name="tvl_registreerimine">
+      <part name="body" element="ehk:tvl_registreerimine"/>
+   </message>
+   <message name="tvl_registreerimineResponse">
+      <part name="body" element="ehk:tvl_registreerimineResponse"/>
+   </message>
+   <message name="tvl_sulgemine">
+      <part name="body" element="ehk:tvl_sulgemine"/>
+   </message>
+   <message name="tvl_sulgemineResponse">
+      <part name="body" element="ehk:tvl_sulgemineResponse"/>
+   </message>
    <message name="tvl_taiendamine">
       <part name="body" element="ehk:tvl_taiendamine"/>
    </message>
@@ -13804,6 +14570,12 @@
    </message>
    <message name="tvl_loetelu_arstResponse">
       <part name="body" element="ehk:tvl_loetelu_arstResponse"/>
+   </message>
+   <message name="tvl_loetelu_arst2">
+      <part name="body" element="ehk:tvl_loetelu_arst2"/>
+   </message>
+   <message name="tvl_loetelu_arst2Response">
+      <part name="body" element="ehk:tvl_loetelu_arst2Response"/>
    </message>
    <message name="tvl_loetelu_ta">
       <part name="body" element="ehk:tvl_loetelu_ta"/>
@@ -13973,6 +14745,12 @@
    <message name="mp_khj_saatmineResponse">
       <part name="body" element="ehk:mp_khj_saatmineResponse"/>
    </message>
+   <message name="mp_khj_isiku_lisamine">
+      <part name="body" element="ehk:mp_khj_isiku_lisamine"/>
+   </message>
+   <message name="mp_khj_isiku_lisamineResponse">
+      <part name="body" element="ehk:mp_khj_isiku_lisamineResponse"/>
+   </message>
    <message name="rta_tai_loetelu">
       <part name="body" element="ehk:rta_tai_loetelu"/>
    </message>
@@ -14035,6 +14813,20 @@
          </documentation>
          <input message="ehk:tvl_saatmine_valideeri"/>
          <output message="ehk:tvl_saatmine_valideeriResponse"/>
+      </operation>
+      <operation name="tvl_registreerimine">
+         <documentation>
+            <xroad:title xml:lang="et">Töövõimetuslehe registreerimine (2018)</xroad:title>
+         </documentation>
+         <input message="ehk:tvl_registreerimine"/>
+         <output message="ehk:tvl_registreerimineResponse"/>
+      </operation>
+      <operation name="tvl_sulgemine">
+         <documentation>
+            <xroad:title xml:lang="et">Töövõimetuslehe sulgemine (2018)</xroad:title>
+         </documentation>
+         <input message="ehk:tvl_sulgemine"/>
+         <output message="ehk:tvl_sulgemineResponse"/>
       </operation>
       <operation name="tvl_taiendamine">
          <documentation>
@@ -14196,6 +14988,14 @@
          </documentation>
          <input message="ehk:tvl_loetelu_arst"/>
          <output message="ehk:tvl_loetelu_arstResponse"/>
+      </operation>
+      <operation name="tvl_loetelu_arst2">
+         <documentation>
+            <xroad:title xml:lang="et">Töövõimetuslehtede loetelu arstile (2018)</xroad:title>
+            <xroad:notes>Otsi isiku töövõimetuslehti</xroad:notes>
+         </documentation>
+         <input message="ehk:tvl_loetelu_arst2"/>
+         <output message="ehk:tvl_loetelu_arst2Response"/>
       </operation>
       <operation name="tvl_loetelu_ta">
          <documentation>
@@ -14433,6 +15233,15 @@
          <input message="ehk:mp_khj_saatmine"/>
          <output message="ehk:mp_khj_saatmineResponse"/>
       </operation>
+      <operation name="mp_khj_isiku_lisamine">
+         <documentation>
+            <xroad:title xml:lang="et">Patsiendi lisamine jälgitavate krooniliste haigete loetellu</xroad:title>
+            <xroad:notes xml:lang="et"/>
+            <xroad:actiontitle>Saada</xroad:actiontitle>
+         </documentation>
+         <input message="ehk:mp_khj_isiku_lisamine"/>
+         <output message="ehk:mp_khj_isiku_lisamineResponse"/>
+      </operation>
       <operation name="rta_tai_loetelu">
          <documentation>
             <xroad:title xml:lang="et">TAI pakkides saabunud arvete aruanne, mitteisikuline</xroad:title>
@@ -14552,6 +15361,56 @@
          </output>
       </operation>
       <operation name="tvl_saatmine_valideeri">
+         <xroad:version>v1</xroad:version>
+         <soap:operation soapAction="" style="document"/>
+         <input>
+            <soap:body parts="body" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="client" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="service" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="id" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="userId" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="issue" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="protocolVersion" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="representedParty" use="literal"/>
+         </input>
+         <output>
+            <soap:body parts="body" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="client" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="service" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="id" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="userId" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="issue" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="protocolVersion" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="representedParty" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="requestHash" use="literal"/>
+         </output>
+      </operation>
+      <operation name="tvl_registreerimine">
+         <xroad:version>v1</xroad:version>
+         <soap:operation soapAction="" style="document"/>
+         <input>
+            <soap:body parts="body" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="client" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="service" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="id" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="userId" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="issue" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="protocolVersion" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="representedParty" use="literal"/>
+         </input>
+         <output>
+            <soap:body parts="body" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="client" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="service" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="id" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="userId" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="issue" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="protocolVersion" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="representedParty" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="requestHash" use="literal"/>
+         </output>
+      </operation>
+      <operation name="tvl_sulgemine">
          <xroad:version>v1</xroad:version>
          <soap:operation soapAction="" style="document"/>
          <input>
@@ -15064,6 +15923,31 @@
             <soap:header message="ehk:XRoadHeader" part="requestHash" use="literal"/>
          </output>
       </operation>
+      <operation name="tvl_loetelu_arst2">
+         <xroad:version>v1</xroad:version>
+         <soap:operation soapAction="" style="document"/>
+         <input>
+            <soap:body parts="body" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="client" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="service" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="id" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="userId" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="issue" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="protocolVersion" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="representedParty" use="literal"/>
+         </input>
+         <output>
+            <soap:body parts="body" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="client" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="service" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="id" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="userId" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="issue" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="protocolVersion" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="representedParty" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="requestHash" use="literal"/>
+         </output>
+      </operation>
       <operation name="tvl_loetelu_ta">
          <xroad:version>v1</xroad:version>
          <soap:operation soapAction="" style="document"/>
@@ -15761,6 +16645,32 @@
          </output>
       </operation>
       <operation name="mp_khj_saatmine">
+         <xroad:version>v1</xroad:version>
+         <xroad:requirecontent>true</xroad:requirecontent>
+         <soap:operation soapAction="" style="document"/>
+         <input>
+            <soap:body parts="body" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="client" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="service" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="id" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="userId" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="issue" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="protocolVersion" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="representedParty" use="literal"/>
+         </input>
+         <output>
+            <soap:body parts="body" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="client" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="service" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="id" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="userId" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="issue" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="protocolVersion" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="representedParty" use="literal"/>
+            <soap:header message="ehk:XRoadHeader" part="requestHash" use="literal"/>
+         </output>
+      </operation>
+      <operation name="mp_khj_isiku_lisamine">
          <xroad:version>v1</xroad:version>
          <xroad:requirecontent>true</xroad:requirecontent>
          <soap:operation soapAction="" style="document"/>
