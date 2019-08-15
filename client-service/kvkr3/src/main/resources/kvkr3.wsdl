@@ -1,0 +1,2022 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:plink="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+                  xmlns:s0="http://x-road.eu/xsd/identifiers" xmlns:s1="http://x-road.eu/xsd/xroad.xsd"
+                  xmlns:s2="http://ws-i.org/profiles/basic/1.1/xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:soap11enc="http://schemas.xmlsoap.org/soap/encoding/"
+                  xmlns:soap11env="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:soap12enc="http://www.w3.org/2003/05/soap-encoding"
+                  xmlns:soap12env="http://www.w3.org/2003/05/soap-envelope" xmlns:tns="http://kvkr3.x-road.eu"
+                  xmlns:wsa="http://schemas.xmlsoap.org/ws/2003/03/addressing"
+                  xmlns:xop="http://www.w3.org/2004/08/xop/include" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  targetNamespace="http://kvkr3.x-road.eu/producer/" name="KVKRXtee">
+<wsdl:types>
+        <xs:schema targetNamespace="http://kvkr3.x-road.eu" elementFormDefault="qualified">
+            <xs:import namespace="http://ws-i.org/profiles/basic/1.1/xsd" schemaLocation="http://ws-i.org/profiles/basic/1.1/swaref.xsd"/>
+            <xs:import namespace="http://x-road.eu/xsd/xroad.xsd" schemaLocation="http://x-road.eu/xsd/xroad.xsd"/>
+            <xs:complexType name="ClsIntCodeName">
+                <xs:sequence>
+                    <xs:element name="code" type="xs:integer">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Code</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="name" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Name</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="get_ecrecp_v1_LoadKeelud">
+                <xs:sequence>
+                    <xs:element name="isikukood" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Isikukood</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="eesnimi" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Eesnimi</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="perenimi" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Perenimi</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="eesnimiMrz" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Eesnimi ICAO 9303</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="perenimiMrz" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Perenimi ICAO 9303</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="kasKeeld" type="xs:boolean">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Kas isikul on Eestist lahkumise keeld</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="kasLuba" type="xs:boolean">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Kas isikul on Eestist lahkumise luba</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="algus" type="xs:date">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Eestist lahkumise loa/keelu kehtivuse algus</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="lopp" type="xs:date">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Eestist lahkumise loa/keelu kehtivuse lõpp</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="get_ecrecp_v1_Paring">
+                <xs:sequence>
+                    <xs:element name="isikukood" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Isikukood</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="synniaeg" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Synniaeg</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="mrz_perenimed" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Mrz perenimed</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="mrz_eesnimed" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Mrz eesnimed</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="isetk_operations_v1_Paring">
+                <xs:sequence>
+                    <xs:element name="message_id" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Message id</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="operation_name" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Operation name</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="document_id" type="s2:swaRef">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Document id</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="isetk_operations_v1_Vastus">
+                <xs:sequence>
+                    <xs:element name="status" type="xs:integer">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Status</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="message" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Message</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="document_id" type="s2:swaRef" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Document id</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="medical_personnel_w_mil_booking_v1_Paring">
+                <xs:sequence>
+                    <xs:element name="query_grounds" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Query grounds</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="medical_personnel_w_mil_booking_v1_Vastus">
+                <xs:sequence>
+                    <xs:element name="status" type="xs:integer">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Status</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="message" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Message</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="attachment_id" type="s2:swaRef" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Attachment id</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="person_info_v1_ContactAddressList">
+                <xs:sequence>
+                    <xs:element name="item" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Item</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="person_info_v1_ContactEmailList">
+                <xs:sequence>
+                    <xs:element name="item" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Item</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="person_info_v1_ContactPhoneList">
+                <xs:sequence>
+                    <xs:element name="item" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Item</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="person_info_v1_Document">
+                <xs:sequence>
+                    <xs:element name="document_type" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Dokumendi tüüp</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="doc_title" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Dokumendi pealkiri</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="did" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">ID</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="doc_no" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Dokumendi number</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="doc_issuer_name" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Väljastaja</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="doc_issued" type="xs:date">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Väljastatud</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="person_info_v1_DraftDeferment">
+                <xs:sequence>
+                    <xs:element name="doc_issued" type="xs:date">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Väljastamise kuupäev</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="defer_until" type="xs:date">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Tähtaeg</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="basis" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Põhjus</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="person_info_v1_Paring">
+                <xs:sequence>
+                    <xs:element name="national_id" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">National id</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="query_grounds" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Query grounds</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="person_info_v1_Rank">
+                <xs:sequence>
+                    <xs:element name="rank_name" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Auaste</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="rank_date" type="xs:date">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Omistamise kuupäev</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="until_date" type="xs:date" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Tähtaeg</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="rank_decree_no" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Otsuse number</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="rank_decree_date" type="xs:date" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Otsuse kuupäev</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="rank_decree_issuer" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Otsuse väljastaja</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="person_info_v1_ServiceRecord">
+                <xs:sequence>
+                    <xs:element name="start_date" type="xs:date">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Teenistuse algus</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="end_date" type="xs:date" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Teenistuse lõpp</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="record_type" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Teenistuse liik</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="facility" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Teenistuskoht</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="facility_desc" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Teenistuskoha kirjeldus</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="person_info_v1_Summons">
+                <xs:sequence>
+                    <xs:element name="document_type" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Kutsumise tüüp</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="summons_date" type="xs:date">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Toimumise/ilmumise kuupäev</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="summons_time" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Toimumise/ilmumise kellaeg</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="summons_location" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Toimumise/ilmumise koht</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="person_info_v1_TestResults">
+                <xs:sequence>
+                    <xs:element name="profile1_result" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Jaoülem</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="profile2_result" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Autojuht</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="person_info_v1_WtpDocument">
+                <xs:sequence>
+                    <xs:element name="speciality" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Ametikoht</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="speciality_date" type="xs:date">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Ametikohale määramise kuupäev</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="document_date" type="xs:date">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Määramise alusdokumendi kuupäev</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="document_no" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Alusdokumendi number</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="document_issuer" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Alusdokumendi väljaandja</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="military_unit_code" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Sõjaaja üksuse kood, kuhu isik on ametikohale määratud</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="mob_address" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Väeosa kogunemiskoha aadress, kuhu reservväelane peab ilmuma mobilisatsiooni korral</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="issuer_contact" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Teatise väljastaja ametinimetus, nimi ning kontaktandmed</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="position_no" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Teatise number</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="issued_date" type="xs:date">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Teatise väljastamise kuupäev</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="military_code" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Määratud sõjalise eriala arvestuskood</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="person_service_v1_Paring">
+                <xs:sequence>
+                    <xs:element name="isikukood" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Isikukood</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="person_status_v1_Paring">
+                <xs:sequence>
+                    <xs:element name="national_id" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">National id</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="query_grounds" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Query grounds</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="person_status_v1_Vastus">
+                <xs:sequence>
+                    <xs:element name="national_id" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">National id</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="status" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Status</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="persons_w_children_v1_Paring">
+                <xs:sequence>
+                    <xs:element name="query_date" type="xs:date" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Query date</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="persons_w_children_v1_Person">
+                <xs:sequence>
+                    <xs:element name="national_id" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">National id</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="surname" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Surname</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="firstname" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Firstname</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="start" type="xs:date">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Start</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="prognosis" type="xs:date">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Prognosis</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="end" type="xs:date" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">End</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="service_info_v1_Document">
+                <xs:sequence>
+                    <xs:element name="document_type" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Dokumendi tüüp</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="doc_title" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Dokumendi pealkiri</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="doc_no" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Dokumendi number</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="doc_issuer_name" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Väljastaja</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="doc_issued" type="xs:date">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Väljastatud</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="service_info_v1_Paring">
+                <xs:sequence>
+                    <xs:element name="national_id" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">National id</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="query_grounds" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Query grounds</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="service_info_v1_ServiceRecord">
+                <xs:sequence>
+                    <xs:element name="start_date" type="xs:date">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Teenistuse algus</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="end_date" type="xs:date" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Teenistuse lõpp</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="record_type" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Teenistuse liik</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="facility_desc" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Teenistuskoha kirjeldus</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="retire_decree_basis" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Teenistuse lõpetamise otsuse alus</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="record_length" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Teenistuse aeg (aa/kk/pp)</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="host_system" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Andmeallikas</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="get_ecrecp_v1_LoadKeeludList">
+                <xs:sequence>
+                    <xs:element name="loadkeelud" type="tns:get_ecrecp_v1_LoadKeelud" minOccurs="0" maxOccurs="unbounded">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Loadkeelud</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="person_info_v1_ContactList">
+                <xs:sequence>
+                    <xs:element name="main_addresses" type="tns:person_info_v1_ContactAddressList">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Main addresses</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="phone_numbers" type="tns:person_info_v1_ContactPhoneList">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Phone numbers</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="emails" type="tns:person_info_v1_ContactEmailList">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Emails</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="person_info_v1_DocumentList">
+                <xs:sequence>
+                    <xs:element name="document" type="tns:person_info_v1_Document" minOccurs="0" maxOccurs="unbounded">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Document</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="person_info_v1_DraftDefermentList">
+                <xs:sequence>
+                    <xs:element name="draft_deferment" type="tns:person_info_v1_DraftDeferment" minOccurs="0" maxOccurs="unbounded">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Draft deferment</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="person_info_v1_ServiceRecordList">
+                <xs:sequence>
+                    <xs:element name="service_record" type="tns:person_info_v1_ServiceRecord" minOccurs="0" maxOccurs="unbounded">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Service record</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="person_info_v1_SummonsList">
+                <xs:sequence>
+                    <xs:element name="summons" type="tns:person_info_v1_Summons" minOccurs="0" maxOccurs="unbounded">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Summons</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="person_service_v1_Service">
+                <xs:sequence>
+                    <xs:element name="isikukood" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Isikukood</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="perenimi" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Perenimi</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="eesnimi" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Eesnimi</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="staatus" type="tns:ClsIntCodeName">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Staatus</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="teenistusliik" type="tns:ClsIntCodeName">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Teenistusliik</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="algus" type="xs:date">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Algus</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="prognoos" type="xs:date">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Prognoos</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="lopp" type="xs:date" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Lopp</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="persons_w_children_v1_PersonList">
+                <xs:sequence>
+                    <xs:element name="person" type="tns:persons_w_children_v1_Person" minOccurs="0" maxOccurs="unbounded">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Person</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="service_info_v1_DocumentList">
+                <xs:sequence>
+                    <xs:element name="document" type="tns:service_info_v1_Document" minOccurs="0" maxOccurs="unbounded">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Document</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="service_info_v1_ServiceRecordList">
+                <xs:sequence>
+                    <xs:element name="service_record" type="tns:service_info_v1_ServiceRecord" minOccurs="0" maxOccurs="unbounded">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Service record</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="get_ecrecp_v1">
+                <xs:sequence>
+                    <xs:element name="request" type="tns:get_ecrecp_v1_Paring" minOccurs="0" nillable="true">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Request</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="isetk_operations_v1">
+                <xs:sequence>
+                    <xs:element name="request" type="tns:isetk_operations_v1_Paring" minOccurs="0" nillable="true">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Request</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="isetk_operations_v1Response">
+                <xs:sequence>
+                    <xs:element name="request" type="tns:isetk_operations_v1_Paring" minOccurs="0" nillable="true">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Request</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="response" type="tns:isetk_operations_v1_Vastus" minOccurs="0" nillable="true">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Response</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="medical_personnel_w_mil_booking_v1">
+                <xs:sequence>
+                    <xs:element name="request" type="tns:medical_personnel_w_mil_booking_v1_Paring" minOccurs="0" nillable="true">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Request</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="medical_personnel_w_mil_booking_v1Response">
+                <xs:sequence>
+                    <xs:element name="request" type="tns:medical_personnel_w_mil_booking_v1_Paring" minOccurs="0" nillable="true">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Request</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="response" type="tns:medical_personnel_w_mil_booking_v1_Vastus" minOccurs="0" nillable="true">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Response</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="person_info_v1">
+                <xs:sequence>
+                    <xs:element name="request" type="tns:person_info_v1_Paring" minOccurs="0" nillable="true">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Request</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="person_service_v1">
+                <xs:sequence>
+                    <xs:element name="request" type="tns:person_service_v1_Paring" minOccurs="0" nillable="true">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Request</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="person_status_v1">
+                <xs:sequence>
+                    <xs:element name="request" type="tns:person_status_v1_Paring" minOccurs="0" nillable="true">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Request</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="person_status_v1Response">
+                <xs:sequence>
+                    <xs:element name="request" type="tns:person_status_v1_Paring" minOccurs="0" nillable="true">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Request</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="response" type="tns:person_status_v1_Vastus" minOccurs="0" nillable="true">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Response</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="persons_w_children_v1">
+                <xs:sequence>
+                    <xs:element name="request" type="tns:persons_w_children_v1_Paring" minOccurs="0" nillable="true">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Request</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="service_info_v1">
+                <xs:sequence>
+                    <xs:element name="request" type="tns:service_info_v1_Paring" minOccurs="0" nillable="true">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Request</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="get_ecrecp_v1_Vastus">
+                <xs:sequence>
+                    <xs:element name="leitudIsikuid" type="xs:integer">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Leitudisikuid</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="isikud" type="tns:get_ecrecp_v1_LoadKeeludList" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Isikud</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="person_info_v1_Vastus">
+                <xs:sequence>
+                    <xs:element name="national_id" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">National id</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="firstname" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Firstname</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="surname" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Surname</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="birth_location" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Birth location</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="driverlicense" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Driverlicense</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="children_count" type="xs:integer" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Children count</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="education_level" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Education level</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="status" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Status</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="admissibility" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Admissibility</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="admissibility_sa" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Admissibility sa</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="is_booked" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Is booked</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="is_dismissed_from_training" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Is dismissed from training</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="oath_date" type="xs:date" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Oath date</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="religion_type" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Religion type</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="id_code" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Id code</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="idtag_status" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Idtag status</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="idtag_date" type="xs:date" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Idtag date</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="main_contacts" type="tns:person_info_v1_ContactList" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Main contacts</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="summonses" type="tns:person_info_v1_SummonsList" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Summonses</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="draft_deferments" type="tns:person_info_v1_DraftDefermentList" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Draft deferments</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="documents" type="tns:person_info_v1_DocumentList" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Documents</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="rank" type="tns:person_info_v1_Rank" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Rank</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="service_records" type="tns:person_info_v1_ServiceRecordList" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Service records</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="wtp_document" type="tns:person_info_v1_WtpDocument" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Wtp document</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="test_results" type="tns:person_info_v1_TestResults" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Test results</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="person_service_v1_ServiceList">
+                <xs:sequence>
+                    <xs:element name="teenistus" type="tns:person_service_v1_Service" minOccurs="0" maxOccurs="unbounded">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Teenistus</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="persons_w_children_v1_Vastus">
+                <xs:sequence>
+                    <xs:element name="persons" type="tns:persons_w_children_v1_PersonList" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Persons</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="service_info_v1_Vastus">
+                <xs:sequence>
+                    <xs:element name="national_id" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">National id</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="firstname" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Firstname</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="surname" type="xs:string">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Surname</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="documents" type="tns:service_info_v1_DocumentList" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Documents</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="service_records" type="tns:service_info_v1_ServiceRecordList" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Service records</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="person_service_v1_Vastus">
+                <xs:sequence>
+                    <xs:element name="teenistused" type="tns:person_service_v1_ServiceList" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Teenistused</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="get_ecrecp_v1Response">
+                <xs:sequence>
+                    <xs:element name="request" type="tns:get_ecrecp_v1_Paring" minOccurs="0" nillable="true">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Request</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="response" type="tns:get_ecrecp_v1_Vastus" minOccurs="0" nillable="true">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Response</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="person_info_v1Response">
+                <xs:sequence>
+                    <xs:element name="request" type="tns:person_info_v1_Paring" minOccurs="0" nillable="true">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Request</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="response" type="tns:person_info_v1_Vastus" minOccurs="0" nillable="true">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Response</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="persons_w_children_v1Response">
+                <xs:sequence>
+                    <xs:element name="request" type="tns:persons_w_children_v1_Paring" minOccurs="0" nillable="true">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Request</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="response" type="tns:persons_w_children_v1_Vastus" minOccurs="0" nillable="true">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Response</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="person_service_v1Response">
+                <xs:sequence>
+                    <xs:element name="request" type="tns:person_service_v1_Paring" minOccurs="0" nillable="true">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Request</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="response" type="tns:person_service_v1_Vastus" minOccurs="0" nillable="true">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Response</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="ClsIntCodeName" type="tns:ClsIntCodeName"/>
+            <xs:element name="get_ecrecp_v1_LoadKeelud" type="tns:get_ecrecp_v1_LoadKeelud"/>
+            <xs:element name="get_ecrecp_v1_Paring" type="tns:get_ecrecp_v1_Paring"/>
+            <xs:element name="isetk_operations_v1_Paring" type="tns:isetk_operations_v1_Paring"/>
+            <xs:element name="isetk_operations_v1_Vastus" type="tns:isetk_operations_v1_Vastus"/>
+            <xs:element name="medical_personnel_w_mil_booking_v1_Paring" type="tns:medical_personnel_w_mil_booking_v1_Paring"/>
+            <xs:element name="medical_personnel_w_mil_booking_v1_Vastus" type="tns:medical_personnel_w_mil_booking_v1_Vastus"/>
+            <xs:element name="person_info_v1_ContactAddressList" type="tns:person_info_v1_ContactAddressList"/>
+            <xs:element name="person_info_v1_ContactEmailList" type="tns:person_info_v1_ContactEmailList"/>
+            <xs:element name="person_info_v1_ContactPhoneList" type="tns:person_info_v1_ContactPhoneList"/>
+            <xs:element name="person_info_v1_Document" type="tns:person_info_v1_Document"/>
+            <xs:element name="person_info_v1_DraftDeferment" type="tns:person_info_v1_DraftDeferment"/>
+            <xs:element name="person_info_v1_Paring" type="tns:person_info_v1_Paring"/>
+            <xs:element name="person_info_v1_Rank" type="tns:person_info_v1_Rank"/>
+            <xs:element name="person_info_v1_ServiceRecord" type="tns:person_info_v1_ServiceRecord"/>
+            <xs:element name="person_info_v1_Summons" type="tns:person_info_v1_Summons"/>
+            <xs:element name="person_info_v1_TestResults" type="tns:person_info_v1_TestResults"/>
+            <xs:element name="person_info_v1_WtpDocument" type="tns:person_info_v1_WtpDocument"/>
+            <xs:element name="person_service_v1_Paring" type="tns:person_service_v1_Paring"/>
+            <xs:element name="person_status_v1_Paring" type="tns:person_status_v1_Paring"/>
+            <xs:element name="person_status_v1_Vastus" type="tns:person_status_v1_Vastus"/>
+            <xs:element name="persons_w_children_v1_Paring" type="tns:persons_w_children_v1_Paring"/>
+            <xs:element name="persons_w_children_v1_Person" type="tns:persons_w_children_v1_Person"/>
+            <xs:element name="service_info_v1_Document" type="tns:service_info_v1_Document"/>
+            <xs:element name="service_info_v1_Paring" type="tns:service_info_v1_Paring"/>
+            <xs:element name="service_info_v1_ServiceRecord" type="tns:service_info_v1_ServiceRecord"/>
+            <xs:element name="get_ecrecp_v1_LoadKeeludList" type="tns:get_ecrecp_v1_LoadKeeludList"/>
+            <xs:element name="person_info_v1_ContactList" type="tns:person_info_v1_ContactList"/>
+            <xs:element name="person_info_v1_DocumentList" type="tns:person_info_v1_DocumentList"/>
+            <xs:element name="person_info_v1_DraftDefermentList" type="tns:person_info_v1_DraftDefermentList"/>
+            <xs:element name="person_info_v1_ServiceRecordList" type="tns:person_info_v1_ServiceRecordList"/>
+            <xs:element name="person_info_v1_SummonsList" type="tns:person_info_v1_SummonsList"/>
+            <xs:element name="person_service_v1_Service" type="tns:person_service_v1_Service"/>
+            <xs:element name="persons_w_children_v1_PersonList" type="tns:persons_w_children_v1_PersonList"/>
+            <xs:element name="service_info_v1_DocumentList" type="tns:service_info_v1_DocumentList"/>
+            <xs:element name="service_info_v1_ServiceRecordList" type="tns:service_info_v1_ServiceRecordList"/>
+            <xs:element name="get_ecrecp_v1" type="tns:get_ecrecp_v1"/>
+            <xs:element name="isetk_operations_v1" type="tns:isetk_operations_v1"/>
+            <xs:element name="isetk_operations_v1Response" type="tns:isetk_operations_v1Response"/>
+            <xs:element name="medical_personnel_w_mil_booking_v1" type="tns:medical_personnel_w_mil_booking_v1"/>
+            <xs:element name="medical_personnel_w_mil_booking_v1Response" type="tns:medical_personnel_w_mil_booking_v1Response"/>
+            <xs:element name="person_info_v1" type="tns:person_info_v1"/>
+            <xs:element name="person_service_v1" type="tns:person_service_v1"/>
+            <xs:element name="person_status_v1" type="tns:person_status_v1"/>
+            <xs:element name="person_status_v1Response" type="tns:person_status_v1Response"/>
+            <xs:element name="persons_w_children_v1" type="tns:persons_w_children_v1"/>
+            <xs:element name="service_info_v1">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="request" type="tns:service_info_v1_Paring" minOccurs="0" nillable="true">
+                            <xs:annotation>
+                                <xs:appinfo>
+                                    <s1:title xml:lang="et">Request</s1:title>
+                                    <s1:notes xml:lang="et"/>
+                                </xs:appinfo>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="get_ecrecp_v1_Vastus" type="tns:get_ecrecp_v1_Vastus"/>
+            <xs:element name="person_info_v1_Vastus" type="tns:person_info_v1_Vastus"/>
+            <xs:element name="person_service_v1_ServiceList" type="tns:person_service_v1_ServiceList"/>
+            <xs:element name="persons_w_children_v1_Vastus" type="tns:persons_w_children_v1_Vastus"/>
+            <xs:element name="service_info_v1_Vastus" type="tns:service_info_v1_Vastus"/>
+            <xs:element name="person_service_v1_Vastus" type="tns:person_service_v1_Vastus"/>
+            <xs:element name="get_ecrecp_v1Response" type="tns:get_ecrecp_v1Response"/>
+            <xs:element name="person_info_v1Response" type="tns:person_info_v1Response"/>
+            <xs:element name="persons_w_children_v1Response" type="tns:persons_w_children_v1Response"/>
+            <xs:element name="service_info_v1Response">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="request" type="tns:service_info_v1_Paring" minOccurs="0" nillable="true">
+                            <xs:annotation>
+                                <xs:appinfo>
+                                    <s1:title xml:lang="et">Request</s1:title>
+                                    <s1:notes xml:lang="et"/>
+                                </xs:appinfo>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="response" type="tns:service_info_v1_Vastus" minOccurs="0" nillable="true">
+                            <xs:annotation>
+                                <xs:appinfo>
+                                    <s1:title xml:lang="et">Response</s1:title>
+                                    <s1:notes xml:lang="et"/>
+                                </xs:appinfo>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="person_service_v1Response" type="tns:person_service_v1Response"/>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="isetk_operations_v1">
+        <wsdl:part name="isetk_operations_v1" element="tns:isetk_operations_v1"/>
+    </wsdl:message>
+    <wsdl:message name="isetk_operations_v1Response">
+        <wsdl:part name="isetk_operations_v1Response" element="tns:isetk_operations_v1Response"/>
+    </wsdl:message>
+    <wsdl:message name="isetk_operations_v1OutHeaderMsg">
+        <wsdl:part name="client" element="s1:client"/>
+        <wsdl:part name="service" element="s1:service"/>
+        <wsdl:part name="id" element="s1:id"/>
+        <wsdl:part name="userId" element="s1:userId"/>
+        <wsdl:part name="protocolVersion" element="s1:protocolVersion"/>
+    </wsdl:message>
+    <wsdl:message name="person_info_v1">
+        <wsdl:part name="person_info_v1" element="tns:person_info_v1"/>
+    </wsdl:message>
+    <wsdl:message name="person_info_v1Response">
+        <wsdl:part name="person_info_v1Response" element="tns:person_info_v1Response"/>
+    </wsdl:message>
+    <wsdl:message name="person_info_v1OutHeaderMsg">
+        <wsdl:part name="client" element="s1:client"/>
+        <wsdl:part name="service" element="s1:service"/>
+        <wsdl:part name="id" element="s1:id"/>
+        <wsdl:part name="userId" element="s1:userId"/>
+        <wsdl:part name="protocolVersion" element="s1:protocolVersion"/>
+    </wsdl:message>
+    <wsdl:message name="person_status_v1">
+        <wsdl:part name="person_status_v1" element="tns:person_status_v1"/>
+    </wsdl:message>
+    <wsdl:message name="person_status_v1Response">
+        <wsdl:part name="person_status_v1Response" element="tns:person_status_v1Response"/>
+    </wsdl:message>
+    <wsdl:message name="person_status_v1OutHeaderMsg">
+        <wsdl:part name="client" element="s1:client"/>
+        <wsdl:part name="service" element="s1:service"/>
+        <wsdl:part name="id" element="s1:id"/>
+        <wsdl:part name="userId" element="s1:userId"/>
+        <wsdl:part name="protocolVersion" element="s1:protocolVersion"/>
+    </wsdl:message>
+    <wsdl:message name="service_info_v1">
+        <wsdl:part name="service_info_v1" element="tns:service_info_v1"/>
+    </wsdl:message>
+    <wsdl:message name="service_info_v1Response">
+        <wsdl:part name="service_info_v1Response" element="tns:service_info_v1Response"/>
+    </wsdl:message>
+    <wsdl:message name="service_info_v1OutHeaderMsg">
+        <wsdl:part name="client" element="s1:client"/>
+        <wsdl:part name="service" element="s1:service"/>
+        <wsdl:part name="id" element="s1:id"/>
+        <wsdl:part name="userId" element="s1:userId"/>
+        <wsdl:part name="protocolVersion" element="s1:protocolVersion"/>
+    </wsdl:message>
+    <wsdl:message name="get_ecrecp_v1">
+        <wsdl:part name="get_ecrecp_v1" element="tns:get_ecrecp_v1"/>
+    </wsdl:message>
+    <wsdl:message name="get_ecrecp_v1Response">
+        <wsdl:part name="get_ecrecp_v1Response" element="tns:get_ecrecp_v1Response"/>
+    </wsdl:message>
+    <wsdl:message name="get_ecrecp_v1OutHeaderMsg">
+        <wsdl:part name="client" element="s1:client"/>
+        <wsdl:part name="service" element="s1:service"/>
+        <wsdl:part name="id" element="s1:id"/>
+        <wsdl:part name="userId" element="s1:userId"/>
+        <wsdl:part name="protocolVersion" element="s1:protocolVersion"/>
+    </wsdl:message>
+    <wsdl:message name="person_service_v1">
+        <wsdl:part name="person_service_v1" element="tns:person_service_v1"/>
+    </wsdl:message>
+    <wsdl:message name="person_service_v1Response">
+        <wsdl:part name="person_service_v1Response" element="tns:person_service_v1Response"/>
+    </wsdl:message>
+    <wsdl:message name="person_service_v1OutHeaderMsg">
+        <wsdl:part name="client" element="s1:client"/>
+        <wsdl:part name="service" element="s1:service"/>
+        <wsdl:part name="id" element="s1:id"/>
+        <wsdl:part name="userId" element="s1:userId"/>
+        <wsdl:part name="protocolVersion" element="s1:protocolVersion"/>
+    </wsdl:message>
+    <wsdl:message name="medical_personnel_w_mil_booking_v1">
+        <wsdl:part name="medical_personnel_w_mil_booking_v1" element="tns:medical_personnel_w_mil_booking_v1"/>
+    </wsdl:message>
+    <wsdl:message name="medical_personnel_w_mil_booking_v1Response">
+        <wsdl:part name="medical_personnel_w_mil_booking_v1Response" element="tns:medical_personnel_w_mil_booking_v1Response"/>
+    </wsdl:message>
+    <wsdl:message name="medical_personnel_w_mil_booking_v1OutHeaderMsg">
+        <wsdl:part name="client" element="s1:client"/>
+        <wsdl:part name="service" element="s1:service"/>
+        <wsdl:part name="id" element="s1:id"/>
+        <wsdl:part name="userId" element="s1:userId"/>
+        <wsdl:part name="protocolVersion" element="s1:protocolVersion"/>
+    </wsdl:message>
+    <wsdl:message name="persons_w_children_v1">
+        <wsdl:part name="persons_w_children_v1" element="tns:persons_w_children_v1"/>
+    </wsdl:message>
+    <wsdl:message name="persons_w_children_v1Response">
+        <wsdl:part name="persons_w_children_v1Response" element="tns:persons_w_children_v1Response"/>
+    </wsdl:message>
+    <wsdl:message name="persons_w_children_v1OutHeaderMsg">
+        <wsdl:part name="client" element="s1:client"/>
+        <wsdl:part name="service" element="s1:service"/>
+        <wsdl:part name="id" element="s1:id"/>
+        <wsdl:part name="userId" element="s1:userId"/>
+        <wsdl:part name="protocolVersion" element="s1:protocolVersion"/>
+    </wsdl:message>
+    <wsdl:portType name="KVKRXtee">
+        <wsdl:operation name="isetk_operations_v1" parameterOrder="isetk_operations_v1">
+            <wsdl:documentation>
+                <s1:title>IseTK operatsioonid</s1:title>
+            </wsdl:documentation>
+            <wsdl:input name="isetk_operations_v1" message="tns:isetk_operations_v1"/>
+            <wsdl:output name="isetk_operations_v1Response" message="tns:isetk_operations_v1Response"/>
+        </wsdl:operation>
+        <wsdl:operation name="person_info_v1" parameterOrder="person_info_v1">
+            <wsdl:documentation>
+                <s1:title>person_info_v1.v1</s1:title>
+            </wsdl:documentation>
+            <wsdl:input name="person_info_v1" message="tns:person_info_v1"/>
+            <wsdl:output name="person_info_v1Response" message="tns:person_info_v1Response"/>
+        </wsdl:operation>
+        <wsdl:operation name="person_status_v1" parameterOrder="person_status_v1">
+            <wsdl:documentation>
+                <s1:title>person_status_v1.v1</s1:title>
+            </wsdl:documentation>
+            <wsdl:input name="person_status_v1" message="tns:person_status_v1"/>
+            <wsdl:output name="person_status_v1Response" message="tns:person_status_v1Response"/>
+        </wsdl:operation>
+        <wsdl:operation name="service_info_v1" parameterOrder="service_info_v1">
+            <wsdl:documentation>
+                <s1:title>service_info_v1.v1</s1:title>
+            </wsdl:documentation>
+            <wsdl:input name="service_info_v1" message="tns:service_info_v1"/>
+            <wsdl:output name="service_info_v1Response" message="tns:service_info_v1Response"/>
+        </wsdl:operation>
+        <wsdl:operation name="get_ecrecp_v1" parameterOrder="get_ecrecp_v1">
+            <wsdl:documentation>
+                <s1:title>get_ecrecp_v1.v1</s1:title>
+            </wsdl:documentation>
+            <wsdl:input name="get_ecrecp_v1" message="tns:get_ecrecp_v1"/>
+            <wsdl:output name="get_ecrecp_v1Response" message="tns:get_ecrecp_v1Response"/>
+        </wsdl:operation>
+        <wsdl:operation name="person_service_v1" parameterOrder="person_service_v1">
+            <wsdl:documentation>
+                <s1:title>person_service_v1.v1</s1:title>
+            </wsdl:documentation>
+            <wsdl:input name="person_service_v1" message="tns:person_service_v1"/>
+            <wsdl:output name="person_service_v1Response" message="tns:person_service_v1Response"/>
+        </wsdl:operation>
+        <wsdl:operation name="medical_personnel_w_mil_booking_v1" parameterOrder="medical_personnel_w_mil_booking_v1">
+            <wsdl:documentation>
+                <s1:title>medical_personnel_w_mil_booking_v1.v1</s1:title>
+            </wsdl:documentation>
+            <wsdl:input name="medical_personnel_w_mil_booking_v1" message="tns:medical_personnel_w_mil_booking_v1"/>
+            <wsdl:output name="medical_personnel_w_mil_booking_v1Response" message="tns:medical_personnel_w_mil_booking_v1Response"/>
+        </wsdl:operation>
+        <wsdl:operation name="persons_w_children_v1" parameterOrder="persons_w_children_v1">
+            <wsdl:documentation>
+                <s1:title>persons_w_children_v1.v1</s1:title>
+            </wsdl:documentation>
+            <wsdl:input name="persons_w_children_v1" message="tns:persons_w_children_v1"/>
+            <wsdl:output name="persons_w_children_v1Response" message="tns:persons_w_children_v1Response"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="KVKRXtee" type="tns:KVKRXtee">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="isetk_operations_v1">
+            <soap:operation soapAction="" style="document"/>
+            <s1:version>v1</s1:version>
+            <wsdl:input name="isetk_operations_v1">
+                <soap:body use="literal"/>
+                <soap:header use="literal" message="tns:isetk_operations_v1OutHeaderMsg" part="client"/>
+                <soap:header use="literal" message="tns:isetk_operations_v1OutHeaderMsg" part="service"/>
+                <soap:header use="literal" message="tns:isetk_operations_v1OutHeaderMsg" part="id"/>
+                <soap:header use="literal" message="tns:isetk_operations_v1OutHeaderMsg" part="userId"/>
+                <soap:header use="literal" message="tns:isetk_operations_v1OutHeaderMsg" part="protocolVersion"/>
+            </wsdl:input>
+            <wsdl:output name="isetk_operations_v1Response">
+                <soap:body use="literal"/>
+                <soap:header use="literal" message="tns:isetk_operations_v1OutHeaderMsg" part="client"/>
+                <soap:header use="literal" message="tns:isetk_operations_v1OutHeaderMsg" part="service"/>
+                <soap:header use="literal" message="tns:isetk_operations_v1OutHeaderMsg" part="id"/>
+                <soap:header use="literal" message="tns:isetk_operations_v1OutHeaderMsg" part="userId"/>
+                <soap:header use="literal" message="tns:isetk_operations_v1OutHeaderMsg" part="protocolVersion"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="person_info_v1">
+            <soap:operation soapAction="" style="document"/>
+            <s1:version>v1</s1:version>
+            <wsdl:input name="person_info_v1">
+                <soap:body use="literal"/>
+                <soap:header use="literal" message="tns:person_info_v1OutHeaderMsg" part="client"/>
+                <soap:header use="literal" message="tns:person_info_v1OutHeaderMsg" part="service"/>
+                <soap:header use="literal" message="tns:person_info_v1OutHeaderMsg" part="id"/>
+                <soap:header use="literal" message="tns:person_info_v1OutHeaderMsg" part="userId"/>
+                <soap:header use="literal" message="tns:person_info_v1OutHeaderMsg" part="protocolVersion"/>
+            </wsdl:input>
+            <wsdl:output name="person_info_v1Response">
+                <soap:body use="literal"/>
+                <soap:header use="literal" message="tns:person_info_v1OutHeaderMsg" part="client"/>
+                <soap:header use="literal" message="tns:person_info_v1OutHeaderMsg" part="service"/>
+                <soap:header use="literal" message="tns:person_info_v1OutHeaderMsg" part="id"/>
+                <soap:header use="literal" message="tns:person_info_v1OutHeaderMsg" part="userId"/>
+                <soap:header use="literal" message="tns:person_info_v1OutHeaderMsg" part="protocolVersion"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="person_status_v1">
+            <soap:operation soapAction="" style="document"/>
+            <s1:version>v1</s1:version>
+            <wsdl:input name="person_status_v1">
+                <soap:body use="literal"/>
+                <soap:header use="literal" message="tns:person_status_v1OutHeaderMsg" part="client"/>
+                <soap:header use="literal" message="tns:person_status_v1OutHeaderMsg" part="service"/>
+                <soap:header use="literal" message="tns:person_status_v1OutHeaderMsg" part="id"/>
+                <soap:header use="literal" message="tns:person_status_v1OutHeaderMsg" part="userId"/>
+                <soap:header use="literal" message="tns:person_status_v1OutHeaderMsg" part="protocolVersion"/>
+            </wsdl:input>
+            <wsdl:output name="person_status_v1Response">
+                <soap:body use="literal"/>
+                <soap:header use="literal" message="tns:person_status_v1OutHeaderMsg" part="client"/>
+                <soap:header use="literal" message="tns:person_status_v1OutHeaderMsg" part="service"/>
+                <soap:header use="literal" message="tns:person_status_v1OutHeaderMsg" part="id"/>
+                <soap:header use="literal" message="tns:person_status_v1OutHeaderMsg" part="userId"/>
+                <soap:header use="literal" message="tns:person_status_v1OutHeaderMsg" part="protocolVersion"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="service_info_v1">
+            <soap:operation soapAction="" style="document"/>
+            <s1:version>v1</s1:version>
+            <wsdl:input name="service_info_v1">
+                <soap:body use="literal"/>
+                <soap:header use="literal" message="tns:service_info_v1OutHeaderMsg" part="client"/>
+                <soap:header use="literal" message="tns:service_info_v1OutHeaderMsg" part="service"/>
+                <soap:header use="literal" message="tns:service_info_v1OutHeaderMsg" part="id"/>
+                <soap:header use="literal" message="tns:service_info_v1OutHeaderMsg" part="userId"/>
+                <soap:header use="literal" message="tns:service_info_v1OutHeaderMsg" part="protocolVersion"/>
+            </wsdl:input>
+            <wsdl:output name="service_info_v1Response">
+                <soap:body use="literal"/>
+                <soap:header use="literal" message="tns:service_info_v1OutHeaderMsg" part="client"/>
+                <soap:header use="literal" message="tns:service_info_v1OutHeaderMsg" part="service"/>
+                <soap:header use="literal" message="tns:service_info_v1OutHeaderMsg" part="id"/>
+                <soap:header use="literal" message="tns:service_info_v1OutHeaderMsg" part="userId"/>
+                <soap:header use="literal" message="tns:service_info_v1OutHeaderMsg" part="protocolVersion"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="get_ecrecp_v1">
+            <soap:operation soapAction="" style="document"/>
+            <s1:version>v1</s1:version>
+            <wsdl:input name="get_ecrecp_v1">
+                <soap:body use="literal"/>
+                <soap:header use="literal" message="tns:get_ecrecp_v1OutHeaderMsg" part="client"/>
+                <soap:header use="literal" message="tns:get_ecrecp_v1OutHeaderMsg" part="service"/>
+                <soap:header use="literal" message="tns:get_ecrecp_v1OutHeaderMsg" part="id"/>
+                <soap:header use="literal" message="tns:get_ecrecp_v1OutHeaderMsg" part="userId"/>
+                <soap:header use="literal" message="tns:get_ecrecp_v1OutHeaderMsg" part="protocolVersion"/>
+            </wsdl:input>
+            <wsdl:output name="get_ecrecp_v1Response">
+                <soap:body use="literal"/>
+                <soap:header use="literal" message="tns:get_ecrecp_v1OutHeaderMsg" part="client"/>
+                <soap:header use="literal" message="tns:get_ecrecp_v1OutHeaderMsg" part="service"/>
+                <soap:header use="literal" message="tns:get_ecrecp_v1OutHeaderMsg" part="id"/>
+                <soap:header use="literal" message="tns:get_ecrecp_v1OutHeaderMsg" part="userId"/>
+                <soap:header use="literal" message="tns:get_ecrecp_v1OutHeaderMsg" part="protocolVersion"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="person_service_v1">
+            <soap:operation soapAction="" style="document"/>
+            <s1:version>v1</s1:version>
+            <wsdl:input name="person_service_v1">
+                <soap:body use="literal"/>
+                <soap:header use="literal" message="tns:person_service_v1OutHeaderMsg" part="client"/>
+                <soap:header use="literal" message="tns:person_service_v1OutHeaderMsg" part="service"/>
+                <soap:header use="literal" message="tns:person_service_v1OutHeaderMsg" part="id"/>
+                <soap:header use="literal" message="tns:person_service_v1OutHeaderMsg" part="userId"/>
+                <soap:header use="literal" message="tns:person_service_v1OutHeaderMsg" part="protocolVersion"/>
+            </wsdl:input>
+            <wsdl:output name="person_service_v1Response">
+                <soap:body use="literal"/>
+                <soap:header use="literal" message="tns:person_service_v1OutHeaderMsg" part="client"/>
+                <soap:header use="literal" message="tns:person_service_v1OutHeaderMsg" part="service"/>
+                <soap:header use="literal" message="tns:person_service_v1OutHeaderMsg" part="id"/>
+                <soap:header use="literal" message="tns:person_service_v1OutHeaderMsg" part="userId"/>
+                <soap:header use="literal" message="tns:person_service_v1OutHeaderMsg" part="protocolVersion"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="medical_personnel_w_mil_booking_v1">
+            <soap:operation soapAction="" style="document"/>
+            <s1:version>v1</s1:version>
+            <wsdl:input name="medical_personnel_w_mil_booking_v1">
+                <soap:body use="literal"/>
+                <soap:header use="literal" message="tns:medical_personnel_w_mil_booking_v1OutHeaderMsg" part="client"/>
+                <soap:header use="literal" message="tns:medical_personnel_w_mil_booking_v1OutHeaderMsg" part="service"/>
+                <soap:header use="literal" message="tns:medical_personnel_w_mil_booking_v1OutHeaderMsg" part="id"/>
+                <soap:header use="literal" message="tns:medical_personnel_w_mil_booking_v1OutHeaderMsg" part="userId"/>
+                <soap:header use="literal" message="tns:medical_personnel_w_mil_booking_v1OutHeaderMsg" part="protocolVersion"/>
+            </wsdl:input>
+            <wsdl:output name="medical_personnel_w_mil_booking_v1Response">
+                <soap:body use="literal"/>
+                <soap:header use="literal" message="tns:medical_personnel_w_mil_booking_v1OutHeaderMsg" part="client"/>
+                <soap:header use="literal" message="tns:medical_personnel_w_mil_booking_v1OutHeaderMsg" part="service"/>
+                <soap:header use="literal" message="tns:medical_personnel_w_mil_booking_v1OutHeaderMsg" part="id"/>
+                <soap:header use="literal" message="tns:medical_personnel_w_mil_booking_v1OutHeaderMsg" part="userId"/>
+                <soap:header use="literal" message="tns:medical_personnel_w_mil_booking_v1OutHeaderMsg" part="protocolVersion"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="persons_w_children_v1">
+            <soap:operation soapAction="" style="document"/>
+            <s1:version>v1</s1:version>
+            <wsdl:input name="persons_w_children_v1">
+                <soap:body use="literal"/>
+                <soap:header use="literal" message="tns:persons_w_children_v1OutHeaderMsg" part="client"/>
+                <soap:header use="literal" message="tns:persons_w_children_v1OutHeaderMsg" part="service"/>
+                <soap:header use="literal" message="tns:persons_w_children_v1OutHeaderMsg" part="id"/>
+                <soap:header use="literal" message="tns:persons_w_children_v1OutHeaderMsg" part="userId"/>
+                <soap:header use="literal" message="tns:persons_w_children_v1OutHeaderMsg" part="protocolVersion"/>
+            </wsdl:input>
+            <wsdl:output name="persons_w_children_v1Response">
+                <soap:body use="literal"/>
+                <soap:header use="literal" message="tns:persons_w_children_v1OutHeaderMsg" part="client"/>
+                <soap:header use="literal" message="tns:persons_w_children_v1OutHeaderMsg" part="service"/>
+                <soap:header use="literal" message="tns:persons_w_children_v1OutHeaderMsg" part="id"/>
+                <soap:header use="literal" message="tns:persons_w_children_v1OutHeaderMsg" part="userId"/>
+                <soap:header use="literal" message="tns:persons_w_children_v1OutHeaderMsg" part="protocolVersion"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="KVKRXteeService">
+        <wsdl:port name="KVKRXtee" binding="tns:KVKRXtee">
+            <soap:address location="http://example.org/xroad-endpoint"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

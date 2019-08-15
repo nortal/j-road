@@ -40,6 +40,7 @@
     <module>adsv5</module>
     <module>arireg</module>
     <module>kvkr</module>
+    <module>kvkr3</module>
     <module>star</module>
 
     <!--  <module>dhl</module>-->
