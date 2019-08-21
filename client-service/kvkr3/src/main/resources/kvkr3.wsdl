@@ -6,14 +6,15 @@
                   xmlns:soap11enc="http://schemas.xmlsoap.org/soap/encoding/"
                   xmlns:soap11env="http://schemas.xmlsoap.org/soap/envelope/"
                   xmlns:soap12enc="http://www.w3.org/2003/05/soap-encoding"
-                  xmlns:soap12env="http://www.w3.org/2003/05/soap-envelope" xmlns:tns="http://kvkr3.x-road.eu"
+                  xmlns:soap12env="http://www.w3.org/2003/05/soap-envelope" xmlns:tns="http://kvkr3.x-road.eu/producer/"
                   xmlns:wsa="http://schemas.xmlsoap.org/ws/2003/03/addressing"
                   xmlns:xop="http://www.w3.org/2004/08/xop/include" xmlns:xs="http://www.w3.org/2001/XMLSchema"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   targetNamespace="http://kvkr3.x-road.eu/producer/" name="KVKRXtee">
-<wsdl:types>
-        <xs:schema targetNamespace="http://kvkr3.x-road.eu" elementFormDefault="qualified">
-            <xs:import namespace="http://ws-i.org/profiles/basic/1.1/xsd" schemaLocation="http://ws-i.org/profiles/basic/1.1/swaref.xsd"/>
+    <wsdl:types>
+        <xs:schema targetNamespace="http://kvkr3.x-road.eu/producer/" elementFormDefault="qualified">
+            <xs:import namespace="http://ws-i.org/profiles/basic/1.1/xsd"
+                       schemaLocation="http://ws-i.org/profiles/basic/1.1/swaref.xsd"/>
             <xs:import namespace="http://x-road.eu/xsd/xroad.xsd" schemaLocation="http://x-road.eu/xsd/xroad.xsd"/>
             <xs:complexType name="ClsIntCodeName">
                 <xs:sequence>
@@ -576,7 +577,8 @@
                     <xs:element name="military_unit_code" type="xs:string">
                         <xs:annotation>
                             <xs:appinfo>
-                                <s1:title xml:lang="et">Sõjaaja üksuse kood, kuhu isik on ametikohale määratud</s1:title>
+                                <s1:title xml:lang="et">Sõjaaja üksuse kood, kuhu isik on ametikohale määratud
+                                </s1:title>
                                 <s1:notes xml:lang="et"/>
                             </xs:appinfo>
                         </xs:annotation>
@@ -584,7 +586,9 @@
                     <xs:element name="mob_address" type="xs:string">
                         <xs:annotation>
                             <xs:appinfo>
-                                <s1:title xml:lang="et">Väeosa kogunemiskoha aadress, kuhu reservväelane peab ilmuma mobilisatsiooni korral</s1:title>
+                                <s1:title xml:lang="et">Väeosa kogunemiskoha aadress, kuhu reservväelane peab ilmuma
+                                    mobilisatsiooni korral
+                                </s1:title>
                                 <s1:notes xml:lang="et"/>
                             </xs:appinfo>
                         </xs:annotation>
@@ -592,7 +596,8 @@
                     <xs:element name="issuer_contact" type="xs:string">
                         <xs:annotation>
                             <xs:appinfo>
-                                <s1:title xml:lang="et">Teatise väljastaja ametinimetus, nimi ning kontaktandmed</s1:title>
+                                <s1:title xml:lang="et">Teatise väljastaja ametinimetus, nimi ning kontaktandmed
+                                </s1:title>
                                 <s1:notes xml:lang="et"/>
                             </xs:appinfo>
                         </xs:annotation>
@@ -865,7 +870,8 @@
             </xs:complexType>
             <xs:complexType name="get_ecrecp_v1_LoadKeeludList">
                 <xs:sequence>
-                    <xs:element name="loadkeelud" type="tns:get_ecrecp_v1_LoadKeelud" minOccurs="0" maxOccurs="unbounded">
+                    <xs:element name="loadkeelud" type="tns:get_ecrecp_v1_LoadKeelud" minOccurs="0"
+                                maxOccurs="unbounded">
                         <xs:annotation>
                             <xs:appinfo>
                                 <s1:title xml:lang="et">Loadkeelud</s1:title>
@@ -917,7 +923,8 @@
             </xs:complexType>
             <xs:complexType name="person_info_v1_DraftDefermentList">
                 <xs:sequence>
-                    <xs:element name="draft_deferment" type="tns:person_info_v1_DraftDeferment" minOccurs="0" maxOccurs="unbounded">
+                    <xs:element name="draft_deferment" type="tns:person_info_v1_DraftDeferment" minOccurs="0"
+                                maxOccurs="unbounded">
                         <xs:annotation>
                             <xs:appinfo>
                                 <s1:title xml:lang="et">Draft deferment</s1:title>
@@ -929,7 +936,8 @@
             </xs:complexType>
             <xs:complexType name="person_info_v1_ServiceRecordList">
                 <xs:sequence>
-                    <xs:element name="service_record" type="tns:person_info_v1_ServiceRecord" minOccurs="0" maxOccurs="unbounded">
+                    <xs:element name="service_record" type="tns:person_info_v1_ServiceRecord" minOccurs="0"
+                                maxOccurs="unbounded">
                         <xs:annotation>
                             <xs:appinfo>
                                 <s1:title xml:lang="et">Service record</s1:title>
@@ -1021,7 +1029,8 @@
             </xs:complexType>
             <xs:complexType name="persons_w_children_v1_PersonList">
                 <xs:sequence>
-                    <xs:element name="person" type="tns:persons_w_children_v1_Person" minOccurs="0" maxOccurs="unbounded">
+                    <xs:element name="person" type="tns:persons_w_children_v1_Person" minOccurs="0"
+                                maxOccurs="unbounded">
                         <xs:annotation>
                             <xs:appinfo>
                                 <s1:title xml:lang="et">Person</s1:title>
@@ -1045,7 +1054,8 @@
             </xs:complexType>
             <xs:complexType name="service_info_v1_ServiceRecordList">
                 <xs:sequence>
-                    <xs:element name="service_record" type="tns:service_info_v1_ServiceRecord" minOccurs="0" maxOccurs="unbounded">
+                    <xs:element name="service_record" type="tns:service_info_v1_ServiceRecord" minOccurs="0"
+                                maxOccurs="unbounded">
                         <xs:annotation>
                             <xs:appinfo>
                                 <s1:title xml:lang="et">Service record</s1:title>
@@ -1101,7 +1111,8 @@
             </xs:complexType>
             <xs:complexType name="medical_personnel_w_mil_booking_v1">
                 <xs:sequence>
-                    <xs:element name="request" type="tns:medical_personnel_w_mil_booking_v1_Paring" minOccurs="0" nillable="true">
+                    <xs:element name="request" type="tns:medical_personnel_w_mil_booking_v1_Paring" minOccurs="0"
+                                nillable="true">
                         <xs:annotation>
                             <xs:appinfo>
                                 <s1:title xml:lang="et">Request</s1:title>
@@ -1113,7 +1124,8 @@
             </xs:complexType>
             <xs:complexType name="medical_personnel_w_mil_booking_v1Response">
                 <xs:sequence>
-                    <xs:element name="request" type="tns:medical_personnel_w_mil_booking_v1_Paring" minOccurs="0" nillable="true">
+                    <xs:element name="request" type="tns:medical_personnel_w_mil_booking_v1_Paring" minOccurs="0"
+                                nillable="true">
                         <xs:annotation>
                             <xs:appinfo>
                                 <s1:title xml:lang="et">Request</s1:title>
@@ -1121,7 +1133,8 @@
                             </xs:appinfo>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element name="response" type="tns:medical_personnel_w_mil_booking_v1_Vastus" minOccurs="0" nillable="true">
+                    <xs:element name="response" type="tns:medical_personnel_w_mil_booking_v1_Vastus" minOccurs="0"
+                                nillable="true">
                         <xs:annotation>
                             <xs:appinfo>
                                 <s1:title xml:lang="et">Response</s1:title>
@@ -1205,6 +1218,14 @@
                         <xs:annotation>
                             <xs:appinfo>
                                 <s1:title xml:lang="et">Request</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="response" type="tns:service_info_v1_Vastus" minOccurs="0" nillable="true">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Response</s1:title>
                                 <s1:notes xml:lang="et"/>
                             </xs:appinfo>
                         </xs:annotation>
@@ -1437,7 +1458,8 @@
             </xs:complexType>
             <xs:complexType name="person_service_v1_ServiceList">
                 <xs:sequence>
-                    <xs:element name="teenistus" type="tns:person_service_v1_Service" minOccurs="0" maxOccurs="unbounded">
+                    <xs:element name="teenistus" type="tns:person_service_v1_Service" minOccurs="0"
+                                maxOccurs="unbounded">
                         <xs:annotation>
                             <xs:appinfo>
                                 <s1:title xml:lang="et">Teenistus</s1:title>
@@ -1575,6 +1597,26 @@
                     </xs:element>
                 </xs:sequence>
             </xs:complexType>
+            <xs:complexType name="service_info_v1Response">
+                <xs:sequence>
+                    <xs:element name="request" type="tns:service_info_v1_Paring" minOccurs="0" nillable="true">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Request</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="response" type="tns:service_info_v1_Vastus" minOccurs="0" nillable="true">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Response</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
             <xs:complexType name="person_service_v1Response">
                 <xs:sequence>
                     <xs:element name="request" type="tns:person_service_v1_Paring" minOccurs="0" nillable="true">
@@ -1600,8 +1642,10 @@
             <xs:element name="get_ecrecp_v1_Paring" type="tns:get_ecrecp_v1_Paring"/>
             <xs:element name="isetk_operations_v1_Paring" type="tns:isetk_operations_v1_Paring"/>
             <xs:element name="isetk_operations_v1_Vastus" type="tns:isetk_operations_v1_Vastus"/>
-            <xs:element name="medical_personnel_w_mil_booking_v1_Paring" type="tns:medical_personnel_w_mil_booking_v1_Paring"/>
-            <xs:element name="medical_personnel_w_mil_booking_v1_Vastus" type="tns:medical_personnel_w_mil_booking_v1_Vastus"/>
+            <xs:element name="medical_personnel_w_mil_booking_v1_Paring"
+                        type="tns:medical_personnel_w_mil_booking_v1_Paring"/>
+            <xs:element name="medical_personnel_w_mil_booking_v1_Vastus"
+                        type="tns:medical_personnel_w_mil_booking_v1_Vastus"/>
             <xs:element name="person_info_v1_ContactAddressList" type="tns:person_info_v1_ContactAddressList"/>
             <xs:element name="person_info_v1_ContactEmailList" type="tns:person_info_v1_ContactEmailList"/>
             <xs:element name="person_info_v1_ContactPhoneList" type="tns:person_info_v1_ContactPhoneList"/>
@@ -1635,26 +1679,14 @@
             <xs:element name="isetk_operations_v1" type="tns:isetk_operations_v1"/>
             <xs:element name="isetk_operations_v1Response" type="tns:isetk_operations_v1Response"/>
             <xs:element name="medical_personnel_w_mil_booking_v1" type="tns:medical_personnel_w_mil_booking_v1"/>
-            <xs:element name="medical_personnel_w_mil_booking_v1Response" type="tns:medical_personnel_w_mil_booking_v1Response"/>
+            <xs:element name="medical_personnel_w_mil_booking_v1Response"
+                        type="tns:medical_personnel_w_mil_booking_v1Response"/>
             <xs:element name="person_info_v1" type="tns:person_info_v1"/>
             <xs:element name="person_service_v1" type="tns:person_service_v1"/>
             <xs:element name="person_status_v1" type="tns:person_status_v1"/>
             <xs:element name="person_status_v1Response" type="tns:person_status_v1Response"/>
             <xs:element name="persons_w_children_v1" type="tns:persons_w_children_v1"/>
-            <xs:element name="service_info_v1">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="request" type="tns:service_info_v1_Paring" minOccurs="0" nillable="true">
-                            <xs:annotation>
-                                <xs:appinfo>
-                                    <s1:title xml:lang="et">Request</s1:title>
-                                    <s1:notes xml:lang="et"/>
-                                </xs:appinfo>
-                            </xs:annotation>
-                        </xs:element>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
+            <xs:element name="service_info_v1" type="tns:service_info_v1"/>
             <xs:element name="get_ecrecp_v1_Vastus" type="tns:get_ecrecp_v1_Vastus"/>
             <xs:element name="person_info_v1_Vastus" type="tns:person_info_v1_Vastus"/>
             <xs:element name="person_service_v1_ServiceList" type="tns:person_service_v1_ServiceList"/>
@@ -1664,28 +1696,7 @@
             <xs:element name="get_ecrecp_v1Response" type="tns:get_ecrecp_v1Response"/>
             <xs:element name="person_info_v1Response" type="tns:person_info_v1Response"/>
             <xs:element name="persons_w_children_v1Response" type="tns:persons_w_children_v1Response"/>
-            <xs:element name="service_info_v1Response">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="request" type="tns:service_info_v1_Paring" minOccurs="0" nillable="true">
-                            <xs:annotation>
-                                <xs:appinfo>
-                                    <s1:title xml:lang="et">Request</s1:title>
-                                    <s1:notes xml:lang="et"/>
-                                </xs:appinfo>
-                            </xs:annotation>
-                        </xs:element>
-                        <xs:element name="response" type="tns:service_info_v1_Vastus" minOccurs="0" nillable="true">
-                            <xs:annotation>
-                                <xs:appinfo>
-                                    <s1:title xml:lang="et">Response</s1:title>
-                                    <s1:notes xml:lang="et"/>
-                                </xs:appinfo>
-                            </xs:annotation>
-                        </xs:element>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
+            <xs:element name="service_info_v1Response" type="tns:service_info_v1Response"/>
             <xs:element name="person_service_v1Response" type="tns:person_service_v1Response"/>
         </xs:schema>
     </wsdl:types>
@@ -1771,7 +1782,8 @@
         <wsdl:part name="medical_personnel_w_mil_booking_v1" element="tns:medical_personnel_w_mil_booking_v1"/>
     </wsdl:message>
     <wsdl:message name="medical_personnel_w_mil_booking_v1Response">
-        <wsdl:part name="medical_personnel_w_mil_booking_v1Response" element="tns:medical_personnel_w_mil_booking_v1Response"/>
+        <wsdl:part name="medical_personnel_w_mil_booking_v1Response"
+                   element="tns:medical_personnel_w_mil_booking_v1Response"/>
     </wsdl:message>
     <wsdl:message name="medical_personnel_w_mil_booking_v1OutHeaderMsg">
         <wsdl:part name="client" element="s1:client"/>
@@ -1841,7 +1853,8 @@
                 <s1:title>medical_personnel_w_mil_booking_v1.v1</s1:title>
             </wsdl:documentation>
             <wsdl:input name="medical_personnel_w_mil_booking_v1" message="tns:medical_personnel_w_mil_booking_v1"/>
-            <wsdl:output name="medical_personnel_w_mil_booking_v1Response" message="tns:medical_personnel_w_mil_booking_v1Response"/>
+            <wsdl:output name="medical_personnel_w_mil_booking_v1Response"
+                         message="tns:medical_personnel_w_mil_booking_v1Response"/>
         </wsdl:operation>
         <wsdl:operation name="persons_w_children_v1" parameterOrder="persons_w_children_v1">
             <wsdl:documentation>
@@ -1982,7 +1995,8 @@
                 <soap:header use="literal" message="tns:medical_personnel_w_mil_booking_v1OutHeaderMsg" part="service"/>
                 <soap:header use="literal" message="tns:medical_personnel_w_mil_booking_v1OutHeaderMsg" part="id"/>
                 <soap:header use="literal" message="tns:medical_personnel_w_mil_booking_v1OutHeaderMsg" part="userId"/>
-                <soap:header use="literal" message="tns:medical_personnel_w_mil_booking_v1OutHeaderMsg" part="protocolVersion"/>
+                <soap:header use="literal" message="tns:medical_personnel_w_mil_booking_v1OutHeaderMsg"
+                             part="protocolVersion"/>
             </wsdl:input>
             <wsdl:output name="medical_personnel_w_mil_booking_v1Response">
                 <soap:body use="literal"/>
@@ -1990,7 +2004,8 @@
                 <soap:header use="literal" message="tns:medical_personnel_w_mil_booking_v1OutHeaderMsg" part="service"/>
                 <soap:header use="literal" message="tns:medical_personnel_w_mil_booking_v1OutHeaderMsg" part="id"/>
                 <soap:header use="literal" message="tns:medical_personnel_w_mil_booking_v1OutHeaderMsg" part="userId"/>
-                <soap:header use="literal" message="tns:medical_personnel_w_mil_booking_v1OutHeaderMsg" part="protocolVersion"/>
+                <soap:header use="literal" message="tns:medical_personnel_w_mil_booking_v1OutHeaderMsg"
+                             part="protocolVersion"/>
             </wsdl:output>
         </wsdl:operation>
         <wsdl:operation name="persons_w_children_v1">
