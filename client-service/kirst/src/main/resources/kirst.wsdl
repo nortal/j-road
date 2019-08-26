@@ -2567,7 +2567,7 @@
                             </xsd:appinfo>
                         </xsd:annotation>
                     </xsd:element>
-                    <xsd:element name="ih_tvPaevadeArv" type="xsd:integer" minOccurs="0">
+                    <xsd:element name="ih_tvPaevadeArv" type="xsd:decimal" minOccurs="0">
                         <xsd:annotation>
                             <xsd:appinfo>
                                 <xroad:title xml:lang="et">Hüvitatud päevade arv</xroad:title>
