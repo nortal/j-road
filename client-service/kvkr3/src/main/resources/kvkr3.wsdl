@@ -1222,14 +1222,6 @@
                             </xs:appinfo>
                         </xs:annotation>
                     </xs:element>
-                    <xs:element name="response" type="tns:service_info_v1_Vastus" minOccurs="0" nillable="true">
-                        <xs:annotation>
-                            <xs:appinfo>
-                                <s1:title xml:lang="et">Response</s1:title>
-                                <s1:notes xml:lang="et"/>
-                            </xs:appinfo>
-                        </xs:annotation>
-                    </xs:element>
                 </xs:sequence>
             </xs:complexType>
             <xs:complexType name="get_ecrecp_v1_Vastus">
@@ -1481,7 +1473,7 @@
                     </xs:element>
                 </xs:sequence>
             </xs:complexType>
-            <xs:complexType name="service_info_v1_Vastus">
+            <xs:complexType name="service_info_v1_PersonData">
                 <xs:sequence>
                     <xs:element name="national_id" type="xs:string">
                         <xs:annotation>
@@ -1531,6 +1523,34 @@
                         <xs:annotation>
                             <xs:appinfo>
                                 <s1:title xml:lang="et">Teenistused</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="service_info_v1_Vastus">
+                <xs:sequence>
+                    <xs:element name="error_code" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Error code</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="error_text" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Error text</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="person_data" type="tns:service_info_v1_PersonData" minOccurs="0">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Person data</s1:title>
                                 <s1:notes xml:lang="et"/>
                             </xs:appinfo>
                         </xs:annotation>
@@ -1597,26 +1617,6 @@
                     </xs:element>
                 </xs:sequence>
             </xs:complexType>
-            <xs:complexType name="service_info_v1Response">
-                <xs:sequence>
-                    <xs:element name="request" type="tns:service_info_v1_Paring" minOccurs="0" nillable="true">
-                        <xs:annotation>
-                            <xs:appinfo>
-                                <s1:title xml:lang="et">Request</s1:title>
-                                <s1:notes xml:lang="et"/>
-                            </xs:appinfo>
-                        </xs:annotation>
-                    </xs:element>
-                    <xs:element name="response" type="tns:service_info_v1_Vastus" minOccurs="0" nillable="true">
-                        <xs:annotation>
-                            <xs:appinfo>
-                                <s1:title xml:lang="et">Response</s1:title>
-                                <s1:notes xml:lang="et"/>
-                            </xs:appinfo>
-                        </xs:annotation>
-                    </xs:element>
-                </xs:sequence>
-            </xs:complexType>
             <xs:complexType name="person_service_v1Response">
                 <xs:sequence>
                     <xs:element name="request" type="tns:person_service_v1_Paring" minOccurs="0" nillable="true">
@@ -1628,6 +1628,26 @@
                         </xs:annotation>
                     </xs:element>
                     <xs:element name="response" type="tns:person_service_v1_Vastus" minOccurs="0" nillable="true">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Response</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="service_info_v1Response">
+                <xs:sequence>
+                    <xs:element name="request" type="tns:service_info_v1_Paring" minOccurs="0" nillable="true">
+                        <xs:annotation>
+                            <xs:appinfo>
+                                <s1:title xml:lang="et">Request</s1:title>
+                                <s1:notes xml:lang="et"/>
+                            </xs:appinfo>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="response" type="tns:service_info_v1_Vastus" minOccurs="0" nillable="true">
                         <xs:annotation>
                             <xs:appinfo>
                                 <s1:title xml:lang="et">Response</s1:title>
@@ -1691,13 +1711,14 @@
             <xs:element name="person_info_v1_Vastus" type="tns:person_info_v1_Vastus"/>
             <xs:element name="person_service_v1_ServiceList" type="tns:person_service_v1_ServiceList"/>
             <xs:element name="persons_w_children_v1_Vastus" type="tns:persons_w_children_v1_Vastus"/>
-            <xs:element name="service_info_v1_Vastus" type="tns:service_info_v1_Vastus"/>
+            <xs:element name="service_info_v1_PersonData" type="tns:service_info_v1_PersonData"/>
             <xs:element name="person_service_v1_Vastus" type="tns:person_service_v1_Vastus"/>
+            <xs:element name="service_info_v1_Vastus" type="tns:service_info_v1_Vastus"/>
             <xs:element name="get_ecrecp_v1Response" type="tns:get_ecrecp_v1Response"/>
             <xs:element name="person_info_v1Response" type="tns:person_info_v1Response"/>
             <xs:element name="persons_w_children_v1Response" type="tns:persons_w_children_v1Response"/>
-            <xs:element name="service_info_v1Response" type="tns:service_info_v1Response"/>
             <xs:element name="person_service_v1Response" type="tns:person_service_v1Response"/>
+            <xs:element name="service_info_v1Response" type="tns:service_info_v1Response"/>
         </xs:schema>
     </wsdl:types>
     <wsdl:message name="isetk_operations_v1">
