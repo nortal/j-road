@@ -1,5 +1,6 @@
 package com.nortal.jroad.client.liiklusregister;
 
+import com.nortal.jroad.client.liiklusregister.types.eu.x_road.liiklusregister.MuuDokV2Vastus;
 import com.nortal.jroad.client.liiklusregister.types.eu.x_road.liiklusregister.TootukassaParingRequest;
 import com.nortal.jroad.client.liiklusregister.types.eu.x_road.liiklusregister.TootukassaParingResponse;
 import java.math.BigInteger;
@@ -142,6 +143,18 @@ public class LiiklusregisterXRoadServiceImpl implements LiiklusregisterXRoadServ
     paring.setLoaNr(loaNr);
 
     return liiklusregisterXRoadDatabase.muuDokV1(paring);
+  }
+
+  @Override
+  public MuuDokV2Vastus findMuuDokV2(String eesnimi, String perenimi, String kood, String loaNr) throws XTeeServiceConsumptionException {
+    MuuDokParing paring = MuuDokParing.Factory.newInstance();
+
+    paring.setEesnimi(eesnimi);
+    paring.setNimi(perenimi);
+    paring.setKood(kood);
+    paring.setLoaNr(loaNr);
+
+    return liiklusregisterXRoadDatabase.muuDokV2V1(paring);
   }
 
   public TootukassaParingResponse tootukassaParing(String isikukood, String taotluseNr, Date alates, Date kuni)

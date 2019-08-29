@@ -1,5 +1,6 @@
 package com.nortal.jroad.client.liiklusregister;
 
+import com.nortal.jroad.client.liiklusregister.types.eu.x_road.liiklusregister.MuuDokV2Vastus;
 import java.util.Date;
 
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
@@ -40,7 +41,9 @@ public interface LiiklusregisterXRoadService {
       throws XTeeServiceConsumptionException;
   
   MuuDokVastus findMuuDok(String eesnimi, String perenimi, String kood, String loaNr) throws XTeeServiceConsumptionException;
-  
+
+  MuuDokV2Vastus findMuuDokV2(String eesnimi, String perenimi, String kood, String loaNr) throws XTeeServiceConsumptionException;
+
   /**
    * <code>liiklusregister.vlaev.v1</code>
    */
