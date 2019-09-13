@@ -810,7 +810,7 @@
             </xs:complexType>
             <xs:complexType name="service_info_v1_ServiceRecord">
                 <xs:sequence>
-                    <xs:element name="start_date" type="xs:date">
+                    <xs:element name="start_date" type="xs:date" nillable="true">
                         <xs:annotation>
                             <xs:appinfo>
                                 <s1:title xml:lang="et">Teenistuse algus</s1:title>
