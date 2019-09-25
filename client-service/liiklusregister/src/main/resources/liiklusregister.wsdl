@@ -8760,11 +8760,11 @@
           </element>
         </sequence>
       </complexType>
-      <element name="muu_dok_v2Request" type="liiklusregister:muu_dok_paring" />
-      <element name="muu_dok_v2Response" type="liiklusregister:muu_dok_v2_vastus" />
+      <element name="muu_dokV2Request" type="liiklusregister:muu_dok_paring" />
+      <element name="muu_dokV2Response" type="liiklusregister:muu_dok_v2_vastus" />
       <complexType name="muu_dok_v2_vastus">
         <sequence>
-          <element name="dokumendid">
+          <element name="dok">
             <complexType>
               <sequence>
                 <element maxOccurs="unbounded" minOccurs="0" name="dok" type="liiklusregister:muu_dok_complex_v2" />
@@ -9520,6 +9520,9 @@
   <wsdl:message name="emtaTaotlusEelRegResponse">
     <wsdl:part element="tns:emtaTaotlusEelRegResponse" name="emtaTaotlusEelRegResponse" />
   </wsdl:message>
+  <wsdl:message name="muu_dokV2Response">
+    <wsdl:part element="tns:muu_dokV2Response" name="muu_dokV2Response" />
+  </wsdl:message>
   <wsdl:message name="kraPersonCategoriesResponse">
     <wsdl:part element="tns:kraPersonCategoriesResponse" name="kraPersonCategoriesResponse" />
   </wsdl:message>
@@ -9559,9 +9562,6 @@
   <wsdl:message name="paring5Response">
     <wsdl:part element="tns:paring5Response" name="paring5Response" />
   </wsdl:message>
-  <wsdl:message name="muu_dok_v2Response">
-    <wsdl:part element="tns:muu_dok_v2Response" name="muu_dok_v2Response" />
-  </wsdl:message>
   <wsdl:message name="soidukiAndmedResponse">
     <wsdl:part element="tns:soidukiAndmedResponse" name="soidukiAndmedResponse" />
   </wsdl:message>
@@ -9576,9 +9576,6 @@
   </wsdl:message>
   <wsdl:message name="paring5Request">
     <wsdl:part element="tns:paring5Request" name="paring5Request" />
-  </wsdl:message>
-  <wsdl:message name="muu_dok_v2Request">
-    <wsdl:part element="tns:muu_dok_v2Request" name="muu_dok_v2Request" />
   </wsdl:message>
   <wsdl:message name="meerikRequest">
     <wsdl:part element="tns:meerikRequest" name="meerikRequest" />
@@ -9729,6 +9726,9 @@
   </wsdl:message>
   <wsdl:message name="jlparing2Request">
     <wsdl:part element="tns:jlparing2Request" name="jlparing2Request" />
+  </wsdl:message>
+  <wsdl:message name="muu_dokV2Request">
+    <wsdl:part element="tns:muu_dokV2Request" name="muu_dokV2Request" />
   </wsdl:message>
   <wsdl:message name="kraPersonCategoriesRequest">
     <wsdl:part element="tns:kraPersonCategoriesRequest" name="kraPersonCategoriesRequest" />
@@ -10006,6 +10006,13 @@
       <wsdl:input message="tns:emtaTaotlusEelRegRequest" name="emtaTaotlusEelRegRequest" />
       <wsdl:output message="tns:emtaTaotlusEelRegResponse" name="emtaTaotlusEelRegResponse" />
     </wsdl:operation>
+    <wsdl:operation name="muu_dokV2">
+      <wsdl:documentation>
+        <xrd:title>Dokumentide detailpäring asutustele v2</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:muu_dokV2Request" name="muu_dokV2Request" />
+      <wsdl:output message="tns:muu_dokV2Response" name="muu_dokV2Response" />
+    </wsdl:operation>
     <wsdl:operation name="kraPersonCategories">
       <wsdl:documentation>
         <xrd:title>KRA person categories</xrd:title>
@@ -10075,13 +10082,6 @@
       </wsdl:documentation>
       <wsdl:input message="tns:paring5Request" name="paring5Request" />
       <wsdl:output message="tns:paring5Response" name="paring5Response" />
-    </wsdl:operation>
-    <wsdl:operation name="muu_dok_v2">
-      <wsdl:documentation>
-        <xrd:title>Dokumentide detailpäring asutustele v2</xrd:title>
-      </wsdl:documentation>
-      <wsdl:input message="tns:muu_dok_v2Request" name="muu_dok_v2Request" />
-      <wsdl:output message="tns:muu_dok_v2Response" name="muu_dok_v2Response" />
     </wsdl:operation>
     <wsdl:operation name="soidukiAndmed">
       <wsdl:documentation>
@@ -10832,6 +10832,26 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="muu_dokV2">
+      <soap:operation soapAction="" />
+      <xrd:version>v1</xrd:version>
+      <wsdl:input name="muu_dokV2Request">
+        <soap:header message="tns:requestheader" part="client" use="literal" />
+        <soap:header message="tns:requestheader" part="service" use="literal" />
+        <soap:header message="tns:requestheader" part="userId" use="literal" />
+        <soap:header message="tns:requestheader" part="id" use="literal" />
+        <soap:header message="tns:requestheader" part="protocolVersion" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="muu_dokV2Response">
+        <soap:header message="tns:requestheader" part="client" use="literal" />
+        <soap:header message="tns:requestheader" part="service" use="literal" />
+        <soap:header message="tns:requestheader" part="userId" use="literal" />
+        <soap:header message="tns:requestheader" part="id" use="literal" />
+        <soap:header message="tns:requestheader" part="protocolVersion" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="kraPersonCategories">
       <soap:operation soapAction="" />
       <xrd:version>v1</xrd:version>
@@ -11024,26 +11044,6 @@
         <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output name="paring5Response">
-        <soap:header message="tns:requestheader" part="client" use="literal" />
-        <soap:header message="tns:requestheader" part="service" use="literal" />
-        <soap:header message="tns:requestheader" part="userId" use="literal" />
-        <soap:header message="tns:requestheader" part="id" use="literal" />
-        <soap:header message="tns:requestheader" part="protocolVersion" use="literal" />
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="muu_dok_v2">
-      <soap:operation soapAction="" />
-      <xrd:version>v1</xrd:version>
-      <wsdl:input name="muu_dok_v2Request">
-        <soap:header message="tns:requestheader" part="client" use="literal" />
-        <soap:header message="tns:requestheader" part="service" use="literal" />
-        <soap:header message="tns:requestheader" part="userId" use="literal" />
-        <soap:header message="tns:requestheader" part="id" use="literal" />
-        <soap:header message="tns:requestheader" part="protocolVersion" use="literal" />
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output name="muu_dok_v2Response">
         <soap:header message="tns:requestheader" part="client" use="literal" />
         <soap:header message="tns:requestheader" part="service" use="literal" />
         <soap:header message="tns:requestheader" part="userId" use="literal" />
