@@ -641,6 +641,13 @@
                             </appinfo>
                         </annotation>
                     </element>
+                    <element name="kysimustikuKp" type="date" minOccurs="1" maxOccurs="1" nillable="false">
+                        <annotation>
+                            <appinfo>
+                                <xrd:title xml:lang="et">Taotluse küsimustiku kp</xrd:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
                     <element name="esitamiseKp" type="date">
                         <annotation>
                             <appinfo>
