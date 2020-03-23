@@ -1,6 +1,8 @@
 package com.nortal.jroad.client.mkrliides;
 
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.mkrliides.types.eu.x_road.emta_v6.VptResponseDocument;
+import com.nortal.jroad.client.mkrliides.types.eu.x_road.emta_v6.XteeFIEAKResponseDocument;
 
 import java.util.Date;
 
@@ -14,6 +16,12 @@ public interface EmtaMkrliidesXRoadService {
      /**
      * <code>mkrliides.xteeFIEAK.v1</code> X-road service.
      */
-    com.nortal.jroad.client.mkrliides.types.eu.x_road.emta_v6.XteeFIEAKResponseDocument.XteeFIEAKResponse xteeFIEAKV1(String id, Date start, Date end) throws XTeeServiceConsumptionException;
+    XteeFIEAKResponseDocument.XteeFIEAKResponse xteeFIEAKV1(String id, Date start, Date end)
+        throws XTeeServiceConsumptionException;
 
-  }
+    /**
+     * <code>mkrliides.vpt.v1</code> X-road service.
+     */
+    VptResponseDocument.VptResponse vptV1(String id, Date date) throws XTeeServiceConsumptionException;
+
+}
