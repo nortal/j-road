@@ -13638,56 +13638,6 @@
                                   </annotation>
                                 </element>
 
-                                <element name="SeotudIsik.Kontaktid">
-                                  <annotation>
-                                    <appinfo>
-                                      <xrd:title>Seotud isiku kontaktid
-                                      </xrd:title>
-                                    </appinfo>
-                                  </annotation>
-                                  <complexType>
-                                    <sequence>
-                                      <element name="Kontakt" minOccurs="0"
-                                               maxOccurs="unbounded">
-                                        <complexType>
-                                          <sequence>
-                                            <element name="Kontakt.TyypKood"
-                                                     type="string">
-                                              <annotation>
-                                                <appinfo>
-                                                  <xrd:title>Kontakti
-                                                    liigi kood
-                                                  </xrd:title>
-                                                </appinfo>
-                                              </annotation>
-                                            </element>
-                                            <element name="Kontakt.Tyyp"
-                                                     type="string">
-                                              <annotation>
-                                                <appinfo>
-                                                  <xrd:title>Kontkti
-                                                    liik
-                                                  </xrd:title>
-                                                </appinfo>
-                                              </annotation>
-                                            </element>
-                                            <element name="Kontakt.Vaartus"
-                                                     type="string">
-                                              <annotation>
-                                                <appinfo>
-                                                  <xrd:title>Kontakti
-                                                    väärtus
-                                                  </xrd:title>
-                                                </appinfo>
-                                              </annotation>
-                                            </element>
-                                          </sequence>
-                                        </complexType>
-                                      </element>
-                                    </sequence>
-                                  </complexType>
-                                </element>
-
                                 <element name="SeotudIsik.Hooldusoigused">
                                   <annotation>
                                     <appinfo>

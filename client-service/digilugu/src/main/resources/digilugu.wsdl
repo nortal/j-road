@@ -2199,6 +2199,8 @@
 
     </schema>
 
+    <!-- RCMR_IN000029UV01.xsd
+         http://pub.e-tervis.ee/standards2/Schema/V3/HL7-ORG-V3-2007-09/processable/multicacheschemas/RCMR_IN000029UV01.xsd -->
     <xs:schema xmlns:mif="urn:hl7-org:v3/mif" xmlns:xs="http://www.w3.org/2001/XMLSchema"
                xmlns="urn:hl7-org:v3"
                targetNamespace="urn:hl7-org:v3"
@@ -2307,9 +2309,8 @@
       </xs:complexType>
     </xs:schema>
 
-    <!-- HL7 standardi laiendamiseks vajalikud vaheklassid.
-        Janek Metsallik 16.12.2007
-    -->
+    <!-- RCMR_IN000029UV01_Extension.xsd
+         http://pub.e-tervis.ee/standards2/Schema/V3/HL7-ORG-V3-2007-09-EE-DL-Ext-V1/processable/multicacheschemas/RCMR_IN000029UV01_Extension.xsd -->
     <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
                xmlns:ext="urn:hl7-EE-DL-Ext:v1" xmlns="urn:hl7-EE-DL-Ext:v1" xmlns:hl7="urn:hl7-org:v3"
                targetNamespace="urn:hl7-EE-DL-Ext:v1" elementFormDefault="qualified"
@@ -2356,6 +2357,8 @@
 
     </xs:schema>
 
+    <!-- RCMR_IN000030UV01.xsd
+         http://pub.e-tervis.ee/standards2/Schema/V3/HL7-ORG-V3-2007-09/processable/multicacheschemas/RCMR_IN000030UV01.xsd -->
     <xs:schema xmlns:mif="urn:hl7-org:v3/mif" xmlns:xs="http://www.w3.org/2001/XMLSchema"
                xmlns="urn:hl7-org:v3"
                targetNamespace="urn:hl7-org:v3"
@@ -2498,6 +2501,8 @@
       </xs:complexType>
     </xs:schema>
 
+    <!-- RCMR_IN000031UV01.xsd
+         http://pub.e-tervis.ee/standards2/Schema/V3/HL7-ORG-V3-2007-09/processable/multicacheschemas/RCMR_IN000031UV01.xsd -->
     <xs:schema xmlns:mif="urn:hl7-org:v3/mif" xmlns:xs="http://www.w3.org/2001/XMLSchema"
                xmlns="urn:hl7-org:v3"
                targetNamespace="urn:hl7-org:v3"
@@ -2606,9 +2611,8 @@
       </xs:complexType>
     </xs:schema>
 
-    <!-- HL7 standardi laiendamiseks vajalikud vaheklassid.
-        Janek Metsallik 16.12.2007
-    -->
+    <!-- RCMR_IN000031UV01_Extension.xsd
+         http://pub.e-tervis.ee/standards2/Schema/V3/HL7-ORG-V3-2007-09-EE-DL-Ext-V1/processable/multicacheschemas/RCMR_IN000031UV01_Extension.xsd -->
     <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ext="urn:hl7-EE-DL-Ext:v1" xmlns="urn:hl7-EE-DL-Ext:v1"
                xmlns:hl7="urn:hl7-org:v3" targetNamespace="urn:hl7-EE-DL-Ext:v1" elementFormDefault="qualified"
                attributeFormDefault="qualified">
@@ -2647,6 +2651,8 @@
       </xs:complexType>
     </xs:schema>
 
+    <!-- RCMR_IN000032UV01.xsd
+         http://pub.e-tervis.ee/standards2/Schema/V3/HL7-ORG-V3-2007-09/processable/multicacheschemas/RCMR_IN000032UV01.xsd -->
     <xs:schema xmlns:mif="urn:hl7-org:v3/mif" xmlns:xs="http://www.w3.org/2001/XMLSchema"
                xmlns="urn:hl7-org:v3"
                targetNamespace="urn:hl7-org:v3"
