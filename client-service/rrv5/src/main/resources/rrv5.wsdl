@@ -8936,183 +8936,6 @@
         </complexType>
       </element>
 
-
-      <complexType name="RR41isikPohiandmedRequestType">
-        <sequence>
-          <element name="isikuperenimi" type="string" minOccurs="0" maxOccurs="1">
-            <annotation>
-              <appinfo>
-                <xrd:title>Isiku perekonnanimi või selle algusfragment</xrd:title>
-              </appinfo>
-            </annotation>
-          </element>
-          <element name="isikueesnimi" type="string" minOccurs="0" maxOccurs="1">
-            <annotation>
-              <appinfo>
-                <xrd:title>Isiku eesnimi või selle algusfragment</xrd:title>
-              </appinfo>
-            </annotation>
-          </element>
-          <element name="isikukood" type="string" minOccurs="0" maxOccurs="1">
-            <annotation>
-              <appinfo>
-                <xrd:title>Isikukood või selle algusfragment</xrd:title>
-              </appinfo>
-            </annotation>
-          </element>
-          <element name="vald" type="string" minOccurs="0" maxOccurs="1">
-            <annotation>
-              <appinfo>
-                <xrd:title>Elukoha vald</xrd:title>
-              </appinfo>
-            </annotation>
-          </element>
-          <element name="Staatus" type="tns:isiku_staatus" minOccurs="0">
-            <annotation>
-              <appinfo>
-                <xrd:title>Isiku staatus</xrd:title>
-              </appinfo>
-            </annotation>
-          </element>
-          <element name="mitu" type="string" minOccurs="0" maxOccurs="1">
-            <annotation>
-              <appinfo>
-                <xrd:title>Päringuvastuste maksimaalne arv</xrd:title>
-              </appinfo>
-            </annotation>
-          </element>
-        </sequence>
-      </complexType>
-
-      <element name="RR41isikPohiandmed">
-        <complexType>
-          <sequence>
-            <element name="request" type="tns:RR41isikPohiandmedRequestType"></element>
-          </sequence>
-        </complexType>
-      </element>
-
-
-      <complexType name="RR41isikPohiandmedResponseType">
-        <complexContent>
-          <extension base="tns:XRoadResponseBaseType">
-            <sequence>
-              <element name="veakood" type="integer" minOccurs="0" maxOccurs="1">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>Number, mis sisaldab informatsiooni päringu õnnestumise kohta</xrd:title>
-                  </appinfo>
-                </annotation>
-              </element>
-              <element name="veatekst" type="string" minOccurs="0" maxOccurs="1">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>Tekst, mis selgitab vea põhjust. Kui päring õnnestub, siis tühistring</xrd:title>
-                  </appinfo>
-                </annotation>
-              </element>
-              <element name="isikud">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>Isiku andmed</xrd:title>
-                  </appinfo>
-                </annotation>
-                <complexType>
-                  <sequence>
-                    <element name="isik" minOccurs="0" maxOccurs="unbounded">
-                      <complexType>
-                        <sequence>
-                          <element name="isik.Isikukood" type="string" minOccurs="1" maxOccurs="1">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Isiku Isikukood</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="isik.Perenimi" type="string" minOccurs="1" maxOccurs="1">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Isiku perekonnanimi</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="isik.Eesnimi" type="string" minOccurs="1" maxOccurs="1">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Isiku eesnimi</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="isik.Isanimi" type="string" minOccurs="1" maxOccurs="1">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Isiku isanimi</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="isik.Eesti_aadress" type="string" minOccurs="1" maxOccurs="1">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Isiku elukoha aadress</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="isik.Staatus" type="string" minOccurs="1" maxOccurs="1">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Isiku staatus</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="isik.ADS_ADR_ID" type="integer">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>ADS_ADR_ID</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="isik.ADS_OID" type="string">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>ADS_OID</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="isik.ADS_KOODAADRESS" type="string">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>ADS_KOODAADRESS</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="isik.ADS_ADOB_ID" type="integer">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>ADS_ADOB_ID</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                        </sequence>
-                      </complexType>
-                    </element>
-                  </sequence>
-                </complexType>
-              </element>
-            </sequence>
-          </extension>
-        </complexContent>
-      </complexType>
-
-      <element name="RR41isikPohiandmedResponse">
-        <complexType>
-          <sequence>
-            <element name="request" type="tns:RR41isikPohiandmedRequestType"></element>
-            <element name="response" type="tns:RR41isikPohiandmedResponseType"></element>
-          </sequence>
-        </complexType>
-      </element>
-
-
       <complexType name="RR42isikAadressKoodRequestType">
         <sequence>
           <element name="maakond" type="string" minOccurs="0" maxOccurs="1">
@@ -12378,104 +12201,6 @@
       </element>
 
 
-      <complexType name="RR67_muutusRequestType">
-        <sequence>
-          <element name="cAlgKpv" type="string">
-            <annotation>
-              <appinfo>
-                <xrd:title>Perioodi alguskuupäev</xrd:title>
-              </appinfo>
-            </annotation>
-          </element>
-          <element name="cAlgKell" type="string">
-            <annotation>
-              <appinfo>
-                <xrd:title>Perioodi alguskuupäeva kellaaeg</xrd:title>
-              </appinfo>
-            </annotation>
-          </element>
-          <element name="cLoppKpv" type="string">
-            <annotation>
-              <appinfo>
-                <xrd:title>Perioodi lõpukuupäev</xrd:title>
-              </appinfo>
-            </annotation>
-          </element>
-          <element name="cLoppKell" type="string">
-            <annotation>
-              <appinfo>
-                <xrd:title>Perioodi lõpukuukäev kellaaeg</xrd:title>
-              </appinfo>
-            </annotation>
-          </element>
-          <element name="cMuutused" type="string">
-            <annotation>
-              <appinfo>
-                <xrd:title>Muudatuste koodid</xrd:title>
-              </appinfo>
-            </annotation>
-          </element>
-        </sequence>
-      </complexType>
-
-      <element name="RR67_muutus">
-        <complexType>
-          <sequence>
-            <element name="request" type="tns:RR67_muutusRequestType"></element>
-          </sequence>
-        </complexType>
-      </element>
-
-      <complexType name="RR67_muutusResponseType">
-        <complexContent>
-          <extension base="tns:XRoadResponseBaseType">
-            <sequence>
-              <element name="ttKood">
-                <annotation>
-                  <appinfo>
-                    <xrd:title/>
-                  </appinfo>
-                </annotation>
-                <complexType>
-                  <sequence>
-                    <element name="ttKoodid" minOccurs="0" maxOccurs="unbounded">
-                      <complexType>
-                        <sequence>
-                          <element name="ttKoodid.cIsikukood" type="string">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title/>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="ttKoodid.cUusKood" type="string">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title/>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                        </sequence>
-                      </complexType>
-                    </element>
-                  </sequence>
-                </complexType>
-              </element>
-            </sequence>
-          </extension>
-        </complexContent>
-      </complexType>
-
-      <element name="RR67_muutusResponse">
-        <complexType>
-          <sequence>
-            <element name="request" type="tns:RR67_muutusRequestType"></element>
-            <element name="response" type="tns:RR67_muutusResponseType"></element>
-          </sequence>
-        </complexType>
-      </element>
-
-
       <complexType name="RR72_isikRequestType">
         <sequence>
           <element name="cValjad" type="string" minOccurs="1" maxOccurs="1">
@@ -14219,231 +13944,6 @@
         </complexType>
       </element>
 
-
-      <complexType name="RR84IsikuSeosedRequestType">
-        <sequence>
-          <element name="Isikukood" type="string" minOccurs="1" maxOccurs="1">
-            <annotation>
-              <appinfo>
-                <xrd:title>Otsitava isiku isikukood</xrd:title>
-              </appinfo>
-            </annotation>
-          </element>
-        </sequence>
-      </complexType>
-
-      <element name="RR84IsikuSeosed">
-        <complexType>
-          <sequence>
-            <element name="request" type="tns:RR84IsikuSeosedRequestType"></element>
-          </sequence>
-        </complexType>
-      </element>
-
-      <complexType name="RR84IsikuSeosedResponseType">
-        <complexContent>
-          <extension base="tns:XRoadResponseBaseType">
-            <sequence>
-              <element name="XTeeVeaTeade" type="string" minOccurs="0" maxOccurs="1">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>Vea korral vea tekst, vastasel juhul tühi</xrd:title>
-                  </appinfo>
-                </annotation>
-              </element>
-              <element name="IsikuEesnimi" type="string" minOccurs="1" maxOccurs="1">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>Isiku eesnimi</xrd:title>
-                  </appinfo>
-                </annotation>
-              </element>
-              <element name="IsikuPerenimi" type="string" minOccurs="1" maxOccurs="1">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>Isiku perekonnanimi</xrd:title>
-                  </appinfo>
-                </annotation>
-              </element>
-              <element name="IsikuSugu" type="string" minOccurs="1" maxOccurs="1">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>Isiku sugu</xrd:title>
-                  </appinfo>
-                </annotation>
-              </element>
-              <element name="IsikuSynniaeg" type="string" minOccurs="1" maxOccurs="1">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>Isiku sünnikuupäev</xrd:title>
-                  </appinfo>
-                </annotation>
-              </element>
-              <element name="IsikuStaatus" type="string" minOccurs="1" maxOccurs="1">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>Isiku olek / kirje staatus</xrd:title>
-                  </appinfo>
-                </annotation>
-              </element>
-              <element name="IsikuElukoht" type="string" minOccurs="1" maxOccurs="1">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>Isiku põhielukoht</xrd:title>
-                  </appinfo>
-                </annotation>
-              </element>
-              <element name="ADS_ADR_ID" type="integer">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>ADS_ADR_ID</xrd:title>
-                  </appinfo>
-                </annotation>
-              </element>
-              <element name="ADS_OID" type="string">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>ADS_OID</xrd:title>
-                  </appinfo>
-                </annotation>
-              </element>
-              <element name="ADS_KOODAADRESS" type="string">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>ADS_KOODAADRESS</xrd:title>
-                  </appinfo>
-                </annotation>
-              </element>
-              <element name="ADS_ADOB_ID" type="integer">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>ADS_ADOB_ID</xrd:title>
-                  </appinfo>
-                </annotation>
-              </element>
-              <element name="Veakood" type="integer" minOccurs="1" maxOccurs="1">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>Kui otsingu tulemusena isik leiti, siis 0, vastasel juhul veakood</xrd:title>
-                  </appinfo>
-                </annotation>
-              </element>
-              <element name="Veatekst" type="string" minOccurs="1" maxOccurs="1">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>Vea põhjust iseloomustav tekst</xrd:title>
-                  </appinfo>
-                </annotation>
-              </element>
-              <element name="Suhted">
-                <annotation>
-                  <appinfo>
-                    <xrd:title>Isiku seosed</xrd:title>
-                  </appinfo>
-                </annotation>
-                <complexType>
-                  <sequence>
-                    <element name="Suhe" minOccurs="0" maxOccurs="unbounded">
-                      <complexType>
-                        <sequence>
-                          <element name="Suhe.Suhtetyyp" type="string" minOccurs="1" maxOccurs="1">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Seose liik</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="Suhe.sIsikukood" type="string" minOccurs="1" maxOccurs="1">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Seoses oleva teise isiku isikukood</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="Suhe.sPerenimi" type="string" minOccurs="1" maxOccurs="1">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Seoses oleva teise isiku perenimi</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="Suhe.sEesnimi" type="string" minOccurs="1" maxOccurs="1">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Seoses oleva teise isiku eesnimi</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="Suhe.sIsikuElukoht" type="string" minOccurs="1" maxOccurs="1">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Seoses oleva teise isiku põhielukoht</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="Suhe.sIsikuStaatus" type="string" minOccurs="1" maxOccurs="1">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Seoses oleva teise isiku olek / kirje staatus</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="Suhe.SuhStaatus" type="string" minOccurs="1" maxOccurs="1">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>Suhte staatus</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="Suhe.sADS_ADR_ID" type="integer">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>ADS_ADR_ID</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="Suhe.sADS_OID" type="string">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>ADS_OID</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="Suhe.sADS_KOODAADRESS" type="string">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>ADS_KOODAADRESS</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                          <element name="Suhe.sADS_ADOB_ID" type="integer">
-                            <annotation>
-                              <appinfo>
-                                <xrd:title>ADS_ADOB_ID</xrd:title>
-                              </appinfo>
-                            </annotation>
-                          </element>
-                        </sequence>
-                      </complexType>
-                    </element>
-                  </sequence>
-                </complexType>
-              </element>
-            </sequence>
-          </extension>
-        </complexContent>
-      </complexType>
-
-      <element name="RR84IsikuSeosedResponse">
-        <complexType>
-          <sequence>
-            <element name="request" type="tns:RR84IsikuSeosedRequestType"></element>
-            <element name="response" type="tns:RR84IsikuSeosedResponseType"></element>
-          </sequence>
-        </complexType>
-      </element>
-
-
       <complexType name="RR87IsikKoda898AnalRequestType">
         <sequence>
           <element name="Isikukood" type="string" minOccurs="0" maxOccurs="1">
@@ -16080,12 +15580,6 @@
   <message name="RR414Response">
     <part name="body" element="tns:RR414Response"></part>
   </message>
-  <message name="RR41isikPohiandmed">
-    <part name="body" element="tns:RR41isikPohiandmed"></part>
-  </message>
-  <message name="RR41isikPohiandmedResponse">
-    <part name="body" element="tns:RR41isikPohiandmedResponse"></part>
-  </message>
   <message name="RR42isikAadressKood">
     <part name="body" element="tns:RR42isikAadressKood"></part>
   </message>
@@ -16164,12 +15658,6 @@
   <message name="RR66HMIsikEestkResponse">
     <part name="body" element="tns:RR66HMIsikEestkResponse"></part>
   </message>
-  <message name="RR67_muutus">
-    <part name="body" element="tns:RR67_muutus"></part>
-  </message>
-  <message name="RR67_muutusResponse">
-    <part name="body" element="tns:RR67_muutusResponse"></part>
-  </message>
   <message name="RR72_isik">
     <part name="body" element="tns:RR72_isik"></part>
   </message>
@@ -16205,12 +15693,6 @@
   </message>
   <message name="RR82KMAviisaandmedResponse">
     <part name="body" element="tns:RR82KMAviisaandmedResponse"></part>
-  </message>
-  <message name="RR84IsikuSeosed">
-    <part name="body" element="tns:RR84IsikuSeosed"></part>
-  </message>
-  <message name="RR84IsikuSeosedResponse">
-    <part name="body" element="tns:RR84IsikuSeosedResponse"></part>
   </message>
   <message name="RR87IsikKoda898Anal">
     <part name="body" element="tns:RR87IsikKoda898Anal"></part>
@@ -16337,17 +15819,6 @@
       </documentation>
       <input message="tns:RR414"></input>
       <output message="tns:RR414Response"></output>
-    </operation>
-    <operation name="RR41isikPohiandmed">
-      <documentation>
-        <xrd:title xml:lang="et">RR41_v2 - Isiku põhiandmete päring isikuandmete järgi, ADS andmed.</xrd:title>
-        <xrd:notes xml:lang="et">RR41_v2 - Teenus tagastab vastavalt edastatud sisendis olnud isikukoodile ja/või
-          nimedele ja/või valla koodile ja/või isiku olekule ja/või päringu vastuste maksimaalsele arvule vastavate
-          isikute andmed nimede, elukohaaadressi ja oleku kohta. ADS andmed
-        </xrd:notes>
-      </documentation>
-      <input message="tns:RR41isikPohiandmed"></input>
-      <output message="tns:RR41isikPohiandmedResponse"></output>
     </operation>
     <operation name="RR42isikAadressKood">
       <documentation>
@@ -16505,18 +15976,6 @@
       <input message="tns:RR66HMIsikEestk"></input>
       <output message="tns:RR66HMIsikEestkResponse"></output>
     </operation>
-    <operation name="RR67_muutus">
-      <documentation>
-        <xrd:title xml:lang="et">RR67_v2 - X-tee muudetud andmetega isikute isikukoodid.</xrd:title>
-        <xrd:notes xml:lang="et">RR67_v2 - Teenus tagastab edastatud perioodil muutunud isikute uue ja vana isikukoodi,
-          kui on toimunud on nimemuutus, aadressi muutus, isikukoodi muutus, teovõime muutus, uus isikukood (sünd), uus
-          isikukood muul põhjusel, surm, isikuttõendava dokumenti muutus, isiku staatuse muutus, elamisloa andmete
-          muutus, kodakondsuse muutus, isiku kirje staatus
-        </xrd:notes>
-      </documentation>
-      <input message="tns:RR67_muutus"></input>
-      <output message="tns:RR67_muutusResponse"></output>
-    </operation>
     <operation name="RR72_isik">
       <documentation>
         <xrd:title xml:lang="et">RR72_v2 - Isikuandmed isikukoodide alusel.ADS andmed.</xrd:title>
@@ -16587,16 +16046,6 @@
       </documentation>
       <input message="tns:RR82KMAviisaandmed"></input>
       <output message="tns:RR82KMAviisaandmedResponse"></output>
-    </operation>
-    <operation name="RR84IsikuSeosed">
-      <documentation>
-        <xrd:title xml:lang="et">RR84_v2 - Isiku andmete ja suhete päring isikukoodi järgi.ADS andmed.</xrd:title>
-        <xrd:notes xml:lang="et">RR84_v2 - Teenus tagastab sisendis edastatud isikukoodile vatstava isiku nimed, oleku,
-          põhielukoha, suhted.ADS andmed.
-        </xrd:notes>
-      </documentation>
-      <input message="tns:RR84IsikuSeosed"></input>
-      <output message="tns:RR84IsikuSeosedResponse"></output>
     </operation>
     <operation name="RR87IsikKoda898Anal">
       <documentation>
@@ -16830,27 +16279,6 @@
         <soap:header message="tns:requestHeader" part="requestHash" use="literal"></soap:header>
       </output>
     </operation>
-    <operation name="RR41isikPohiandmed">
-      <soap:operation soapAction="uri" style="document"></soap:operation>
-      <xrd:version>v2</xrd:version>
-      <input>
-        <soap:body use="literal"></soap:body>
-        <soap:header message="tns:requestHeader" part="client" use="literal"></soap:header>
-        <soap:header message="tns:requestHeader" part="service" use="literal"></soap:header>
-        <soap:header message="tns:requestHeader" part="userId" use="literal"></soap:header>
-        <soap:header message="tns:requestHeader" part="id" use="literal"></soap:header>
-        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"></soap:header>
-      </input>
-      <output>
-        <soap:body use="literal"></soap:body>
-        <soap:header message="tns:requestHeader" part="client" use="literal"></soap:header>
-        <soap:header message="tns:requestHeader" part="service" use="literal"></soap:header>
-        <soap:header message="tns:requestHeader" part="userId" use="literal"></soap:header>
-        <soap:header message="tns:requestHeader" part="id" use="literal"></soap:header>
-        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"></soap:header>
-        <soap:header message="tns:requestHeader" part="requestHash" use="literal"></soap:header>
-      </output>
-    </operation>
     <operation name="RR42isikAadressKood">
       <soap:operation soapAction="uri" style="document"></soap:operation>
       <xrd:version>v2</xrd:version>
@@ -17124,27 +16552,6 @@
         <soap:header message="tns:requestHeader" part="requestHash" use="literal"></soap:header>
       </output>
     </operation>
-    <operation name="RR67_muutus">
-      <soap:operation soapAction="uri" style="document"></soap:operation>
-      <xrd:version>v2</xrd:version>
-      <input>
-        <soap:body use="literal"></soap:body>
-        <soap:header message="tns:requestHeader" part="client" use="literal"></soap:header>
-        <soap:header message="tns:requestHeader" part="service" use="literal"></soap:header>
-        <soap:header message="tns:requestHeader" part="userId" use="literal"></soap:header>
-        <soap:header message="tns:requestHeader" part="id" use="literal"></soap:header>
-        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"></soap:header>
-      </input>
-      <output>
-        <soap:body use="literal"></soap:body>
-        <soap:header message="tns:requestHeader" part="client" use="literal"></soap:header>
-        <soap:header message="tns:requestHeader" part="service" use="literal"></soap:header>
-        <soap:header message="tns:requestHeader" part="userId" use="literal"></soap:header>
-        <soap:header message="tns:requestHeader" part="id" use="literal"></soap:header>
-        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"></soap:header>
-        <soap:header message="tns:requestHeader" part="requestHash" use="literal"></soap:header>
-      </output>
-    </operation>
     <operation name="RR72_isik">
       <soap:operation soapAction="uri" style="document"></soap:operation>
       <xrd:version>v2</xrd:version>
@@ -17251,27 +16658,6 @@
       </output>
     </operation>
     <operation name="RR82KMAviisaandmed">
-      <soap:operation soapAction="uri" style="document"></soap:operation>
-      <xrd:version>v2</xrd:version>
-      <input>
-        <soap:body use="literal"></soap:body>
-        <soap:header message="tns:requestHeader" part="client" use="literal"></soap:header>
-        <soap:header message="tns:requestHeader" part="service" use="literal"></soap:header>
-        <soap:header message="tns:requestHeader" part="userId" use="literal"></soap:header>
-        <soap:header message="tns:requestHeader" part="id" use="literal"></soap:header>
-        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"></soap:header>
-      </input>
-      <output>
-        <soap:body use="literal"></soap:body>
-        <soap:header message="tns:requestHeader" part="client" use="literal"></soap:header>
-        <soap:header message="tns:requestHeader" part="service" use="literal"></soap:header>
-        <soap:header message="tns:requestHeader" part="userId" use="literal"></soap:header>
-        <soap:header message="tns:requestHeader" part="id" use="literal"></soap:header>
-        <soap:header message="tns:requestHeader" part="protocolVersion" use="literal"></soap:header>
-        <soap:header message="tns:requestHeader" part="requestHash" use="literal"></soap:header>
-      </output>
-    </operation>
-    <operation name="RR84IsikuSeosed">
       <soap:operation soapAction="uri" style="document"></soap:operation>
       <xrd:version>v2</xrd:version>
       <input>
