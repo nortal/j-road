@@ -194,6 +194,18 @@ public class AriregXRoadServiceImpl extends XRoadDatabaseService implements Arir
     return response.getContent();
   }
 
+  @Override
+  public List<Seos> findEttevottegaSeotudIsikudV1(long ariregistriKood) throws XTeeServiceConsumptionException {
+    EttevottegaSeotudIsikudV1 query = EttevottegaSeotudIsikudV1.Factory.newInstance();
+    EttevottegaSeotudIsikudParing keha = EttevottegaSeotudIsikudParing.Factory.newInstance();
+    keha.setAriregistriKood(BigInteger.valueOf(ariregistriKood));
+    query.setKeha(keha);
+
+    XTeeMessage<EttevottegaSeotudIsikudV1Response> response =
+            send(new XmlBeansXTeeMessage<EttevottegaSeotudIsikudV1>(query), "ettevottegaSeotudIsikud_v1", "v1", null, new AriregExtractor());
+    return response.getContent().getKeha().getSeosedList();
+  }
+
   public class AriregExtractor extends CustomExtractor<XTeeMessage<XmlObject>> {
 
     @Override

@@ -206,4 +206,10 @@ public interface AriregXRoadService {
                                                                                           String[] kandesIsikudRollid,
                                                                                           Integer tulemusteLk)
       throws XTeeServiceConsumptionException;
+
+  /**
+   * <code>arireg.ettevottegaSeotudIsikud_v1.v1</code> X-road service.
+   */
+  List<Seos> findEttevottegaSeotudIsikudV1(long ariregistriKood) throws XTeeServiceConsumptionException;
+
 }

@@ -1,185 +1,204 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- WSDL for arireg X-road v6 -->
-<!-- Version: 0.1.20-live, date 2018-01-24 13:28, by user ando -->
-<wsdl:definitions
-    xmlns:sawsdl="http://www.w3.org/ns/sawsdl"
-    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns:swa="http://ws-i.org/profiles/basic/1.1/xsd"
-    xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
-    xmlns:xrd="http://x-road.eu/xsd/xroad.xsd"
-    xmlns:xid="http://x-road.eu/xsd/identifiers"
-    xmlns:ar="http://arireg.x-road.eu/producer/"
-    name="ariregv6API"
-    targetNamespace="http://arireg.x-road.eu/producer/">
+<!-- Version: 0.15.2-live, tasuta, date 2022-04-18 12:22, by user ando -->
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sawsdl="http://www.w3.org/ns/sawsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:swa="http://ws-i.org/profiles/basic/1.1/xsd" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xrd="http://x-road.eu/xsd/xroad.xsd" xmlns:xid="http://x-road.eu/xsd/identifiers" xmlns:ar="http://arireg.x-road.eu/producer/" name="ariregv6API" targetNamespace="http://arireg.x-road.eu/producer/">
     <wsdl:types>
-      <xsd:schema targetNamespace="http://arireg.x-road.eu/producer/" elementFormDefault="qualified">
-        <xsd:import namespace="http://x-road.eu/xsd/xroad.xsd" schemaLocation="http://x-road.eu/xsd/xroad.xsd"/>
-        <xsd:import namespace="http://ws-i.org/profiles/basic/1.1/xsd" schemaLocation="http://ws-i.org/profiles/basic/1.1/swaref.xsd"/>
+        <xsd:schema targetNamespace="http://arireg.x-road.eu/producer/" elementFormDefault="qualified">
+            <xsd:import namespace="http://x-road.eu/xsd/xroad.xsd" schemaLocation="http://x-road.eu/xsd/xroad.xsd"/>
+            <xsd:import namespace="http://ws-i.org/profiles/basic/1.1/xsd" schemaLocation="http://ws-i.org/profiles/basic/1.1/swaref.xsd"/>
 
-        <!-- debugAdapter_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_debugAdapter_v1.xsd"/>
+            <!-- debugAdapter_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_debugAdapter_v1.xsd"/>
 
-        <!-- detailandmed_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_detailandmed_v1.xsd"/>
+            <!-- detailandmed_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_detailandmed_v1.xsd"/>
 
-        <!-- detailandmed_v2 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_detailandmed_v2.xsd"/>
+            <!-- detailandmed_v2 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_detailandmed_v2.xsd"/>
 
-        <!-- ettevotjaDokumentideLoetelu_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_ettevotjaDokumentideLoetelu_v1.xsd"/>
+            <!-- detailandmed_v3 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_detailandmed_v3.xsd"/>
 
-        <!-- ettevotjaEsmakanded_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_ettevotjaEsmakanded_v1.xsd"/>
+            <!-- ettevotjaDokumentideLoetelu_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_ettevotjaDokumentideLoetelu_v1.xsd"/>
 
-        <!-- ettevotjaMuudatusedTasuline_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_ettevotjaMuudatusedTasuline_v1.xsd"/>
+            <!-- ettevotjaMuudatusedTasuline_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_ettevotjaMuudatusedTasuline_v1.xsd"/>
 
-        <!-- ettevotjaRekvisiididFail_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_ettevotjaRekvisiididFail_v1.xsd"/>
+            <!-- ettevotjaRekvisiididFail_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_ettevotjaRekvisiididFail_v1.xsd"/>
 
-        <!-- ettevotjaRekvisiidid_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_ettevotjaRekvisiidid_v1.xsd"/>
+            <!-- ettevotjaRekvisiidid_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_ettevotjaRekvisiidid_v1.xsd"/>
 
-        <!-- ettevottegaSeotudIsikud_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_ettevottegaSeotudIsikud_v1.xsd"/>
+            <!-- ettevotjaRekvisiidid_v2 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_ettevotjaRekvisiidid_v2.xsd"/>
 
-        <!-- esindus_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_esindus_v1.xsd"/>
+            <!-- ettevottegaSeotudIsikud_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_ettevottegaSeotudIsikud_v1.xsd"/>
 
-        <!-- esindus_v2 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_esindus_v2.xsd"/>
+            <!-- esindus_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_esindus_v1.xsd"/>
 
-        <!-- klassifikaatorid_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_klassifikaatorid_v1.xsd"/>
+            <!-- esindus_v2 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_esindus_v2.xsd"/>
 
-        <!-- lihtandmedTasuta_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_lihtandmedTasuta_v1.xsd"/>
+            <!-- klassifikaatorid_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_klassifikaatorid_v1.xsd"/>
 
-        <!-- lihtandmed_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_lihtandmed_v1.xsd"/>
+            <!-- lihtandmedTasuta_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_lihtandmedTasuta_v1.xsd"/>
 
-        <!-- lihtandmed_v2 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_lihtandmed_v2.xsd"/>
+            <!-- lihtandmed_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_lihtandmed_v1.xsd"/>
 
-        <!-- majandusaastaAruanneteLoetelu_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_majandusaastaAruanneteLoetelu_v1.xsd"/>
+            <!-- lihtandmed_v2 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_lihtandmed_v2.xsd"/>
 
-        <!-- majandusaastaAruanneteKirjed_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_majandusaastaAruanneteKirjed_v1.xsd"/>
+            <!-- lihtandmed_v3 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_lihtandmed_v3.xsd"/>
 
-        <!-- seotudIsikuOtsing_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_seotudIsikuOtsing_v1.xsd"/>
+            <!-- majandusaastaAruanneteLoetelu_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_majandusaastaAruanneteLoetelu_v1.xsd"/>
 
-        <!-- aruandeAuditeerimiseAndmed_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_aruandeAuditeerimiseAndmed_v1.xsd"/>
+            <!-- majandusaastaAruanneteKirjed_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_majandusaastaAruanneteKirjed_v1.xsd"/>
 
-        <!-- aruandeMyygituluEMTAKjargi_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_aruandeMyygituluEMTAKjargi_v1.xsd"/>
+            <!-- seotudIsikuOtsing_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_seotudIsikuOtsing_v1.xsd"/>
 
-<!-- STARTBLOCK:xroad_services -->
-        <!-- arikeelud_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_arikeelud_v1.xsd"/>
+            <!-- aruandeAuditeerimiseAndmed_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_aruandeAuditeerimiseAndmed_v1.xsd"/>
 
-        <!-- ariregistriToimik_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_ariregistriToimik_v1.xsd"/>
+            <!-- aruandeMyygituluEMTAKjargi_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_aruandeMyygituluEMTAKjargi_v1.xsd"/>
 
-        <!-- detailandmedEP_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_detailandmedEP_v1.xsd"/>
+            <!-- toimikuDokument_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_toimikuDokument_v1.xsd"/>
 
-        <!-- erakondaKuuluvus_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_erakondaKuuluvus_v1.xsd"/>
+            <!-- toimikuDokument_v1 ja toimikuDokumendid_v1 ühised tüübid -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_toimiku_dokument_common.xsd"/>
 
-        <!-- erakonnaNimekiri_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_erakonnaNimekiri_v1.xsd"/>
+            <!-- tegelikudKasusaajad_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_tegelikudKasusaajad_v1.xsd"/>
 
-        <!-- esindusIseendaKohta_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_esindusIseendaKohta_v1.xsd"/>
+            <!-- kandedMaarused_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_kanded_maarused_v1.xsd"/>
 
-        <!-- evportaalDigiteeriDokumendid_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_evportaalDigiteeriDokumendid_v1.xsd"/>
+            <!-- isikuMuudatused_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_isikuMuudatused_v1.xsd"/>
 
-        <!-- evportaalDigiteeriToimik_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_evportaalDigiteeriToimik_v1.xsd"/>
+            <!-- STARTBLOCK:xroad_services -->
+            <!-- arikeelud_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_arikeelud_v1.xsd"/>
 
-        <!-- evportaalMargiKattetoimetatuks_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_evportaalMargiKattetoimetatuks_v1.xsd"/>
+            <!-- ariregistriToimik_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_ariregistriToimik_v1.xsd"/>
 
-        <!-- ettevotjaMuudatusedTasutaTootukassa_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_ettevotjaMuudatusedTasutaTootukassa_v1.xsd"/>
+            <!-- detailandmedEP_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_detailandmedEP_v1.xsd"/>
 
-        <!-- ettevotjaMuudatusedTasuta_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_ettevotjaMuudatusedTasuta_v1.xsd"/>
+            <!-- erakondaKuuluvus_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_erakondaKuuluvus_v1.xsd"/>
 
-        <!-- EVKKanded_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_EVKKanded_v1.xsd"/>
+            <!-- erakonnaNimekiri_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_erakonnaNimekiri_v1.xsd"/>
 
-        <!-- kyMenetlusinfo_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_kyMenetlusinfo_v1.xsd"/>
+            <!-- esindusIseendaKohta_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_esindusIseendaKohta_v1.xsd"/>
 
-        <!-- kyRegistriosaMuutused_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_kyRegistriosaMuutused_v1.xsd"/>
+            <!-- evportaalDigiteeriDokumendid_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_evportaalDigiteeriDokumendid_v1.xsd"/>
 
-        <!-- maaruseDokument_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_maaruseDokument_v1.xsd"/>
+            <!-- evportaalDigiteeriToimik_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_evportaalDigiteeriToimik_v1.xsd"/>
 
-        <!-- menetlusinfo_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_menetlusinfo_v1.xsd"/>
+            <!-- evportaalMargiKattetoimetatuks_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_evportaalMargiKattetoimetatuks_v1.xsd"/>
 
-        <!-- mtaBilanss_v1, mtaBilanssFail_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_mtaBilanss_v1.xsd"/>
+            <!-- ettevotjaMuudatusedTasutaTootukassa_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_ettevotjaMuudatusedTasutaTootukassa_v1.xsd"/>
 
-        <!-- mtaBilSisu_v1, mtaBilSisuFail_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_mtaBilSisu_v1.xsd"/>
+            <!-- ettevotjaMuudatusedTasuta_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_ettevotjaMuudatusedTasuta_v1.xsd"/>
 
-        <!-- mtaEvSeisundid_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_mtaEvSeisundid_v1.xsd"/>
+            <!-- EVKKanded_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_EVKKanded_v1.xsd"/>
 
-        <!-- mtaPortsTeenuseid -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_mtaparingud.xsd"/>
+            <!-- kyMenetlusinfo_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_kyMenetlusinfo_v1.xsd"/>
 
-        <!-- napTasumiseLisamine_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_napTasumiseLisamine_v1.xsd"/>
+            <!-- maaruseDokument_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_maaruseDokument_v1.xsd"/>
 
-        <!-- nimeSobivus_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_nimeSobivus_v1.xsd"/>
+            <!-- menetlusinfo_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_menetlusinfo_v1.xsd"/>
 
-        <!-- rkoarr_asutused_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_rkoarr_asutused_v1.xsd"/>
+            <!-- mtaBilanss_v1, mtaBilanssFail_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_mtaBilanss_v1.xsd"/>
 
-        <!-- registrikaart_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_registrikaart_v1.xsd"/>
+            <!-- mtaBilSisu_v1, mtaBilSisuFail_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_mtaBilSisu_v1.xsd"/>
 
-        <!-- sooritaKanne_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_sooritaKanne_v1.xsd"/>
+            <!-- mtaEvSeisundid_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_mtaEvSeisundid_v1.xsd"/>
 
-        <!-- toimikuDokumendid_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_toimikuDokumendid_v1.xsd"/>
+            <!-- mtaPortsTeenuseid -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_mtaparingud.xsd"/>
 
-        <!-- toimikuDokument_v1 -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_toimikuDokument_v1.xsd"/>
+            <!-- edastaRiigiLoivuNdoue_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_edastaRiigiLoivuNoue_v1.xsd"/>
 
-        <!-- transactionStatement -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_transactionStatement.xsd"/>
+            <!-- napTasumiseLisamine_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_napTasumiseLisamine_v1.xsd"/>
 
-        <!-- Haigekassa teenused-->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_haigekassa.xsd"/>
+            <!-- nimeSobivus_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_nimeSobivus_v1.xsd"/>
 
-        <!-- xbrl teenused-->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_xbrl.xsd"/>
+            <!-- rkoarr_asutused_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_rkoarr_asutused_v1.xsd"/>
 
-        <!-- evapi teenused-->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_evapi.xsd"/>
-<!-- ENDBLOCK:xroad_services -->
+            <!-- registrikaart_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_registrikaart_v1.xsd"/>
 
-        <!-- e-arve registri teenused -->
-        <xsd:include schemaLocation="http://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_earve.xsd"/>
+            <!-- sooritaKanne_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_sooritaKanne_v1.xsd"/>
 
-      </xsd:schema>
+            <!-- tapsustaAadress_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_tapsustaAadress_v1.xsd"/>
+
+            <!-- toimikuDokumendid_v1 -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_toimikuDokumendid_v1.xsd"/>
+
+            <!-- transactionStatement -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_transactionStatement.xsd"/>
+
+            <!-- Haigekassa teenused-->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_haigekassa.xsd"/>
+
+            <!-- xbrl teenused-->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_xbrl.xsd"/>
+
+            <!-- teksa teenused-->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_teksa.xsd"/>
+
+            <!-- evapi teenused-->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_evapi.xsd"/>
+
+            <!-- kasusaajate kinnitamine -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_kinnitaKasusaajad_v1.xsd"/>
+
+            <!-- EMTA krediitkaardimakse notify teenus -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_cpgOrderNotify.xsd"/>
+            <!-- ENDBLOCK:xroad_services -->
+
+            <!-- e-arve registri teenused -->
+            <xsd:include schemaLocation="https://www2.rik.ee/schemas/xtee6/arireg/live/xroad6_earve.xsd"/>
+
+        </xsd:schema>
     </wsdl:types>
 
-<!-- Messages for ARIREG -->
+    <!-- Messages for ARIREG -->
     <wsdl:message name="XroadHeaderMsg">
         <wsdl:part name="client" element="xrd:client"/>
         <wsdl:part name="service" element="xrd:service"/>
@@ -209,18 +228,18 @@
         <wsdl:part name="detailandmed_v2Response" element="ar:detailandmed_v2Response"/>
     </wsdl:message>
 
+    <wsdl:message name="detailandmed_v3">
+        <wsdl:part name="detailandmed_v3" element="ar:detailandmed_v3"/>
+    </wsdl:message>
+    <wsdl:message name="detailandmed_v3Response">
+        <wsdl:part name="detailandmed_v3Response" element="ar:detailandmed_v3Response"/>
+    </wsdl:message>
+
     <wsdl:message name="ettevotjaDokumentideLoetelu_v1">
         <wsdl:part name="ettevotjaDokumentideLoetelu_v1" element="ar:ettevotjaDokumentideLoetelu_v1"/>
     </wsdl:message>
     <wsdl:message name="ettevotjaDokumentideLoetelu_v1Response">
         <wsdl:part name="ettevotjaDokumentideLoetelu_v1Response" element="ar:ettevotjaDokumentideLoetelu_v1Response"/>
-    </wsdl:message>
-
-    <wsdl:message name="ettevotjaEsmakanded_v1">
-        <wsdl:part name="ettevotjaEsmakanded_v1" element="ar:ettevotjaEsmakanded_v1"/>
-    </wsdl:message>
-    <wsdl:message name="ettevotjaEsmakanded_v1Response">
-        <wsdl:part name="ettevotjaEsmakanded_v1Response" element="ar:ettevotjaEsmakanded_v1Response"/>
     </wsdl:message>
 
     <wsdl:message name="ettevotjaMuudatusedTasuline_v1">
@@ -242,6 +261,13 @@
     </wsdl:message>
     <wsdl:message name="ettevotjaRekvisiidid_v1Response">
         <wsdl:part name="ettevotjaRekvisiidid_v1Response" element="ar:ettevotjaRekvisiidid_v1Response"/>
+    </wsdl:message>
+
+    <wsdl:message name="ettevotjaRekvisiidid_v2">
+        <wsdl:part name="ettevotjaRekvisiidid_v2" element="ar:ettevotjaRekvisiidid_v2"/>
+    </wsdl:message>
+    <wsdl:message name="ettevotjaRekvisiidid_v2Response">
+        <wsdl:part name="ettevotjaRekvisiidid_v2Response" element="ar:ettevotjaRekvisiidid_v2Response"/>
     </wsdl:message>
 
     <wsdl:message name="ettevottegaSeotudIsikud_v1">
@@ -293,6 +319,13 @@
         <wsdl:part name="lihtandmed_v2Response" element="ar:lihtandmed_v2Response"/>
     </wsdl:message>
 
+    <wsdl:message name="lihtandmed_v3">
+        <wsdl:part name="lihtandmed_v3" element="ar:lihtandmed_v3"/>
+    </wsdl:message>
+    <wsdl:message name="lihtandmed_v3Response">
+        <wsdl:part name="lihtandmed_v3Response" element="ar:lihtandmed_v3Response"/>
+    </wsdl:message>
+
     <wsdl:message name="majandusaastaAruanneteLoetelu_v1">
         <wsdl:part name="majandusaastaAruanneteLoetelu_v1" element="ar:majandusaastaAruanneteLoetelu_v1"/>
     </wsdl:message>
@@ -335,7 +368,28 @@
         <wsdl:part name="toimikuDokument_v1Response" element="ar:toimikuDokument_v1Response"/>
     </wsdl:message>
 
-<!-- STARTBLOCK:xroad_services -->
+    <wsdl:message name="tegelikudKasusaajad_v1">
+        <wsdl:part name="tegelikudKasusaajad_v1" element="ar:tegelikudKasusaajad_v1"/>
+    </wsdl:message>
+    <wsdl:message name="tegelikudKasusaajad_v1Response">
+        <wsdl:part name="tegelikudKasusaajad_v1Response" element="ar:tegelikudKasusaajad_v1Response"/>
+    </wsdl:message>
+
+    <wsdl:message name="kandedMaarused_v1">
+        <wsdl:part name="kandedMaarused_v1" element="ar:kandedMaarused_v1"/>
+    </wsdl:message>
+    <wsdl:message name="kandedMaarused_v1Response">
+        <wsdl:part name="kandedMaarused_v1Response" element="ar:kandedMaarused_v1Response"/>
+    </wsdl:message>
+
+    <wsdl:message name="isikuMuudatused_v1">
+        <wsdl:part name="isikuMuudatused_v1" element="ar:isikuMuudatused_v1"/>
+    </wsdl:message>
+    <wsdl:message name="isikuMuudatused_v1Response">
+        <wsdl:part name="isikuMuudatused_v1Response" element="ar:isikuMuudatused_v1Response"/>
+    </wsdl:message>
+
+    <!-- STARTBLOCK:xroad_services -->
     <wsdl:message name="arikeelud_v1">
         <wsdl:part name="arikeelud_v1" element="ar:arikeelud_v1"/>
     </wsdl:message>
@@ -434,13 +488,6 @@
         <wsdl:part name="kyMenetlusinfo_v1Response" element="ar:kyMenetlusinfo_v1Response"/>
     </wsdl:message>
 
-    <wsdl:message name="kyRegistriosaMuutused_v1">
-        <wsdl:part name="kyRegistriosaMuutused_v1" element="ar:kyRegistriosaMuutused_v1"/>
-    </wsdl:message>
-    <wsdl:message name="kyRegistriosaMuutused_v1Response">
-        <wsdl:part name="kyRegistriosaMuutused_v1Response" element="ar:kyRegistriosaMuutused_v1Response"/>
-    </wsdl:message>
-
     <wsdl:message name="maaruseDokument_v1">
         <wsdl:part name="maaruseDokument_v1" element="ar:maaruseDokument_v1"/>
     </wsdl:message>
@@ -532,6 +579,13 @@
         <wsdl:part name="mtaTrahvid_v1Response" element="ar:mtaTrahvid_v1Response"/>
     </wsdl:message>
 
+    <wsdl:message name="edastaRiigiLoivuNoue_v1">
+        <wsdl:part name="edastaRiigiLoivuNoue_v1" element="ar:edastaRiigiLoivuNoue_v1"/>
+    </wsdl:message>
+    <wsdl:message name="edastaRiigiLoivuNoue_v1Response">
+        <wsdl:part name="edastaRiigiLoivuNoue_v1Response" element="ar:edastaRiigiLoivuNoue_v1Response"/>
+    </wsdl:message>
+
     <wsdl:message name="napTasumiseLisamine_v1">
         <wsdl:part name="napTasumiseLisamine_v1" element="ar:napTasumiseLisamine_v1"/>
     </wsdl:message>
@@ -565,6 +619,13 @@
     </wsdl:message>
     <wsdl:message name="sooritaKanne_v1Response">
         <wsdl:part name="sooritaKanne_v1Response" element="ar:sooritaKanne_v1Response"/>
+    </wsdl:message>
+
+    <wsdl:message name="tapsustaAadress_v1">
+        <wsdl:part name="tapsustaAadress_v1" element="ar:tapsustaAadress_v1"/>
+    </wsdl:message>
+    <wsdl:message name="tapsustaAadress_v1Response">
+        <wsdl:part name="tapsustaAadress_v1Response" element="ar:tapsustaAadress_v1Response"/>
     </wsdl:message>
 
     <wsdl:message name="toimikuDokumendid_v1">
@@ -650,7 +711,28 @@
     <wsdl:message name="xbrlEsindus_v1Response">
         <wsdl:part name="xbrlEsindus_v1Response" element="ar:xbrlEsindus_v1Response"/>
     </wsdl:message>
-<!-- ENDBLOCK:xroad_services -->
+
+    <wsdl:message name="teksaToiming_v1">
+        <wsdl:part name="teksaToiming_v1" element="ar:teksaToiming_v1"/>
+    </wsdl:message>
+    <wsdl:message name="teksaToiming_v1Response">
+        <wsdl:part name="teksaToiming_v1Response" element="ar:teksaToiming_v1Response"/>
+    </wsdl:message>
+
+    <wsdl:message name="kinnitaKasusaajad_v1">
+        <wsdl:part name="kinnitaKasusaajad_v1" element="ar:kinnitaKasusaajad_v1"/>
+    </wsdl:message>
+    <wsdl:message name="kinnitaKasusaajad_v1Response">
+        <wsdl:part name="kinnitaKasusaajad_v1Response" element="ar:kinnitaKasusaajad_v1Response"/>
+    </wsdl:message>
+
+    <wsdl:message name="cpgOrderNotifyRequest">
+        <wsdl:part name="cpgOrderNotifyRequest" element="ar:cpgOrderNotifyRequest"/>
+    </wsdl:message>
+    <wsdl:message name="cpgOrderNotifyResponse">
+        <wsdl:part name="cpgOrderNotifyResponse" element="ar:cpgOrderNotifyResponse"/>
+    </wsdl:message>
+    <!-- ENDBLOCK:xroad_services -->
 
     <wsdl:message name="earveLisaKlient_v1">
         <wsdl:part name="earveLisaKlient_v1" element="ar:earveLisaKlient_v1"/>
@@ -673,7 +755,7 @@
         <wsdl:part name="earveRegistriParing_v1Response" element="ar:earveRegistriParing_v1Response"/>
     </wsdl:message>
 
-<!-- Port for ARIREG -->
+    <!-- Port for ARIREG -->
     <wsdl:portType name="AriregXtee">
         <wsdl:operation name="debugAdapter_v1" parameterOrder="debugAdapter_v1">
             <wsdl:documentation>
@@ -699,20 +781,20 @@
             <wsdl:output name="detailandmed_v2Response" message="ar:detailandmed_v2Response"/>
         </wsdl:operation>
 
+        <wsdl:operation name="detailandmed_v3" parameterOrder="detailandmed_v3">
+            <wsdl:documentation>
+                <xrd:title>Ettevõtja detailandmete päring</xrd:title>
+            </wsdl:documentation>
+            <wsdl:input name="detailandmed_v3" message="ar:detailandmed_v3"/>
+            <wsdl:output name="detailandmed_v3Response" message="ar:detailandmed_v3Response"/>
+        </wsdl:operation>
+
         <wsdl:operation name="ettevotjaDokumentideLoetelu_v1" parameterOrder="ettevotjaDokumentideLoetelu_v1">
             <wsdl:documentation>
                 <xrd:title>Ettevõtjaga seotud dokumentide loetelu päring</xrd:title>
             </wsdl:documentation>
             <wsdl:input name="ettevotjaDokumentideLoetelu_v1" message="ar:ettevotjaDokumentideLoetelu_v1"/>
             <wsdl:output name="ettevotjaDokumentideLoetelu_v1Response" message="ar:ettevotjaDokumentideLoetelu_v1Response"/>
-        </wsdl:operation>
-
-        <wsdl:operation name="ettevotjaEsmakanded_v1" parameterOrder="ettevotjaEsmakanded_v1">
-            <wsdl:documentation>
-                <xrd:title>Ettevõtja esmakannete päring</xrd:title>
-            </wsdl:documentation>
-            <wsdl:input name="ettevotjaEsmakanded_v1" message="ar:ettevotjaEsmakanded_v1"/>
-            <wsdl:output name="ettevotjaEsmakanded_v1Response" message="ar:ettevotjaEsmakanded_v1Response"/>
         </wsdl:operation>
 
         <wsdl:operation name="ettevotjaMuudatusedTasuline_v1" parameterOrder="ettevotjaMuudatusedTasuline_v1">
@@ -737,6 +819,14 @@
             </wsdl:documentation>
             <wsdl:input name="ettevotjaRekvisiidid_v1" message="ar:ettevotjaRekvisiidid_v1"/>
             <wsdl:output name="ettevotjaRekvisiidid_v1Response" message="ar:ettevotjaRekvisiidid_v1Response"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="ettevotjaRekvisiidid_v2" parameterOrder="ettevotjaRekvisiidid_v2">
+            <wsdl:documentation>
+                <xrd:title>Ettevotja rekvisiitide päring</xrd:title>
+            </wsdl:documentation>
+            <wsdl:input name="ettevotjaRekvisiidid_v2" message="ar:ettevotjaRekvisiidid_v2"/>
+            <wsdl:output name="ettevotjaRekvisiidid_v2Response" message="ar:ettevotjaRekvisiidid_v2Response"/>
         </wsdl:operation>
 
         <wsdl:operation name="ettevottegaSeotudIsikud_v1" parameterOrder="ettevottegaSeotudIsikud_v1">
@@ -795,6 +885,14 @@
             <wsdl:output name="lihtandmed_v2Response" message="ar:lihtandmed_v2Response"/>
         </wsdl:operation>
 
+        <wsdl:operation name="lihtandmed_v3" parameterOrder="lihtandmed_v3">
+            <wsdl:documentation>
+                <xrd:title>Ettevõtja lihtandmete päring</xrd:title>
+            </wsdl:documentation>
+            <wsdl:input name="lihtandmed_v3" message="ar:lihtandmed_v3"/>
+            <wsdl:output name="lihtandmed_v3Response" message="ar:lihtandmed_v3Response"/>
+        </wsdl:operation>
+
         <wsdl:operation name="majandusaastaAruanneteLoetelu_v1" parameterOrder="majandusaastaAruanneteLoetelu_v1">
             <wsdl:documentation>
                 <xrd:title>Ettevõtja majandusaasta aruande loetelu päring</xrd:title>
@@ -843,7 +941,32 @@
             <wsdl:output name="toimikuDokument_v1Response" message="ar:toimikuDokument_v1Response"/>
         </wsdl:operation>
 
-<!-- STARTBLOCK:xroad_services -->
+        <wsdl:operation name="tegelikudKasusaajad_v1" parameterOrder="tegelikudKasusaajad_v1">
+            <wsdl:documentation>
+                <xrd:title>Ettevõtte tegelikud kasusaajad</xrd:title>
+            </wsdl:documentation>
+            <wsdl:input name="tegelikudKasusaajad_v1" message="ar:tegelikudKasusaajad_v1"/>
+            <wsdl:output name="tegelikudKasusaajad_v1Response" message="ar:tegelikudKasusaajad_v1Response"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="kandedMaarused_v1" parameterOrder="kandedMaarused_v1">
+            <wsdl:documentation>
+                <xrd:title>Kannete määruste päring</xrd:title>
+            </wsdl:documentation>
+            <wsdl:input name="kandedMaarused_v1" message="ar:kandedMaarused_v1"/>
+            <wsdl:output name="kandedMaarused_v1Response" message="ar:kandedMaarused_v1Response"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="isikuMuudatused_v1" parameterOrder="isikuMuudatused_v1">
+            <wsdl:documentation>
+                <xrd:title>Ettevõtte isikute muudatused</xrd:title>
+            </wsdl:documentation>
+            <wsdl:input name="isikuMuudatused_v1" message="ar:isikuMuudatused_v1"/>
+            <wsdl:output name="isikuMuudatused_v1Response" message="ar:isikuMuudatused_v1Response"/>
+        </wsdl:operation>
+
+
+        <!-- STARTBLOCK:xroad_services -->
         <wsdl:operation name="arikeelud_v1" parameterOrder="arikeelud_v1">
             <wsdl:documentation>
                 <xrd:title>Ärikeeldude päring</xrd:title>
@@ -956,14 +1079,6 @@
             <wsdl:output name="kyMenetlusinfo_v1Response" message="ar:kyMenetlusinfo_v1Response"/>
         </wsdl:operation>
 
-        <wsdl:operation name="kyRegistriosaMuutused_v1" parameterOrder="kyRegistriosaMuutused_v1">
-            <wsdl:documentation>
-                <xrd:title>KÜ-de muudatuste info KR-le</xrd:title>
-            </wsdl:documentation>
-            <wsdl:input name="kyRegistriosaMuutused_v1" message="ar:kyRegistriosaMuutused_v1"/>
-            <wsdl:output name="kyRegistriosaMuutused_v1Response" message="ar:kyRegistriosaMuutused_v1Response"/>
-        </wsdl:operation>
-
         <wsdl:operation name="maaruseDokument_v1" parameterOrder="maaruseDokument_v1">
             <wsdl:documentation>
                 <xrd:title>Määruse dokumendi sisu</xrd:title>
@@ -1068,6 +1183,14 @@
             <wsdl:output name="mtaTrahvid_v1Response" message="ar:mtaTrahvid_v1Response"/>
         </wsdl:operation>
 
+        <wsdl:operation name="edastaRiigiLoivuNoue_v1" parameterOrder="edastaRiigiLoivuNoue_v1">
+            <wsdl:documentation>
+                <xrd:title>NAP tasumise lisamise teenus</xrd:title>
+            </wsdl:documentation>
+            <wsdl:input name="edastaRiigiLoivuNoue_v1" message="ar:edastaRiigiLoivuNoue_v1"/>
+            <wsdl:output name="edastaRiigiLoivuNoue_v1Response" message="ar:edastaRiigiLoivuNoue_v1Response"/>
+        </wsdl:operation>
+
         <wsdl:operation name="napTasumiseLisamine_v1" parameterOrder="napTasumiseLisamine_v1">
             <wsdl:documentation>
                 <xrd:title>NAP tasumise lisamise teenus</xrd:title>
@@ -1106,6 +1229,14 @@
             </wsdl:documentation>
             <wsdl:input name="sooritaKanne_v1" message="ar:sooritaKanne_v1"/>
             <wsdl:output name="sooritaKanne_v1Response" message="ar:sooritaKanne_v1Response"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="tapsustaAadress_v1" parameterOrder="tapsustaAadress_v1">
+            <wsdl:documentation>
+                <xrd:title>Aadressi täpsustamise päring (ads oid lisamiseks või olemasoleva kinnitamiseks), kasutavad xbrl ja ettevõtjaportaal</xrd:title>
+            </wsdl:documentation>
+            <wsdl:input name="tapsustaAadress_v1" message="ar:tapsustaAadress_v1"/>
+            <wsdl:output name="tapsustaAadress_v1Response" message="ar:tapsustaAadress_v1Response"/>
         </wsdl:operation>
 
         <wsdl:operation name="toimikuDokumendid_v1" parameterOrder="toimikuDokumendid_v1">
@@ -1203,7 +1334,31 @@
             <wsdl:input name="xbrlEsindus_v1" message="ar:xbrlEsindus_v1"/>
             <wsdl:output name="xbrlEsindus_v1Response" message="ar:xbrlEsindus_v1Response"/>
         </wsdl:operation>
-<!-- ENDBLOCK:xroad_services -->
+
+        <wsdl:operation name="teksaToiming_v1" parameterOrder="teksaToiming_v1">
+            <wsdl:documentation>
+                <xrd:title>TEKSA toimingud portaalist Äriregistrisse</xrd:title>
+            </wsdl:documentation>
+            <wsdl:input name="teksaToiming_v1" message="ar:teksaToiming_v1"/>
+            <wsdl:output name="teksaToiming_v1Response" message="ar:teksaToiming_v1Response"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="kinnitaKasusaajad_v1" parameterOrder="kinnitaKasusaajad_v1">
+            <wsdl:documentation>
+                <xrd:title>Kasusaajate kinnitamise päring</xrd:title>
+            </wsdl:documentation>
+            <wsdl:input name="kinnitaKasusaajad_v1" message="ar:kinnitaKasusaajad_v1"/>
+            <wsdl:output name="kinnitaKasusaajad_v1Response" message="ar:kinnitaKasusaajad_v1Response"/>
+        </wsdl:operation>
+
+        <wsdl:operation name="cpgOrderNotify" parameterOrder="cpgOrderNotify">
+            <wsdl:documentation>
+                <xrd:title>EMTA krediitkaardi maksemooduli teavitamise teenus</xrd:title>
+            </wsdl:documentation>
+            <wsdl:input name="cpgOrderNotifyRequest" message="ar:cpgOrderNotifyRequest"/>
+            <wsdl:output name="cpgOrderNotifyResponse" message="ar:cpgOrderNotifyResponse"/>
+        </wsdl:operation>
+        <!-- ENDBLOCK:xroad_services -->
 
         <wsdl:operation name="earveLisaKlient_v1" parameterOrder="earveLisaKlient_v1">
             <wsdl:documentation>
@@ -1229,35 +1384,35 @@
 
     </wsdl:portType>
 
-<!-- Binding for ARIREG - document/literal wrapped, SOAP over HTTP -->
+    <!-- Binding for ARIREG - document/literal wrapped, SOAP over HTTP -->
     <wsdl:binding name="AriregXtee" type="ar:AriregXtee">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsdl:operation name="debugAdapter_v1">
             <soap:operation soapAction="" style="document"/>
             <xrd:version>v1</xrd:version>
             <wsdl:input name="debugAdapter_v1">
-              <mime:multipartRelated>
-                <mime:part name="bodyWithAttachments">
-                    <soap:body use="literal"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
-                </mime:part>
-              </mime:multipartRelated>
+                <mime:multipartRelated>
+                    <mime:part name="bodyWithAttachments">
+                        <soap:body use="literal"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+                    </mime:part>
+                </mime:multipartRelated>
             </wsdl:input>
             <wsdl:output name="debugAdapter_v1Response">
-              <mime:multipartRelated>
-                <mime:part name="bodyWithAttachments">
-                    <soap:body use="literal"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
-                </mime:part>
-              </mime:multipartRelated>
+                <mime:multipartRelated>
+                    <mime:part name="bodyWithAttachments">
+                        <soap:body use="literal"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+                    </mime:part>
+                </mime:multipartRelated>
             </wsdl:output>
         </wsdl:operation>
 
@@ -1303,6 +1458,27 @@
             </wsdl:output>
         </wsdl:operation>
 
+        <wsdl:operation name="detailandmed_v3">
+            <soap:operation soapAction="" style="document"/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input name="detailandmed_v3">
+                <soap:body use="literal"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+            </wsdl:input>
+            <wsdl:output name="detailandmed_v3Response">
+                <soap:body use="literal"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+            </wsdl:output>
+        </wsdl:operation>
+
         <wsdl:operation name="ettevotjaDokumentideLoetelu_v1">
             <soap:operation soapAction="" style="document"/>
             <xrd:version>v1</xrd:version>
@@ -1315,27 +1491,6 @@
                 <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
             </wsdl:input>
             <wsdl:output name="ettevotjaDokumentideLoetelu_v1Response">
-                <soap:body use="literal"/>
-                <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
-                <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
-                <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
-                <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
-                <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
-            </wsdl:output>
-        </wsdl:operation>
-
-        <wsdl:operation name="ettevotjaEsmakanded_v1">
-            <soap:operation soapAction="" style="document"/>
-            <xrd:version>v1</xrd:version>
-            <wsdl:input name="ettevotjaEsmakanded_v1">
-                <soap:body use="literal"/>
-                <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
-                <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
-                <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
-                <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
-                <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
-            </wsdl:input>
-            <wsdl:output name="ettevotjaEsmakanded_v1Response">
                 <soap:body use="literal"/>
                 <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
                 <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
@@ -1378,16 +1533,16 @@
                 <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
             </wsdl:input>
             <wsdl:output name="ettevotjaRekvisiididFail_v1Response">
-              <mime:multipartRelated>
-                <mime:part name="bodyWithAttachments">
-                    <soap:body use="literal"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
-                </mime:part>
-              </mime:multipartRelated>
+                <mime:multipartRelated>
+                    <mime:part name="bodyWithAttachments">
+                        <soap:body use="literal"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+                    </mime:part>
+                </mime:multipartRelated>
             </wsdl:output>
         </wsdl:operation>
 
@@ -1403,6 +1558,27 @@
                 <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
             </wsdl:input>
             <wsdl:output name="ettevotjaRekvisiidid_v1Response">
+                <soap:body use="literal"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="ettevotjaRekvisiidid_v2">
+            <soap:operation soapAction="" style="document"/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input name="ettevotjaRekvisiidid_v2">
+                <soap:body use="literal"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+            </wsdl:input>
+            <wsdl:output name="ettevotjaRekvisiidid_v2Response">
                 <soap:body use="literal"/>
                 <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
                 <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
@@ -1559,6 +1735,27 @@
             </wsdl:output>
         </wsdl:operation>
 
+        <wsdl:operation name="lihtandmed_v3">
+            <soap:operation soapAction="" style="document"/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input name="lihtandmed_v3">
+                <soap:body use="literal"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+            </wsdl:input>
+            <wsdl:output name="lihtandmed_v3Response">
+                <soap:body use="literal"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+            </wsdl:output>
+        </wsdl:operation>
+
         <wsdl:operation name="majandusaastaAruanneteLoetelu_v1">
             <soap:operation soapAction="" style="document"/>
             <xrd:version>v1</xrd:version>
@@ -1676,20 +1873,87 @@
                 <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
             </wsdl:input>
             <wsdl:output name="toimikuDokument_v1Response">
-              <mime:multipartRelated>
-                <mime:part name="bodyWithAttachments">
-                    <soap:body use="literal"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
-                </mime:part>
-              </mime:multipartRelated>
+                <mime:multipartRelated>
+                    <mime:part name="bodyWithAttachments">
+                        <soap:body use="literal"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+                    </mime:part>
+                </mime:multipartRelated>
             </wsdl:output>
         </wsdl:operation>
 
-<!-- STARTBLOCK:xroad_services -->
+        <wsdl:operation name="tegelikudKasusaajad_v1">
+            <soap:operation soapAction="" style="document"/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input name="tegelikudKasusaajad_v1">
+                <soap:body use="literal"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+            </wsdl:input>
+            <wsdl:output name="tegelikudKasusaajad_v1Response">
+                <mime:multipartRelated>
+                    <mime:part name="bodyWithAttachments">
+                        <soap:body use="literal"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+                    </mime:part>
+                </mime:multipartRelated>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="kandedMaarused_v1">
+            <soap:operation soapAction="" style="document"/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input name="kandedMaarused_v1">
+                <soap:body use="literal"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+            </wsdl:input>
+            <wsdl:output name="kandedMaarused_v1Response">
+                <soap:body use="literal"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="isikuMuudatused_v1">
+            <soap:operation soapAction="" style="document"/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input name="isikuMuudatused_v1">
+                <soap:body use="literal"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+            </wsdl:input>
+            <wsdl:output name="isikuMuudatused_v1Response">
+                <soap:body use="literal"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <!-- STARTBLOCK:xroad_services -->
         <wsdl:operation name="arikeelud_v1">
             <soap:operation soapAction="" style="document"/>
             <xrd:version>v1</xrd:version>
@@ -1744,16 +2008,16 @@
                 <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
             </wsdl:input>
             <wsdl:output name="detailandmedEP_v1Response">
-              <mime:multipartRelated>
-                <mime:part name="bodyWithAttachments">
-                    <soap:body use="literal"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
-                </mime:part>
-              </mime:multipartRelated>
+                <mime:multipartRelated>
+                    <mime:part name="bodyWithAttachments">
+                        <soap:body use="literal"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+                    </mime:part>
+                </mime:multipartRelated>
             </wsdl:output>
         </wsdl:operation>
 
@@ -1988,27 +2252,6 @@
             </wsdl:output>
         </wsdl:operation>
 
-        <wsdl:operation name="kyRegistriosaMuutused_v1">
-            <soap:operation soapAction="" style="document"/>
-            <xrd:version>v1</xrd:version>
-            <wsdl:input name="kyRegistriosaMuutused_v1">
-                <soap:body use="literal"/>
-                <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
-                <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
-                <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
-                <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
-                <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
-            </wsdl:input>
-            <wsdl:output name="kyRegistriosaMuutused_v1Response">
-                <soap:body use="literal"/>
-                <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
-                <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
-                <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
-                <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
-                <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
-            </wsdl:output>
-        </wsdl:operation>
-
         <wsdl:operation name="maaruseDokument_v1">
             <soap:operation soapAction="" style="document"/>
             <xrd:version>v1</xrd:version>
@@ -2021,16 +2264,16 @@
                 <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
             </wsdl:input>
             <wsdl:output name="maaruseDokument_v1Response">
-              <mime:multipartRelated>
-                <mime:part name="bodyWithAttachments">
-                    <soap:body use="literal"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
-                </mime:part>
-              </mime:multipartRelated>
+                <mime:multipartRelated>
+                    <mime:part name="bodyWithAttachments">
+                        <soap:body use="literal"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+                    </mime:part>
+                </mime:multipartRelated>
             </wsdl:output>
         </wsdl:operation>
 
@@ -2088,16 +2331,16 @@
                 <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
             </wsdl:input>
             <wsdl:output name="mtaBilanssFail_v1Response">
-              <mime:multipartRelated>
-                <mime:part name="bodyWithAttachments">
-                    <soap:body use="literal"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
-                </mime:part>
-              </mime:multipartRelated>
+                <mime:multipartRelated>
+                    <mime:part name="bodyWithAttachments">
+                        <soap:body use="literal"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+                    </mime:part>
+                </mime:multipartRelated>
             </wsdl:output>
         </wsdl:operation>
 
@@ -2134,16 +2377,16 @@
                 <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
             </wsdl:input>
             <wsdl:output name="mtaBilSisuFail_v1Response">
-              <mime:multipartRelated>
-                <mime:part name="bodyWithAttachments">
-                    <soap:body use="literal"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
-                </mime:part>
-              </mime:multipartRelated>
+                <mime:multipartRelated>
+                    <mime:part name="bodyWithAttachments">
+                        <soap:body use="literal"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+                    </mime:part>
+                </mime:multipartRelated>
             </wsdl:output>
         </wsdl:operation>
 
@@ -2294,6 +2537,27 @@
             </wsdl:output>
         </wsdl:operation>
 
+        <wsdl:operation name="edastaRiigiLoivuNoue_v1">
+            <soap:operation soapAction="" style="document"/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input name="edastaRiigiLoivuNoue_v1">
+                <soap:body use="literal"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+            </wsdl:input>
+            <wsdl:output name="edastaRiigiLoivuNoue_v1Response">
+                <soap:body use="literal"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+            </wsdl:output>
+        </wsdl:operation>
+
         <wsdl:operation name="napTasumiseLisamine_v1">
             <soap:operation soapAction="" style="document"/>
             <xrd:version>v1</xrd:version>
@@ -2357,7 +2621,6 @@
             </wsdl:output>
         </wsdl:operation>
 
-
         <wsdl:operation name="registrikaart_v1">
             <soap:operation soapAction="" style="document"/>
             <xrd:version>v1</xrd:version>
@@ -2370,16 +2633,16 @@
                 <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
             </wsdl:input>
             <wsdl:output name="registrikaart_v1Response">
-              <mime:multipartRelated>
-                <mime:part name="bodyWithAttachments">
-                    <soap:body use="literal"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
-                </mime:part>
-              </mime:multipartRelated>
+                <mime:multipartRelated>
+                    <mime:part name="bodyWithAttachments">
+                        <soap:body use="literal"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+                    </mime:part>
+                </mime:multipartRelated>
             </wsdl:output>
         </wsdl:operation>
 
@@ -2387,18 +2650,39 @@
             <soap:operation soapAction="" style="document"/>
             <xrd:version>v1</xrd:version>
             <wsdl:input name="sooritaKanne_v1">
-              <mime:multipartRelated>
-                <mime:part name="bodyWithAttachments">
-                    <soap:body use="literal"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
-                </mime:part>
-              </mime:multipartRelated>
+                <mime:multipartRelated>
+                    <mime:part name="bodyWithAttachments">
+                        <soap:body use="literal"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+                    </mime:part>
+                </mime:multipartRelated>
             </wsdl:input>
             <wsdl:output name="sooritaKanne_v1Response">
+                <soap:body use="literal"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="tapsustaAadress_v1">
+            <soap:operation soapAction="" style="document"/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input name="tapsustaAadress_v1">
+                <soap:body use="literal"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+            </wsdl:input>
+            <wsdl:output name="tapsustaAadress_v1Response">
                 <soap:body use="literal"/>
                 <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
                 <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
@@ -2462,16 +2746,16 @@
                 <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
             </wsdl:input>
             <wsdl:output name="evapiLooKanne_v1Response">
-              <mime:multipartRelated>
-                <mime:part name="bodyWithAttachments">
-                    <soap:body use="literal"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
-                </mime:part>
-              </mime:multipartRelated>
+                <mime:multipartRelated>
+                    <mime:part name="bodyWithAttachments">
+                        <soap:body use="literal"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+                    </mime:part>
+                </mime:multipartRelated>
             </wsdl:output>
         </wsdl:operation>
 
@@ -2479,16 +2763,16 @@
             <soap:operation soapAction="" style="document"/>
             <xrd:version>v1</xrd:version>
             <wsdl:input name="evapiKinnitaKanne_v1">
-              <mime:multipartRelated>
-                <mime:part name="bodyWithAttachments">
-                    <soap:body use="literal"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
-                </mime:part>
-              </mime:multipartRelated>
+                <mime:multipartRelated>
+                    <mime:part name="bodyWithAttachments">
+                        <soap:body use="literal"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+                    </mime:part>
+                </mime:multipartRelated>
             </wsdl:input>
             <wsdl:output name="evapiKinnitaKanne_v1Response">
                 <soap:body use="literal"/>
@@ -2533,16 +2817,16 @@
                 <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
             </wsdl:input>
             <wsdl:output name="evapiMaaruseDokument_v1Response">
-              <mime:multipartRelated>
-                <mime:part name="bodyWithAttachments">
-                    <soap:body use="literal"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
-                </mime:part>
-              </mime:multipartRelated>
+                <mime:multipartRelated>
+                    <mime:part name="bodyWithAttachments">
+                        <soap:body use="literal"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+                    </mime:part>
+                </mime:multipartRelated>
             </wsdl:output>
         </wsdl:operation>
 
@@ -2613,16 +2897,16 @@
             <soap:operation soapAction="" style="document"/>
             <xrd:version>v1</xrd:version>
             <wsdl:input name="xbrlEsita_v1">
-              <mime:multipartRelated>
-                <mime:part name="bodyWithAttachments">
-                    <soap:body use="literal"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
-                    <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
-                </mime:part>
-              </mime:multipartRelated>
+                <mime:multipartRelated>
+                    <mime:part name="bodyWithAttachments">
+                        <soap:body use="literal"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+                        <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+                    </mime:part>
+                </mime:multipartRelated>
             </wsdl:input>
             <wsdl:output name="xbrlEsita_v1Response">
                 <soap:body use="literal"/>
@@ -2675,7 +2959,70 @@
                 <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
             </wsdl:output>
         </wsdl:operation>
-<!-- ENDBLOCK:xroad_services -->
+
+        <wsdl:operation name="teksaToiming_v1">
+            <soap:operation soapAction="" style="document"/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input name="teksaToiming_v1">
+                <soap:body use="literal"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+            </wsdl:input>
+            <wsdl:output name="teksaToiming_v1Response">
+                <soap:body use="literal"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="kinnitaKasusaajad_v1">
+            <soap:operation soapAction="" style="document"/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input name="kinnitaKasusaajad_v1">
+                <soap:body use="literal"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+            </wsdl:input>
+            <wsdl:output name="kinnitaKasusaajad_v1Response">
+                <soap:body use="literal"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="cpgOrderNotify">
+            <soap:operation soapAction="" style="document"/>
+            <xrd:version>v1</xrd:version>
+            <wsdl:input name="cpgOrderNotifyRequest">
+                <soap:body use="literal"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+            </wsdl:input>
+            <wsdl:output name="cpgOrderNotifyResponse">
+                <soap:body use="literal"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="client"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="service"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="id"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="userId"/>
+                <soap:header use="literal" message="ar:XroadHeaderMsg" part="protocolVersion"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <!-- ENDBLOCK:xroad_services -->
 
         <wsdl:operation name="earveLisaKlient_v1">
             <soap:operation soapAction="" style="document"/>
@@ -2740,10 +3087,10 @@
 
     </wsdl:binding>
 
-<!-- Endpoint for ARIREG -->
+    <!-- Endpoint for ARIREG -->
     <wsdl:service name="arireg">
         <wsdl:port binding="ar:AriregXtee" name="AriregXtee">
-            <soap:address location="http://TURVASERVER/cgi-bin/consumer_proxy"/>
+            <soap:address location="http://example.org/xroad-endpoint"/>
         </wsdl:port>
     </wsdl:service>
 
