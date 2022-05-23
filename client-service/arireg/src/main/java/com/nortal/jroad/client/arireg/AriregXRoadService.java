@@ -210,6 +210,6 @@ public interface AriregXRoadService {
   /**
    * <code>arireg.ettevottegaSeotudIsikud_v1.v1</code> X-road service.
    */
-  List<Seos> findEttevottegaSeotudIsikudV1(long ariregistriKood) throws XTeeServiceConsumptionException;
+  List<Seos> findEttevottegaSeotudIsikudV1(Long ariregistriKood, String isikukood, Boolean vastupidi) throws XTeeServiceConsumptionException;
 
 }

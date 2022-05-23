@@ -17,6 +17,7 @@ import com.nortal.jroad.client.service.extractor.CustomExtractor;
 import com.nortal.jroad.client.service.v4.XRoadDatabaseService;
 import com.nortal.jroad.model.XTeeMessage;
 import com.nortal.jroad.model.XmlBeansXTeeMessage;
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.xmlbeans.XmlCursor;
 import org.apache.xmlbeans.XmlObject;
@@ -195,10 +196,16 @@ public class AriregXRoadServiceImpl extends XRoadDatabaseService implements Arir
   }
 
   @Override
-  public List<Seos> findEttevottegaSeotudIsikudV1(long ariregistriKood) throws XTeeServiceConsumptionException {
+  public List<Seos> findEttevottegaSeotudIsikudV1(Long ariregistriKood, String isikukood, Boolean vastupidi) throws XTeeServiceConsumptionException {
     EttevottegaSeotudIsikudV1 query = EttevottegaSeotudIsikudV1.Factory.newInstance();
     EttevottegaSeotudIsikudParing keha = EttevottegaSeotudIsikudParing.Factory.newInstance();
-    keha.setAriregistriKood(BigInteger.valueOf(ariregistriKood));
+    if (isikukood != null) {
+      keha.setFyysiliseIsikuKood(isikukood);
+    }
+    if (ariregistriKood != null) {
+      keha.setAriregistriKood(BigInteger.valueOf(ariregistriKood));
+    }
+    keha.setVastupidi(BooleanUtils.isTrue(vastupidi));
     query.setKeha(keha);
 
     XTeeMessage<EttevottegaSeotudIsikudV1Response> response =
