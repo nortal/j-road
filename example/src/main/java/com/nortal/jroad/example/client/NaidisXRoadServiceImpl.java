@@ -25,15 +25,6 @@ public class NaidisXRoadServiceImpl extends XRoadDatabaseService implements Naid
   private NaidisXRoadDatabase naidisXRoadDatabase;
 
   @Override
-  public AttachmentEchoResponse sendAttachment(String contentType, byte[] content)
-      throws XRoadServiceConsumptionException {
-    DataHandler reqHandler = new DataHandler(new ByteArrayDataSource(contentType, content));
-    AttachmentEchoRequest request = AttachmentEchoRequest.Factory.newInstance();
-    request.addNewNest().setAttachmentHandler(reqHandler);
-    return naidisXRoadDatabase.attachmentEchoV1(request);
-  }
-
-  @Override
   public String sendEcho(String text) throws XRoadServiceConsumptionException {
     EchoRequest req = EchoRequest.Factory.newInstance();
     req.setText(text);

@@ -7,7 +7,7 @@
   <parent>
     <groupId>com.nortal.jroad</groupId>
     <artifactId>xtee-root</artifactId>
-    <version>4.2.11</version>
+    <version>5.0.0</version>
   </parent>
   <dependencies>
     <dependency>
@@ -137,8 +137,8 @@
         <version>2.0.2</version>
         <configuration>
           <encoding>UTF-8</encoding>
-          <source>1.6</source>
-          <target>1.6</target>
+          <source>1.8</source>
+          <target>1.8</target>
           <fork>true</fork>
           <maxmem>1024m</maxmem>
         </configuration>

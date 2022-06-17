@@ -43,8 +43,8 @@
         <version>2.0.2</version>
         <configuration>
           <encoding>UTF-8</encoding>
-          <source>1.5</source>
-          <target>1.5</target>
+          <source>1.8</source>
+          <target>1.8</target>
           <fork>true</fork>
           <maxmem>${compile.maxmem}</maxmem>
         </configuration>

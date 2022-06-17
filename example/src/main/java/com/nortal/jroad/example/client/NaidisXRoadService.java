@@ -5,12 +5,10 @@ import com.nortal.jroad.example.client.types.eu.x_road.naidis.AttachmentEchoResp
 
 /**
  * Example X-road service
- * 
+ *
  * @author Lauri Lättemäe (lauri.lattemae@nortal.com)
  */
 public interface NaidisXRoadService {
-  AttachmentEchoResponse sendAttachment(String contentType, byte[] content) throws XRoadServiceConsumptionException;
-
   String sendEcho(String text) throws XRoadServiceConsumptionException;
 
   String sendEchoMime(String text) throws XRoadServiceConsumptionException;

@@ -94,10 +94,11 @@ public class TypeGen {
         generateSource(outputdir, argMap.get(XSB_DIR), argMap.get(BASE_PACKAGE));
         System.out.println("Sources generated, time taken: " + timer.finishStr());
 
-        System.out.println("Post-processing sources for attachment support...");
-        timer.start();
-        AttachmentPostprocessor.process(argMap.get(BASE_PACKAGE), new File(outputdir));
-        System.out.println("Post-processing completed, time taken: " + timer.finishStr());
+        // TODO: javax classes were removed from XMLBeans, review attachment processing
+        //System.out.println("Post-processing sources for attachment support...");
+        //timer.start();
+        //AttachmentPostprocessor.process(argMap.get(BASE_PACKAGE), new File(outputdir));
+        //System.out.println("Post-processing completed, time taken: " + timer.finishStr());
 
         System.out.println("Serializing metadata...");
         timer.start();
@@ -157,8 +158,7 @@ public class TypeGen {
 
     XmlOptions options = new XmlOptions();
     options.setCompileDownloadUrls();
-    options.setGenerateJavaVersion("1.5");
-    options.setSchemaCodePrinter(new XteeSchemaCodePrinter(options));
+    options.setSchemaCodePrinter(new XteeSchemaCodePrinter());
 
     XmlBeans.compileXmlBeans(null,
                              null,
