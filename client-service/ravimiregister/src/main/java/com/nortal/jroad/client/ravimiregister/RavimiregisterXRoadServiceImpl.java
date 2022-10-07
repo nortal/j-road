@@ -82,7 +82,7 @@ public class RavimiregisterXRoadServiceImpl extends XRoadDatabaseService impleme
   public List<Pakend> findPakendidDetailandmed(List<String> items) throws XRoadServiceConsumptionException {
     PakendidByIDArray request = PakendidByIDArray.Factory.newInstance();
     request.setKeha(createDetailsRequest(items));
-    return ravimiregisterXRoadDatabase.pakendidByIDArrayV3(request).getKeha().getItemList();
+    return ravimiregisterXRoadDatabase.pakendidByIDArrayV4(request).getKeha().getItemList();
   }
 
   @Override

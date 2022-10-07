@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://ravimiregister.x-road.eu" xmlns:xrd="http://x-road.eu/xsd/xroad.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ravimiregister.x-road.eu">
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://ravimiregister.x-road.eu" xmlns:xrd="http://x-road.eu/xsd/xroad.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ravimiregister.x-road.eu">
   <wsdl:types>
     <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ravimiregister.x-road.eu">
       <import namespace="http://x-road.eu/xsd/xroad.xsd" schemaLocation="http://x-road.eu/xsd/xroad.xsd"/>
@@ -1954,6 +1954,15 @@
               </appinfo>
             </annotation>
           </element>
+          <element name="markusekood" type="xsd:integer">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Märkuse kood
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
           <element name="tingitudToovoimetusest" type="xsd:boolean">
             <annotation>
               <appinfo>
@@ -1983,6 +1992,51 @@
           </element>
         </all>
       </complexType>
+
+      <element name="markusedByKoodArray">
+        <complexType>
+          <sequence>
+            <element name="keha" type="tns:ArrayOfString"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="markusedByKoodArrayResponse">
+        <complexType>
+          <sequence>
+            <element name="paring" type="tns:ArrayOfString"/>
+            <element name="keha" type="tns:ArrayOfMarkus"/>
+          </sequence>
+        </complexType>
+      </element>
+
+      <complexType name="ArrayOfMarkus">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="Item" type="tns:Markus"/>
+        </sequence>
+      </complexType>
+      <complexType name="Markus">
+        <all>
+          <element name="kood" type="xsd:string">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Kood
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="kirjeldus" type="xsd:string">
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Tekst
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+        </all>
+      </complexType>
+
       <complexType name="ArrayOfArstieriala">
         <sequence>
           <element maxOccurs="unbounded" minOccurs="0" name="Item" type="tns:Arstieriala"/>
@@ -2130,41 +2184,41 @@
             </annotation>
           </element>
           <element minOccurs="1" maxOccurs="1" name="algusKp" type="dateTime">
-          <annotation>
-            <appinfo>
-              <xrd:title>
-                Tarneraskuse alguse kuupäev
-              </xrd:title>
-            </appinfo>
-          </annotation>
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Tarneraskuse alguse kuupäev
+                </xrd:title>
+              </appinfo>
+            </annotation>
           </element>
           <element minOccurs="0" maxOccurs="1" name="selgitavTekst" type="string">
-          <annotation>
-            <appinfo>
-              <xrd:title>
-                Tarneraskuse selgitav tekst
-              </xrd:title>
-            </appinfo>
-          </annotation>
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Tarneraskuse selgitav tekst
+                </xrd:title>
+              </appinfo>
+            </annotation>
           </element>
           <element minOccurs="0" maxOccurs="1" name="oletatavLopp" type="string">
-          <annotation>
-            <appinfo>
-              <xrd:title>
-                Tarneraskuse oletatav lõpp
-              </xrd:title>
-            </appinfo>
-          </annotation>
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Tarneraskuse oletatav lõpp
+                </xrd:title>
+              </appinfo>
+            </annotation>
           </element>
           <element minOccurs="0" maxOccurs="1" name="loppKp" type="dateTime">
-          <annotation>
-            <appinfo>
-              <xrd:title>
-                Tarneraskuse lõpp
-              </xrd:title>
-            </appinfo>
-          </annotation>
-          </element>          
+            <annotation>
+              <appinfo>
+                <xrd:title>
+                  Tarneraskuse lõpp
+                </xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
         </all>
       </complexType>
       <complexType name="ArrayOfRisk">
@@ -2186,7 +2240,7 @@
             <annotation>
               <appinfo>
                 <xrd:title>
-                 Riski olemus
+                  Riski olemus
                 </xrd:title>
               </appinfo>
             </annotation>
@@ -2400,6 +2454,12 @@
   <wsdl:message name="soodustusedByIDArrayResponse">
     <wsdl:part element="tns:soodustusedByIDArrayResponse" name="parameters"/>
   </wsdl:message>
+  <wsdl:message name="markusedByKoodArray">
+    <wsdl:part element="tns:markusedByKoodArray" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="markusedByKoodArrayResponse">
+    <wsdl:part element="tns:markusedByKoodArrayResponse" name="parameters"/>
+  </wsdl:message>
   <wsdl:message name="toimeained">
     <wsdl:part element="tns:toimeained" name="parameters"/>
   </wsdl:message>
@@ -2559,6 +2619,13 @@
       </wsdl:documentation>
       <wsdl:input message="tns:soodustusedByIDArray"/>
       <wsdl:output message="tns:soodustusedByIDArrayResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="markusedByKoodArray">
+      <wsdl:documentation>
+        <xrd:title>Märkuste loend</xrd:title>
+      </wsdl:documentation>
+      <wsdl:input message="tns:markusedByKoodArray"/>
+      <wsdl:output message="tns:markusedByKoodArrayResponse"/>
     </wsdl:operation>
     <wsdl:operation name="toimeained">
       <wsdl:documentation>
@@ -2978,6 +3045,26 @@
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="soodustusedByIDArray">
+      <soap:operation soapAction=""/>
+      <xrd:version>v1</xrd:version>
+      <wsdl:input>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:header message="tns:xrdHeader" part="client" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="service" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="id" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="protocolVersion" use="literal"/>
+        <soap:header message="tns:xrdHeader" part="userId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="markusedByKoodArray">
       <soap:operation soapAction=""/>
       <xrd:version>v1</xrd:version>
       <wsdl:input>
