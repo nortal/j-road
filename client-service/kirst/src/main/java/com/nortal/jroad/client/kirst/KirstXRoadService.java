@@ -22,7 +22,9 @@ public interface KirstXRoadService {
     /**
      * <code>kirst.tvl_loetelu2.v1</code> service.
      */
-    TvlLoetelu2ResponseDocument.TvlLoetelu2Response findTvlLoetelu2V1(Set<String> isikukoodid, Date alates, Date kuni)
+    TvlLoetelu2ResponseDocument.TvlLoetelu2Response findTvlLoetelu2V1(Set<String> isikukoodid,
+                                                                      Date alates, Date kuni,
+                                                                      Set<String> tvPohjused)
             throws XTeeServiceConsumptionException;
 
     /**
