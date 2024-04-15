@@ -65,10 +65,10 @@ public class KirstXRoadServiceImpl extends XRoadDatabaseService implements Kirst
     }
 
     private TvlPohjusedType toTvlPohjused(Set<String> tvPohjused) {
-        if (tvPohjused == null) {
-            return null;
-        }
         TvlPohjusedType tvlPohjusedType = TvlPohjusedType.Factory.newInstance();
+        if (tvPohjused == null) {
+            return tvlPohjusedType;
+        }
         for (String tvPohjus : tvPohjused) {
             if (tvPohjus == null) {
                 continue;
