@@ -26,12 +26,14 @@ import java.util.Set;
 public class KirstXRoadServiceImpl extends XRoadDatabaseService implements KirstXRoadService {
 
     public TvlLoetelu2ResponseDocument.TvlLoetelu2Response findTvlLoetelu2V1(Set<String> isikukoodid, Date alates,
-                                                                             Date kuni)
+                                                                             Date kuni,
+                                                                             Set<String> tvPohjused)
             throws XTeeServiceConsumptionException {
         if (CollectionUtils.isEmpty(isikukoodid)) {
             throw new IllegalArgumentException("At least one 'isikukood' must be provided");
         }
-        TvlLoetelu2RequestType requestBody = createTvlLoetelu2V1Request(isikukoodid, alates, kuni);
+        TvlLoetelu2RequestType requestBody = createTvlLoetelu2V1Request(isikukoodid, alates, kuni
+                , tvPohjused);
         TvlLoetelu2Document.TvlLoetelu2 request = TvlLoetelu2Document.TvlLoetelu2.Factory.newInstance();
         request.setRequest(requestBody);
         XTeeMessage<TvlLoetelu2ResponseDocument.TvlLoetelu2Response> response = send(
@@ -43,7 +45,9 @@ public class KirstXRoadServiceImpl extends XRoadDatabaseService implements Kirst
 
     }
 
-    private TvlLoetelu2RequestType createTvlLoetelu2V1Request(Set<String> isikukoodid, Date alates, Date kuni) {
+    private TvlLoetelu2RequestType createTvlLoetelu2V1Request(Set<String> isikukoodid,
+                                                              Date alates, Date kuni,
+                                                              Set<String> tvPohjused) {
         TvlLoetelu2RequestType request = TvlLoetelu2RequestType.Factory.newInstance();
         TvlOtsingType isikud = request.addNewIsikud();
         int count = 0;
@@ -53,10 +57,25 @@ public class KirstXRoadServiceImpl extends XRoadDatabaseService implements Kirst
             item.setTvpAlates(toCalendar(alates));
             item.setTvpKuni(toCalendar(kuni));
             item.setIsikukood(isikukood);
+            item.setTvlPohjused(toTvlPohjused(tvPohjused));
             items[count++] = item;
         }
         isikud.setItemArray(items);
         return request;
+    }
+
+    private TvlPohjusedType toTvlPohjused(Set<String> tvPohjused) {
+        TvlPohjusedType tvlPohjusedType = TvlPohjusedType.Factory.newInstance();
+        if (tvPohjused == null) {
+            return tvlPohjusedType;
+        }
+        for (String tvPohjus : tvPohjused) {
+            if (tvPohjus == null) {
+                continue;
+            }
+            tvlPohjusedType.addItem(TvPohjusType.Enum.forString(tvPohjus));
+        }
+        return tvlPohjusedType;
     }
 
     private Calendar toCalendar(Date date) {
