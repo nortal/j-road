@@ -11,6 +11,7 @@ package com.nortal.jroad.client.service.consumer.v2;
 
 import com.nortal.jroad.client.exception.NonTechnicalFaultException;
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.marshaller.XmlBeansMarshaller;
 import com.nortal.jroad.client.service.callback.CustomCallback;
 import com.nortal.jroad.client.service.callback.StandardXTeeConsumerCallback;
 import com.nortal.jroad.client.service.callback.XTeeMessageCallback;
@@ -28,7 +29,6 @@ import com.nortal.jroad.util.AttachmentUtil;
 import org.apache.commons.lang.exception.NestableRuntimeException;
 import org.apache.xmlbeans.XmlObject;
 import org.apache.xmlbeans.XmlOptions;
-import org.springframework.oxm.xmlbeans.XmlBeansMarshaller;
 import org.springframework.stereotype.Service;
 import org.springframework.ws.client.WebServiceIOException;
 import org.springframework.ws.client.core.WebServiceMessageCallback;
@@ -37,7 +37,7 @@ import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import org.springframework.ws.client.support.interceptor.ClientInterceptor;
 import org.springframework.ws.soap.client.SoapFaultClientException;
 
-import javax.activation.DataHandler;
+import jakarta.activation.DataHandler;
 import javax.xml.namespace.QName;
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -69,7 +69,7 @@ public class StandardXTeeConsumer extends WebServiceGatewaySupport implements XR
   }
 
   public <I, O> XTeeMessage<O> sendRequest(XTeeMessage<I> input, BaseXRoadServiceConfiguration xTeeServiceConfiguration)
-      throws XTeeServiceConsumptionException {
+    throws XTeeServiceConsumptionException {
     return sendRealRequest(input, xTeeServiceConfiguration, null, null);
   }
 
@@ -86,14 +86,14 @@ public class StandardXTeeConsumer extends WebServiceGatewaySupport implements XR
                                                 CustomCallback callback,
                                                 CustomExtractor extractor) throws XTeeServiceConsumptionException {
 
-	if(isKehaElementNeeded()) {
-	    XmlOptions options =
-	        ((XmlBeansMarshaller) getMarshaller()).getXmlOptions() == null
-	                                                                      ? new XmlOptions()
-	                                                                      : ((XmlBeansMarshaller) getMarshaller()).getXmlOptions();
-	    options.setSaveSyntheticDocumentElement(new QName("keha"));
-	    ((XmlBeansMarshaller) getMarshaller()).setXmlOptions(options);
-	}
+    if(isKehaElementNeeded()) {
+      XmlOptions options =
+        ((XmlBeansMarshaller) getMarshaller()).getXmlOptions() == null
+          ? new XmlOptions()
+          : ((XmlBeansMarshaller) getMarshaller()).getXmlOptions();
+      options.setSaveSyntheticDocumentElement(new QName("keha"));
+      ((XmlBeansMarshaller) getMarshaller()).setXmlOptions(options);
+    }
 
     try {
       // Add any swaref attachments...
@@ -123,13 +123,13 @@ public class StandardXTeeConsumer extends WebServiceGatewaySupport implements XR
       }
 
       XmlBeansXTeeMetadata curdata =
-          metadata.get(xteeServiceConfiguration.getWsdlDatabase().toLowerCase()
-              + xteeServiceConfiguration.getMethod().toLowerCase());
+        metadata.get(xteeServiceConfiguration.getWsdlDatabase().toLowerCase()
+                     + xteeServiceConfiguration.getMethod().toLowerCase());
 
       if (curdata == null) {
         throw new IllegalStateException(String.format("Could not find metadata for %s.%s! Most likely the method name has been specified incorrectly.",
-                                                      xteeServiceConfiguration.getWsdlDatabase().toLowerCase(),
-                                                      xteeServiceConfiguration.getMethod().toLowerCase()));
+          xteeServiceConfiguration.getWsdlDatabase().toLowerCase(),
+          xteeServiceConfiguration.getMethod().toLowerCase()));
       }
 
       StandardXTeeConsumerCallback originalCallback = getNewConsumerCallback(input, xteeServiceConfiguration, curdata);
@@ -152,8 +152,8 @@ public class StandardXTeeConsumer extends WebServiceGatewaySupport implements XR
       WebServiceMessageExtractor finalExtractor = extractor == null ? originalExtractor : extractor;
 
       return (XTeeMessage<O>) getWebServiceTemplate().sendAndReceive(xteeServiceConfiguration.getSecurityServer(),
-                                                                     finalCallback,
-                                                                     finalExtractor);
+        finalCallback,
+        finalExtractor);
     } catch (Exception e) {
       XTeeServiceConsumptionException consumptionException = resolveException(e, xteeServiceConfiguration);
 
@@ -167,7 +167,7 @@ public class StandardXTeeConsumer extends WebServiceGatewaySupport implements XR
 
 
   protected boolean isKehaElementNeeded() {
-	  return true;
+    return true;
   }
 
   protected boolean isKehaElementPresent() {
@@ -178,17 +178,17 @@ public class StandardXTeeConsumer extends WebServiceGatewaySupport implements XR
                                                                     BaseXRoadServiceConfiguration xteeServiceConfiguration,
                                                                     XmlBeansXTeeMetadata curdata) {
     return new StandardXTeeConsumerCallback(input.getContent(),
-                                            getNewMessageCallback(input, xteeServiceConfiguration),
-                                            getMarshaller(),
-                                            curdata,
-                                            getNamespace(xteeServiceConfiguration),
-                                            isEncodingStyleNeeded());
+      getNewMessageCallback(input, xteeServiceConfiguration),
+      getMarshaller(),
+      curdata,
+      getNamespace(xteeServiceConfiguration),
+      isEncodingStyleNeeded());
   }
 
   protected String getNamespace(BaseXRoadServiceConfiguration xteeServiceConfiguration) {
     return String.format("http://producers.%s.xtee.riik.ee/producer/%s",
-                         xteeServiceConfiguration.getDatabase(),
-                         xteeServiceConfiguration.getDatabase());
+      xteeServiceConfiguration.getDatabase(),
+      xteeServiceConfiguration.getDatabase());
   }
 
   protected boolean isEncodingStyleNeeded() {
@@ -196,9 +196,9 @@ public class StandardXTeeConsumer extends WebServiceGatewaySupport implements XR
   }
 
   protected <I> XTeeMessageCallback getNewMessageCallback(XTeeMessage<I> input,
-       BaseXRoadServiceConfiguration xteeServiceConfiguration) {
-	  return new XTeeMessageCallback(xteeServiceConfiguration, input.getAttachments(),
-			  new XteeMessageCallbackNamespaceStrategy());
+                                                          BaseXRoadServiceConfiguration xteeServiceConfiguration) {
+    return new XTeeMessageCallback(xteeServiceConfiguration, input.getAttachments(),
+      new XteeMessageCallbackNamespaceStrategy());
   }
 
   private XTeeServiceConsumptionException resolveException(Exception e,
@@ -221,9 +221,9 @@ public class StandardXTeeConsumer extends WebServiceGatewaySupport implements XR
       if (ioException != null) {
         if (ioException.getCause() instanceof NonTechnicalFaultException) {
           return new XTeeServiceConsumptionException((NonTechnicalFaultException) ioException.getCause(),
-                                                     database,
-                                                     method,
-                                                     version);
+            database,
+            method,
+            version);
         }
 
         return new XTeeServiceConsumptionException(ioException, database, method, version);

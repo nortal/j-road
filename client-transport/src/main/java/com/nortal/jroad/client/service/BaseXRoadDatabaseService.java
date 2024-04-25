@@ -10,7 +10,7 @@ import com.nortal.jroad.client.service.extractor.CustomExtractor;
 import com.nortal.jroad.model.XTeeMessage;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 
 /**
  * Base class for all standard X-Road services implementations. Database name will be determined automatically based on
@@ -89,7 +89,7 @@ public abstract class BaseXRoadDatabaseService implements XroadDatabaseClient {
                                        String version,
                                        CustomCallback callback,
                                        CustomExtractor extractor) throws XTeeServiceConsumptionException {
-    return (XTeeMessage<O>) getXRoadConsumer().sendRequest(input,
+    return getXRoadConsumer().sendRequest(input,
                                                            getXRoadServiceConfigurationProvider().createConfiguration(database,
                                                                                                                  wsdlDatabase,
                                                                                                                  method,

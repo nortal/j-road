@@ -1,7 +1,7 @@
 package com.nortal.jroad.client.service.callback.v3;
 
-import javax.xml.soap.SOAPEnvelope;
-import javax.xml.soap.SOAPException;
+import jakarta.xml.soap.SOAPEnvelope;
+import jakarta.xml.soap.SOAPException;
 
 public class XroadMessageNamespaceStrategyV3_1 extends XRoadMessageCallbackNamespaceStrategy {
 

@@ -4,7 +4,7 @@ import com.nortal.jroad.client.service.configuration.provider.XRoadServiceConfig
 import com.nortal.jroad.client.util.PropertiesUtil;
 import java.io.IOException;
 import java.util.Properties;
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 

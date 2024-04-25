@@ -3,7 +3,7 @@ package com.nortal.jroad.client.service.v4;
 import com.nortal.jroad.client.service.BaseXRoadDatabaseService;
 import com.nortal.jroad.client.service.configuration.provider.XRoadServiceConfigurationProvider;
 import com.nortal.jroad.client.service.consumer.XRoadConsumer;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 /**
  * @author Aleksei Bogdanov (aleksei.bogdanov@nortal.com)

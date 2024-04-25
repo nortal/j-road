@@ -4,8 +4,8 @@ import com.nortal.jroad.client.service.configuration.BaseXRoadServiceConfigurati
 import com.nortal.jroad.client.util.ServiceVersion;
 
 import java.util.Random;
-import javax.xml.soap.SOAPEnvelope;
-import javax.xml.soap.SOAPException;
+import jakarta.xml.soap.SOAPEnvelope;
+import jakarta.xml.soap.SOAPException;
 
 /**
  * @author Kait Kasak (kait.kasak@nortal.com)

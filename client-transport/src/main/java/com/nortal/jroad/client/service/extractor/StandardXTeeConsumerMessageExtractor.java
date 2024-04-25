@@ -19,9 +19,9 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.soap.AttachmentPart;
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPMessage;
+import jakarta.xml.soap.AttachmentPart;
+import jakarta.xml.soap.SOAPException;
+import jakarta.xml.soap.SOAPMessage;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import java.io.ByteArrayInputStream;
@@ -32,7 +32,7 @@ import java.util.*;
 /**
  * @author Dmitri Danilkin
  */
-public class StandardXTeeConsumerMessageExtractor implements WebServiceMessageExtractor {
+public class StandardXTeeConsumerMessageExtractor implements WebServiceMessageExtractor<XTeeMessage<XmlObject>> {
   private final XmlBeansXTeeMetadata metadata;
   private final boolean extractKehaElement;
 
@@ -41,6 +41,7 @@ public class StandardXTeeConsumerMessageExtractor implements WebServiceMessageEx
     this.extractKehaElement = extractKehaElement;
   }
 
+  @Override
   public XTeeMessage<XmlObject> extractData(WebServiceMessage response) throws IOException {
     Node kehaNode;
     try {

@@ -21,16 +21,15 @@ import org.springframework.ws.soap.saaj.SaajSoapMessage;
 
 /**
  * Simple logging interceptor that logs all the web service invocation results on 'debug' level.
- * 
+ *
  * @author Rando Mihkelsaar
  * @author Roman Tekhov
  */
 public class WSConsumptionLoggingInterceptor implements ClientInterceptor {
   private final static Logger log = Logger.getLogger(WSConsumptionLoggingInterceptor.class);
 
-  private static enum MessageType {
-
-    REQUEST, RESPONSE, FAULT;
+  private enum MessageType {
+    REQUEST, RESPONSE, FAULT
   }
 
   /**
@@ -55,7 +54,7 @@ public class WSConsumptionLoggingInterceptor implements ClientInterceptor {
       if (message instanceof SaajSoapMessage) {
         OutputStream out = new ByteArrayOutputStream();
         try {
-          ((SaajSoapMessage) message).writeTo(out);
+          message.writeTo(out);
           log.debug(messageType + " message follows:\n" + out.toString());
         } catch (Exception e) {
           throw new RuntimeException(e);

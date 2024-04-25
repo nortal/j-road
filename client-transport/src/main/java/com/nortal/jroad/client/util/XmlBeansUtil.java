@@ -13,7 +13,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.activation.DataHandler;
+import jakarta.activation.DataHandler;
 import javax.xml.namespace.QName;
 
 import org.apache.xmlbeans.XmlCursor;
@@ -24,7 +24,7 @@ import com.nortal.jroad.model.XmlBeansXTeeMetadata;
 
 /**
  * XMLBeans related utilities.
- * 
+ *
  * @author Roman Tekhov
  * @author Dmitri Danilkin
  */
@@ -35,7 +35,7 @@ public class XmlBeansUtil {
    * attribute with <code>xsi:type</code> name (where <code>xsi</code> represent a prefix for
    * <code>http://www.w3.org/2001/XMLSchema-instance</code> namespace) and a <code>xsd:string</code> value (where
    * <code>xsd</code> represents a prefix for <code>http://www.w3.org/2001/XMLSchema</code> namespace).
-   * 
+   *
    * @param value content value
    * @return constructed {@link XmlString} instance
    */
@@ -53,7 +53,7 @@ public class XmlBeansUtil {
 
   @SuppressWarnings("unchecked")
   public static HashMap<String, XmlBeansXTeeMetadata> loadMetadata() throws IOException, ClassNotFoundException {
-    HashMap<String, XmlBeansXTeeMetadata> metaMap = new HashMap<String, XmlBeansXTeeMetadata>();
+    HashMap<String, XmlBeansXTeeMetadata> metaMap = new HashMap<>();
 
     for (Enumeration<URL> metaUrls = Thread.currentThread().getContextClassLoader().getResources("xtee.metadata"); metaUrls.hasMoreElements();) {
       URL metaUrl = metaUrls.nextElement();
@@ -83,7 +83,7 @@ public class XmlBeansUtil {
 
   public static Set<XmlObject> getAllObjects(XmlObject obj) throws IllegalArgumentException, IllegalAccessException,
       InvocationTargetException {
-    Set<XmlObject> objs = new HashSet<XmlObject>();
+    Set<XmlObject> objs = new HashSet<>();
     if (obj != null) {
       objs.add(obj);
       for (Method method : obj.getClass().getDeclaredMethods()) {
@@ -97,7 +97,7 @@ public class XmlBeansUtil {
   }
 
   public static List<Method> getSwaRefGetters(XmlObject obj) {
-    List<Method> methods = new ArrayList<Method>();
+    List<Method> methods = new ArrayList<>();
     for (Method method : obj.getClass().getDeclaredMethods()) {
       if (DataHandler.class.equals(method.getReturnType()) && method.getName().startsWith("get")
           && method.getName().endsWith("Handler")) {
@@ -108,7 +108,7 @@ public class XmlBeansUtil {
   }
 
   public static List<Method> getSwaRefSetters(XmlObject obj) {
-    List<Method> methods = new ArrayList<Method>();
+    List<Method> methods = new ArrayList<>();
     for (Method method : obj.getClass().getDeclaredMethods()) {
       if (method.getParameterTypes().length > 0 && DataHandler.class.equals(method.getParameterTypes()[0])
           && method.getName().startsWith("set") && method.getName().endsWith("Handler")) {
