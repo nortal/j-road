@@ -3,7 +3,7 @@ package com.nortal.jroad.wsdl.v4;
 import com.nortal.jroad.mapping.v4.XRoadEndpointMapping;
 import com.nortal.jroad.model.v4.XRoadHeader;
 import java.util.Properties;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import javax.wsdl.Definition;
 import javax.wsdl.Message;
 import javax.wsdl.Part;

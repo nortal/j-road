@@ -14,9 +14,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Resource;
-import javax.xml.soap.SOAPHeader;
-import javax.xml.soap.SOAPMessage;
+import jakarta.annotation.Resource;
+import jakarta.xml.soap.SOAPHeader;
+import jakarta.xml.soap.SOAPMessage;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.InitializingBean;
@@ -34,7 +34,7 @@ import com.nortal.jroad.wsdl.XTeeWsdlDefinition;
 
 /**
  * Finds all X-Road endpoints and maps incoming requests to them according to query name present in the X-Road header.
- * 
+ *
  * @author Dmitri Danilkin
  * @author Lauri Lättemäe (lauri.lattemae@nortal.com) - protocol 4.0
  */
@@ -125,7 +125,7 @@ public class XTeeEndpointMapping extends AbstractEndpointMapping implements Init
 
   /**
    * Receives the string and returns it with first character set to lowercase and suffix "Endpoint" removed.
-   * 
+   *
    * @param className unqualified class name
    * @return input string <code>className</code> with first character in lowercase and "Endpoint" suffix removed
    */
@@ -144,7 +144,7 @@ public class XTeeEndpointMapping extends AbstractEndpointMapping implements Init
    * {@link XRoadService} annotation -- if this is not present the method name will be a concatenation of X-Tee database
    * name, unqualified class name of given {@link AbstractXTeeBaseEndpoint} (as service name) and "v1" (as version
    * number).
-   * 
+   *
    * @param clazz XRoad service endpoint implementation class
    * @param databaseName name of the XRoad database
    * @return the XRoadService method name that was constructed according to aforementioned rules

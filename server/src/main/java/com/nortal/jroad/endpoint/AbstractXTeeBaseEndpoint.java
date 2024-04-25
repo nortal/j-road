@@ -28,7 +28,7 @@ import org.w3c.dom.Node;
 
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.soap.*;
+import jakarta.xml.soap.*;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ import java.util.List;
  * Base class for X-Tee Spring web-service endpoints, extension classes must
  * implement
  * {@link AbstractXTeeBaseEndpoint#invokeInternal(XTeeMessage request, XTeeMessage response)}.
- * 
+ *
  * @author Roman Tekhov
  * @author Dmitri Danilkin
  * @author Lauri Lättemäe (lauri.lattemae@nortal.com) - protocol 4.0
@@ -89,7 +89,7 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
     // Extract protocol version by namespaces
     SOAPEnvelope soapEnv = requestMessage.getSOAPPart().getEnvelope();
     SOAPHeader soapHead = soapEnv.getHeader();
-    Iterator<Node> headers = soapHead != null && soapHead.hasChildNodes() ? soapHead.getChildElements() : null;
+    Iterator<? extends Node> headers = soapHead != null && soapHead.hasChildNodes() ? soapHead.getChildElements() : null;
     while (headers != null && headers.hasNext()) {
       Node header = headers.next();
       String namespaceURI = header.getNamespaceURI();
@@ -110,12 +110,12 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
     XTeeHeader header = metaService ? null : parseXteeHeader(requestMessage);
 
     // Build request message
-    List<XTeeAttachment> attachments = new ArrayList<XTeeAttachment>();
+    List<XTeeAttachment> attachments = new ArrayList<>();
     for (Iterator<AttachmentPart> i = requestMessage.getAttachments(); i.hasNext();) {
       AttachmentPart a = i.next();
       attachments.add(new XTeeAttachment(a.getContentId(), a.getContentType(), a.getRawContentBytes()));
     }
-    XTeeMessage<Document> request = new BeanXTeeMessage<Document>(header, query, attachments);
+    XTeeMessage<Document> request = new BeanXTeeMessage<>(header, query, attachments);
 
     SOAPElement teenusElement = createXteeMessageStructure(requestMessage, responseMessage);
     if (XRoadProtocolVersion.V2_0 == version) {
@@ -126,9 +126,9 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
     }
 
     // Build response message
-    XTeeMessage<Element> response = new BeanXTeeMessage<Element>(header,
-                                                                 teenusElement,
-                                                                 new ArrayList<XTeeAttachment>());
+    XTeeMessage<Element> response = new BeanXTeeMessage<>(header,
+      teenusElement,
+      new ArrayList<>());
 
     // Run logic
     invokeInternalEx(request, response, requestMessage, responseMessage);
@@ -149,7 +149,7 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
     }
 
     SOAPHeader header = paringMessage.getSOAPHeader();
-    for (Iterator<Node> headerElemendid = header.getChildElements(); headerElemendid.hasNext();) {
+    for (Iterator<? extends Node> headerElemendid = header.getChildElements(); headerElemendid.hasNext();) {
       Node headerElement = headerElemendid.next();
       if (!SOAPUtil.isTextNode(headerElement) && headerElement.getFirstChild() != null) {
         String localName = headerElement.getLocalName();
@@ -160,10 +160,10 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
             Node item = childNodes.item(i);
             if (item.getLocalName() == null) {
               continue;
-            } else {
-              pais.addElement(new QName(item.getNamespaceURI(), localName + "." + item.getLocalName()),
-                              item.getFirstChild().getNodeValue());
             }
+            pais.addElement(new QName(item.getNamespaceURI(), localName + "." + item.getLocalName()),
+                              item.getFirstChild().getNodeValue());
+
           }
         }
         pais.addElement(new QName(headerElement.getNamespaceURI(), localName), value);
@@ -202,7 +202,7 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
 
       Iterator<String> prefixes = requestMessage.getSOAPPart().getEnvelope().getNamespacePrefixes();
       while (prefixes.hasNext()) {
-        String nsPrefix = (String) prefixes.next();
+        String nsPrefix = prefixes.next();
         String nsURI = requestMessage.getSOAPPart().getEnvelope().getNamespaceURI(nsPrefix).toLowerCase();
         if (xteeNamespaces.contains(nsURI)) {
           SOAPUtil.addNamespace(responseMessage, nsPrefix, nsURI);
@@ -269,7 +269,7 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
   /**
    * This method can be overridden if you need direct access to the request and
    * response messages.
-   * 
+   *
    * @param request
    * @param response
    * @param responseMessage
@@ -287,7 +287,7 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
   /**
    * Method which must implement the service logic, receives
    * <code>request</code> and <code>response<code>.
-   * 
+   *
    * @param request
    * @param response
    */

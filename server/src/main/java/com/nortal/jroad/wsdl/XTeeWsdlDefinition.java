@@ -11,7 +11,7 @@ package com.nortal.jroad.wsdl;
 
 import java.util.Properties;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import javax.wsdl.Definition;
 import javax.wsdl.Message;
 import javax.wsdl.Part;

@@ -11,14 +11,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.activation.DataHandler;
-import javax.annotation.Resource;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.attachment.AttachmentMarshaller;
-import javax.xml.bind.attachment.AttachmentUnmarshaller;
+import jakarta.activation.DataHandler;
+import jakarta.annotation.Resource;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.Unmarshaller;
+import jakarta.xml.bind.attachment.AttachmentMarshaller;
+import jakarta.xml.bind.attachment.AttachmentUnmarshaller;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -63,7 +63,7 @@ public abstract class AbstractXRoadJAXBEndpoint<T> extends AbstractXRoadBaseEndp
     }
   }
 
-  private static final HashMap<JaxbContextKey, JAXBContext> jaxbContexts = new HashMap<JaxbContextKey, JAXBContext>();
+  private static final HashMap<JaxbContextKey, JAXBContext> jaxbContexts = new HashMap<>();
 
   @Resource(name = "contextPath")
   private String contextPath;

@@ -9,7 +9,7 @@
 
 package com.nortal.jroad.endpoint;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
@@ -23,7 +23,7 @@ import com.nortal.jroad.util.SOAPUtil;
 /**
  * Implements <code>listMethods</code> metaservice, which is mandatory for X-Tee adapter server and will be called only
  * by database's own security server.
- * 
+ *
  * @author Dmitri Danilkin
  * @author Lauri Lättemäe (lauri.lattemae@nortal.com) - protocol 4.0
  */

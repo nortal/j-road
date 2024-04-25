@@ -12,11 +12,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import javax.xml.namespace.QName;
-import javax.xml.soap.AttachmentPart;
-import javax.xml.soap.SOAPElement;
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPHeader;
-import javax.xml.soap.SOAPMessage;
+import jakarta.xml.soap.AttachmentPart;
+import jakarta.xml.soap.SOAPElement;
+import jakarta.xml.soap.SOAPException;
+import jakarta.xml.soap.SOAPHeader;
+import jakarta.xml.soap.SOAPMessage;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -33,17 +33,17 @@ public abstract class AbstractXRoadBaseEndpoint extends AbstractXTeeBaseEndpoint
     XRoadHeader header = metaService ? null : parseXRoadHeader(requestMessage);
 
     // Build request message
-    List<XRoadAttachment> attachments = new ArrayList<XRoadAttachment>();
+    List<XRoadAttachment> attachments = new ArrayList<>();
     for (Iterator<AttachmentPart> i = requestMessage.getAttachments(); i.hasNext();) {
       AttachmentPart a = i.next();
       attachments.add(new XRoadAttachment(a.getContentId(), a.getContentType(), a.getRawContentBytes()));
     }
-    XRoadMessage<Document> request = new BeanXRoadMessage<Document>(header, query, attachments);
+    XRoadMessage<Document> request = new BeanXRoadMessage<>(header, query, attachments);
 
     // Build response message
     SOAPElement teenusElement = createXteeMessageStructure(requestMessage, responseMessage);
     Element kehaNode = teenusElement.addChildElement("keha");
-    XRoadMessage<Element> response = new BeanXRoadMessage<Element>(header, kehaNode, new ArrayList<XRoadAttachment>());
+    XRoadMessage<Element> response = new BeanXRoadMessage<>(header, kehaNode, new ArrayList<>());
 
     // Run logic
     invokeInternalEx(request, response, requestMessage, responseMessage);
@@ -59,12 +59,12 @@ public abstract class AbstractXRoadBaseEndpoint extends AbstractXTeeBaseEndpoint
       addHeader(header, responseMessage);
     }
   }
-  
+
   @SuppressWarnings("unchecked")
   private XRoadHeader parseXRoadHeader(SOAPMessage paringMessage) throws SOAPException {
     XRoadHeader xRoadHeader = new XRoadHeader();
     SOAPHeader header = paringMessage.getSOAPHeader();
-    for (Iterator<Node> headerElemendid = header.getChildElements(); headerElemendid.hasNext();) {
+    for (Iterator<? extends Node> headerElemendid = header.getChildElements(); headerElemendid.hasNext();) {
       Node headerElement = headerElemendid.next();
       if (!SOAPUtil.isTextNode(headerElement) && headerElement.getFirstChild() != null) {
         String localName = headerElement.getLocalName();
@@ -76,7 +76,7 @@ public abstract class AbstractXRoadBaseEndpoint extends AbstractXTeeBaseEndpoint
       }
     }
     if (version == null) {
-      Iterator<Node> elements = header.getChildElements();
+      Iterator<? extends Node> elements = header.getChildElements();
       while (version == null && elements.hasNext()) {
         version = XRoadProtocolVersion.getValueByNamespaceURI(elements.next().getNamespaceURI());
       }
@@ -94,7 +94,7 @@ public abstract class AbstractXRoadBaseEndpoint extends AbstractXTeeBaseEndpoint
                                 version.getNamespacePrefix());
     }
   }
-  
+
   /**
    * This method can be overridden if you need direct access to the request and response messages.
    */

@@ -14,8 +14,8 @@ import org.springframework.ws.server.endpoint.mapping.AbstractEndpointMapping;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import javax.annotation.Resource;
-import javax.xml.soap.SOAPMessage;
+import jakarta.annotation.Resource;
+import jakarta.xml.soap.SOAPMessage;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
