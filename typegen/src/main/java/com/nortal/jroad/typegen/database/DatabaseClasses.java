@@ -15,7 +15,7 @@ public class DatabaseClasses {
   private String packageName;
   private XRoadProtocolVersion version;
 
-  private Map<String, DatabaseClass> classes = new HashMap<String, DatabaseClass>();
+  private Map<String, DatabaseClass> classes = new HashMap<>();
 
 
   public DatabaseClasses(String baseDirectory, String packageName, XRoadProtocolVersion version) {

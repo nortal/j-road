@@ -23,8 +23,13 @@ import org.w3c.dom.NodeList;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.URISyntaxException;
+import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -40,8 +45,8 @@ public class TypeGen {
   public static final String SCHEMA_NS = "http://www.w3.org/2001/XMLSchema";
   private static final String NS_PREFIX = "xmlns";
   private static final String XTEE_V2_NAMESPACE_PATTERN = "http://producers\\..+?\\.xtee\\.riik\\.ee/producer/.+?$";
-  private static final String XROAD_V3_0_NAMESPACE_PATTERN = "http://(.+?)\\.ee\\.x-rd\\.net/producer[/]??$";
-  private static final String XROAD_V3_1_NAMESPACE_PATTERN = "http://(.+?)\\.x-road\\.ee/producer[/]??$";
+  private static final String XROAD_V3_0_NAMESPACE_PATTERN = "http://(.+?)\\.ee\\.x-rd\\.net/producer/??$";
+  private static final String XROAD_V3_1_NAMESPACE_PATTERN = "http://(.+?)\\.x-road\\.ee/producer/??$";
   private static final String XROAD_V4_NAMESPACE_PATTERN = "http://(.+?)\\.x-road\\.eu.*?$";
 
   private static final String WSDL_DIR = "wsdldir";
@@ -55,9 +60,9 @@ public class TypeGen {
   private static final String BASE_PACKAGE = "basepackage";
   private static final String DB_CLASSES_PACKAGE = "dbclassespackage";
 
-  static Map<String, String> argMap = new HashMap<String, String>();
-  private static Map<String, XmlBeansXTeeMetadata> metadata = new HashMap<String, XmlBeansXTeeMetadata>();
-  private static List<XmlObject> schemas = new ArrayList<XmlObject>();
+  static Map<String, String> argMap = new HashMap<>();
+  private static Map<String, XmlBeansXTeeMetadata> metadata = new HashMap<>();
+  private static List<XmlObject> schemas = new ArrayList<>();
   private static File curWsdl;
   private static File hashFile;
   private static byte[] computedHash;
@@ -88,7 +93,7 @@ public class TypeGen {
 
         System.out.println("Post-processing sources for attachment support...");
         timer.start();
-        AttachmentPostprocessor.process(argMap.get(BASE_PACKAGE), new File(outputdir));
+        AttachmentPostProcessor.process(argMap.get(BASE_PACKAGE), Path.of(outputdir));
         System.out.println("Post-processing completed, time taken: " + timer.finishStr());
 
         System.out.println("Serializing metadata...");
@@ -139,16 +144,15 @@ public class TypeGen {
    * @param outputdir
    * @param basepackage
    * @throws XmlException
-   * @throws URISyntaxException
    */
-  private static void generateSource(String outputdir, String xsbdir, String basepackage) throws XmlException,
-      URISyntaxException {
+  private static void generateSource(String outputdir, String xsbdir, String basepackage) throws XmlException {
 
     XmlObject[] schemasarr = new XmlObject[schemas.size()];
     schemas.toArray(schemasarr);
 
     XmlOptions options = new XmlOptions();
     options.setCompileDownloadUrls();
+    //TODO: try with higher java version
     options.setGenerateJavaVersion("1.5");
     options.setSchemaCodePrinter(new XteeSchemaCodePrinter(options));
 
@@ -181,7 +185,7 @@ public class TypeGen {
    */
   private static File[] getWsdls(File dirfile) throws Exception {
     File[] allfiles = dirfile.listFiles();
-    List<File> files = new ArrayList<File>();
+    List<File> files = new ArrayList<>();
     if (allfiles != null) {
       MessageDigest md = MessageDigest.getInstance("MD5");
       String outputDir = argMap.get(OUTPUT_DIR);
@@ -440,12 +444,8 @@ public class TypeGen {
       }
     }
 
-    metaServicesGen.tryAddMetaOpsToMetadata(opNs, dbDesc.getVersion(), new XteeMetadataModifier() {
-      @Override
-      public void addOperation(XmlBeansXTeeMetadata xTeeMetadata) {
-        metadata.put(dbDesc.getId() + xTeeMetadata.getOperationName().toLowerCase(), xTeeMetadata);
-      }
-    });
+    metaServicesGen.tryAddMetaOpsToMetadata(opNs, dbDesc.getVersion(),
+      xTeeMetadata -> metadata.put(dbDesc.getId() + xTeeMetadata.getOperationName().toLowerCase(), xTeeMetadata));
 
     logInfo("Created metadata for operations: " + metadata.keySet());
   }
@@ -493,9 +493,9 @@ public class TypeGen {
             + "), setting database name from WSDL filename!");
     return curWsdl.getName().substring(0, curWsdl.getName().toLowerCase().indexOf(".wsdl"));
   }
-  
+
   private static final List<String> MESSAGE_WRAPPER_NAMES = Arrays.asList("keha", "body", "request", "response");
-  
+
   /**
    * Creates a map between message names and their response elements.
    *
@@ -535,7 +535,7 @@ public class TypeGen {
 
       String key = entry.getKey();
       String database = key.substring(0, key.lastIndexOf(serviceMetadata.getOperationName().toLowerCase()));
-      
+
       classes.add(database, serviceMetadata);
     }
 
