@@ -9,10 +9,10 @@
 
 package com.nortal.jroad.util;
 
-import javax.xml.soap.SOAPElement;
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPHeader;
-import javax.xml.soap.SOAPMessage;
+import jakarta.xml.soap.SOAPElement;
+import jakarta.xml.soap.SOAPException;
+import jakarta.xml.soap.SOAPHeader;
+import jakarta.xml.soap.SOAPMessage;
 
 /**
  * Utility methods for deducing canonical service names and XML namespaces,

@@ -1,38 +1,41 @@
 package com.nortal.jroad.jaxb;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import javax.activation.DataSource;
+import jakarta.activation.DataSource;
 
 /**
  * A {@link DataSource} implementation, that wraps a byte array. The idea is borrowed from Spring-WS.
- * 
+ *
  * @author Dmitri Danilkin
  */
 public class ByteArrayDataSource implements DataSource {
-  private byte[] data;
-  private String contentType;
+  private final byte[] data;
+  private final String contentType;
 
   public ByteArrayDataSource(String contentType, byte[] data) {
     this.contentType = contentType;
     this.data = data;
   }
 
-  public InputStream getInputStream() throws IOException {
+  @Override
+  public InputStream getInputStream() {
     return new ByteArrayInputStream(data);
   }
 
-  public OutputStream getOutputStream() throws IOException {
+  @Override
+  public OutputStream getOutputStream() {
     throw new UnsupportedOperationException();
   }
 
+  @Override
   public String getContentType() {
     return contentType;
   }
 
+  @Override
   public String getName() {
     return "ByteArrayDataSource";
   }

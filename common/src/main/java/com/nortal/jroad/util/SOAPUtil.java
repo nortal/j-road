@@ -11,9 +11,9 @@ package com.nortal.jroad.util;
 
 import java.util.Collection;
 
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPMessage;
-import javax.xml.soap.SOAPPart;
+import jakarta.xml.soap.SOAPException;
+import jakarta.xml.soap.SOAPMessage;
+import jakarta.xml.soap.SOAPPart;
 import javax.xml.transform.Source;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
@@ -284,7 +284,7 @@ public class SOAPUtil {
 
   /**
    * Returns child elements according to name and namespace
-   * 
+   *
    * @param root
    * @param name
    * @param ns
@@ -299,7 +299,7 @@ public class SOAPUtil {
 
   /**
    * Returns child element according to name and namespace
-   * 
+   *
    * @param root
    * @param name
    * @param ns
@@ -315,7 +315,7 @@ public class SOAPUtil {
 
   /**
    * Returns child element value according to name and namespace
-   * 
+   *
    * @param root
    * @param name
    * @param ns

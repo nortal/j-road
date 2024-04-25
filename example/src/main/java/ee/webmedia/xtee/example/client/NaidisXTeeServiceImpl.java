@@ -6,7 +6,7 @@ import com.nortal.jroad.example.client.types.ee.riik.xtee.naidis.producers.produ
 import com.nortal.jroad.example.client.types.ee.riik.xtee.naidis.producers.producer.naidis.AttachmentEchoResponse;
 import com.nortal.jroad.model.XTeeMessage;
 import com.nortal.jroad.model.XmlBeansXTeeMessage;
-import javax.activation.DataHandler;
+import jakarta.activation.DataHandler;
 
 public class NaidisXTeeServiceImpl extends XTeeDatabaseService implements NaidisXTeeService {
   private static String ATTACHMENT_ECHO = "attachmentecho";

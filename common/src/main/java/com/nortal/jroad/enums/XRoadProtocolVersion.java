@@ -15,7 +15,7 @@ public enum XRoadProtocolVersion {
   private final String namespaceUri;
   private final String packageSuffix;
 
-  private XRoadProtocolVersion(String code, String namespacePrefix, String namespaceUri, String packageSuffix) {
+  XRoadProtocolVersion(String code, String namespacePrefix, String namespaceUri, String packageSuffix) {
     this.code = code;
     this.namespaceUri = namespaceUri;
     this.namespacePrefix = namespacePrefix;

@@ -8,16 +8,16 @@
   <name>x-tee root</name>
   <version>4.1-SNAPSHOT</version>
 
-  <parent>
-    <groupId>org.sonatype.oss</groupId>
-    <artifactId>oss-parent</artifactId>
-    <version>7</version>
-  </parent>
+<!--  <parent>-->
+<!--    <groupId>org.sonatype.oss</groupId>-->
+<!--    <artifactId>oss-parent</artifactId>-->
+<!--    <version>7</version>-->
+<!--  </parent>-->
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <spring.ws.version>2.2.0.RELEASE</spring.ws.version>
-    <skipTests>true</skipTests>
+    <spring.ws.version>4.0.10</spring.ws.version>
+    <skipTests>false</skipTests>
   </properties>
   <developers>
     <developer>
@@ -58,8 +58,8 @@
 			<artifactId>maven-compiler-plugin</artifactId>
 			<version>2.3.2</version>
 			<configuration>
-				<source>1.6</source>
-				<target>1.6</target>
+				<source>17</source>
+				<target>17</target>
 			</configuration>
 		</plugin>
 		<plugin>
@@ -79,8 +79,10 @@
 		<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-surefire-plugin</artifactId>
-			<version>2.9</version>
+			<version>3.2.5</version>
 			<configuration>
+				<argLine>-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:8000</argLine>
+				<forkCount>0</forkCount>
 				<skip>${skipTests}</skip>
 			</configuration>
 		</plugin>
@@ -158,17 +160,17 @@
     </dependency>
   </dependencies>
 
-  <distributionManagement>
-    <repository>
-      <uniqueVersion>false</uniqueVersion>
-      <id>wm-local</id>
-      <url>ftp://maven2.webmedia.int</url>
-    </repository>
-  </distributionManagement>
+<!--  <distributionManagement>-->
+<!--    <repository>-->
+<!--      <uniqueVersion>false</uniqueVersion>-->
+<!--      <id>dev-art-test</id>-->
+<!--      <url>file://${user.home}\.m2\repository</url>-->
+<!--    </repository>-->
+<!--  </distributionManagement>-->
 
-  <scm>
-  	<connection>scm:svn:http://j-road.googlecode.com/svn/trunk/</connection>
-  	<developerConnection>scm:svn:https://j-road.googlecode.com/svn/trunk/</developerConnection>
-  	<url>http://j-road.googlecode.com/svn/trunk/</url>
-  </scm>
+<!--  <scm>-->
+<!--  	<connection>scm:svn:http://j-road.googlecode.com/svn/trunk/</connection>-->
+<!--  	<developerConnection>scm:svn:https://j-road.googlecode.com/svn/trunk/</developerConnection>-->
+<!--  	<url>http://j-road.googlecode.com/svn/trunk/</url>-->
+<!--  </scm>-->
 </project>

@@ -12,7 +12,7 @@ package com.nortal.jroad.model;
 import java.io.IOException;
 import java.io.InputStream;
 
-import javax.activation.DataHandler;
+import jakarta.activation.DataHandler;
 
 import org.springframework.core.io.InputStreamSource;
 import org.springframework.util.FileCopyUtils;
@@ -25,7 +25,7 @@ import com.nortal.jroad.jaxb.ByteArrayDataSource;
  * Spring-WS and provides easy access to attachment content. Attachments are the preferred way of transporting large
  * amounts of data because transmitting attachments requires much less bandwidth and resources (base64 etc) than
  * transmitting the same data within SOAP messages without attachments.
- * 
+ *
  * @author Dmitri Danilkin
  */
 public class XTeeAttachment implements InputStreamSource {

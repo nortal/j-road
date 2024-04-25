@@ -1,7 +1,7 @@
 package com.nortal.jroad.example.client;
 
-import javax.activation.DataHandler;
-import javax.annotation.Resource;
+import jakarta.activation.DataHandler;
+import jakarta.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 

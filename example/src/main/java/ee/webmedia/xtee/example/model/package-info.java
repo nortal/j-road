@@ -5,6 +5,6 @@
 // Generated on: 2009.09.23 at 11:57:10 PM EEST
 //
 
-@javax.xml.bind.annotation.XmlSchema(namespace = "http://producers.naidis.xtee.riik.ee/producer/naidis")
+@jakarta.xml.bind.annotation.XmlSchema(namespace = "http://producers.naidis.xtee.riik.ee/producer/naidis")
 package com.nortal.jroad.example.model;
 

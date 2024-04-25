@@ -1,6 +1,6 @@
 package com.nortal.jroad.example.client;
 
-import javax.activation.DataHandler;
+import jakarta.activation.DataHandler;
 
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
 
