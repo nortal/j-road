@@ -8,10 +8,12 @@ import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import junit.framework.Assert;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 
 /**
  * @author Roman Tekhov
