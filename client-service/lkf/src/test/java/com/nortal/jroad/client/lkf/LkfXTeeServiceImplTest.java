@@ -2,7 +2,7 @@ package com.nortal.jroad.client.lkf;
 
 import java.util.Calendar;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import org.junit.Assert;
 import org.junit.Test;

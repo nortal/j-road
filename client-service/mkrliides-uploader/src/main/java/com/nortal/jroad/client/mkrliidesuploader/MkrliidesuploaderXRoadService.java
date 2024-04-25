@@ -6,7 +6,7 @@ import com.nortal.jroad.client.mkrliidesuploader.types.eu.x_road.emta_v6.Downloa
 import com.nortal.jroad.client.mkrliidesuploader.types.eu.x_road.emta_v6.UploadMimeResponseDocument.UploadMimeResponse;
 import com.nortal.jroad.model.XTeeMessage;
 
-import javax.activation.DataHandler;
+import jakarta.activation.DataHandler;
 
 /**
  * mkrliides-uploader namespace in wsdl is emta-v6

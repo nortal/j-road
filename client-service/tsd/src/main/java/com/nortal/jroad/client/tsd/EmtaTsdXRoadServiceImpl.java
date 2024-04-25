@@ -13,8 +13,8 @@ import com.nortal.jroad.client.tsd.types.eu.x_road.emta_v6.XteeKindlustusRespons
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 

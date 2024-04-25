@@ -19,7 +19,7 @@ import junit.framework.Assert;
 import org.apache.xmlbeans.XmlString;
 import org.junit.Test;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.text.SimpleDateFormat;
 import java.util.List;
 

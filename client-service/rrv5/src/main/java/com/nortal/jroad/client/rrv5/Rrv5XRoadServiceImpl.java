@@ -12,8 +12,8 @@ import com.nortal.jroad.client.util.XmlBeansUtil;
 import org.apache.xmlbeans.XmlString;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.Resource;
 
 /**
  * @author Anti Orgla

@@ -14,7 +14,7 @@ import org.apache.xmlbeans.XmlObject;
 import org.springframework.stereotype.Service;
 import org.springframework.ws.WebServiceMessage;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import javax.xml.namespace.QName;
 import javax.xml.transform.TransformerException;
 import java.io.IOException;

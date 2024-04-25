@@ -1,6 +1,6 @@
 package com.nortal.jroad.client.tosjuht.model;
 
-import javax.activation.DataHandler;
+import jakarta.activation.DataHandler;
 
 /**
  * Manuse mudel faili nimi ja sisu

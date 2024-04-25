@@ -3,7 +3,7 @@ package com.nortal.jroad.client.ehr;
 import java.math.BigInteger;
 import java.util.List;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import junit.framework.Assert;
 

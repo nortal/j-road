@@ -6,7 +6,7 @@ import com.nortal.jroad.client.star.types.ee.riik.xtee.star.producers.producer.s
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;

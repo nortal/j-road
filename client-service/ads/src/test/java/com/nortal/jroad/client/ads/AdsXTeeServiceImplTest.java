@@ -3,7 +3,7 @@ package com.nortal.jroad.client.ads;
 import java.math.BigInteger;
 import java.util.Calendar;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import junit.framework.Assert;
 

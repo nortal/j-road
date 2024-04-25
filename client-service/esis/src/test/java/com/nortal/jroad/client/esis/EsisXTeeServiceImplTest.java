@@ -1,6 +1,6 @@
 package com.nortal.jroad.client.esis;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import org.junit.Test;
 import org.springframework.util.Assert;

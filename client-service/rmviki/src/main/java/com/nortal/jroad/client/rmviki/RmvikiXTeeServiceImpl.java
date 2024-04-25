@@ -1,12 +1,12 @@
 package com.nortal.jroad.client.rmviki;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
+import com.nortal.jroad.client.rmviki.database.RmvikiXRoadDatabase;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.rmviki.database.RmvikiXTeeDatabase;
 import com.nortal.jroad.client.rmviki.types.ee.riik.xtee.rmviki.producers.producer.rmviki.RarVtaRequestType;
 import com.nortal.jroad.client.rmviki.types.ee.riik.xtee.rmviki.producers.producer.rmviki.RarVtaResponseType;
 import com.nortal.jroad.client.rmviki.types.ee.riik.xtee.rmviki.producers.producer.rmviki.ZRKOVAR;
@@ -20,9 +20,9 @@ import com.nortal.jroad.client.rmviki.types.ee.riik.xtee.rmviki.producers.produc
 public class RmvikiXTeeServiceImpl implements RmvikiXTeeService {
 
   @Resource
-  private RmvikiXTeeDatabase rmvikiXTeeDatabase;
+  private RmvikiXRoadDatabase rmvikiXTeeDatabase;
 
-  public void setRmvikiXTeeDatabase(RmvikiXTeeDatabase rmvikiXTeeDatabase) {
+  public void setRmvikiXTeeDatabase(RmvikiXRoadDatabase rmvikiXTeeDatabase) {
     this.rmvikiXTeeDatabase = rmvikiXTeeDatabase;
   }
 
@@ -40,7 +40,7 @@ public class RmvikiXTeeServiceImpl implements RmvikiXTeeService {
     }
     return null;
   }
-  
+
   public RarVtaResponseType rarVtaV1(String kood) throws XTeeServiceConsumptionException {
     RarVtaRequestType req = RarVtaRequestType.Factory.newInstance();
     req.setKood(kood);

@@ -7,7 +7,7 @@ import java.math.BigInteger;
 import java.util.Calendar;
 import java.util.Date;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.springframework.stereotype.Service;

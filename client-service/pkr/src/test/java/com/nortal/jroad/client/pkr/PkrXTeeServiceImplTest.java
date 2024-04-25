@@ -5,7 +5,7 @@ import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
 import junit.framework.Assert;
 import org.junit.Test;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.Calendar;
 
 /**

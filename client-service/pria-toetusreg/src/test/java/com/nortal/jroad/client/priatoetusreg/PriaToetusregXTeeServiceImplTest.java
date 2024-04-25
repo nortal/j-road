@@ -2,7 +2,7 @@ package com.nortal.jroad.client.priatoetusreg;
 
 import java.math.BigDecimal;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import junit.framework.Assert;
 

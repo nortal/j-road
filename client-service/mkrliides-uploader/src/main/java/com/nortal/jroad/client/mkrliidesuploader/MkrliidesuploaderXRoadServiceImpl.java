@@ -12,9 +12,9 @@ import com.nortal.jroad.model.XmlBeansXTeeMessage;
 import com.nortal.jroad.util.AttachmentUtil;
 
 import java.util.List;
-import javax.activation.DataHandler;
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
+import jakarta.activation.DataHandler;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.Resource;
 
 /**
  * @author Kauri Kägo <kauri.kago@nortal.com>

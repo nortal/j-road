@@ -5,8 +5,8 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.UUID;
 
-import javax.activation.DataHandler;
-import javax.annotation.Resource;
+import jakarta.activation.DataHandler;
+import jakarta.annotation.Resource;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.xmlbeans.XmlException;

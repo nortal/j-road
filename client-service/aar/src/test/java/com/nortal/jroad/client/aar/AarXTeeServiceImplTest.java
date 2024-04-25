@@ -1,6 +1,6 @@
 package com.nortal.jroad.client.aar;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import junit.framework.Assert;
 

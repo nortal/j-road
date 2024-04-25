@@ -15,7 +15,7 @@ import com.nortal.jroad.client.ehis.types.ee.riik.xtee.ehis.producers.producer.e
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.math.BigInteger;
 import java.util.Calendar;
 import java.util.Date;

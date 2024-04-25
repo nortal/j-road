@@ -2,7 +2,7 @@ package com.nortal.jroad.client.viisaregister;
 
 import java.util.Calendar;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import javax.xml.namespace.QName;
 
 import org.apache.xmlbeans.XmlCursor;

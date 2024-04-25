@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:s0="urn:sap-com:document:sap:rfc:functions" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-  xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xtee="http://x-tee.riik.ee/xsd/xtee.xsd" xmlns:viki="http://producers.rmviki.xtee.riik.ee/producer/rmviki" xmlns:tns="http://producers.rmviki.xtee.riik.ee/producer/rmviki"
+  xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xtee="http://x-road.eu/xsd/xroad.xsd" xmlns:viki="http://producers.rmviki.xtee.riik.ee/producer/rmviki" xmlns:tns="http://producers.rmviki.xtee.riik.ee/producer/rmviki"
   xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" targetNamespace="http://producers.rmviki.xtee.riik.ee/producer/rmviki">
   <types>
     <xsd:schema targetNamespace="http://producers.rmviki.xtee.riik.ee/producer/rmviki">
-      <xsd:import namespace="http://x-tee.riik.ee/xsd/xtee.xsd" schemaLocation="http://x-tee.riik.ee/xsd/xtee.xsd" />
+      <xsd:import namespace="http://x-road.eu/xsd/xroad.xsd" schemaLocation="http://x-road.eu/xsd/xroad.xsd" />
       <xsd:complexType name="Z_RKOVAR.Request">
         <xsd:all>
           <xsd:element name="KOOD" minOccurs="0">
@@ -453,11 +453,11 @@
       <soap:operation soapAction=""></soap:operation>
       <xtee:version>v1</xtee:version>
       <input>
-        <soap:header message="viki:standardPais" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+        <soap:header message="viki:standardPais" use="encoded" namespace="http://x-road.eu/xsd/xroad.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
         <soap:body use="encoded" namespace="http://producers.rmviki.xtee.riik.ee/producer/rmviki" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
       </input>
       <output>
-        <soap:header message="viki:standardPais" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+        <soap:header message="viki:standardPais" use="encoded" namespace="http://x-road.eu/xsd/xroad.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
         <soap:body use="encoded" namespace="http://producers.rmviki.xtee.riik.ee/producer/rmviki" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
       </output>
     </operation>
@@ -465,11 +465,11 @@
       <soap:operation soapAction=""></soap:operation>
       <xtee:version>v1</xtee:version>
       <input>
-        <soap:header message="viki:standardPais" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+        <soap:header message="viki:standardPais" use="encoded" namespace="http://x-road.eu/xsd/xroad.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
         <soap:body use="encoded" namespace="http://producers.rmviki.xtee.riik.ee/producer/rmviki" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
       </input>
       <output>
-        <soap:header message="viki:standardPais" use="encoded" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+        <soap:header message="viki:standardPais" use="encoded" namespace="http://x-road.eu/xsd/xroad.xsd" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
         <soap:body use="encoded" namespace="http://producers.rmviki.xtee.riik.ee/producer/rmviki" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
       </output>
     </operation>

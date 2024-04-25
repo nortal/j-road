@@ -5,8 +5,8 @@ import com.nortal.jroad.client.mrr.database.MrrXRoadDatabase;
 import com.nortal.jroad.client.mrr.types.eu.x_road.emta_v6.SkaMitteresidentDocument;
 import com.nortal.jroad.client.mrr.types.eu.x_road.emta_v6.SkaMitteresidentResponseDocument;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.Resource;
 
 /**
  * @author Kauri Kägo <kauri.kago@nortal.com>

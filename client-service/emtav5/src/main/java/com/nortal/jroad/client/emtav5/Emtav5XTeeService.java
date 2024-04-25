@@ -3,7 +3,7 @@ package com.nortal.jroad.client.emtav5;
 import java.util.Date;
 import java.util.List;
 
-import javax.activation.DataHandler;
+import jakarta.activation.DataHandler;
 
 import com.nortal.jroad.client.emtav5.types.net.x_rd.ee.emtav5.producer.DownloadMimeResponseDocument.DownloadMimeResponse;
 import com.nortal.jroad.client.emtav5.types.net.x_rd.ee.emtav5.producer.SkaMitteresidentResponseType;

@@ -1,9 +1,9 @@
 package com.nortal.jroad.client.digilugu;
 
-import com.nortal.jroad.client.digilugu.types.hl7MQbbXorgV3.RCMRIN000032UV01Document;
-import com.nortal.jroad.client.digilugu.types.hl7ZuCwWorgV3.RCMRIN000029UV01Document;
+import com.nortal.jroad.client.digilugu.types.hl7ChAhMorgV3.RCMRIN000031UV01Document;
+import com.nortal.jroad.client.digilugu.types.hl7VxWEforgV3.RCMRIN000032UV01Document;
+import com.nortal.jroad.client.digilugu.types.hl7_orgV3.RCMRIN000029UV01Document;
 import com.nortal.jroad.client.digilugu.types.hl7_orgV3.RCMRIN000030UV01Document;
-import com.nortal.jroad.client.digilugu.types.hl7_orgV3.RCMRIN000031UV01Document;
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
 import com.nortal.jroad.client.service.callback.CustomCallback;
 import com.nortal.jroad.client.service.extractor.CustomExtractor;

@@ -6,7 +6,7 @@ import com.nortal.jroad.client.raks.types.eu.x_road.raks.producer.TaotlejaKaitse
 import com.nortal.jroad.client.raks.types.eu.x_road.raks.producer.TaotlejaKaitseSaajaV1Input;
 import com.nortal.jroad.client.raks.types.eu.x_road.raks.producer.TaotlejaKaitseSaajaV1ResponseDocument.TaotlejaKaitseSaajaV1Response;
 import java.util.Calendar;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 /**

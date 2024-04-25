@@ -6,8 +6,8 @@ import com.nortal.jroad.client.mkrliides.types.eu.x_road.emta_v6.*;
 
 import java.util.Calendar;
 import java.util.Date;
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.Resource;
 
 /**
  * @author Kauri Kägo <kauri.kago@nortal.com>

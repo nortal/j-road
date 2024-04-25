@@ -1,13 +1,13 @@
 package com.nortal.jroad.client.teavituskalender;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import org.junit.Test;
 
 import java.util.Calendar;
 import java.util.List;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import org.apache.xmlbeans.XmlString;
 import org.junit.Assert;

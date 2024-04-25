@@ -15,7 +15,7 @@ import com.nortal.jroad.client.kmais.types.ee.riik.xtee.kmais.producers.producer
 import com.nortal.jroad.client.kmais.types.ee.riik.xtee.kmais.producers.producer.kmais.ToolubaPvaVastus;
 import com.nortal.jroad.client.kmais.types.ee.riik.xtee.kmais.producers.producer.kmais.ValismaalasePassPvaVastus;
 import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -5,7 +5,7 @@ import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
 import org.junit.Assert;
 import org.junit.Test;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 public class KvkrXteeServiceImplTest extends BaseXTeeServiceImplTest {
 

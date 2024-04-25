@@ -14,7 +14,7 @@ import com.nortal.jroad.client.kr.types.ee.riik.xtee.kr.producers.producer.kr.Po
 import java.math.BigInteger;
 import java.util.Calendar;
 import java.util.List;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 /**

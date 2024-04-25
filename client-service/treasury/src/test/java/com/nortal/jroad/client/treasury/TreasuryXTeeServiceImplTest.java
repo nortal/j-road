@@ -3,7 +3,7 @@ package com.nortal.jroad.client.treasury;
 import java.io.InputStream;
 import java.util.UUID;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.junit.Assert;

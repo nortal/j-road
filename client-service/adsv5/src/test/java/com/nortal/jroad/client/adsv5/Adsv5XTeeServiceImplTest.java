@@ -1,6 +1,6 @@
 package com.nortal.jroad.client.adsv5;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import junit.framework.Assert;
 

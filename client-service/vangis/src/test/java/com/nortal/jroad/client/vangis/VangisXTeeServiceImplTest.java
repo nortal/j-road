@@ -2,7 +2,7 @@ package com.nortal.jroad.client.vangis;
 
 import java.util.Calendar;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 
 

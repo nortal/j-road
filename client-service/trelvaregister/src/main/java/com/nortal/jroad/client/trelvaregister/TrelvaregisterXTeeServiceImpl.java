@@ -2,7 +2,7 @@ package com.nortal.jroad.client.trelvaregister;
 
 import java.math.BigInteger;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 

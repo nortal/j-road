@@ -9,7 +9,7 @@
     <schema targetNamespace="http://digilugu.x-road.ee/producer/" xmlns="http://www.w3.org/2001/XMLSchema">
       <import namespace="http://x-road.eu/xsd/xroad.xsd" schemaLocation="http://x-road.eu/xsd/xroad.xsd"/>
       <import namespace="http://schemas.xmlsoap.org/soap/encoding/"
-              schemaLocation="http://schemas.xmlsoap.org/soap/encoding/"/>
+              schemaLocation="https://schemas.xmlsoap.org/soap/encoding/"/>
 
       <complexType name="invalidInput">
         <sequence>

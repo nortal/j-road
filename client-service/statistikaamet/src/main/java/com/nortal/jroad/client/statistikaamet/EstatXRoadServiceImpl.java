@@ -4,8 +4,8 @@ import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
 import com.nortal.jroad.client.service.v4.XRoadDatabaseService;
 import com.nortal.jroad.client.statistikaamet.database.StatV6XRoadDatabase;
 import com.nortal.jroad.client.statistikaamet.types.eu.x_road.stat_v6.*;
-import javax.activation.DataHandler;
-import javax.annotation.Resource;
+import jakarta.activation.DataHandler;
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 /**

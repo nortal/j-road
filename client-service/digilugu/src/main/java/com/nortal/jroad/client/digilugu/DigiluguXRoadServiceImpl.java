@@ -3,10 +3,10 @@ package com.nortal.jroad.client.digilugu;
 import com.nortal.jroad.client.digilugu.types.ee.x_road.digilugu.producer.Hl7Document;
 import com.nortal.jroad.client.digilugu.types.ee.x_road.digilugu.producer.Hl7Paring;
 import com.nortal.jroad.client.digilugu.types.ee.x_road.digilugu.producer.Hl7ResponseDocument.Hl7Response;
-import com.nortal.jroad.client.digilugu.types.hl7MQbbXorgV3.RCMRIN000032UV01Document;
-import com.nortal.jroad.client.digilugu.types.hl7ZuCwWorgV3.RCMRIN000029UV01Document;
+import com.nortal.jroad.client.digilugu.types.hl7ChAhMorgV3.RCMRIN000031UV01Document;
+import com.nortal.jroad.client.digilugu.types.hl7VxWEforgV3.RCMRIN000032UV01Document;
+import com.nortal.jroad.client.digilugu.types.hl7_orgV3.RCMRIN000029UV01Document;
 import com.nortal.jroad.client.digilugu.types.hl7_orgV3.RCMRIN000030UV01Document;
-import com.nortal.jroad.client.digilugu.types.hl7_orgV3.RCMRIN000031UV01Document;
 import com.nortal.jroad.client.exception.NonTechnicalFaultException;
 import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
 import com.nortal.jroad.client.service.callback.CustomCallback;
@@ -73,7 +73,7 @@ public class DigiluguXRoadServiceImpl extends XRoadDatabaseService implements Di
         Hl7Document.Hl7 hl7 = Hl7Document.Hl7.Factory.newInstance();
         Hl7Paring paring = hl7.addNewRequest();
         paring.setHl7InputMessage(XML + input);
-        XTeeMessage<Hl7Response> response = send(new XmlBeansXTeeMessage<Hl7Document.Hl7>(hl7), "hl7", "v1", callback,
+        XTeeMessage<Hl7Response> response = send(new XmlBeansXTeeMessage<>(hl7), "hl7", "v1", callback,
                 customExtractor);
         return response.getContent();
     }

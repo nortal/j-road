@@ -6,7 +6,7 @@ import com.nortal.jroad.client.rar.types.eu.x_road.rm_v6.KoodType;
 import com.nortal.jroad.client.rar.types.eu.x_road.rm_v6.RarVtaResponseType;
 import com.nortal.jroad.client.rar.types.eu.x_road.rm_v6.RarVtaType;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 

@@ -9,7 +9,7 @@ import com.nortal.jroad.client.kr.types.ee.riik.xtee.kr.producers.producer.kr.Po
 import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
 import java.util.Calendar;
 import java.util.List;
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import junit.framework.Assert;
 import org.junit.Test;
 

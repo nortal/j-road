@@ -2,7 +2,7 @@ package com.nortal.jroad.client.ads;
 
 import com.nortal.jroad.client.service.v2.XTeeDatabaseService;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 import com.nortal.jroad.client.ads.AdsXTeeService;
 import com.nortal.jroad.client.ads.database.AdsXTeeDatabase;

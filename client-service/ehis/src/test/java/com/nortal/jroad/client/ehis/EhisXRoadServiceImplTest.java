@@ -9,7 +9,7 @@ import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
 import org.junit.Assert;
 import org.junit.Test;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;

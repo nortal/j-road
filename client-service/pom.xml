@@ -13,6 +13,7 @@
   </parent>
 
   <dependencies>
+<!--    TODO: move logging into server-->
     <dependency>
       <groupId>com.nortal.jroad</groupId>
       <artifactId>xtee-client-transport</artifactId>
@@ -32,58 +33,64 @@
     </dependency>
   </dependencies>
   <modules>
-    <module>tor</module>
-    <module>rmviki</module>
-    <module>emtav5</module>
-    <module>aar</module>
-    <module>ads</module>
-    <module>adsv5</module>
+<!--    TODO: change versions on release-->
     <module>arireg</module>
+<!--      TODO: currently packages change on every compilation-->
+    <module>digilugu</module>
+    <module>ehis</module>
+<!--    TODO: not used-->
+    <module>etoimik</module>
+    <module>kir</module>
+    <module>kirst</module>
+    <module>kutseregister</module>
     <module>kvkr</module>
     <module>kvkr3</module>
-    <module>star</module>
-
-    <!--  <module>dhl</module>-->
-    <module>ehis</module>
-    <module>ehr</module>
-    <module>emta</module>
+    <module>liiklusregister</module>
     <module>mkrliides</module>
     <module>mkrliides-uploader</module>
     <module>mrr</module>
-    <module>tsd</module>
-    <module>kutseregister</module>
-    <module>epria</module>
-    <module>esis</module>
-    <module>karis</module>
-    <module>kirst</module>
-<!--     <module>kmais</module> -->
-    <module>koodikeskus</module>
-<!--     <module>kr</module> -->
-    <module>liiklusregister</module>
-    <module>ljvis</module>
-    <module>lkf</module>
-    <module>mteenus</module>
     <module>pkr</module>
-    <module>polis</module>
-    <module>rets</module>
-    <module>rmrk</module>
+<!--    TODO: -->
+<!--    <module>raks</module>-->
+    <module>rar</module>
     <module>rr</module>
     <module>rrv5</module>
     <module>skais2</module>
-    <module>tam</module>
-	<module>tarn</module>
-    <module>teavituskalender</module>
-    <module>test</module>
-    <module>trelvaregister</module>
-    <module>vangis</module>
-    <module>viisaregister</module>
-    <module>pria-toetusreg</module>
-    <module>treasury</module>
-    <module>rar</module>
-    <module>digilugu</module>
+    <module>star</module>
     <module>statistikaamet</module>
-    <module>kir</module>
-    <module>etoimik</module>
+    <module>tarn</module>
+    <module>test</module>
+    <module>tor</module>
+    <module>tsd</module>
+
+    <!-- Services currently not used by TK. May need revamp; therefore skipped -->
+    <!--    <module>rmviki</module>-->
+    <!--    <module>emtav5</module>-->
+    <!--    <module>aar</module>-->
+    <!--    <module>ads</module>-->
+    <!--    <module>adsv5</module>-->
+    <!--    <module>dhl</module>-->
+    <!--    <module>ehr</module>-->
+    <!--    <module>emta</module>-->
+    <!--    <module>epria</module>-->
+    <!--    <module>esis</module>-->
+    <!--    <module>karis</module>-->
+    <!--    <module>kmais</module> -->
+    <!--    <module>koodikeskus</module>-->
+    <!--    <module>kr</module> -->
+    <!--    <module>ljvis</module>-->
+    <!--    <module>lkf</module>-->
+    <!--    <module>mteenus</module>-->
+    <!--    <module>polis</module>-->
+    <!--    <module>rets</module>-->
+    <!--    <module>rmrk</module>-->
+    <!--    <module>tam</module>-->
+    <!--    <module>teavituskalender</module>-->
+    <!--    <module>trelvaregister</module>-->
+    <!--    <module>vangis</module>-->
+    <!--    <module>viisaregister</module>-->
+    <!--    <module>pria-toetusreg</module>-->
+    <!--    <module>treasury</module>-->
   </modules>
 
   <build>
@@ -107,8 +114,8 @@
                 <argument>sourcedir=${basedir}/src/main/java</argument>
                 <argument>xsbdir=${basedir}/target/classes</argument>
                 <argument>basepackage=com.nortal.jroad.client.${package}.types</argument>
-                <argument>dbclassespackage=com.nortal.jroad.client.${package}.database</argument>				
-              </arguments>			  
+                <argument>dbclassespackage=com.nortal.jroad.client.${package}.database</argument>
+              </arguments>
             </configuration>
           </execution>
         </executions>
@@ -138,9 +145,10 @@
         <version>2.0.2</version>
         <configuration>
           <encoding>UTF-8</encoding>
-          <source>1.6</source>
-          <target>1.6</target>
-          <fork>true</fork>
+<!--          TODO: Java 7 -> Java 17-->
+          <source>1.7</source>
+          <target>1.7</target>
+          <fork>false</fork>
           <maxmem>1024m</maxmem>
         </configuration>
       </plugin>

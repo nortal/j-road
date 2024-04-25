@@ -1,6 +1,6 @@
 package com.nortal.jroad.client.teavituskalender;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import org.apache.xmlbeans.XmlOptions;
 import org.springframework.stereotype.Service;
