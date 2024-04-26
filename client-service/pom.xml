@@ -32,8 +32,8 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+    <!--    TODO: change versions on release-->
   <modules>
-<!--    TODO: change versions on release-->
     <module>arireg</module>
 <!--      TODO: currently packages change on every compilation-->
     <module>digilugu</module>

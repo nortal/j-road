@@ -19,38 +19,36 @@ import java.io.IOException;
 import java.nio.charset.CharacterCodingException;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 
 import javax.xml.namespace.QName;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.xmlbeans.InterfaceExtension;
+import org.apache.xmlbeans.PrePostExtension;
+import org.apache.xmlbeans.SchemaCodePrinter;
+import org.apache.xmlbeans.SchemaProperty;
+import org.apache.xmlbeans.SchemaStringEnumEntry;
+import org.apache.xmlbeans.SchemaType;
+import org.apache.xmlbeans.SchemaTypeSystem;
+import org.apache.xmlbeans.SystemProperties;
+import org.apache.xmlbeans.XmlException;
+import org.apache.xmlbeans.XmlObject;
+import org.apache.xmlbeans.XmlOptions;
 import org.apache.xmlbeans.impl.common.NameUtil;
 import org.apache.xmlbeans.impl.schema.SchemaTypeImpl;
 import org.apache.xmlbeans.impl.schema.SchemaTypeSystemImpl;
 import org.apache.xmlbeans.impl.values.XmlObjectBase;
 import org.w3c.dom.Node;
-import org.apache.xmlbeans.PrePostExtension;
-import org.apache.xmlbeans.InterfaceExtension;
-import org.apache.xmlbeans.SchemaType;
-import org.apache.xmlbeans.SchemaTypeSystem;
-import org.apache.xmlbeans.SchemaProperty;
-import org.apache.xmlbeans.SchemaStringEnumEntry;
-import org.apache.xmlbeans.SystemProperties;
-import org.apache.xmlbeans.XmlException;
-import org.apache.xmlbeans.XmlObject;
-import org.apache.xmlbeans.XmlOptions;
-import org.apache.xmlbeans.SchemaCodePrinter;
 import org.w3c.dom.NodeList;
-import org.apache.commons.lang.StringUtils;
+
+import static java.util.Objects.requireNonNullElse;
 
 /**
  * Prints the java code for a single schema type<br>
  * Is exact copy from XmlBeans component org.apache.xmlbeans.impl.schema.SchemaTypeCodePrinter (version 2.4.0)<br>
  * This class adds to the element interface annotation XteeElement with element title and element sequence in schema
+ *
  * @see org.apache.xmlbeans.impl.schema.SchemaTypeCodePrinter
  * @see com.nortal.jroad.model.XteeElement
  * @author margush
@@ -60,9 +58,7 @@ public final class XteeSchemaCodePrinter implements SchemaCodePrinter {
 	int _indent;
 	boolean _useJava15;
 
-	static final String LINE_SEPARATOR = SystemProperties
-			.getProperty("line.separator") == null ? "\n" : SystemProperties
-			.getProperty("line.separator");
+	static final String LINE_SEPARATOR = requireNonNullElse(SystemProperties.getProperty("line.separator"), "\n");
 
 	static final String MAX_SPACES = "                                        ";
 	static final int INDENT_INCREMENT = 4;
@@ -208,15 +204,16 @@ public final class XteeSchemaCodePrinter implements SchemaCodePrinter {
 		emit("");
 
 		printInnerType(sType, sType.getTypeSystem());
+		_writer.append("//comment out artifacts from xmlbeans"); //TODO: verify
 		_writer.flush();
 	}
-	
+
 	public void printTypeImpl(Writer writer, SchemaType sType)
 			throws IOException {
 		_writer = writer;
 		printTopComment(sType);
 		printPackage(sType, false);
-		
+
 		printInnerTypeImpl(sType, sType.getTypeSystem(), false);
 	}
 
@@ -348,7 +345,7 @@ public final class XteeSchemaCodePrinter implements SchemaCodePrinter {
 				// change begin - find annotation text
 				String xteeTitle = findXteeTitle(prop);
 				// change end - find annotation text
-				
+
 				printPropertyGetters(prop.getName(), prop.isAttribute(),
 						prop.getJavaPropertyName(), prop.getJavaTypeCode(),
 						javaTypeForProperty(prop), xmlTypeForProperty(prop),
@@ -610,8 +607,7 @@ public final class XteeSchemaCodePrinter implements SchemaCodePrinter {
 				thename = sType.getDocumentElementName();
 				emit(" * An XML document type.");
 			} else if (sType.isAttributeType()) {
-				thename = sType.getAttributeTypeAttributeName();
-				emit(" * An XML attribute type.");
+				thename = sType.getAttributeTypeAttributeName();emit(" * An XML attribute type.");
 			} else
 				assert false;
 
@@ -647,7 +643,7 @@ public final class XteeSchemaCodePrinter implements SchemaCodePrinter {
 
 		/*
 		 * StringBuffer specializedInterfaces = new StringBuffer();
-		 * 
+		 *
 		 * if (sType.getSimpleVariety() == SchemaType.ATOMIC &&
 		 * sType.getPrimitiveType().getBuiltinTypeCode() ==
 		 * SchemaType.BTC_DECIMAL) { int bits = sType.getDecimalSize(); if (bits
@@ -659,7 +655,7 @@ public final class XteeSchemaCodePrinter implements SchemaCodePrinter {
 		 * specializedInterfaces.append(", org.apache.xmlbeans.IntValue"); } if
 		 * (sType.getSimpleVariety() == SchemaType.LIST)
 		 * specializedInterfaces.append(", org.apache.xmlbeans.ListValue");
-		 * 
+		 *
 		 * if (sType.getSimpleVariety() == SchemaType.UNION) { SchemaType ctype
 		 * = sType.getUnionCommonBaseType(); String javaTypeHolder =
 		 * javaTypeHolderForType(ctype); if (javaTypeHolder != null)
@@ -1053,7 +1049,7 @@ public final class XteeSchemaCodePrinter implements SchemaCodePrinter {
 
 		if (singleton) {
 			printJavaDoc((several ? "Gets first " : "Gets the ") + propdesc);
-			
+
 			// change begin - add annotation
 			printXteeElement(xteeTitle, xteeSequence);
 			// change end - add annotation
@@ -2566,7 +2562,7 @@ public final class XteeSchemaCodePrinter implements SchemaCodePrinter {
 
 				QName name = prop.getName();
 				String xmlType = xmlTypeForProperty(prop);
-				
+
 				printGetterImpls(shortName, prop, name, prop.isAttribute(),
 						prop.getJavaPropertyName(), prop.getJavaTypeCode(),
 						javaTypeForProperty(prop), xmlType,
@@ -2714,7 +2710,7 @@ public final class XteeSchemaCodePrinter implements SchemaCodePrinter {
 	 * ADDED
 	 * Helper methods to find annotations
 	 */
-	
+
 	/**
 	 * XmlBeans don't support DOM level 3. We can not use Node.getTextContent()<br>
 	 * This method parse Node to XmlObject and then we assume that the object is XmlObjectBase
@@ -2725,8 +2721,8 @@ public final class XteeSchemaCodePrinter implements SchemaCodePrinter {
 	private String getXmlObjectValue(Node node) throws XmlException {
 		return node == null ? null :((XmlObjectBase) XmlObject.Factory.parse(node)).getStringValue();
 	}
-	
-	private String clearString(String value){		
+
+	private String clearString(String value){
 		return value == null ? value : StringUtils.trim(value.replaceAll("\\r\\n|\\r|\\n", " ").replaceAll("\\s+", " ").replaceAll("\"", "'"));
 	}
 
@@ -2739,7 +2735,7 @@ public final class XteeSchemaCodePrinter implements SchemaCodePrinter {
 	}
 
 	private Node findFirstNode(final NodeList nodeList, final String elementName, final String name, boolean processChildElements){
-		
+
 		for(int i = 0; i<nodeList.getLength();i++){
 			Node nNode = nodeList.item(i).cloneNode(true);
 			String localName = nNode.getLocalName();
@@ -2765,23 +2761,23 @@ public final class XteeSchemaCodePrinter implements SchemaCodePrinter {
 				}
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 	void printXteeElement(String xteeTitle, Long xteeSequence) throws IOException{
 		if (StringUtils.isNotEmpty(xteeTitle)) {
 			emit("@com.nortal.jroad.model.XteeElement(title=\"" + xteeTitle + "\", sequence="+ xteeSequence + ")");
 		}
 	}
-	
+
 	private String findXteeTitle(SchemaProperty prop) throws IOException{
-		String xteeTitle = null; 
+		String xteeTitle = null;
 		try {
 			String localPart = prop.getName().getLocalPart();
 			Node propNode = ((SchemaTypeImpl) prop.getContainerType()).getParseObject().getDomNode();
 			Node node = propNode;
-			
+
 			if(StringUtils.equals(localPart, "item") || StringUtils.equals(localPart, "all")){
 				while(true){
 					if(StringUtils.equals(node.getLocalName(), "element")){
@@ -2806,7 +2802,7 @@ public final class XteeSchemaCodePrinter implements SchemaCodePrinter {
 		} catch (Exception e) {
 			throw new IOException(e);
 		}
-		
+
 		return xteeTitle;
 	}
 }

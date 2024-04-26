@@ -6,6 +6,7 @@
   <artifactId>xtee-root</artifactId>
   <packaging>pom</packaging>
   <name>x-tee root</name>
+<!--TODO: Kauri what version and versioning	-->
   <version>4.1-SNAPSHOT</version>
 
 <!--  <parent>-->
