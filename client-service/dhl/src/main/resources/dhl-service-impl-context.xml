@@ -8,11 +8,11 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 
 	<bean id="webServiceTemplate" class="org.springframework.ws.client.core.WebServiceTemplate" />
 
-	<bean id="xTeeConsumer" class="com.nortal.jroad.client.service.consumer.v2.StandardXTeeConsumer">
+	<bean id="xRoadConsumer" class="com.nortal.jroad.client.service.consumer.StandardXTeeConsumer">
 		<property name="webServiceTemplate" ref="webServiceTemplate" />
 	</bean>
 
-    <bean id="xTeeServiceConfigurationProvider" class="com.nortal.jroad.client.service.configuration.provider.v2.SimpleXTeeServiceConfigurationProvider">
+    <bean id="xTeeServiceConfigurationProvider" class="com.nortal.jroad.client.service.configuration.provider.SimpleXTeeServiceConfigurationProvider">
 		<property name="securityServer" value="${x-tee.security-server}" />
 		<property name="institution" value="${x-tee.institution}" />
 		<property name="idCode" value="${x-tee.id-code}" />
@@ -21,7 +21,7 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 	<bean id="dhlXTeeService" class="com.nortal.jroad.client.dhl.DhlXTeeServiceImpl" init-method="init">
 		<property name="database" value="dhl"/><!-- can be unset - then read from the classname prefix -->
 		<property name="xTeeServiceConfigurationProvider" ref="xTeeServiceConfigurationProvider" />
-		<property name="xTeeConsumer" ref="xTeeConsumer" />
+		<property name="xRoadConsumer" ref="xRoadConsumer" />
         <!-- Optional properties - START -->
         <property name="sentDocumentsFolder" value="${x-tee.sentDocumentsFolder}" />
         <property name="receivedDocumentsFolder" value="${x-tee.receivedDocumentsFolder}" />
@@ -30,7 +30,7 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 
 <!-- /XTee conf -->
 
-	<bean id="xTeeServicePropertiesResolver" class="com.nortal.jroad.client.service.configuration.provider.v2.PropertiesBasedXTeeServiceConfigurationProvider" init-method="init">
+	<bean id="xTeeServicePropertiesResolver" class="com.nortal.jroad.client.service.configuration.provider.PropertiesBasedXTeeServiceConfigurationProvider" init-method="init">
 		<property name="resource" value="classpath:xtee-service.properties"/>
 	</bean>
 

@@ -40,6 +40,11 @@ public class AttachmentPostProcessor {
         void set#{#propertyName}Handler(jakarta.activation.DataHandler handler);
         """
   );
+  private static final String OPTIONAL_PUBLIC_MODIFIER = "(?:public)?";
+  private static final String SPACE = " +";
+  private static final String SWAREF_TYPE = quote("org.ws_i.profiles.basic.x11.xsd.SwaRef");
+  private static final String X_GET_PATTERN = "xget(.+?)";
+  private static final String PARAMETER_LIST = quote("()");
 
   private final String pck;
   private final Pattern attachmentTemplate;
@@ -47,12 +52,6 @@ public class AttachmentPostProcessor {
   public static void process(String basePackageName, Path basePackage) throws IOException {
     new AttachmentPostProcessor(basePackageName).process(basePackage);
   }
-
-  private static final String OPTIONAL_PUBLIC_MODIFIER = "(?:public)?";
-  private static final String SPACE = " +";
-  private static final String SWAREF_TYPE = quote("org.ws_i.profiles.basic.x11.xsd.SwaRef");
-  private static final String X_GET_PATTERN = "xget(.+?)";
-  private static final String PARAMETER_LIST = quote("()");
 
   private AttachmentPostProcessor(String basepackage) {
     this.pck = basepackage == null ? "" : basepackage + ".";
@@ -99,7 +98,7 @@ public class AttachmentPostProcessor {
       }
     }
     sb.append(source.substring(lastPos));
-    System.out.println("Instrumented " + path.getFileName() + " with attachment support.");
+    System.out.printf("Instrumented %s with attachment support.%n", path.getFileName());
     Files.writeString(path.toAbsolutePath(), sb.toString());
   }
 
@@ -107,9 +106,7 @@ public class AttachmentPostProcessor {
     if (Character.isLowerCase(str.charAt(0))) {
       return str;
     }
-    char[] chars = str.toCharArray();
-    chars[0] = Character.toLowerCase(chars[0]);
-    return new String(chars);
+    return str.substring(0, 1).toLowerCase() + str.substring(1);
   }
 
   private static Expression precompileTemplate(String template) {

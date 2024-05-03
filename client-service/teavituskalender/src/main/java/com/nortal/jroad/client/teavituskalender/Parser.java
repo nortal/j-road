@@ -3,7 +3,7 @@ package com.nortal.jroad.client.teavituskalender;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author Aleksandr.Koltakov

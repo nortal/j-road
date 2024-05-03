@@ -1,6 +1,6 @@
 package com.nortal.jroad.client.adsv5;
 
-import com.nortal.jroad.client.service.v3.XRoadDatabaseService;
+import com.nortal.jroad.client.service.XRoadDatabaseService;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -18,23 +18,23 @@ import com.nortal.jroad.client.adsv5.types.ee.x_road.adsv5.producer.ADSnormalReq
 import com.nortal.jroad.client.adsv5.types.ee.x_road.adsv5.producer.ADSnormalRequestType.NormalParam;
 import com.nortal.jroad.client.adsv5.types.ee.x_road.adsv5.producer.ADSnormalResponseDocument;
 import com.nortal.jroad.client.adsv5.types.ee.x_road.adsv5.producer.ADSnormalVastusType;
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.service.callback.CustomCallback;
-import com.nortal.jroad.model.XTeeMessage;
-import com.nortal.jroad.model.XmlBeansXTeeMessage;
+import com.nortal.jroad.model.XRoadMessage;
+import com.nortal.jroad.model.XmlBeansXRoadMessage;
 
 @Service("adsv5XTeeService")
 public class Adsv5XTeeServiceImpl extends XRoadDatabaseService implements Adsv5XTeeService {
 	  
-  public ADSnormalVastusType adsNormal(NormalParamCallback callback) throws XTeeServiceConsumptionException {
+  public ADSnormalVastusType adsNormal(NormalParamCallback callback) throws XRoadServiceConsumptionException {
   	ADSnormalDocument.ADSnormal dok = ADSnormalDocument.ADSnormal.Factory.newInstance();
   	ADSnormalRequestType request = dok.addNewRequest();
   	NormalParam normalParam = request.addNewNormalParam();
   	
   	callback.populate(normalParam);
   	  	
-    XTeeMessage<ADSnormalResponseDocument.ADSnormalResponse> vastus =
-        send(new XmlBeansXTeeMessage<ADSnormalDocument.ADSnormal>(dok), "ADSnormal", "v2", new NamespaceReplaceCallback(), null);
+    XRoadMessage<ADSnormalResponseDocument.ADSnormalResponse> vastus =
+        send(new XmlBeansXRoadMessage<ADSnormalDocument.ADSnormal>(dok), "ADSnormal", "v2", new NamespaceReplaceCallback(), null);
     
     ADSnormalVastusType v = vastus.getContent().getResponse().getADSnormalResult();
     return v;

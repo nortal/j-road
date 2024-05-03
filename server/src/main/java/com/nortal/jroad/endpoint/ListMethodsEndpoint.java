@@ -17,7 +17,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.nortal.jroad.mapping.XTeeEndpointMapping;
-import com.nortal.jroad.model.XTeeMessage;
+import com.nortal.jroad.model.XRoadMessage;
 import com.nortal.jroad.util.SOAPUtil;
 
 /**
@@ -38,7 +38,7 @@ public class ListMethodsEndpoint extends AbstractXTeeBaseEndpoint {
   }
 
   @Override
-  protected void invokeInternal(XTeeMessage<Document> request, XTeeMessage<Element> response) throws Exception {
+  protected void invokeInternal(XRoadMessage<Document> request, XRoadMessage<Element> response) throws Exception {
     SOAPUtil.addTypeAttribute(response.getContent(), "SOAP-ENC:Array");
     SOAPUtil.addArrayTypeAttribute(response.getContent(), "string", xRoadEndpointMapping.getMethods().size());
     SOAPUtil.addArrayOffsetAttribute(response.getContent(), 0);

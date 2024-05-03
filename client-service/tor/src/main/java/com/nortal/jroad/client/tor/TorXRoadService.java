@@ -2,7 +2,7 @@ package com.nortal.jroad.client.tor;
 
 import java.util.Date;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.tor.types.eu.x_road.emta_v6.TORIKDocument;
 import com.nortal.jroad.client.tor.types.eu.x_road.emta_v6.TORIKResponseDocument;
 
@@ -21,8 +21,7 @@ public interface TorXRoadService {
                                                 Date tootLoppKp,
                                                 Date muutAlgKp,
                                                 Date muutLoppKp,
-                                                String isikukood)
-      throws XTeeServiceConsumptionException;
+                                                String isikukood) throws XRoadServiceConsumptionException;
 
   TORIKDocument.TORIK getTorikRequest(String paringuLiik,
                                       Date tootAlgusKp,

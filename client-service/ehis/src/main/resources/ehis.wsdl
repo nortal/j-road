@@ -4070,7 +4070,7 @@
 					<element minOccurs="0" name="oppeasutuseKirjeId" nillable="false" type="string"/>
 				</sequence>
 			</complexType>
-			
+
 			<complexType name="khlStipendiumKustutamine">
         		<sequence>
             		<element maxOccurs="unbounded" minOccurs="1" name="oppeasutuseKirjeId" nillable="false" type="string"/>
@@ -4413,7 +4413,7 @@
             		<element minOccurs="0" name="kommentaar" nillable="false" type="string"/>
         		</sequence>
     		</complexType>
-    
+
     		<complexType name="pedagoogTasemekoolitusId">
         		<sequence>
             		<element minOccurs="1" name="tasemeOppeas" nillable="false" type="string"/>
@@ -12062,12 +12062,12 @@
 
     <!--============================================== PORT TYPE ==============================================-->
     <portType name="ehisPortType">
-<!--	
+<!--
         <operation name="listMethods">
             <input name="listMethods" message="tns:listMethods" />
             <output name="listMethodsResponse" message="tns:listMethodsResponse" />
         </operation>
--->		
+-->
         <operation name="adsTeenus">
             <documentation>
                 <xroad:title>ADS teenus</xroad:title>
@@ -12617,7 +12617,7 @@
     <!--============================================== BINDING ==============================================-->
     <binding name="ehisBinding" type="tns:ehisPortType">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-<!--		
+<!--
         <operation name="listMethods">
             <soap:operation soapAction="" />
             <xroad:version>v1</xroad:version>
@@ -12644,7 +12644,7 @@
                 <soap:body use="literal" />
             </output>
         </operation>
--->		
+-->
         <operation name="adsTeenus">
             <soap:operation soapAction=""/>
             <xroad:version>v1</xroad:version>

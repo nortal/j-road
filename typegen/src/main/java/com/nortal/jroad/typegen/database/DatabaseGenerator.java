@@ -23,15 +23,15 @@ public class DatabaseGenerator {
 
 
   public static void generate(DatabaseClasses classes, String outputdir) throws IOException, TemplateException {
-    Configuration cfg = new Configuration();
+    Configuration cfg = new Configuration(Configuration.VERSION_2_3_19);
     cfg.setClassForTemplateLoading(TypeGen.class, "/");
-    cfg.setObjectWrapper(new DefaultObjectWrapper());
+    cfg.setObjectWrapper(new DefaultObjectWrapper(Configuration.VERSION_2_3_19));
 
     Template interfaceTemp = cfg.getTemplate(DATABASE_TEMPLATE_FILE);
     Template implTemp = cfg.getTemplate(DATABASE_IMPL_TEMPLATE_FILE);
 
     for (DatabaseClass databaseClass : classes.getClasses().values()) {
-      Map<String, DatabaseClass> root = new HashMap<String, DatabaseClass>();
+      Map<String, DatabaseClass> root = new HashMap<>();
       root.put("databaseClass", databaseClass);
 
       Writer out = FileUtil.createAndGetOutputStream(databaseClass.getQualifiedInterfaceName(), outputdir);

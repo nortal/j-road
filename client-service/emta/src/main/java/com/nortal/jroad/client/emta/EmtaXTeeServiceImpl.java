@@ -11,7 +11,7 @@ import jakarta.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.nortal.jroad.client.emta.database.EmtaXTeeDatabase;
+import com.nortal.jroad.client.emta.database.EmtaXRoadDatabase;
 import com.nortal.jroad.client.emta.types.ee.riik.xtee.emta.producers.producer.emta.EmtaFieAndmedParing;
 import com.nortal.jroad.client.emta.types.ee.riik.xtee.emta.producers.producer.emta.EmtaFieTooandjadJaSotsmParing;
 import com.nortal.jroad.client.emta.types.ee.riik.xtee.emta.producers.producer.emta.EmtaFieTooandjadJaSotsmVastus;
@@ -22,7 +22,7 @@ import com.nortal.jroad.client.emta.types.ee.riik.xtee.emta.producers.producer.e
 import com.nortal.jroad.client.emta.types.ee.riik.xtee.emta.producers.producer.emta.SissetulekResponse;
 import com.nortal.jroad.client.emta.types.ee.riik.xtee.emta.producers.producer.emta.VptSisend;
 import com.nortal.jroad.client.emta.types.ee.riik.xtee.emta.producers.producer.emta.VptValjund;
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 
 /**
  * @author Roman Tekhov
@@ -31,11 +31,11 @@ import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
 public class EmtaXTeeServiceImpl implements EmtaXTeeService {
 
   @Resource
-  private EmtaXTeeDatabase emtaXTeeDatabase;
+  private EmtaXRoadDatabase emtaXRoadDatabase;
 
 
   public List<Periood> findXteeKindlustusV2(String isikukood, Date algkuup, Date loppkuup)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
 
     EmtaKindlustusParing paring = EmtaKindlustusParing.Factory.newInstance();
 
@@ -45,33 +45,33 @@ public class EmtaXTeeServiceImpl implements EmtaXTeeService {
     paring.setAlgkuup(monthYearDateFormatter.format(algkuup));
     paring.setLoppkuup(monthYearDateFormatter.format(loppkuup));
 
-    return emtaXTeeDatabase.xteeKindlustusV2(paring).getPerioodJada().getPerioodJadaList();
+    return emtaXRoadDatabase.xteeKindlustusV2(paring).getPerioodJada().getPerioodJadaList();
   }
 
-  public List<FieIsikAndmed> findXteeFieAndmed(String isikukood) throws XTeeServiceConsumptionException {
+  public List<FieIsikAndmed> findXteeFieAndmed(String isikukood) throws XRoadServiceConsumptionException {
 
     EmtaFieAndmedParing request = EmtaFieAndmedParing.Factory.newInstance();
 
     request.setIsikukood(isikukood);
 
-    return emtaXTeeDatabase.xteeFieAndmedV1(request).getFieJada().getItemList();
+    return emtaXRoadDatabase.xteeFieAndmedV1(request).getFieJada().getItemList();
   }
 
-  public SissetulekResponse findSissetulek(String isikukood, BigInteger aasta) throws XTeeServiceConsumptionException {
+  public SissetulekResponse findSissetulek(String isikukood, BigInteger aasta) throws XRoadServiceConsumptionException {
     SissetulekRequest request = SissetulekRequest.Factory.newInstance();
     request.setAasta(aasta);
     request.setIsikukood(isikukood);
-    return emtaXTeeDatabase.paSissetulekV1(request);
+    return emtaXRoadDatabase.paSissetulekV1(request);
   }
 
-  public VptValjund findXteeVpt(String kood, Calendar millal) throws XTeeServiceConsumptionException {
+  public VptValjund findXteeVpt(String kood, Calendar millal) throws XRoadServiceConsumptionException {
 	 VptSisend request = VptSisend.Factory.newInstance();
 	 request.setKood(kood);
 	 request.setMillal(millal);
-	 return emtaXTeeDatabase.vptV1(request);
+	 return emtaXRoadDatabase.vptV1(request);
   }
 
-  public EmtaFieTooandjadJaSotsmVastus findXteeFieTooandjadJaSotsm(String isikukood, Date algkuup, Date loppkuup) throws XTeeServiceConsumptionException {
+  public EmtaFieTooandjadJaSotsmVastus findXteeFieTooandjadJaSotsm(String isikukood, Date algkuup, Date loppkuup) throws XRoadServiceConsumptionException {
 
     EmtaFieTooandjadJaSotsmParing request = EmtaFieTooandjadJaSotsmParing.Factory.newInstance();
 
@@ -81,10 +81,10 @@ public class EmtaXTeeServiceImpl implements EmtaXTeeService {
     request.setAlgkuup(monthYearDateFormatter.format(algkuup));
     request.setLoppkuup(monthYearDateFormatter.format(loppkuup));
 
-    return emtaXTeeDatabase.xteeFieTooandjadJaSotsmV1(request);
+    return emtaXRoadDatabase.xteeFieTooandjadJaSotsmV1(request);
   }
 
-  public void setEmtaXTeeDatabase(EmtaXTeeDatabase emtaXTeeDatabase) {
-    this.emtaXTeeDatabase = emtaXTeeDatabase;
+  public void setEmtaXRoadDatabase(EmtaXRoadDatabase emtaXRoadDatabase) {
+    this.emtaXRoadDatabase = emtaXRoadDatabase;
   }
 }

@@ -12,7 +12,8 @@ package com.nortal.jroad.client.util;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 
-import org.apache.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.springframework.ws.WebServiceMessage;
 import org.springframework.ws.client.WebServiceClientException;
 import org.springframework.ws.client.support.interceptor.ClientInterceptor;
@@ -26,7 +27,7 @@ import org.springframework.ws.soap.saaj.SaajSoapMessage;
  * @author Roman Tekhov
  */
 public class WSConsumptionLoggingInterceptor implements ClientInterceptor {
-  private final static Logger log = Logger.getLogger(WSConsumptionLoggingInterceptor.class);
+  private final static Logger log = LoggerFactory.getLogger(WSConsumptionLoggingInterceptor.class);
 
   private enum MessageType {
     REQUEST, RESPONSE, FAULT
@@ -55,7 +56,7 @@ public class WSConsumptionLoggingInterceptor implements ClientInterceptor {
         OutputStream out = new ByteArrayOutputStream();
         try {
           message.writeTo(out);
-          log.debug(messageType + " message follows:\n" + out.toString());
+          log.debug("{} message follows:\n {}", messageType, out);
         } catch (Exception e) {
           throw new RuntimeException(e);
         }

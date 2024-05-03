@@ -25,13 +25,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import junit.framework.Assert;
+import org.junit.jupiter.api.Assertions;
 import junit.framework.TestCase;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.ByteArrayOutputStream;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.xmlbeans.impl.util.Base64;
@@ -176,14 +176,14 @@ public class DhlXTeeServiceImplTest extends TestCase {
             log.debug("\titem=" + item);
             String dhlId = item.getDhlId();
             String olek = item.getOlek();
-            Assert.assertNotNull(dhlId);
-            Assert.assertNotNull(olek);
+            Assertions.assertNotNull(dhlId);
+            Assertions.assertNotNull(olek);
             log.debug("\tdhlId=" + dhlId);
             log.debug("\tolek=" + olek);
             assertTrue(SendStatus.get(olek).equals(SENT));
             List<Edastus> edastusList = item.getEdastusList();
             log.debug("\tedastusList " + edastusList.size());
-            Assert.assertTrue(edastusList.size() > 0);
+            Assertions.assertTrue(edastusList.size() > 0);
             for (Edastus edastus : edastusList) {
                 log.debug("\t\tedastus=" + edastus);
 
@@ -200,7 +200,7 @@ public class DhlXTeeServiceImplTest extends TestCase {
                 assertTrue(SendStatus.get(staatus).equals(SENT));
 
                 log.debug("\t\tvStaatus=" + vStaatus);
-                Assert.assertNotNull(vStaatus);
+                Assertions.assertNotNull(vStaatus);
                 final AadressType saaja = edastus.getSaaja();
 
                 final String regnr = saaja.getRegnr();
@@ -212,7 +212,8 @@ public class DhlXTeeServiceImplTest extends TestCase {
     }
 
     /**
-     * Test method for {@link DhlXTeeService#receiveDocuments(int)
+     * Test method for {@link DhlXTeeService#receiveDocuments(int)
+
      */
     public void testReceiveDocuments() {
         receivedDocumentsFailed = true;
@@ -350,23 +351,24 @@ public class DhlXTeeServiceImplTest extends TestCase {
     }
 
     /**
-     * Test method for {@link com.nortal.jroad.dvk.service.impl.DvkServiceImpl#getSendStatuses(String)
+     * Test method for {@link com.nortal.jroad.dvk.service.impl.DvkServiceImpl#getSendStatuses(String)
+
      */
     public void testGetSendStatus2() {
         final List<Item> items = dhl.getSendStatuses(sentDocIds);
         assertTrue("expected to receive at least one DVK dokument, but got " + items.size(), items.size() > 0 || sentDocIds.size() == 0);
         final List<String[]> unreceivedDhlIds = new ArrayList<String[]>();
-        Assert.assertTrue("Sent " + sentDocIds.size() + ", but got " + items.size() + " sendstatuses", items.size() > 0 || sentDocIds.size() == 0);
+        Assertions.assertTrue("Sent " + sentDocIds.size() + ", but got " + items.size() + " sendstatuses", items.size() > 0 || sentDocIds.size() == 0);
         for (Item item : items) {
             log.debug("--item=" + item);
             String dhlId = item.getDhlId();
             String olek = item.getOlek();
-            Assert.assertNotNull(dhlId);
-            Assert.assertNotNull(olek);
+            Assertions.assertNotNull(dhlId);
+            Assertions.assertNotNull(olek);
             log.debug("--dhlId=" + dhlId);
             log.debug("--olek=" + olek);
             List<Edastus> edastusList = item.getEdastusList();
-            Assert.assertTrue(edastusList != null && edastusList.size() > 0);
+            Assertions.assertTrue(edastusList != null && edastusList.size() > 0);
             boolean oneNotReceived = false;
             for (Edastus edastus : edastusList) {
                 // edastus = (Edastus)XmlObject.Factory.parse(edastus.toString(), new XmlOptions().setDocumentType(EdastusDocument.Edastus.type));
@@ -383,7 +385,7 @@ public class DhlXTeeServiceImplTest extends TestCase {
                 log.debug("\tloetud=" + loetud);
                 log.debug("\tstaatus=" + staatus);
                 log.debug("\tvStaatus=" + vStaatus);
-                Assert.assertNotNull(vStaatus);
+                Assertions.assertNotNull(vStaatus);
                 final AadressType saaja = edastus.getSaaja();
 
                 final String regnr = saaja.getRegnr();

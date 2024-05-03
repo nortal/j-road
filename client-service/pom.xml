@@ -1,44 +1,40 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <artifactId>xtee-client-service</artifactId>
   <name>X-Tee Client parent</name>
   <packaging>pom</packaging>
+  <version>4.3.0</version>
 
   <parent>
     <groupId>com.nortal.jroad</groupId>
     <artifactId>xtee-root</artifactId>
-    <version>4.1-SNAPSHOT</version>
+    <version>4.3.0</version>
   </parent>
 
   <dependencies>
-<!--    TODO: move logging into server-->
     <dependency>
       <groupId>com.nortal.jroad</groupId>
       <artifactId>xtee-client-transport</artifactId>
-      <version>4.1.7-SNAPSHOT</version>
+      <version>4.3.0</version>
     </dependency>
     <dependency>
       <groupId>com.nortal.jroad</groupId>
       <artifactId>xtee-typegen</artifactId>
-      <version>4.1-SNAPSHOT</version>
+      <version>4.3.0</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>com.nortal.jroad</groupId>
       <artifactId>xtee-client-test</artifactId>
-      <version>4.1-SNAPSHOT</version>
+      <version>4.3.0</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
-    <!--    TODO: change versions on release-->
   <modules>
     <module>arireg</module>
-<!--      TODO: currently packages change on every compilation-->
     <module>digilugu</module>
     <module>ehis</module>
-<!--    TODO: not used-->
     <module>etoimik</module>
     <module>kir</module>
     <module>kirst</module>
@@ -50,8 +46,7 @@
     <module>mkrliides-uploader</module>
     <module>mrr</module>
     <module>pkr</module>
-<!--    TODO: -->
-<!--    <module>raks</module>-->
+    <module>raks</module>
     <module>rar</module>
     <module>rr</module>
     <module>rrv5</module>
@@ -59,7 +54,6 @@
     <module>star</module>
     <module>statistikaamet</module>
     <module>tarn</module>
-    <module>test</module>
     <module>tor</module>
     <module>tsd</module>
 
@@ -68,16 +62,12 @@
     <!--    <module>emtav5</module>-->
     <!--    <module>aar</module>-->
     <!--    <module>ads</module>-->
-    <!--    <module>adsv5</module>-->
-    <!--    <module>dhl</module>-->
     <!--    <module>ehr</module>-->
     <!--    <module>emta</module>-->
     <!--    <module>epria</module>-->
     <!--    <module>esis</module>-->
     <!--    <module>karis</module>-->
-    <!--    <module>kmais</module> -->
     <!--    <module>koodikeskus</module>-->
-    <!--    <module>kr</module> -->
     <!--    <module>ljvis</module>-->
     <!--    <module>lkf</module>-->
     <!--    <module>mteenus</module>-->
@@ -91,6 +81,14 @@
     <!--    <module>viisaregister</module>-->
     <!--    <module>pria-toetusreg</module>-->
     <!--    <module>treasury</module>-->
+
+    <!-- These modules are broken  -->
+    <!--     <module>adsv5</module> -->
+    <!--     <module>dhl</module> -->
+    <!--     <module>kmais</module> -->
+    <!--     <module>kr</module> -->
+
+    <module>test</module>
   </modules>
 
   <build>
@@ -101,7 +99,7 @@
         <artifactId>exec-maven-plugin</artifactId>
         <version>1.1.1</version>
         <executions>
-        <execution>
+          <execution>
             <phase>generate-sources</phase>
             <goals>
               <goal>java</goal>
@@ -139,15 +137,14 @@
       </plugin>
 
       <plugin>
-    	<inherited>true</inherited>
+        <inherited>true</inherited>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>2.0.2</version>
         <configuration>
           <encoding>UTF-8</encoding>
-<!--          TODO: Java 7 -> Java 17-->
-          <source>1.7</source>
-          <target>1.7</target>
+          <source>17</source>
+          <target>17</target>
           <fork>false</fork>
           <maxmem>1024m</maxmem>
         </configuration>

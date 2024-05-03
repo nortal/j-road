@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>xtee-client-lkfv6</artifactId>
+  <name>Lkf V6 client services</name>
+
+  <parent>
+    <groupId>com.nortal.jroad</groupId>
+    <artifactId>xtee-client-service</artifactId>
+    <version>4.2.11</version>
+  </parent>
+
+  <properties>
+    <package>lkfv6</package>
+  </properties>
+</project>

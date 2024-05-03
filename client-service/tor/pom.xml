@@ -3,15 +3,16 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>xtee-client-tor</artifactId>
   <name>TOR client services</name>
-  <version>4.1.10-SNAPSHOT</version>
+  <version>4.3.0</version>
 
   <parent>
     <groupId>com.nortal.jroad</groupId>
     <artifactId>xtee-client-service</artifactId>
- 	<version>4.1-SNAPSHOT</version>
+ 	<version>4.3.0</version>
   </parent>
 
   <properties>
     <package>tor</package>
   </properties>
+
 </project>

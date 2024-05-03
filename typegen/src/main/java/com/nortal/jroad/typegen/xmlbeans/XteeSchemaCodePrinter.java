@@ -23,7 +23,7 @@ import java.util.*;
 
 import javax.xml.namespace.QName;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.xmlbeans.InterfaceExtension;
 import org.apache.xmlbeans.PrePostExtension;
 import org.apache.xmlbeans.SchemaCodePrinter;
@@ -50,7 +50,7 @@ import static java.util.Objects.requireNonNullElse;
  * This class adds to the element interface annotation XteeElement with element title and element sequence in schema
  *
  * @see org.apache.xmlbeans.impl.schema.SchemaTypeCodePrinter
- * @see com.nortal.jroad.model.XteeElement
+ * @see com.nortal.jroad.model.XRoadElement
  * @author margush
  */
 public final class XteeSchemaCodePrinter implements SchemaCodePrinter {
@@ -76,12 +76,11 @@ public final class XteeSchemaCodePrinter implements SchemaCodePrinter {
 	}
 
 	private static SchemaCodePrinter getPrinter(XmlOptions opt) {
-		Object printer = XmlOptions
-				.safeGet(opt, XmlOptions.SCHEMA_CODE_PRINTER);
-		if (printer == null || !(printer instanceof SchemaCodePrinter)) {
-			printer = new XteeSchemaCodePrinter(opt);
+		Object printer = XmlOptions.safeGet(opt, XmlOptions.SCHEMA_CODE_PRINTER);
+		if (printer instanceof SchemaCodePrinter schemaCodePrinter) {
+			return schemaCodePrinter;
 		}
-		return (SchemaCodePrinter) printer;
+		return new XteeSchemaCodePrinter(opt);
 	}
 
 	public XteeSchemaCodePrinter(XmlOptions opt) {
@@ -89,13 +88,12 @@ public final class XteeSchemaCodePrinter implements SchemaCodePrinter {
 
 		String genversion = null;
 
-		if (opt != null
-				&& XmlOptions.hasOption(opt, XmlOptions.GENERATE_JAVA_VERSION))
+		if (XmlOptions.hasOption(opt, XmlOptions.GENERATE_JAVA_VERSION)) {
 			genversion = (String) opt.get(XmlOptions.GENERATE_JAVA_VERSION);
-
-		if (genversion == null)
+		}
+		if (genversion == null) {
 			genversion = XmlOptions.GENERATE_JAVA_14;
-
+		}
 		_useJava15 = XmlOptions.GENERATE_JAVA_15.equals(genversion);
 	}
 
@@ -108,7 +106,7 @@ public final class XteeSchemaCodePrinter implements SchemaCodePrinter {
 	}
 
 	String encodeString(String s) {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 
 		sb.append('"');
 
@@ -343,7 +341,7 @@ public final class XteeSchemaCodePrinter implements SchemaCodePrinter {
 				SchemaProperty prop = props[i];
 
 				// change begin - find annotation text
-				String xteeTitle = findXteeTitle(prop);
+				String xteeTitle = findXRoadTitle(prop);
 				// change end - find annotation text
 
 				printPropertyGetters(prop.getName(), prop.isAttribute(),
@@ -1051,7 +1049,7 @@ public final class XteeSchemaCodePrinter implements SchemaCodePrinter {
 			printJavaDoc((several ? "Gets first " : "Gets the ") + propdesc);
 
 			// change begin - add annotation
-			printXteeElement(xteeTitle, xteeSequence);
+			printXRoadElement(xteeTitle, xteeSequence);
 			// change end - add annotation
 			emit(type + " get" + propertyName + "();");
 
@@ -1084,7 +1082,7 @@ public final class XteeSchemaCodePrinter implements SchemaCodePrinter {
 
 				printJavaDoc("Gets a List of " + propdesc + "s");
 				// change begin - add annotation
-				printXteeElement(xteeTitle, xteeSequence);
+				printXRoadElement(xteeTitle, xteeSequence);
 				// change end - add annotation
 				emit("java.util.List<" + wrappedType + "> get" + propertyName
 						+ "List();");
@@ -1099,7 +1097,7 @@ public final class XteeSchemaCodePrinter implements SchemaCodePrinter {
 			} else
 				printJavaDoc("Gets array of all " + propdesc + "s");
 			// change begin - add annotation
-			printXteeElement(xteeTitle, xteeSequence);
+			printXRoadElement(xteeTitle, xteeSequence);
 			// change end - add annotation
 			emit(type + "[] get" + arrayName + "();");
 
@@ -2623,22 +2621,22 @@ public final class XteeSchemaCodePrinter implements SchemaCodePrinter {
 			return;
 
 		InterfaceExtension[] exts = sImpl.getInterfaceExtensions();
-		if (exts != null)
-			for (int i = 0; i < exts.length; i++) {
-				InterfaceExtension.MethodSignature[] methods = exts[i]
-						.getMethods();
-				if (methods != null) {
-					for (int j = 0; j < methods.length; j++) {
-						printJavaDoc("Implementation method for interface "
-								+ exts[i].getStaticHandler());
-						printInterfaceMethodDecl(methods[j]);
-						startBlock();
-						printInterfaceMethodImpl(exts[i].getStaticHandler(),
-								methods[j]);
-						endBlock();
-					}
-				}
+		if (exts == null) {
+			return;
+		}
+		for (InterfaceExtension ext : exts) {
+			InterfaceExtension.MethodSignature[] methods = ext.getMethods();
+			if (methods == null) {
+				continue;
 			}
+			for (InterfaceExtension.MethodSignature method : methods) {
+				printJavaDoc("Implementation method for interface " + ext.getStaticHandler());
+				printInterfaceMethodDecl(method);
+				startBlock();
+				printInterfaceMethodImpl(ext.getStaticHandler(), method);
+				endBlock();
+			}
+		}
 	}
 
 	void printInterfaceMethodDecl(InterfaceExtension.MethodSignature method)
@@ -2765,13 +2763,13 @@ public final class XteeSchemaCodePrinter implements SchemaCodePrinter {
 		return null;
 	}
 
-	void printXteeElement(String xteeTitle, Long xteeSequence) throws IOException{
-		if (StringUtils.isNotEmpty(xteeTitle)) {
-			emit("@com.nortal.jroad.model.XteeElement(title=\"" + xteeTitle + "\", sequence="+ xteeSequence + ")");
+	void printXRoadElement(String xRoadTitle, Long xRoadSequence) throws IOException{
+		if (StringUtils.isNotEmpty(xRoadTitle)) {
+			emit("@com.nortal.jroad.model.XRoadElement(title=\"%s\", sequence=%d)".formatted(xRoadTitle, xRoadSequence));
 		}
 	}
 
-	private String findXteeTitle(SchemaProperty prop) throws IOException{
+	private String findXRoadTitle(SchemaProperty prop) throws IOException{
 		String xteeTitle = null;
 		try {
 			String localPart = prop.getName().getLocalPart();

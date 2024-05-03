@@ -1,14 +1,16 @@
 package com.nortal.jroad.client.mkrliidesuploader;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.mkrliidesuploader.database.MkrliidesuploaderXRoadDatabase;
 import com.nortal.jroad.client.mkrliidesuploader.types.eu.x_road.emta_v6.*;
 import com.nortal.jroad.client.mkrliidesuploader.types.eu.x_road.emta_v6.DownloadMimeResponseDocument
 .DownloadMimeResponse;
 import com.nortal.jroad.client.mkrliidesuploader.types.eu.x_road.emta_v6.UploadMimeResponseDocument.UploadMimeResponse;
-import com.nortal.jroad.model.XTeeAttachment;
-import com.nortal.jroad.model.XTeeMessage;
-import com.nortal.jroad.model.XmlBeansXTeeMessage;
+import com.nortal.jroad.client.service.BaseXRoadDatabaseService;
+import com.nortal.jroad.client.service.XRoadDatabaseService;
+import com.nortal.jroad.model.XRoadAttachment;
+import com.nortal.jroad.model.XRoadMessage;
+import com.nortal.jroad.model.XmlBeansXRoadMessage;
 import com.nortal.jroad.util.AttachmentUtil;
 
 import java.util.List;
@@ -19,7 +21,7 @@ import jakarta.annotation.Resource;
 /**
  * @author Kauri Kägo <kauri.kago@nortal.com>
  */
-public class MkrliidesuploaderXRoadServiceImpl implements MkrliidesuploaderXRoadService {
+public class MkrliidesuploaderXRoadServiceImpl extends XRoadDatabaseService implements MkrliidesuploaderXRoadService {
 
   private static final String UPLOAD_ID = "UPLOAD_ID";
   private static final String METHOD_DOWNLOAD_MIME = "downloadMime";
@@ -29,25 +31,20 @@ public class MkrliidesuploaderXRoadServiceImpl implements MkrliidesuploaderXRoad
   @Resource
   private MkrliidesuploaderXRoadDatabase mkrliidesuploaderXRoadDatabase;
 
-  @PostConstruct
+/*  @PostConstruct
   public void init() {
     mkrliidesuploaderXRoadDatabase.setDatabase("emta-v6");
-  }
+  }*/
 
   @Override
-  public XTeeMessage<DownloadMimeResponse> downloadMime(String target)
-      throws XTeeServiceConsumptionException {
+  public XRoadMessage<DownloadMimeResponse> downloadMime(String target)
+      throws XRoadServiceConsumptionException {
     DownloadMimeDocument.DownloadMime downloadMimeDocument = DownloadMimeDocument.DownloadMime.Factory.newInstance();
 
     DownloadMimeRequestType request = downloadMimeDocument.addNewRequest();
     request.setTarget(target);
 
-    XTeeMessage<DownloadMimeResponse> response =
-        mkrliidesuploaderXRoadDatabase.send(new XmlBeansXTeeMessage<DownloadMimeDocument.DownloadMime>(downloadMimeDocument),
-                                            METHOD_DOWNLOAD_MIME,
-                                            V1);
-
-    return response;
+    return send(new XmlBeansXRoadMessage<>(downloadMimeDocument), METHOD_DOWNLOAD_MIME, V1);
   }
 
   @Override
@@ -55,7 +52,7 @@ public class MkrliidesuploaderXRoadServiceImpl implements MkrliidesuploaderXRoad
                                                                   String operation,
                                                                   String id,
                                                                   DataHandler fail)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
     UploadMimeDocument.UploadMime uploadMimeDocument = UploadMimeDocument.UploadMime.Factory.newInstance();
 
     UploadMimeRequestType request = uploadMimeDocument.addNewRequest();
@@ -66,16 +63,15 @@ public class MkrliidesuploaderXRoadServiceImpl implements MkrliidesuploaderXRoad
     prop.setKey(UPLOAD_ID);
     prop.setStringValue(id);
 
-    XmlBeansXTeeMessage<UploadMimeDocument.UploadMime> xteeMessage =
-        new XmlBeansXTeeMessage<UploadMimeDocument.UploadMime>(uploadMimeDocument);
-    List<XTeeAttachment> attachments = xteeMessage.getAttachments();
+    XmlBeansXRoadMessage<UploadMimeDocument.UploadMime> XRoadMessage =
+      new XmlBeansXRoadMessage<>(uploadMimeDocument);
+    List<XRoadAttachment> attachments = XRoadMessage.getAttachments();
 
     String failCid = AttachmentUtil.getUniqueCid();
     request.addNewFile().setHref("cid:" + failCid);
-    attachments.add(new XTeeAttachment(failCid, fail));
+    attachments.add(new XRoadAttachment(failCid, fail));
 
-    XTeeMessage<UploadMimeResponse> response = mkrliidesuploaderXRoadDatabase.send(xteeMessage, METHOD_UPLOAD_MIME, V1);
-
+    XRoadMessage<UploadMimeResponse> response = send(XRoadMessage, METHOD_UPLOAD_MIME, V1);
     return response.getContent();
   }
 

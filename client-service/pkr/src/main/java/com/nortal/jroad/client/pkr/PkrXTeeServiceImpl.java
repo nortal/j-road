@@ -1,26 +1,24 @@
 package com.nortal.jroad.client.pkr;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.pkr.types.ee.riik.xtee.pkr.producers.producer.pkr.*;
-import com.nortal.jroad.client.service.callback.CustomCallback;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
+import com.nortal.jroad.client.pkr.types.ee.riik.xtee.pkr.producers.producer.pkr.ERIHK1Document;
+import com.nortal.jroad.client.pkr.types.ee.riik.xtee.pkr.producers.producer.pkr.ERIHK1ResponseDocument;
+import com.nortal.jroad.client.pkr.types.ee.riik.xtee.pkr.producers.producer.pkr.Tkis2Document;
+import com.nortal.jroad.client.pkr.types.ee.riik.xtee.pkr.producers.producer.pkr.Tkis2ResponseDocument;
+import com.nortal.jroad.client.pkr.types.ee.riik.xtee.pkr.producers.producer.pkr.Tkis2Sisend;
+import com.nortal.jroad.client.pkr.types.ee.riik.xtee.pkr.producers.producer.pkr.Tkis2Valjund;
+import com.nortal.jroad.client.service.XRoadDatabaseService;
 import com.nortal.jroad.client.service.extractor.CustomExtractor;
-import com.nortal.jroad.client.service.v4.XRoadDatabaseService;
-import com.nortal.jroad.model.XTeeMessage;
-import com.nortal.jroad.model.XmlBeansXTeeMessage;
+import com.nortal.jroad.model.XRoadMessage;
+import com.nortal.jroad.model.XmlBeansXRoadMessage;
 import com.nortal.jroad.util.SOAPUtil;
 import org.apache.xmlbeans.XmlString;
 import org.springframework.ws.WebServiceMessage;
-import org.springframework.ws.soap.saaj.SaajSoapMessage;
 
-import jakarta.xml.soap.SOAPBody;
-import jakarta.xml.soap.SOAPElement;
-import jakarta.xml.soap.SOAPEnvelope;
-import jakarta.xml.soap.SOAPException;
 import javax.xml.transform.TransformerException;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -47,7 +45,7 @@ public class PkrXTeeServiceImpl extends XRoadDatabaseService implements PkrXTeeS
         this.useTestDatabase = useTestDatabase;
     }
 
-    public Tkis2Valjund getTkis2V1(String isikukood, Date algusKuup, Date loppKuup) throws XTeeServiceConsumptionException {
+    public Tkis2Valjund getTkis2V1(String isikukood, Date algusKuup, Date loppKuup) throws XRoadServiceConsumptionException {
         Tkis2Document.Tkis2 tkis2 = Tkis2Document.Tkis2.Factory.newInstance();
         Tkis2Sisend sisend = tkis2.addNewKeha();
 
@@ -56,13 +54,13 @@ public class PkrXTeeServiceImpl extends XRoadDatabaseService implements PkrXTeeS
         sisend.setPerLopp(getCalendar(loppKuup));
 
 
-        XTeeMessage<Tkis2ResponseDocument.Tkis2Response> response = send(new XmlBeansXTeeMessage<Tkis2Document.Tkis2>(tkis2), TKIS2, "v1");
+        XRoadMessage<Tkis2ResponseDocument.Tkis2Response> response = send(new XmlBeansXRoadMessage<Tkis2Document.Tkis2>(tkis2), TKIS2, "v1");
         Tkis2Valjund content = response.getContent().getKeha();
         return content;
     }
 
     @Override
-    public ERIHK1ResponseDocument.ERIHK1Response getTkisErihkVastus(List<String> isikukoodid, Date algusKuup, Date loppKuup) throws XTeeServiceConsumptionException {
+    public ERIHK1ResponseDocument.ERIHK1Response getTkisErihkVastus(List<String> isikukoodid, Date algusKuup, Date loppKuup) throws XRoadServiceConsumptionException {
         ERIHK1Document erihk1Document = ERIHK1Document.Factory.newInstance();
         ERIHK1Document.ERIHK1 erihk1 = erihk1Document.addNewERIHK1();
         ERIHK1Document.ERIHK1.IsikukoodJada isikukoodJada = erihk1.addNewIsikukoodJada();
@@ -73,7 +71,7 @@ public class PkrXTeeServiceImpl extends XRoadDatabaseService implements PkrXTeeS
         erihk1.setPerAlgus(getCalendar(algusKuup));
         erihk1.setPerLopp(getCalendar(loppKuup));
 
-        XTeeMessage<ERIHK1ResponseDocument.ERIHK1Response> response = send(new XmlBeansXTeeMessage<ERIHK1Document>(erihk1Document), ERIHK1, "v1");
+        XRoadMessage<ERIHK1ResponseDocument.ERIHK1Response> response = send(new XmlBeansXRoadMessage<ERIHK1Document>(erihk1Document), ERIHK1, "v1");
         return response.getContent();
     }
 

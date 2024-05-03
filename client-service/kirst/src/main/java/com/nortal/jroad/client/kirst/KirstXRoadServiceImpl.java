@@ -1,6 +1,6 @@
 package com.nortal.jroad.client.kirst;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.kirst.types.eu.x_road.kirst.KindlustusalusDocument.Kindlustusalus;
 import com.nortal.jroad.client.kirst.types.eu.x_road.kirst.*;
 import com.nortal.jroad.client.kirst.types.eu.x_road.kirst.KindlustusalusRequestType.KanneJada;
@@ -9,9 +9,9 @@ import com.nortal.jroad.client.kirst.types.eu.x_road.kirst.Kindlustused2Document
 import com.nortal.jroad.client.kirst.types.eu.x_road.kirst.Kindlustused2ResponseDocument.Kindlustused2Response;
 import com.nortal.jroad.client.kirst.types.eu.x_road.kirst.KindlustusedResponseDocument.KindlustusedResponse;
 import com.nortal.jroad.client.kirst.types.eu.x_road.kirst.KindlustusedResponseType.Kindlustused;
-import com.nortal.jroad.client.service.v4.XRoadDatabaseService;
-import com.nortal.jroad.model.XTeeMessage;
-import com.nortal.jroad.model.XmlBeansXTeeMessage;
+import com.nortal.jroad.client.service.XRoadDatabaseService;
+import com.nortal.jroad.model.XRoadMessage;
+import com.nortal.jroad.model.XmlBeansXRoadMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -27,15 +27,15 @@ public class KirstXRoadServiceImpl extends XRoadDatabaseService implements Kirst
 
     public TvlLoetelu2ResponseDocument.TvlLoetelu2Response findTvlLoetelu2V1(Set<String> isikukoodid, Date alates,
                                                                              Date kuni)
-            throws XTeeServiceConsumptionException {
+            throws XRoadServiceConsumptionException {
         if (CollectionUtils.isEmpty(isikukoodid)) {
             throw new IllegalArgumentException("At least one 'isikukood' must be provided");
         }
         TvlLoetelu2RequestType requestBody = createTvlLoetelu2V1Request(isikukoodid, alates, kuni);
         TvlLoetelu2Document.TvlLoetelu2 request = TvlLoetelu2Document.TvlLoetelu2.Factory.newInstance();
         request.setRequest(requestBody);
-        XTeeMessage<TvlLoetelu2ResponseDocument.TvlLoetelu2Response> response = send(
-                new XmlBeansXTeeMessage<TvlLoetelu2Document.TvlLoetelu2>(request),
+        XRoadMessage<TvlLoetelu2ResponseDocument.TvlLoetelu2Response> response = send(
+                new XmlBeansXRoadMessage<TvlLoetelu2Document.TvlLoetelu2>(request),
                 "tvl_loetelu2",
                 "v1");
 
@@ -69,22 +69,22 @@ public class KirstXRoadServiceImpl extends XRoadDatabaseService implements Kirst
     }
 
     public KindlustusedResponse findKindlustusV1(XTParingKindlustusedCallback callback)
-            throws XTeeServiceConsumptionException {
+            throws XRoadServiceConsumptionException {
         if (callback == null) {
             throw new IllegalArgumentException("Callback can not be null!");
         }
         Kindlustused paring = Kindlustused.Factory.newInstance();
 
         callback.populate(paring);
-        XTeeMessage<KindlustusedResponse> response = send(new XmlBeansXTeeMessage<Kindlustused>(paring),
+        XRoadMessage<KindlustusedResponse> response = send(new XmlBeansXRoadMessage<Kindlustused>(paring),
                 "kindlustused",
                 "v1");
 
         return response.getContent();
     }
 
-    public Kindlustused2Response findKindlustus2(Kindlustused2 paring) throws XTeeServiceConsumptionException {
-        XTeeMessage<Kindlustused2Response> response = send(new XmlBeansXTeeMessage<Kindlustused2>(paring),
+    public Kindlustused2Response findKindlustus2(Kindlustused2 paring) throws XRoadServiceConsumptionException {
+        XRoadMessage<Kindlustused2Response> response = send(new XmlBeansXRoadMessage<Kindlustused2>(paring),
                 "kindlustused2",
                 "v1");
 
@@ -93,7 +93,7 @@ public class KirstXRoadServiceImpl extends XRoadDatabaseService implements Kirst
 
     public KindlustusalusResponseDocument.KindlustusalusResponse findKindlustusalusV2(KindlustusalusKanneJadaCallback
                                                                                               callback)
-            throws XTeeServiceConsumptionException {
+            throws XRoadServiceConsumptionException {
 
         if (callback == null) {
             throw new IllegalArgumentException("Callback can not be null!");
@@ -103,7 +103,7 @@ public class KirstXRoadServiceImpl extends XRoadDatabaseService implements Kirst
 
         callback.populate(kanneJada);
 
-        XTeeMessage<KindlustusalusResponse> response = send(new XmlBeansXTeeMessage<KindlustusalusRequestType>(keha),
+        XRoadMessage<KindlustusalusResponse> response = send(new XmlBeansXRoadMessage<KindlustusalusRequestType>(keha),
                 "kindlustusalus",
                 "v2");
         return response.getContent();

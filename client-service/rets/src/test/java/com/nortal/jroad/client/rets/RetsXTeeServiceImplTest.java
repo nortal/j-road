@@ -9,17 +9,17 @@ import java.util.List;
 
 import jakarta.annotation.Resource;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.nortal.jroad.client.rets.RetsXTeeServiceImpl;
 import com.nortal.jroad.client.rets.types.ee.riik.xtee.rets.producers.producer.rets.VeadType;
-import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
+import com.nortal.jroad.client.test.BaseXRoadServiceImplTest;
 
 /**
  * @author Tanel Käär (tanelk@nortal.com)
  */
-public class RetsXTeeServiceImplTest extends BaseXTeeServiceImplTest {
+public class RetsXTeeServiceImplTest extends BaseXRoadServiceImplTest {
 
   @Resource
   private RetsXTeeServiceImpl retsXTeeServiceImpl;
@@ -29,8 +29,8 @@ public class RetsXTeeServiceImplTest extends BaseXTeeServiceImplTest {
     String message = getFileFromClasspath("PORX_IN010380UV_soodustuse_kysimine.xml");
     List<VeadType> veadOut = new ArrayList<VeadType>();
     String response = retsXTeeServiceImpl.sendHl7Document(message, "10101010101", veadOut);
-    Assert.assertNotNull(response);
-    Assert.assertFalse(veadOut.isEmpty());
+    Assertions.assertNotNull(response);
+    Assertions.assertFalse(veadOut.isEmpty());
   }
 
   private String getFileFromClasspath(String filePath) throws IOException {

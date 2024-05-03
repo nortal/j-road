@@ -26,8 +26,8 @@ local.properties
 
 # Locally stored "Eclipse launch configurations"
 *.launch
+*.versionsBackup
 
 # IDEA
 .idea/
 *.iml
-/atlassian-ide-plugin.xml

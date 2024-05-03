@@ -9,14 +9,11 @@
 
 package com.nortal.jroad.endpoint;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.nortal.jroad.enums.XRoadProtocolVersion;
+import com.nortal.jroad.model.BeanXRoadMessage;
+import com.nortal.jroad.model.XRoadAttachment;
+import com.nortal.jroad.model.XRoadMessage;
+import com.nortal.jroad.util.AttachmentUtil;
 import jakarta.activation.DataHandler;
 import jakarta.annotation.Resource;
 import jakarta.xml.bind.JAXBContext;
@@ -26,21 +23,21 @@ import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 import jakarta.xml.bind.attachment.AttachmentMarshaller;
 import jakarta.xml.bind.attachment.AttachmentUnmarshaller;
-import javax.xml.namespace.QName;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathFactory;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import com.nortal.jroad.enums.XRoadProtocolVersion;
-import com.nortal.jroad.model.BeanXTeeMessage;
-import com.nortal.jroad.model.XTeeAttachment;
-import com.nortal.jroad.model.XTeeMessage;
-import com.nortal.jroad.util.AttachmentUtil;
-import com.nortal.jroad.util.SOAPUtil;
+import javax.xml.namespace.QName;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathFactory;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * X-Tee endpoint that provides request/response manipulation using Java objects via JAXB API. All extension classes
@@ -117,9 +114,17 @@ public abstract class AbstractXTeeJAXBEndpoint<T> extends AbstractXTeeBaseEndpoi
     return paringKehaClass;
   }
 
+  protected void updateUnmarshaller(Unmarshaller unmarshaller) throws Exception {
+    // define schema validation, etc here in child endpoint classes
+  }
+
+  protected void updateMarshaller(Marshaller marshaller) throws Exception {
+    // define your schema validation, etc here in child endpoint classes
+  }
+
   @Override
-  @SuppressWarnings({ "unchecked", "rawtypes" })
-  protected void invokeInternal(final XTeeMessage<Document> request, final XTeeMessage<Element> response)
+  @SuppressWarnings("unchecked")
+  protected void invokeInternal(final XRoadMessage<Document> request, final XRoadMessage<Element> response)
       throws Exception {
     if (getParingKehaClass() == null) {
       throw new IllegalStateException("Query body class ('requestClass') is unset/unspecified!");
@@ -127,7 +132,9 @@ public abstract class AbstractXTeeJAXBEndpoint<T> extends AbstractXTeeBaseEndpoi
 
     JAXBContext requestJc = getJAXBContextInstance();
     Unmarshaller requestUnmarshaller = requestJc.createUnmarshaller();
-    requestUnmarshaller.setAttachmentUnmarshaller(new XTeeAttachmentUnmarshaller(request));
+    requestUnmarshaller.setAttachmentUnmarshaller(new XRoadAttachmentUnmarshaller(request));
+
+    updateUnmarshaller(requestUnmarshaller);
 
     Document requestOnly = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
     if (XRoadProtocolVersion.V2_0 == version) {
@@ -139,12 +146,12 @@ public abstract class AbstractXTeeJAXBEndpoint<T> extends AbstractXTeeBaseEndpoi
       requestOnly.appendChild(requestOnly.importNode(SOAPUtil.getFirstNonTextChild(request.getContent()), true));
     }
 
-    XTeeMessage<T> jaxbRequestMessage = new BeanXTeeMessage<T>(request.getHeader(),
+    XRoadMessage<T> jaxbRequestMessage = new BeanXRoadMessage<T>(request.getHeader(),
                                                                requestUnmarshaller.unmarshal(requestOnly.getDocumentElement(),
                                                                                              getParingKehaClass()).getValue(),
                                                                request.getAttachments());
-    XTeeMessage<Object> jaxbResponseMessage =
-        new BeanXTeeMessage<Object>(response.getHeader(), null, new ArrayList<XTeeAttachment>());
+    XRoadMessage<Object> jaxbResponseMessage =
+        new BeanXRoadMessage<Object>(response.getHeader(), null, new ArrayList<XRoadAttachment>());
 
     invoke(jaxbRequestMessage, jaxbResponseMessage);
     Object bean = jaxbResponseMessage.getContent();
@@ -153,7 +160,8 @@ public abstract class AbstractXTeeJAXBEndpoint<T> extends AbstractXTeeBaseEndpoi
       Node child = parent.removeChild(response.getContent());
       JAXBContext responseJc = getJAXBContextInstance();
       Marshaller responseMarshaller = responseJc.createMarshaller();
-      responseMarshaller.setAttachmentMarshaller(new XTeeAttachmentMarshaller(response));
+      responseMarshaller.setAttachmentMarshaller(new XRoadAttachmentMarshaller(response));
+      updateMarshaller(responseMarshaller);
       // TODO Lauri: some namespace hacking might be needed if existing service schema is changed according to new
       // standard while upgrading. J-road clients do not mind tho :)
       if (XRoadProtocolVersion.V2_0 == version) {
@@ -183,16 +191,16 @@ public abstract class AbstractXTeeJAXBEndpoint<T> extends AbstractXTeeBaseEndpoi
     }
   }
 
-  private static class XTeeAttachmentUnmarshaller extends AttachmentUnmarshaller {
-    private final Map<String, XTeeAttachment> cidMap = new HashMap<String, XTeeAttachment>();
+  private static class XRoadAttachmentUnmarshaller extends AttachmentUnmarshaller {
+    private final Map<String, XRoadAttachment> cidMap = new HashMap<String, XRoadAttachment>();
 
-    XTeeAttachmentUnmarshaller(final XTeeMessage<?> message) {
-      for (XTeeAttachment attachment : message.getAttachments()) {
+    XRoadAttachmentUnmarshaller(final XRoadMessage<?> message) {
+      for (XRoadAttachment attachment : message.getAttachments()) {
         cidMap.put(attachment.getCid(), attachment);
       }
     }
 
-    private XTeeAttachment getAttachment(String contentId) {
+    private XRoadAttachment getAttachment(String contentId) {
       if (contentId.startsWith("cid:")) {
         contentId = contentId.substring("cid:".length());
         try {
@@ -216,7 +224,7 @@ public abstract class AbstractXTeeJAXBEndpoint<T> extends AbstractXTeeBaseEndpoi
 
     @Override
     public DataHandler getAttachmentAsDataHandler(final String cid) {
-      XTeeAttachment attachment = getAttachment(cid);
+      XRoadAttachment attachment = getAttachment(cid);
       return attachment.getDataHandler();
     }
 
@@ -228,11 +236,11 @@ public abstract class AbstractXTeeJAXBEndpoint<T> extends AbstractXTeeBaseEndpoi
 
   }
 
-  private static class XTeeAttachmentMarshaller extends AttachmentMarshaller {
-    private final List<XTeeAttachment> attachments;
+  private static class XRoadAttachmentMarshaller extends AttachmentMarshaller {
+    private final List<XRoadAttachment> attachments;
     private long salt = 0;
 
-    public XTeeAttachmentMarshaller(final XTeeMessage<?> message) {
+    public XRoadAttachmentMarshaller(final XRoadMessage<?> message) {
       this.attachments = message.getAttachments();
     }
 
@@ -255,7 +263,7 @@ public abstract class AbstractXTeeJAXBEndpoint<T> extends AbstractXTeeBaseEndpoi
     public String addSwaRefAttachment(final DataHandler handler) {
       salt++;
       String contentId = AttachmentUtil.getUniqueCid();
-      attachments.add(new XTeeAttachment(contentId, handler));
+      attachments.add(new XRoadAttachment(contentId, handler));
       return "cid:" + contentId;
     }
 
@@ -267,7 +275,7 @@ public abstract class AbstractXTeeJAXBEndpoint<T> extends AbstractXTeeBaseEndpoi
 
   }
 
-  protected void invoke(final XTeeMessage<T> request, final XTeeMessage<Object> response) throws Exception {
+  protected void invoke(final XRoadMessage<T> request, final XRoadMessage<Object> response) throws Exception {
     response.setContent(invokeBean(request.getContent()));
   }
 

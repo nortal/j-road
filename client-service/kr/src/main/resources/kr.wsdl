@@ -23,28 +23,28 @@
 			-->
 			<xsd:include schemaLocation="kr.klassifikaator.xsd"/>
 			<xsd:include schemaLocation="muudatused.v1.xsd"/>
-			<xsd:include schemaLocation="kinnistu_detail_ma.v2.xsd"/>
-			<xsd:include schemaLocation="oigus_koormatis.v2.xsd"/>
-			<xsd:include schemaLocation="koosseis_omand_kehtiv.v2.xsd"/>
-			<xsd:include schemaLocation="koosseis_omand_muudatused.v2.xsd"/>
-			<xsd:include schemaLocation="kinnistu.v2.xsd"/>
-			<xsd:include schemaLocation="mis_koormatis.v2.xsd"/>
-			<xsd:include schemaLocation="htr_koormatis.v2.xsd"/>
+			<xsd:include schemaLocation="kinnistu_detail_ma.xsd"/>
+			<xsd:include schemaLocation="oigus_koormatis.xsd"/>
+			<xsd:include schemaLocation="koosseis_omand_kehtiv.xsd"/>
+			<xsd:include schemaLocation="koosseis_omand_muudatused.xsd"/>
+			<xsd:include schemaLocation="kinnistu.xsd"/>
+			<xsd:include schemaLocation="mis_koormatis.xsd"/>
+			<xsd:include schemaLocation="htr_koormatis.xsd"/>
 			
-			<xsd:include schemaLocation="politsei_ehak.v2.xsd"/>
+			<xsd:include schemaLocation="politsei_ehak.xsd"/>
 			<xsd:include schemaLocation="politsei_omanik.v1.xsd"/>
 			<xsd:include schemaLocation="politsei_nimed.v1.xsd"/>
 			
-			<xsd:include schemaLocation="politsei_kin_om.v2.xsd"/>
-			<xsd:include schemaLocation="kodanik_kinnistud.v2.xsd"/>
+			<xsd:include schemaLocation="politsei_kin_om.xsd"/>
+			<xsd:include schemaLocation="kodanik_kinnistud.xsd"/>
 			<xsd:include schemaLocation="menetlusinfo.v1.xsd"/>
-			<xsd:include schemaLocation="notar_paring.v2.xsd"/>
-			<xsd:include schemaLocation="kinnistu_detail.v2.xsd"/>
-			<xsd:include schemaLocation="kinnistu_detail_muinas.v2.xsd"/>
-			<xsd:include schemaLocation="notar_dokumendid.v2.xsd"/>
-			<xsd:include schemaLocation="notar_dokument_id.v2.xsd"/>
+			<xsd:include schemaLocation="notar_paring.xsd"/>
+			<xsd:include schemaLocation="kinnistu_detail.xsd"/>
+			<xsd:include schemaLocation="kinnistu_detail_muinas.xsd"/>
+			<xsd:include schemaLocation="notar_dokumendid.xsd"/>
+			<xsd:include schemaLocation="notar_dokument_id.xsd"/>
 			<xsd:include schemaLocation="puudutatud_isiku_teadete_paring.v1.xsd"/>
-			<xsd:include schemaLocation="kinnistu_paring_isiku_jargi.v2.xsd" />
+			<xsd:include schemaLocation="kinnistu_paring_isiku_jargi.xsd" />
 			<xsd:include schemaLocation="minu_kinnistustoimikud.xsd" />
 			<xsd:include schemaLocation="registriosa_dokumendid.xsd" />
 			<xsd:include schemaLocation="digitaliseeritud_toimikud.xsd" />

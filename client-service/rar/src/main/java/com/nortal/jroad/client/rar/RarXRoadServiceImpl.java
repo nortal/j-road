@@ -1,6 +1,6 @@
 package com.nortal.jroad.client.rar;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.rar.database.RmV6XRoadDatabase;
 import com.nortal.jroad.client.rar.types.eu.x_road.rm_v6.KoodType;
 import com.nortal.jroad.client.rar.types.eu.x_road.rm_v6.RarVtaResponseType;
@@ -20,7 +20,7 @@ public class RarXRoadServiceImpl implements RarXRoadService {
     private RmV6XRoadDatabase rmV6XRoadDatabase;
 
     @Override
-    public RarVtaResponseType rarVtaV1(String kood) throws XTeeServiceConsumptionException {
+    public RarVtaResponseType rarVtaV1(String kood) throws XRoadServiceConsumptionException {
         RarVtaType input = RarVtaType.Factory.newInstance();
         input.addNewKeha();
         KoodType koodType = KoodType.Factory.newInstance();

@@ -12,7 +12,7 @@ import com.nortal.jroad.client.ehis.types.ee.riik.xtee.ehis.producers.producer.e
 import com.nortal.jroad.client.ehis.types.ee.riik.xtee.ehis.producers.producer.ehis.TootukassaleOppimisedVastusResponseDocument.TootukassaleOppimisedVastusResponse;
 import com.nortal.jroad.client.ehis.types.ee.riik.xtee.ehis.producers.producer.ehis.TootukassaleTegevusloadDocument.TootukassaleTegevusload;
 import com.nortal.jroad.client.ehis.types.ee.riik.xtee.ehis.producers.producer.ehis.TootukassaleTegevusloadResponseDocument.TootukassaleTegevusloadResponse;
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import org.springframework.stereotype.Service;
 
 import jakarta.annotation.Resource;
@@ -31,7 +31,7 @@ public class EhisXRoadServiceImpl implements EhisXRoadService {
   private EhisXRoadDatabase ehisXRoadDatabase;
 
   public List<TootukassaleKehtivadIsik> findTootukassaleKehtivad(Date algkuup, Date loppkuup, String... isikukoodid)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
     TootukassaleKehtivad paring = TootukassaleKehtivad.Factory.newInstance();
     TootukassaleKehtivadIsikukoodid isikud = paring.addNewIsikukoodid();
     isikud.setIsikukoodArray(isikukoodid);
@@ -42,7 +42,7 @@ public class EhisXRoadServiceImpl implements EhisXRoadService {
   }
 
   public List<TootukassaleKehtivadV2Isik> findTootukassaleKehtivadV2(Date algusKp, Date loppKp, String... isikukoodid)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
     TootukassaleKehtivadV2 request = TootukassaleKehtivadV2.Factory.newInstance();
     TootukassaleKehtivadV2Isikukoodid isikud = request.addNewIsikukoodid();
     isikud.setIsikukoodArray(isikukoodid);
@@ -53,7 +53,7 @@ public class EhisXRoadServiceImpl implements EhisXRoadService {
   }
 
   public PolOppurResponse findPolOppur(String isikukood, Calendar algKp, Calendar loppKp)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
     PolOppur paring = PolOppur.Factory.newInstance();
     paring.setIsikukood(isikukood);
     paring.setAlgKpv(algKp);
@@ -66,7 +66,7 @@ public class EhisXRoadServiceImpl implements EhisXRoadService {
                                                                                      Date loppKp,
                                                                                      BigInteger tkId,
                                                                                      String... isikukoodid)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
     TootukassaleOppimisedTellimus request = TootukassaleOppimisedTellimus.Factory.newInstance();
     TootukassaleIsikukoodidTellimus isikud = request.addNewIsikukoodid();
     isikud.setIsikukoodArray(isikukoodid);
@@ -78,14 +78,14 @@ public class EhisXRoadServiceImpl implements EhisXRoadService {
   }
 
   public TootukassaleOppimisedVastusResponse getTootukassaleOppimisedVastusV1(BigInteger tkId)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
     TootukassaleOppimisedVastus request = TootukassaleOppimisedVastus.Factory.newInstance();
     request.setTkId(tkId);
     return ehisXRoadDatabase.tootukassaleOppimisedVastusV1(request);
   }
 
   public TootukassaleTegevusloadResponse getTootukassaleTegevusload(String registrikood, Date algusKp, Date loppKp)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
     TootukassaleTegevusload request = TootukassaleTegevusload.Factory.newInstance();
     request.setRegistrikood(registrikood);
     request.setAlgusKp(toCalendar(algusKp));

@@ -23,14 +23,8 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 import org.springframework.ws.context.MessageContext;
 import org.springframework.ws.server.endpoint.mapping.AbstractEndpointMapping;
-import org.w3c.dom.Element;
-
-import com.nortal.jroad.annotation.XTeeService;
-import com.nortal.jroad.endpoint.AbstractXTeeBaseEndpoint;
-import com.nortal.jroad.endpoint.ListMethodsEndpoint;
-import com.nortal.jroad.enums.XRoadProtocolVersion;
-import com.nortal.jroad.util.SOAPUtil;
-import com.nortal.jroad.wsdl.XTeeWsdlDefinition;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  * Finds all X-Road endpoints and maps incoming requests to them according to query name present in the X-Road header.
@@ -40,6 +34,7 @@ import com.nortal.jroad.wsdl.XTeeWsdlDefinition;
  */
 @Component
 public class XTeeEndpointMapping extends AbstractEndpointMapping implements InitializingBean {
+
   protected static final Logger log = Logger.getLogger(XTeeEndpointMapping.class);
 
   @Resource(name = "xteeDatabase")
@@ -94,6 +89,7 @@ public class XTeeEndpointMapping extends AbstractEndpointMapping implements Init
     } catch (NullPointerException e) {
       // ListMethods lookup failed
     }
+
     return null;
   }
 

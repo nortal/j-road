@@ -1,0 +1,55 @@
+﻿<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+                   xmlns:xroad="http://x-road.eu/xsd/xroad.xsd" xmlns:id="http://x-road.eu/xsd/identifiers"
+                   xmlns:ear="http://earest.x-road.eu/">
+    <SOAP-ENV:Header>
+        <xroad:userId>70000349</xroad:userId>
+        <xroad:id>15d11af556270000349-1423336605</xroad:id>
+        <xroad:protocolVersion>4.0</xroad:protocolVersion>
+        <xroad:client id:objectType="SUBSYSTEM">
+            <id:xRoadInstance>ee-dev</id:xRoadInstance>
+            <id:memberClass>GOV</id:memberClass>
+            <id:memberCode>70000349</id:memberCode>
+            <id:subsystemCode>earest-client</id:subsystemCode>
+        </xroad:client>
+        <xroad:service id:objectType="SERVICE">
+            <id:xRoadInstance>ee-dev</id:xRoadInstance>
+            <id:memberClass>GOV</id:memberClass>
+            <id:memberCode>70000310</id:memberCode>
+            <id:subsystemCode>earest</id:subsystemCode>
+            <id:serviceCode>MulleSaabunudAsjad</id:serviceCode>
+            <id:serviceVersion>v1</id:serviceVersion>
+        </xroad:service>
+    </SOAP-ENV:Header>
+    <SOAP-ENV:Body xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+        <era:MulleSaabunudAsjadResponse xmlns:era="http://earest.x-road.eu/">
+            <request>
+                <ParinguKoostamiseAeg>2017-10-06T15:51:00</ParinguKoostamiseAeg>
+            </request>
+            <response>
+                <ArestiVastused>
+                    <Vastus>
+                        <IsikuOigusedKohustused>
+                            <Akt>
+                                <AlgParinguUnikaalneID>A801201702209240</AlgParinguUnikaalneID>
+                                <VolitatudKasutajad>
+                                    <VolitatudKasutaja>
+                                        <VolituseLaad/>
+                                        <VolituseFailiNimi>jyritamm</VolituseFailiNimi>
+                                        <VolituseFail>
+JVBERi0xLjUNCiW1tbW1DQoxIDAgb2JqDQo8PC9UeXBlL0NhdGFsb2cvUGFnZXMgMiAwIFIvTGFu
+ZyhldC1FRSkgL1N0cnVjdFRyZWVSb290IDE1IDAgUi9NYXJrSW5mbzw8L01hcmtlZCB0cnVlPj4+
+CjE1MDc2Nw0KJSVFT0YNCnhyZWYNCjAgMA0KdHJhaWxlcg0KPDwvU2l6ZSAyNy9Sb290IDEgMCBS
+L0luZm8gMTQgMCBSL0lEWzxBNDQzRkEyNkVCQzM3RTRDODczOUFEQkYxNUEyRTZDRj48QTQ0M0ZB
+MjZFQkMzN0U0Qzg3MzlBREJGMTVBMkU2Q0Y+XSAvUHJldiAxNTA3NjcvWFJlZlN0bSAxNTA0NjM+
+Pg0Kc3RhcnR4cmVmDQoxNTE0NjUNCiUlRU9G
+                                        </VolituseFail>
+                                    </VolitatudKasutaja>
+                                </VolitatudKasutajad>
+                            </Akt>
+                        </IsikuOigusedKohustused>
+                    </Vastus>
+                </ArestiVastused>
+            </response>
+        </era:MulleSaabunudAsjadResponse>
+    </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

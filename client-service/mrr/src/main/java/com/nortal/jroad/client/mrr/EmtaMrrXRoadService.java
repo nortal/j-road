@@ -1,6 +1,6 @@
 package com.nortal.jroad.client.mrr;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.mrr.types.eu.x_road.emta_v6.SkaMitteresidentResponseDocument;
 
 /**
@@ -14,6 +14,6 @@ public interface EmtaMrrXRoadService {
    * <code>mrr.skaMitteresident.v1</code> service.
    */
   SkaMitteresidentResponseDocument.SkaMitteresidentResponse skaMitteresident(String registreerimiskood)
-      throws XTeeServiceConsumptionException;
+      throws XRoadServiceConsumptionException;
 
 }

@@ -1,10 +1,10 @@
 package com.nortal.jroad.client.kutseregister;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.kutseregister.database.KutseregisterXRoadDatabase;
 import com.nortal.jroad.client.kutseregister.types.ee.riik.xtee.kutseregister.producers.producer.kutseregister.KutsetunnistusDocument.Kutsetunnistus;
 import com.nortal.jroad.client.kutseregister.types.ee.riik.xtee.kutseregister.producers.producer.kutseregister.KutsetunnistusVastusDocument.KutsetunnistusVastus;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.xmlbeans.XmlCursor;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +23,7 @@ public class KutseregisterXRoadServiceImpl implements KutseregisterXRoadService 
   private KutseregisterXRoadDatabase kutseregisterXRoadDatabase;
 
   @Override
-  public KutsetunnistusVastus findKutseTunnistus(String isikukood, String nimi) throws XTeeServiceConsumptionException {
+  public KutsetunnistusVastus findKutseTunnistus(String isikukood, String nimi) throws XRoadServiceConsumptionException {
     Kutsetunnistus kutsetunnistus = Kutsetunnistus.Factory.newInstance();
     if (isikukood != null) {
       kutsetunnistus.setIsikukood(isikukood);

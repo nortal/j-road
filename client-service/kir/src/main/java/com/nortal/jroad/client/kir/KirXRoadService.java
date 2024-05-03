@@ -1,6 +1,6 @@
 package com.nortal.jroad.client.kir;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.kir.types.eu.x_road.kir.AnnaArvelolekuAndmedResponseDocument.AnnaArvelolekuAndmedResponse;
 import com.nortal.jroad.client.kir.types.eu.x_road.kir.ArvelolekuSisendTaiendavOlek;
 import com.nortal.jroad.client.kir.types.eu.x_road.kir.LeiaMuudetudAndmetegaKinnipeetavadResponseDocument.LeiaMuudetudAndmetegaKinnipeetavadResponse;
@@ -15,8 +15,8 @@ import java.util.Set;
  */
 public interface KirXRoadService {
 
-    AnnaArvelolekuAndmedResponse annaArvelolekuAndmedV1(Date start, Date end, Set<ArvelolekuSisendTaiendavOlek.Enum> requestTypes, Set<String> idCodes) throws XTeeServiceConsumptionException;
+    AnnaArvelolekuAndmedResponse annaArvelolekuAndmedV1(Date start, Date end, Set<ArvelolekuSisendTaiendavOlek.Enum> requestTypes, Set<String> idCodes) throws XRoadServiceConsumptionException;
 
-    LeiaMuudetudAndmetegaKinnipeetavadResponse leiaMuudetudAndmetegaKinnipeetavadV1(Date start, Date end) throws XTeeServiceConsumptionException;
+    LeiaMuudetudAndmetegaKinnipeetavadResponse leiaMuudetudAndmetegaKinnipeetavadV1(Date start, Date end) throws XRoadServiceConsumptionException;
 
 }

@@ -1,6 +1,6 @@
 package com.nortal.jroad.typegen.database;
 
-import com.nortal.jroad.model.XmlBeansXTeeMetadata;
+import com.nortal.jroad.model.XmlBeansXRoadMetadata;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -8,6 +8,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.namespace.QName;
+
+import org.apache.commons.lang3.StringUtils;
 import org.apache.xmlbeans.SchemaType;
 import org.apache.xmlbeans.SchemaTypeSystem;
 import org.apache.xmlbeans.XmlBeans;
@@ -31,7 +33,7 @@ public class DatabaseServiceMethod {
   private String baseDirectory;
 
 
-  public DatabaseServiceMethod(XmlBeansXTeeMetadata metadata, String baseDirectory)
+  public DatabaseServiceMethod(XmlBeansXRoadMetadata metadata, String baseDirectory)
         throws IOException, NoDescriptionFoundException {
 
     this.baseDirectory = baseDirectory;
@@ -54,16 +56,22 @@ public class DatabaseServiceMethod {
   }
 
 
-  private void createVersions(XmlBeansXTeeMetadata metadata) {
+  private void createVersions(XmlBeansXRoadMetadata metadata) {
     // According to specification only the last version of a service needs to be defined
     // in WSDL but the database adapter must also support all previous versions.
 
-    int lastVersion = Integer.valueOf(metadata.getVersion().substring(1));
+    if(!StringUtils.isBlank(metadata.getVersion())){
+        int lastVersion = Integer.valueOf(metadata.getVersion().substring(1));
 
-    versions = new ArrayList<DatabaseServiceMethodVersion>(lastVersion);
-    for (int i = 1; i <= lastVersion; i++) {
-      versions.add(new DatabaseServiceMethodVersion(metadata, i));
+        versions = new ArrayList<>(lastVersion);
+        for (int i = 1; i <= lastVersion; i++) {
+            versions.add(new DatabaseServiceMethodVersion(metadata, i));
+        }
+    }else{
+        versions = new ArrayList<>();
+        versions.add(new DatabaseServiceMethodVersion(metadata));
     }
+
   }
 
 

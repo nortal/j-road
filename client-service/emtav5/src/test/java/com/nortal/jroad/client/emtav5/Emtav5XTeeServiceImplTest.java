@@ -8,18 +8,18 @@ import java.util.List;
 
 import jakarta.annotation.Resource;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.nortal.jroad.client.emtav5.Emtav5XTeeServiceImpl;
 import com.nortal.jroad.client.emtav5.types.net.x_rd.ee.emtav5.producer.SpouseCheckResponseType.Response.Period;
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
+import com.nortal.jroad.client.test.BaseXRoadServiceImplTest;
 
 /**
  * @author Kait Kasak (kait.kasak@nortal.com)
  */
-public class Emtav5XTeeServiceImplTest extends BaseXTeeServiceImplTest {
+public class Emtav5XTeeServiceImplTest extends BaseXRoadServiceImplTest {
 
 	private static final String CODE = "45906134717";
 	private static final String SPOUSE_CODE = "35508274726";
@@ -30,20 +30,20 @@ public class Emtav5XTeeServiceImplTest extends BaseXTeeServiceImplTest {
 	private Emtav5XTeeServiceImpl emtav5xTeeServiceImpl;
 
 	@Test
-	public void xteeFIEAKV1() throws ParseException, XTeeServiceConsumptionException {
+	public void xteeFIEAKV1() throws ParseException, XRoadServiceConsumptionException {
 		List<Period> periodList = emtav5xTeeServiceImpl.xteeFIEAKV1(CODE, dateFormat.parse("01.08.2012"),
 				dateFormat.parse("05.09.2012"));
-		Assert.assertNotNull(periodList);
-		Assert.assertTrue(periodList.size() == 1);
+		Assertions.assertNotNull(periodList);
+		Assertions.assertTrue(periodList.size() == 1);
 		Period period = periodList.get(0);
 		assertCalendars(getCalendar("20.08.2012"), period.getStart());
 		assertCalendars(getCalendar("02.09.2012"), period.getEnd());
-		Assert.assertEquals(SPOUSE_CODE, period.getCode());
-		Assert.assertEquals("REIN PEEK", period.getName());
+		Assertions.assertEquals(SPOUSE_CODE, period.getCode());
+		Assertions.assertEquals("REIN PEEK", period.getName());
 	}
 
 	private void assertCalendars(Calendar cal1, Calendar cal2) throws ParseException {
-	    Assert.assertEquals(cal1.getTime(), cal2.getTime());
+	    Assertions.assertEquals(cal1.getTime(), cal2.getTime());
     }
 
 	private Calendar getCalendar(String dateStr) throws ParseException {

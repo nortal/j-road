@@ -5,9 +5,9 @@ import java.util.Calendar;
 
 import jakarta.annotation.Resource;
 
-import junit.framework.Assert;
+import org.junit.jupiter.api.Assertions;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.nortal.jroad.client.ads.AdsXTeeService;
 import com.nortal.jroad.client.ads.AdsXTeeServiceImpl;
@@ -37,16 +37,16 @@ import com.nortal.jroad.client.ads.types.ee.maaamet.ADSobjotsingv2ParingType.Obj
 import com.nortal.jroad.client.ads.types.ee.maaamet.ADSprobleemidParingType.ProbleemidParam;
 import com.nortal.jroad.client.ads.types.ee.maaamet.ADSteavitusedParingType.TeavitusedParam;
 import com.nortal.jroad.client.ads.types.ee.maaamet.ADStekstotsingParingType.AadrTekstParam;
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
+import com.nortal.jroad.client.test.BaseXRoadServiceImplTest;
 
-public class AdsXTeeServiceImplTest extends BaseXTeeServiceImplTest {
+public class AdsXTeeServiceImplTest extends BaseXRoadServiceImplTest {
 
   @Resource
   private AdsXTeeServiceImpl adsXTeeServiceImpl;
   
   @Test
-  public void findKompklassifV1() throws XTeeServiceConsumptionException {
+  public void findKompklassifV1() throws XRoadServiceConsumptionException {
 	  AdsXTeeService.KlassifParamCallback cb = new AdsXTeeService.KlassifParamCallback() {
 		  public void populate(KlassifParam kp) {
 			  kp.setMaxarv(BigInteger.valueOf(5));
@@ -56,11 +56,11 @@ public class AdsXTeeServiceImplTest extends BaseXTeeServiceImplTest {
 
 	  ADSkompklassifVastusType response = adsXTeeServiceImpl.kompklassifV1(cb);
 
-	  Assert.assertNotNull(response);
+	  Assertions.assertNotNull(response);
   }
   
   @Test
-  public void findMuudatusedsV1() throws XTeeServiceConsumptionException {
+  public void findMuudatusedsV1() throws XRoadServiceConsumptionException {
 	  AdsXTeeService.MuudatusedParamCallback cb = new AdsXTeeService.MuudatusedParamCallback() {
 		  public void populate(MuudatusedParam mp) {
 			  mp.setMaxarv(BigInteger.valueOf(5));
@@ -70,11 +70,11 @@ public class AdsXTeeServiceImplTest extends BaseXTeeServiceImplTest {
 
 	  ADSmuudatusedVastusType response = adsXTeeServiceImpl.muudatusedV1(cb);
 
-	  Assert.assertNotNull(response);
+	  Assertions.assertNotNull(response);
   }
 
   @Test
-  public void findKompotsingV1() throws XTeeServiceConsumptionException {
+  public void findKompotsingV1() throws XRoadServiceConsumptionException {
     AdsXTeeService.AadrKompParamCallback cb = new AdsXTeeService.AadrKompParamCallback() {
 
       @Override
@@ -84,11 +84,11 @@ public class AdsXTeeServiceImplTest extends BaseXTeeServiceImplTest {
     };
     ADSkompotsingVastusType response = adsXTeeServiceImpl.kompotsingV1(cb);
 
-    Assert.assertNotNull(response);
+    Assertions.assertNotNull(response);
   }
 
   @Test
-  public void findObjotsingV2() throws XTeeServiceConsumptionException {
+  public void findObjotsingV2() throws XRoadServiceConsumptionException {
     AdsXTeeService.ObjKompParamCallback cb = new AdsXTeeService.ObjKompParamCallback() {
 
       @Override
@@ -98,11 +98,11 @@ public class AdsXTeeServiceImplTest extends BaseXTeeServiceImplTest {
     };
     ADSobjotsingv2VastusType response = adsXTeeServiceImpl.objotsingV2(cb);
 
-    Assert.assertNotNull(response);
+    Assertions.assertNotNull(response);
   }
 
   @Test
-  public void findKomponendidV1() throws XTeeServiceConsumptionException {
+  public void findKomponendidV1() throws XRoadServiceConsumptionException {
     AdsXTeeService.KompParamCallback cb = new AdsXTeeService.KompParamCallback() {
 
       @Override
@@ -113,11 +113,11 @@ public class AdsXTeeServiceImplTest extends BaseXTeeServiceImplTest {
 
     ADSkomponendidVastusType response = adsXTeeServiceImpl.komponendidV1(cb);
 
-    Assert.assertNotNull(response);
+    Assertions.assertNotNull(response);
   }
 
   @Test
-  public void findNormalV1() throws XTeeServiceConsumptionException {
+  public void findNormalV1() throws XRoadServiceConsumptionException {
     AdsXTeeService.NormalParamCallback cb = new AdsXTeeService.NormalParamCallback() {
 
       @Override
@@ -133,11 +133,11 @@ public class AdsXTeeServiceImplTest extends BaseXTeeServiceImplTest {
 
     ADSnormalVastusType response = adsXTeeServiceImpl.normalV1(cb);
 
-    Assert.assertNotNull(response);
+    Assertions.assertNotNull(response);
   }
 
   @Test
-  public void findTeavitusedV1() throws XTeeServiceConsumptionException {
+  public void findTeavitusedV1() throws XRoadServiceConsumptionException {
     AdsXTeeService.TeavitusedParamCallback cb = new AdsXTeeService.TeavitusedParamCallback() {
 
       @Override
@@ -148,11 +148,11 @@ public class AdsXTeeServiceImplTest extends BaseXTeeServiceImplTest {
 
     ADSteavitusedVastusType response = adsXTeeServiceImpl.teavitusedV1(cb);
 
-    Assert.assertNotNull(response);
+    Assertions.assertNotNull(response);
   }
 
   @Test
-  public void findTekstotsingV1() throws XTeeServiceConsumptionException {
+  public void findTekstotsingV1() throws XRoadServiceConsumptionException {
     AdsXTeeService.AadrTekstParamCallback cb = new AdsXTeeService.AadrTekstParamCallback() {
 
       @Override
@@ -163,11 +163,11 @@ public class AdsXTeeServiceImplTest extends BaseXTeeServiceImplTest {
 
     ADStekstotsingVastusType response = adsXTeeServiceImpl.tekstotsingV1(cb);
 
-    Assert.assertNotNull(response);
+    Assertions.assertNotNull(response);
   }
 
   @Test
-  public void findAadrmuudatusedV2() throws XTeeServiceConsumptionException {
+  public void findAadrmuudatusedV2() throws XRoadServiceConsumptionException {
     AdsXTeeService.AadrMuudatusedParamCallback cb = new AdsXTeeService.AadrMuudatusedParamCallback() {
 
       @Override
@@ -178,11 +178,11 @@ public class AdsXTeeServiceImplTest extends BaseXTeeServiceImplTest {
 
     ADSaadrmuudatusedv2VastusType response = adsXTeeServiceImpl.aadrmuudatusedV2(cb);
 
-    Assert.assertNotNull(response);
+    Assertions.assertNotNull(response);
   }
 
   @Test
-  public void findObjaadrmuudatusedV1() throws XTeeServiceConsumptionException {
+  public void findObjaadrmuudatusedV1() throws XRoadServiceConsumptionException {
     AdsXTeeService.ObjAadrMuudatusedParamCallback cb = new AdsXTeeService.ObjAadrMuudatusedParamCallback() {
 
       @Override
@@ -193,11 +193,11 @@ public class AdsXTeeServiceImplTest extends BaseXTeeServiceImplTest {
 
     ADSobjaadrmuudatusedVastusType response = adsXTeeServiceImpl.objaadrmuudatusedV1(cb);
 
-    Assert.assertNotNull(response);
+    Assertions.assertNotNull(response);
   }
 
   @Test
-  public void findObjmuudatusedV2() throws XTeeServiceConsumptionException {
+  public void findObjmuudatusedV2() throws XRoadServiceConsumptionException {
     AdsXTeeService.ObjMuudatusedParamCallback cb = new AdsXTeeService.ObjMuudatusedParamCallback() {
 
       @Override
@@ -208,11 +208,11 @@ public class AdsXTeeServiceImplTest extends BaseXTeeServiceImplTest {
 
     ADSobjmuudatusedv2VastusType response = adsXTeeServiceImpl.objmuudatusedV2(cb);
 
-    Assert.assertNotNull(response);
+    Assertions.assertNotNull(response);
   }
 
   @Test
-  public void findProbleemidV1() throws XTeeServiceConsumptionException {
+  public void findProbleemidV1() throws XRoadServiceConsumptionException {
     AdsXTeeService.ProbleemidParamCallback cb = new AdsXTeeService.ProbleemidParamCallback() {
 
       @Override
@@ -226,6 +226,6 @@ public class AdsXTeeServiceImplTest extends BaseXTeeServiceImplTest {
 
     ADSprobleemidVastusType response = adsXTeeServiceImpl.probleemidV1(cb);
 
-    Assert.assertNotNull(response);
+    Assertions.assertNotNull(response);
   }
 }

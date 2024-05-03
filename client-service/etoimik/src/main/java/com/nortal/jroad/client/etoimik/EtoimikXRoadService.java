@@ -2,7 +2,7 @@ package com.nortal.jroad.client.etoimik;
 
 import com.nortal.jroad.client.etoimik.types.eu.x_road.etoimik.LeiaToovoimetuteKaristusedDocument;
 import com.nortal.jroad.client.etoimik.types.eu.x_road.etoimik.LeiaToovoimetuteKaristusedResponseDocument;
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 
 /**
  * @author Romet Piho
@@ -10,5 +10,5 @@ import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
 public interface EtoimikXRoadService {
 
   LeiaToovoimetuteKaristusedResponseDocument.LeiaToovoimetuteKaristusedResponse leiaToovoimetuteKaristused(LeiaToovoimetuteKaristusedDocument.LeiaToovoimetuteKaristused request)
-      throws XTeeServiceConsumptionException;
+      throws XRoadServiceConsumptionException;
 }

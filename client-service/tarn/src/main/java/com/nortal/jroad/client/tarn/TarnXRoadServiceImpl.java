@@ -1,24 +1,25 @@
 package com.nortal.jroad.client.tarn;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
+import com.nortal.jroad.client.service.XRoadDatabaseService;
 import com.nortal.jroad.client.tarn.database.TarnXRoadDatabase;
 import com.nortal.jroad.client.tarn.types.eu.x_road.tarn.*;
-import com.nortal.jroad.model.XTeeAttachment;
-import com.nortal.jroad.model.XTeeMessage;
-import com.nortal.jroad.model.XmlBeansXTeeMessage;
+import com.nortal.jroad.model.XRoadAttachment;
+import com.nortal.jroad.model.XRoadMessage;
+import com.nortal.jroad.model.XmlBeansXRoadMessage;
 import org.springframework.stereotype.Service;
 
 import jakarta.annotation.Resource;
 import java.util.List;
 
 @Service("tarnXRoadService")
-public class TarnXRoadServiceImpl implements TarnXRoadService {
+public class TarnXRoadServiceImpl extends XRoadDatabaseService implements TarnXRoadService {
 
     @Resource
     private TarnXRoadDatabase tarnXRoadDatabase;
 
     public TaitemenetluseMuutmineTaResponseDocument.TaitemenetluseMuutmineTaResponse taitemenetluseMuutmineTaV1(TaitemenetluseMuutmineTaSisend input)
-            throws XTeeServiceConsumptionException {
+            throws XRoadServiceConsumptionException {
 
         TaitemenetluseMuutmineTaDocument.TaitemenetluseMuutmineTa taitemenetluseMuutmineTa =
                 TaitemenetluseMuutmineTaDocument.TaitemenetluseMuutmineTa.Factory.newInstance();
@@ -28,8 +29,8 @@ public class TarnXRoadServiceImpl implements TarnXRoadService {
     }
 
     public TaitmisavalduseEsitamineResponseDocument.TaitmisavalduseEsitamineResponse taitmisavalduseEsitamineV1(TarnToiming input,
-                                                                                                                List<XTeeAttachment> attachments)
-            throws XTeeServiceConsumptionException {
+                                                                                                                List<XRoadAttachment> attachments)
+            throws XRoadServiceConsumptionException {
 
         TarnToiminguTeavitus teavitus = TarnToiminguTeavitus.Factory.newInstance();
         teavitus.setToiming(input);
@@ -38,16 +39,15 @@ public class TarnXRoadServiceImpl implements TarnXRoadService {
                 TaitmisavalduseEsitamineDocument.TaitmisavalduseEsitamine.Factory.newInstance();
         taitmisavalduseEsitamine.addNewKeha().setTeavitus(teavitus);
 
-        XmlBeansXTeeMessage<TaitmisavalduseEsitamineDocument.TaitmisavalduseEsitamine> xteeMessage =
-                new XmlBeansXTeeMessage<TaitmisavalduseEsitamineDocument.TaitmisavalduseEsitamine>(taitmisavalduseEsitamine);
+        XmlBeansXRoadMessage<TaitmisavalduseEsitamineDocument.TaitmisavalduseEsitamine> XRoadMessage =
+          new XmlBeansXRoadMessage<>(taitmisavalduseEsitamine);
 
-        List<XTeeAttachment> xteeAttachments = xteeMessage.getAttachments();
+        List<XRoadAttachment> XRoadAttachments = XRoadMessage.getAttachments();
         if (attachments != null) {
-            xteeAttachments.addAll(attachments);
+            XRoadAttachments.addAll(attachments);
         }
 
-        XTeeMessage<TaitmisavalduseEsitamineResponseDocument> response =
-                this.tarnXRoadDatabase.send(xteeMessage, "TaitmisavalduseEsitamine", "v1");
+        XRoadMessage<TaitmisavalduseEsitamineResponseDocument> response = send(XRoadMessage, "TaitmisavalduseEsitamine", "v1");
         return (TaitmisavalduseEsitamineResponseDocument.TaitmisavalduseEsitamineResponse)response.getContent();
     }
 }

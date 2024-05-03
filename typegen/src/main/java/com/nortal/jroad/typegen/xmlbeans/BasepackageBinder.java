@@ -1,6 +1,6 @@
 package com.nortal.jroad.typegen.xmlbeans;
 
-import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.xmlbeans.BindingConfig;
 import org.apache.xmlbeans.impl.common.NameUtil;
 

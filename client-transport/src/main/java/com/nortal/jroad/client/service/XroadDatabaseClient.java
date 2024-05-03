@@ -1,22 +1,21 @@
 package com.nortal.jroad.client.service;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.service.callback.CustomCallback;
 import com.nortal.jroad.client.service.extractor.CustomExtractor;
-import com.nortal.jroad.model.XTeeMessage;
+import com.nortal.jroad.model.XRoadMessage;
 
 public interface XroadDatabaseClient {
 
-  <I, O> XTeeMessage<O> send(XTeeMessage<I> input, String method, String version)
-      throws XTeeServiceConsumptionException;
+  <I, O> XRoadMessage<O> send(XRoadMessage<I> input, String method, String version)
+      throws XRoadServiceConsumptionException;
 
-  <I, O> XTeeMessage<O> send(XTeeMessage<I> input,
+  <I, O> XRoadMessage<O> send(XRoadMessage<I> input,
                              String method,
                              String version,
                              CustomCallback callback,
-                             CustomExtractor extractor) throws XTeeServiceConsumptionException;
+                             CustomExtractor extractor) throws XRoadServiceConsumptionException;
 
-  void setDatabase(String database);
 
   String getDatabase();
 }

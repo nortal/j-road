@@ -1,0 +1,4720 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<wsdl:definitions name="Kr" targetNamespace="http://kr.x-road.eu" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xrd="http://x-road.eu/xsd/xroad.xsd" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://kr.x-road.eu" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:kin="http://schemas.datacontract.org/2004/07/KinnistuService.DTO" xmlns:nap="http://schemas.datacontract.org/2004/07/NapService.DTO" xmlns:kaem="http://schemas.datacontract.org/2004/07/KaemService.DTO" xmlns:sys="http://schemas.datacontract.org/2004/07/System" xmlns:dok="http://kr.x-road.eu/DokumendidNimekiri">
+<wsp:Policy wsu:Id="BasicHttpBinding_IKr_policy">
+<wsp:ExactlyOne>
+<wsp:All>
+<wsoma:OptimizedMimeSerialization xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization" /> 
+</wsp:All>
+</wsp:ExactlyOne>
+</wsp:Policy>
+<wsdl:types>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://kr.x-road.eu" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:import namespace="http://kr.x-road.eu/DokumendidNimekiri" /> 
+<xs:import namespace="http://schemas.datacontract.org/2004/07/KinnistuService.DTO" /> 
+<xs:import namespace="http://schemas.datacontract.org/2004/07/NapService.DTO" /> 
+<xs:import namespace="http://schemas.datacontract.org/2004/07/KaemService.DTO" /> 
+<xs:import namespace="http://x-road.eu/xsd/xroad.xsd" schemaLocation="http://x-road.eu/xsd/xroad.xsd" /> 
+<xs:element name="Registriosa_Dokumendid">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="request" nillable="true" type="tns:Registriosa_DokumendidRequest" /> 
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:complexType name="Registriosa_DokumendidRequest">
+<xs:sequence>
+<xs:element name="Registriosa_number" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Registriosa number</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Registriosa_DokumendidRequest" nillable="true" type="tns:Registriosa_DokumendidRequest" /> 
+<xs:element name="Registriosa_DokumendidResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="Dokumendid" nillable="true" type="tns:ArrayOfRegistriosa_dokument" /> 
+<xs:element minOccurs="0" name="Info" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="Kood" type="xs:int" /> 
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:complexType name="ArrayOfRegistriosa_dokument">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="Registriosa_dokument" nillable="true" type="tns:Registriosa_dokument" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfRegistriosa_dokument" nillable="true" type="tns:ArrayOfRegistriosa_dokument" /> 
+<xs:complexType name="Registriosa_dokument">
+<xs:sequence>
+<xs:element minOccurs="0" name="Digitaalne_dokument" type="xs:boolean">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Digitaalne dokument</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Dokumendi_liik" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Liik</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Dokumendi_number" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Dokumendi number</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Koostaja_nimi" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Koostaja nimi</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="KoostamiseKP" nillable="true" type="xs:dateTime">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Koostamise aeg</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Tehingu_aasta" nillable="true" type="xs:int">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Tehingu aasta</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Tehingu_number" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Tehingu number</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Url" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Link dokumendile</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Registriosa_dokument" nillable="true" type="tns:Registriosa_dokument" /> 
+<xs:element name="Puudutatud_Isiku_Teated">
+<xs:complexType>
+<xs:sequence /> 
+</xs:complexType>
+</xs:element>
+<xs:element name="Puudutatud_Isiku_TeatedResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="Info" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="Kood" type="xs:int" /> 
+<xs:element minOccurs="0" name="Teated" nillable="true" type="tns:ArrayOfTeade" /> 
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:complexType name="ArrayOfTeade">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="Teade" nillable="true" type="tns:Teade" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfTeade" nillable="true" type="tns:ArrayOfTeade" /> 
+<xs:complexType name="Teade">
+<xs:sequence>
+<xs:element minOccurs="0" name="KattetoimetamiseKP" nillable="true" type="xs:dateTime">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Kattetoimetamise aeg</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Kinnituse_vajadus" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Kinnituse vajadus</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="KoostamiseKP" type="xs:dateTime">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Koostamise aeg</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Link_teatele" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Link teatele</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Saatmise_viis" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Saatmise viis</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Teade" nillable="true" type="tns:Teade" /> 
+<xs:element name="Minu_Kinnistustoimikud">
+<xs:complexType>
+<xs:sequence /> 
+</xs:complexType>
+</xs:element>
+<xs:element name="Minu_KinnistustoimikudResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="Info" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="Kinnistustoimikud" nillable="true" type="tns:ArrayOfKinnistustoimik" /> 
+<xs:element minOccurs="0" name="Kood" type="xs:int" /> 
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:complexType name="ArrayOfKinnistustoimik">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="Kinnistustoimik" nillable="true" type="tns:Kinnistustoimik" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfKinnistustoimik" nillable="true" type="tns:ArrayOfKinnistustoimik" /> 
+<xs:complexType name="Kinnistustoimik">
+<xs:sequence>
+<xs:element minOccurs="0" name="Digitoimik" type="xs:boolean">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Digitoimik</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Registriosa_number" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Registriosa number</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Kinnistustoimik" nillable="true" type="tns:Kinnistustoimik" /> 
+<xs:element name="Minu_Kinnistamisavaldused">
+<xs:complexType>
+<xs:sequence /> 
+</xs:complexType>
+</xs:element>
+<xs:element name="Minu_KinnistamisavaldusedResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="Avaldused" nillable="true" type="tns:ArrayOfAvaldus" /> 
+<xs:element minOccurs="0" name="Info" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="Kood" type="xs:int" /> 
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:complexType name="ArrayOfAvaldus">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="Avaldus" nillable="true" type="tns:Avaldus" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfAvaldus" nillable="true" type="tns:ArrayOfAvaldus" /> 
+<xs:complexType name="Avaldus">
+<xs:sequence>
+<xs:element minOccurs="0" name="Avalduse_aeg" nillable="true" type="xs:dateTime">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Avalduse kuupäev</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Avalduse_liik" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Avalduse liik</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element name="Avalduse_nr" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Avalduse number</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Notar" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Notariaalse dokumendi andmed</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Puudutatud_isikud" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Puudutatud isikud loendina</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Puudutatud_kyd" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Puudutatud katastritunnused loendina</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Puudutatud_rod" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Puudutatud registriosad loendina</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Reg_aeg" nillable="true" type="xs:dateTime">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Avalduse registreerimise kuupäev</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Avaldus" nillable="true" type="tns:Avaldus" /> 
+<xs:element name="Kodanik_Kinnistud">
+<xs:complexType>
+<xs:sequence /> 
+</xs:complexType>
+</xs:element>
+<xs:element name="Kodanik_KinnistudResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="Info" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="Kinnistud" nillable="true" type="tns:ArrayOfKinnistu" /> 
+<xs:element minOccurs="0" name="Kood" type="xs:int" /> 
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:complexType name="ArrayOfKinnistu">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="Kinnistu" nillable="true" type="tns:Kinnistu" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfKinnistu" nillable="true" type="tns:ArrayOfKinnistu" /> 
+<xs:complexType name="Kinnistu">
+<xs:sequence>
+<xs:element minOccurs="0" name="Digitaalne_toimik" type="xs:boolean">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Digitaalne toimik</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Katastriyksused" nillable="true" type="tns:ArrayOfKatastriyksus">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Katastriüksused</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Kinnistu_nimi" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Kinnistu nimi</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Kinnistu_number" type="xs:long">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Kinnistu number</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Kinnistusjaoskond" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Kinnistusjaoskond</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Registriosa_link" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Registrtiosa link</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Kinnistu" nillable="true" type="tns:Kinnistu" /> 
+<xs:complexType name="ArrayOfKatastriyksus">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="Katastriyksus" nillable="true" type="tns:Katastriyksus" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfKatastriyksus" nillable="true" type="tns:ArrayOfKatastriyksus" /> 
+<xs:complexType name="Katastriyksus">
+<xs:sequence>
+<xs:element minOccurs="0" name="Asukoht" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Asukoht</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Katastritunnus" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Katastritunnus</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="aadressobjekt" nillable="true" type="tns:Aadressobjekt">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Aadressobjekt</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Katastriyksus" nillable="true" type="tns:Katastriyksus" /> 
+<xs:complexType name="Aadressobjekt">
+<xs:sequence>
+<xs:element minOccurs="0" name="ADS_OID" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Aadressobjekti identifikaator</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Objekti_aadressid" nillable="true" type="tns:ArrayOfObjekti_aadress">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Objekti aadressid</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Taisaadress" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Objekti aadress</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Aadressobjekt" nillable="true" type="tns:Aadressobjekt" /> 
+<xs:complexType name="ArrayOfObjekti_aadress">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="Objekti_aadress" nillable="true" type="tns:Objekti_aadress" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfObjekti_aadress" nillable="true" type="tns:ArrayOfObjekti_aadress" /> 
+<xs:complexType name="Objekti_aadress">
+<xs:sequence>
+<xs:element minOccurs="0" name="ADR_ID" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>ADR_ID</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Koodaadress" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Koodaadress</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Taisaadress" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Täisaadress</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Objekti_aadress" nillable="true" type="tns:Objekti_aadress" /> 
+<xs:element name="Dokumendid_Nimekiri">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" ref="dok:Dokumendid_NimekiriRequest" /> 
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="Dokumendid_NimekiriResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="Dokumendid" nillable="true" type="tns:ArrayOfDokument" /> 
+<xs:element minOccurs="0" name="Info" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="Kood" type="xs:int" /> 
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:complexType name="ArrayOfDokument">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="Dokument" nillable="true" type="tns:Dokument" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfDokument" nillable="true" type="tns:ArrayOfDokument" /> 
+<xs:complexType name="Dokument">
+<xs:sequence>
+<xs:element minOccurs="0" name="Dokumendi_nr" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Dokumendi number</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Koostaja" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Koostaja</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Koostaja_isikukood" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Koostaja isikukood</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Koostaja_kood" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Koostaja kood</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Kuupaev" nillable="true" type="xs:dateTime">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Kuupäev</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Liik" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Liik</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Lk_arv" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Lehekülgede arv</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Markus" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Märkus</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Menetlused" nillable="true" type="tns:ArrayOfMenetlus">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Menetlused</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Registriosad" nillable="true" type="tns:ArrayOfRegistriosa">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Dokumendiga seotud registriosad</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Sisestatud_KR" type="xs:dateTime">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Sisestatud Kinnistusraamatusse</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Tehingu_aasta" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Tehingu aasta</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Tehingu_nr" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Tehingu number</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Dokument" nillable="true" type="tns:Dokument" /> 
+<xs:complexType name="ArrayOfMenetlus">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="Menetlus" nillable="true" type="tns:Menetlus" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfMenetlus" nillable="true" type="tns:ArrayOfMenetlus" /> 
+<xs:complexType name="Menetlus">
+<xs:sequence>
+<xs:element minOccurs="0" name="Menetluse_algus" type="xs:dateTime">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Menetluse algusaeg</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Menetluse_lopp" nillable="true" type="xs:dateTime">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Menetluse lõppaeg</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Menetluse_nr" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Menetluse number</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Menetlus" nillable="true" type="tns:Menetlus" /> 
+<xs:complexType name="ArrayOfRegistriosa">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="Registriosa" nillable="true" type="tns:Registriosa" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfRegistriosa" nillable="true" type="tns:ArrayOfRegistriosa" /> 
+<xs:complexType name="Registriosa">
+<xs:sequence>
+<xs:element minOccurs="0" name="Digitaalne_toimik" type="xs:boolean">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Digitaalne toimik</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Registriosa_number" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Registriosa number</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Registriosa" nillable="true" type="tns:Registriosa" /> 
+<xs:element name="Dokument_ID">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="request" nillable="true" type="tns:Dokument_IDRequest" /> 
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:complexType name="Dokument_IDRequest">
+<xs:sequence>
+<xs:element minOccurs="0" name="Dokumendi_nr" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Dokumendi number</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Dokument_IDRequest" nillable="true" type="tns:Dokument_IDRequest" /> 
+<xs:element name="Dokument_IDResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="Dokument" nillable="true" type="tns:DokumentByID" /> 
+<xs:element minOccurs="0" name="Info" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="Kood" type="xs:int" /> 
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:complexType name="DokumentByID">
+<xs:sequence>
+<xs:element minOccurs="0" name="Dokumendi_fail" nillable="true" type="xs:base64Binary" /> 
+<xs:element minOccurs="0" name="Dokumendi_nr" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Dokumendi nr</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Faili_nimetus_laiend" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Failinimi</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Koostaja" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Koostaja</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Koostaja_isikukood" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Koostaja isikukood</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Koostaja_kood" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Koostaja kood</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Kuupaev" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Kuupäev</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="LK_arv" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Lehekülgede arv</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Liik" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Liik</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Markus" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Märkus</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Menetlused" nillable="true" type="tns:ArrayOfMenetlus_dok">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Menetlused</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Registriosad" nillable="true" type="tns:ArrayOfRegistriosa">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Dokumendiga seotud registriosad</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Sisestatud_KR" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Sisestatud Kinnnistusraamatusse</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Tehingu_aasta" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Tehingu aasta</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Tehingu_nr" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Tehing nr</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="DokumentByID" nillable="true" type="tns:DokumentByID" /> 
+<xs:complexType name="ArrayOfMenetlus_dok">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="Menetlus_dok" nillable="true" type="tns:Menetlus_dok" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfMenetlus_dok" nillable="true" type="tns:ArrayOfMenetlus_dok" /> 
+<xs:complexType name="Menetlus_dok">
+<xs:sequence>
+<xs:element minOccurs="0" name="Menetluse_algus" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Menetluse algusaeg</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Menetluse_lopp" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Menetluse lõppaeg</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Menetluse_nr" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Menetluse number</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Menetlus_dok" nillable="true" type="tns:Menetlus_dok" /> 
+<xs:element name="Notar_Menetlusinfo">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="request" nillable="true" type="tns:Notar_menetlusinfoRequest" /> 
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:complexType name="Notar_menetlusinfoRequest">
+<xs:sequence>
+<xs:element name="Algus_aeg" type="xs:dateTime">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Algusaeg</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element name="Lopp_aeg" type="xs:dateTime">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Lõppaeg</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Notari_tunnus" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Notari tunnus</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Notar_menetlusinfoRequest" nillable="true" type="tns:Notar_menetlusinfoRequest" /> 
+<xs:element name="Notar_MenetlusinfoResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="Info" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="Kood" type="xs:int" /> 
+<xs:element minOccurs="0" name="Menetlused" nillable="true" type="tns:ArrayOfnotar_menetlus" /> 
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:complexType name="ArrayOfnotar_menetlus">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="notar_menetlus" nillable="true" type="tns:notar_menetlus" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfnotar_menetlus" nillable="true" type="tns:ArrayOfnotar_menetlus" /> 
+<xs:complexType name="notar_menetlus">
+<xs:sequence>
+<xs:element minOccurs="0" name="Algus_kp" type="xs:dateTime">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Menetluse alguse kuupäev</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Kinnistusjaoskond" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Kinnistusjaoskond</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Lopp_kp" nillable="true" type="xs:dateTime">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Menetluse lõpetamise kuupäev</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Maarused" nillable="true" type="tns:ArrayOfMaarus">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Määrused</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Menetluse_liik" nillable="true" type="tns:Avalduseliik_kl">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Menetluse liik</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Menetluse_seisund" nillable="true" type="tns:Menetluseseisund_kl">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Menetluse seisund</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Menetluse_tahtaeg" type="xs:dateTime">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Menetluse tähtaeg</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="NR" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Menetluse nr</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Notar_tunnus" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Notari lühikood</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Tehing" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Notariaalse tehingu number</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="notar_menetlus" nillable="true" type="tns:notar_menetlus" /> 
+<xs:complexType name="ArrayOfMaarus">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="Maarus" nillable="true" type="tns:Maarus" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfMaarus" nillable="true" type="tns:ArrayOfMaarus" /> 
+<xs:complexType name="Maarus">
+<xs:sequence>
+<xs:element minOccurs="0" name="Allkirjastamise_aeg" type="xs:dateTime">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Allkirjastamise aeg</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Ametitoimingud" nillable="true" type="tns:ArrayOfAmetitoiming">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Ametitoimingud</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Maaruse_NR" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Määruse nr</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Maaruse_liik" nillable="true" type="tns:Maaruseliik_kl">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Määruse liik</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Maaruse_tekst" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Määruse tekst</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Registriosad" nillable="true" type="tns:ArrayOfRegistriosaNotar">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Registriosad</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Maarus" nillable="true" type="tns:Maarus" /> 
+<xs:complexType name="ArrayOfAmetitoiming">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="Ametitoiming" nillable="true" type="tns:Ametitoiming" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfAmetitoiming" nillable="true" type="tns:ArrayOfAmetitoiming" /> 
+<xs:complexType name="Ametitoiming">
+<xs:sequence>
+<xs:element minOccurs="0" name="Ametitoimingu_NR" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Ametitoimingu nr</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Ametitoimingu_aasta" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Ametitoimingu aasta</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Notari_isikukood" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Notari isikukood</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Notari_tunnus" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Notari tunnus</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Ametitoiming" nillable="true" type="tns:Ametitoiming" /> 
+<xs:simpleType name="Maaruseliik_kl">
+<xs:restriction base="xs:string">
+<xs:enumeration value="Kandemäärus" /> 
+<xs:enumeration value="Vahemäärus" /> 
+<xs:enumeration value="Negatiivne määrus" /> 
+<xs:enumeration value="Menetluse peatamise määrus" /> 
+<xs:enumeration value="Menetluse taaskäivitamise määrus" /> 
+<xs:enumeration value="Tähtaja ennistamise määrus" /> 
+<xs:enumeration value="Tähtaja pikendamise määrus" /> 
+<xs:enumeration value="Riigilõivu tagastamise määrus" /> 
+<xs:enumeration value="Muu määrus" /> 
+<xs:enumeration value="Avalduse tagasivõtmise määrus" /> 
+<xs:enumeration value="Vahemäärus riigilõivu tasumiseks" /> 
+<xs:enumeration value="Muu määrus MAK asjad" /> 
+</xs:restriction>
+</xs:simpleType>
+<xs:element name="Maaruseliik_kl" nillable="true" type="tns:Maaruseliik_kl" /> 
+<xs:complexType name="ArrayOfRegistriosaNotar">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="RegistriosaNotar" nillable="true" type="tns:RegistriosaNotar" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfRegistriosaNotar" nillable="true" type="tns:ArrayOfRegistriosaNotar" /> 
+<xs:complexType name="RegistriosaNotar">
+<xs:sequence>
+<xs:element minOccurs="0" name="jaoskond" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Jaoskond</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="registriosa_number" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Registriosa number</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="RegistriosaNotar" nillable="true" type="tns:RegistriosaNotar" /> 
+<xs:simpleType name="Avalduseliik_kl">
+<xs:restriction base="xs:string">
+<xs:enumeration value="Esmakinnistamine" /> 
+<xs:enumeration value="Kaebus" /> 
+<xs:enumeration value="Muu avaldus" /> 
+<xs:enumeration value="Menetlus ametiülesande korras" /> 
+</xs:restriction>
+</xs:simpleType>
+<xs:element name="Avalduseliik_kl" nillable="true" type="tns:Avalduseliik_kl" /> 
+<xs:simpleType name="Menetluseseisund_kl">
+<xs:restriction base="xs:string">
+<xs:enumeration value="Registreeritud" /> 
+<xs:enumeration value="Sisse kantud" /> 
+<xs:enumeration value="Suunatud" /> 
+<xs:enumeration value="Projekt" /> 
+<xs:enumeration value="Lõpetatud" /> 
+<xs:enumeration value="Tühistatud" /> 
+<xs:enumeration value="Tagasi võetud" /> 
+<xs:enumeration value="Peatatud" /> 
+<xs:enumeration value="Määrata menetleja" /> 
+<xs:enumeration value="Puuduste kõrvaldamisel" /> 
+<xs:enumeration value="Vahemääruse tähtaeg ületatud" /> 
+<xs:enumeration value="Kinnistuskohtuniku menetluses" /> 
+<xs:enumeration value="Jagamatu" /> 
+</xs:restriction>
+</xs:simpleType>
+<xs:element name="Menetluseseisund_kl" nillable="true" type="tns:Menetluseseisund_kl" /> 
+<xs:element name="Kinnistu_Detailandmed">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="request" nillable="true" type="kin:Kinnistu_DetailandmedRequest" /> 
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="Kinnistu_DetailandmedResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="detailandmed" nillable="true" type="kin:Detailandmed" /> 
+<xs:element minOccurs="0" name="jagu0" nillable="true" type="kin:ArrayOfJagu0" /> 
+<xs:element minOccurs="0" name="jagu1" nillable="true" type="kin:ArrayOfJagu1" /> 
+<xs:element minOccurs="0" name="jagu2" nillable="true" type="kin:ArrayOfJagu2" /> 
+<xs:element minOccurs="0" name="jagu3" nillable="true" type="kin:ArrayOfJagu3" /> 
+<xs:element minOccurs="0" name="jagu4" nillable="true" type="kin:ArrayOfJagu4" /> 
+<xs:element minOccurs="0" name="kood" type="xs:int" /> 
+<xs:element minOccurs="0" name="teade" nillable="true" type="xs:string" /> 
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="Kinnistu_Lihtandmed">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="request" nillable="true" type="kin:Kinnistu_LihtandmedRequest" /> 
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="Kinnistu_LihtandmedResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="kirjete_arv_kokku" type="xs:int" /> 
+<xs:element minOccurs="0" name="kirjete_arv_paringus" type="xs:int" /> 
+<xs:element minOccurs="0" name="kood" type="xs:int" /> 
+<xs:element minOccurs="0" name="lehekylje_nr" type="xs:int" /> 
+<xs:element minOccurs="0" name="omandid" nillable="true" type="kin:ArrayOfOmand" /> 
+<xs:element minOccurs="0" name="registriosad" nillable="true" type="kin:ArrayOfKinnistuRegistriosa" /> 
+<xs:element minOccurs="0" name="teade" nillable="true" type="xs:string" /> 
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="Kinnistusraamatu_Muudatused">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="request" nillable="true" type="kin:Kinnistusraamatu_MuudatusedRequest" /> 
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="Kinnistusraamatu_MuudatusedResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="kirjete_arv_kokku" type="xs:int" /> 
+<xs:element minOccurs="0" name="kirjete_arv_paringus" type="xs:int" /> 
+<xs:element minOccurs="0" name="kood" type="xs:int" /> 
+<xs:element minOccurs="0" name="lehekylje_nr" type="xs:int" /> 
+<xs:element minOccurs="0" name="registriosad" nillable="true" type="kin:ArrayOfKinnistuMuudatused" /> 
+<xs:element minOccurs="0" name="teade" nillable="true" type="xs:string" /> 
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="Laekumise_Lisamine">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="request" nillable="true" type="nap:Laekumise_LisamineRequest" /> 
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="Laekumise_LisamineResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="Code" type="xs:int" /> 
+<xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" /> 
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="Registreeri_Avaldus">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="request" nillable="true" type="kaem:Registreeri_AvaldusRequest" /> 
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="Registreeri_AvaldusResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="MenetlusteNumbrid" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="RegistreerimiseAeg" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="Teade" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="Veateade" nillable="true" type="xs:string" /> 
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:schema>
+<xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/">
+<xs:element name="anyType" nillable="true" type="xs:anyType" /> 
+<xs:element name="anyURI" nillable="true" type="xs:anyURI" /> 
+<xs:element name="base64Binary" nillable="true" type="xs:base64Binary" /> 
+<xs:element name="boolean" nillable="true" type="xs:boolean" /> 
+<xs:element name="byte" nillable="true" type="xs:byte" /> 
+<xs:element name="dateTime" nillable="true" type="xs:dateTime" /> 
+<xs:element name="decimal" nillable="true" type="xs:decimal" /> 
+<xs:element name="double" nillable="true" type="xs:double" /> 
+<xs:element name="float" nillable="true" type="xs:float" /> 
+<xs:element name="int" nillable="true" type="xs:int" /> 
+<xs:element name="long" nillable="true" type="xs:long" /> 
+<xs:element name="QName" nillable="true" type="xs:QName" /> 
+<xs:element name="short" nillable="true" type="xs:short" /> 
+<xs:element name="string" nillable="true" type="xs:string" /> 
+<xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte" /> 
+<xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt" /> 
+<xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong" /> 
+<xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort" /> 
+<xs:element name="char" nillable="true" type="tns:char" /> 
+<xs:simpleType name="char">
+<xs:restriction base="xs:int" /> 
+</xs:simpleType>
+<xs:element name="duration" nillable="true" type="tns:duration" /> 
+<xs:simpleType name="duration">
+<xs:restriction base="xs:duration">
+<xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?" /> 
+<xs:minInclusive value="-P10675199DT2H48M5.4775808S" /> 
+<xs:maxInclusive value="P10675199DT2H48M5.4775807S" /> 
+</xs:restriction>
+</xs:simpleType>
+<xs:element name="guid" nillable="true" type="tns:guid" /> 
+<xs:simpleType name="guid">
+<xs:restriction base="xs:string">
+<xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}" /> 
+</xs:restriction>
+</xs:simpleType>
+<xs:attribute name="FactoryType" type="xs:QName" /> 
+<xs:attribute name="Id" type="xs:ID" /> 
+<xs:attribute name="Ref" type="xs:IDREF" /> 
+</xs:schema>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://kr.x-road.eu/DokumendidNimekiri" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://kr.x-road.eu/DokumendidNimekiri">
+<xs:complexType name="Dokumendid_NimekiriRequest">
+<xs:sequence>
+<xs:element minOccurs="0" name="Menetluse_nr" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Menetluse number</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Ro_nr" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Registriosa number</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Dokumendid_NimekiriRequest" nillable="true" type="tns:Dokumendid_NimekiriRequest" /> 
+</xs:schema>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/KinnistuService.DTO" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.datacontract.org/2004/07/KinnistuService.DTO">
+<xs:complexType name="Kinnistu_DetailandmedRequest">
+<xs:sequence>
+<xs:element minOccurs="0" name="jao_nr" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>jao_nr</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kande_kehtivus" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kande_kehtivus</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kasutajanimi" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kasutajanimi</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="parool" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>parool</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="registriosa_nr" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>registriosa_nr</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Kinnistu_DetailandmedRequest" nillable="true" type="tns:Kinnistu_DetailandmedRequest" /> 
+<xs:complexType name="Detailandmed">
+<xs:sequence>
+<xs:element minOccurs="0" name="aluskinnistu" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>aluskinnistu</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="avamise_kp" nillable="true" type="xs:dateTime">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>avamise_kp</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="digitaalne_toimik" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>digitaalne_toimik</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kinnistu_liik" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kinnistu_liik</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kinnistu_liik_tekst" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kinnistu_liik_tekst</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="korteriyhistu_registrikood" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>korteriyhistu_registrikood</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="registriosa_nr" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>registriosa_nr</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="sulgemise_kp" nillable="true" type="xs:dateTime">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>sulgemise_kp</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Detailandmed" nillable="true" type="tns:Detailandmed" /> 
+<xs:complexType name="ArrayOfJagu0">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="Jagu0" nillable="true" type="tns:Jagu0" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfJagu0" nillable="true" type="tns:ArrayOfJagu0" /> 
+<xs:complexType name="Jagu0">
+<xs:sequence>
+<xs:element minOccurs="0" name="avaldused" nillable="true" type="tns:ArrayOfKinnistamisavaldus">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>avaldused</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="jaoskond_voi_osakond" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>jaoskond_voi_osakond</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kande_alguskuupaev" nillable="true" type="xs:dateTime">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kande_alguskuupaev</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kande_liik" type="xs:int">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kande_liik</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kande_liik_tekst" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kande_liik_tekst</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kande_loppkuupaev" nillable="true" type="xs:dateTime">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kande_loppkuupaev</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kande_tekst" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kande_tekst</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="nimi" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>nimi</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="nimi_algus_kp" nillable="true" type="xs:dateTime">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>nimi_algus_kp</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="nimi_lopp_kp" nillable="true" type="xs:dateTime">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>nimi_lopp_kp</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="registriosa_nr" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>registriosa_nr</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Jagu0" nillable="true" type="tns:Jagu0" /> 
+<xs:complexType name="ArrayOfKinnistamisavaldus">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="Kinnistamisavaldus" nillable="true" type="tns:Kinnistamisavaldus" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfKinnistamisavaldus" nillable="true" type="tns:ArrayOfKinnistamisavaldus" /> 
+<xs:complexType name="Kinnistamisavaldus">
+<xs:sequence>
+<xs:element minOccurs="0" name="aasta" type="xs:int">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>aasta</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="avalduse_esitaja_liik" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>avalduse_esitaja_liik</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="avalduse_liik" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>avalduse_liik</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="avalduse_nr" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>avalduse_nr</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="notar" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>notar</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="registreeritud" nillable="true" type="xs:dateTime">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>registreeritud</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="tehingu_nr" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>tehingu_nr</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Kinnistamisavaldus" nillable="true" type="tns:Kinnistamisavaldus" /> 
+<xs:complexType name="ArrayOfJagu1">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="Jagu1" nillable="true" type="tns:Jagu1" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfJagu1" nillable="true" type="tns:ArrayOfJagu1" /> 
+<xs:complexType name="Jagu1">
+<xs:sequence>
+<xs:element minOccurs="0" name="jao_nr" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>jao_nr</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kande_alguskuupaev" nillable="true" type="xs:dateTime">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kande_alguskuupaev</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kande_alus" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kande_alus</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kande_kehtivus" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kande_kehtivus</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kande_liik" type="xs:int">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kande_liik</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kande_liik_tekst" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kande_liik_tekst</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kande_loppkuupaev" nillable="true" type="xs:dateTime">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kande_loppkuupaev</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kande_nr" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kande_nr</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kande_tekst" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kande_tekst</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="katastriyksused" nillable="true" type="tns:ArrayOfKinnistuKatastriyksus">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>katastriyksused</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="koormatud_kinnistud" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>koormatud_kinnistud</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="reaalosad" nillable="true" type="tns:ArrayOfKandeReaalosa">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>reaalosad</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="registriosa_nr" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>registriosa_nr</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Jagu1" nillable="true" type="tns:Jagu1" /> 
+<xs:complexType name="ArrayOfKinnistuKatastriyksus">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="KinnistuKatastriyksus" nillable="true" type="tns:KinnistuKatastriyksus" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfKinnistuKatastriyksus" nillable="true" type="tns:ArrayOfKinnistuKatastriyksus" /> 
+<xs:complexType name="KinnistuKatastriyksus">
+<xs:sequence>
+<xs:element minOccurs="0" name="aadressobjekt" nillable="true" type="tns:Aadressobjekt">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>aadressobjekt</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="katastritunnus" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>katastritunnus</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="katastriyksuse_aadress" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>katastrriyksuse_aadress</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="pindala" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>pindala</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="pindala_yhik" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>pindala_yhik</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="plaanialusel" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>plaanialusel</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="sihtotstarbed" nillable="true" type="tns:ArrayOfSihtotstarve">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>sihtotstarbed</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="KinnistuKatastriyksus" nillable="true" type="tns:KinnistuKatastriyksus" /> 
+<xs:complexType name="Aadressobjekt">
+<xs:sequence>
+<xs:element minOccurs="0" name="ads_oid" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>ads_oid</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="objekti_aadressid" nillable="true" type="tns:ArrayOfAadressobjekt.ObjektiAadress">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>objekti_aadressid</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="taisaadress" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>taisaadress</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Aadressobjekt" nillable="true" type="tns:Aadressobjekt" /> 
+<xs:complexType name="ArrayOfAadressobjekt.ObjektiAadress">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="Aadressobjekt.ObjektiAadress" nillable="true" type="tns:Aadressobjekt.ObjektiAadress" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfAadressobjekt.ObjektiAadress" nillable="true" type="tns:ArrayOfAadressobjekt.ObjektiAadress" /> 
+<xs:complexType name="Aadressobjekt.ObjektiAadress">
+<xs:sequence>
+<xs:element minOccurs="0" name="aadressinumber" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>aadressinumber</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="aadressinumber_kood" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>aadressinumber_kood</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="adr_id" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>adr_id</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="asustus_yksus" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>asustus_yksus</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="asustus_yksus_kood" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>asustus_yksus_kood</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="koodaadress" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>koodaadress</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="korteri_number" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>korteri_number</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="korteri_number_kood" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>korteri_number_kood</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="liikluspind" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>liikluspind</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="liikluspind_kood" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>liikluspind_kood</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="maakond" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>maakond</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="maakond_kood" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>maakond_kood</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="nimetus" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>nimetus</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="nimetus_kood" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>nimetus_kood</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="omavalitsus" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>omavalitsus</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="omavalitsus_kood" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>omavalitsus_kood</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="taisaadress" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>taisaadress</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="vaikekoht" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>vaikekoht</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="vaikekoht_kood" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>vaikekoht_kood</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Aadressobjekt.ObjektiAadress" nillable="true" type="tns:Aadressobjekt.ObjektiAadress" /> 
+<xs:complexType name="ArrayOfSihtotstarve">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="Sihtotstarve" nillable="true" type="tns:Sihtotstarve" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfSihtotstarve" nillable="true" type="tns:ArrayOfSihtotstarve" /> 
+<xs:complexType name="Sihtotstarve">
+<xs:sequence>
+<xs:element minOccurs="0" name="jrk" type="xs:int">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>jrk</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="protsent" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>protsent</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="sihtotstarve" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>sihtotstarve</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="sihtotstarve_tekst" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>sihtotstarve_tekst</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Sihtotstarve" nillable="true" type="tns:Sihtotstarve" /> 
+<xs:complexType name="ArrayOfKandeReaalosa">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="KandeReaalosa" nillable="true" type="tns:KandeReaalosa" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfKandeReaalosa" nillable="true" type="tns:ArrayOfKandeReaalosa" /> 
+<xs:complexType name="KandeReaalosa">
+<xs:sequence>
+<xs:element minOccurs="0" name="aadressobjekt" nillable="true" type="tns:Aadressobjekt">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>aadressobjekt</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="r_liik" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>r_liik</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="r_liik_tekst" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>r_liik</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="r_lugeja" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>r_lugeja</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="r_nimetaja" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>r_nimetaja</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="r_pindala" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>r_pindala</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="r_plaanil" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>r_plaanil</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="r_suurus" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>r_suurus</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="r_tahis" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>r_tahis</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="KandeReaalosa" nillable="true" type="tns:KandeReaalosa" /> 
+<xs:complexType name="ArrayOfJagu2">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="Jagu2" nillable="true" type="tns:Jagu2" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfJagu2" nillable="true" type="tns:ArrayOfJagu2" /> 
+<xs:complexType name="Jagu2">
+<xs:sequence>
+<xs:element minOccurs="0" name="jao_nr" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>jao_nr</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kande_alguskuupaev" nillable="true" type="xs:dateTime">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kande_alguskuupaev</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kande_alus" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kande_alus</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kande_kehtivus" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kande_kehtivus</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kande_liik" type="xs:int">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kande_liik</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kande_liik_tekst" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kande_liik_tekst</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kande_loppkuupaev" nillable="true" type="xs:dateTime">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kande_loppkuupaev</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kande_nr" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kande_nr</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kande_tekst" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kande_tekst</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="omandiosad" nillable="true" type="tns:ArrayOfJagu2.Omandiosa">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>omandiosad</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="registriosa_nr" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>registriosa_nr</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Jagu2" nillable="true" type="tns:Jagu2" /> 
+<xs:complexType name="ArrayOfJagu2.Omandiosa">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="Jagu2.Omandiosa" nillable="true" type="tns:Jagu2.Omandiosa" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfJagu2.Omandiosa" nillable="true" type="tns:ArrayOfJagu2.Omandiosa" /> 
+<xs:complexType name="Jagu2.Omandiosa">
+<xs:sequence>
+<xs:element minOccurs="0" name="isikud" nillable="true" type="tns:ArrayOfKinnistuIsik">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>isikud</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="omandi_algus" nillable="true" type="xs:dateTime">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>omandi_algus</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="omandi_liik" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>omandi_liik</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="omandi_liik_tekst" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>omandi_liik_tekst</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="omandi_lopp" nillable="true" type="xs:dateTime">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>omandi_lopp</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="omandiosa_lugeja" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>omandiosa_lugeja</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="omandiosa_nimetaja" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>omandiosa_nimetaja</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="omandiosa_suurus" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>omandiosa_suurus</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Jagu2.Omandiosa" nillable="true" type="tns:Jagu2.Omandiosa" /> 
+<xs:complexType name="ArrayOfKinnistuIsik">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="KinnistuIsik" nillable="true" type="tns:KinnistuIsik" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfKinnistuIsik" nillable="true" type="tns:ArrayOfKinnistuIsik" /> 
+<xs:complexType name="KinnistuIsik">
+<xs:sequence>
+<xs:element minOccurs="0" name="eesnimi" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>eesnimi</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="isiku_koodid" nillable="true" type="tns:ArrayOfIsiku_kood">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>isiku_koodid</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="isiku_liik" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>isiku_liik</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="isiku_liik_ID" nillable="true" type="xs:int">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>isiku_liik_ID</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="isiku_tyyp" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>isiku_tyyp</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kodakondsus" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kodakondsus</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="nimi" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>nimi</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="synniaeg" nillable="true" type="xs:dateTime">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>synniaeg</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="KinnistuIsik" nillable="true" type="tns:KinnistuIsik" /> 
+<xs:complexType name="ArrayOfIsiku_kood">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="Isiku_kood" nillable="true" type="tns:Isiku_kood" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfIsiku_kood" nillable="true" type="tns:ArrayOfIsiku_kood" /> 
+<xs:complexType name="Isiku_kood">
+<xs:sequence>
+<xs:element minOccurs="0" name="r_kood" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>r_kood</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="r_riik" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>r_riik</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Isiku_kood" nillable="true" type="tns:Isiku_kood" /> 
+<xs:complexType name="ArrayOfJagu3">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="Jagu3" nillable="true" type="tns:Jagu3" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfJagu3" nillable="true" type="tns:ArrayOfJagu3" /> 
+<xs:complexType name="Jagu3">
+<xs:sequence>
+<xs:element minOccurs="0" name="hoonestusoiguse_registriosa_nr" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>hoonestusoiguse_registriosa_nr</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="jao_nr" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>jao_nr</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kande_alguskuupaev" nillable="true" type="xs:dateTime">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kande_alguskuupaev</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kande_alus" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kande_alus</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kande_alusdokumendid" nillable="true" type="tns:ArrayOfKinnistamisavaldus">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kande_alusdokumendid</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kande_kehtivus" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kande_kehtivus</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kande_liik" type="xs:int">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kande_liik</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kande_liik_tekst" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kande_liik_tekst</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kande_loppkuupaev" nillable="true" type="xs:dateTime">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kande_loppkuupaev</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kande_nr" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kande_nr</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kande_tekst" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kande_tekst</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="koormatise_rahaline_vaartus" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>koormatise_rahaline_vaartus</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="koormatise_rahalise_vaartuse_valuuta" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>koormatise_rahalise_vaartuse_valuuta</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="koormatise_tahtaeg_aastates" type="xs:int">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>koormatise_tahtaeg_aastates</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="koormatise_tahtaeg_kuudes" type="xs:int">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>koormatise_tahtaeg_kuudes</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="koormatise_tahtaja_kuupaev" nillable="true" type="xs:dateTime">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>koormatise_tahtaja_kuupaev</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="oiguse_alamliik" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>oiguse_alamliik</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="oiguse_alamliik_tekst" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>oiguse_alamliik_tekst</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="oiguse_liik" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>oiguse_liik</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="oiguse_liik_tekst" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>oiguse_liik_tekst</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="oiguse_seisund" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>oiguse_seisund</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="oiguse_seisund_tekst" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>oiguse_seisund_tekst</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="oigustatud_isikud" nillable="true" type="tns:ArrayOfKinnistuIsik">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>oigustatud_isikud</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="registriosa_nr" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>registriosa_nr</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="valitsev_registriosa_nr" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>valitsev_registriosa_nr</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Jagu3" nillable="true" type="tns:Jagu3" /> 
+<xs:complexType name="ArrayOfJagu4">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="Jagu4" nillable="true" type="tns:Jagu4" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfJagu4" nillable="true" type="tns:ArrayOfJagu4" /> 
+<xs:complexType name="Jagu4">
+<xs:sequence>
+<xs:element minOccurs="0" name="alusdokumendid" nillable="true" type="tns:ArrayOfKinnistamisavaldus">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>alusdokumendid</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="jao_nr" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>jao_nr</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kande_alguskuupaev" nillable="true" type="xs:dateTime">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kande_alguskuupaev</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kande_alus" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kande_alus</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kande_kehtivus" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kande_kehtivus</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kande_liik" type="xs:int">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kande_liik</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kande_liik_tekst" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kande_liik_tekst</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kande_loppkuupaev" nillable="true" type="xs:dateTime">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kande_loppkuupaev</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kande_nr" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kande_nr</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kande_tekst" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kande_tekst</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="koormatise_rahaline_vaartus" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>koormatise_rahaline_vaartus</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="koormatise_rahalise_vaartuse_valuuta" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>koormatise_rahalise_vaartuse_valuuta</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="oiguse_seisund" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>oiguse_seisund</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="oiguse_seisund_tekst" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>oiguse_seisund_tekst</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="oigustatud_isikud" nillable="true" type="tns:ArrayOfKinnistuIsik">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>oigustatud_isikud</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="registriosa_nr" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>registriosa_nr</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Jagu4" nillable="true" type="tns:Jagu4" /> 
+<xs:complexType name="Kinnistu_LihtandmedRequest">
+<xs:sequence>
+<xs:element minOccurs="0" name="aadress" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="adr_id" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="asustusyksus" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="eesnimi" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="isiku_liik_ID" nillable="true" type="xs:int" /> 
+<xs:element minOccurs="0" name="kas_kehtetu_omanik" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="kas_oigustatud_isik" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="kasutajanimi" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="katastritunnus" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="kinnistu_kehtivus" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="kinnistu_liik" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="kinnistu_number" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="kinnistute_arv_lehel" nillable="true" type="xs:int" /> 
+<xs:element minOccurs="0" name="kood" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="kood_riik" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="koodaadress" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="korteri_number" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="lehekylje_nr" nillable="true" type="xs:int" /> 
+<xs:element minOccurs="0" name="liikluspind" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="maakond" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="nimetus" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="nimi" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="number" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="omavalitsus" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="parool" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="reaalosa_number" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="synniaeg" nillable="true" type="xs:dateTime" /> 
+<xs:element minOccurs="0" name="vaikekoht" nillable="true" type="xs:string" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Kinnistu_LihtandmedRequest" nillable="true" type="tns:Kinnistu_LihtandmedRequest" /> 
+<xs:complexType name="ArrayOfOmand">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="Omand" nillable="true" type="tns:Omand" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfOmand" nillable="true" type="tns:ArrayOfOmand" /> 
+<xs:complexType name="Omand">
+<xs:sequence>
+<xs:element minOccurs="0" name="isikud" nillable="true" type="tns:ArrayOfKinnistuIsik">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>isikud</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="lugeja" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>lugeja</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="nimetaja" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>nimetaja</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="omandi_liik" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>omandi_liik</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="omandi_liik_tekst" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>omandi_liik_tekst</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="suurus" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>suurus</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Omand" nillable="true" type="tns:Omand" /> 
+<xs:complexType name="ArrayOfKinnistuRegistriosa">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="KinnistuRegistriosa" nillable="true" type="tns:KinnistuRegistriosa" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfKinnistuRegistriosa" nillable="true" type="tns:ArrayOfKinnistuRegistriosa" /> 
+<xs:complexType name="KinnistuRegistriosa">
+<xs:sequence>
+<xs:element minOccurs="0" name="digitaalne_toimik" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>digitaalne_toimik</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="jaoskond_voi_osakond" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>jaoskond_voi_osakond</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="katastriyksused" nillable="true" type="tns:ArrayOfKinnistuKatastriyksus">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>katastriyksused</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kinnistu_kehtivus" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kinnistu_kehtivus</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kinnistu_liik" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kinnistu_liik</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kinnistu_liik_tekst" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kinnistu_liik_tekst</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kinnistu_nimi" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kinnistu_nimi</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="kinnistu_number" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>kinnistu_number</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="korteriyhistu_registrikood" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>korteriyhistu_registrikood</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="omandid" nillable="true" type="tns:ArrayOfOmand">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>omandid</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="reaalosad" nillable="true" type="tns:ArrayOfKinnistuReaalosa">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>reaalosad</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="KinnistuRegistriosa" nillable="true" type="tns:KinnistuRegistriosa" /> 
+<xs:complexType name="ArrayOfKinnistuReaalosa">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="KinnistuReaalosa" nillable="true" type="tns:KinnistuReaalosa" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfKinnistuReaalosa" nillable="true" type="tns:ArrayOfKinnistuReaalosa" /> 
+<xs:complexType name="KinnistuReaalosa">
+<xs:sequence>
+<xs:element minOccurs="0" name="tahis" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>tahis</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="KinnistuReaalosa" nillable="true" type="tns:KinnistuReaalosa" /> 
+<xs:complexType name="Kinnistusraamatu_MuudatusedRequest">
+<xs:sequence>
+<xs:element minOccurs="0" name="isiku_liik_ID" nillable="true" type="xs:int" /> 
+<xs:element minOccurs="0" name="jao_number" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="kasutajanimi" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="katastritunnus" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="kinnistu_liik" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="kinnistute_arv_lehel" nillable="true" type="xs:int" /> 
+<xs:element minOccurs="0" name="korteriyhistu_registrikood" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="kuupaev_algus" nillable="true" type="xs:dateTime" /> 
+<xs:element minOccurs="0" name="kuupaev_lopp" nillable="true" type="xs:dateTime" /> 
+<xs:element minOccurs="0" name="lehekylje_nr" nillable="true" type="xs:int" /> 
+<xs:element minOccurs="0" name="muudatuste_valik" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="omavalitsus" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="parool" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="registriosa_nr" nillable="true" type="xs:string" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Kinnistusraamatu_MuudatusedRequest" nillable="true" type="tns:Kinnistusraamatu_MuudatusedRequest" /> 
+<xs:complexType name="ArrayOfKinnistuMuudatused">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="KinnistuMuudatused" nillable="true" type="tns:KinnistuMuudatused" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfKinnistuMuudatused" nillable="true" type="tns:ArrayOfKinnistuMuudatused" /> 
+<xs:complexType name="KinnistuMuudatused">
+<xs:sequence>
+<xs:element minOccurs="0" name="detailandmed" nillable="true" type="tns:Detailandmed">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>detailandmed</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="jagu0" nillable="true" type="tns:ArrayOfJagu0">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>jagu0</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="jagu1" nillable="true" type="tns:ArrayOfJagu1">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>jagu1</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="jagu2" nillable="true" type="tns:ArrayOfJagu2">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>jagu2</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="jagu3" nillable="true" type="tns:ArrayOfJagu3">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>jagu3</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="jagu4" nillable="true" type="tns:ArrayOfJagu4">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>jagu4</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="KinnistuMuudatused" nillable="true" type="tns:KinnistuMuudatused" /> 
+</xs:schema>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/NapService.DTO" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.datacontract.org/2004/07/NapService.DTO">
+<xs:complexType name="Laekumise_LisamineRequest">
+<xs:sequence>
+<xs:element minOccurs="0" name="EmkoOmanikIsikukood" nillable="true" type="xs:string" /> 
+<xs:element name="LaekId" nillable="true" type="xs:string" /> 
+<xs:element name="LaekKpv" nillable="true" type="xs:dateTime" /> 
+<xs:element minOccurs="0" name="LaekumiseSumma" nillable="true" type="xs:decimal" /> 
+<xs:element minOccurs="0" name="MakseSelgitus" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="MaksjaIsikukood" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="MaksjaKontoNR" nillable="true" type="xs:string" /> 
+<xs:element name="MaksjaNimi" nillable="true" type="xs:string" /> 
+<xs:element name="MuutuseLiikKL" nillable="true" type="xs:int" /> 
+<xs:element name="NoudeIdAllikas" nillable="true" type="xs:string" /> 
+<xs:element name="TasuId" nillable="true" type="xs:string" /> 
+<xs:element name="TasumiseSumma" nillable="true" type="xs:decimal" /> 
+<xs:element minOccurs="0" name="Viitenumber" nillable="true" type="xs:string" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Laekumise_LisamineRequest" nillable="true" type="tns:Laekumise_LisamineRequest" /> 
+</xs:schema>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/KaemService.DTO" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.datacontract.org/2004/07/KaemService.DTO">
+<xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" /> 
+<xs:complexType name="Registreeri_AvaldusRequest">
+<xs:sequence>
+<xs:element minOccurs="0" name="Avaldus" nillable="true" type="tns:AvaldusV2" /> 
+<xs:element minOccurs="0" name="Dokumendid" nillable="true" type="tns:ArrayOfDokument" /> 
+<xs:element minOccurs="0" name="Esitajad" nillable="true" type="tns:ArrayOfEsitaja" /> 
+<xs:element minOccurs="0" name="Infosysteem" nillable="true" type="xs:string" /> 
+<xs:element minOccurs="0" name="Katastriyksused" nillable="true" type="tns:ArrayOfKatastriyksus" /> 
+<xs:element minOccurs="0" name="PuudutatudIsikud" nillable="true" type="tns:ArrayOfPuudutatudIsik" /> 
+<xs:element minOccurs="0" name="Reaalosad" nillable="true" type="tns:ArrayOfReaalosa" /> 
+<xs:element minOccurs="0" name="Registriosad" nillable="true" type="tns:ArrayOfRegistriosaV2" /> 
+<xs:element minOccurs="0" name="Riigiloivud" nillable="true" type="tns:ArrayOfRiigiloiv" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Registreeri_AvaldusRequest" nillable="true" type="tns:Registreeri_AvaldusRequest" /> 
+<xs:complexType name="AvaldusV2">
+<xs:complexContent mixed="false">
+<xs:extension base="tns:Avaldus">
+<xs:sequence>
+<xs:element minOccurs="0" name="KorteriyhistuRegKood" nillable="true" type="xs:int">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Korteriühistu registrikood</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+<xs:element name="AvaldusV2" nillable="true" type="tns:AvaldusV2" /> 
+<xs:complexType name="Avaldus">
+<xs:sequence>
+<xs:element minOccurs="0" name="AvalduseAlamliik" nillable="true" type="tns:AvalduseAlamliigid">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Avalduse alamliik</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="AvalduseLiik" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Avalduse liik</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Kinnistusjaoskond" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Kinnistusjaoskond</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="MaaruseNumber" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Määruse number</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Markus" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Märkus</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="MenetluseNumber" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Menetluse number</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Avaldus" nillable="true" type="tns:Avaldus" /> 
+<xs:simpleType name="AvalduseAlamliigid">
+<xs:restriction base="xs:string">
+<xs:enumeration value="29">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">29</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="30">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">30</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+</xs:restriction>
+</xs:simpleType>
+<xs:element name="AvalduseAlamliigid" nillable="true" type="tns:AvalduseAlamliigid" /> 
+<xs:complexType name="ArrayOfDokument">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="Dokument" nillable="true" type="tns:Dokument" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfDokument" nillable="true" type="tns:ArrayOfDokument" /> 
+<xs:complexType name="Dokument">
+<xs:sequence>
+<xs:element minOccurs="0" name="DokumendiAndmed" nillable="true" type="tns:ArrayOfDokumendiAndmed">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Dokumendi andmed</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="FailiNimi" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Faili nimi</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="FailiSisu" nillable="true" type="xs:base64Binary">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Faili sisu</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="UnikaalneFailiNimiKris4" nillable="true" type="xs:string" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Dokument" nillable="true" type="tns:Dokument" /> 
+<xs:complexType name="ArrayOfDokumendiAndmed">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="DokumendiAndmed" nillable="true" type="tns:DokumendiAndmed" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfDokumendiAndmed" nillable="true" type="tns:ArrayOfDokumendiAndmed" /> 
+<xs:complexType name="DokumendiAndmed">
+<xs:sequence>
+<xs:element minOccurs="0" name="DigidocViit" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Digidoc viit</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="DokumendiFailiNimi" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Dokumendi faili nimi</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="DokumendiKuupaev" nillable="true" type="xs:dateTime">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Dokumendi kuupäev</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="DokumendiLiik" type="tns:DokumendiLiigid">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Dokumendi liik</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="DokumendiNumber" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Dokumendi number</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Koostaja" nillable="true" type="tns:Isik" /> 
+<xs:element minOccurs="0" name="KoostamiseAasta" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Dokumendi koostamise aasta</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Markus" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Märkus</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="DokumendiAndmed" nillable="true" type="tns:DokumendiAndmed" /> 
+<xs:simpleType name="DokumendiLiigid">
+<xs:restriction base="xs:string">
+<xs:enumeration value="38">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="921">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">921</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38191">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38191</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38786">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38786</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38788">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38788</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38789">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38789</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38790">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38790</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38792">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38792</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38795">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38795</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38796">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38796</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38797">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38797</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38804">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38804</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38805">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38805</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38806">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38806</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38808">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38808</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38814">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38814</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38816">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38816</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38817">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38817</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38818">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38818</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38819">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38819</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38822">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38822</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="39172">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">39172</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="39173">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">39173</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="39174">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">39174</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="39188">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">39188</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="39190">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">39190</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="39197">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">39197</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="39231">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">39231</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="39232">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">39232</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="39249">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">39249</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="39256">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">39256</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="39257">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">39257</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="39263">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">39263</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="39313">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">39313</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="39314">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">39314</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="39315">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">39315</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="39316">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">39316</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="39317">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">39317</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="39318">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">39318</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="39554">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">39554</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="39576">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">39576</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="39590">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">39590</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="39770">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">39770</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="39771">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">39771</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="39772">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">39772</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40175">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40175</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40178">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40178</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40179">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40179</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40181">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40181</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40182">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40182</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40186">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40186</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40187">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40187</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40188">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40188</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40189">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40189</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40190">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40190</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40191">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40191</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40192">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40192</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40195">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40195</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40197">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40197</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40198">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40198</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40205">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40205</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40206">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40206</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40228">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40228</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40246">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40246</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40247">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40247</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40248">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40248</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40275">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40275</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40278">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40278</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40279">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40279</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40280">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40280</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40282">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40282</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40283">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40283</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40285">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40285</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40286">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40286</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40287">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40287</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40288">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40288</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40289">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40289</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40290">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40290</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40291">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40291</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40292">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40292</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40293">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40293</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40351">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40351</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40358">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40358</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="40359">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40359</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+</xs:restriction>
+</xs:simpleType>
+<xs:element name="DokumendiLiigid" nillable="true" type="tns:DokumendiLiigid" /> 
+<xs:complexType name="Isik">
+<xs:sequence>
+<xs:element minOccurs="0" name="Aadress" nillable="true" type="tns:Aadress">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Aadress</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Eesnimi" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Eesnimi</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="IsikuLiik" type="tns:IsikuteLiigid">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Isiku liik</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Isikukoodid" nillable="true" type="tns:ArrayOfIsikukood">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Isikukoodid</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Kodakondsus" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Kodakondsus</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Lyhikood" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Lühikood</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Nimi" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Nimi</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Sidevahendid" nillable="true" type="tns:ArrayOfSidevahend">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Sidevahendid</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Synniaeg" nillable="true" type="xs:dateTime">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Sünniaeg</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Isik" nillable="true" type="tns:Isik" /> 
+<xs:complexType name="Aadress">
+<xs:sequence>
+<xs:element minOccurs="0" name="AadressTekst" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Aadress (normaliseeritud aadress või ADS_OID)</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="AadressiRiik" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Aadressi riik</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Aadress" nillable="true" type="tns:Aadress" /> 
+<xs:simpleType name="IsikuteLiigid">
+<xs:restriction base="xs:string">
+<xs:enumeration value="1232">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1232</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="1233">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1233</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="7867">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">7867</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+</xs:restriction>
+</xs:simpleType>
+<xs:element name="IsikuteLiigid" nillable="true" type="tns:IsikuteLiigid" /> 
+<xs:complexType name="ArrayOfIsikukood">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="Isikukood" nillable="true" type="tns:Isikukood" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfIsikukood" nillable="true" type="tns:ArrayOfIsikukood" /> 
+<xs:complexType name="Isikukood">
+<xs:sequence>
+<xs:element minOccurs="0" name="Kood" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Kood</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="ValjaandjaRiik" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Väljaandja riik</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Isikukood" nillable="true" type="tns:Isikukood" /> 
+<xs:complexType name="ArrayOfSidevahend">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="Sidevahend" nillable="true" type="tns:Sidevahend" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfSidevahend" nillable="true" type="tns:ArrayOfSidevahend" /> 
+<xs:complexType name="Sidevahend">
+<xs:sequence>
+<xs:element minOccurs="0" name="Liik" type="tns:SidevahenditeLiigid">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Liik</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Sisu" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Sisu</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Sidevahend" nillable="true" type="tns:Sidevahend" /> 
+<xs:simpleType name="SidevahenditeLiigid">
+<xs:restriction base="xs:string">
+<xs:enumeration value="1468">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1468</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="1469">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1469</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+</xs:restriction>
+</xs:simpleType>
+<xs:element name="SidevahenditeLiigid" nillable="true" type="tns:SidevahenditeLiigid" /> 
+<xs:complexType name="ArrayOfEsitaja">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="Esitaja" nillable="true" type="tns:Esitaja" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfEsitaja" nillable="true" type="tns:ArrayOfEsitaja" /> 
+<xs:complexType name="Esitaja">
+<xs:complexContent mixed="false">
+<xs:extension base="tns:Isik">
+<xs:sequence>
+<xs:element minOccurs="0" name="Esindaja" nillable="true" type="tns:ArrayOfIsik">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Esindaja</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+<xs:element name="Esitaja" nillable="true" type="tns:Esitaja" /> 
+<xs:complexType name="ArrayOfIsik">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="Isik" nillable="true" type="tns:Isik" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfIsik" nillable="true" type="tns:ArrayOfIsik" /> 
+<xs:complexType name="ArrayOfKatastriyksus">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="Katastriyksus" nillable="true" type="tns:Katastriyksus" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfKatastriyksus" nillable="true" type="tns:ArrayOfKatastriyksus" /> 
+<xs:complexType name="Katastriyksus">
+<xs:sequence>
+<xs:element minOccurs="0" name="KatastriyksuseTunnus" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Katastriüksuse tunnus</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Katastriyksus" nillable="true" type="tns:Katastriyksus" /> 
+<xs:complexType name="ArrayOfPuudutatudIsik">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="PuudutatudIsik" nillable="true" type="tns:PuudutatudIsik" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfPuudutatudIsik" nillable="true" type="tns:ArrayOfPuudutatudIsik" /> 
+<xs:complexType name="PuudutatudIsik">
+<xs:complexContent mixed="false">
+<xs:extension base="tns:Isik">
+<xs:sequence>
+<xs:element minOccurs="0" name="Esindaja" nillable="true" type="tns:ArrayOfIsik">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Esindaja</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+<xs:element name="PuudutatudIsik" nillable="true" type="tns:PuudutatudIsik" /> 
+<xs:complexType name="ArrayOfReaalosa">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="Reaalosa" nillable="true" type="tns:Reaalosa" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfReaalosa" nillable="true" type="tns:ArrayOfReaalosa" /> 
+<xs:complexType name="Reaalosa">
+<xs:sequence>
+<xs:element minOccurs="0" name="ADS_OID" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Reaalosa aadressobjekti kood</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="MottelineOsa" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Mõtteline osa</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="ReaalosaLiik" type="tns:ReaalosadeLiigid">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Reaalosa liik</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="ReaalosaNumber" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Reaalosa number</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="ReaalosaTahistus" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Reaalosa tähistus</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="ReaalosaYldpind" type="xs:decimal">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Reaalosa üldpind</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Reaalosa" nillable="true" type="tns:Reaalosa" /> 
+<xs:simpleType name="ReaalosadeLiigid">
+<xs:restriction base="xs:string">
+<xs:enumeration value="64">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">64</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="63">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">63</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="39247">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">39247</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+</xs:restriction>
+</xs:simpleType>
+<xs:element name="ReaalosadeLiigid" nillable="true" type="tns:ReaalosadeLiigid" /> 
+<xs:complexType name="ArrayOfRegistriosaV2">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="RegistriosaV2" nillable="true" type="tns:RegistriosaV2" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfRegistriosaV2" nillable="true" type="tns:ArrayOfRegistriosaV2" /> 
+<xs:complexType name="RegistriosaV2">
+<xs:complexContent mixed="false">
+<xs:extension base="tns:Registriosa">
+<xs:sequence>
+<xs:element minOccurs="0" name="KorteriyhistuRegKood" nillable="true" type="xs:int">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Korteriühistu registrikood</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+<xs:element name="RegistriosaV2" nillable="true" type="tns:RegistriosaV2" /> 
+<xs:complexType name="Registriosa">
+<xs:sequence>
+<xs:element minOccurs="0" name="RegistriosaNumber" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Registriosa number</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Registriosa" nillable="true" type="tns:Registriosa" /> 
+<xs:complexType name="ArrayOfRiigiloiv">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="Riigiloiv" nillable="true" type="tns:Riigiloiv" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfRiigiloiv" nillable="true" type="tns:ArrayOfRiigiloiv" /> 
+<xs:complexType name="Riigiloiv">
+<xs:sequence>
+<xs:element minOccurs="0" name="RiigiloivuMaksjad" nillable="true" type="tns:ArrayOfRiigiloivuMaksja">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Riigilõivu maksjad</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="RiigiloivuSumma" type="xs:decimal">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Riigilõivu summa</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Selgitus" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Selgitus</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="TehinguLiigiID" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Tehingu liigi ID</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="TehinguLiik" type="tns:TehinguteLiigid">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Tehingu liik</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="TehinguVaartus" type="xs:decimal">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Tehinguväärtus</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="Viitenumber" nillable="true" type="xs:string">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Viitenumber</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="Riigiloiv" nillable="true" type="tns:Riigiloiv" /> 
+<xs:complexType name="ArrayOfRiigiloivuMaksja">
+<xs:sequence>
+<xs:element minOccurs="0" maxOccurs="unbounded" name="RiigiloivuMaksja" nillable="true" type="tns:RiigiloivuMaksja" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfRiigiloivuMaksja" nillable="true" type="tns:ArrayOfRiigiloivuMaksja" /> 
+<xs:complexType name="RiigiloivuMaksja">
+<xs:complexContent mixed="false">
+<xs:extension base="tns:Isik">
+<xs:sequence>
+<xs:element minOccurs="0" name="MaksjaSumma" type="xs:decimal">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Maksja summa</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+<xs:element minOccurs="0" name="ViitenumbritaMakse" type="xs:boolean">
+<xs:annotation>
+<xs:appinfo>
+<xrd:title>Viitenumbrita makse</xrd:title> 
+</xs:appinfo>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+<xs:element name="RiigiloivuMaksja" nillable="true" type="tns:RiigiloivuMaksja" /> 
+<xs:simpleType name="TehinguteLiigid">
+<xs:restriction base="xs:string">
+<xs:enumeration value="37">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">37</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="1764">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1764</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38210">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38210</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38211">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38211</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38212">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38212</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38213">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38213</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38214">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38214</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38215">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38215</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38216">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38216</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38217">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38217</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38218">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38218</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38219">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38219</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38220">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38220</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38221">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38221</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38222">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38222</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38223">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38223</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38224">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38224</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38225">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38225</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38226">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38226</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38227">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38227</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38228">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38228</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38229">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38229</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38230">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38230</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38231">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38231</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38232">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38232</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38233">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38233</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38234">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38234</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38235">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38235</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38236">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38236</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38237">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38237</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38238">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38238</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38239">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38239</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38240">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38240</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38241">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38241</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+<xs:enumeration value="38242">
+<xs:annotation>
+<xs:appinfo>
+<EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38242</EnumerationValue> 
+</xs:appinfo>
+</xs:annotation>
+</xs:enumeration>
+</xs:restriction>
+</xs:simpleType>
+<xs:element name="TehinguteLiigid" nillable="true" type="tns:TehinguteLiigid" /> 
+</xs:schema>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/System.IO" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.datacontract.org/2004/07/System.IO">
+<xs:import namespace="http://schemas.datacontract.org/2004/07/System" /> 
+<xs:complexType name="FileStream">
+<xs:complexContent mixed="false">
+<xs:extension base="tns:Stream">
+<xs:sequence /> 
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+<xs:element name="FileStream" nillable="true" type="tns:FileStream" /> 
+<xs:complexType name="Stream">
+<xs:complexContent mixed="false">
+<xs:extension base="sys:MarshalByRefObject">
+<xs:sequence /> 
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+<xs:element name="Stream" nillable="true" type="tns:Stream" /> 
+</xs:schema>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/System" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.datacontract.org/2004/07/System">
+<xs:complexType name="MarshalByRefObject">
+<xs:sequence>
+<xs:element name="__identity" nillable="true" type="xs:anyType" /> 
+</xs:sequence>
+</xs:complexType>
+<xs:element name="MarshalByRefObject" nillable="true" type="tns:MarshalByRefObject" /> 
+</xs:schema>
+</wsdl:types>
+<wsdl:message name="Registriosa_Dokumendid">
+<wsdl:part name="parameters" element="tns:Registriosa_Dokumendid" /> 
+</wsdl:message>
+<wsdl:message name="Registriosa_DokumendidResponse">
+<wsdl:part name="parameters" element="tns:Registriosa_DokumendidResponse" /> 
+</wsdl:message>
+<wsdl:message name="Puudutatud_Isiku_Teated">
+<wsdl:part name="parameters" element="tns:Puudutatud_Isiku_Teated" /> 
+</wsdl:message>
+<wsdl:message name="Puudutatud_Isiku_TeatedResponse">
+<wsdl:part name="parameters" element="tns:Puudutatud_Isiku_TeatedResponse" /> 
+</wsdl:message>
+<wsdl:message name="Minu_Kinnistustoimikud">
+<wsdl:part name="parameters" element="tns:Minu_Kinnistustoimikud" /> 
+</wsdl:message>
+<wsdl:message name="Minu_KinnistustoimikudResponse">
+<wsdl:part name="parameters" element="tns:Minu_KinnistustoimikudResponse" /> 
+</wsdl:message>
+<wsdl:message name="Minu_Kinnistamisavaldused">
+<wsdl:part name="parameters" element="tns:Minu_Kinnistamisavaldused" /> 
+</wsdl:message>
+<wsdl:message name="Minu_KinnistamisavaldusedResponse">
+<wsdl:part name="parameters" element="tns:Minu_KinnistamisavaldusedResponse" /> 
+</wsdl:message>
+<wsdl:message name="Kodanik_Kinnistud">
+<wsdl:part name="parameters" element="tns:Kodanik_Kinnistud" /> 
+</wsdl:message>
+<wsdl:message name="Kodanik_KinnistudResponse">
+<wsdl:part name="parameters" element="tns:Kodanik_KinnistudResponse" /> 
+</wsdl:message>
+<wsdl:message name="Dokumendid_Nimekiri">
+<wsdl:part name="parameters" element="tns:Dokumendid_Nimekiri" /> 
+</wsdl:message>
+<wsdl:message name="Dokumendid_NimekiriResponse">
+<wsdl:part name="parameters" element="tns:Dokumendid_NimekiriResponse" /> 
+</wsdl:message>
+<wsdl:message name="Dokument_ID">
+<wsdl:part name="parameters" element="tns:Dokument_ID" /> 
+</wsdl:message>
+<wsdl:message name="Dokument_IDResponse">
+<wsdl:part name="parameters" element="tns:Dokument_IDResponse" /> 
+</wsdl:message>
+<wsdl:message name="Notar_Menetlusinfo">
+<wsdl:part name="parameters" element="tns:Notar_Menetlusinfo" /> 
+</wsdl:message>
+<wsdl:message name="Notar_MenetlusinfoResponse">
+<wsdl:part name="parameters" element="tns:Notar_MenetlusinfoResponse" /> 
+</wsdl:message>
+<wsdl:message name="Kinnistu_Detailandmed">
+<wsdl:part name="parameters" element="tns:Kinnistu_Detailandmed" /> 
+</wsdl:message>
+<wsdl:message name="Kinnistu_DetailandmedResponse">
+<wsdl:part name="parameters" element="tns:Kinnistu_DetailandmedResponse" /> 
+</wsdl:message>
+<wsdl:message name="Kinnistu_Lihtandmed">
+<wsdl:part name="parameters" element="tns:Kinnistu_Lihtandmed" /> 
+</wsdl:message>
+<wsdl:message name="Kinnistu_LihtandmedResponse">
+<wsdl:part name="parameters" element="tns:Kinnistu_LihtandmedResponse" /> 
+</wsdl:message>
+<wsdl:message name="Kinnistusraamatu_Muudatused">
+<wsdl:part name="parameters" element="tns:Kinnistusraamatu_Muudatused" /> 
+</wsdl:message>
+<wsdl:message name="Kinnistusraamatu_MuudatusedResponse">
+<wsdl:part name="parameters" element="tns:Kinnistusraamatu_MuudatusedResponse" /> 
+</wsdl:message>
+<wsdl:message name="Laekumise_Lisamine">
+<wsdl:part name="parameters" element="tns:Laekumise_Lisamine" /> 
+</wsdl:message>
+<wsdl:message name="Laekumise_LisamineResponse">
+<wsdl:part name="parameters" element="tns:Laekumise_LisamineResponse" /> 
+</wsdl:message>
+<wsdl:message name="Registreeri_Avaldus">
+<wsdl:part name="parameters" element="tns:Registreeri_Avaldus" /> 
+</wsdl:message>
+<wsdl:message name="Registreeri_AvaldusResponse">
+<wsdl:part name="parameters" element="tns:Registreeri_AvaldusResponse" /> 
+</wsdl:message>
+<wsdl:message name="requestHeader">
+<wsdl:part name="client" element="xrd:client" /> 
+<wsdl:part name="service" element="xrd:service" /> 
+<wsdl:part name="userId" element="xrd:userId" /> 
+<wsdl:part name="id" element="xrd:id" /> 
+<wsdl:part name="protocolVersion" element="xrd:protocolVersion" /> 
+</wsdl:message>
+<wsdl:portType name="IKr">
+<wsdl:operation name="Registriosa_Dokumendid">
+<wsdl:documentation>
+<xrd:title>Registriosa dokumendid</xrd:title> 
+</wsdl:documentation>
+<wsdl:input wsaw:Action="" name="Registriosa_Dokumendid" message="tns:Registriosa_Dokumendid" /> 
+<wsdl:output wsaw:Action="http://kr.x-road.eu/IKr/Registriosa_DokumendidResponse" name="Registriosa_DokumendidResponse" message="tns:Registriosa_DokumendidResponse" /> 
+</wsdl:operation>
+<wsdl:operation name="Puudutatud_Isiku_Teated">
+<wsdl:documentation>
+<xrd:title>Puudutatud isiku teated</xrd:title> 
+</wsdl:documentation>
+<wsdl:input wsaw:Action="" name="Puudutatud_Isiku_Teated" message="tns:Puudutatud_Isiku_Teated" /> 
+<wsdl:output wsaw:Action="http://kr.x-road.eu/IKr/Puudutatud_Isiku_TeatedResponse" name="Puudutatud_Isiku_TeatedResponse" message="tns:Puudutatud_Isiku_TeatedResponse" /> 
+</wsdl:operation>
+<wsdl:operation name="Minu_Kinnistustoimikud">
+<wsdl:documentation>
+<xrd:title>Minu kinnistustoimikud</xrd:title> 
+</wsdl:documentation>
+<wsdl:input wsaw:Action="" name="Minu_Kinnistustoimikud" message="tns:Minu_Kinnistustoimikud" /> 
+<wsdl:output wsaw:Action="http://kr.x-road.eu/IKr/Minu_KinnistustoimikudResponse" name="Minu_KinnistustoimikudResponse" message="tns:Minu_KinnistustoimikudResponse" /> 
+</wsdl:operation>
+<wsdl:operation name="Minu_Kinnistamisavaldused">
+<wsdl:documentation>
+<xrd:title>Minu kinnistamisavaldused</xrd:title> 
+</wsdl:documentation>
+<wsdl:input wsaw:Action="" name="Minu_Kinnistamisavaldused" message="tns:Minu_Kinnistamisavaldused" /> 
+<wsdl:output wsaw:Action="http://kr.x-road.eu/IKr/Minu_KinnistamisavaldusedResponse" name="Minu_KinnistamisavaldusedResponse" message="tns:Minu_KinnistamisavaldusedResponse" /> 
+</wsdl:operation>
+<wsdl:operation name="Kodanik_Kinnistud">
+<wsdl:documentation>
+<xrd:title>Isiku kinnistu andmed</xrd:title> 
+</wsdl:documentation>
+<wsdl:input wsaw:Action="" name="Kodanik_Kinnistud" message="tns:Kodanik_Kinnistud" /> 
+<wsdl:output wsaw:Action="http://kr.x-road.eu/IKr/Kodanik_KinnistudResponse" name="Kodanik_KinnistudResponse" message="tns:Kodanik_KinnistudResponse" /> 
+</wsdl:operation>
+<wsdl:operation name="Dokumendid_Nimekiri">
+<wsdl:documentation>
+<xrd:title>Dokumentide nimekiri</xrd:title> 
+</wsdl:documentation>
+<wsdl:input wsaw:Action="" name="Dokumendid_Nimekiri" message="tns:Dokumendid_Nimekiri" /> 
+<wsdl:output wsaw:Action="http://kr.x-road.eu/IKr/Dokumendid_NimekiriResponse" name="Dokumendid_NimekiriResponse" message="tns:Dokumendid_NimekiriResponse" /> 
+</wsdl:operation>
+<wsdl:operation name="Dokument_ID">
+<wsdl:documentation>
+<xrd:title>Dokumendi päring (ID järgi)</xrd:title> 
+</wsdl:documentation>
+<wsdl:input wsaw:Action="" name="Dokument_ID" message="tns:Dokument_ID" /> 
+<wsdl:output wsaw:Action="http://kr.x-road.eu/IKr/Dokument_IDResponse" name="Dokument_IDResponse" message="tns:Dokument_IDResponse" /> 
+</wsdl:operation>
+<wsdl:operation name="Notar_Menetlusinfo">
+<wsdl:documentation>
+<xrd:title>Menetlusinfo päring E-Notarile</xrd:title> 
+</wsdl:documentation>
+<wsdl:input wsaw:Action="" name="Notar_Menetlusinfo" message="tns:Notar_Menetlusinfo" /> 
+<wsdl:output wsaw:Action="http://kr.x-road.eu/IKr/Notar_MenetlusinfoResponse" name="Notar_MenetlusinfoResponse" message="tns:Notar_MenetlusinfoResponse" /> 
+</wsdl:operation>
+<wsdl:operation name="Kinnistu_Detailandmed">
+<wsdl:documentation>
+<xrd:title>Kinnistu detailandmete päring</xrd:title> 
+</wsdl:documentation>
+<wsdl:input wsaw:Action="" name="Kinnistu_Detailandmed" message="tns:Kinnistu_Detailandmed" /> 
+<wsdl:output wsaw:Action="http://kr.x-road.eu/IKr/Kinnistu_DetailandmedResponse" name="Kinnistu_DetailandmedResponse" message="tns:Kinnistu_DetailandmedResponse" /> 
+</wsdl:operation>
+<wsdl:operation name="Kinnistu_Lihtandmed">
+<wsdl:documentation>
+<xrd:title>Kinnistu lihtandmete päring</xrd:title> 
+</wsdl:documentation>
+<wsdl:input wsaw:Action="" name="Kinnistu_Lihtandmed" message="tns:Kinnistu_Lihtandmed" /> 
+<wsdl:output wsaw:Action="http://kr.x-road.eu/IKr/Kinnistu_LihtandmedResponse" name="Kinnistu_LihtandmedResponse" message="tns:Kinnistu_LihtandmedResponse" /> 
+</wsdl:operation>
+<wsdl:operation name="Kinnistusraamatu_Muudatused">
+<wsdl:documentation>
+<xrd:title>Kinnistusraamatu muudatuste päring</xrd:title> 
+</wsdl:documentation>
+<wsdl:input wsaw:Action="" name="Kinnistusraamatu_Muudatused" message="tns:Kinnistusraamatu_Muudatused" /> 
+<wsdl:output wsaw:Action="http://kr.x-road.eu/IKr/Kinnistusraamatu_MuudatusedResponse" name="Kinnistusraamatu_MuudatusedResponse" message="tns:Kinnistusraamatu_MuudatusedResponse" /> 
+</wsdl:operation>
+<wsdl:operation name="Laekumise_Lisamine">
+<wsdl:documentation>
+<xrd:title>Laekumiste lisamine</xrd:title> 
+</wsdl:documentation>
+<wsdl:input wsaw:Action="" name="Laekumise_Lisamine" message="tns:Laekumise_Lisamine" /> 
+<wsdl:output wsaw:Action="http://kr.x-road.eu/IKr/Laekumise_LisamineResponse" name="Laekumise_LisamineResponse" message="tns:Laekumise_LisamineResponse" /> 
+</wsdl:operation>
+<wsdl:operation name="Registreeri_Avaldus">
+<wsdl:documentation>
+<xrd:title>Kinnistamisavalduste esitamine</xrd:title> 
+</wsdl:documentation>
+<wsdl:input wsaw:Action="" name="Registreeri_Avaldus" message="tns:Registreeri_Avaldus" /> 
+<wsdl:output wsaw:Action="http://kr.x-road.eu/IKr/Registreeri_AvaldusResponse" name="Registreeri_AvaldusResponse" message="tns:Registreeri_AvaldusResponse" /> 
+</wsdl:operation>
+</wsdl:portType>
+<wsdl:binding name="BasicHttpBinding_IKr" type="tns:IKr">
+<wsp:PolicyReference URI="#BasicHttpBinding_IKr_policy" /> 
+<soap:binding transport="http://schemas.xmlsoap.org/soap/http" /> 
+<wsdl:operation name="Registriosa_Dokumendid">
+<soap:operation soapAction="" style="document" /> 
+<wsdl:input name="Registriosa_Dokumendid">
+<soap:header message="tns:requestHeader" part="client" use="literal" /> 
+<soap:header message="tns:requestHeader" part="service" use="literal" /> 
+<soap:header message="tns:requestHeader" part="userId" use="literal" /> 
+<soap:header message="tns:requestHeader" part="id" use="literal" /> 
+<soap:header message="tns:requestHeader" part="protocolVersion" use="literal" /> 
+<soap:body use="literal" /> 
+</wsdl:input>
+<wsdl:output name="Registriosa_DokumendidResponse">
+<soap:header message="tns:requestHeader" part="client" use="literal" /> 
+<soap:header message="tns:requestHeader" part="service" use="literal" /> 
+<soap:header message="tns:requestHeader" part="userId" use="literal" /> 
+<soap:header message="tns:requestHeader" part="id" use="literal" /> 
+<soap:header message="tns:requestHeader" part="protocolVersion" use="literal" /> 
+<soap:body use="literal" /> 
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="Puudutatud_Isiku_Teated">
+<soap:operation soapAction="" style="document" /> 
+<wsdl:input name="Puudutatud_Isiku_Teated">
+<soap:header message="tns:requestHeader" part="client" use="literal" /> 
+<soap:header message="tns:requestHeader" part="service" use="literal" /> 
+<soap:header message="tns:requestHeader" part="userId" use="literal" /> 
+<soap:header message="tns:requestHeader" part="id" use="literal" /> 
+<soap:header message="tns:requestHeader" part="protocolVersion" use="literal" /> 
+<soap:body use="literal" /> 
+</wsdl:input>
+<wsdl:output name="Puudutatud_Isiku_TeatedResponse">
+<soap:header message="tns:requestHeader" part="client" use="literal" /> 
+<soap:header message="tns:requestHeader" part="service" use="literal" /> 
+<soap:header message="tns:requestHeader" part="userId" use="literal" /> 
+<soap:header message="tns:requestHeader" part="id" use="literal" /> 
+<soap:header message="tns:requestHeader" part="protocolVersion" use="literal" /> 
+<soap:body use="literal" /> 
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="Minu_Kinnistustoimikud">
+<soap:operation soapAction="" style="document" /> 
+<wsdl:input name="Minu_Kinnistustoimikud">
+<soap:header message="tns:requestHeader" part="client" use="literal" /> 
+<soap:header message="tns:requestHeader" part="service" use="literal" /> 
+<soap:header message="tns:requestHeader" part="userId" use="literal" /> 
+<soap:header message="tns:requestHeader" part="id" use="literal" /> 
+<soap:header message="tns:requestHeader" part="protocolVersion" use="literal" /> 
+<soap:body use="literal" /> 
+</wsdl:input>
+<wsdl:output name="Minu_KinnistustoimikudResponse">
+<soap:header message="tns:requestHeader" part="client" use="literal" /> 
+<soap:header message="tns:requestHeader" part="service" use="literal" /> 
+<soap:header message="tns:requestHeader" part="userId" use="literal" /> 
+<soap:header message="tns:requestHeader" part="id" use="literal" /> 
+<soap:header message="tns:requestHeader" part="protocolVersion" use="literal" /> 
+<soap:body use="literal" /> 
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="Minu_Kinnistamisavaldused">
+<soap:operation soapAction="" style="document" /> 
+<wsdl:input name="Minu_Kinnistamisavaldused">
+<soap:header message="tns:requestHeader" part="client" use="literal" /> 
+<soap:header message="tns:requestHeader" part="service" use="literal" /> 
+<soap:header message="tns:requestHeader" part="userId" use="literal" /> 
+<soap:header message="tns:requestHeader" part="id" use="literal" /> 
+<soap:header message="tns:requestHeader" part="protocolVersion" use="literal" /> 
+<soap:body use="literal" /> 
+</wsdl:input>
+<wsdl:output name="Minu_KinnistamisavaldusedResponse">
+<soap:header message="tns:requestHeader" part="client" use="literal" /> 
+<soap:header message="tns:requestHeader" part="service" use="literal" /> 
+<soap:header message="tns:requestHeader" part="userId" use="literal" /> 
+<soap:header message="tns:requestHeader" part="id" use="literal" /> 
+<soap:header message="tns:requestHeader" part="protocolVersion" use="literal" /> 
+<soap:body use="literal" /> 
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="Kodanik_Kinnistud">
+<soap:operation soapAction="" style="document" /> 
+<wsdl:input name="Kodanik_Kinnistud">
+<soap:header message="tns:requestHeader" part="client" use="literal" /> 
+<soap:header message="tns:requestHeader" part="service" use="literal" /> 
+<soap:header message="tns:requestHeader" part="userId" use="literal" /> 
+<soap:header message="tns:requestHeader" part="id" use="literal" /> 
+<soap:header message="tns:requestHeader" part="protocolVersion" use="literal" /> 
+<soap:body use="literal" /> 
+</wsdl:input>
+<wsdl:output name="Kodanik_KinnistudResponse">
+<soap:header message="tns:requestHeader" part="client" use="literal" /> 
+<soap:header message="tns:requestHeader" part="service" use="literal" /> 
+<soap:header message="tns:requestHeader" part="userId" use="literal" /> 
+<soap:header message="tns:requestHeader" part="id" use="literal" /> 
+<soap:header message="tns:requestHeader" part="protocolVersion" use="literal" /> 
+<soap:body use="literal" /> 
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="Dokumendid_Nimekiri">
+<soap:operation soapAction="" style="document" /> 
+<wsdl:input name="Dokumendid_Nimekiri">
+<soap:header message="tns:requestHeader" part="client" use="literal" /> 
+<soap:header message="tns:requestHeader" part="service" use="literal" /> 
+<soap:header message="tns:requestHeader" part="userId" use="literal" /> 
+<soap:header message="tns:requestHeader" part="id" use="literal" /> 
+<soap:header message="tns:requestHeader" part="protocolVersion" use="literal" /> 
+<soap:body use="literal" /> 
+</wsdl:input>
+<wsdl:output name="Dokumendid_NimekiriResponse">
+<soap:header message="tns:requestHeader" part="client" use="literal" /> 
+<soap:header message="tns:requestHeader" part="service" use="literal" /> 
+<soap:header message="tns:requestHeader" part="userId" use="literal" /> 
+<soap:header message="tns:requestHeader" part="id" use="literal" /> 
+<soap:header message="tns:requestHeader" part="protocolVersion" use="literal" /> 
+<soap:body use="literal" /> 
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="Dokument_ID">
+<soap:operation soapAction="" style="document" /> 
+<wsdl:input name="Dokument_ID">
+<soap:header message="tns:requestHeader" part="client" use="literal" /> 
+<soap:header message="tns:requestHeader" part="service" use="literal" /> 
+<soap:header message="tns:requestHeader" part="userId" use="literal" /> 
+<soap:header message="tns:requestHeader" part="id" use="literal" /> 
+<soap:header message="tns:requestHeader" part="protocolVersion" use="literal" /> 
+<soap:body use="literal" /> 
+</wsdl:input>
+<wsdl:output name="Dokument_IDResponse">
+<soap:header message="tns:requestHeader" part="client" use="literal" /> 
+<soap:header message="tns:requestHeader" part="service" use="literal" /> 
+<soap:header message="tns:requestHeader" part="userId" use="literal" /> 
+<soap:header message="tns:requestHeader" part="id" use="literal" /> 
+<soap:header message="tns:requestHeader" part="protocolVersion" use="literal" /> 
+<soap:body use="literal" /> 
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="Notar_Menetlusinfo">
+<soap:operation soapAction="" style="document" /> 
+<wsdl:input name="Notar_Menetlusinfo">
+<soap:header message="tns:requestHeader" part="client" use="literal" /> 
+<soap:header message="tns:requestHeader" part="service" use="literal" /> 
+<soap:header message="tns:requestHeader" part="userId" use="literal" /> 
+<soap:header message="tns:requestHeader" part="id" use="literal" /> 
+<soap:header message="tns:requestHeader" part="protocolVersion" use="literal" /> 
+<soap:body use="literal" /> 
+</wsdl:input>
+<wsdl:output name="Notar_MenetlusinfoResponse">
+<soap:header message="tns:requestHeader" part="client" use="literal" /> 
+<soap:header message="tns:requestHeader" part="service" use="literal" /> 
+<soap:header message="tns:requestHeader" part="userId" use="literal" /> 
+<soap:header message="tns:requestHeader" part="id" use="literal" /> 
+<soap:header message="tns:requestHeader" part="protocolVersion" use="literal" /> 
+<soap:body use="literal" /> 
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="Kinnistu_Detailandmed">
+<soap:operation soapAction="" style="document" /> 
+<wsdl:input name="Kinnistu_Detailandmed">
+<soap:header message="tns:requestHeader" part="client" use="literal" /> 
+<soap:header message="tns:requestHeader" part="service" use="literal" /> 
+<soap:header message="tns:requestHeader" part="userId" use="literal" /> 
+<soap:header message="tns:requestHeader" part="id" use="literal" /> 
+<soap:header message="tns:requestHeader" part="protocolVersion" use="literal" /> 
+<soap:body use="literal" /> 
+</wsdl:input>
+<wsdl:output name="Kinnistu_DetailandmedResponse">
+<soap:header message="tns:requestHeader" part="client" use="literal" /> 
+<soap:header message="tns:requestHeader" part="service" use="literal" /> 
+<soap:header message="tns:requestHeader" part="userId" use="literal" /> 
+<soap:header message="tns:requestHeader" part="id" use="literal" /> 
+<soap:header message="tns:requestHeader" part="protocolVersion" use="literal" /> 
+<soap:body use="literal" /> 
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="Kinnistu_Lihtandmed">
+<soap:operation soapAction="" style="document" /> 
+<wsdl:input name="Kinnistu_Lihtandmed">
+<soap:header message="tns:requestHeader" part="client" use="literal" /> 
+<soap:header message="tns:requestHeader" part="service" use="literal" /> 
+<soap:header message="tns:requestHeader" part="userId" use="literal" /> 
+<soap:header message="tns:requestHeader" part="id" use="literal" /> 
+<soap:header message="tns:requestHeader" part="protocolVersion" use="literal" /> 
+<soap:body use="literal" /> 
+</wsdl:input>
+<wsdl:output name="Kinnistu_LihtandmedResponse">
+<soap:header message="tns:requestHeader" part="client" use="literal" /> 
+<soap:header message="tns:requestHeader" part="service" use="literal" /> 
+<soap:header message="tns:requestHeader" part="userId" use="literal" /> 
+<soap:header message="tns:requestHeader" part="id" use="literal" /> 
+<soap:header message="tns:requestHeader" part="protocolVersion" use="literal" /> 
+<soap:body use="literal" /> 
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="Kinnistusraamatu_Muudatused">
+<soap:operation soapAction="" style="document" /> 
+<wsdl:input name="Kinnistusraamatu_Muudatused">
+<soap:header message="tns:requestHeader" part="client" use="literal" /> 
+<soap:header message="tns:requestHeader" part="service" use="literal" /> 
+<soap:header message="tns:requestHeader" part="userId" use="literal" /> 
+<soap:header message="tns:requestHeader" part="id" use="literal" /> 
+<soap:header message="tns:requestHeader" part="protocolVersion" use="literal" /> 
+<soap:body use="literal" /> 
+</wsdl:input>
+<wsdl:output name="Kinnistusraamatu_MuudatusedResponse">
+<soap:header message="tns:requestHeader" part="client" use="literal" /> 
+<soap:header message="tns:requestHeader" part="service" use="literal" /> 
+<soap:header message="tns:requestHeader" part="userId" use="literal" /> 
+<soap:header message="tns:requestHeader" part="id" use="literal" /> 
+<soap:header message="tns:requestHeader" part="protocolVersion" use="literal" /> 
+<soap:body use="literal" /> 
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="Laekumise_Lisamine">
+<soap:operation soapAction="" style="document" /> 
+<wsdl:input name="Laekumise_Lisamine">
+<soap:header message="tns:requestHeader" part="client" use="literal" /> 
+<soap:header message="tns:requestHeader" part="service" use="literal" /> 
+<soap:header message="tns:requestHeader" part="userId" use="literal" /> 
+<soap:header message="tns:requestHeader" part="id" use="literal" /> 
+<soap:header message="tns:requestHeader" part="protocolVersion" use="literal" /> 
+<soap:body use="literal" /> 
+</wsdl:input>
+<wsdl:output name="Laekumise_LisamineResponse">
+<soap:header message="tns:requestHeader" part="client" use="literal" /> 
+<soap:header message="tns:requestHeader" part="service" use="literal" /> 
+<soap:header message="tns:requestHeader" part="userId" use="literal" /> 
+<soap:header message="tns:requestHeader" part="id" use="literal" /> 
+<soap:header message="tns:requestHeader" part="protocolVersion" use="literal" /> 
+<soap:body use="literal" /> 
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="Registreeri_Avaldus">
+<soap:operation soapAction="" style="document" /> 
+<wsdl:input name="Registreeri_Avaldus">
+<soap:header message="tns:requestHeader" part="client" use="literal" /> 
+<soap:header message="tns:requestHeader" part="service" use="literal" /> 
+<soap:header message="tns:requestHeader" part="userId" use="literal" /> 
+<soap:header message="tns:requestHeader" part="id" use="literal" /> 
+<soap:header message="tns:requestHeader" part="protocolVersion" use="literal" /> 
+<soap:body use="literal" /> 
+</wsdl:input>
+<wsdl:output name="Registreeri_AvaldusResponse">
+<soap:header message="tns:requestHeader" part="client" use="literal" /> 
+<soap:header message="tns:requestHeader" part="service" use="literal" /> 
+<soap:header message="tns:requestHeader" part="userId" use="literal" /> 
+<soap:header message="tns:requestHeader" part="id" use="literal" /> 
+<soap:header message="tns:requestHeader" part="protocolVersion" use="literal" /> 
+<soap:body use="literal" /> 
+</wsdl:output>
+</wsdl:operation>
+</wsdl:binding>
+<wsdl:service name="Kr">
+<wsdl:port name="BasicHttpBinding_IKr" binding="tns:BasicHttpBinding_IKr">
+<soap:address location="http://krisxteeadapterv6.just.sise/KR.svc" /> 
+</wsdl:port>
+</wsdl:service>
+</wsdl:definitions>

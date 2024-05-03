@@ -1,6 +1,6 @@
 package com.nortal.jroad.client.kr;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.kr.types.ee.riik.xtee.kr.producers.producer.kr.KinnistuDetailMaVastus;
 import com.nortal.jroad.client.kr.types.ee.riik.xtee.kr.producers.producer.kr.KinnistuVastus;
 import com.nortal.jroad.client.kr.types.ee.riik.xtee.kr.producers.producer.kr.KpijIsikType;
@@ -20,17 +20,17 @@ public interface KrXTeeService {
   /**
    * <code>kr.kinnistu.v2</code> service.
    */
-  KinnistuVastus findKinnistuV2(String katastritunnus) throws XTeeServiceConsumptionException, IllegalArgumentException;
+  KinnistuVastus findKinnistuV2(String katastritunnus) throws XRoadServiceConsumptionException, IllegalArgumentException;
 
   /**
    * <code>kr.kinnistu_paring_isiku_jargi.v2</code> service.
    */
-  List<KpijIsikType> findKpijV2(String eesnimi, String perenimiJuriidilinenimi, String isikukood, Calendar synniaeg) throws XTeeServiceConsumptionException, IllegalArgumentException;
+  List<KpijIsikType> findKpijV2(String eesnimi, String perenimiJuriidilinenimi, String isikukood, Calendar synniaeg) throws XRoadServiceConsumptionException, IllegalArgumentException;
 
   /**
    * <code>kr.kinnistu_paring_isiku_jargi.v2</code> service.
    */
-  KpijVastus findKpijVastusV2(String eesnimi, String perenimiJuriidilinenimi, String isikukood, Calendar synniaeg) throws XTeeServiceConsumptionException, IllegalArgumentException;
+  KpijVastus findKpijVastusV2(String eesnimi, String perenimiJuriidilinenimi, String isikukood, Calendar synniaeg) throws XRoadServiceConsumptionException, IllegalArgumentException;
 
   /**
    * <code>kr.politsei_ehak.v2</code> service.
@@ -43,10 +43,10 @@ public interface KrXTeeService {
    * @param adrId
    * @return
    */
-  PolitseiEhakVastus findPolitseiEhakV2(Long maakond, Long vald, Long kyla, String aadress, String korter, String koodaadress, BigInteger adrId) throws XTeeServiceConsumptionException;
+  PolitseiEhakVastus findPolitseiEhakV2(Long maakond, Long vald, Long kyla, String aadress, String korter, String koodaadress, BigInteger adrId) throws XRoadServiceConsumptionException;
 
   /**
    * <code>kinnistu_detail_ma.v2</code>
    */
-  KinnistuDetailMaVastus findKinnstuDetailMa(String registriosaNr, Boolean kehtivus) throws XTeeServiceConsumptionException;
+  KinnistuDetailMaVastus findKinnstuDetailMa(String registriosaNr, Boolean kehtivus) throws XRoadServiceConsumptionException;
 }

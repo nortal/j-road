@@ -1,6 +1,6 @@
 package com.nortal.jroad.client.statistikaamet;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.statistikaamet.types.eu.x_road.stat_v6.ReturnDataResponse;
 import com.nortal.jroad.client.statistikaamet.types.eu.x_road.stat_v6.ReturnErrorResponse;
 import com.nortal.jroad.client.statistikaamet.types.eu.x_road.stat_v6.SubmitDataResponse;
@@ -12,10 +12,10 @@ import jakarta.activation.DataHandler;
 public interface EstatXRoadService {
 
   SubmitDataResponse submitData(String filename, DataHandler data, boolean validationOnly)
-      throws XTeeServiceConsumptionException;
+      throws XRoadServiceConsumptionException;
 
-  ReturnDataResponse returnData(String submitId) throws XTeeServiceConsumptionException;
+  ReturnDataResponse returnData(String submitId) throws XRoadServiceConsumptionException;
 
-  ReturnErrorResponse returnError(String submitId) throws XTeeServiceConsumptionException;
+  ReturnErrorResponse returnError(String submitId) throws XRoadServiceConsumptionException;
 
 }
