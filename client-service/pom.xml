@@ -145,7 +145,7 @@
           <encoding>UTF-8</encoding>
           <source>17</source>
           <target>17</target>
-          <fork>false</fork>
+          <fork>true</fork>
           <maxmem>1024m</maxmem>
         </configuration>
       </plugin>
