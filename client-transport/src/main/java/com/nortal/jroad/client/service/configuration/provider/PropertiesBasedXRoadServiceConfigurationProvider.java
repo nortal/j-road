@@ -27,7 +27,7 @@ public class PropertiesBasedXRoadServiceConfigurationProvider extends AbstractXR
   public static final String CLIENT_KEY = "client";
 
   private Resource resource;
-  private Map<String, Properties> properties = new HashMap<String, Properties>();
+  private final Map<String, Properties> properties = new HashMap<>();
 
   @PostConstruct
   public void init() {
@@ -39,9 +39,9 @@ public class PropertiesBasedXRoadServiceConfigurationProvider extends AbstractXR
 
   @Override
   protected XRoadServiceConfiguration fillConfuguration(SimpleXRoadServiceConfiguration configuration) {
-    configuration.setSecurityServer(getProperty("security-server"));
-    configuration.setIdCode(getProperty("id-code"));
-    configuration.setFile(getProperty("file"));
+    configuration.setSecurityServer(resolveCommonProperty(configuration, "security-server"));
+    configuration.setIdCode(resolveCommonProperty(configuration, "id-code"));
+    configuration.setFile(resolveCommonProperty(configuration, "file"));
 
     fillClientProperties(configuration);
     fillServiceProperties(configuration);
@@ -62,16 +62,31 @@ public class PropertiesBasedXRoadServiceConfigurationProvider extends AbstractXR
 
   protected void fillServiceProperties(SimpleXRoadServiceConfiguration configuration) {
     String db = configuration.getDatabase();
-    configuration.setProtocolVersion(XRoadProtocolVersion.getValueByVersionCode(getServiceProperty(XROAD_PROTOCOL_VERSION_FORMAT,
-                                                                                                   db)));
-    configuration.setServiceXRoadInstance(getServiceProperty(XROAD_INSTANCE_FORMAT, db));
-    configuration.setServiceMemberClass(getServiceProperty(XROAD_MEMBER_CLASS_FORMAT, db));
-    configuration.setServiceMemberCode(getServiceProperty(XROAD_MEMBER_CODE_FORMAT, db));
-    configuration.setServiceSubsystemCode(getServiceProperty(XROAD_SUBSYSTEM_CODE_FORMAT, db));
-    String objectType = getServiceProperty(XROAD_OBJECT_TYPE_FORMAT, db);
+    configuration.setProtocolVersion(
+      XRoadProtocolVersion.getValueByVersionCode(resolveServiceProperty(configuration, XROAD_PROTOCOL_VERSION_FORMAT, db))
+    );
+    configuration.setServiceXRoadInstance(resolveServiceProperty(configuration, XROAD_INSTANCE_FORMAT, db));
+    configuration.setServiceMemberClass(resolveServiceProperty(configuration, XROAD_MEMBER_CLASS_FORMAT, db));
+    configuration.setServiceMemberCode(resolveServiceProperty(configuration, XROAD_MEMBER_CODE_FORMAT, db));
+    configuration.setServiceSubsystemCode(resolveServiceProperty(configuration, XROAD_SUBSYSTEM_CODE_FORMAT, db));
+    String objectType = resolveServiceProperty(configuration, XROAD_OBJECT_TYPE_FORMAT, db);
     if (StringUtils.isNotBlank(objectType)) {
       configuration.setServiceObjectType(XroadObjectType.valueOf(objectType));
     }
+  }
+
+  /**
+   * A hook into property resolution process with access to a configuration
+   */
+  protected String resolveCommonProperty(SimpleXRoadServiceConfiguration configuration, String propertyName) {
+    return getProperty(propertyName);
+  }
+
+  /**
+   * A hook into property resolution process with access to a configuration
+   */
+  protected String resolveServiceProperty(SimpleXRoadServiceConfiguration configuration, String pattern, String db) {
+    return getServiceProperty(pattern, db);
   }
 
   protected String getClientProperty(String pattern) {
