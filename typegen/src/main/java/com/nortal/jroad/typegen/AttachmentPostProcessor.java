@@ -21,8 +21,6 @@ import static java.util.regex.Pattern.quote;
 
 /**
  * Adds fields for swaref attachments.
- *
- * @author Dmitri Danilkin
  */
 public class AttachmentPostProcessor {
   private static final Expression IMPLEMENTATION_TEMPLATE = precompileTemplate("""
@@ -110,7 +108,9 @@ public class AttachmentPostProcessor {
   }
 
   private static Expression precompileTemplate(String template) {
-    SpelParserConfiguration spelParserConfiguration = new SpelParserConfiguration(SpelCompilerMode.IMMEDIATE, AttachmentPostProcessor.class.getClassLoader());
+    SpelParserConfiguration spelParserConfiguration = new SpelParserConfiguration(
+      SpelCompilerMode.IMMEDIATE, AttachmentPostProcessor.class.getClassLoader()
+    );
     return new SpelExpressionParser(spelParserConfiguration).parseExpression(template, new TemplateParserContext());
   }
 
