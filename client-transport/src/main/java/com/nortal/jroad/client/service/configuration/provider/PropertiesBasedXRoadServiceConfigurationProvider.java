@@ -1,9 +1,9 @@
 package com.nortal.jroad.client.service.configuration.provider;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.ConcurrentHashMap;
 
 import jakarta.annotation.PostConstruct;
 
@@ -27,7 +27,7 @@ public class PropertiesBasedXRoadServiceConfigurationProvider extends AbstractXR
   public static final String CLIENT_KEY = "client";
 
   private Resource resource;
-  private final Map<String, Properties> properties = new HashMap<>();
+  private final Map<String, Properties> properties = new ConcurrentHashMap<>();
 
   @PostConstruct
   public void init() {
@@ -109,11 +109,8 @@ public class PropertiesBasedXRoadServiceConfigurationProvider extends AbstractXR
     return loadProperties(target).getProperty(key);
   }
 
-  protected synchronized Properties loadProperties(String target) {
-    if (!properties.containsKey(target)) {
-      properties.put(target, loadProperties(new ClassPathResource(target)));
-    }
-    return properties.get(target);
+  protected Properties loadProperties(String target) {
+    return properties.computeIfAbsent(target, key -> loadProperties(new ClassPathResource(key)));
   }
 
   protected Properties loadProperties(Resource resource) {
