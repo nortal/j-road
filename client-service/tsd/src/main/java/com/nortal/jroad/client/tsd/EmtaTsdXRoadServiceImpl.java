@@ -28,12 +28,6 @@ public class EmtaTsdXRoadServiceImpl implements EmtaTsdXRoadService {
   @Resource
   private TsdXRoadDatabase tsdXRoadDatabase;
 
-//  @PostConstruct
-//TODO: remove
-//  public void init() {
-//    tsdXRoadDatabase.setDatabase("emta-v6");
-//  }
-
   private static final DateTimeFormatter MONTH_YEAR_FORMATTER = DateTimeFormatter.ofPattern("MM.yyyy");
 
   @Override

@@ -17,11 +17,6 @@ public class EmtaMkrliidesXRoadServiceImpl implements EmtaMkrliidesXRoadService 
     @Resource
     private MkrliidesXRoadDatabase mkrliidesXRoadDatabase;
 
-//    @PostConstruct
-//    public void init() {
-//        mkrliidesXRoadDatabase.setDatabase("emta-v6");
-//    }
-//
     @Override
     public XteeFIEAKResponseDocument.XteeFIEAKResponse xteeFIEAKV1(String id, Date start, Date end)
         throws XRoadServiceConsumptionException {

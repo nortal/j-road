@@ -22,12 +22,6 @@ public class TorXRoadServiceImpl implements TorXRoadService {
   @Resource
   private TorXRoadDatabase torXRoadDatabase;
 
-//  @PostConstruct
-//  public void init() {
-//    torXRoadDatabase.setXRoadConsumer("emta-v6");
-//    torXRoadDatabase.setDatabase("emta-v6");
-//  }
-
   @Override
   public TORIKResponseDocument.TORIKResponse findTorik(String paringuLiik,
                                                        Date tootAlgusKp,

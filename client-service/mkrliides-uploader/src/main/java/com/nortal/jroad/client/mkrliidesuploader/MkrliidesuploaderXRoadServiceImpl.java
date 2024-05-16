@@ -31,11 +31,6 @@ public class MkrliidesuploaderXRoadServiceImpl extends XRoadDatabaseService impl
   @Resource
   private MkrliidesuploaderXRoadDatabase mkrliidesuploaderXRoadDatabase;
 
-/*  @PostConstruct
-  public void init() {
-    mkrliidesuploaderXRoadDatabase.setDatabase("emta-v6");
-  }*/
-
   @Override
   public XRoadMessage<DownloadMimeResponse> downloadMime(String target)
       throws XRoadServiceConsumptionException {

@@ -16,11 +16,6 @@ public class EmtaMrrXRoadServiceImpl implements EmtaMrrXRoadService {
     @Resource
     private MrrXRoadDatabase mrrXRoadDatabase;
 
-//    @PostConstruct
-//    public void init() {
-//        mrrXRoadDatabase.setDatabase("emta-v6");
-//    }
-//
     @Override
     public SkaMitteresidentResponseDocument.SkaMitteresidentResponse skaMitteresident(String registreerimiskood)
         throws XRoadServiceConsumptionException {

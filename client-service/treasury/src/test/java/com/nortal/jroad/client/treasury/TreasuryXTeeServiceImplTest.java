@@ -22,11 +22,6 @@ public class TreasuryXTeeServiceImplTest extends BaseXRoadServiceImplTest {
   @Resource
   private TreasuryXTeeServiceImpl treasuryXTeeService;
 
-  @Before
-  public void init() {
-    treasuryXTeeService.setDatabase("rmviki");
-  }
-
   @Test
   public void sendDocumentTestV1() throws XRoadServiceConsumptionException {
 
