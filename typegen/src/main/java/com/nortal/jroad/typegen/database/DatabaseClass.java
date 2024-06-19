@@ -14,10 +14,6 @@ import com.nortal.jroad.enums.XRoadProtocolVersion;
  */
 public class DatabaseClass {
 
-  private static final String XTEE_DATABASE_CLASS_NAME_SUFFIX = "XTeeDatabase";
-  private static final String XTEE_DATABASE_IMPL_CLASS_NAME_SUFFIX = "XTeeDatabaseImpl";
-  private static final String XTEE_BASE_IMPL_CLASS_NAME = "XTeeDatabaseService";
-
   private static final String XROAD_DATABASE_CLASS_NAME_SUFFIX = "XRoadDatabase";
   private static final String XROAD_DATABASE_IMPL_CLASS_NAME_SUFFIX = "XRoadDatabaseImpl";
   private static final String XROAD_BASE_IMPL_CLASS_NAME = "XRoadDatabaseService";
@@ -28,20 +24,16 @@ public class DatabaseClass {
   private String implementationName;
   private String baseImplementationName;
   private final XRoadProtocolVersion version;
-  private List<DatabaseServiceMethod> methods = new ArrayList<DatabaseServiceMethod>();
+  private List<DatabaseServiceMethod> methods = new ArrayList<>();
 
   public DatabaseClass(String database, String packageName, XRoadProtocolVersion version) {
     this.database = database;
     this.packageName = packageName;
     this.version = version;
 
-    switch (version) {
-    default:
-      interfaceName = NameUtil.upperCamelCase(database) + XROAD_DATABASE_CLASS_NAME_SUFFIX;
-      implementationName = NameUtil.upperCamelCase(database) + XROAD_DATABASE_IMPL_CLASS_NAME_SUFFIX;
-      baseImplementationName = XROAD_BASE_IMPL_CLASS_NAME;
-      break;
-    }
+    interfaceName = NameUtil.upperCamelCase(database) + XROAD_DATABASE_CLASS_NAME_SUFFIX;
+    implementationName = NameUtil.upperCamelCase(database) + XROAD_DATABASE_IMPL_CLASS_NAME_SUFFIX;
+    baseImplementationName = XROAD_BASE_IMPL_CLASS_NAME;
   }
 
   void add(DatabaseServiceMethod method) {

@@ -73,8 +73,6 @@ public abstract class BaseXRoadDatabaseService {
         getXRoadServiceConfigurationProvider().createConfiguration(database, wsdlDatabase, method, version);
 
     DelegatingXRoadServiceConfiguration configuration = new DelegatingXRoadServiceConfiguration(xroadConfiguration) {
-      private static final long serialVersionUID = 1L;
-
       @Override
       public String getIdCode() {
         return requireNonNullElseGet(idCode, super::getIdCode);

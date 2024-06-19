@@ -13,10 +13,12 @@ public class SimpleXRoadServiceConfiguration implements XRoadServiceConfiguratio
   private String wsdlDatabase;
   private String securityServer;
   private String idCode;
-  private String file;
+  private String issue;
   private String version;
   private String method;
   private XRoadProtocolVersion protocolVersion;
+  private String representedPartyCode;
+  private String representedPartyClass;
 
   private String clientXRoadInstance;
   private String clientMemberClass;
@@ -58,12 +60,12 @@ public class SimpleXRoadServiceConfiguration implements XRoadServiceConfiguratio
   }
 
   @Override
-  public String getFile() {
-    return file;
+  public String getIssue() {
+    return issue;
   }
 
-  public void setFile(String file) {
-    this.file = file;
+  public void setIssue(String issue) {
+    this.issue = issue;
   }
 
   @Override
@@ -85,6 +87,24 @@ public class SimpleXRoadServiceConfiguration implements XRoadServiceConfiguratio
   }
 
   @Override
+  public String getRepresentedPartyCode() {
+    return representedPartyCode;
+  }
+
+  public void setRepresentedPartyCode(String representedPartyCode) {
+    this.representedPartyCode = representedPartyCode;
+  }
+
+  @Override
+  public String getRepresentedPartyClass() {
+    return this.representedPartyClass;
+  }
+
+  public void setRepresentedPartyClass(String representedPartyClass) {
+    this.representedPartyClass = representedPartyClass;
+  }
+
+  @Override
   public int hashCode() {
     final int prime = 31;
     int result = 1;
@@ -92,7 +112,7 @@ public class SimpleXRoadServiceConfiguration implements XRoadServiceConfiguratio
     result = prime * result + ((idCode == null) ? 0 : idCode.hashCode());
     result = prime * result + ((method == null) ? 0 : method.hashCode());
     result = prime * result + ((securityServer == null) ? 0 : securityServer.hashCode());
-    result = prime * result + ((file == null) ? 0 : file.hashCode());
+    result = prime * result + ((issue == null) ? 0 : issue.hashCode());
     result = prime * result + ((version == null) ? 0 : version.hashCode());
     result = prime * result + ((protocolVersion == null) ? 0 : protocolVersion.hashCode());
     return result;
@@ -127,10 +147,10 @@ public class SimpleXRoadServiceConfiguration implements XRoadServiceConfiguratio
         return false;
     } else if (!securityServer.equals(other.securityServer))
       return false;
-    if (file == null) {
-      if (other.file != null)
+    if (issue == null) {
+      if (other.issue != null)
         return false;
-    } else if (!file.equals(other.file))
+    } else if (!issue.equals(other.issue))
       return false;
     if (version == null) {
       if (other.version != null)
@@ -147,17 +167,8 @@ public class SimpleXRoadServiceConfiguration implements XRoadServiceConfiguratio
 
   @Override
   public String toString() {
-    StringBuilder builder = new StringBuilder();
-    builder.append("SimpleXteeServiceConfigurator[");
-    builder.append(" database = ").append(database);
-    builder.append(" idCode = ").append(idCode);
-    builder.append(" method = ").append(method);
-    builder.append(" securityServer = ").append(securityServer);
-    builder.append(" file = ").append(file);
-    builder.append(" version = ").append(version);
-    builder.append(" protocolVersion = ").append(protocolVersion);
-    builder.append("]");
-    return builder.toString();
+    return "SimpleXteeServiceConfigurator[ database = %s idCode = %s method = %s securityServer = %s file = %s version = %s protocolVersion = %s]"
+             .formatted(database, idCode, method, securityServer, issue, version, protocolVersion);
   }
 
   @Override

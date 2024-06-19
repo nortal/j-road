@@ -15,57 +15,79 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class XRoadProtocolNamespaceStrategyV4 extends MessageCallbackNamespaceStrategy {
 
-  private XRoadProtocolVersion protocol = XRoadProtocolVersion.V4_0;
+  private static final XRoadProtocolVersion protocol = XRoadProtocolVersion.V4_0;
+  private static final String XRD_REPRESENTATION_PREFIX = "repr";
+  private static final String XRD_IDENTIFIERS_PREFIX = "id";
+  private static final String XRD_OBJECT_TYPE_ATTRIBUTE = XRD_IDENTIFIERS_PREFIX + ":objectType";
+
+  public XRoadProtocolNamespaceStrategyV4() {}
 
   @Override
-  public void addNamespaces(SOAPEnvelope env) throws SOAPException {
-    env.addNamespaceDeclaration("xsd", "http://www.w3.org/2001/XMLSchema");
-    env.addNamespaceDeclaration("xsi", "http://www.w3.org/2001/XMLSchema-instance");
-    env.addNamespaceDeclaration(protocol.getNamespacePrefix(), protocol.getNamespaceUri());
-    env.addNamespaceDeclaration("id", "http://x-road.eu/xsd/identifiers");
+  public void addNamespaces(SOAPEnvelope envelope) throws SOAPException {
+    envelope.addNamespaceDeclaration("xsd", "http://www.w3.org/2001/XMLSchema");
+    envelope.addNamespaceDeclaration("xsi", "http://www.w3.org/2001/XMLSchema-instance");
+    envelope.addNamespaceDeclaration(protocol.getNamespacePrefix(), protocol.getNamespaceUri());
+    envelope.addNamespaceDeclaration(XRD_IDENTIFIERS_PREFIX, "http://x-road.eu/xsd/identifiers");
+    envelope.addNamespaceDeclaration(XRD_REPRESENTATION_PREFIX, "http://x-road.eu/xsd/representation.xsd");
   }
 
   @Override
-  public void addXTeeHeaderElements(SOAPEnvelope env, XRoadServiceConfiguration conf) throws SOAPException {
-    SOAPHeader header = env.getHeader();
+  public void addXRoadHeaderElements(SOAPEnvelope envelope, XRoadServiceConfiguration conf) throws SOAPException {
+    SOAPHeader header = envelope.getHeader();
     if(StringUtils.isNotBlank(conf.getIdCode())) {
-      SOAPElement userId = header.addChildElement("userId", protocol.getNamespacePrefix());
-      userId.addTextNode(conf.getIdCode());
+      header.addChildElement("userId", protocol.getNamespacePrefix())
+        .addTextNode(conf.getIdCode());
     }
-    SOAPElement id = header.addChildElement("id", protocol.getNamespacePrefix());
-    id.addTextNode(generateUniqueMessageId(conf));
-    if (StringUtils.isNotBlank(conf.getFile())) {
-      SOAPElement issue = header.addChildElement("issue", protocol.getNamespacePrefix());
-      issue.addTextNode(conf.getFile());
-    }
-    SOAPElement protocolVersion = header.addChildElement("protocolVersion", protocol.getNamespacePrefix());
-    protocolVersion.addTextNode(protocol.getCode());
 
-    addClientElements(env, conf, header);
-    addServiceElements(env, conf, header);
+    header.addChildElement("id", protocol.getNamespacePrefix())
+      .addTextNode(generateUniqueMessageId(conf));
+
+    if (StringUtils.isNotBlank(conf.getIssue())) {
+        header.addChildElement("issue", protocol.getNamespacePrefix())
+          .addTextNode(conf.getIssue());
+    }
+
+    header.addChildElement("protocolVersion", protocol.getNamespacePrefix())
+      .addTextNode(protocol.getCode());
+
+    if (conf.getRepresentedPartyClass() != null && conf.getRepresentedPartyCode() != null){
+      addRepresentedPartyElement(conf, header);
+    }
+    addClientElements(envelope, conf, header);
+    addServiceElements(envelope, conf, header);
   }
 
-  private void addClientElements(SOAPEnvelope env, XRoadServiceConfiguration conf, SOAPHeader header)
+  private void addRepresentedPartyElement(XRoadServiceConfiguration conf, SOAPHeader header)
+    throws SOAPException {
+    SOAPElement representedParty = header.addChildElement("representedParty", XRD_REPRESENTATION_PREFIX);
+    representedParty.addChildElement("partyClass", XRD_REPRESENTATION_PREFIX)
+      .addTextNode(conf.getRepresentedPartyClass());
+    representedParty.addChildElement("partyCode", XRD_REPRESENTATION_PREFIX)
+      .addTextNode(conf.getRepresentedPartyCode());
+  }
+
+  private void addClientElements(SOAPEnvelope envelope, XRoadServiceConfiguration conf, SOAPHeader header)
       throws SOAPException {
     // TODO: maybe we should create headers differently according to object type?
     XroadObjectType objectType =
         conf.getClientObjectType() != null ? conf.getClientObjectType() : XroadObjectType.SUBSYSTEM;
     SOAPElement client = header.addChildElement("client", protocol.getNamespacePrefix());
-    client.addAttribute(env.createName("id:objectType"), objectType.name());
-    SOAPElement clientXRoadInstance = client.addChildElement("xRoadInstance", "id");
-    clientXRoadInstance.addTextNode(conf.getClientXRoadInstance());
-    SOAPElement clientMemberClass = client.addChildElement("memberClass", "id");
-    clientMemberClass.addTextNode(conf.getClientMemberClass());
-    SOAPElement clientMemberCode = client.addChildElement("memberCode", "id");
-    clientMemberCode.addTextNode(conf.getClientMemberCode());
+    client.addAttribute(envelope.createName(XRD_OBJECT_TYPE_ATTRIBUTE), objectType.name());
+
+    client.addChildElement("xRoadInstance", XRD_IDENTIFIERS_PREFIX)
+      .addTextNode(conf.getClientXRoadInstance());
+    client.addChildElement("memberClass", XRD_IDENTIFIERS_PREFIX)
+      .addTextNode(conf.getClientMemberClass());
+    client.addChildElement("memberCode", XRD_IDENTIFIERS_PREFIX)
+      .addTextNode(conf.getClientMemberCode());
 
     if (StringUtils.isNotBlank(conf.getClientSubsystemCode())) {
-      SOAPElement clientSubsystemCode = client.addChildElement("subsystemCode", "id");
-      clientSubsystemCode.addTextNode(conf.getClientSubsystemCode());
+      client.addChildElement("subsystemCode", XRD_IDENTIFIERS_PREFIX)
+        .addTextNode(conf.getClientSubsystemCode());
     }
   }
 
-  private void addServiceElements(SOAPEnvelope env, XRoadServiceConfiguration conf, SOAPHeader header)
+  private void addServiceElements(SOAPEnvelope envelope, XRoadServiceConfiguration conf, SOAPHeader header)
       throws SOAPException {
 
     // TODO: maybe we should create headers differently according to object type?
@@ -73,25 +95,26 @@ public class XRoadProtocolNamespaceStrategyV4 extends MessageCallbackNamespaceSt
         conf.getServiceObjectType() != null ? conf.getServiceObjectType() : XroadObjectType.SERVICE;
 
     SOAPElement service = header.addChildElement("service", protocol.getNamespacePrefix());
-    service.addAttribute(env.createName("id:objectType"), objectType.name());
-    SOAPElement serviceXRoadInstance = service.addChildElement("xRoadInstance", "id");
-    serviceXRoadInstance.addTextNode(conf.getServiceXRoadInstance());
-    SOAPElement serviceMemberClass = service.addChildElement("memberClass", "id");
-    serviceMemberClass.addTextNode(conf.getServiceMemberClass());
-    SOAPElement serviceMemberCode = service.addChildElement("memberCode", "id");
-    serviceMemberCode.addTextNode(conf.getServiceMemberCode());
+    service.addAttribute(envelope.createName(XRD_OBJECT_TYPE_ATTRIBUTE), objectType.name());
+
+    service.addChildElement("xRoadInstance", XRD_IDENTIFIERS_PREFIX)
+      .addTextNode(conf.getServiceXRoadInstance());
+    service.addChildElement("memberClass", XRD_IDENTIFIERS_PREFIX)
+      .addTextNode(conf.getServiceMemberClass());
+    service.addChildElement("memberCode", XRD_IDENTIFIERS_PREFIX)
+      .addTextNode(conf.getServiceMemberCode());
 
     if (StringUtils.isNotBlank(conf.getServiceSubsystemCode())) {
-      SOAPElement subsystemCode = service.addChildElement("subsystemCode", "id");
-      subsystemCode.addTextNode(conf.getServiceSubsystemCode());
+      service.addChildElement("subsystemCode", XRD_IDENTIFIERS_PREFIX)
+        .addTextNode(conf.getServiceSubsystemCode());
     }
 
-    SOAPElement database = service.addChildElement("serviceCode", "id");
-    database.addTextNode(conf.getMethod());
+    service.addChildElement("serviceCode", XRD_IDENTIFIERS_PREFIX)
+      .addTextNode(conf.getMethod());
 
     if(StringUtils.isNotBlank(conf.getVersion())){
-      SOAPElement serviceVersion = service.addChildElement("serviceVersion", "id");
-      serviceVersion.addTextNode(conf.getVersion());
+      service.addChildElement("serviceVersion", XRD_IDENTIFIERS_PREFIX)
+        .addTextNode(conf.getVersion());
     }
 
   }

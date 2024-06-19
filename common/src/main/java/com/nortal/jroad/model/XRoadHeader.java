@@ -9,15 +9,14 @@
 
 package com.nortal.jroad.model;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.xml.namespace.QName;
 
 /**
- * Encapsulates X-Tee query header object.
- * 
+ * Encapsulates X-Road query header object.
+ *
  * @author Roman Tekhov
  * @author Aleksei Bogdanov (aleksei.bogdanov@nortal.com)
  * @author Lauri Lättemäe (lauri.lattemae@nortal.com) - protocol 4.0
@@ -25,9 +24,7 @@ import javax.xml.namespace.QName;
 // TODO Lauri: see tuleks veel üle vaadata. Hetkel ei ole piisav protokoll 4 päiste mappimiseks ja endpointid peavad
 // teatud perioodil ka protokoll 2 päistest aru saama. Küsimus on tegelt, kas seda on üldse vaja ja kui siis mida
 // täpsemalt - ilmselt päringu sooritaja id võib vaja minna
-public class XRoadHeader implements Serializable {
-  private static final long serialVersionUID = 1L;
-
+public class XRoadHeader {
   public static final String XROAD_NS_URI = "http://x-road.eu/xsd/xroad.xsd";
 
   public static final QName CLIENT = new QName(XROAD_NS_URI, "client");

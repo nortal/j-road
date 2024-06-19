@@ -1,6 +1,7 @@
 package com.nortal.jroad.typegen.xmlbeans;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.xmlbeans.BindingConfig;
 import org.apache.xmlbeans.impl.common.NameUtil;
 
@@ -17,13 +18,15 @@ public class BasepackageBinder extends BindingConfig {
 
   @Override
   public String lookupPackageForNamespace(String uri) {
-    String random = RandomStringUtils.randomAlphabetic(5);
+    //Capitalisation is needed, as namespace->package algorithm
+    //changes lowercase letters to uppercase if number preceeds it
+    String hyphenPlaceholder = StringUtils.capitalize(RandomStringUtils.randomAlphabetic(5));
 
-    uri = uri.replace("-", random);
+    uri = uri.replace("-", hyphenPlaceholder);
 
-    String pck = NameUtil.getPackageFromNamespace(uri).replace(random, "_");
+    String subPackage = NameUtil.getPackageFromNamespace(uri).replace(hyphenPlaceholder, "_");
 
-    return basePackage == null ? pck : basePackage + "." + pck;
+    return basePackage == null ? subPackage : basePackage + "." + subPackage;
   }
 
 }

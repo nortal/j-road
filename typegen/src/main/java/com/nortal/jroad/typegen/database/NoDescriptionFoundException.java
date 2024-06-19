@@ -5,6 +5,4 @@ package com.nortal.jroad.typegen.database;
  */
 public class NoDescriptionFoundException extends Exception {
 
-  private static final long serialVersionUID = 1L;
-
 }

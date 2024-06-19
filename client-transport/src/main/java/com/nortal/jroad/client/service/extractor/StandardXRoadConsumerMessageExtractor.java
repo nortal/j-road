@@ -105,36 +105,36 @@ public class StandardXRoadConsumerMessageExtractor implements WebServiceMessageE
         responseObj = XmlBeansUtil.getResponseObject(XmlObject.Factory.parse(kehaNode, options));
       }
 
-      Map<String, XRoadAttachment> attachments = new HashMap<>();
-      List<XRoadAttachment> undefined = new ArrayList<>();
+      Map<String, XRoadAttachment> attachmentByCid = new HashMap<>();
+      List<XRoadAttachment> attachments = new ArrayList<>();
       for (Iterator<AttachmentPart> i = SOAPUtil.extractSoapMessage(response).getAttachments(); i.hasNext();) {
         AttachmentPart part = i.next();
         String cid = part.getContentId();
         if (cid == null) {
-          undefined.add(new XRoadAttachment(cid, part.getDataHandler()));
+          attachments.add(new XRoadAttachment(cid, part.getDataHandler()));
         } else {
           cid = cid.startsWith("<") && cid.endsWith(">")
                   ? cid.substring(1, cid.length() - 1)
                   : cid;
-          attachments.put(cid, new XRoadAttachment(part.getContentId(), part.getDataHandler()));
+          attachmentByCid.put(cid, new XRoadAttachment(part.getContentId(), part.getDataHandler()));
         }
       }
-      if (!attachments.isEmpty()) {
+      if (!attachmentByCid.isEmpty()) {
         for (XmlObject obj : XmlBeansUtil.getAllObjects(responseObj)) {
           for (Method method : XmlBeansUtil.getSwaRefSetters(obj)) {
             String field = XmlBeansUtil.getFieldName(method);
             String cid = StringUtils.removeStart(XmlBeansUtil.getCid(obj, field), "cid:");
 
-            XRoadAttachment attachment = attachments.get(cid);
+            XRoadAttachment attachment = attachmentByCid.get(cid);
             if (attachment != null) {
-              attachments.remove(cid);
+              attachmentByCid.remove(cid);
               method.invoke(obj, attachment.getDataHandler());
             }
           }
         }
       }
-      undefined.addAll(attachments.values());
-      return new XmlBeansXRoadMessage<>(responseObj, undefined);
+      attachments.addAll(attachmentByCid.values());
+      return new XmlBeansXRoadMessage<>(responseObj, attachments);
     } catch (Exception e) {
       throw new RuntimeException(e);
     }

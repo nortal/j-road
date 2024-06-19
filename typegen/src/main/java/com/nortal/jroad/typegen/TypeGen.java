@@ -10,7 +10,6 @@ import com.nortal.jroad.typegen.xmlbeans.XteeSchemaCodePrinter;
 import com.nortal.jroad.util.SOAPUtil;
 import freemarker.template.TemplateException;
 import org.apache.commons.lang3.BooleanUtils;
-import org.apache.commons.lang3.time.StopWatch;
 import org.apache.xmlbeans.XmlBeans;
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlObject;
@@ -57,20 +56,20 @@ public class TypeGen {
   private static final String WSDL_SUFFIX = ".wsdl";
   private static final String FILENAME__DATABASE_PROPERTIES = "database.properties";
   private static final String PROPERTY__DATABASE_NAME_OVERRIDE = "databaseNameOverride";
-  private static final String PROPERTY__CREATE_METADATA = "createMetadata";//TODO: check if false everywhere
+  private static final String PROPERTY__CREATE_METADATA = "createMetadata";
   private static final String XSD_SUFFIX = ".xsd";
   private static final String OUTPUT_DIR = "sourcedir";
-  static final String XSB_DIR = "xsbdir";
+  private static final String XSB_DIR = "xsbdir";
   private static final String BASE_PACKAGE = "basepackage";
   private static final String DB_CLASSES_PACKAGE = "dbclassespackage";
 
-  static Map<String, String> argMap = new HashMap<>();
+  private static Map<String, String> argMap = new HashMap<>();
   private static Map<String, XmlBeansXRoadMetadata> metadata = new HashMap<String, XmlBeansXRoadMetadata>();
   private static List<XmlObject> schemas = new ArrayList<>();
   private static File curWsdl;
   private static File hashFile;
   private static byte[] computedHash;
-  private static DatabaseDescriptor dbDesc = new DatabaseDescriptor();
+  private final static DatabaseDescriptor dbDesc = new DatabaseDescriptor();
 
   public static void main(String[] args) throws Exception {
     System.out.println("Starting source generation...");

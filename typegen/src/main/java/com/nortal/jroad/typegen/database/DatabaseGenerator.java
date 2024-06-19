@@ -22,7 +22,7 @@ public class DatabaseGenerator {
   private static final String DATABASE_IMPL_TEMPLATE_FILE = "DatabaseImplTemplate.txt";
 
 
-  public static void generate(DatabaseClasses classes, String outputdir) throws IOException, TemplateException {
+  public static void generate(DatabaseClasses classes, String outputdir) throws IOException {
     Configuration cfg = new Configuration(Configuration.VERSION_2_3_19);
     cfg.setClassForTemplateLoading(TypeGen.class, "/");
     cfg.setObjectWrapper(new DefaultObjectWrapper(Configuration.VERSION_2_3_19));
@@ -34,13 +34,16 @@ public class DatabaseGenerator {
       Map<String, DatabaseClass> root = new HashMap<>();
       root.put("databaseClass", databaseClass);
 
-      Writer out = FileUtil.createAndGetOutputStream(databaseClass.getQualifiedInterfaceName(), outputdir);
-      interfaceTemp.process(root, out);
-      out.flush();
-
-      out = FileUtil.createAndGetOutputStream(databaseClass.getQualifiedImplementationName(), outputdir);
-      implTemp.process(root, out);
-      out.flush();
+      FileUtil.wrapAroundResource(
+        writer -> interfaceTemp.process(root, writer),
+        databaseClass.getQualifiedInterfaceName(),
+        outputdir
+      );
+      FileUtil.wrapAroundResource(
+        writer -> implTemp.process(root, writer),
+        databaseClass.getQualifiedImplementationName(),
+        outputdir
+      );
     }
   }
 

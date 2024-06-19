@@ -27,7 +27,7 @@ public class PropertiesBasedXRoadServiceConfigurationProvider extends AbstractXR
   public static final String CLIENT_KEY = "client";
 
   private Resource resource;
-  private final Map<String, Properties> properties = new ConcurrentHashMap<>();
+  private final ConcurrentHashMap<String, Properties> properties = new ConcurrentHashMap<>();
 
   @PostConstruct
   public void init() {
@@ -41,7 +41,10 @@ public class PropertiesBasedXRoadServiceConfigurationProvider extends AbstractXR
   protected XRoadServiceConfiguration fillConfuguration(SimpleXRoadServiceConfiguration configuration) {
     configuration.setSecurityServer(resolveCommonProperty(configuration, "security-server"));
     configuration.setIdCode(resolveCommonProperty(configuration, "id-code"));
-    configuration.setFile(resolveCommonProperty(configuration, "file"));
+    configuration.setIssue(resolveCommonProperty(configuration, "issue"));
+
+    configuration.setRepresentedPartyCode(resolveCommonProperty(configuration, "represented-party-code"));
+    configuration.setRepresentedPartyCode(resolveCommonProperty(configuration, "represented-party-class"));
 
     fillClientProperties(configuration);
     fillServiceProperties(configuration);

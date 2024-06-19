@@ -6,7 +6,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -57,11 +56,11 @@ public class XmlBeansUtil {
   @SuppressWarnings("unchecked")
   public static Map<String, XmlBeansXRoadMetadata> loadMetadata() throws IOException, ClassNotFoundException {
     Map<String, XmlBeansXRoadMetadata> metaMap = new HashMap<>();
+    Iterable<URL> metaUrls = Thread.currentThread().getContextClassLoader()
+                               .getResources("xroad.metadata")::asIterator;
 
-    for (Enumeration<URL> metaUrls =
-         Thread.currentThread().getContextClassLoader().getResources("xroad.metadata"); metaUrls.hasMoreElements();) {
-      URL metaUrl = metaUrls.nextElement();
-      try(var objectInputStream = new ObjectInputStream(metaUrl.openStream())){
+    for (URL metaUrl: metaUrls) {
+      try (var objectInputStream = new ObjectInputStream(metaUrl.openStream())){
         metaMap.putAll((Map<String, XmlBeansXRoadMetadata>) objectInputStream.readObject());
       }
     }

@@ -1,8 +1,5 @@
 package com.nortal.jroad.client.service.callback;
 
-//import com.nortal.jroad.client.service.configuration.BaseXRoadServiceConfiguration;
-//import com.nortal.jroad.client.util.ServiceVersion;
-
 import java.util.Random;
 import jakarta.xml.soap.SOAPEnvelope;
 import jakarta.xml.soap.SOAPException;
@@ -14,7 +11,7 @@ import com.nortal.jroad.client.service.configuration.XRoadServiceConfiguration;
  */
 public abstract class MessageCallbackNamespaceStrategy {
 
-  private Random random = new Random(System.currentTimeMillis());
+  private final Random random = new Random(System.currentTimeMillis());
 
   /**
    * Unique identifier for service invocation, consisting of numbers and letters of the Latin alphabet. The identifier
@@ -25,9 +22,9 @@ public abstract class MessageCallbackNamespaceStrategy {
         + random.nextInt();
   }
 
-	public abstract void addNamespaces(SOAPEnvelope env) throws SOAPException;
+	public abstract void addNamespaces(SOAPEnvelope envelope) throws SOAPException;
 
-  public abstract void addXTeeHeaderElements(SOAPEnvelope env, XRoadServiceConfiguration serviceConfiguration)
+  public abstract void addXRoadHeaderElements(SOAPEnvelope envelope, XRoadServiceConfiguration serviceConfiguration)
       throws SOAPException;
 
 }

@@ -6,8 +6,7 @@ import java.util.List;
 import org.apache.xmlbeans.XmlObject;
 
 /**
- * XmlBeans based {@link XRoadMessage} implementation. Header should be retrieved using getParing() command from the
- * content itself.
+ * XmlBeans based {@link XRoadMessage} implementation.
  *
  * @author Dmitri Danilkin
  * @param <T>
@@ -37,10 +36,6 @@ public class XmlBeansXRoadMessage<T extends XmlObject> implements XRoadMessage<T
 
   public void setContent(T content) {
     this.content = content;
-  }
-
-  public XRoadHeader getHeader() {
-    throw new UnsupportedOperationException("Get header from content instead of using this method.");
   }
 
 }

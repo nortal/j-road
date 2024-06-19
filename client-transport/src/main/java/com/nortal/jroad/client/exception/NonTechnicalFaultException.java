@@ -6,8 +6,6 @@ import java.io.IOException;
  * @author Roman Tekhov
  */
 public class NonTechnicalFaultException extends IOException {
-  private static final long serialVersionUID = 1L;
-
   private String faultCode;
   private String faultString;
 

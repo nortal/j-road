@@ -38,17 +38,11 @@ public class XRoadMessageCallback implements WebServiceMessageCallback {
   public XRoadMessageCallback(XRoadServiceConfiguration serviceConfiguration, Collection<XRoadAttachment> attachments) {
     this.serviceConfiguration = serviceConfiguration;
     this.attachments = attachments;
-
-    // create according to protocol version
-    switch (serviceConfiguration.getProtocolVersion()) {
-    default:
-      this.protocolVersionStrategy = new XRoadProtocolNamespaceStrategyV4();
-      break;
-    }
+    this.protocolVersionStrategy = new XRoadProtocolNamespaceStrategyV4();
   }
 
-  public void doWithMessage(WebServiceMessage message) {
-    SaajSoapMessage saajMessage = (SaajSoapMessage) message;
+  public void doWithMessage(WebServiceMessage wsMessage) {
+    SaajSoapMessage saajMessage = (SaajSoapMessage) wsMessage;
     try {
       // Add attachments
       if (attachments != null) {
@@ -56,11 +50,11 @@ public class XRoadMessageCallback implements WebServiceMessageCallback {
           saajMessage.addAttachment("<" + attachment.getCid() + ">", attachment, attachment.getContentType());
         }
       }
-      SOAPMessage soapmess = saajMessage.getSaajMessage();
-      SOAPEnvelope env = soapmess.getSOAPPart().getEnvelope();
+      SOAPMessage soapMessage = saajMessage.getSaajMessage();
+      SOAPEnvelope envelope = soapMessage.getSOAPPart().getEnvelope();
 
-      protocolVersionStrategy.addNamespaces(env);
-      protocolVersionStrategy.addXTeeHeaderElements(env, serviceConfiguration);
+      protocolVersionStrategy.addNamespaces(envelope);
+      protocolVersionStrategy.addXRoadHeaderElements(envelope, serviceConfiguration);
     } catch (SOAPException e) {
       throw new RuntimeException(e);
     }

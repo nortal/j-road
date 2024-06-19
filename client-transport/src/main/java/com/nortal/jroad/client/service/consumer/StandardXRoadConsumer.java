@@ -13,7 +13,6 @@ import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import jakarta.activation.DataHandler;
 
@@ -94,10 +93,10 @@ public class StandardXRoadConsumer extends WebServiceGatewaySupport implements X
     try {
       // Add any swaref attachments...
       // First find all Objects.
-      for (XmlObject attachmentObj : XmlBeansUtil.getAllObjects((XmlObject) input.getContent())) {
+      for (XmlObject node : XmlBeansUtil.getAllObjects((XmlObject) input.getContent())) {
 
         // Introspect all methods, and find the ones that were generated during instrumentation
-        for (Method method : XmlBeansUtil.getSwaRefGetters(attachmentObj)) {
+        for (Method attachmentMethod : XmlBeansUtil.getSwaRefGetters(node)) {
           // Get the datahandler for the attachment
           DataHandler handler = (DataHandler) method.invoke(attachmentObj);
 

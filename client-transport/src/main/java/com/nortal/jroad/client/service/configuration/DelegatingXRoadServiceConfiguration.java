@@ -12,8 +12,6 @@ package com.nortal.jroad.client.service.configuration;
 import com.nortal.jroad.client.enums.XroadObjectType;
 import com.nortal.jroad.enums.XRoadProtocolVersion;
 
-import java.io.Serial;
-
 /**
  * Delegates calls to embedded configuration.
  *
@@ -21,7 +19,6 @@ import java.io.Serial;
  * @author Lauri Lättemäe (lauri.lattemae@nortal.com) - protocol 4.0
  */
 public class DelegatingXRoadServiceConfiguration implements XRoadServiceConfiguration {
-  private static final long serialVersionUID = 1L;
 
   protected XRoadServiceConfiguration configuration;
 
@@ -35,8 +32,8 @@ public class DelegatingXRoadServiceConfiguration implements XRoadServiceConfigur
   }
 
   @Override
-  public String getFile() {
-    return configuration.getFile();
+  public String getIssue() {
+    return configuration.getIssue();
   }
 
   @Override
@@ -117,5 +114,15 @@ public class DelegatingXRoadServiceConfiguration implements XRoadServiceConfigur
   @Override
   public XroadObjectType getServiceObjectType() {
     return configuration.getServiceObjectType();
+  }
+
+  @Override
+  public String getRepresentedPartyClass() {
+    return configuration.getRepresentedPartyClass();
+  }
+
+  @Override
+  public String getRepresentedPartyCode() {
+    return configuration.getRepresentedPartyCode();
   }
 }

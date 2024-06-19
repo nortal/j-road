@@ -9,12 +9,11 @@ import org.springframework.ws.soap.client.SoapFaultClientException;
 /**
  * An exception thrown to indicate that a transport error has occured during X-tee service invocation or that X-tee
  * service has returned a fault result.
- * 
+ *
  * @author Roman Tekhov
  */
 public class XRoadServiceConsumptionException extends IOException {
 
-  private static final long serialVersionUID = 1L;
   private static final String SERVER_PREFIX = "Server";
   private static final String CLIENT_PREFIX = "Client";
 

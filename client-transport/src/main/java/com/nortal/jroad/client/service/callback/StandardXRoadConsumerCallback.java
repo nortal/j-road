@@ -5,7 +5,6 @@ import java.io.IOException;
 import javax.xml.namespace.QName;
 import jakarta.xml.soap.SOAPException;
 import jakarta.xml.soap.SOAPMessage;
-import javax.xml.transform.TransformerException;
 import javax.xml.transform.dom.DOMResult;
 
 import org.apache.xmlbeans.XmlOptions;
@@ -34,7 +33,7 @@ public class StandardXRoadConsumerCallback implements WebServiceMessageCallback 
   }
 
   @Override
-  public void doWithMessage(WebServiceMessage request) throws IOException, TransformerException {
+  public void doWithMessage(WebServiceMessage request) throws IOException {
     SaajSoapMessage message = (SaajSoapMessage) request;
     SOAPMessage mes = message.getSaajMessage();
 
