@@ -21,7 +21,7 @@ public class KirstXRoadServiceImplTest extends BaseXRoadServiceImplTest {
     @Test
     public void findTvlLoetelu2V1_emptySet() {
         assertThrows(IllegalArgumentException.class, () -> {
-            kirstXRoadServiceImpl.findTvlLoetelu2V1(Collections.emptySet(), null, null);
+            kirstXRoadServiceImpl.findTvlLoetelu2V1(Collections.emptySet(), null, null, null);
         });
     }
 
@@ -34,8 +34,9 @@ public class KirstXRoadServiceImplTest extends BaseXRoadServiceImplTest {
         alates.set(2007, Calendar.JANUARY, 1);
         Calendar kuni = Calendar.getInstance();
         kuni.set(2016, Calendar.DECEMBER, 31);
-        TvlLoetelu2ResponseDocument.TvlLoetelu2Response response = kirstXRoadServiceImpl.findTvlLoetelu2V1
-                (isikukoodid, alates.getTime(), kuni.getTime());
+        Set<String> tvlPohjused = new HashSet<String>(Arrays.asList("1, 10, 21"));
+        TvlLoetelu2ResponseDocument.TvlLoetelu2Response response = 
+          kirstXRoadServiceImpl.findTvlLoetelu2V1(isikukoodid, alates.getTime(), kuni.getTime(), tvlPohjused);
         Assertions.assertNotNull(response);
         Assertions.assertNotNull(response.getResponse().getTvlid());
     }
