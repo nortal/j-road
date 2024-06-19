@@ -98,20 +98,20 @@ public class StandardXRoadConsumer extends WebServiceGatewaySupport implements X
         // Introspect all methods, and find the ones that were generated during instrumentation
         for (Method attachmentMethod : XmlBeansUtil.getSwaRefGetters(node)) {
           // Get the datahandler for the attachment
-          DataHandler handler = (DataHandler) method.invoke(attachmentObj);
+          DataHandler handler = (DataHandler) attachmentMethod.invoke(node);
 
           if (handler == null) {
             continue;
           }
-          String field = XmlBeansUtil.getFieldName(method);
+          String field = XmlBeansUtil.getFieldName(attachmentMethod);
           // Check whether the user has set a custom CID, if not, generate a random one and set it
-          String cid = XmlBeansUtil.getCid(attachmentObj, field);
+          String cid = XmlBeansUtil.getCid(node, field);
           if (cid == null) {
             cid = AttachmentUtil.getUniqueCid();
           } else {
             cid = StringUtils.removeStart(cid, "cid:");
           }
-          XmlBeansUtil.setCid(attachmentObj, field, "cid:" + cid);
+          XmlBeansUtil.setCid(node, field, "cid:" + cid);
 
           // Add a new attachment to the list
           input.getAttachments().add(new XRoadAttachment(cid, handler));
@@ -128,7 +128,7 @@ public class StandardXRoadConsumer extends WebServiceGatewaySupport implements X
       }
 
       WebServiceMessageCallback originalCallback = getNewConsumerCallback(input, xroadServiceConfiguration, curdata);
-      StandardXRoadConsumerMessageExtractor originalExtractor = new StandardXRoadConsumerMessageExtractor(curdata);
+      WebServiceMessageExtractor originalExtractor = new StandardXRoadConsumerMessageExtractor(curdata);
 
       if (callback != null) {
         callback.setOriginalCallback(originalCallback);
