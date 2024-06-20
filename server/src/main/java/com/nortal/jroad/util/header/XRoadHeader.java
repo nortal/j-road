@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class XRoadHeader implements Serializable {
+public class XRoadHeader {
   public static final String XROAD_NS_URI = "http://x-road.eu/xsd/xroad.xsd";
   public static final String XROAD_ID_NS_URI = "http://x-road.eu/xsd/identifiers";
   public static final String XROAD_REPR_NS_URI = "http://x-road.eu/xsd/representation.xsd";

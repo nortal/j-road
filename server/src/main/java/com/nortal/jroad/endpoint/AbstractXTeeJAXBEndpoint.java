@@ -14,6 +14,7 @@ import com.nortal.jroad.model.BeanXRoadMessage;
 import com.nortal.jroad.model.XRoadAttachment;
 import com.nortal.jroad.model.XRoadMessage;
 import com.nortal.jroad.util.AttachmentUtil;
+import com.nortal.jroad.util.SOAPUtil;
 import jakarta.activation.DataHandler;
 import jakarta.annotation.Resource;
 import jakarta.xml.bind.JAXBContext;
@@ -32,8 +33,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -151,7 +152,7 @@ public abstract class AbstractXTeeJAXBEndpoint<T> extends AbstractXTeeBaseEndpoi
                                                                                              getParingKehaClass()).getValue(),
                                                                request.getAttachments());
     XRoadMessage<Object> jaxbResponseMessage =
-        new BeanXRoadMessage<Object>(response.getHeader(), null, new ArrayList<XRoadAttachment>());
+      new BeanXRoadMessage<>(response.getHeader(), null, new ArrayList<>());
 
     invoke(jaxbRequestMessage, jaxbResponseMessage);
     Object bean = jaxbResponseMessage.getContent();
@@ -203,11 +204,7 @@ public abstract class AbstractXTeeJAXBEndpoint<T> extends AbstractXTeeBaseEndpoi
     private XRoadAttachment getAttachment(String contentId) {
       if (contentId.startsWith("cid:")) {
         contentId = contentId.substring("cid:".length());
-        try {
-          contentId = URLDecoder.decode(contentId, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-          // ignore, because data was probably not UTF-8
-        }
+        contentId = URLDecoder.decode(contentId, StandardCharsets.UTF_8);
         contentId = '<' + contentId + '>';
       }
       return cidMap.get(contentId);

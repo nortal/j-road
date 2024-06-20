@@ -37,5 +37,7 @@ public class XmlBeansXRoadMessage<T extends XmlObject> implements XRoadMessage<T
   public void setContent(T content) {
     this.content = content;
   }
-
+  public XRoadHeader getHeader() {
+    throw new UnsupportedOperationException("Get header from content instead of using this method.");
+  }
 }

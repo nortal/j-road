@@ -12,36 +12,29 @@ package com.nortal.jroad.endpoint;
 import com.nortal.jroad.enums.XRoadProtocolVersion;
 import com.nortal.jroad.model.BeanXRoadMessage;
 import com.nortal.jroad.model.XRoadAttachment;
-import com.nortal.jroad.model.XTeeHeader;
+import com.nortal.jroad.model.XRoadHeader;
 import com.nortal.jroad.model.XRoadMessage;
 import com.nortal.jroad.util.SOAPUtil;
 import com.nortal.jroad.wsdl.XTeeWsdlDefinition;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import javax.xml.namespace.QName;
+import javax.xml.parsers.DocumentBuilderFactory;
 import jakarta.xml.soap.AttachmentPart;
 import jakarta.xml.soap.SOAPElement;
 import jakarta.xml.soap.SOAPEnvelope;
 import jakarta.xml.soap.SOAPException;
 import jakarta.xml.soap.SOAPHeader;
 import jakarta.xml.soap.SOAPMessage;
-import org.apache.log4j.Logger;
-import org.springframework.ws.WebServiceMessage;
-import org.springframework.ws.client.WebServiceClientException;
 import org.springframework.ws.context.MessageContext;
 import org.springframework.ws.server.endpoint.MessageEndpoint;
-import org.springframework.ws.soap.saaj.SaajSoapMessage;
+import org.springframework.ws.wsdl.wsdl11.provider.SuffixBasedMessagesProvider;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
-import javax.xml.namespace.QName;
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * Base class for X-Tee Spring web-service endpoints, extension classes must implement
@@ -52,14 +45,10 @@ import java.util.List;
  * @author Lauri Lättemäe (lauri.lattemae@nortal.com) - protocol 4.0
  */
 public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
-  private static final Logger log = Logger.getLogger(AbstractXTeeBaseEndpoint.class);
-  protected static final String PROTOCOL_VERSION = "protocolVersion";
-  public final static String RESPONSE_SUFFIX = "Response";
   protected boolean metaService = false;
   protected XRoadProtocolVersion version;
 
   public final void invoke(MessageContext messageContext) throws Exception {
-    handleRequest(messageContext);
     SOAPMessage paringMessage = SOAPUtil.extractSoapMessage(messageContext.getRequest());
     SOAPMessage responseMessage = SOAPUtil.extractSoapMessage(messageContext.getResponse());
 
@@ -71,9 +60,7 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
     }
 
     Document paring = metaService ? null : parseQuery(paringMessage);
-
     getResponse(paring, responseMessage, paringMessage);
-    handleResponse(messageContext);
   }
 
   @SuppressWarnings("unchecked")
@@ -85,7 +72,7 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
       for (int i = 0; i < reqHeaders.getLength(); i++) {
         Node reqHeader = reqHeaders.item(i);
         if (reqHeader.getNodeType() != Node.ELEMENT_NODE
-            || !reqHeader.getLocalName().equals(XTeeHeader.PROTOCOL_VERSION.getLocalPart())) {
+            || !reqHeader.getLocalName().equals(XRoadHeader.PROTOCOL_VERSION.getLocalPart())) {
           continue;
         }
 
@@ -94,42 +81,6 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
         }
       }
     }
-// @SuppressWarnings("unchecked")
-//  protected void getResponse(Document query, SOAPMessage responseMessage, SOAPMessage requestMessage) throws Exception {
-//    XTeeHeader header = metaService ? null : parseXteeHeader(requestMessage);
-//
-//    // Build request message
-//    List<XRoadAttachment> attachments = new ArrayList<>();
-//    for (Iterator<AttachmentPart> i = requestMessage.getAttachments(); i.hasNext();) {
-//      AttachmentPart a = i.next();
-//      attachments.add(new XRoadAttachment(a.getContentId(), a.getContentType(), a.getRawContentBytes()));
-//    }
-//    XRoadMessage<Document> request = new BeanXRoadMessage<>(header, query, attachments);
-//
-//    SOAPElement teenusElement = createXRoadMessageStructure(requestMessage, responseMessage);
-//    if (XRoadProtocolVersion.V2_0 == version) {
-//      if (!metaService) {
-//        copyParing(query, teenusElement);
-//      }
-//      teenusElement = teenusElement.addChildElement("keha");
-//    }
-//
-//    // Build response message
-//    XRoadMessage<Element> response = new BeanXRoadMessage<>(header,
-//      teenusElement,
-//      new ArrayList<>());
-//
-//    // Run logic
-//    invokeInternalEx(request, response, requestMessage, responseMessage);
-//
-//    // Add any attachments
-//    for (XRoadAttachment a : response.getAttachments()) {
-//      AttachmentPart attachment = responseMessage.createAttachmentPart(a.getDataHandler());
-//      attachment.setContentId("<" + a.getCid() + ">");
-//      responseMessage.addAttachmentPart(attachment);
-//    }
-//  }
-
 
     // Extract protocol version by namespaces
     SOAPEnvelope soapEnv = requestMessage.getSOAPPart().getEnvelope();
@@ -146,7 +97,7 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
 
   @SuppressWarnings("unchecked")
   protected void getResponse(Document query, SOAPMessage responseMessage, SOAPMessage requestMessage) throws Exception {
-    XTeeHeader header = metaService ? null : parseXteeHeader(requestMessage);
+    XRoadHeader header = metaService ? null : parseXteeHeader(requestMessage);
 
     // Build request message
     List<XRoadAttachment> attachments = new ArrayList<XRoadAttachment>();
@@ -156,7 +107,7 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
     }
     XRoadMessage<Document> request = new BeanXRoadMessage<Document>(header, query, attachments);
 
-    SOAPElement teenusElement = createXRoadMessageStructure(requestMessage, responseMessage);
+    SOAPElement teenusElement = createXteeMessageStructure(requestMessage, responseMessage);
     if (XRoadProtocolVersion.V2_0 == version) {
       if (!metaService) {
         copyParing(query, teenusElement);
@@ -166,7 +117,7 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
 
     // Build response message
     XRoadMessage<Element> response =
-        new BeanXRoadMessage<Element>(header, teenusElement, new ArrayList<XRoadAttachment>());
+        new BeanXRoadMessage<>(header, teenusElement, new ArrayList<>());
 
     // Run logic
     invokeInternalEx(request, response, requestMessage, responseMessage);
@@ -180,8 +131,8 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
   }
 
   @SuppressWarnings("unchecked")
-  private XTeeHeader parseXteeHeader(SOAPMessage paringMessage) throws SOAPException {
-    XTeeHeader pais = new XTeeHeader();
+  private XRoadHeader parseXteeHeader(SOAPMessage paringMessage) throws SOAPException {
+    XRoadHeader pais = new XRoadHeader();
     if (paringMessage.getSOAPHeader() == null) {
       return pais;
     }
@@ -192,18 +143,6 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
       if (!SOAPUtil.isTextNode(headerElement) && headerElement.getFirstChild() != null) {
         String localName = headerElement.getLocalName();
         String value = headerElement.getFirstChild().getNodeValue();
-        NodeList childNodes = headerElement.getChildNodes();
-        if (childNodes.getLength() > 1) {
-          for (int i = 0; i < childNodes.getLength(); i++) {
-            Node item = childNodes.item(i);
-            if (item.getLocalName() == null) {
-              continue;
-            }
-            pais.addElement(new QName(item.getNamespaceURI(), localName + "." + item.getLocalName()),
-                              item.getFirstChild().getNodeValue());
-
-          }
-        }
         pais.addElement(new QName(headerElement.getNamespaceURI(), localName), value);
       }
     }
@@ -226,7 +165,7 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
   }
 
   @SuppressWarnings("unchecked")
-  protected SOAPElement createXRoadMessageStructure(SOAPMessage requestMessage, SOAPMessage responseMessage)
+  protected SOAPElement createXteeMessageStructure(SOAPMessage requestMessage, SOAPMessage responseMessage)
       throws Exception {
     SOAPUtil.addBaseMimeHeaders(responseMessage);
     SOAPUtil.addBaseNamespaces(responseMessage);
@@ -261,7 +200,7 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
     responseMessage.getSOAPPart().getEnvelope().setEncodingStyle("http://schemas.xmlsoap.org/soap/encoding/");
 
     Node teenusElement = SOAPUtil.getFirstNonTextChild(requestMessage.getSOAPBody());
-    if (teenusElement.getPrefix() == null || teenusElement.getNamespaceURI() == null) {
+    if (teenusElement.getNamespaceURI() == null) {
       throw new IllegalStateException("Service request is missing namespace.");
     }
     String prefix = teenusElement.getPrefix() == null ? "rsp" : teenusElement.getPrefix();
@@ -279,7 +218,7 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
                                                          teenusElement.getNamespaceURI());
   }
 
-  private void copyParing(Document paring, Node response) throws Exception {
+  private void copyParing(Document paring, Node response) {
     Node paringElement = response.appendChild(response.getOwnerDocument().createElement("paring"));
     Node kehaNode = response.getOwnerDocument().importNode(paring.getDocumentElement(), true);
 
@@ -329,36 +268,5 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
    */
   protected void invokeInternal(XRoadMessage<Document> request, XRoadMessage<Element> response) throws Exception {
     throw new IllegalStateException("You must override either the 'invokeInternal' or the 'invokeInternalEx' method!");
-  }
-
-  protected enum MessageType {
-
-    REQUEST, RESPONSE, FAULT;
-  }
-
-  protected boolean handleRequest(MessageContext mc) throws WebServiceClientException {
-    return logMessage(mc, MessageType.REQUEST);
-  }
-
-  protected boolean handleResponse(MessageContext mc) throws WebServiceClientException {
-    return true;
-  }
-
-  protected boolean logMessage(MessageContext mc, MessageType messageType) {
-    if (log.isDebugEnabled()) {
-      WebServiceMessage message = MessageType.REQUEST.equals(messageType) ? mc.getRequest() : mc.getResponse();
-
-      if (message instanceof SaajSoapMessage) {
-        OutputStream out = new ByteArrayOutputStream();
-        try {
-          message.writeTo(out);
-          log.debug(messageType + " message follows:\n" + out.toString());
-        } catch (Exception e) {
-          throw new RuntimeException(e);
-        }
-      }
-    }
-
-    return true;
   }
 }

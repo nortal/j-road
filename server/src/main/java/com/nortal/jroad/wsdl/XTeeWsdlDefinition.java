@@ -31,7 +31,7 @@ import org.springframework.xml.xsd.XsdSchemaCollection;
 import org.w3c.dom.Element;
 
 import com.nortal.jroad.mapping.XTeeEndpointMapping;
-import com.nortal.jroad.model.XTeeHeader;
+import com.nortal.jroad.model.XRoadHeader;
 
 /**
  * Generates WSDL for X-Road services from a schema, much like Spring's WSDL generator it delegates to
@@ -45,7 +45,7 @@ import com.nortal.jroad.model.XTeeHeader;
 public class XTeeWsdlDefinition implements Wsdl11Definition, InitializingBean {
 
   private final InliningXsdSchemaTypesProvider typesProvider = new InliningXsdSchemaTypesProvider();
-  private final SuffixBasedMessagesProvider messagesProvider = new XRoadMessagesProvider();
+  private final SuffixBasedMessagesProvider messagesProvider = new XTeeMessagesProvider();
   private final XTeePortTypesProvider portTypesProvider = new XTeePortTypesProvider();
   private final XTeeSoapProvider soapProvider = new XTeeSoapProvider();
   private final ProviderBasedWsdl4jDefinition delegate = new ProviderBasedWsdl4jDefinition();
@@ -172,11 +172,11 @@ public class XTeeWsdlDefinition implements Wsdl11Definition, InitializingBean {
     Message message = definition.createMessage();
     message.setQName(new QName(definition.getTargetNamespace(), XROAD_HEADER));
 
-    addXroadHeaderPart(definition, message, XTeeHeader.CLIENT);
-    addXroadHeaderPart(definition, message, XTeeHeader.SERVICE);
-    addXroadHeaderPart(definition, message, XTeeHeader.ID);
-    addXroadHeaderPart(definition, message, XTeeHeader.USER_ID);
-    addXroadHeaderPart(definition, message, XTeeHeader.PROTOCOL_VERSION);
+    addXroadHeaderPart(definition, message, XRoadHeader.CLIENT);
+    addXroadHeaderPart(definition, message, XRoadHeader.SERVICE);
+    addXroadHeaderPart(definition, message, XRoadHeader.ID);
+    addXroadHeaderPart(definition, message, XRoadHeader.USER_ID);
+    addXroadHeaderPart(definition, message, XRoadHeader.PROTOCOL_VERSION);
 
     message.setUndefined(false);
     definition.addMessage(message);

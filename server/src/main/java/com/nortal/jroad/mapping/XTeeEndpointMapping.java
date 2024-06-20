@@ -14,17 +14,23 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.nortal.jroad.annotation.XTeeService;
+import com.nortal.jroad.endpoint.AbstractXTeeBaseEndpoint;
+import com.nortal.jroad.endpoint.ListMethodsEndpoint;
+import com.nortal.jroad.enums.XRoadProtocolVersion;
+import com.nortal.jroad.util.SOAPUtil;
+import com.nortal.jroad.wsdl.XTeeWsdlDefinition;
 import jakarta.annotation.Resource;
 import jakarta.xml.soap.SOAPHeader;
 import jakarta.xml.soap.SOAPMessage;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 import org.springframework.ws.context.MessageContext;
 import org.springframework.ws.server.endpoint.mapping.AbstractEndpointMapping;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.w3c.dom.Element;
 
 /**
  * Finds all X-Road endpoints and maps incoming requests to them according to query name present in the X-Road header.
@@ -35,7 +41,7 @@ import org.w3c.dom.NodeList;
 @Component
 public class XTeeEndpointMapping extends AbstractEndpointMapping implements InitializingBean {
 
-  protected static final Logger log = Logger.getLogger(XTeeEndpointMapping.class);
+  protected static final Logger log = LoggerFactory.getLogger(XTeeEndpointMapping.class);
 
   @Resource(name = "xteeDatabase")
   private String xRoadDatabase;
@@ -46,9 +52,9 @@ public class XTeeEndpointMapping extends AbstractEndpointMapping implements Init
   }
 
   // Lazy initialization
-  public void afterPropertiesSet() throws Exception {
+  public void afterPropertiesSet() {
     log.debug("Initializing method map...");
-    methodMap = new HashMap<String, AbstractXTeeBaseEndpoint>();
+    methodMap = new HashMap<>();
     String[] beans = getApplicationContext().getBeanNamesForType(AbstractXTeeBaseEndpoint.class);
     for (int i = 0; i < beans.length; i++) {
       AbstractXTeeBaseEndpoint endpoint = (AbstractXTeeBaseEndpoint) getApplicationContext().getBean(beans[i]);
@@ -112,11 +118,7 @@ public class XTeeEndpointMapping extends AbstractEndpointMapping implements Init
     String serviceVersion =
         SOAPUtil.getNsElementValue(service, "serviceVersion", XTeeWsdlDefinition.XROAD_IDEN_NAMESPACE);
 
-    StringBuilder method = new StringBuilder();
-    method.append(xRoadDatabase).append(".");
-    method.append(serviceCode).append(".");
-    method.append(serviceVersion != null ? serviceVersion : "v1");
-    return method.toString();
+    return "%s.%s.%s".formatted(xRoadDatabase, serviceCode, serviceVersion != null ? serviceVersion : "v1");
   }
 
   /**
@@ -137,13 +139,13 @@ public class XTeeEndpointMapping extends AbstractEndpointMapping implements Init
 
   /**
    * Attempts to get the full XRoad method name for the given {@link AbstractXTeeBaseEndpoint}, by processing the
-   * {@link XRoadService} annotation -- if this is not present the method name will be a concatenation of X-Tee database
+   * {@link XTeeService} annotation -- if this is not present the method name will be a concatenation of X-Tee database
    * name, unqualified class name of given {@link AbstractXTeeBaseEndpoint} (as service name) and "v1" (as version
    * number).
    *
    * @param clazz XRoad service endpoint implementation class
    * @param databaseName name of the XRoad database
-   * @return the XRoadService method name that was constructed according to aforementioned rules
+   * @return the XTeeService method name that was constructed according to aforementioned rules
    */
   private String getXRoadMethodName(Class<? extends AbstractXTeeBaseEndpoint> clazz, String databaseName) {
     String version = "v1";
@@ -151,8 +153,8 @@ public class XTeeEndpointMapping extends AbstractEndpointMapping implements Init
     if (clazz.isAnnotationPresent(XTeeService.class)) {
       XTeeService serviceAnnotation = clazz.getAnnotation(XTeeService.class);
       version = serviceAnnotation.version();
-      if (!serviceAnnotation.name().equals("") || !serviceAnnotation.value().equals("")) {
-        serviceName = serviceAnnotation.name().equals("") ? serviceAnnotation.value() : serviceAnnotation.name();
+      if (!serviceAnnotation.name().isEmpty() || !serviceAnnotation.value().isEmpty()) {
+        serviceName = serviceAnnotation.name().isEmpty() ? serviceAnnotation.value() : serviceAnnotation.name();
       }
 
     }
@@ -160,8 +162,7 @@ public class XTeeEndpointMapping extends AbstractEndpointMapping implements Init
       serviceName = getServiceName(clazz.getSimpleName());
     }
 
-    StringBuilder sb = new StringBuilder(databaseName).append(".").append(serviceName).append(".").append(version);
-    return sb.toString();
+    return "%s.%s.%s".formatted(databaseName, serviceName, version);
   }
 
   public Collection<String> getMethods() {

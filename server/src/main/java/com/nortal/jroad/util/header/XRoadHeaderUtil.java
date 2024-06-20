@@ -5,9 +5,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import javax.xml.namespace.QName;
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPHeader;
-import javax.xml.soap.SOAPMessage;
+import jakarta.xml.soap.SOAPException;
+import jakarta.xml.soap.SOAPHeader;
+import jakarta.xml.soap.SOAPMessage;
 import java.util.Iterator;
 
 public class XRoadHeaderUtil {
@@ -18,7 +18,7 @@ public class XRoadHeaderUtil {
     XRoadHeader xroadHeader = new XRoadHeader();
 
     SOAPHeader header = paringMessage.getSOAPHeader();
-    for (Iterator<Node> headerElemendid = header.getChildElements(); headerElemendid.hasNext(); ) {
+    for (Iterator<? extends Node> headerElemendid = header.getChildElements(); headerElemendid.hasNext(); ) {
       Node headerElement = headerElemendid.next();
       if (!SOAPUtil.isTextNode(headerElement) && headerElement.getFirstChild() != null) {
         XRoadHeaderElement el = parseHeaderElement(headerElement, header);
@@ -55,7 +55,7 @@ public class XRoadHeaderUtil {
       return headerElement;
     }
 
-    if (SOAPUtil.isTextNode(node) && node.getNodeValue() != null && node.getNodeValue().trim().length() > 0) {
+    if (SOAPUtil.isTextNode(node) && node.getNodeValue() != null && !node.getNodeValue().trim().isEmpty()) {
       XRoadHeaderElement headerElement = new XRoadHeaderElement();
       headerElement.setQName(new QName(parent.getNamespaceURI(), parent.getLocalName()));
       headerElement.setValue(node.getNodeValue().trim());

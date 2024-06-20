@@ -11,7 +11,8 @@ package com.nortal.jroad.endpoint;
 
 import jakarta.annotation.Resource;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -29,7 +30,7 @@ import com.nortal.jroad.util.SOAPUtil;
  */
 @Component
 public class ListMethodsEndpoint extends AbstractXTeeBaseEndpoint {
-  private static final Logger log = Logger.getLogger(ListMethodsEndpoint.class);
+  private static final Logger log = LoggerFactory.getLogger(ListMethodsEndpoint.class);
   @Resource
   private XTeeEndpointMapping xRoadEndpointMapping;
 

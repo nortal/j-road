@@ -13,18 +13,18 @@ import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import com.nortal.jroad.annotation.XTeeService;
 import org.springframework.ws.server.endpoint.MessageEndpoint;
 import org.springframework.ws.wsdl.wsdl11.provider.SuffixBasedPortTypesProvider;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.ibm.wsdl.Constants;
-import com.nortal.jroad.annotation.XTeeService;
 import com.nortal.jroad.mapping.XTeeEndpointMapping;
 
 /**
  * Part of the serverside WSDL generator
- * 
+ *
  * @author Dmitri Danilkin
  * @author Lauri Lättemäe (lauri.lattemae@nortal.com) - protocol 4.0
  */
@@ -63,11 +63,11 @@ public class XTeePortTypesProvider extends SuffixBasedPortTypesProvider {
             throw new NameNotFoundException();
 
           // Get annotation from endpoint and check that it contains a name.
-          XTeeService xRoadServiceAnnotation = endpoint.getClass().getAnnotation(XTeeService.class);
-          if (xRoadServiceAnnotation == null || xRoadServiceAnnotation.title().equals(""))
+          XTeeService xTeeServiceAnnotation = endpoint.getClass().getAnnotation(XTeeService.class);
+          if (xTeeServiceAnnotation == null || xTeeServiceAnnotation.title().isEmpty())
             throw new NameNotFoundException();
 
-          titleEelement.appendChild(doc.createTextNode(xRoadServiceAnnotation.title()));
+          titleEelement.appendChild(doc.createTextNode(xTeeServiceAnnotation.title()));
         } catch (NameNotFoundException e) {
           titleEelement.appendChild(doc.createTextNode(operation.getName()));
         }

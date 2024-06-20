@@ -11,7 +11,6 @@ package com.nortal.jroad.wsdl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.wsdl.Binding;
@@ -23,7 +22,6 @@ import javax.wsdl.Input;
 import javax.wsdl.Output;
 import javax.wsdl.Port;
 import javax.wsdl.WSDLException;
-import javax.wsdl.extensions.ExtensibilityElement;
 import javax.wsdl.extensions.ExtensionRegistry;
 import javax.wsdl.extensions.UnknownExtensibilityElement;
 import javax.wsdl.extensions.soap.SOAPBinding;
@@ -38,12 +36,12 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.nortal.jroad.mapping.XTeeEndpointMapping;
-import com.nortal.jroad.model.XTeeHeader;
+import com.nortal.jroad.model.XRoadHeader;
 
 /**
  * Creates X-Road specific SOAP headers and bindings (<code>Document/Literal</code> is used). Used by
  * {@link XTeeWsdlDefinition}.
- * 
+ *
  * @author Lauri Lättemäe (lauri.lattemae@nortal.com) - protocol 4.0
  */
 public class XTeeSoapProvider extends Soap11Provider {
@@ -57,10 +55,10 @@ public class XTeeSoapProvider extends Soap11Provider {
   private XTeeEndpointMapping xRoadEndpointMapping;
 
   private List<SOAPHeader> makeHeaders(Definition definition) throws WSDLException {
-    List<SOAPHeader> list = new ArrayList<SOAPHeader>();
-    String[] parts = new String[] { XTeeHeader.CLIENT.getLocalPart(), XTeeHeader.SERVICE.getLocalPart(),
-                                    XTeeHeader.USER_ID.getLocalPart(), XTeeHeader.ID.getLocalPart(),
-                                    XTeeHeader.PROTOCOL_VERSION.getLocalPart() };
+    List<SOAPHeader> list = new ArrayList<>();
+    String[] parts = new String[] { XRoadHeader.CLIENT.getLocalPart(), XRoadHeader.SERVICE.getLocalPart(),
+                                    XRoadHeader.USER_ID.getLocalPart(), XRoadHeader.ID.getLocalPart(),
+                                    XRoadHeader.PROTOCOL_VERSION.getLocalPart() };
     ExtensionRegistry extReg = definition.getExtensionRegistry();
     for (int i = 0; i < parts.length; i++) {
       SOAPHeader header =
