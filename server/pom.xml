@@ -6,11 +6,11 @@
 	<artifactId>xtee-server</artifactId>
 	<name>x-tee server</name>
 	<description>x-tee server API</description>
-    <version>4.3.0</version>
+    <version>4.3.1-SNAPSHOT</version>
 	<parent>
 		<groupId>com.nortal.jroad</groupId>
 		<artifactId>xtee-root</artifactId>
-		<version>4.3.0</version>
+		<version>4.3.1-SNAPSHOT</version>
 	</parent>
 	<dependencies>
 		<dependency>
@@ -21,7 +21,7 @@
 		<dependency>
 			<groupId>com.nortal.jroad</groupId>
 			<artifactId>xtee-common</artifactId>
-			<version>4.3.0</version>
+			<version>4.3.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.ws</groupId>

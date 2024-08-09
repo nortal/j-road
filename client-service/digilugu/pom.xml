@@ -3,12 +3,12 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>xtee-client-digilugu</artifactId>
   <name>digilugu client services</name>
-  <version>4.3.0</version>
+  <version>4.3.1-SNAPSHOT</version>
 
   <parent>
     <groupId>com.nortal.jroad</groupId>
     <artifactId>xtee-client-service</artifactId>
-    <version>4.3.0</version>
+    <version>4.3.1-SNAPSHOT</version>
   </parent>
 
   <properties>
