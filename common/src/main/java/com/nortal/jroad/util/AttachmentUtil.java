@@ -4,7 +4,7 @@ import java.util.UUID;
 
 /**
  * Utility class for attachments
- * 
+ *
  * @author Dmitri Danilkin
  */
 public class AttachmentUtil {
@@ -12,7 +12,7 @@ public class AttachmentUtil {
 
   public static String getUniqueCid() {
     salt++;
-    return UUID.randomUUID().toString() + String.valueOf(salt);
+    return UUID.randomUUID() + String.valueOf(salt);
   }
 
 }

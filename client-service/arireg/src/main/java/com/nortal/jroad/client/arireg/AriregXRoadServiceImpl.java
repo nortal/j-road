@@ -2,23 +2,24 @@ package com.nortal.jroad.client.arireg;
 
 import com.nortal.jroad.client.arireg.database.AriregXRoadDatabase;
 import com.nortal.jroad.client.arireg.types.eu.x_road.arireg.producer.*;
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import javax.annotation.Resource;
+
+import com.nortal.jroad.client.service.XRoadDatabaseService;
+import com.nortal.jroad.model.XRoadMessage;
+import com.nortal.jroad.model.XmlBeansXRoadMessage;
+import jakarta.annotation.Resource;
 import javax.xml.namespace.QName;
 import javax.xml.transform.TransformerException;
 
 import com.nortal.jroad.client.service.extractor.CustomExtractor;
-import com.nortal.jroad.client.service.v4.XRoadDatabaseService;
-import com.nortal.jroad.model.XTeeMessage;
-import com.nortal.jroad.model.XmlBeansXTeeMessage;
-import org.apache.commons.lang.BooleanUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.BooleanUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.xmlbeans.XmlCursor;
 import org.apache.xmlbeans.XmlObject;
 import org.springframework.stereotype.Service;
@@ -35,7 +36,7 @@ public class AriregXRoadServiceImpl extends XRoadDatabaseService implements Arir
   private AriregXRoadDatabase ariregXRoadDatabase;
 
   public List<ParingarikeeludKeeld> findArikeelud(String isikukood, String eesnimi, String perenimi, Date synniaeg)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
     ArikeeludV1 arikeelud = ArikeeludV1.Factory.newInstance();
     ParingarikeeludParing paring = arikeelud.addNewKeha();
     paring.setFyysiliseIsikuKood(isikukood);
@@ -49,8 +50,8 @@ public class AriregXRoadServiceImpl extends XRoadDatabaseService implements Arir
       paring.setFyysiliseIsikuSynniaeg(cal);
     }
 
-    XTeeMessage<ArikeeludV1Response> response =
-        send(new XmlBeansXTeeMessage<ArikeeludV1>(arikeelud), "arikeelud_v1", "v1", null, new AriregExtractor());
+    XRoadMessage<ArikeeludV1Response> response =
+        send(new XmlBeansXRoadMessage<>(arikeelud), "arikeelud_v1", "v1", null, new AriregExtractor());
     return response.getContent().getKeha().getArikeelud().getItemList();
   }
 
@@ -62,7 +63,7 @@ public class AriregXRoadServiceImpl extends XRoadDatabaseService implements Arir
                                                           boolean maarused,
                                                           boolean ainultKehtivad,
                                                           long maksValjundArv)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
     return findDetailandmedV1(new DetailandmedV1ReturnedDataSettingCallback(yldandmed,
                                                                             isikuandmed,
                                                                             menetlusesAvaldused,
@@ -86,7 +87,7 @@ public class AriregXRoadServiceImpl extends XRoadDatabaseService implements Arir
                                                           boolean maarused,
                                                           boolean ainultKehtivad,
                                                           long maksValjundArv)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
     return findDetailandmedV1(new DetailandmedV1ReturnedDataSettingCallback(yldandmed,
                                                                             isikuandmed,
                                                                             menetlusesAvaldused,
@@ -111,7 +112,7 @@ public class AriregXRoadServiceImpl extends XRoadDatabaseService implements Arir
                                                           boolean maarused,
                                                           boolean ainultKehtivad,
                                                           long maksValjundArv)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
     return findDetailandmedV1(new DetailandmedV1ReturnedDataSettingCallback(yldandmed,
                                                                             isikuandmed,
                                                                             menetlusesAvaldused,
@@ -132,14 +133,14 @@ public class AriregXRoadServiceImpl extends XRoadDatabaseService implements Arir
   }
 
   public List<DetailandmedV5Ettevotja> findDetailandmedV1(DetailandmedV1PopulatingCallback callback)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
 
     DetailandmedV1Document requestDocument = DetailandmedV1Document.Factory.newInstance();
     DetailandmedV1 detailandmedV1 = requestDocument.addNewDetailandmedV1();
 
     callback.populate(detailandmedV1);
 
-    XTeeMessage<DetailandmedV1Response> response = send(new XmlBeansXTeeMessage<DetailandmedV1>(detailandmedV1),
+    XRoadMessage<DetailandmedV1Response> response = send(new XmlBeansXRoadMessage<DetailandmedV1>(detailandmedV1),
                                                         "detailandmed_v1",
                                                         "v1",
                                                         null,
@@ -148,14 +149,14 @@ public class AriregXRoadServiceImpl extends XRoadDatabaseService implements Arir
   }
 
   public EttevotjaMuudatusedTasutaV1Response findEttevotjaMuudatusedTasutaV1(EttevotjaMuudatusedTasutaReturnedDataSettingCallback callback)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
     EttevotjaMuudatusedTasutaV1Document query = EttevotjaMuudatusedTasutaV1Document.Factory.newInstance();
     EttevotjaMuudatusedTasutaV1 ettevotjaMuudatusedTasutaV1 = query.addNewEttevotjaMuudatusedTasutaV1();
 
     callback.populate(ettevotjaMuudatusedTasutaV1);
 
-    XTeeMessage<EttevotjaMuudatusedTasutaV1Response> response =
-        send(new XmlBeansXTeeMessage<EttevotjaMuudatusedTasutaV1>(ettevotjaMuudatusedTasutaV1),
+    XRoadMessage<EttevotjaMuudatusedTasutaV1Response> response =
+        send(new XmlBeansXRoadMessage<EttevotjaMuudatusedTasutaV1>(ettevotjaMuudatusedTasutaV1),
              "ettevotjaMuudatusedTasuta_v1",
              "v1",
              null,
@@ -167,7 +168,7 @@ public class AriregXRoadServiceImpl extends XRoadDatabaseService implements Arir
                                                                                                  Date loppKp,
                                                                                                  String[] kandesIsikudRollid,
                                                                                                  Integer tulemusteLk)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
 
     Calendar algus = Calendar.getInstance();
     Calendar lopp = Calendar.getInstance();
@@ -185,8 +186,8 @@ public class AriregXRoadServiceImpl extends XRoadDatabaseService implements Arir
       query.setTulemusteLk(tulemusteLk);
     }
 
-    XTeeMessage<EttevotjaMuudatusedTasutaTootukassaV1Response> response =
-        send(new XmlBeansXTeeMessage<EttevotjaMuudatusedTasutaTootukassaV1>(request),
+    XRoadMessage<EttevotjaMuudatusedTasutaTootukassaV1Response> response =
+        send(new XmlBeansXRoadMessage<EttevotjaMuudatusedTasutaTootukassaV1>(request),
              "ettevotjaMuudatusedTasutaTootukassa_v1",
              "v1",
              null,
@@ -196,7 +197,7 @@ public class AriregXRoadServiceImpl extends XRoadDatabaseService implements Arir
   }
 
   @Override
-  public List<Seos> findEttevottegaSeotudIsikudV1(Long ariregistriKood, String isikukood, Boolean vastupidi) throws XTeeServiceConsumptionException {
+  public List<Seos> findEttevottegaSeotudIsikudV1(Long ariregistriKood, String isikukood, Boolean vastupidi) throws XRoadServiceConsumptionException {
     EttevottegaSeotudIsikudV1 query = EttevottegaSeotudIsikudV1.Factory.newInstance();
     EttevottegaSeotudIsikudParing keha = EttevottegaSeotudIsikudParing.Factory.newInstance();
     if (isikukood != null) {
@@ -208,17 +209,17 @@ public class AriregXRoadServiceImpl extends XRoadDatabaseService implements Arir
     keha.setVastupidi(BooleanUtils.isTrue(vastupidi));
     query.setKeha(keha);
 
-    XTeeMessage<EttevottegaSeotudIsikudV1Response> response =
-            send(new XmlBeansXTeeMessage<EttevottegaSeotudIsikudV1>(query), "ettevottegaSeotudIsikud_v1", "v1", null, new AriregExtractor());
+    XRoadMessage<EttevottegaSeotudIsikudV1Response> response =
+            send(new XmlBeansXRoadMessage<EttevottegaSeotudIsikudV1>(query), "ettevottegaSeotudIsikud_v1", "v1", null, new AriregExtractor());
     return response.getContent().getKeha().getSeosedList();
   }
 
-  public class AriregExtractor extends CustomExtractor<XTeeMessage<XmlObject>> {
+  public class AriregExtractor extends CustomExtractor<XRoadMessage<XmlObject>> {
 
     @Override
-    public XTeeMessage<XmlObject> extractData(WebServiceMessage webServiceMessage)
+    public XRoadMessage<XmlObject> extractData(WebServiceMessage webServiceMessage)
         throws IOException, TransformerException {
-      XTeeMessage<XmlObject> response = extractor.extractData(webServiceMessage);
+      XRoadMessage<XmlObject> response = extractor.extractData(webServiceMessage);
       XmlObject content = response.getContent();
       XmlCursor cursor = content.newCursor();
       while (cursor.hasNextToken()) {

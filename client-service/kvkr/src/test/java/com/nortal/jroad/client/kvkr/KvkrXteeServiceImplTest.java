@@ -1,13 +1,13 @@
 package com.nortal.jroad.client.kvkr;
 
 import com.nortal.jroad.client.kvkr.types.eu.x_road.kvkr.ServiceinfoResponseDocument;
-import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
-import org.junit.Assert;
-import org.junit.Test;
+import com.nortal.jroad.client.test.BaseXRoadServiceImplTest;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
-public class KvkrXteeServiceImplTest extends BaseXTeeServiceImplTest {
+public class KvkrXteeServiceImplTest extends BaseXRoadServiceImplTest {
 
   @Resource
   private KvkrXRoadServiceImpl kvkrXRoadServiceImpl;
@@ -15,7 +15,7 @@ public class KvkrXteeServiceImplTest extends BaseXTeeServiceImplTest {
   @Test
   public void testGetServiceinfoV1() throws Exception {
     ServiceinfoResponseDocument.ServiceinfoResponse response = kvkrXRoadServiceImpl.getServiceinfoV1("38812192729", "TEST");
-    Assert.assertNotNull(response);
+    Assertions.assertNotNull(response);
   }
 
 }

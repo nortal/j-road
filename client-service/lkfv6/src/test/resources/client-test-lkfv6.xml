@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <import resource="classpath:client-lkfv6.xml" />
+  
+  <bean id="xRoadServiceConfigurationProvider" class="com.nortal.jroad.client.service.configuration.provider.PropertiesBasedXRoadServiceConfigurationProvider"/>
+  
+  <bean id="lkfv6XRoadDatabase" class="com.nortal.jroad.client.lkfv6.database.Lkfv6XRoadDatabaseImpl">
+    <property name="xRoadConsumer">
+      <bean id="lkfv6XRoadConsumer" class="com.nortal.jroad.client.service.consumer.Lkfv6XRoadConsumer">
+        <property name="connectionTimeout" value="10000"/>
+        <property name="readTimeout" value="10000"/>
+      </bean>
+    </property>
+  </bean>
+  
+</beans>

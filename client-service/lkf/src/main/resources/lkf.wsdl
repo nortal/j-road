@@ -919,7 +919,7 @@
             </sequence>
           </restriction>
         </complexContent>
-      </complexType>      
+      </complexType>
       <complexType name="isiku_seosedv2_paring">
         <all>
           <element name="osalise_kood" type="string">
@@ -1978,7 +1978,7 @@
           </element>
         </all>
       </complexType>
-      
+
       <complexType name="textAndCodeType">
         <all>
           <element name="code" type="string">
@@ -1997,7 +1997,7 @@
           </element>
         </all>
       </complexType>
-      
+
 
       <complexType name="romude_otsing_vastus">
         <all>
@@ -2051,7 +2051,7 @@
                               </appinfo>
                             </annotation>
                           </element>
-                          
+
                           <element name="changeSignature" type="string">
                             <annotation>
                               <appinfo>
@@ -3214,7 +3214,7 @@
     <part name="paring" type="tns:lepinguta_soidukid_paring" />
     <part name="keha" type="tns:lepinguta_soidukid_vastus" />
   </message>
-  
+
   <message name="lepinguta_soidukidv2">
     <part name="keha" type="ns:string" />
   </message>
@@ -3222,7 +3222,7 @@
     <part name="paring" type="ns:string" />
     <part name="keha" type="tns:lepinguta_soidukidv2_vastus" />
   </message>
-  
+
   <message name="kindlustuskate">
     <part name="keha" type="tns:kindlustuskate_paring" />
   </message>
@@ -3236,7 +3236,7 @@
   <message name="kindlustuskatev2Response">
     <part name="paring" type="tns:kindlustuskate_paring" />
     <part name="keha" type="tns:kindlustuskatev2_vastus" />
-  </message> 
+  </message>
   <message name="isiku_andmed">
     <part name="keha" type="tns:isiku_andmed_paring" />
   </message>
@@ -3305,7 +3305,7 @@
   <message name="standardpais">
     <part name="pais" type="xtee:hdrstd" />
   </message>
-  
+
   <message name="ajaloo_toend_soRequest">
     <part name="keha" type="ns:string" />
   </message>
@@ -3313,7 +3313,7 @@
     <part name="paring" type="ns:string" />
     <part name="keha" type="tns:ajaloo_toend_so_vastus" />
   </message>
-  
+
   <message name="romude_otsingRequest">
     <part name="keha" type="tns:romude_otsing_paring" />
   </message>
@@ -3321,7 +3321,7 @@
     <part name="paring" type="tns:romude_otsing_paring" />
     <part name="keha" type="tns:romude_otsing_vastus" />
   </message>
-  
+
   <message name="kindlustuskaitse_otsingRequest">
     <part name="keha" type="tns:kindlustuskaitse_otsing_paring" />
   </message>
@@ -3329,7 +3329,7 @@
     <part name="paring" type="tns:kindlustuskaitse_otsing_paring" />
     <part name="keha" type="tns:kindlustuskaitse_otsing_vastus" />
   </message>
-  
+
   <portType name="myportType">
     <operation name="aadress">
       <documentation>
@@ -3449,7 +3449,7 @@
             Liikluskindlustuse registris on registreeritud kõik Eestis antud liikluskindlustuse kindlustuskaitsed ja registreeritud liikuskindlustuse kahjud. Kõnealust teavet võib kindlustusandja kasutada liikluskindlustuse kindlustusmakse arvutamise sisendina. Täpsema teabe saamiks palume pöörduda oma kindlustusandja poole. Eestis liikluskindlustust pakkuvad kindlustusandjad vt <a href="https://www.lkf.elion.ee/pls/xlk/SYSADM.LK_INFOKESKUS_PKT.eesti_kindlustusandjad?plang=EST">https://www.lkf.elion.ee/pls/xlk/SYSADM.LK_INFOKESKUS_PKT.eesti_kindlustusandjad?plang=EST</a>.
             <br />
             <br />
-            Käesolevas on liikluskindlustuse teave alates 01.06.2001. 
+            Käesolevas on liikluskindlustuse teave alates 01.06.2001.
         </xtee:notes>
       </documentation>
       <input message="tns:ajaloo_toend_soRequest" />
@@ -3489,11 +3489,11 @@
       <xtee:version>v1</xtee:version>
       <soap:operation />
       <input>
-        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.assert.xtee.riik.ee/producer/assert" />
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.Assertions.xtee.riik.ee/producer/assert" />
         <soap:header message="tns:standardpais" part="pais" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
       </input>
       <output>
-        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.assert.xtee.riik.ee/producer/assert" />
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.Assertions.xtee.riik.ee/producer/assert" />
         <soap:header message="tns:standardpais" part="pais" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
       </output>
     </operation>
@@ -3501,11 +3501,11 @@
       <xtee:version>v1</xtee:version>
       <soap:operation />
       <input>
-        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.assert.xtee.riik.ee/producer/assert" />
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.Assertions.xtee.riik.ee/producer/assert" />
         <soap:header message="tns:standardpais" part="pais" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
       </input>
       <output>
-        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.assert.xtee.riik.ee/producer/assert" />
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.Assertions.xtee.riik.ee/producer/assert" />
         <soap:header message="tns:standardpais" part="pais" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
       </output>
     </operation>
@@ -3513,11 +3513,11 @@
       <xtee:version>v2</xtee:version>
       <soap:operation />
       <input>
-        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.assert.xtee.riik.ee/producer/assert" />
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.Assertions.xtee.riik.ee/producer/assert" />
         <soap:header message="tns:standardpais" part="pais" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
       </input>
       <output>
-        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.assert.xtee.riik.ee/producer/assert" />
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.Assertions.xtee.riik.ee/producer/assert" />
         <soap:header message="tns:standardpais" part="pais" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
       </output>
     </operation>
@@ -3525,11 +3525,11 @@
       <xtee:version>v1</xtee:version>
       <soap:operation />
       <input>
-        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.assert.xtee.riik.ee/producer/assert" />
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.Assertions.xtee.riik.ee/producer/assert" />
         <soap:header message="tns:standardpais" part="pais" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
       </input>
       <output>
-        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.assert.xtee.riik.ee/producer/assert" />
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.Assertions.xtee.riik.ee/producer/assert" />
         <soap:header message="tns:standardpais" part="pais" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
       </output>
     </operation>
@@ -3538,11 +3538,11 @@
       <xtee:version>v1</xtee:version>
       <soap:operation />
       <input>
-        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.assert.xtee.riik.ee/producer/assert" />
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.Assertions.xtee.riik.ee/producer/assert" />
         <soap:header message="tns:standardpais" part="pais" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
       </input>
       <output>
-        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.assert.xtee.riik.ee/producer/assert" />
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.Assertions.xtee.riik.ee/producer/assert" />
         <soap:header message="tns:standardpais" part="pais" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
       </output>
     </operation>
@@ -3551,11 +3551,11 @@
       <xtee:version>v1</xtee:version>
       <soap:operation />
       <input>
-        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.assert.xtee.riik.ee/producer/assert" />
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.Assertions.xtee.riik.ee/producer/assert" />
         <soap:header message="tns:standardpais" part="pais" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
       </input>
       <output>
-        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.assert.xtee.riik.ee/producer/assert" />
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.Assertions.xtee.riik.ee/producer/assert" />
         <soap:header message="tns:standardpais" part="pais" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
       </output>
     </operation>
@@ -3563,11 +3563,11 @@
       <xtee:version>v1</xtee:version>
       <soap:operation />
       <input>
-        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.assert.xtee.riik.ee/producer/assert" />
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.Assertions.xtee.riik.ee/producer/assert" />
         <soap:header message="tns:standardpais" part="pais" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
       </input>
       <output>
-        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.assert.xtee.riik.ee/producer/assert" />
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.Assertions.xtee.riik.ee/producer/assert" />
         <soap:header message="tns:standardpais" part="pais" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
       </output>
     </operation>
@@ -3575,11 +3575,11 @@
       <xtee:version>v1</xtee:version>
       <soap:operation />
       <input>
-        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.assert.xtee.riik.ee/producer/assert" />
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.Assertions.xtee.riik.ee/producer/assert" />
         <soap:header message="tns:standardpais" part="pais" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
       </input>
       <output>
-        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.assert.xtee.riik.ee/producer/assert" />
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.Assertions.xtee.riik.ee/producer/assert" />
         <soap:header message="tns:standardpais" part="pais" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
       </output>
     </operation>
@@ -3587,11 +3587,11 @@
       <xtee:version>v2</xtee:version>
       <soap:operation />
       <input>
-        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.assert.xtee.riik.ee/producer/assert" />
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.Assertions.xtee.riik.ee/producer/assert" />
         <soap:header message="tns:standardpais" part="pais" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
       </input>
       <output>
-        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.assert.xtee.riik.ee/producer/assert" />
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.Assertions.xtee.riik.ee/producer/assert" />
         <soap:header message="tns:standardpais" part="pais" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
       </output>
     </operation>
@@ -3599,11 +3599,11 @@
       <xtee:version>v1</xtee:version>
       <soap:operation />
       <input>
-        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.assert.xtee.riik.ee/producer/assert" />
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.Assertions.xtee.riik.ee/producer/assert" />
         <soap:header message="tns:standardpais" part="pais" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
       </input>
       <output>
-        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.assert.xtee.riik.ee/producer/assert" />
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.Assertions.xtee.riik.ee/producer/assert" />
         <soap:header message="tns:standardpais" part="pais" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
       </output>
     </operation>
@@ -3611,11 +3611,11 @@
       <xtee:version>v2</xtee:version>
       <soap:operation />
       <input>
-        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.assert.xtee.riik.ee/producer/assert" />
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.Assertions.xtee.riik.ee/producer/assert" />
         <soap:header message="tns:standardpais" part="pais" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
       </input>
       <output>
-        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.assert.xtee.riik.ee/producer/assert" />
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.Assertions.xtee.riik.ee/producer/assert" />
         <soap:header message="tns:standardpais" part="pais" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
       </output>
     </operation>
@@ -3623,11 +3623,11 @@
       <xtee:version>v1</xtee:version>
       <soap:operation />
       <input>
-        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.assert.xtee.riik.ee/producer/assert" />
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.Assertions.xtee.riik.ee/producer/assert" />
         <soap:header message="tns:standardpais" part="pais" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
       </input>
       <output>
-        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.assert.xtee.riik.ee/producer/assert" />
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.Assertions.xtee.riik.ee/producer/assert" />
         <soap:header message="tns:standardpais" part="pais" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
       </output>
     </operation>
@@ -3635,11 +3635,11 @@
       <xtee:version>v1</xtee:version>
       <soap:operation />
       <input>
-        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.assert.xtee.riik.ee/producer/assert" />
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.Assertions.xtee.riik.ee/producer/assert" />
         <soap:header message="tns:standardpais" part="pais" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
       </input>
       <output>
-        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.assert.xtee.riik.ee/producer/assert" />
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.Assertions.xtee.riik.ee/producer/assert" />
         <soap:header message="tns:standardpais" part="pais" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
       </output>
     </operation>
@@ -3648,11 +3648,11 @@
       <xtee:version>v1</xtee:version>
       <soap:operation />
       <input>
-        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.assert.xtee.riik.ee/producer/assert" />
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.Assertions.xtee.riik.ee/producer/assert" />
         <soap:header message="tns:standardpais" part="pais" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
       </input>
       <output>
-        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.assert.xtee.riik.ee/producer/assert" />
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.Assertions.xtee.riik.ee/producer/assert" />
         <soap:header message="tns:standardpais" part="pais" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
       </output>
     </operation>
@@ -3661,24 +3661,24 @@
       <xtee:version>v1</xtee:version>
       <soap:operation />
       <input>
-        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.assert.xtee.riik.ee/producer/assert" />
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.Assertions.xtee.riik.ee/producer/assert" />
         <soap:header message="tns:standardpais" part="pais" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
       </input>
       <output>
-        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.assert.xtee.riik.ee/producer/assert" />
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.Assertions.xtee.riik.ee/producer/assert" />
         <soap:header message="tns:standardpais" part="pais" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
       </output>
-    </operation>    
+    </operation>
 
     <operation name="romude_otsing">
       <xtee:version>v1</xtee:version>
       <soap:operation />
       <input>
-        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.assert.xtee.riik.ee/producer/assert" />
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.Assertions.xtee.riik.ee/producer/assert" />
         <soap:header message="tns:standardpais" part="pais" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
       </input>
       <output>
-        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.assert.xtee.riik.ee/producer/assert" />
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.Assertions.xtee.riik.ee/producer/assert" />
         <soap:header message="tns:standardpais" part="pais" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
       </output>
     </operation>
@@ -3687,11 +3687,11 @@
       <xtee:version>v2</xtee:version>
       <soap:operation />
       <input>
-        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.assert.xtee.riik.ee/producer/assert" />
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.Assertions.xtee.riik.ee/producer/assert" />
         <soap:header message="tns:standardpais" part="pais" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
       </input>
       <output>
-        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.assert.xtee.riik.ee/producer/assert" />
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://producers.Assertions.xtee.riik.ee/producer/assert" />
         <soap:header message="tns:standardpais" part="pais" use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://x-tee.riik.ee/xsd/xtee.xsd" />
       </output>
     </operation>

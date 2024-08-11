@@ -1,7 +1,7 @@
 package com.nortal.jroad.client.arireg;
 
 import com.nortal.jroad.client.arireg.types.eu.x_road.arireg.producer.*;
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 
 import java.math.BigInteger;
 import java.util.Calendar;
@@ -19,7 +19,7 @@ public interface AriregXRoadService {
    * <code>arireg.paringarikeelud.v1</code> service.
    */
   List<ParingarikeeludKeeld> findArikeelud(String isikukood, String eesnimi, String perenimi, Date synniaeg)
-      throws XTeeServiceConsumptionException;
+      throws XRoadServiceConsumptionException;
 
   /**
    * <code>arireg.detailandmed_v5.v1</code> service.
@@ -32,7 +32,7 @@ public interface AriregXRoadService {
                                                    boolean maarused,
                                                    boolean ainultKehtivad,
                                                    long maksValjundArv)
-      throws XTeeServiceConsumptionException;
+      throws XRoadServiceConsumptionException;
 
   /**
    * <code>arireg.detailandmed_v5.v1</code> service.
@@ -45,7 +45,7 @@ public interface AriregXRoadService {
                                                    boolean maarused,
                                                    boolean ainultKehtivad,
                                                    long maksValjundArv)
-      throws XTeeServiceConsumptionException;
+      throws XRoadServiceConsumptionException;
 
   List<DetailandmedV5Ettevotja> findDetailandmedV1(Integer ariregistriKood,
                                                    String arinimi,
@@ -56,13 +56,13 @@ public interface AriregXRoadService {
                                                    boolean maarused,
                                                    boolean ainultKehtivad,
                                                    long maksValjundArv)
-      throws XTeeServiceConsumptionException;
+      throws XRoadServiceConsumptionException;
 
   /**
    * <code>arireg.detailandmed_v5.v1</code> service.
    */
   List<DetailandmedV5Ettevotja> findDetailandmedV1(DetailandmedV1PopulatingCallback callback)
-      throws XTeeServiceConsumptionException;
+      throws XRoadServiceConsumptionException;
 
   /**
    * Callback responsible for populating the keha element of <code>arireg.detailandmedv5.v1</code> service.
@@ -196,7 +196,7 @@ public interface AriregXRoadService {
    * <code>arireg.ettevotja_muudatused_tasuta.v1</code> X-tee service.
    */
   EttevotjaMuudatusedTasutaV1Response findEttevotjaMuudatusedTasutaV1(EttevotjaMuudatusedTasutaReturnedDataSettingCallback callback)
-      throws XTeeServiceConsumptionException;
+      throws XRoadServiceConsumptionException;
 
   /**
    * <code>arireg.ettevotja_muudatused_tasuta_tootukassa.v1</code> X-tee service.
@@ -205,11 +205,11 @@ public interface AriregXRoadService {
                                                                                           Date loppKp,
                                                                                           String[] kandesIsikudRollid,
                                                                                           Integer tulemusteLk)
-      throws XTeeServiceConsumptionException;
+      throws XRoadServiceConsumptionException;
 
   /**
    * <code>arireg.ettevottegaSeotudIsikud_v1.v1</code> X-road service.
    */
-  List<Seos> findEttevottegaSeotudIsikudV1(Long ariregistriKood, String isikukood, Boolean vastupidi) throws XTeeServiceConsumptionException;
+  List<Seos> findEttevottegaSeotudIsikudV1(Long ariregistriKood, String isikukood, Boolean vastupidi) throws XRoadServiceConsumptionException;
 
 }

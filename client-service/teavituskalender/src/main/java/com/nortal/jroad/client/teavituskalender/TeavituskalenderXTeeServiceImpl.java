@@ -1,13 +1,13 @@
 package com.nortal.jroad.client.teavituskalender;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import org.apache.xmlbeans.XmlOptions;
 import org.springframework.stereotype.Service;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.service.v2.XTeeDatabaseService;
-import com.nortal.jroad.client.teavituskalender.database.TeavituskalenderXTeeDatabase;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
+import com.nortal.jroad.client.service.XRoadDatabaseService;
+import com.nortal.jroad.client.teavituskalender.database.TeavituskalenderXRoadDatabase;
 import com.nortal.jroad.client.teavituskalender.types.ee.riik.xtee.teavituskalender.producers.producer.teavituskalender.LisaSyndmusParing;
 import com.nortal.jroad.client.teavituskalender.types.ee.riik.xtee.teavituskalender.producers.producer.teavituskalender.LisaSyndmusVastus;
 import com.nortal.jroad.client.teavituskalender.types.ee.riik.xtee.teavituskalender.producers.producer.teavituskalender.LisaSyndmusParing.Lugejad;
@@ -17,15 +17,15 @@ import com.nortal.jroad.client.teavituskalender.types.ee.riik.xtee.teavituskalen
  * @author Aleksandr.Koltakov
  */
 @Service("teavituskalenderXTeeService")
-public class TeavituskalenderXTeeServiceImpl extends XTeeDatabaseService implements TeavituskalenderXTeeService {
+public class TeavituskalenderXTeeServiceImpl extends XRoadDatabaseService implements TeavituskalenderXTeeService {
 
   private static final String TYPE = "xsd:anyType[1]";
   private static final String OFFSET = "[0]";
 
   @Resource
-  private TeavituskalenderXTeeDatabase teavituskalenderXTeeDatabase;
+  private TeavituskalenderXRoadDatabase teavituskalenderXRoadDatabase;
 
-  public LisaSyndmusVastus lisaSyndmus(Syndmus syndmus) throws XTeeServiceConsumptionException {
+  public LisaSyndmusVastus lisaSyndmus(Syndmus syndmus) throws XRoadServiceConsumptionException {
 
     LisaSyndmusParing paring = LisaSyndmusParing.Factory.newInstance();
     paring.setNahtavOmanikule(syndmus.isNahtavOmanikule());
@@ -57,11 +57,11 @@ public class TeavituskalenderXTeeServiceImpl extends XTeeDatabaseService impleme
     lugejad.setItemArray(kasutajad);
     paring.setLugejad(lugejad);
 
-    return teavituskalenderXTeeDatabase.lisaSyndmusV1(paring);
+    return teavituskalenderXRoadDatabase.lisaSyndmusV1(paring);
   }
 
 
-  public void setTeavituskalenderXTeeDatabase(TeavituskalenderXTeeDatabase teavituskalenderXTeeDatabase) {
-    this.teavituskalenderXTeeDatabase = teavituskalenderXTeeDatabase;
+  public void setTeavituskalenderXRoadDatabase(TeavituskalenderXRoadDatabase teavituskalenderXRoadDatabase) {
+    this.teavituskalenderXRoadDatabase = teavituskalenderXRoadDatabase;
   }
 }

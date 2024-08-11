@@ -1,9 +1,9 @@
 package com.nortal.jroad.client.liiklusregister;
 
-import com.nortal.jroad.client.liiklusregister.types.eu.x_road.liiklusregister.MuuDokV2Vastus;
 import java.util.Date;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
+import com.nortal.jroad.client.liiklusregister.types.eu.x_road.liiklusregister.MuuDokV2Vastus;
 import com.nortal.jroad.client.liiklusregister.types.eu.x_road.liiklusregister.MuuDokVastus;
 import com.nortal.jroad.client.liiklusregister.types.eu.x_road.liiklusregister.PolIsikudVastus;
 import com.nortal.jroad.client.liiklusregister.types.eu.x_road.liiklusregister.PolJuhtoigusVastus;
@@ -22,40 +22,40 @@ public interface LiiklusregisterXRoadService {
   /**
    * <code>liiklusregister.pol_soiduk.v1</code> service.
    */
-  PolSoidukVastus findPolSoiduk(PolSoidukParingCallback callback) throws XTeeServiceConsumptionException;
+  PolSoidukVastus findPolSoiduk(PolSoidukParingCallback callback) throws XRoadServiceConsumptionException;
 
   /**
    * <code>liiklusregister.pol_juhtoigus.v1</code> service.
    */
-  PolJuhtoigusVastus findPolJuhtoigus(String isikukood, Long identifikaator) throws XTeeServiceConsumptionException;
+  PolJuhtoigusVastus findPolJuhtoigus(String isikukood, Long identifikaator) throws XRoadServiceConsumptionException;
 
   /**
    * <code>liiklusregister.pol_ylev.v1</code> service.
    */
-  PolYlevVastus findPolYlev(Long identifikaator, String vin) throws XTeeServiceConsumptionException;
+  PolYlevVastus findPolYlev(Long identifikaator, String vin) throws XRoadServiceConsumptionException;
 
   /**
    * <code>liiklusregister.pol_isikud.v1</code> service.
    */
   PolIsikudVastus findPolIsiku(String isikukood, String eesnimi, String perenimi, Date synniaeg)
-      throws XTeeServiceConsumptionException;
-  
-  MuuDokVastus findMuuDok(String eesnimi, String perenimi, String kood, String loaNr) throws XTeeServiceConsumptionException;
+      throws XRoadServiceConsumptionException;
 
-  MuuDokV2Vastus findMuuDokV2(String eesnimi, String perenimi, String kood, String loaNr) throws XTeeServiceConsumptionException;
+  MuuDokVastus findMuuDok(String eesnimi, String perenimi, String kood, String loaNr) throws XRoadServiceConsumptionException;
+
+  MuuDokV2Vastus findMuuDokV2(String eesnimi, String perenimi, String kood, String loaNr) throws XRoadServiceConsumptionException;
 
   /**
    * <code>liiklusregister.vlaev.v1</code>
    */
-  VlaevResponse findVLaevAndmed(String regNr, String hinKood, String omaKood, String omaNimi, String omaEesnimi) throws XTeeServiceConsumptionException;
+  VlaevResponse findVLaevAndmed(String regNr, String hinKood, String omaKood, String omaNimi, String omaEesnimi) throws XRoadServiceConsumptionException;
 
-  VlaevTunnVastus findVlaevTunnistused(String tunnistusNr, String isikukood, String eesnimi, String perenimi) throws XTeeServiceConsumptionException;
-  
+  VlaevTunnVastus findVlaevTunnistused(String tunnistusNr, String isikukood, String eesnimi, String perenimi) throws XRoadServiceConsumptionException;
+
   /**
    * <code>liiklusregister.pol_juhtoigus.v1</code> X-tee service implementation.
    */
-  PolJuhtoigusVastus polJuhtoigus(String isikukood) throws XTeeServiceConsumptionException;
-  
+  PolJuhtoigusVastus polJuhtoigus(String isikukood) throws XRoadServiceConsumptionException;
+
   public interface PolSoidukParingCallback {
     void populate(PolSoidukParing paring);
   }
@@ -63,5 +63,5 @@ public interface LiiklusregisterXRoadService {
   /**
    * <code>liiklusregister.tootukassaParing.v1</code> X-tee service implementation.
    */
-  TootukassaParingResponse tootukassaParing(String isikukood, String taotluseNr, Date alates, Date kuni) throws XTeeServiceConsumptionException;
+  TootukassaParingResponse tootukassaParing(String isikukood, String taotluseNr, Date alates, Date kuni) throws XRoadServiceConsumptionException;
 }

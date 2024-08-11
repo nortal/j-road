@@ -5,12 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>xtee-client-mkrliides</artifactId>
     <name>EMTA mkrliides client services</name>
-    <version>4.1.7-SNAPSHOT</version>
+    <version>4.3.1-SNAPSHOT</version>
 
     <parent>
         <artifactId>xtee-client-service</artifactId>
         <groupId>com.nortal.jroad</groupId>
-        <version>4.1-SNAPSHOT</version>
+        <version>4.3.1-SNAPSHOT</version>
     </parent>
 
     <properties>

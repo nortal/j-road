@@ -3,20 +3,19 @@ package com.nortal.jroad.client.arireg;
 import com.nortal.jroad.client.arireg.types.eu.x_road.arireg.producer.DetailandmedV5Ettevotja;
 import com.nortal.jroad.client.arireg.types.eu.x_road.arireg.producer.EttevotjaMuudatusedTasutaParing;
 import com.nortal.jroad.client.arireg.types.eu.x_road.arireg.producer.ParingarikeeludKeeld;
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
+import com.nortal.jroad.client.test.BaseXRoadServiceImplTest;
+import jakarta.annotation.Resource;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
-import javax.annotation.Resource;
-
-import junit.framework.Assert;
-import org.junit.Test;
 
 /**
  * @author Roman Tekhov
  */
-public class AriregXRoadServiceImplTest extends BaseXTeeServiceImplTest {
+public class AriregXRoadServiceImplTest extends BaseXRoadServiceImplTest {
 
   private static final String TEST_ISIKUKOOD = "36605235217";
   private static final int TEST_ARIKOOD = 80191600;
@@ -26,27 +25,27 @@ public class AriregXRoadServiceImplTest extends BaseXTeeServiceImplTest {
   private AriregXRoadServiceImpl ariregXRoadServiceImpl;
 
   @Test
-  public void findArikeelud() throws XTeeServiceConsumptionException {
+  public void findArikeelud() throws XRoadServiceConsumptionException {
     List<ParingarikeeludKeeld> keelud = ariregXRoadServiceImpl.findArikeelud("38001010001", null, null, null);
-    Assert.assertNotNull(keelud);
-    Assert.assertTrue(!keelud.isEmpty());
+    Assertions.assertNotNull(keelud);
+    Assertions.assertTrue(!keelud.isEmpty());
     ParingarikeeludKeeld keeld = keelud.get(0);
-    Assert.assertEquals(keeld.getOlek(), "J");
+    Assertions.assertEquals(keeld.getOlek(), "J");
   }
 
   @Test
-  public void findDetailandmedV5() throws XTeeServiceConsumptionException {
+  public void findDetailandmedV5() throws XRoadServiceConsumptionException {
     List<DetailandmedV5Ettevotja> items =
         ariregXRoadServiceImpl.findDetailandmedV1(TEST_ARIKOOD, true, true, false, false, false, false, 10);
-    Assert.assertNotNull(items);
-    Assert.assertTrue(!items.isEmpty());
+    Assertions.assertNotNull(items);
+    Assertions.assertTrue(!items.isEmpty());
     DetailandmedV5Ettevotja ettevotja = items.get(0);
-    Assert.assertEquals(TEST_ARIKOOD, ettevotja.getAriregistriKood().intValue());
-    Assert.assertEquals("Motoklubi Motosummer", ettevotja.getYldandmed().getArinimed().getItemList().get(0).getSisu());
+    Assertions.assertEquals(TEST_ARIKOOD, ettevotja.getAriregistriKood().intValue());
+    Assertions.assertEquals("Motoklubi Motosummer", ettevotja.getYldandmed().getArinimed().getItemList().get(0).getSisu());
   }
 
   @Test
-  public void getEttevotjaMuudatusedTasutaV1() throws XTeeServiceConsumptionException {
+  public void getEttevotjaMuudatusedTasutaV1() throws XRoadServiceConsumptionException {
     try {
       SimpleDateFormat sf = new SimpleDateFormat("dd.MM.yyyy");
       AriregXRoadService.EttevotjaMuudatusedTasutaReturnedDataSettingCallback callback =

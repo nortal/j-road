@@ -3,8 +3,8 @@ package com.nortal.jroad.client.lkf;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.DateFormatUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 
 /**
  * @author Tatjana Kulikova (tatjana.kulikova@nortal.com)

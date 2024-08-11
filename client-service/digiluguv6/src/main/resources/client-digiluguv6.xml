@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+			 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			 xmlns:context="http://www.springframework.org/schema/context"
+			 xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+			 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+	<context:annotation-config/>
+
+	<context:component-scan base-package="com.nortal.jroad.client.digiluguv6"/>
+
+	<bean id="digiluguXTeeV6ServiceImpl" class="com.nortal.jroad.client.digiluguv6.DigiluguV6ServiceImpl"/>
+
+	<bean id="digiluguv6XRoadConsumer" class="com.nortal.jroad.client.service.consumer.Digiluguv6XRoadConsumer"/>
+
+	<bean id="digiluguXRoadDatabase" class="com.nortal.jroad.client.digiluguv6.database.DigiluguXRoadDatabaseImpl">
+		<property name="xRoadConsumer">
+			<bean id="lkfv6XRoadConsumer" class="com.nortal.jroad.client.service.consumer.Digiluguv6XRoadConsumer">
+			</bean>
+		</property>
+	</bean>
+
+</beans>

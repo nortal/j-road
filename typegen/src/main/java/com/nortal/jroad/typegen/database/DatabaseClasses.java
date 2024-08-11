@@ -1,7 +1,7 @@
 package com.nortal.jroad.typegen.database;
 
 import com.nortal.jroad.enums.XRoadProtocolVersion;
-import com.nortal.jroad.model.XmlBeansXTeeMetadata;
+import com.nortal.jroad.model.XmlBeansXRoadMetadata;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +15,7 @@ public class DatabaseClasses {
   private String packageName;
   private XRoadProtocolVersion version;
 
-  private Map<String, DatabaseClass> classes = new HashMap<String, DatabaseClass>();
+  private Map<String, DatabaseClass> classes = new HashMap<>();
 
 
   public DatabaseClasses(String baseDirectory, String packageName, XRoadProtocolVersion version) {
@@ -25,7 +25,7 @@ public class DatabaseClasses {
   }
 
 
-  public void add(String database, XmlBeansXTeeMetadata metadata) throws IOException {
+  public void add(String database, XmlBeansXRoadMetadata metadata) throws IOException {
     DatabaseClass databaseClass = classes.get(database);
     if (databaseClass == null) {
       databaseClass = new DatabaseClass(database, packageName, version);

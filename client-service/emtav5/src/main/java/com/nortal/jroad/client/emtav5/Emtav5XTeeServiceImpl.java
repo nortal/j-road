@@ -6,14 +6,14 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.activation.DataHandler;
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
+import jakarta.activation.DataHandler;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.Resource;
 import javax.xml.namespace.QName;
-import javax.xml.soap.SOAPElement;
-import javax.xml.soap.SOAPEnvelope;
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPMessage;
+import jakarta.xml.soap.SOAPElement;
+import jakarta.xml.soap.SOAPEnvelope;
+import jakarta.xml.soap.SOAPException;
+import jakarta.xml.soap.SOAPMessage;
 import javax.xml.transform.TransformerException;
 
 import com.nortal.jroad.client.service.MetaserviceOperations;
@@ -45,12 +45,12 @@ import com.nortal.jroad.client.emtav5.types.net.x_rd.ee.emtav5.producer.UploadMi
 import com.nortal.jroad.client.emtav5.types.net.x_rd.ee.emtav5.producer.UploadMimeType;
 import com.nortal.jroad.client.emtav5.types.net.x_rd.ee.emtav5.producer.UploadMimeType.Props;
 import com.nortal.jroad.client.emtav5.types.net.x_rd.ee.emtav5.producer.UploadMimeType.Props.Prop;
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.service.v3.XRoadDatabaseService;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
+import com.nortal.jroad.client.service.XRoadDatabaseService;
 import com.nortal.jroad.client.service.callback.CustomCallback;
-import com.nortal.jroad.model.XTeeAttachment;
-import com.nortal.jroad.model.XTeeMessage;
-import com.nortal.jroad.model.XmlBeansXTeeMessage;
+import com.nortal.jroad.model.XRoadAttachment;
+import com.nortal.jroad.model.XRoadMessage;
+import com.nortal.jroad.model.XmlBeansXRoadMessage;
 import com.nortal.jroad.util.AttachmentUtil;
 
 /**
@@ -76,18 +76,18 @@ public class Emtav5XTeeServiceImpl extends XRoadDatabaseService implements Emtav
   }
 
   @Override
-  public Integer getState() throws XTeeServiceConsumptionException {
+  public Integer getState() throws XRoadServiceConsumptionException {
     return metaserviceOperations.getState();
   }
 
-  public List<Period> xteeFIEAKV1(String id, Date start, Date end) throws XTeeServiceConsumptionException {
+  public List<Period> xteeFIEAKV1(String id, Date start, Date end) throws XRoadServiceConsumptionException {
     SpouseCheckRequestType request = SpouseCheckRequestType.Factory.newInstance();
     SpouseCheckCommonRequestType commonRequest = request.addNewRequest();
     commonRequest.setId(id);
     commonRequest.setStart(getCalendar(start));
     commonRequest.setEnd(getCalendar(end));
 
-    XTeeMessage<SpouseCheckResponseType> xteeFIEAKV1 = send(new XmlBeansXTeeMessage<SpouseCheckRequestType>(request),
+    XRoadMessage<SpouseCheckResponseType> xteeFIEAKV1 = send(new XmlBeansXRoadMessage<SpouseCheckRequestType>(request),
                                                             XTEE_FIEAK,
                                                             V1);
 
@@ -102,12 +102,12 @@ public class Emtav5XTeeServiceImpl extends XRoadDatabaseService implements Emtav
   }
 
   public SkaMitteresidentResponseType skaMitteresident(String registreerimiskood)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
     SkaMitteresident input = SkaMitteresident.Factory.newInstance();
     SkaMitteresidentRequestType request = input.addNewRequest();
     request.setRegistreerimiskood(registreerimiskood);
 
-    XTeeMessage<SkaMitteresidentResponse> skaMitteresident = send(new XmlBeansXTeeMessage<SkaMitteresident>(input),
+    XRoadMessage<SkaMitteresidentResponse> skaMitteresident = send(new XmlBeansXRoadMessage<SkaMitteresident>(input),
                                                                   SKA_MITTERESIDENT,
                                                                   V1,
                                                                   new Emtav5Callback(),
@@ -119,14 +119,14 @@ public class Emtav5XTeeServiceImpl extends XRoadDatabaseService implements Emtav
   public SmMaksustatavadAndmedResponseType smMaksustatavadAndmed(String isikukood,
                                                                  String perioodiAlgus,
                                                                  String perioodiLopp)
-                                                                     throws XTeeServiceConsumptionException {
+                                                                     throws XRoadServiceConsumptionException {
     SmMaksustatavadAndmed input = SmMaksustatavadAndmed.Factory.newInstance();
     SmMaksustatavadAndmedType request = input.addNewRequest();
     request.setIsikukood(isikukood);
     request.setPerioodiAlgus(perioodiAlgus);
     request.setPerioodiLopp(perioodiLopp);
 
-    XTeeMessage<SmMaksustatavadAndmedResponse> skaMitteresident = send(new XmlBeansXTeeMessage<SmMaksustatavadAndmed>(input),
+    XRoadMessage<SmMaksustatavadAndmedResponse> skaMitteresident = send(new XmlBeansXRoadMessage<SmMaksustatavadAndmed>(input),
                                                                        SM_MAKSUSTATAVAD_ANDMED,
                                                                        V1,
                                                                        new Emtav5Callback(),
@@ -135,13 +135,13 @@ public class Emtav5XTeeServiceImpl extends XRoadDatabaseService implements Emtav
   }
 
   @Override
-  public XTeeMessage<DownloadMimeResponse> downloadMime(String target) throws XTeeServiceConsumptionException {
+  public XRoadMessage<DownloadMimeResponse> downloadMime(String target) throws XRoadServiceConsumptionException {
     DownloadMime downloadMimeDocument = DownloadMimeDocument.DownloadMime.Factory.newInstance();
 
     DownloadMimeType request = downloadMimeDocument.addNewRequest();
     request.setTarget(target);
 
-    XTeeMessage<DownloadMimeResponse> response = send(new XmlBeansXTeeMessage<DownloadMimeDocument.DownloadMime>(downloadMimeDocument),
+    XRoadMessage<DownloadMimeResponse> response = send(new XmlBeansXRoadMessage<DownloadMimeDocument.DownloadMime>(downloadMimeDocument),
                                                       DOWNLOAD_MIME,
                                                       V1,
                                                       new Emtav5Callback(),
@@ -151,7 +151,7 @@ public class Emtav5XTeeServiceImpl extends XRoadDatabaseService implements Emtav
 
   @Override
   public UploadMimeResponse uploadMime(String target, String id, DataHandler fail)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
     UploadMime uploadMimeDocument = UploadMimeDocument.UploadMime.Factory.newInstance();
 
     UploadMimeType request = uploadMimeDocument.addNewRequest();
@@ -161,14 +161,14 @@ public class Emtav5XTeeServiceImpl extends XRoadDatabaseService implements Emtav
     prop.setKey(UPLOAD_ID);
     prop.setStringValue(id);
 
-    XmlBeansXTeeMessage<UploadMimeDocument.UploadMime> xteeMessage = new XmlBeansXTeeMessage<UploadMimeDocument.UploadMime>(uploadMimeDocument);
-    List<XTeeAttachment> attachments = xteeMessage.getAttachments();
+    XmlBeansXRoadMessage<UploadMimeDocument.UploadMime> XRoadMessage = new XmlBeansXRoadMessage<UploadMimeDocument.UploadMime>(uploadMimeDocument);
+    List<XRoadAttachment> attachments = XRoadMessage.getAttachments();
 
     String failCid = AttachmentUtil.getUniqueCid();
     request.addNewFile().setHref("cid:" + failCid);
-    attachments.add(new XTeeAttachment(failCid, fail));
+    attachments.add(new XRoadAttachment(failCid, fail));
 
-    XTeeMessage<UploadMimeResponse> response = send(xteeMessage, UPLOAD_MIME, V1, new Emtav5Callback(), null);
+    XRoadMessage<UploadMimeResponse> response = send(XRoadMessage, UPLOAD_MIME, V1, new Emtav5Callback(), null);
 
     return response.getContent();
   }

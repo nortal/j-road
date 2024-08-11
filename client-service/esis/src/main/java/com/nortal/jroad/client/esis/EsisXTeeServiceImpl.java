@@ -12,12 +12,12 @@ import com.nortal.jroad.client.esis.types.com.tietoenator.sis.common.dto.result.
 import com.nortal.jroad.client.esis.types.com.tietoenator.sis.common.dto.result.sis1Result.IssuedDocumentResultDTO;
 import com.nortal.jroad.client.esis.types.com.tietoenator.sis.common.dto.result.sis1Result.PersonResultDTO;
 import com.nortal.jroad.client.esis.types.com.tietoenator.sis.common.dto.result.sis1Result.VehicleResultDTO;
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.service.v2.XTeeDatabaseService;
-import com.nortal.jroad.model.XTeeMessage;
-import com.nortal.jroad.model.XmlBeansXTeeMessage;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
+import com.nortal.jroad.client.service.XRoadDatabaseService;
+import com.nortal.jroad.model.XRoadMessage;
+import com.nortal.jroad.model.XmlBeansXRoadMessage;
 
-public class EsisXTeeServiceImpl extends XTeeDatabaseService implements EsisXTeeService {
+public class EsisXTeeServiceImpl extends XRoadDatabaseService implements EsisXTeeService {
 
   private static final String QUERY_VEHICLE = "queryVehicle";
   private static final String QUERY_PERSON = "queryPerson";
@@ -26,36 +26,36 @@ public class EsisXTeeServiceImpl extends XTeeDatabaseService implements EsisXTee
   private static final String QUERY_ISSUEDDOCUMENT = "queryIssuedDocument";
   private static final String QUERY_BANKNOTE = "queryBanknote";
 
-  public VehicleResultDTO findVehicle(VehicleQueryDTO request) throws XTeeServiceConsumptionException {
-    XTeeMessage<VehicleResultDTO> response = send(new XmlBeansXTeeMessage<VehicleQueryDTO>(request), QUERY_VEHICLE);
+  public VehicleResultDTO findVehicle(VehicleQueryDTO request) throws XRoadServiceConsumptionException {
+    XRoadMessage<VehicleResultDTO> response = send(new XmlBeansXRoadMessage<VehicleQueryDTO>(request), QUERY_VEHICLE);
     return response.getContent();
   }
 
-  public PersonResultDTO findPerson(PersonQueryDTO request) throws XTeeServiceConsumptionException {
-    XTeeMessage<PersonResultDTO> response = send(new XmlBeansXTeeMessage<PersonQueryDTO>(request), QUERY_PERSON);
+  public PersonResultDTO findPerson(PersonQueryDTO request) throws XRoadServiceConsumptionException {
+    XRoadMessage<PersonResultDTO> response = send(new XmlBeansXRoadMessage<PersonQueryDTO>(request), QUERY_PERSON);
     return response.getContent();
   }
 
-  public FirearmResultDTO findFirearm(FirearmQueryDTO request) throws XTeeServiceConsumptionException {
-    XTeeMessage<FirearmResultDTO> response = send(new XmlBeansXTeeMessage<FirearmQueryDTO>(request), QUERY_FIREARM);
+  public FirearmResultDTO findFirearm(FirearmQueryDTO request) throws XRoadServiceConsumptionException {
+    XRoadMessage<FirearmResultDTO> response = send(new XmlBeansXRoadMessage<FirearmQueryDTO>(request), QUERY_FIREARM);
     return response.getContent();
   }
 
-  public BlankDocumentResultDTO findBlankDocument(BlankDocumentQueryDTO request) throws XTeeServiceConsumptionException {
-    XTeeMessage<BlankDocumentResultDTO> response =
-        send(new XmlBeansXTeeMessage<BlankDocumentQueryDTO>(request), QUERY_BLANKDOCUMENT);
+  public BlankDocumentResultDTO findBlankDocument(BlankDocumentQueryDTO request) throws XRoadServiceConsumptionException {
+    XRoadMessage<BlankDocumentResultDTO> response =
+        send(new XmlBeansXRoadMessage<BlankDocumentQueryDTO>(request), QUERY_BLANKDOCUMENT);
     return response.getContent();
   }
 
   public IssuedDocumentResultDTO findIssuedDocument(IssuedDocumentQueryDTO request)
-      throws XTeeServiceConsumptionException {
-    XTeeMessage<IssuedDocumentResultDTO> response =
-        send(new XmlBeansXTeeMessage<IssuedDocumentQueryDTO>(request), QUERY_ISSUEDDOCUMENT);
+      throws XRoadServiceConsumptionException {
+    XRoadMessage<IssuedDocumentResultDTO> response =
+        send(new XmlBeansXRoadMessage<IssuedDocumentQueryDTO>(request), QUERY_ISSUEDDOCUMENT);
     return response.getContent();
   }
 
-  public BanknoteResultDTO findBanknote(BanknoteQueryDTO request) throws XTeeServiceConsumptionException {
-    XTeeMessage<BanknoteResultDTO> response = send(new XmlBeansXTeeMessage<BanknoteQueryDTO>(request), QUERY_BANKNOTE);
+  public BanknoteResultDTO findBanknote(BanknoteQueryDTO request) throws XRoadServiceConsumptionException {
+    XRoadMessage<BanknoteResultDTO> response = send(new XmlBeansXRoadMessage<BanknoteQueryDTO>(request), QUERY_BANKNOTE);
     return response.getContent();
   }
 

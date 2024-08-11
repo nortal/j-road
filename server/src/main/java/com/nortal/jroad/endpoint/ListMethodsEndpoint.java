@@ -9,27 +9,28 @@
 
 package com.nortal.jroad.endpoint;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.nortal.jroad.mapping.XTeeEndpointMapping;
-import com.nortal.jroad.model.XTeeMessage;
+import com.nortal.jroad.model.XRoadMessage;
 import com.nortal.jroad.util.SOAPUtil;
 
 /**
  * Implements <code>listMethods</code> metaservice, which is mandatory for X-Tee adapter server and will be called only
  * by database's own security server.
- * 
+ *
  * @author Dmitri Danilkin
  * @author Lauri Lättemäe (lauri.lattemae@nortal.com) - protocol 4.0
  */
 @Component
 public class ListMethodsEndpoint extends AbstractXTeeBaseEndpoint {
-  private static final Logger log = Logger.getLogger(ListMethodsEndpoint.class);
+  private static final Logger log = LoggerFactory.getLogger(ListMethodsEndpoint.class);
   @Resource
   private XTeeEndpointMapping xRoadEndpointMapping;
 
@@ -38,7 +39,7 @@ public class ListMethodsEndpoint extends AbstractXTeeBaseEndpoint {
   }
 
   @Override
-  protected void invokeInternal(XTeeMessage<Document> request, XTeeMessage<Element> response) throws Exception {
+  protected void invokeInternal(XRoadMessage<Document> request, XRoadMessage<Element> response) throws Exception {
     SOAPUtil.addTypeAttribute(response.getContent(), "SOAP-ENC:Array");
     SOAPUtil.addArrayTypeAttribute(response.getContent(), "string", xRoadEndpointMapping.getMethods().size());
     SOAPUtil.addArrayOffsetAttribute(response.getContent(), 0);

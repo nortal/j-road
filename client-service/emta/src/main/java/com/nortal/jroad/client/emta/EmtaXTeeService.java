@@ -10,7 +10,7 @@ import com.nortal.jroad.client.emta.types.ee.riik.xtee.emta.producers.producer.e
 import com.nortal.jroad.client.emta.types.ee.riik.xtee.emta.producers.producer.emta.Periood;
 import com.nortal.jroad.client.emta.types.ee.riik.xtee.emta.producers.producer.emta.SissetulekResponse;
 import com.nortal.jroad.client.emta.types.ee.riik.xtee.emta.producers.producer.emta.VptValjund;
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 
 /**
  * <code>emta</code> (Maksu- ja Tolliamet) database X-tee service.
@@ -24,25 +24,25 @@ public interface EmtaXTeeService {
    * <code>emta.xteeKindlustus.v2</code> service.
    */
   List<Periood> findXteeKindlustusV2(String isikukood, Date algkuup, Date loppkuup)
-      throws XTeeServiceConsumptionException;
+      throws XRoadServiceConsumptionException;
 
   /**
    * <code>emta.xteeFieAndmed.v1</code> service.
    */
-  List<FieIsikAndmed> findXteeFieAndmed(String isikukood) throws XTeeServiceConsumptionException;
+  List<FieIsikAndmed> findXteeFieAndmed(String isikukood) throws XRoadServiceConsumptionException;
   
   /**
    * <code>emta.xteeFieAndmed.v1</code> service.
    */
-  SissetulekResponse findSissetulek(String isikukood, BigInteger aasta) throws XTeeServiceConsumptionException;
+  SissetulekResponse findSissetulek(String isikukood, BigInteger aasta) throws XRoadServiceConsumptionException;
   
   /**
    * <code>emta.vpt.v1</code> service.
    */
-  VptValjund findXteeVpt(String kood, Calendar millal) throws XTeeServiceConsumptionException;
+  VptValjund findXteeVpt(String kood, Calendar millal) throws XRoadServiceConsumptionException;
   
   /**
    * <code>emta.xteeFieTooandjadJaSotsm.v1</code> service.
    */
-  EmtaFieTooandjadJaSotsmVastus findXteeFieTooandjadJaSotsm(String isikukood, Date algkuup, Date loppkuup) throws XTeeServiceConsumptionException;
+  EmtaFieTooandjadJaSotsmVastus findXteeFieTooandjadJaSotsm(String isikukood, Date algkuup, Date loppkuup) throws XRoadServiceConsumptionException;
 }

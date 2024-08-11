@@ -1,16 +1,19 @@
 package com.nortal.jroad.client.service;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.service.callback.CustomCallback;
-import com.nortal.jroad.client.service.configuration.BaseXRoadServiceConfiguration;
 import com.nortal.jroad.client.service.configuration.DelegatingXRoadServiceConfiguration;
+import com.nortal.jroad.client.service.configuration.XRoadServiceConfiguration;
 import com.nortal.jroad.client.service.configuration.provider.XRoadServiceConfigurationProvider;
 import com.nortal.jroad.client.service.consumer.XRoadConsumer;
 import com.nortal.jroad.client.service.extractor.CustomExtractor;
-import com.nortal.jroad.model.XTeeMessage;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
+import com.nortal.jroad.model.XRoadMessage;
+
+import static java.util.Objects.requireNonNullElseGet;
 
 /**
  * Base class for all standard X-Road services implementations. Database name will be determined automatically based on
@@ -20,13 +23,12 @@ import javax.annotation.PostConstruct;
  * @author Roman Tekhov
  * @author Dmitri Danilkin
  */
-public abstract class BaseXRoadDatabaseService implements XroadDatabaseClient {
+public abstract class BaseXRoadDatabaseService {
 
   private static final String DATABASE_SERVICE_PATTERN = "(.+?)X(Tee|Road)(Database|Service)Impl";
 
   private String database;
   private String wsdlDatabase;
-
 
   @PostConstruct
   public void init() {
@@ -53,68 +55,46 @@ public abstract class BaseXRoadDatabaseService implements XroadDatabaseClient {
     }
   }
 
-  protected <I, O> XTeeMessage<O> send(XTeeMessage<I> input, String method) throws XTeeServiceConsumptionException {
+  protected <I, O> XRoadMessage<O> send(XRoadMessage<I> input, String method) throws XRoadServiceConsumptionException {
     return send(input, method, null);
   }
 
-  @SuppressWarnings("unchecked")
-  public <I, O> XTeeMessage<O> send(XTeeMessage<I> input, String method, String version)
-      throws XTeeServiceConsumptionException {
-    return (XTeeMessage<O>) getXRoadConsumer().sendRequest(input,
-                                                     getXRoadServiceConfigurationProvider().createConfiguration(database,
-                                                                                                          wsdlDatabase,
-                                                                                                          method,
-                                                                                                          version));
+  protected <I, O> XRoadMessage<O> send(XRoadMessage<I> input, String method, String version)
+      throws XRoadServiceConsumptionException {
+    return getXRoadConsumer().sendRequest(
+      input,
+      getXRoadServiceConfigurationProvider().createConfiguration(database, wsdlDatabase, method, version)
+    );
   }
 
-  protected <I, O> XTeeMessage<O> send(XTeeMessage<I> input, String method, String version, final String idCode)
-      throws XTeeServiceConsumptionException {
-    final BaseXRoadServiceConfiguration xteeConfiguration =
+  protected <I, O> XRoadMessage<O> send(XRoadMessage<I> input, String method, String version, String idCode)
+      throws XRoadServiceConsumptionException {
+    final XRoadServiceConfiguration xroadConfiguration =
         getXRoadServiceConfigurationProvider().createConfiguration(database, wsdlDatabase, method, version);
 
-    DelegatingXRoadServiceConfiguration configuration = new DelegatingXRoadServiceConfiguration(xteeConfiguration) {
+    DelegatingXRoadServiceConfiguration configuration = new DelegatingXRoadServiceConfiguration(xroadConfiguration) {
       @Override
       public String getIdCode() {
-        return idCode != null ? idCode : super.getIdCode();
+        return requireNonNullElseGet(idCode, super::getIdCode);
       }
     };
 
-    XTeeMessage<O> result = getXRoadConsumer().sendRequest(input, configuration);
-    return result;
+    return getXRoadConsumer().sendRequest(input, configuration);
   }
 
-  @SuppressWarnings("unchecked")
-  public <I, O> XTeeMessage<O> send(XTeeMessage<I> input,
-                                       String method,
-                                       String version,
-                                       CustomCallback callback,
-                                       CustomExtractor extractor) throws XTeeServiceConsumptionException {
-    return (XTeeMessage<O>) getXRoadConsumer().sendRequest(input,
-                                                           getXRoadServiceConfigurationProvider().createConfiguration(database,
-                                                                                                                 wsdlDatabase,
-                                                                                                                 method,
-                                                                                                                 version),
-                                                           callback,
-                                                           extractor);
-  }
-
-  @SuppressWarnings("unchecked")
-  protected <I, O> XTeeMessage<O> send(XTeeMessage<I> input,
-                                       String method,
-                                       String version,
-                                       CustomCallback callback,
-                                       CustomExtractor extractor,
-                                       boolean forceDatabaseNamespace) throws XTeeServiceConsumptionException {
-    BaseXRoadServiceConfiguration configuration =
-        getXRoadServiceConfigurationProvider().createConfiguration(database, wsdlDatabase, method, version);
-    if (forceDatabaseNamespace) {
-      configuration.forceDatabaseNamespace();
-    }
-    return (XTeeMessage<O>) getXRoadConsumer().sendRequest(input, configuration, callback, extractor);
-  }
-
-  public void setDatabase(String database) {
-    this.database = database;
+  protected <I, O> XRoadMessage<O> send(XRoadMessage<I> input,
+                                        String method,
+                                        String version,
+                                        CustomCallback callback,
+                                        CustomExtractor<?> extractor)
+      throws XRoadServiceConsumptionException {
+    return getXRoadConsumer()
+             .sendRequest(
+               input,
+               getXRoadServiceConfigurationProvider().createConfiguration(database, wsdlDatabase, method, version),
+               callback,
+               extractor
+             );
   }
 
   public String getDatabase() {
@@ -124,5 +104,4 @@ public abstract class BaseXRoadDatabaseService implements XroadDatabaseClient {
   protected abstract XRoadConsumer getXRoadConsumer();
 
   protected abstract XRoadServiceConfigurationProvider getXRoadServiceConfigurationProvider();
-
 }

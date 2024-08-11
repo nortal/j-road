@@ -3,12 +3,12 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>xtee-client-kvkr3</artifactId>
   <name>Kvkr3 client services</name>
-  <version>4.1.5-SNAPSHOT</version>
+  <version>4.3.1-SNAPSHOT</version>
 
   <parent>
     <groupId>com.nortal.jroad</groupId>
     <artifactId>xtee-client-service</artifactId>
-    <version>4.1-SNAPSHOT</version>
+    <version>4.3.1-SNAPSHOT</version>
   </parent>
 
   <properties>

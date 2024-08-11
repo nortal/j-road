@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://producers.ehis.xtee.riik.ee/producer/ehis" xmlns:xroad="http://x-road.eu/xsd/xroad.xsd" name="ehis" targetNamespace="http://producers.ehis.xtee.riik.ee/producer/ehis">
+<?xml version="1.0" encoding="UTF-8"?><definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:repr="http://x-road.eu/xsd/representation.xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://producers.ehis.xtee.riik.ee/producer/ehis" xmlns:xroad="http://x-road.eu/xsd/xroad.xsd" name="ehis" targetNamespace="http://producers.ehis.xtee.riik.ee/producer/ehis">
 
     <types>
         <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://producers.ehis.xtee.riik.ee/producer/ehis">
             <import namespace="http://x-road.eu/xsd/xroad.xsd" schemaLocation="http://x-road.eu/xsd/xroad.xsd"/>
-
+			<import namespace="http://x-road.eu/xsd/representation.xsd" schemaLocation="http://x-road.eu/xsd/representation.xsd"/>
 			<!-- =================================== adsTeenus =================================== -->
 		    <element name="adsTeenus">
 		        <complexType>
@@ -784,6 +784,105 @@
 		        </complexType>
 		    </element>
 
+			<!-- =================================== vpTaotlusSissetulekudV2 =================================== -->
+			<element name="vpTaotlusSissetulekudV2">
+				<complexType>
+					<sequence>
+						<element maxOccurs="1" minOccurs="1" name="taotlejaIsikukood" nillable="false" type="string">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Taotleja isikukood</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element maxOccurs="1" minOccurs="1" name="taotluseId" nillable="false" type="long">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Taotluse ID</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element maxOccurs="1" minOccurs="1" name="hoolealune" nillable="false" type="boolean">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Hoolealune</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element maxOccurs="unbounded" minOccurs="0" name="hoolealuneFailid" nillable="true" type="anyURI">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Päringule lisatud attachment Content-Id cid:</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element maxOccurs="unbounded" minOccurs="0" name="isikInfoDtos" nillable="true" type="tns:IsikInfoDto">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Isik info</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element maxOccurs="unbounded" minOccurs="0" name="lisatudFailid" nillable="true" type="anyURI">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Päringule lisatud attachment Content-Id cid:</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+					</sequence>
+				</complexType>
+			</element>
+
+			<element name="vpTaotlusSissetulekudV2Response">
+				<complexType>
+					<sequence>
+						<element maxOccurs="1" minOccurs="1" name="taotlejaIsikukood" nillable="false" type="string">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Taotleja isikukood</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element maxOccurs="1" minOccurs="1" name="taotluseId" nillable="false" type="long">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Taotluse ID</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element maxOccurs="1" minOccurs="0" name="hoiatusDto" nillable="true" type="tns:HoiatusDto">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Hoiatus</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element maxOccurs="unbounded" minOccurs="0" name="isikInfoDtos" nillable="true" type="tns:IsikInfoDto">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Isik info</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element maxOccurs="1" minOccurs="0" name="lisatudIsikuteSissetulek" nillable="true" type="tns:floatOrNothing">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Lisatud isikute sissetulek</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element maxOccurs="1" minOccurs="0" name="nonResidentSissetulek" nillable="true" type="tns:floatOrNothing">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Mitteresidendi sissetulek</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+					</sequence>
+				</complexType>
+			</element>
+
 			<!-- =================================== vpTaotlusKontakt =================================== -->
 		    <element name="vpTaotlusKontakt">
 		        <complexType>
@@ -851,6 +950,20 @@
 			            		</appinfo>
 			        		</annotation>
 						</element>
+						<element maxOccurs="1" minOccurs="1" name="kontoOmanikuNimi" nillable="false" type="string">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Konto omaniku nimi</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element maxOccurs="1" minOccurs="1" name="kontonumber" nillable="false" type="string">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Konto number</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
 		                <element maxOccurs="1" minOccurs="0" name="hoiatusDto" nillable="true" type="tns:HoiatusDto">
 							<annotation>
 			         			<appinfo>
@@ -868,6 +981,105 @@
 		            </sequence>
 		        </complexType>
 		    </element>
+
+			<!-- =================================== vpTaotlusKontaktV2 =================================== -->
+			<element name="vpTaotlusKontaktV2">
+				<complexType>
+					<sequence>
+						<element maxOccurs="1" minOccurs="1" name="taotlejaIsikukood" nillable="false" type="string">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Taotleja isikukood</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element maxOccurs="1" minOccurs="1" name="taotluseId" nillable="false" type="long">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Taotluse ID</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element maxOccurs="1" minOccurs="0" name="nonResidentSissetulek" nillable="true" type="tns:floatOrNothing">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Mitteresidendi sissetulek</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element maxOccurs="unbounded" minOccurs="0" name="nonResidentFailid" nillable="true" type="anyURI">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Päringule lisatud attachment Content-Id cid:</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element maxOccurs="1" minOccurs="0" name="lisatudIsikuteSissetulek" nillable="true" type="tns:floatOrNothing">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Lisatud isikute sissetulek</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element maxOccurs="unbounded" minOccurs="0" name="lisatudFailid" nillable="true" type="anyURI">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Päringule lisatud attachment Content-Id cid:</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+					</sequence>
+				</complexType>
+			</element>
+
+			<element name="vpTaotlusKontaktV2Response">
+				<complexType>
+					<sequence>
+						<element maxOccurs="1" minOccurs="1" name="taotlejaIsikukood" nillable="false" type="string">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Taotleja isikukood</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element maxOccurs="1" minOccurs="1" name="taotluseId" nillable="false" type="long">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Taotluse ID</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element maxOccurs="1" minOccurs="1" name="kontoOmanikuNimi" nillable="false" type="string">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Konto omaniku nimi</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element maxOccurs="1" minOccurs="1" name="kontonumber" nillable="false" type="string">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Konto number</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element maxOccurs="1" minOccurs="0" name="hoiatusDto" nillable="true" type="tns:HoiatusDto">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Hoiatus</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element maxOccurs="1" minOccurs="1" name="failiOigsuseKinnitusKuva" nillable="false" type="boolean">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Faili õigsuse kinnituskava</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+					</sequence>
+				</complexType>
+			</element>
 
 			<!-- =================================== vpTaotlusEsitamine =================================== -->
 		    <element name="vpTaotlusEsitamine">
@@ -1010,6 +1222,50 @@
 				</complexType>
 			</element>
 
+			<!-- =================================== vpTaotlusDokumentV2 =================================== -->
+			<element name="vpTaotlusDokumentV2">
+				<complexType>
+					<sequence>
+						<element maxOccurs="1" minOccurs="1" name="taotlejaIsikukood" nillable="false" type="string">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Taotleja isikukood</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element maxOccurs="1" minOccurs="1" name="taotluseId" nillable="false" type="long">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Taotluse ID</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<!-- TAOTLUS , OTSUS_PDF, OTSUS_DIGIDOC -->
+						<element maxOccurs="1" minOccurs="1" name="dokumendiLiik" nillable="false" type="string">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Dokumendi liik</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+					</sequence>
+				</complexType>
+			</element>
+
+			<element name="vpTaotlusDokumentV2Response">
+				<complexType>
+					<sequence>
+						<element name="contentOut" nillable="true" type="anyURI">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Vastusele lisatud attachment Content-Id cid:</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+					</sequence>
+				</complexType>
+			</element>
+
 		    <!-- =================================== eeIsikukaartParing =================================== -->
 		    <element name="eeIsikukaart">
 		        <complexType>
@@ -1024,10 +1280,31 @@
 		                <element default="html" minOccurs="0" name="format" type="tns:ehisAttachmentFormat">
 		            		<annotation>
 		            			<appinfo>
-		                    		<xroad:title xml:lang="et">Formaat</xroad:title>
+		                    		<xroad:title xml:lang="et">Formaat html, xml, bdoc (asice)</xroad:title>
 		               			</appinfo>
 		           			</annotation>
 						</element>
+									<element maxOccurs="unbounded" minOccurs="0" name="andmeplokk" type="string">
+										<annotation>
+											<appinfo>
+												<xroad:title xml:lang="et">Rida andmeplokkidest, mida soovitakse näha</xroad:title>
+											</appinfo>
+										</annotation>
+									</element>
+									<element maxOccurs="unbounded" minOccurs="0" name="andmekirje" type="string">
+										<annotation>
+											<appinfo>
+												<xroad:title xml:lang="et">Väljastatakse ainult vastavad andmekirjed.</xroad:title>
+											</appinfo>
+										</annotation>
+									</element>
+									<element maxOccurs="unbounded" minOccurs="0" name="valjundiTyyp" type="string">
+										<annotation>
+											<appinfo>
+												<xroad:title xml:lang="et">Võimalikud väärtused: "WITH_ID"</xroad:title>
+											</appinfo>
+										</annotation>
+									</element>
 		            </sequence>
 		        </complexType>
 		    </element>
@@ -1062,6 +1339,13 @@
 		                	</appinfo>
 		              	</annotation>
 		           	</element>
+							  <element maxOccurs="unbounded" minOccurs="0" name="gdprlog" type="tns:eeIsikukaartGdprlog">
+									<annotation>
+										<appinfo>
+											<xroad:title xml:lang="et">GDPR logi andmed</xroad:title>
+										</appinfo>
+									</annotation>
+							  </element>
 		            <element maxOccurs="unbounded" minOccurs="0" name="oping" type="tns:eeIsikukaartOping">
 		            	<annotation>
 		                	<appinfo>
@@ -1097,8 +1381,79 @@
 		                	</appinfo>
 		              	</annotation>
 		           	</element>
+					<element maxOccurs="unbounded" minOccurs="0" name="valiskvalifikatsioon" type="tns:eeIsikukaartValisKvalifikatsioon">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Valiskvalifikatsioon</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="kraOpingud" type="tns:eeIsikukaartKraOpingud">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">KRA Õppimised</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element maxOccurs="unbounded" minOccurs="0" name="xroad" type="tns:eeIsikukaartXroad">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Andmed eesti.ee jaoks</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
 		        </sequence>
 		    </complexType>
+
+
+					<!-- =================================== eeIsikukaartGdprlog =================================== -->
+					<complexType name="eeIsikukaartGdprlog">
+						<sequence>
+							<element name="id" type="string">
+								<annotation>
+									<appinfo>
+										<xroad:title xml:lang="et">Id</xroad:title>
+									</appinfo>
+								</annotation>
+							</element>
+							<element name="personcode" type="string">
+								<annotation>
+									<appinfo>
+										<xroad:title xml:lang="et">Isikukood</xroad:title>
+									</appinfo>
+								</annotation>
+							</element>
+							<element name="logtime" type="dateTime">
+								<annotation>
+									<appinfo>
+										<xroad:title xml:lang="et">Logi kuupäev/kellaaeg</xroad:title>
+									</appinfo>
+								</annotation>
+							</element>
+							<element name="action" type="string">
+								<annotation>
+									<appinfo>
+										<xroad:title xml:lang="et">Tegevuse kirjeldus</xroad:title>
+									</appinfo>
+								</annotation>
+							</element>
+							<element name="sender" type="string">
+								<annotation>
+									<appinfo>
+										<xroad:title xml:lang="et">Saatja</xroad:title>
+									</appinfo>
+								</annotation>
+							</element>
+							<element name="receiver" type="string">
+								<annotation>
+									<appinfo>
+										<xroad:title xml:lang="et">Saaja</xroad:title>
+									</appinfo>
+								</annotation>
+							</element>
+						</sequence>
+					</complexType>
+
 		    <!-- =================================== eeIsikukaartIsikuandmed =================================== -->
 		    <complexType name="eeIsikukaartIsikuandmed">
 		        <sequence>
@@ -1178,13 +1533,7 @@
 
 		    <complexType name="eeIsikukaartOppelaenOigus">
 		        <sequence>
-		            <element minOccurs="0" name="oigus" type="string">
-		            	<annotation>
-		            		<appinfo>
-		                    	<xroad:title xml:lang="et">Õigus</xroad:title>
-		               		</appinfo>
-		           		</annotation>
-					</element>
+		            <element minOccurs="0" name="oigus" type="string"/>
 		            <element maxOccurs="unbounded" minOccurs="0" name="pohjus" type="string">
 		            	<annotation>
 		            		<appinfo>
@@ -1197,6 +1546,13 @@
 		    <!-- =================================== eeIsikukaartOpingud =================================== -->
 		    <complexType name="eeIsikukaartOping">
 		        <sequence>
+							<element maxOccurs="1" minOccurs="0" name="id" type="string">
+								<annotation>
+									<appinfo>
+										<xroad:title xml:lang="et">rea ID</xroad:title>
+									</appinfo>
+								</annotation>
+							</element>
 		            <element name="haridustase" type="string">
 		            	<annotation>
 		            		<appinfo>
@@ -1211,6 +1567,20 @@
 		               		</appinfo>
 		           		</annotation>
 					</element>
+					<element minOccurs="0" name="oppeasutuseId" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppeasutuse ID</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="oppeasutuseRegKood" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppeasutuse registrikood</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
 		            <element minOccurs="0" name="oppAlgus" type="string">
 		            	<annotation>
 		            		<appinfo>
@@ -1224,6 +1594,13 @@
 		                    	<xroad:title xml:lang="et">Õppimise lõpp</xroad:title>
 		               		</appinfo>
 		           		</annotation>
+					</element>
+					<element minOccurs="0" name="nomLopp" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Nominaalse õppeaja lõpu kuupäev</xroad:title>
+							</appinfo>
+						</annotation>
 					</element>
 		            <element maxOccurs="unbounded" minOccurs="0" name="oppekava" type="tns:eeIsikukaartOppekava">
 		            	<annotation>
@@ -1266,6 +1643,20 @@
 		                    	<xroad:title xml:lang="et">Kooliaste</xroad:title>
 		               		</appinfo>
 		           		</annotation>
+					</element>
+					<element minOccurs="0" name="oppimiseAasta" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppimise aasta</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element maxOccurs="1" minOccurs="0" name="oppekavaVahetused" type="tns:oppekavaVahetused">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppekava vahetamine</xroad:title>
+							</appinfo>
+						</annotation>
 					</element>
 		            <element maxOccurs="unbounded" minOccurs="0" name="oppevorm" type="tns:isikukaartPeriodicalAndmed">
 		            	<annotation>
@@ -1371,6 +1762,13 @@
 		               		</appinfo>
 		           		</annotation>
 					</element>
+					<element minOccurs="0" name="spetsialiseerumine" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Spetsialiseerumine</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
 		            <element maxOccurs="unbounded" minOccurs="0" name="kutseKoolitus" type="tns:eeIsikukaartOpingKutseEelkoolitus">
 						<annotation>
 		            		<appinfo>
@@ -1380,6 +1778,45 @@
 					</element>
 		        </sequence>
 		    </complexType>
+
+
+			<complexType name="oppekavaVahetused">
+				<sequence>
+					<element maxOccurs="unbounded" minOccurs="0" name="oppekavaVahetus" type="tns:oppekavaVahetus">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppekava vahetus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+
+			<complexType name="oppekavaVahetus">
+				<sequence>
+					<element name="algusKp" type="date">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppekaval õppima asumise alguskuupäev</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="loppKp" type="date">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppekaval õppima asumise lõppkuupäev</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="oppekava" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppekava nimetus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
 
 		    <complexType name="eeIsikukaartOpingKutseEelkoolitus">
 		        <sequence>
@@ -1430,6 +1867,27 @@
 		               		</appinfo>
 		           		</annotation>
 					</element>
+					<element minOccurs="0" name="kvalifikatsiooniVastavus" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Kvalifikatsiooni vastavus kehtivas raamistikus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="akadKraad" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Akadeemiline kraad või diplom</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="kvalDokument" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Kvalifikatsiooni dokument</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
 		        </sequence>
 		    </complexType>
 
@@ -1475,11 +1933,25 @@
 		               		</appinfo>
 		           		</annotation>
 					</element>
+					<element minOccurs="0" name="ainepunktid" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Kogutud ainepunktid</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
 		        </sequence>
 		    </complexType>
 		    <!-- =================================== eeIsikukaartTootamised =================================== -->
 		    <complexType name="eeIsikukaartTootamine">
 		        <sequence>
+							<element maxOccurs="1" minOccurs="0" name="id" type="string">
+								<annotation>
+									<appinfo>
+										<xroad:title xml:lang="et">rea ID</xroad:title>
+									</appinfo>
+								</annotation>
+							</element>
 		            <element name="liik" type="string">
 		            	<annotation>
 		            		<appinfo>
@@ -1644,6 +2116,13 @@
 		    <!-- =================================== eeIsikukaartTaiendkoolitus =================================== -->
 		    <complexType name="eeIsikukaartTaiendkoolitus">
 		        <sequence>
+							<element maxOccurs="1" minOccurs="0" name="id" type="string">
+								<annotation>
+									<appinfo>
+										<xroad:title xml:lang="et">rea ID</xroad:title>
+									</appinfo>
+								</annotation>
+							</element>
 		            <element minOccurs="0" name="oppeasutus" type="string">
 		            	<annotation>
 		            		<appinfo>
@@ -1684,6 +2163,13 @@
 		    <!-- =================================== eeIsikukaartTasemeharidus - PEDA =================================== -->
 		    <complexType name="eeIsikukaartTasemeharidus">
 		        <sequence>
+							<element maxOccurs="1" minOccurs="0" name="id" type="string">
+								<annotation>
+									<appinfo>
+										<xroad:title xml:lang="et">rea ID</xroad:title>
+									</appinfo>
+								</annotation>
+							</element>
 		            <element minOccurs="0" name="kvalDokument" type="string">
 		            	<annotation>
 		            		<appinfo>
@@ -1731,6 +2217,13 @@
 		    <!-- =================================== eeIsikukaartKvalifikatsioon - OPJ =================================== -->
 		    <complexType name="eeIsikukaartKvalifikatsioon">
 		        <sequence>
+							<element maxOccurs="1" minOccurs="0" name="id" type="string">
+								<annotation>
+									<appinfo>
+										<xroad:title xml:lang="et">rea ID</xroad:title>
+									</appinfo>
+								</annotation>
+							</element>
 		            <element minOccurs="0" name="oppeasutus" type="string">
 		            	<annotation>
 		            		<appinfo>
@@ -1775,7 +2268,482 @@
 					</element>
 		        </sequence>
 		    </complexType>
+			<!-- =================================== eeIsikukaartValisKvalifikatsioon - OPJ =================================== -->
+			<complexType name="eeIsikukaartValisKvalifikatsioon">
+				<sequence>
+					<element maxOccurs="1" minOccurs="0" name="id" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">rea ID</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element maxOccurs="1" minOccurs="0" name="tyyp" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Tüüp: VALISMAA/ENNE_2004_EESTI</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element maxOccurs="1" minOccurs="0" name="muudetud" type="date">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Muutmise kuupäev</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element maxOccurs="1" minOccurs="0" name="riik" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Riik</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element maxOccurs="1" minOccurs="0" name="oppeasutuseNimi" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppeasutuse nimi</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element maxOccurs="1" minOccurs="0" name="oppeasutuseNimiMuusKeeles" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppeasutuse nimi muus keeles</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element maxOccurs="1" minOccurs="0" name="oppeasutuseNimiTranslit" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppeasutuse nime transliteratsioon</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element maxOccurs="1" minOccurs="0" name="lisaKval" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Tiitel, kutsekvalifikatsioon vm lisakvalifikatsioon</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element maxOccurs="1" minOccurs="0" name="dokument" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Kvalifikatsiooni dokument</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element maxOccurs="1" minOccurs="0" name="kvalVastavus" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Kvalifikatsiooni vastavus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element maxOccurs="1" minOccurs="0" name="kvalNimetusOrig" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Kvalifikatsiooni nimetus originaalis</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element maxOccurs="1" minOccurs="0" name="oppekavaNimetusOrig" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppekava nimetus originaalis</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element maxOccurs="1" minOccurs="0" name="oppekavaNimetusEesti" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppekava nimetus eesti keeles/ Õppekava või lisaeriala nimetus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element maxOccurs="1" minOccurs="0" name="oppekavaNominKestus" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppekava nominaalkestus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element maxOccurs="1" minOccurs="0" name="eqfTase" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">EQF tase</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element maxOccurs="1" minOccurs="0" name="iscedTase" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">ISCED tase</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element maxOccurs="1" minOccurs="0" name="valjaandmKp" type="date">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Kvalifikatsiooni väljaandmise kuupäev</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element maxOccurs="1" minOccurs="0" name="lopetamiseAegDokumendil" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Lõpetamise aeg dokumendil</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element maxOccurs="1" minOccurs="0" name="dokumendiNumber" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Dokumendi number</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element maxOccurs="1" minOccurs="0" name="enicNaricHinnanguKp" type="date">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">ENIC-NARIC hinnangu kuupäev</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element maxOccurs="1" minOccurs="0" name="enicNaricHinnanguNumber" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">ENIC-NARIC hinnangu nr</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element maxOccurs="1" minOccurs="0" name="kommentaar" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Kommentaar</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+			<!-- =================================== eeIsikukaartKraOpingud =================================== -->
 
+            <complexType name="eeIsikukaartKraOpingud">
+                <sequence>
+                    <element minOccurs="0" name="preStudiesEducationLevelId" type="string">
+                        <annotation>
+                            <appinfo>
+                                <xroad:title xml:lang="et">Õppuri kõrgeim lõpetatud haridustase EHISe järgi</xroad:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+					<element minOccurs="0" name="maxGraduatedClass" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppuri kõrgeim lõpetatud klass (põhikool/gümnaasium)</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+                    <element maxOccurs="unbounded" minOccurs="0" name="kraOping" type="tns:eeIsikukaartKraOping">
+                        <annotation>
+                            <appinfo>
+                                <xroad:title xml:lang="et">KRA õping</xroad:title>
+                            </appinfo>
+                        </annotation>
+                    </element>
+                </sequence>
+            </complexType>
+
+            <complexType name="eeIsikukaartKraOping">
+				<sequence>
+					<element minOccurs="0" name="institutionCode" type="int">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppeasutuse äriregistri kood- number</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="institutionName" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppeasutuse nimetus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="institutionTypeId" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppeasutuse tüüp</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="isForeignSchool" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">On välismaa kool</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="ehisCode" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">EHISe kood</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="startDate" type="date">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppimise algus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="endDate" type="date">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppimise lõpp</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="docNo" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Tunnistuse/Diplomi number</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="programmeCode" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppekava ISCED kood- klassifikaator ISCED</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="programmeName" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppekava nimetus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="accreditTypeId" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppe läbiviimise õiguse info</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="educationLevelId" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õpinguga omandatud/omandatav haridustase</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="educationLevelName" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õpinguga omandatud/omandatav haridustaseme inimloetav nimetus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="studyYear" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Klass või kursus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="studyLanguageId" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppekeel</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="studyTypeId" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppevorm</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="studyTime" type="int">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppekavajärgne nominaalkestus kuudes</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+			<!-- =================================== eeIsikukaartXroad =================================== -->
+			<complexType name="eeIsikukaartXroad">
+				<sequence>
+					<element minOccurs="0" name="pealkiri" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Pealkiri</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="riik" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Kvalifikatsiooni välja andnud riik</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="oppeasutus" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppeasutus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="oppAlgus" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppimise alguse kuupäev</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="oppLopp" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppimise lõpu kuupäev</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="oppekavaKood" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppekava kood</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="oppekavaNimetus" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppekava nimetus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="oppekavaNimetusOriginaalis" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppekava nimetus originaalis</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="kvalifikatsiooniNimetus" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Kvalifikatsiooni nimetus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="nomKestus" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppekava nominaalkestus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="opeVoiKlass" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õpe või klass</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="lopudokumendiLiik" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Lõpudokumendi liik</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="kvalifikatsiooniDokument" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Kvalifikatsiooni dokument</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="kvalifikatsiooniVastavus" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Kvalifikatsiooni vastavus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="kvalifikatsiooniKuupaev" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Kvalifikatsiooni väljaandmise kuupäev</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="ametikoht" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Ametikoht</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="tootamiseAlgus" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Töötamise algus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="tootamiseLopp" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Töötamise lõpp</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="koormus" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Töötamise koormus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="lepinguLiik" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Lepingu liik</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="lapsehoolduspuhkus" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Lapsehoolduspuhkus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="tunnistuseNumber" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Tunnistuse või diplomi number</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="1" name="tyyp" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Kirje tüüp - Y/K/A/V/E/P/O</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
 			<!-- =================================== eylIsic =================================== -->
 			<element name="eylIsic">
 				<complexType>
@@ -2023,6 +2991,51 @@
 			<complexType name="idpilet2ItemsList">
 				<sequence>
 					<element maxOccurs="unbounded" minOccurs="0" name="item" type="string"/>
+				</sequence>
+			</complexType>
+
+			<!-- =================================== volis =================================== -->
+			<element name="volis">
+				<complexType>
+					<sequence>
+						<element maxOccurs="1" minOccurs="1" name="isikukood" nillable="false" type="tns:ehisIsikukood">
+							<annotation>
+								<appinfo>
+									<xroad:title>Õpilase isikukood</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+					</sequence>
+				</complexType>
+			</element>
+
+			<element name="volisResponse">
+				<complexType>
+					<sequence>
+						<element name="volisJada" nillable="true" type="tns:volisItemsList">
+							<annotation>
+								<appinfo>
+									<xroad:title>Õpilase õppetasemed</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+					</sequence>
+				</complexType>
+			</element>
+
+			<complexType name="volisItemsList">
+				<sequence>
+					<element maxOccurs="unbounded" minOccurs="0" name="volis" nillable="false" type="tns:volisItem"/>
+				</sequence>
+			</complexType>
+
+			<complexType name="volisItem">
+				<sequence>
+					<element maxOccurs="1" minOccurs="1" name="oppetase" nillable="false" type="string"/>
+					<element maxOccurs="1" minOccurs="1" name="oppetooAsukoht" nillable="false" type="string"/>
+					<element maxOccurs="1" minOccurs="1" name="oppeasutuseLiik" nillable="false" type="string"/>
+					<element maxOccurs="1" minOccurs="1" name="oppeasutuseId" nillable="false" type="string"/>
+					<element maxOccurs="1" minOccurs="1" name="oppeasutuseRegNr" nillable="false" type="string"/>
 				</sequence>
 			</complexType>
 
@@ -2464,6 +3477,290 @@
 						<annotation>
 							<appinfo>
 								<xroad:title xml:lang="et">Kvalifikatsioon</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+
+			<!-- =================================== kmaEhis =================================== -->
+			<element name="kmaEhis">
+				<complexType>
+					<sequence>
+						<element minOccurs="0" name="algusKp" nillable="false" type="date">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Alguskuupäev</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element minOccurs="0" name="loppKp" nillable="false" type="date">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Lõppkuupäev</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element name="isikud" type="tns:kmaEhisIsikList">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Isikud</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+					</sequence>
+				</complexType>
+			</element>
+			<element name="kmaEhisResponse">
+				<complexType>
+					<sequence>
+						<element minOccurs="0" name="teade" nillable="true" type="string">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Teade</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element minOccurs="0" name="kood" nillable="true" type="integer">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">kood</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element minOccurs="0" name="data" nillable="true" type="tns:kmaEhisAndmed"/>
+					</sequence>
+				</complexType>
+			</element>
+
+			<complexType name="kmaEhisIsikList">
+				<sequence>
+					<element maxOccurs="500" minOccurs="1" name="item" nillable="false" type="tns:kmaEhisIsikItem"/>
+				</sequence>
+			</complexType>
+
+			<complexType name="kmaEhisIsikItem">
+				<sequence>
+					<element minOccurs="0" name="isikukoodKp" nillable="false" type="tns:ehisIsikukoodSynniKp">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Isikukood/Sünnikuupäev</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="perenimiAlgus" nillable="false" type="tns:ehisLikeStr">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Perekonnanime algusfragment</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+
+			<complexType name="kmaEhisAndmed">
+				<sequence>
+					<element maxOccurs="unbounded" minOccurs="1" name="item" nillable="false" type="tns:kmaEhisItem"/>
+				</sequence>
+			</complexType>
+
+			<complexType name="kmaEhisItem">
+				<sequence>
+					<element minOccurs="0" name="isikukood" nillable="false" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Isikukood</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="perekonnanimi" nillable="false" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Perekonnanimi</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="eesnimi" nillable="false" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Eesnimi</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="kodakondsus" nillable="false" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Kodakondsus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="1" name="oppeasutus" nillable="false" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppeasutus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="1" name="alustanud" nillable="false" type="date">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Alustanud</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="kuupaev" nillable="false" type="date">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Lõpetanud</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="1" name="selgitus" nillable="false" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Selgitus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="kvalifikatsioon" nillable="false" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Kvalifikatsioon</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="synniKp" nillable="false" type="date">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Sünnikuupäev</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="staatus" nillable="false" type="tns:ehisBoolean">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õpib hetkel - Jah/ei</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="oppekavaKood" nillable="false" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppekava kood</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="oppekavaNimetus" nillable="false" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppekava nimetus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="nomKestus" nillable="false" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppekavajärgne nominaalaeg - aastad/kuud</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="oppeLabiviimiseAlgusKp" nillable="false" type="date">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppekaval õppe läbiviimise õiguse alguskuupäev</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="oppeLabiviimiseLoppKp" nillable="false" type="date">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppekaval õppe läbiviimise õiguse lõppkuupäev</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="nomOppeajaLoppKp" nillable="false" type="date">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õpilase nominaalse õppeaja lõpu kuupäev</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element maxOccurs="unbounded" minOccurs="0" name="akadPuhkus" type="tns:kmaEhisAkadPuhkus">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Akadeemiline puhkus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="oppekoormus" nillable="false" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Õppekoormus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="ainepunkte" nillable="false" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Läbitud ainepunktide arv</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="vptOtsused" nillable="false" type="tns:kmaEhisVptOtsusArr">
+						<annotation>
+							<appinfo>
+								<xroad:title>VPT otsused</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+
+			<complexType name="kmaEhisAkadPuhkus">
+				<sequence>
+					<element name="algusKp" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Akadeemilise puhkuse alguse kuupäev</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="loppKp" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Akadeemilise puhkuse lõpu kuupäev</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="pohjus" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Akadeemilise puhkuse põhjus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+
+			<complexType name="kmaEhisVptOtsusArr">
+				<sequence>
+					<element maxOccurs="unbounded" minOccurs="0" name="vptOtsus" nillable="false" type="tns:kmaEhisVptOtsus"/>
+				</sequence>
+			</complexType>
+
+			<complexType name="kmaEhisVptOtsus">
+				<sequence>
+					<element name="vptOtsusKp" type="date">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">VPT otsuse kuupäev</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="vptOtsusSumma" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">VPT otsuse summa</xroad:title>
 							</appinfo>
 						</annotation>
 					</element>
@@ -3123,34 +4420,62 @@
 
 			<!-- =================================== kvkLopetatud & kvkOppimine =================================== -->
 			<element name="kvkLopetatud" type="tns:kvk"/>
+            <element name="kvkLopetatudResponse">
+                <complexType>
+                    <sequence>
+                        <element name="teade" nillable="true" type="string">
+                            <annotation>
+                                <appinfo>
+                                    <xroad:title xml:lang="et">Teade</xroad:title>
+                                </appinfo>
+                            </annotation>
+                        </element>
+                        <element name="kood" nillable="true" type="integer">
+                            <annotation>
+                                <appinfo>
+                                    <xroad:title xml:lang="et">kood</xroad:title>
+                                </appinfo>
+                            </annotation>
+                        </element>
+                        <element name="contentOut" nillable="true" type="anyURI">
+                            <annotation>
+                                <appinfo>
+                                    <xroad:title xml:lang="et">Vastusele lisatud attachment Content-Id cid:</xroad:title>
+                                </appinfo>
+                            </annotation>
+                        </element>
+                    </sequence>
+                </complexType>
+            </element>
+
 			<element name="kvkOppimine" type="tns:kvk"/>
-			<element name="kvkResponse">
-				<complexType>
-					<sequence>
-						<element name="teade" nillable="true" type="string">
-							<annotation>
-								<appinfo>
-									<xroad:title xml:lang="et">Teade</xroad:title>
-								</appinfo>
-							</annotation>
-						</element>
-						<element name="kood" nillable="true" type="integer">
-							<annotation>
-								<appinfo>
-									<xroad:title xml:lang="et">kood</xroad:title>
-								</appinfo>
-							</annotation>
-						</element>
-						<element name="contentOut" nillable="true" type="anyURI">
-							<annotation>
-								<appinfo>
-									<xroad:title xml:lang="et">Vastusele lisatud attachment Content-Id cid:</xroad:title>
-								</appinfo>
-							</annotation>
-						</element>
-					</sequence>
-				</complexType>
-			</element>
+            <element name="kvkOppimineResponse">
+                <complexType>
+                    <sequence>
+                        <element name="teade" nillable="true" type="string">
+                            <annotation>
+                                <appinfo>
+                                    <xroad:title xml:lang="et">Teade</xroad:title>
+                                </appinfo>
+                            </annotation>
+                        </element>
+                        <element name="kood" nillable="true" type="integer">
+                            <annotation>
+                                <appinfo>
+                                    <xroad:title xml:lang="et">kood</xroad:title>
+                                </appinfo>
+                            </annotation>
+                        </element>
+                        <element name="contentOut" nillable="true" type="anyURI">
+                            <annotation>
+                                <appinfo>
+                                    <xroad:title xml:lang="et">Vastusele lisatud attachment Content-Id cid:</xroad:title>
+                                </appinfo>
+                            </annotation>
+                        </element>
+                    </sequence>
+                </complexType>
+            </element>
 
 			<complexType name="kvk">
 				<sequence>
@@ -3364,7 +4689,7 @@
 							<documentation>Õppuri õppimise andmete lisamise plokk</documentation>
 						</annotation>
 					</element>
-					<element maxOccurs="1" minOccurs="0" name="lisaOppurIsikuandmed" nillable="false" type="tns:alusIsikuandmedDetail">
+					<element maxOccurs="1" minOccurs="1" name="lisaOppurIsikuandmed" nillable="false" type="tns:alusIsikuandmedDetail">
 						<annotation>
 							<documentation>Õppuri täpsustavate isikuandmete lisamise plokk</documentation>
 						</annotation>
@@ -3585,6 +4910,8 @@
 						<element name="muutmine" nillable="false" type="tns:khlMuutmine"/>
 						<element name="muutmineId" nillable="false" type="tns:khlMuutmineIdList"/>
 						<element name="muutmineIsikukood" nillable="false" type="tns:khlMuutmineIsikukood"/>
+						<element name="duplikaadiMuutmine" nillable="false" type="tns:khlDuplikaadiMuutmine"/>
+						<element name="eritoetus" nillable="false" type="tns:khlEritoetus"/>
 					</choice>
 				</sequence>
 			</complexType>
@@ -3608,6 +4935,7 @@
 					<element minOccurs="0" name="klElukohamaa" nillable="false" type="string"/>
 					<element minOccurs="0" name="onOrb" nillable="false" type="tns:ehisBoolean"/>
 					<element minOccurs="0" name="onValisyliopilane" nillable="false" type="tns:ehisBoolean"/>
+					<element minOccurs="0" name="klKeskhariduseRiik" nillable="false" type="string"/>
 				</sequence>
 			</complexType>
 
@@ -3627,9 +4955,9 @@
 					<element minOccurs="1" name="klRahastAllikas" nillable="false" type="string"/>
 					<element minOccurs="0" name="eelmOppeasutusLopetAasta" nillable="false" type="tns:ehisAastaType"/>
 					<element minOccurs="0" name="eelmOppeasutusOppevorm" nillable="false" type="string"/>
-					<element minOccurs="0" name="oppeasutusLopetValismaal" nillable="false" type="tns:ehisBoolean"/>
-					<element minOccurs="0" name="oppeasutusLopetValismaalRiik" nillable="false" type="string"/>
-					<element minOccurs="0" name="oppeasutusLopetValismaalOppeasutus" nillable="false" type="string"/>
+					<element minOccurs="0" name="oppeasutusLopetValismaal" nillable="false" type="tns:ehisBoolean"/><!-- POLE KASUTUSES -->
+					<element minOccurs="0" name="oppeasutusLopetValismaalRiik" nillable="false" type="string"/><!-- POLE KASUTUSES -->
+					<element minOccurs="0" name="oppeasutusLopetValismaalOppeasutus" nillable="false" type="string"/><!-- POLE KASUTUSES -->
 					<element minOccurs="0" name="oppeasutusFil" nillable="false" type="string"/>
 					<element minOccurs="0" name="riiklKoolitustellimusAasta" nillable="false" type="tns:ehisAastaType"/>
 					<element minOccurs="1" name="klEelnevHaridus" nillable="false" type="string"/>
@@ -3638,6 +4966,29 @@
 					<element minOccurs="0" name="lisainfo1" nillable="false" type="string"/>
 					<element minOccurs="0" name="lisainfo2" nillable="false" type="string"/>
 					<element minOccurs="0" name="lisainfo3" nillable="false" type="string"/>
+				</sequence>
+			</complexType>
+
+			<complexType name="khlEritoetus">
+				<sequence>
+					<element maxOccurs="1" minOccurs="0" name="salvestamine" nillable="false" type="tns:khlEritoetusSalvestamine"/>
+					<element maxOccurs="1" minOccurs="0" name="kustutamine" nillable="false" type="tns:khlEritoetusKustutamine"/>
+				</sequence>
+			</complexType>
+
+			<complexType name="khlEritoetusSalvestamine">
+				<sequence>
+					<element minOccurs="0" name="oppeasutuseKirjeId" nillable="false" type="string"/>
+					<element minOccurs="1" name="isikukood" nillable="false" type="string"/>
+					<element minOccurs="1" name="perioodAlates" nillable="false" type="date"/>
+					<element minOccurs="1" name="perioodKuni" nillable="false" type="date"/>
+				</sequence>
+			</complexType>
+
+			<complexType name="khlEritoetusKustutamine">
+				<sequence>
+					<element minOccurs="1" name="oppeasutuseKirjeId" nillable="false" type="string"/>
+					<element minOccurs="1" name="isikukood" nillable="false" type="string"/>
 				</sequence>
 			</complexType>
 
@@ -3667,6 +5018,15 @@
 				</sequence>
 			</complexType>
 
+			<complexType name="khlDuplikaadiMuutmine">
+				<sequence>
+					<element minOccurs="1" name="isikukood" nillable="false" type="string"/>
+					<element default="EE" minOccurs="0" name="klIsikukoodRiik" nillable="false" type="string"/>
+					<element minOccurs="0" name="oppekava" nillable="false" type="positiveInteger"/>
+					<element minOccurs="1" name="duplikaat" nillable="false" type="tns:khlDuplikaadiValjastamine"/>
+				</sequence>
+			</complexType>
+
 			<complexType name="khlKorgharidusMuuda">
 				<sequence>
 					<choice minOccurs="1">
@@ -3677,7 +5037,7 @@
 								</appinfo>
 							</annotation>
 						</element>
-						<element name="rkKohaleVastuvotmine" nillable="false" type="tns:khlRkKohaleVastuvotmine">
+						<element name="rkKohaleVastuvotmine" nillable="false" type="tns:khlRkKohaleVastuvotmine"><!-- POLE KASUTUSES -->
 							<annotation>
 								<appinfo>
 									<title>RK kohale vastuvõtmine</title>
@@ -3761,6 +5121,20 @@
 								</appinfo>
 							</annotation>
 						</element>
+						<element name="nominaalseOppeajaPikendamine30EKAP" nillable="false" type="date">
+							<annotation>
+								<appinfo>
+									<title>Nominaalse õppeaja pikendamine 30 EKAP</title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element name="nominaalseOppeajaPikendamine60EKAP" nillable="false" type="date">
+							<annotation>
+								<appinfo>
+									<title>Nominaalse õppeaja pikendamine 60 EKAP</title>
+								</appinfo>
+							</annotation>
+						</element>
 						<element name="erivajadused" nillable="false" type="tns:khlErivajadusedArr">
 							<annotation>
 								<appinfo>
@@ -3803,6 +5177,13 @@
 								</appinfo>
 							</annotation>
 						</element>
+						<element name="nominaaliPikendaminePraktika" nillable="false" type="tns:khlNominaaliPikendaminePraktika">
+							<annotation>
+								<appinfo>
+									<title>Nominaali pikendamine praktika tõttu</title>
+								</appinfo>
+							</annotation>
+						</element>
 						<element name="VOTAKirjed" nillable="false" type="tns:khlVOTAArr">
 							<annotation>
 								<appinfo>
@@ -3814,6 +5195,13 @@
 							<annotation>
 								<appinfo>
 									<title>Stipendiumid</title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element name="ettevotDoktKirjed" nillable="false" type="tns:khlEttevotDoktArr">
+							<annotation>
+								<appinfo>
+									<title>Ettevõtlus doktorantuuri kirjed</title>
 								</appinfo>
 							</annotation>
 						</element>
@@ -3832,6 +5220,7 @@
 					<element minOccurs="0" name="klElukohamaa" nillable="false" type="string"/>
 					<element minOccurs="0" name="onOrb" nillable="false" type="tns:ehisBoolean"/>
 					<element minOccurs="0" name="onValisyliopilane" nillable="false" type="tns:ehisBoolean"/>
+					<element minOccurs="0" name="klKeskhariduseRiik" nillable="false" type="string"/>
 				</sequence>
 			</complexType>
 
@@ -3857,6 +5246,8 @@
 					<element minOccurs="0" name="klOppekeel" nillable="false" type="string"/>
 					<element minOccurs="0" name="klRahastAllikas" nillable="false" type="string"/>
 					<element minOccurs="0" name="esimSemestriLoppKp" nillable="false" type="date"/>
+					<element minOccurs="0" name="oppeTeadusKavaAlgusKp" nillable="false" type="date"/>
+					<element minOccurs="0" name="oppeTeadusKavaLoppKp" nillable="false" type="date"/>
 					<element minOccurs="0" name="lisainfo1" nillable="false" type="string"/>
 					<element minOccurs="0" name="lisainfo2" nillable="false" type="string"/>
 					<element minOccurs="0" name="lisainfo3" nillable="false" type="string"/>
@@ -3884,7 +5275,19 @@
 					<element minOccurs="0" name="eestikeelneAkademOiend" nillable="false" type="tns:khlOiendType"/>
 					<element minOccurs="0" name="inglisekeelneAkademOiend" nillable="false" type="tns:khlOiendType"/>
 					<element minOccurs="0" name="klAkadKraad" nillable="false" type="string"/>
-					<element minOccurs="0" name="klSpetsialiseerumine" nillable="false" type="string"/>
+					<choice minOccurs="0">
+						<element minOccurs="0" name="klSpetsialiseerumine" nillable="false" type="string"/>
+						<element minOccurs="0" name="spetsialiseerumineNimetus" nillable="false" type="string"/>
+					</choice>
+				</sequence>
+			</complexType>
+
+			<complexType name="khlDuplikaadiValjastamine">
+				<sequence>
+					<element minOccurs="1" name="muutusKp" nillable="false" type="date"/>
+					<element minOccurs="1" name="lopudokumendiNr" nillable="false" type="string"/>
+					<element minOccurs="0" name="eestikeelneAkademOiend" nillable="false" type="tns:khlOiendType"/>
+					<element minOccurs="0" name="inglisekeelneAkademOiend" nillable="false" type="tns:khlOiendType"/>
 				</sequence>
 			</complexType>
 
@@ -3907,14 +5310,7 @@
 				<sequence>
 					<element minOccurs="1" name="muutusKp" nillable="false" type="date"/>
 					<element maxOccurs="unbounded" minOccurs="0" name="klErivajadus" nillable="false" type="string"/>
-					<element maxOccurs="unbounded" minOccurs="0" name="tugiteenus" nillable="false" type="tns:khlTugiteenus"/>
-				</sequence>
-			</complexType>
-
-			<complexType name="khlTugiteenus">
-				<sequence>
-					<element maxOccurs="1" minOccurs="1" name="klTugiteenus" nillable="false" type="string"/>
-					<element maxOccurs="1" minOccurs="1" name="rakendVoiVajatav" nillable="false" type="string"/>
+					<element maxOccurs="unbounded" minOccurs="0" name="klTugiteenus" nillable="false" type="string"/>
 				</sequence>
 			</complexType>
 
@@ -3926,9 +5322,9 @@
 					<element minOccurs="0" name="omandabHaridustKinnipidamisasutuses" nillable="false" type="tns:ehisBoolean"/>
 					<element minOccurs="0" name="eelmOppeasutusLopetAasta" nillable="false" type="tns:ehisAastaType"/>
 					<element minOccurs="0" name="eelmOppeasutusOppevorm" nillable="false" type="string"/>
-					<element minOccurs="0" name="oppeasutusLopetValismaal" nillable="false" type="tns:ehisBoolean"/>
-					<element minOccurs="0" name="oppeasutusLopetValismaalRiik" nillable="false" type="string"/>
-					<element minOccurs="0" name="oppeasutusLopetValismaalOppeasutus" nillable="false" type="string"/>
+					<element minOccurs="0" name="oppeasutusLopetValismaal" nillable="false" type="tns:ehisBoolean"/><!-- POLE KASUTUSES -->
+					<element minOccurs="0" name="oppeasutusLopetValismaalRiik" nillable="false" type="string"/><!-- POLE KASUTUSES -->
+					<element minOccurs="0" name="oppeasutusLopetValismaalOppeasutus" nillable="false" type="string"/><!-- POLE KASUTUSES -->
 				</sequence>
 			</complexType>
 
@@ -4022,15 +5418,24 @@
 
 			<complexType name="khlLyhiajaliseltValismaal">
 				<sequence>
-					<element minOccurs="1" name="muutusKp" nillable="false" type="date"/>
+					<element minOccurs="0" name="lyhiajaliseltValismaalId" nillable="false" type="integer"/>
+					<element minOccurs="0" name="muutusKp" nillable="false" type="date"/>
 					<element minOccurs="1" name="perioodAlates" nillable="false" type="date"/>
 					<element minOccurs="1" name="perioodKuni" nillable="false" type="date"/>
 					<element minOccurs="1" name="klEesmark" nillable="false" type="string"/>
-					<element minOccurs="1" name="ainepunkte" nillable="false" type="string"/>
+					<element minOccurs="0" name="ainepunkte" nillable="true" type="string"/>
 					<element minOccurs="1" name="nominaalajaPikendamine" nillable="false" type="integer"/>
-					<element minOccurs="1" name="oppeasutuseNimi" nillable="false" type="string"/>
+					<element minOccurs="0" name="oppeasutuseNimi" nillable="true" type="string"/>
 					<element minOccurs="1" name="klSihtriik" nillable="false" type="string"/>
 					<element minOccurs="1" name="klProgramm" nillable="false" type="string"/>
+				</sequence>
+			</complexType>
+
+			<complexType name="khlNominaaliPikendaminePraktika">
+				<sequence>
+					<element minOccurs="0" name="muutusKp" nillable="false" type="date"/>
+					<element minOccurs="1" name="perioodAlates" nillable="false" type="date"/>
+					<element minOccurs="1" name="perioodKuni" nillable="false" type="date"/>
 				</sequence>
 			</complexType>
 
@@ -4070,12 +5475,26 @@
 					<element minOccurs="0" name="oppeasutuseKirjeId" nillable="false" type="string"/>
 				</sequence>
 			</complexType>
-			
+
 			<complexType name="khlStipendiumKustutamine">
         		<sequence>
             		<element maxOccurs="unbounded" minOccurs="1" name="oppeasutuseKirjeId" nillable="false" type="string"/>
         		</sequence>
     		</complexType>
+
+			<complexType name="khlEttevotDoktArr">
+				<sequence>
+					<element maxOccurs="unbounded" minOccurs="1" name="ettevotDokt" nillable="false" type="tns:khlEttevotDokt"/>
+				</sequence>
+			</complexType>
+
+			<complexType name="khlEttevotDokt">
+				<sequence>
+					<element minOccurs="1" name="klTeadusAsutus" nillable="false" type="string"/>
+					<element minOccurs="1" name="toolepinguAlgusKp" nillable="false" type="date"/>
+					<element minOccurs="1" name="toolepinguLoppKp" nillable="false" type="date"/>
+				</sequence>
+			</complexType>
 
 			<complexType name="khlLyhiAjaValisOppur">
 				<sequence>
@@ -4312,7 +5731,7 @@
 
 			<complexType name="oppeasutus">
 				<sequence>
-					<element minOccurs="1" name="koolId" nillable="false" type="string"/>
+					<element minOccurs="0" name="koolId" nillable="false" type="string"/>
 					<sequence>
 						<element maxOccurs="100000" minOccurs="0" name="pedagoog" nillable="false" type="tns:pedagoog"/>
 						<element maxOccurs="100000" minOccurs="0" name="pedagoogKustutaAlam" nillable="false" type="tns:pedagoogKustutaAlam"/>
@@ -4413,7 +5832,7 @@
             		<element minOccurs="0" name="kommentaar" nillable="false" type="string"/>
         		</sequence>
     		</complexType>
-    
+
     		<complexType name="pedagoogTasemekoolitusId">
         		<sequence>
             		<element minOccurs="1" name="tasemeOppeas" nillable="false" type="string"/>
@@ -4682,7 +6101,6 @@
 					<element minOccurs="0" name="muutusKp" nillable="false" type="date"/>
 					<element minOccurs="0" name="erivajadused" nillable="false" type="tns:yhlErivajadused"/>
 					<element minOccurs="0" name="tugiteenused" nillable="false" type="tns:yhlTugiteenused"/>
-					<element minOccurs="0" name="vanemaNousolekud" nillable="false" type="tns:yhlVanemaNousolekud"/>
 				</sequence>
 			</complexType>
 
@@ -4742,9 +6160,9 @@
 				<sequence>
 					<element name="isikuandmed" nillable="false" type="tns:yhlIsikuandmed"/>
 
-					<element minOccurs="0" name="klEelnevHaridus" nillable="false" type="string"/>
+					<element minOccurs="0" name="klEelnevHaridus" nillable="false" type="string"/><!-- POLE KASUTUSES -->
 
-					<element minOccurs="0" name="esimKlAasta" nillable="false" type="tns:ehisAastaType"/>
+					<element minOccurs="0" name="esimKlAasta" nillable="false" type="tns:ehisAastaType"/><!-- POLE KASUTUSES -->
 					<element name="oppimaAsumKp" nillable="false" type="date"/>
 					<element name="klOppekava" nillable="false" type="string"/>
 					<element name="klOppekeel" nillable="false" type="string"/>
@@ -4759,12 +6177,13 @@
 					<element minOccurs="0" name="voorkeeled" nillable="false" type="tns:yhlVoorkeeled"/>
 					<element minOccurs="0" name="lisaandmed" nillable="false" type="tns:yhlLisaandmed"/>
 
-					<element minOccurs="0" name="kaugusOppeasutusest" nillable="false" type="positiveInteger"/>
+					<element minOccurs="0" name="kaugusOppeasutusest" nillable="false" type="decimal"/>
 					<element maxOccurs="1" minOccurs="0" name="oppeasutusFil" nillable="false" type="integer"/>
 					<element minOccurs="0" name="opilaskoduKool" nillable="false" type="integer"/>
 					<element minOccurs="0" name="omandabHaridKinnipidamisasutuses" nillable="false" type="tns:ehisBoolean"/>
 					<element minOccurs="0" name="puudulikudAastahinded" nillable="false" type="tns:yhlPuudulikudAastahinded"/>
 					<element minOccurs="0" name="erivajadusedTugiteenused" nillable="false" type="tns:yhlErivajadusedTugiteenused"/>
+					<element minOccurs="0" name="vanemaNousolekud" nillable="false" type="tns:yhlVanemaNousolekud"/>
 					<element minOccurs="0" name="oppevormiMuutus" nillable="false" type="tns:yhlOppevormMuutus"/>
 					<element minOccurs="0" name="klOpilaskoduFin" nillable="false" type="string"/>
 
@@ -4773,6 +6192,7 @@
 					<element minOccurs="0" name="lisainfo1" nillable="false" type="string"/>
 					<element minOccurs="0" name="lisainfo2" nillable="false" type="string"/>
 					<element minOccurs="0" name="lisainfo3" nillable="false" type="string"/>
+					<element maxOccurs="1" minOccurs="0" name="ujumisandmed" nillable="false" type="tns:yhlUjumisandmed"/>
 				</sequence>
 			</complexType>
 
@@ -4791,7 +6211,9 @@
 						<element name="oppeasutusestLahkumine" nillable="false" type="tns:yhlOppeasLahkumine"/>
 						<element name="puudulikeAastahinneteMuutus" nillable="false" type="tns:yhlPuudulikudAastahinded"/>
 						<element name="erivajadusteTugiteenusteMuutus" nillable="false" type="tns:yhlErivajadusedTugiteenused"/>
+						<element name="vanemaNousolekudMuutus" nillable="false" type="tns:yhlVanemaNousolekud"/>
 						<element name="kutseoppeMuutus" nillable="false" type="tns:yhlKutseope"/>
+						<element name="ujumisandmeteMuutus" nillable="false" type="tns:yhlUjumisandmed"/>
 					</choice>
 				</sequence>
 			</complexType>
@@ -4889,7 +6311,7 @@
 			<complexType name="yhlTeisAndMuutus">
 				<sequence>
 					<element minOccurs="0" name="muutusKp" nillable="false" type="date"/>
-					<element minOccurs="0" name="kaugusOppeasutusest" nillable="false" type="positiveInteger"/>
+					<element minOccurs="0" name="kaugusOppeasutusest" nillable="false" type="decimal"/>
 
 					<element maxOccurs="1" minOccurs="0" name="oppeasutusFil" nillable="false" type="integer"/>
 					<element minOccurs="0" name="opilaskoduKool" nillable="false" type="integer"/>
@@ -4908,6 +6330,45 @@
 					<element minOccurs="0" name="veerand" nillable="false" type="positiveInteger"/>
 					<element minOccurs="1" name="tunde" nillable="false" type="positiveInteger"/>
 					<element minOccurs="1" name="puudumisi" nillable="false" type="positiveInteger"/>
+				</sequence>
+			</complexType>
+
+			<complexType name="yhlUjumisandmed">
+				<sequence>
+					<element minOccurs="0" name="muutusKp" nillable="false" type="date"/>
+					<choice minOccurs="1">
+						<element maxOccurs="1" minOccurs="0" name="kustutaKoik" nillable="false" type="string"/>
+						<element maxOccurs="1" minOccurs="0" name="ujumine" type="tns:yhlUjumine"/>
+					</choice>
+				</sequence>
+			</complexType>
+
+			<complexType name="yhlUjumine">
+				<sequence>
+					<element maxOccurs="1" minOccurs="0" name="ettenaahtudTundideArv" nillable="false" type="nonNegativeInteger"/>
+					<element maxOccurs="1" minOccurs="0" name="labitudTundideArv" nillable="false" type="nonNegativeInteger"/>
+					<element maxOccurs="1" minOccurs="0" name="klGrupiSuurus" nillable="false" type="string"/>
+					<element maxOccurs="1" minOccurs="0" name="klUjumisoskuseTase" nillable="false" type="string"/>
+					<element maxOccurs="1" minOccurs="0" name="treener" nillable="false" type="tns:yhlTreener"/>
+					<element maxOccurs="1" minOccurs="0" name="abistajad" nillable="false" type="tns:yhlAbistajad"/>
+				</sequence>
+			</complexType>
+
+			<complexType name="yhlTreener">
+				<sequence>
+					<element maxOccurs="1" minOccurs="0" name="isikukood" nillable="false" type="tns:ehisIsikukood"/>
+				</sequence>
+			</complexType>
+
+			<complexType name="yhlAbistajad">
+				<sequence>
+					<element maxOccurs="unbounded" minOccurs="0" name="abistaja" nillable="false" type="tns:yhlAbistaja"/>
+				</sequence>
+			</complexType>
+
+			<complexType name="yhlAbistaja">
+				<sequence>
+					<element maxOccurs="1" minOccurs="0" name="isikukood" nillable="false" type="tns:ehisIsikukood"/>
 				</sequence>
 			</complexType>
 
@@ -4972,7 +6433,7 @@
 					<element maxOccurs="1" minOccurs="0" name="klOppekeel" nillable="false" type="tns:ehisRiikType"/>
 					<element maxOccurs="1" minOccurs="1" name="oppimaAsumiseKp" nillable="false" type="date"/>
 					<element maxOccurs="1" minOccurs="1" name="klOppevorm" nillable="false" type="tns:ehisRiikType"/>
-					<element maxOccurs="1" minOccurs="0" name="oppekavaKoodid" nillable="false" type="tns:huviOppekavaKoodid"/>
+					<element maxOccurs="1" minOccurs="1" name="oppekavaKoodid" nillable="false" type="tns:huviOppekavaKoodid"/>
 				</sequence>
 			</complexType>
 
@@ -4982,7 +6443,7 @@
 					<element maxOccurs="1" minOccurs="0" name="klKorgeimHaridustase" nillable="false" type="string"/>
 					<element maxOccurs="1" minOccurs="0" name="klOppeKeeled" nillable="false" type="tns:huviKlOppekeeled"/>
 					<element maxOccurs="1" minOccurs="0" name="klAmetikohad" nillable="false" type="tns:huviKlAmetikohad"/>
-					<element maxOccurs="1" minOccurs="0" name="oppekavaKoodid" nillable="false" type="tns:huviOppekavaKoodid"/>
+					<element maxOccurs="1" minOccurs="1" name="oppekavaKoodid" nillable="false" type="tns:huviOppekavaKoodid"/>
 				</sequence>
 			</complexType>
 
@@ -6014,6 +7475,13 @@
 			            	</appinfo>
 			        	</annotation>
 					</element>
+					<element maxOccurs="1" minOccurs="0" name="menetlejaKommentaar" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Menetleja kommentaar</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
 		            <element maxOccurs="1" minOccurs="0" name="loaNumber" type="string">
 			        	<annotation>
 			         		<appinfo>
@@ -6196,6 +7664,13 @@
 			                	<xroad:title xml:lang="et">Tegevusloa staatus</xroad:title>
 			            	</appinfo>
 			        	</annotation>
+					</element>
+					<element maxOccurs="1" minOccurs="0" name="menetlejaKommentaar" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Menetleja kommentaar</xroad:title>
+							</appinfo>
+						</annotation>
 					</element>
 		            <element maxOccurs="1" minOccurs="0" name="nimetus" type="string">
 			        	<annotation>
@@ -6591,6 +8066,33 @@
 		            </sequence>
 		        </complexType>
 		    </element>
+			<element name="mtsysLaeTegevusnaitajadResponse">
+                <complexType>
+                    <sequence>
+                        <element maxOccurs="1" minOccurs="0" name="aruandeId" type="integer">
+                            <annotation>
+                                <appinfo>
+                                    <xroad:title xml:lang="et">Aruande ID</xroad:title>
+                                </appinfo>
+                            </annotation>
+                        </element>
+                        <element maxOccurs="1" minOccurs="0" name="infotekst" type="string">
+                            <annotation>
+                                <appinfo>
+                                    <xroad:title xml:lang="et">Infotekst</xroad:title>
+                                </appinfo>
+                            </annotation>
+                        </element>
+                        <element maxOccurs="1" minOccurs="0" name="veatekst" type="string">
+                            <annotation>
+                                <appinfo>
+                                    <xroad:title xml:lang="et">Veakood</xroad:title>
+                                </appinfo>
+                            </annotation>
+                        </element>
+                    </sequence>
+                </complexType>
+            </element>
 
 			<!-- =================================== mtsysEsitaTegevusnaitajad =================================== -->
 		    <element name="mtsysEsitaTegevusnaitajad">
@@ -6620,6 +8122,33 @@
 		            </sequence>
 		        </complexType>
 		    </element>
+			<element name="mtsysEsitaTegevusnaitajadResponse">
+                <complexType>
+                    <sequence>
+                        <element maxOccurs="1" minOccurs="0" name="aruandeId" type="integer">
+                            <annotation>
+                                <appinfo>
+                                    <xroad:title xml:lang="et">Aruande ID</xroad:title>
+                                </appinfo>
+                            </annotation>
+                        </element>
+                        <element maxOccurs="1" minOccurs="0" name="infotekst" type="string">
+                            <annotation>
+                                <appinfo>
+                                    <xroad:title xml:lang="et">Infotekst</xroad:title>
+                                </appinfo>
+                            </annotation>
+                        </element>
+                        <element maxOccurs="1" minOccurs="0" name="veatekst" type="string">
+                            <annotation>
+                                <appinfo>
+                                    <xroad:title xml:lang="et">Veakood</xroad:title>
+                                </appinfo>
+                            </annotation>
+                        </element>
+                    </sequence>
+                </complexType>
+            </element>
 
 			<!-- =================================== oppeasutusedKovPortaali =================================== -->
 			<element name="oppeasutusedKovPortaali">
@@ -6973,6 +8502,197 @@
 				</sequence>
 			</complexType>
 
+			<!-- =================================== oppuridV2 =================================== -->
+			<element name="oppuridV2">
+				<complexType>
+					<all>
+						<element name="oppurid" type="tns:eisOppuridListV2">
+							<annotation>
+								<appinfo>
+									<xroad:title>Õppurid</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+					</all>
+				</complexType>
+			</element>
+			<element name="oppuridV2Response">
+				<complexType>
+					<sequence>
+						<element name="oppimised" type="tns:eisOppimisedV2"/>
+					</sequence>
+				</complexType>
+			</element>
+
+			<complexType name="eisOppuridListV2">
+				<sequence>
+					<choice minOccurs="1">
+						<element maxOccurs="500" minOccurs="0" name="isikukood" nillable="false" type="tns:ehisIsikukood">
+							<annotation>
+								<appinfo>
+									<xroad:title>Isikukood</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element minOccurs="0" name="oppeasutus" type="tns:eisOppuridOppeasutused">
+							<annotation>
+								<appinfo>
+									<xroad:title>Õppeasutus</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+					</choice>
+					<element minOccurs="0" name="onLopetanud" type="boolean">
+						<annotation>
+							<appinfo>
+								<xroad:title>Leiab lõpetatud/mittelõpetatud õppimised, puudumise korral mõlemad</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+			<complexType name="eisOppimisedV2">
+				<sequence>
+					<element maxOccurs="unbounded" minOccurs="0" name="oppimine" type="tns:eisOppimineV2">
+						<annotation>
+							<appinfo>
+								<xroad:title>Õppimine</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+			<complexType name="eisOppimineV2">
+				<sequence>
+					<element minOccurs="0" name="oppurIsikId" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Õppuri isiku ID alushariduse õppurite korral</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="isikukood" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Isikukood</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="onLopetanud" type="boolean">
+						<annotation>
+							<appinfo>
+								<xroad:title>On lõpetanud</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="eesnimi" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Eesnimi</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="perenimi" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Perenimi</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="koolId" type="integer">
+						<annotation>
+							<appinfo>
+								<xroad:title>EHISe kooli ID</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="koolNimetus" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>EHISe kooli nimetus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="klassKursus" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Klass/Kursus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="paralleeliTunnus" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Paralleeli tunnus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="oppekeel" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Õppekeel</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="oppevorm" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Õppevorm</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="oppekava" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Õppekava</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="lopetAasta" type="integer">
+						<annotation>
+							<appinfo>
+								<xroad:title>Lõpetamise aasta</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="tunnistusNr" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Tunnistuse nr</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="tunnistusKp" type="date">
+						<annotation>
+							<appinfo>
+								<xroad:title>Tunnistuse kp</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="ryhmId" type="integer">
+						<annotation>
+							<appinfo>
+								<xroad:title>Rühma ID</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="ryhmNimetus" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Rühma nimetus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="ryhmLiik" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Rühma liik</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+
 			<!-- =================================== oppuridKovPortaali =================================== -->
 			<element name="oppuridKovPortaali">
 				<complexType>
@@ -7062,6 +8782,173 @@
 				</sequence>
 			</complexType>
 
+			<!-- =================================== oppuridKovPortaaliV2 =================================== -->
+			<element name="oppuridKovPortaaliV2">
+				<complexType>
+					<sequence>
+						<element maxOccurs="500" minOccurs="1" name="isikukood" type="tns:ehisIsikukood">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Õppuri isikukood</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+					</sequence>
+				</complexType>
+			</element>
+			<element name="oppuridKovPortaaliV2Response">
+				<complexType>
+					<sequence>
+						<element maxOccurs="unbounded" minOccurs="0" name="oppurid" type="tns:oppurV2">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Õppimise andmed</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element maxOccurs="unbounded" minOccurs="0" name="teade" type="tns:teade">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Teade</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+					</sequence>
+				</complexType>
+			</element>
+
+			<complexType name="teade">
+				<sequence>
+					<element maxOccurs="1" minOccurs="1" name="isikukood" type="string"/>
+					<element maxOccurs="1" minOccurs="1" name="kood" type="string"/>
+					<element maxOccurs="1" minOccurs="1" name="tekst" type="string"/>
+				</sequence>
+			</complexType>
+
+			<complexType name="oppurV2">
+				<sequence>
+					<element name="isikukood" type="tns:ehisIsikukood">
+						<annotation>
+							<appinfo>
+								<xroad:title>Isikukood</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="eesnimi" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Õppuri eesnimi</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="perenimi" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Õppuri perekonnanimi</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="haridus" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Haridus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="1" name="ruhmaLiik" nillable="true" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Rühma liik</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="1" name="kohasuurus" nillable="true" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Kohasuurus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="1" name="ruhmaNimi" nillable="true" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Rühma nimi</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="1" name="klass" nillable="true" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Klassi number</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="1" name="paralleeliTunnus" nillable="true" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Paralleeli tunnus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="1" name="oppekavatase" nillable="true" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Õppekavatase</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="1" name="oppevorm" nillable="true" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Õppevorm</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="1" name="oppimaAsumiseKp" nillable="true" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Õppima asumise kuupäev</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="1" name="oppeasutusKood" nillable="true" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Õppeasutuse EHISe kood</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="1" name="oppeasutusNimetus" nillable="true" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Õppeasutuse nimetus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="1" name="oppeasutuseOmandivorm" nillable="true" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Õppeasutuse omandivorm</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="1" name="oppekoormus" nillable="true" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Õppekoormus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="1" name="ehak" nillable="true" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Õppeasutuse EHAK kood</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+
 			<!-- =================================== pankOppurLaenList =================================== -->
 			<element name="pankOppurLaenList">
 				<complexType>
@@ -7091,6 +8978,60 @@
 							<annotation>
 								<documentation>Mingi võimalik veateade vea korral</documentation>
 							</annotation>
+						</element>
+						<element name="contentOut" nillable="true" type="anyURI">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Vastusele lisatud attachment Content-Id cid:</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+					</sequence>
+				</complexType>
+			</element>
+
+			<!-- =================================== pankOppurLaenListV2 =================================== -->
+			<element name="pankOppurLaenListV2">
+				<complexType>
+					<sequence>
+						<element name="tyyp" type="string">
+							<annotation>
+								<documentation>Muudatused või täisnimekiri (M/T)</documentation>
+							</annotation>
+						</element>
+						<element maxOccurs="1" minOccurs="0" name="muudatusedAlates" nillable="false" type="date">
+							<annotation>
+								<documentation>Kuupäev, millest alates muudatused võetakse. Täisnimekirja puhul ei kasutata.</documentation>
+							</annotation>
+						</element>
+						<element name="contentIn" type="anyURI">
+							<annotation>
+								<appinfo>
+									<xroad:title>Kokkupakitud vormingus fail.</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+					</sequence>
+				</complexType>
+			</element>
+			<element name="pankOppurLaenListV2Response">
+				<complexType>
+					<sequence>
+						<element name="veakood" type="integer">
+							<annotation>
+								<documentation>Veakood: 0-Ok</documentation>
+							</annotation>
+						</element>
+						<element name="teated">
+							<complexType>
+								<sequence>
+									<element maxOccurs="unbounded" minOccurs="0" name="teade" nillable="true" type="string">
+										<annotation>
+											<documentation>Mingi võimalik veateade vea korral</documentation>
+										</annotation>
+									</element>
+								</sequence>
+							</complexType>
 						</element>
 						<element name="contentOut" nillable="true" type="anyURI">
 							<annotation>
@@ -7184,6 +9125,18 @@
 					<element maxOccurs="unbounded" minOccurs="0" name="ametikoht" type="tns:eisAmetikoht">
 						<annotation>
 							<appinfo>
+							<xroad:title xml:lang="et">Ametikoht</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+
+			<complexType name="eisAmetikohadV2">
+				<sequence>
+					<element maxOccurs="unbounded" minOccurs="0" name="ametikoht" type="tns:eisAmetikohtV2">
+						<annotation>
+							<appinfo>
 								<xroad:title xml:lang="et">Ametikoht</xroad:title>
 							</appinfo>
 						</annotation>
@@ -7238,11 +9191,120 @@
 				</sequence>
 			</complexType>
 
+			<complexType name="eisAmetikohtV2">
+				<sequence>
+					<element name="isikukood" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Isikukood</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="eesnimi" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Eesnimi</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="perenimi" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Perenimi</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="koolId" type="integer">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">EHISe kooli ID</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="koolijuht" type="boolean">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Koolijuht</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="oppeained" type="tns:oppeainedListV2">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppeained</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+
 			<complexType name="oppeainedList">
 				<sequence>
 					<element maxOccurs="unbounded" minOccurs="0" name="oppeaine" type="string"/>
 				</sequence>
 			</complexType>
+
+			<complexType name="oppeainedListV2">
+				<sequence>
+					<element maxOccurs="unbounded" minOccurs="0" name="oppeaine" type="tns:oppeaineDef"/>
+				</sequence>
+			</complexType>
+
+			<complexType name="oppeaineDef">
+				<sequence>
+					<element maxOccurs="1" minOccurs="1" name="kood" type="string"/>
+					<element maxOccurs="unbounded" minOccurs="0" name="kooliaste" type="string"/>
+				</sequence>
+			</complexType>
+
+			<!-- =================================== pedagoogAmetikohtV2 =================================== -->
+			<element name="pedagoogAmetikohtV2">
+				<complexType>
+					<sequence>
+						<element maxOccurs="1" minOccurs="0" name="isikukoodid" type="tns:eisAmetikohadParingList">
+							<annotation>
+								<appinfo>
+									<xroad:title>Isikukoodid</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element maxOccurs="1" minOccurs="0" name="koolId" type="integer">
+							<annotation>
+								<appinfo>
+									<xroad:title>Õppeasutus</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element maxOccurs="1" minOccurs="0" name="kooliaste" type="string">
+							<annotation>
+								<appinfo>
+									<xroad:title>Kooliaste</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element maxOccurs="1" minOccurs="0" name="oppeaine" type="string">
+							<annotation>
+								<appinfo>
+									<xroad:title>Õppeaine</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+					</sequence>
+				</complexType>
+			</element>
+			<element name="pedagoogAmetikohtV2Response">
+				<complexType>
+					<sequence>
+						<element name="ametikohad" type="tns:eisAmetikohadV2">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Ametikohad</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+					</sequence>
+				</complexType>
+			</element>
 
 			<!-- =================================== polOppur =================================== -->
 			<element name="polOppur">
@@ -7282,6 +9344,13 @@
 								</appinfo>
 							</annotation>
 						</element>
+						<element name="alush" nillable="true" type="tns:polOppurOppetoodAlush">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Õppetöö alushariduskoolis</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
 						<element name="yldh" nillable="true" type="tns:polOppurOppetoodYldh">
 							<annotation>
 								<appinfo>
@@ -7305,7 +9374,11 @@
 					<element maxOccurs="unbounded" minOccurs="0" name="isik" type="tns:polYld"/>
 				</sequence>
 			</complexType>
-
+			<complexType name="polOppurOppetoodAlush">
+				<sequence>
+					<element maxOccurs="unbounded" minOccurs="0" name="alush" type="tns:alushOppetoo"/>
+				</sequence>
+			</complexType>
 			<complexType name="polOppurOppetoodYldh">
 				<sequence>
 					<element maxOccurs="unbounded" minOccurs="0" name="yldh" type="tns:yldhOppetoo"/>
@@ -7467,7 +9540,7 @@
 					<sequence/>
 				</complexType>
 			</element>
-			<element name="saisEhisOppeasutusResponseV2">
+			<element name="saisEhisOppeasutusV2Response">
 				<complexType>
 					<sequence>
 						<element name="oppeasutused" nillable="true" type="tns:saisEhisOppeasutused">
@@ -7624,6 +9697,13 @@
 								</appinfo>
 							</annotation>
 						</element>
+						<element name="keskhariduseRiik" nillable="true" type="tns:saisKeskhariduseRiik">
+							<annotation>
+								<appinfo>
+									<xroad:notes>Keskhariduse riik</xroad:notes>
+								</appinfo>
+							</annotation>
+						</element>
 						<element name="opingud" nillable="true" type="tns:saisKorgkOpingud">
 							<annotation>
 								<appinfo>
@@ -7773,7 +9853,7 @@
 					<element name="nominaal" nillable="true" type="tns:saisKorkNominaal">
 						<annotation>
 							<appinfo>
-								<xroad:notes>Nonimaalkestus</xroad:notes>
+								<xroad:notes>Nominaalkestus</xroad:notes>
 							</appinfo>
 						</annotation>
 					</element>
@@ -7800,6 +9880,25 @@
 						<annotation>
 							<appinfo>
 								<xroad:title xml:lang="et">Nominaalse õppeaja pikendus -  õppimine välisriigis (päevade arv)</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+
+			<complexType name="saisKeskhariduseRiik">
+				<sequence>
+					<element name="riik" nillable="true" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:notes>Keskhariduse riik</xroad:notes>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="muudetav" nillable="true" type="integer">
+						<annotation>
+							<appinfo>
+								<xroad:notes>Kas keskhariduse riik on muudetav</xroad:notes>
 							</appinfo>
 						</annotation>
 					</element>
@@ -7934,6 +10033,62 @@
 				</complexType>
 			</element>
 
+			<!-- =================================== saisPohiV2 =================================== -->
+			<element name="saisPohiV2">
+				<complexType>
+					<sequence>
+						<element name="isikukood" type="string">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">isikukood</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+					</sequence>
+				</complexType>
+			</element>
+			<element name="saisPohiV2Response">
+				<complexType>
+					<sequence>
+						<element name="teade" nillable="true" type="string">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Teade</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element name="kood" nillable="true" type="integer">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">kood</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element name="klassid" nillable="true" type="string">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">viimane klass</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element name="tunnistused" nillable="true" type="tns:saisPohiTunnistusedV2">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Välja antud lõputunnistused (koos hinnetelehega)</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element name="opingud" nillable="true" type="tns:saisPohiOpingud">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">lõpetatud põhikooli õpingud</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+					</sequence>
+				</complexType>
+			</element>
+
 			<!-- =================================== saisYldh =================================== -->
 			<element name="saisYldh">
 				<complexType>
@@ -8019,6 +10174,55 @@
 				</complexType>
 			</element>
 			<element name="sotsList1Response">
+				<complexType>
+					<sequence>
+						<element name="teade" nillable="true" type="string">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Teade</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element name="kood" nillable="true" type="integer">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">kood</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element name="contentOut" nillable="true" type="anyURI">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Vastusele lisatud attachment Content-Id cid:</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+					</sequence>
+				</complexType>
+			</element>
+
+			<!-- =================================== sotsList1V2 =================================== -->
+			<element name="sotsList1V2">
+				<complexType>
+					<sequence>
+						<element name="liik" type="string">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">liik T/M</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+						<element name="algkuupaev" type="date">
+							<annotation>
+								<appinfo>
+									<xroad:title xml:lang="et">Muudatuste algkuupäev</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+					</sequence>
+				</complexType>
+			</element>
+			<element name="sotsList1V2Response">
 				<complexType>
 					<sequence>
 						<element name="teade" nillable="true" type="string">
@@ -8552,6 +10756,117 @@
 				</sequence>
 			</complexType>
 
+			<!-- =================================== tallhaOppimineListV2 =================================== -->
+			<element name="tallhaOppimineListV2">
+				<complexType>
+					<sequence>
+						<element maxOccurs="500" minOccurs="1" name="isikukood" type="tns:ehisIsikukood">
+							<annotation>
+								<appinfo>
+									<xroad:title>Isikukoodid</xroad:title>
+								</appinfo>
+							</annotation>
+						</element>
+					</sequence>
+				</complexType>
+			</element>
+			<element name="tallhaOppimineListV2Response">
+				<complexType>
+					<sequence>
+						<element maxOccurs="1" minOccurs="1" name="tallhaOppimineListV2" type="tns:tallhaOppimineListV2Type"/>
+					</sequence>
+				</complexType>
+			</element>
+
+			<complexType name="tallhaOppimineListV2Type">
+				<sequence>
+					<element maxOccurs="unbounded" minOccurs="1" name="tallhaOppimineV2" type="tns:tallhaOppimineV2"/>
+				</sequence>
+			</complexType>
+			<complexType name="tallhaOppimineV2">
+				<sequence>
+					<element maxOccurs="1" minOccurs="1" name="isikukood" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Isikukood</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element maxOccurs="1" minOccurs="0" name="eesnimi" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Eesnimi</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element maxOccurs="1" minOccurs="0" name="perekonnanimi" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Perekonnanimi</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element maxOccurs="1" minOccurs="0" name="kooliNimi" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Kooli nimi</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element maxOccurs="1" minOccurs="0" name="registrikood" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Kooli Reg. Number</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element maxOccurs="1" minOccurs="0" name="oppimaAsumKp" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Õppima asumise kuupäev</xroad:title>
+								<xroad:notes>Kuupäev formaadis dd.mm.yyyy</xroad:notes>
+							</appinfo>
+						</annotation>
+					</element>
+					<element maxOccurs="1" minOccurs="0" name="klassVoiKursus" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Üldhariduse klassi nr/kutsehariduse kursus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element maxOccurs="1" minOccurs="0" name="kutseopKoodJaNimetus" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Kutseõppe kood ja nimetus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element maxOccurs="1" minOccurs="0" name="muutusKp" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Õppuri andmete viimane muutmise kuupäev õppeasutuse poolt</xroad:title>
+								<xroad:notes>Kuupäev formaadis dd.mm.yyyy</xroad:notes>
+							</appinfo>
+						</annotation>
+					</element>
+					<element maxOccurs="1" minOccurs="0" name="kood" type="integer">
+						<annotation>
+							<appinfo>
+								<xroad:title>Veakood</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element maxOccurs="1" minOccurs="0" name="teade" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title>Teade</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+
 			<!-- =================================== tervishoiuametileOppeasutused =================================== -->
 			<element name="tervishoiuametileOppeasutused">
 				<complexType>
@@ -8811,6 +11126,140 @@
 						<annotation>
 							<appinfo>
 								<xroad:title xml:lang="et">EHISe õppekava nimetus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="oasEhisKood" type="positiveInteger">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">EHISe õppeasutuse kood</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+
+			<!-- ===================================oppuridKutseeksamiks =================================== -->
+			<element name="oppuridKutseeksamiks">
+				<complexType>
+					<sequence>
+						<element name="oasEhisKoodid" type="tns:oasEhisKoodidKutse"/>
+					</sequence>
+				</complexType>
+			</element>
+			<element name="oppuridKutseeksamiksResponse">
+				<complexType>
+					<sequence>
+						<element name="oppurid" type="tns:kutsekojaOppuridType"/>
+					</sequence>
+				</complexType>
+			</element>
+
+			<complexType name="oasEhisKoodidKutse">
+				<sequence>
+					<element maxOccurs="1000" minOccurs="1" name="oasEhisKood" type="positiveInteger">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">EHISe õppeasutuse kood</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+			<complexType name="kutsekojaOppuridType">
+				<sequence>
+					<element maxOccurs="unbounded" minOccurs="0" name="oppur" type="tns:kutsekojaOppur">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppur</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+			<complexType name="kutsekojaOppur">
+				<sequence>
+					<element name="isikId" type="positiveInteger">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Isiku ID</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="isikukood" nillable="true" type="tns:ehisIsikukoodSynniKp">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Isikukood</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="perenimi" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Perenimi</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="eesnimi" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Eesnimi</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="sugu" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Sugu</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="oppekavaKood" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">EHISe õppekava kood</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="oppekavaNimetus" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">EHISe õppekava nimetus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="kursus" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Kursus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="oppevormiKood" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppevormi kood</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="oppevormiNimetus" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppevormi nimetus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="oppuriRahastamiseAllikaKood" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppuri rahastamise allika kood</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="oppuriRahastamiseAllikaNimetus" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppuri rahastamise allika nimetus</xroad:title>
 							</appinfo>
 						</annotation>
 					</element>
@@ -9166,6 +11615,13 @@
 						<annotation>
 							<appinfo>
 								<xroad:title xml:lang="et">Finantseerimise allikad</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="oppekohtId" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppekoha ID</xroad:title>
 							</appinfo>
 						</annotation>
 					</element>
@@ -9733,6 +12189,7 @@
 						<element maxOccurs="1" minOccurs="1" name="koolId" nillable="false" type="integer"/>
 						<element maxOccurs="1" minOccurs="0" name="innove" nillable="false" type="tns:iaInnove"/>
 						<element maxOccurs="1" minOccurs="0" name="ajalugu" nillable="false" type="tns:iaKirjed"/>
+						<element maxOccurs="1" minOccurs="0" name="eelnevOppimine" nillable="false" type="tns:iaOppimised"/>
 					</sequence>
 				</complexType>
 			</element>
@@ -9793,6 +12250,24 @@
 				</sequence>
 			</complexType>
 
+			<complexType name="iaOppimised">
+				<sequence>
+					<element maxOccurs="unbounded" minOccurs="0" name="oppimine" nillable="false" type="tns:iaOppimine"/>
+				</sequence>
+			</complexType>
+
+			<complexType name="iaOppimine">
+				<sequence>
+					<element maxOccurs="1" minOccurs="1" name="oppetase" nillable="false" type="string"/>
+					<element maxOccurs="1" minOccurs="1" name="oppeasutusNimi" nillable="false" type="string"/>
+					<element maxOccurs="1" minOccurs="1" name="oppeasutusId" nillable="false" type="integer"/>
+					<element maxOccurs="1" minOccurs="0" name="oppekava" nillable="false" type="string"/>
+					<element maxOccurs="1" minOccurs="0" name="klOppekava" nillable="false" type="string"/>
+					<element maxOccurs="1" minOccurs="0" name="klassiLiik" nillable="false" type="string"/>
+					<element maxOccurs="1" minOccurs="0" name="klKlassiLiik" nillable="false" type="string"/>
+				</sequence>
+			</complexType>
+
 			<!-- =================================== commonDefinitions =================================== -->
 			<simpleType name="ehisIsikukood">
 				<restriction base="string">
@@ -9821,7 +12296,7 @@
 
 			<simpleType name="ehisAttachmentFormat">
 				<restriction base="string">
-					<pattern value="(html|xml)"/>
+					<pattern value="(html|xml|bdoc)"/>
 				</restriction>
 			</simpleType>
 
@@ -10365,6 +12840,13 @@
 							</appinfo>
 						</annotation>
 					</enumeration>
+					<enumeration value="REG_ELUKAASLANE">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Reg. elukaaslane</xroad:title>
+							</appinfo>
+						</annotation>
+					</enumeration>
 					<enumeration value="LAPS">
 						<annotation>
 							<appinfo>
@@ -10374,6 +12856,62 @@
 					</enumeration>
 				</restriction>
 			</simpleType>
+
+			<!-- polOppur -->
+
+			<complexType name="alushOppetoo">
+				<sequence>
+					<element name="oppeasutuseNimetus" nillable="true" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppeasutuse nimetus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="oppeasutuseKood" nillable="true" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppeasutuse kood</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="oppimiseId" nillable="true" type="integer">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppimise id</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="oppimaKp" nillable="true" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Kooli õppima asumise kuupäev</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="oppekeel" nillable="true" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppekeel (Nimetus)</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="lopetKp" nillable="true" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Lõpeatmise/katkestamise kuupäev</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="ryhmaNimetus" nillable="true" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Lasteasutuse rühma nimi</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
 
 			<!-- polOppur & kodOppur -->
 			<complexType name="yldhOppetoo">
@@ -10389,6 +12927,13 @@
 						<annotation>
 							<appinfo>
 								<xroad:title xml:lang="et">Esimesse klassi astumise aasta</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="oppeaasta" nillable="true" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Oppeaasta</xroad:title>
 							</appinfo>
 						</annotation>
 					</element>
@@ -10518,6 +13063,41 @@
 							</appinfo>
 						</annotation>
 					</element>
+					<element name="muutusKp" nillable="true" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Muudatuse juriidiline kuupäev</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="oppekohtId" nillable="true" type="long">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppekoha id</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="lahkumiseKp" nillable="true" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Lõpeatmise/katkestamise kuupäev</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="onOppiv" nillable="true" type="tns:ehisBoolean">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õpib hetkel</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element maxOccurs="unbounded" minOccurs="0" name="pohjusetaPuudumised" nillable="true" type="tns:pohjusetaPuudumised">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Põhjuseta puudumised</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
 				</sequence>
 			</complexType>
 
@@ -10639,6 +13219,53 @@
 						<annotation>
 							<appinfo>
 								<xroad:title xml:lang="et">Omandab haridust kinnipidamisasutuses</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="muutusKp" nillable="true" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Muudatuse juriidiline kuupäev</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="oppekohtId" nillable="true" type="long">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppekoha id</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="lahkumiseKp" nillable="true" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Lõpeatmise/katkestamise kuupäev</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="onOppiv" nillable="true" type="tns:ehisBoolean">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õpib hetkel</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+
+			<complexType name="pohjusetaPuudumised">
+				<sequence>
+					<element name="veerand" nillable="true" type="integer">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Veerand</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="pohjusetaPuudumisteProtsent" nillable="true" type="float">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Põhjuseta puudumiste %</xroad:title>
 							</appinfo>
 						</annotation>
 					</element>
@@ -10913,34 +13540,6 @@
 		        </sequence>
 		    </complexType>
 
-		    <element name="mtsysTegevusnaitajateResponse">
-		        <complexType>
-		            <sequence>
-		                <element maxOccurs="1" minOccurs="0" name="aruandeId" type="integer">
-				        	<annotation>
-				         		<appinfo>
-				                	<xroad:title xml:lang="et">Aruande ID</xroad:title>
-				            	</appinfo>
-				        	</annotation>
-						</element>
-		                <element maxOccurs="1" minOccurs="0" name="infotekst" type="string">
-				        	<annotation>
-				         		<appinfo>
-				                	<xroad:title xml:lang="et">Infotekst</xroad:title>
-				            	</appinfo>
-				        	</annotation>
-						</element>
-		                <element maxOccurs="1" minOccurs="0" name="veatekst" type="string">
-				        	<annotation>
-				         		<appinfo>
-				                	<xroad:title xml:lang="et">Veakood</xroad:title>
-				            	</appinfo>
-				        	</annotation>
-						</element>
-		            </sequence>
-		        </complexType>
-		    </element>
-
 		    <complexType name="naitajad">
 		        <sequence>
 		            <element maxOccurs="unbounded" minOccurs="0" name="item" type="tns:tnItem">
@@ -11090,9 +13689,54 @@
 				</sequence>
 			</complexType>
 
+			<complexType name="saisPohiTunnistusedV2">
+				<sequence>
+					<element maxOccurs="unbounded" minOccurs="0" name="item" type="tns:saisTunnistusV2"/>
+				</sequence>
+			</complexType>
+			<complexType name="saisTunnistusV2">
+				<sequence>
+					<element name="oppeasutuseKood" nillable="true" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppeasutuse registreerimisnumber</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="oppeasutuseNimi" nillable="true" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppeasutuse nimetus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="tunnistuseNr" nillable="true" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Tunnistuse nr</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="kuup" nillable="true" type="date">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">tunnistuse väljastamise kuupäev</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="hinded" nillable="true" type="tns:saisPohiHindedV2"/>
+				</sequence>
+			</complexType>
+
 			<complexType name="saisPohiHinded">
 				<sequence>
 					<element maxOccurs="unbounded" minOccurs="0" name="item" type="tns:saisHinne"/>
+				</sequence>
+			</complexType>
+
+			<complexType name="saisPohiHindedV2">
+				<sequence>
+					<element maxOccurs="unbounded" minOccurs="0" name="item" type="tns:saisHinneV2"/>
 				</sequence>
 			</complexType>
 
@@ -11116,6 +13760,67 @@
 						<annotation>
 							<appinfo>
 								<xroad:title xml:lang="et">aine sooritamisel saadud hinne</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="hindamisskaala" nillable="true" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">aine hindamisskaala (maksimaalne punktide arv)</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="kohustuslik" nillable="true" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">kohustuslikkus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="tapsustusKood" nillable="true" type="integer">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">võõrkeele täpsustuse kood</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="tapsustus" nillable="true" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">võõrkeele täpsustus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+				</sequence>
+			</complexType>
+
+			<complexType name="saisHinneV2">
+				<sequence>
+					<element name="aineKood" nillable="true" type="integer">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">aine kood</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="aineNimi" nillable="true" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">aine nimi</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="aineHinne" nillable="true" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">aine sooritamisel saadud hinne</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element name="protsentHinne" nillable="true" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">aine sooritamisel saadud protsenthinne</xroad:title>
 							</appinfo>
 						</annotation>
 					</element>
@@ -11203,7 +13908,7 @@
 					<element name="tunnustuseKood" nillable="true" type="integer">
 						<annotation>
 							<appinfo>
-								<xroad:title xml:lang="et">kas lõpetas kuldmedali, hõbemedali või cum laude</xroad:title>
+								<xroad:title xml:lang="et">Kas lõpetas kuldmedali-2, hõbemedali-1 või kiitusega-3</xroad:title>
 							</appinfo>
 						</annotation>
 					</element>
@@ -11291,6 +13996,9 @@
 					<element maxOccurs="1" minOccurs="0" name="haridustase" nillable="false" type="string"/>
 					<element maxOccurs="1" minOccurs="0" name="muudatuseKpv" nillable="false" type="date"/>
 					<element maxOccurs="1" minOccurs="0" name="oppekeel" nillable="false" type="string"/>
+					<element maxOccurs="1" minOccurs="0" name="staatus" nillable="false" type="string"/>
+					<element maxOccurs="1" minOccurs="0" name="oppeasutus" nillable="false" type="string"/>
+					<element maxOccurs="1" minOccurs="0" name="oppeasutuseKood" nillable="false" type="string"/>
 				</sequence>
 			</complexType>
 
@@ -11307,7 +14015,29 @@
 
 			<complexType name="oisOppekavad">
 				<sequence>
-					<element maxOccurs="unbounded" minOccurs="1" name="oppekava" nillable="false" type="tns:oppekavaOis"/>
+					<element maxOccurs="unbounded" minOccurs="0" name="oppekava" nillable="false" type="tns:oppekavaOis"/>
+					<element maxOccurs="unbounded" minOccurs="0" name="oppekavaAktiivne" nillable="false" type="tns:oppekavaOisAktiivne"/>
+				</sequence>
+			</complexType>
+
+			<complexType name="oppekavaOisAktiivne">
+				<sequence>
+					<element maxOccurs="1" minOccurs="1" name="oppekavaKood" nillable="false" type="integer"/>
+					<element maxOccurs="1" minOccurs="0" name="vastuvott" nillable="false" type="string"/>
+					<element maxOccurs="1" minOccurs="0" name="opivaljundid" nillable="false">
+                        <simpleType>
+                            <restriction base="string">
+                                <maxLength value="4000"/>
+                            </restriction>
+                        </simpleType>
+                    </element>
+					<element maxOccurs="1" minOccurs="0" name="avaOkFailUrl" nillable="false">
+                        <simpleType>
+                            <restriction base="string">
+                                <maxLength value="2048"/>
+                            </restriction>
+                        </simpleType>
+                    </element>
 				</sequence>
 			</complexType>
 
@@ -11336,6 +14066,20 @@
 					<element maxOccurs="1" minOccurs="1" name="kutsestandardid" nillable="false" type="tns:oisKutsestandardid"/>
 					<element maxOccurs="1" minOccurs="1" name="failid" nillable="false" type="tns:oisFailid"/>
 					<element maxOccurs="1" minOccurs="0" name="kommentaar" nillable="false" type="string"/>
+					<element maxOccurs="1" minOccurs="0" name="opivaljundid" nillable="false">
+						<simpleType>
+							<restriction base="string">
+								<maxLength value="4000"/>
+							</restriction>
+						</simpleType>
+					</element>
+					<element maxOccurs="1" minOccurs="0" name="avaOkFailUrl" nillable="false">
+						<simpleType>
+							<restriction base="string">
+								<maxLength value="2048"/>
+							</restriction>
+						</simpleType>
+					</element>
 				</sequence>
 			</complexType>
 
@@ -11347,7 +14091,8 @@
 
 			<complexType name="oisOKSpetsialiseerumised">
 				<sequence>
-					<element maxOccurs="unbounded" minOccurs="1" name="okSpetsialiseerumiseKood" nillable="false" type="string"/>
+					<element maxOccurs="unbounded" minOccurs="0" name="okSpetsialiseerumiseKood" nillable="false" type="string"/>
+					<element maxOccurs="unbounded" minOccurs="0" name="okSpetsialiseerumiseNimetus" nillable="false" type="string"/>
 				</sequence>
 			</complexType>
 
@@ -11369,8 +14114,8 @@
 
 			<complexType name="oisValisOAS">
 				<sequence>
-					<element maxOccurs="1" minOccurs="1" name="valisOASKood" nillable="false" type="string"/>
-					<element maxOccurs="1" minOccurs="0" name="valisOASNimetus" nillable="false" type="string"/>
+					<element maxOccurs="1" minOccurs="0" name="valisOASKood" nillable="false" type="string"/>
+					<element maxOccurs="1" minOccurs="1" name="valisOASNimetus" nillable="false" type="string"/>
 				</sequence>
 			</complexType>
 
@@ -11494,6 +14239,7 @@
 					<element maxOccurs="1" minOccurs="0" name="oppekavaStaatus" nillable="false" type="string"/>
 					<element maxOccurs="1" minOccurs="1" name="teade" nillable="false" type="string"/>
 					<element maxOccurs="1" minOccurs="1" name="veakood" nillable="false" type="integer"/>
+					<element maxOccurs="1" minOccurs="0" name="kommentaar" nillable="false" type="string"/>
 				</sequence>
 			</complexType>
 
@@ -11559,12 +14305,26 @@
         <part element="tns:vpTaotlusSissetulekudResponse" name="body"/>
     </message>
 
+	<message name="vpTaotlusSissetulekudV2">
+		<part element="tns:vpTaotlusSissetulekudV2" name="body"/>
+	</message>
+	<message name="vpTaotlusSissetulekudV2Response">
+		<part element="tns:vpTaotlusSissetulekudV2Response" name="body"/>
+	</message>
+
     <message name="vpTaotlusKontakt">
         <part element="tns:vpTaotlusKontakt" name="body"/>
     </message>
     <message name="vpTaotlusKontaktResponse">
         <part element="tns:vpTaotlusKontaktResponse" name="body"/>
     </message>
+
+	<message name="vpTaotlusKontaktV2">
+		<part element="tns:vpTaotlusKontaktV2" name="body"/>
+	</message>
+	<message name="vpTaotlusKontaktV2Response">
+		<part element="tns:vpTaotlusKontaktV2Response" name="body"/>
+	</message>
 
     <message name="vpTaotlusEsitamine">
         <part element="tns:vpTaotlusEsitamine" name="body"/>
@@ -11579,6 +14339,13 @@
     <message name="vpTaotlusDokumentResponse">
         <part element="tns:vpTaotlusDokumentResponse" name="body"/>
     </message>
+
+	<message name="vpTaotlusDokumentV2">
+		<part element="tns:vpTaotlusDokumentV2" name="body"/>
+	</message>
+	<message name="vpTaotlusDokumentV2Response">
+		<part element="tns:vpTaotlusDokumentV2Response" name="body"/>
+	</message>
 
     <message name="eeIsikukaart">
         <part element="tns:eeIsikukaart" name="body"/>
@@ -11600,6 +14367,13 @@
     <message name="idpilet2Response">
         <part element="tns:idpilet2Response" name="body"/>
     </message>
+
+	<message name="volis">
+		<part element="tns:volis" name="body"/>
+	</message>
+	<message name="volisResponse">
+		<part element="tns:volisResponse" name="body"/>
+	</message>
 
     <message name="isikuRollid">
         <part element="tns:isikuRollid" name="body"/>
@@ -11628,6 +14402,13 @@
     <message name="kmaLopetanudResponse">
         <part element="tns:kmaLopetanudResponse" name="body"/>
     </message>
+
+	<message name="kmaEhis">
+		<part element="tns:kmaEhis" name="body"/>
+	</message>
+	<message name="kmaEhisResponse">
+		<part element="tns:kmaEhisResponse" name="body"/>
+	</message>
 
     <message name="kodOppur">
         <part element="tns:kodOppur" name="body"/>
@@ -11661,14 +14442,14 @@
         <part element="tns:kvkLopetatud" name="body"/>
     </message>
     <message name="kvkLopetatudResponse">
-        <part element="tns:kvkResponse" name="body"/>
+        <part element="tns:kvkLopetatudResponse" name="body"/>
     </message>
 
     <message name="kvkOppimine">
         <part element="tns:kvkOppimine" name="body"/>
     </message>
     <message name="kvkOppimineResponse">
-        <part element="tns:kvkResponse" name="body"/>
+        <part element="tns:kvkOppimineResponse" name="body"/>
     </message>
 
     <message name="laeAlusharidusV2">
@@ -11801,14 +14582,14 @@
 		<part element="tns:mtsysLaeTegevusnaitajad" name="body"/>
 	</message>
 	<message name="mtsysLaeTegevusnaitajadResponse">
-		<part element="tns:mtsysTegevusnaitajateResponse" name="body"/>
+		<part element="tns:mtsysLaeTegevusnaitajadResponse" name="body"/>
 	</message>
 
 	<message name="mtsysEsitaTegevusnaitajad">
 		<part element="tns:mtsysEsitaTegevusnaitajad" name="body"/>
 	</message>
 	<message name="mtsysEsitaTegevusnaitajadResponse">
-		<part element="tns:mtsysTegevusnaitajateResponse" name="body"/>
+		<part element="tns:mtsysEsitaTegevusnaitajadResponse" name="body"/>
 	</message>
 
     <message name="oppeasutusedKovPortaali">
@@ -11825,6 +14606,13 @@
         <part element="tns:oppuridResponse" name="body"/>
     </message>
 
+	<message name="oppuridV2">
+		<part element="tns:oppuridV2" name="body"/>
+	</message>
+	<message name="oppuridV2Response">
+		<part element="tns:oppuridV2Response" name="body"/>
+	</message>
+
     <message name="oppuridKovPortaali">
         <part element="tns:oppuridKovPortaali" name="body"/>
     </message>
@@ -11832,12 +14620,26 @@
         <part element="tns:oppuridKovPortaaliResponse" name="body"/>
     </message>
 
+	<message name="oppuridKovPortaaliV2">
+		<part element="tns:oppuridKovPortaaliV2" name="body"/>
+	</message>
+	<message name="oppuridKovPortaaliV2Response">
+		<part element="tns:oppuridKovPortaaliV2Response" name="body"/>
+	</message>
+
     <message name="pankOppurLaenList">
         <part element="tns:pankOppurLaenList" name="body"/>
     </message>
     <message name="pankOppurLaenListResponse">
         <part element="tns:pankOppurLaenListResponse" name="body"/>
     </message>
+
+	<message name="pankOppurLaenListV2">
+		<part element="tns:pankOppurLaenListV2" name="body"/>
+	</message>
+	<message name="pankOppurLaenListV2Response">
+		<part element="tns:pankOppurLaenListV2Response" name="body"/>
+	</message>
 
     <message name="pankOppelaenTase">
         <part element="tns:pankOppelaenTase" name="body"/>
@@ -11852,6 +14654,12 @@
     <message name="pedagoogAmetikohtResponse">
         <part element="tns:pedagoogAmetikohtResponse" name="body"/>
     </message>
+	<message name="pedagoogAmetikohtV2">
+		<part element="tns:pedagoogAmetikohtV2" name="body"/>
+	</message>
+	<message name="pedagoogAmetikohtV2Response">
+		<part element="tns:pedagoogAmetikohtV2Response" name="body"/>
+	</message>
 
     <message name="polOppur">
         <part element="tns:polOppur" name="body"/>
@@ -11870,8 +14678,8 @@
 	<message name="saisEhisOppeasutusV2">
 		<part element="tns:saisEhisOppeasutusV2" name="body"/>
 	</message>
-	<message name="saisEhisOppeasutusResponseV2">
-		<part element="tns:saisEhisOppeasutusResponseV2" name="body"/>
+	<message name="saisEhisOppeasutusV2Response">
+		<part element="tns:saisEhisOppeasutusV2Response" name="body"/>
 	</message>
 
     <message name="saisHinded">
@@ -11902,6 +14710,13 @@
         <part element="tns:saisPohiResponse" name="body"/>
     </message>
 
+	<message name="saisPohiV2">
+		<part element="tns:saisPohiV2" name="body"/>
+	</message>
+	<message name="saisPohiV2Response">
+		<part element="tns:saisPohiV2Response" name="body"/>
+	</message>
+
     <message name="saisYldh">
         <part element="tns:saisYldh" name="body"/>
     </message>
@@ -11916,7 +14731,14 @@
         <part element="tns:sotsList1Response" name="body"/>
     </message>
 
-    <message name="sotsList2">
+	<message name="sotsList1V2">
+		<part element="tns:sotsList1V2" name="body"/>
+	</message>
+	<message name="sotsList1V2Response">
+		<part element="tns:sotsList1V2Response" name="body"/>
+	</message>
+
+	<message name="sotsList2">
         <part element="tns:sotsList2" name="body"/>
     </message>
     <message name="sotsList2Response">
@@ -11958,6 +14780,13 @@
         <part element="tns:tallhaOppimineListResponse" name="body"/>
     </message>
 
+	<message name="tallhaOppimineListV2">
+		<part element="tns:tallhaOppimineListV2" name="body"/>
+	</message>
+	<message name="tallhaOppimineListV2Response">
+		<part element="tns:tallhaOppimineListV2Response" name="body"/>
+	</message>
+
     <message name="tervishoiuametileOppeasutused">
         <part element="tns:tervishoiuametileOppeasutused" name="body"/>
     </message>
@@ -11971,6 +14800,13 @@
     <message name="tervishoiuametileOppuridResponse">
         <part element="tns:tervishoiuametileOppuridResponse" name="body"/>
     </message>
+
+	<message name="oppuridKutseeksamiks">
+		<part element="tns:oppuridKutseeksamiks" name="body"/>
+	</message>
+	<message name="oppuridKutseeksamiksResponse">
+		<part element="tns:oppuridKutseeksamiksResponse" name="body"/>
+	</message>
 
 	<message name="tootukassaleKehtivad">
 		<part element="tns:tootukassaleKehtivad" name="body"/>
@@ -12062,12 +14898,12 @@
 
     <!--============================================== PORT TYPE ==============================================-->
     <portType name="ehisPortType">
-<!--	
+<!--
         <operation name="listMethods">
             <input name="listMethods" message="tns:listMethods" />
             <output name="listMethodsResponse" message="tns:listMethodsResponse" />
         </operation>
--->		
+-->
         <operation name="adsTeenus">
             <documentation>
                 <xroad:title>ADS teenus</xroad:title>
@@ -12110,6 +14946,13 @@
             <input message="tns:idpilet2" name="idpilet2"/>
             <output message="tns:idpilet2Response" name="idpilet2Response"/>
         </operation>
+		<operation name="volis">
+			<documentation>
+				<xroad:title>Õppimise andmed</xroad:title>
+			</documentation>
+			<input message="tns:volis" name="volis"/>
+			<output message="tns:volisResponse" name="volisResponse"/>
+		</operation>
         <operation name="isikuRollid">
         	<documentation>
 				<xroad:title>Isikute õppimised ja töötamised E-koolikotile</xroad:title>
@@ -12138,6 +14981,13 @@
             <input message="tns:kmaLopetanud" name="kmaLopetanud"/>
             <output message="tns:kmaLopetanudResponse" name="kmaLopetanudResponse"/>
         </operation>
+		<operation name="kmaEhis">
+			<documentation>
+				<xroad:title>Õppimise andmed KMAle</xroad:title>
+			</documentation>
+			<input message="tns:kmaEhis" name="kmaEhis"/>
+			<output message="tns:kmaEhisResponse" name="kmaEhisResponse"/>
+		</operation>
         <operation name="kodOppur">
         	<documentation>
 				<xroad:title>Õppuri registriandmed</xroad:title>
@@ -12334,6 +15184,13 @@
             <input message="tns:oppurid" name="oppurid"/>
             <output message="tns:oppuridResponse" name="oppuridResponse"/>
         </operation>
+		<operation name="oppuridV2">
+			<documentation>
+				<xroad:title>Õppurite andmed v2 Eksamite Infosüsteemi</xroad:title>
+			</documentation>
+			<input message="tns:oppuridV2" name="oppuridV2"/>
+			<output message="tns:oppuridV2Response" name="oppuridV2Response"/>
+		</operation>
         <operation name="oppuridKovPortaali">
         	<documentation>
 				<xroad:title>Õppurite andmed kohalike omavalitsuste teenuste portaali</xroad:title>
@@ -12341,6 +15198,13 @@
             <input message="tns:oppuridKovPortaali" name="oppuridKovPortaali"/>
             <output message="tns:oppuridKovPortaaliResponse" name="oppuridKovPortaaliResponse"/>
         </operation>
+		<operation name="oppuridKovPortaaliV2">
+			<documentation>
+				<xroad:title>Õppurite andmed kohalike omavalitsuste teenuste portaali</xroad:title>
+			</documentation>
+			<input message="tns:oppuridKovPortaaliV2" name="oppuridKovPortaaliV2"/>
+			<output message="tns:oppuridKovPortaaliV2Response" name="oppuridKovPortaaliV2Response"/>
+		</operation>
         <operation name="pankOppurLaenList">
         	<documentation>
 				<xroad:title>Õppelaenu saamiseks õigustatud isikute nimekiri pangale</xroad:title>
@@ -12348,6 +15212,13 @@
             <input message="tns:pankOppurLaenList" name="pankOppurLaenList"/>
             <output message="tns:pankOppurLaenListResponse" name="pankOppurLaenListResponse"/>
         </operation>
+		<operation name="pankOppurLaenListV2">
+			<documentation>
+				<xroad:title>Õppelaenu saamiseks õigustatud isikute nimekiri pangale</xroad:title>
+			</documentation>
+			<input message="tns:pankOppurLaenListV2" name="pankOppurLaenListV2"/>
+			<output message="tns:pankOppurLaenListV2Response" name="pankOppurLaenListV2Response"/>
+		</operation>
         <operation name="pankOppelaenTase">
         	<documentation>
 				<xroad:title>Õppelaenu edastamine pangalt ministeeriumile</xroad:title>
@@ -12362,6 +15233,13 @@
             <input message="tns:pedagoogAmetikoht" name="pedagoogAmetikoht"/>
             <output message="tns:pedagoogAmetikohtResponse" name="pedagoogAmetikohtResponse"/>
         </operation>
+		<operation name="pedagoogAmetikohtV2">
+			<documentation>
+				<xroad:title>Pedagoogide andmed Eksamite Infosüsteemi</xroad:title>
+			</documentation>
+			<input message="tns:pedagoogAmetikohtV2" name="pedagoogAmetikohtV2"/>
+			<output message="tns:pedagoogAmetikohtV2Response" name="pedagoogAmetikohtV2Response"/>
+		</operation>
         <operation name="polOppur">
         	<documentation>
 				<xroad:title>Õppuri registriandmed Politseiametile</xroad:title>
@@ -12381,7 +15259,7 @@
 				<xroad:title>Õppeasutuste andmed V2</xroad:title>
 			</documentation>
 			<input message="tns:saisEhisOppeasutusV2" name="saisEhisOppeasutusV2"/>
-			<output message="tns:saisEhisOppeasutusResponseV2" name="saisEhisOppeasutusResponseV2"/>
+			<output message="tns:saisEhisOppeasutusV2Response" name="saisEhisOppeasutusV2Response"/>
 		</operation>
         <operation name="saisHinded">
         	<documentation>
@@ -12411,6 +15289,13 @@
             <input message="tns:saisPohi" name="saisPohi"/>
             <output message="tns:saisPohiResponse" name="saisPohiResponse"/>
         </operation>
+		<operation name="saisPohiV2">
+			<documentation>
+				<xroad:title>Põhihariduse andmed SAISile V2</xroad:title>
+			</documentation>
+			<input message="tns:saisPohiV2" name="saisPohiV2"/>
+			<output message="tns:saisPohiV2Response" name="saisPohiV2Response"/>
+		</operation>
         <operation name="saisYldh">
         	<documentation>
 				<xroad:title>Lõpetatud üldhariduskoolide nimekiri SAISile</xroad:title>
@@ -12425,6 +15310,13 @@
             <input message="tns:sotsList1" name="sotsList1"/>
             <output message="tns:sotsList1Response" name="sotsList1Response"/>
         </operation>
+		<operation name="sotsList1V2">
+			<documentation>
+				<xroad:title>Õppurite andmed peretoetuste jaoks (nimekiri)</xroad:title>
+			</documentation>
+			<input message="tns:sotsList1V2" name="sotsList1V2"/>
+			<output message="tns:sotsList1V2Response" name="sotsList1V2Response"/>
+		</operation>
         <operation name="sotsList2">
         	<documentation>
 				<xroad:title>Õppurite andmed toitjakaotuspensionide jaoks (nimekiri)</xroad:title>
@@ -12467,7 +15359,14 @@
             <input message="tns:tallhaOppimineList" name="tallhaOppimineList"/>
             <output message="tns:tallhaOppimineListResponse" name="tallhaOppimineListResponse"/>
         </operation>
-        <operation name="tervishoiuametileOppeasutused">
+		<operation name="tallhaOppimineListV2">
+			<documentation>
+				<xroad:title>Tallinna linna koolitoetuse teenus V2</xroad:title>
+			</documentation>
+			<input message="tns:tallhaOppimineListV2" name="tallhaOppimineListV2"/>
+			<output message="tns:tallhaOppimineListV2Response" name="tallhaOppimineListV2Response"/>
+		</operation>
+		<operation name="tervishoiuametileOppeasutused">
         	<documentation>
 				<xroad:title>Õppeasutuste päring Tervishoiuametile</xroad:title>
 			</documentation>
@@ -12481,6 +15380,13 @@
             <input message="tns:tervishoiuametileOppurid" name="tervishoiuametileOppurid"/>
             <output message="tns:tervishoiuametileOppuridResponse" name="tervishoiuametileOppuridResponse"/>
         </operation>
+		<operation name="oppuridKutseeksamiks">
+			<documentation>
+				<xroad:title>Õppurid kutseeksamiks</xroad:title>
+			</documentation>
+			<input message="tns:oppuridKutseeksamiks" name="oppuridKutseeksamiks"/>
+			<output message="tns:oppuridKutseeksamiksResponse" name="oppuridKutseeksamiksResponse"/>
+		</operation>
 		<operation name="tootukassaleKehtivad">
 			<documentation>
 				<xroad:title>Õppurite päring Töötukassale</xroad:title>
@@ -12537,6 +15443,13 @@
             <input message="tns:vpTaotlusSissetulekud" name="vpTaotlusSissetulekud"/>
             <output message="tns:vpTaotlusSissetulekudResponse" name="vpTaotlusSissetulekudResponse"/>
         </operation>
+		<operation name="vpTaotlusSissetulekudV2">
+			<documentation>
+				<xroad:title>Vajaduspõhise õppetoetuse taotlus</xroad:title>
+			</documentation>
+			<input message="tns:vpTaotlusSissetulekudV2" name="vpTaotlusSissetulekudV2"/>
+			<output message="tns:vpTaotlusSissetulekudV2Response" name="vpTaotlusSissetulekudV2Response"/>
+		</operation>
         <operation name="vpTaotlusKontakt">
         	<documentation>
 				<xroad:title>Vajaduspõhise õppetoetuse taotlus</xroad:title>
@@ -12544,6 +15457,13 @@
             <input message="tns:vpTaotlusKontakt" name="vpTaotlusKontakt"/>
             <output message="tns:vpTaotlusKontaktResponse" name="vpTaotlusKontaktResponse"/>
         </operation>
+		<operation name="vpTaotlusKontaktV2">
+			<documentation>
+				<xroad:title>Vajaduspõhise õppetoetuse taotlus</xroad:title>
+			</documentation>
+			<input message="tns:vpTaotlusKontaktV2" name="vpTaotlusKontaktV2"/>
+			<output message="tns:vpTaotlusKontaktV2Response" name="vpTaotlusKontaktV2Response"/>
+		</operation>
         <operation name="vpTaotlusEsitamine">
         	<documentation>
 				<xroad:title>Vajaduspõhise õppetoetuse taotlus</xroad:title>
@@ -12558,6 +15478,13 @@
             <input message="tns:vpTaotlusDokument" name="vpTaotlusDokument"/>
             <output message="tns:vpTaotlusDokumentResponse" name="vpTaotlusDokumentResponse"/>
         </operation>
+		<operation name="vpTaotlusDokumentV2">
+			<documentation>
+				<xroad:title>Vajaduspõhise õppetoetuse taotlus</xroad:title>
+			</documentation>
+			<input message="tns:vpTaotlusDokumentV2" name="vpTaotlusDokumentV2"/>
+			<output message="tns:vpTaotlusDokumentV2Response" name="vpTaotlusDokumentV2Response"/>
+		</operation>
         <operation name="eeIsikukaart">
         	<documentation>
 				<xroad:title>Isikukaart</xroad:title>
@@ -12617,7 +15544,7 @@
     <!--============================================== BINDING ==============================================-->
     <binding name="ehisBinding" type="tns:ehisPortType">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-<!--		
+<!--
         <operation name="listMethods">
             <soap:operation soapAction="" />
             <xroad:version>v1</xroad:version>
@@ -12644,7 +15571,7 @@
                 <soap:body use="literal" />
             </output>
         </operation>
--->		
+-->
         <operation name="adsTeenus">
             <soap:operation soapAction=""/>
             <xroad:version>v1</xroad:version>
@@ -12801,6 +15728,32 @@
                 <soap:body use="literal"/>
             </output>
         </operation>
+		<operation name="volis">
+			<soap:operation soapAction=""/>
+			<xroad:version>v1</xroad:version>
+			<input>
+				<soap:header message="tns:header" part="client" use="literal"/>
+				<soap:header message="tns:header" part="service" use="literal"/>
+				<soap:header message="tns:header" part="centralService" use="literal"/>
+				<soap:header message="tns:header" part="id" use="literal"/>
+				<soap:header message="tns:header" part="userId" use="literal"/>
+				<soap:header message="tns:header" part="requestHash" use="literal"/>
+				<soap:header message="tns:header" part="issue" use="literal"/>
+				<soap:header message="tns:header" part="protocolVersion" use="literal"/>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:header message="tns:header" part="client" use="literal"/>
+				<soap:header message="tns:header" part="service" use="literal"/>
+				<soap:header message="tns:header" part="centralService" use="literal"/>
+				<soap:header message="tns:header" part="id" use="literal"/>
+				<soap:header message="tns:header" part="userId" use="literal"/>
+				<soap:header message="tns:header" part="requestHash" use="literal"/>
+				<soap:header message="tns:header" part="issue" use="literal"/>
+				<soap:header message="tns:header" part="protocolVersion" use="literal"/>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
         <operation name="isikuRollid">
             <soap:operation soapAction=""/>
             <xroad:version>v1</xroad:version>
@@ -12905,6 +15858,32 @@
                 <soap:body use="literal"/>
             </output>
         </operation>
+		<operation name="kmaEhis">
+			<soap:operation soapAction=""/>
+			<xroad:version>v1</xroad:version>
+			<input>
+				<soap:header message="tns:header" part="client" use="literal"/>
+				<soap:header message="tns:header" part="service" use="literal"/>
+				<soap:header message="tns:header" part="centralService" use="literal"/>
+				<soap:header message="tns:header" part="id" use="literal"/>
+				<soap:header message="tns:header" part="userId" use="literal"/>
+				<soap:header message="tns:header" part="requestHash" use="literal"/>
+				<soap:header message="tns:header" part="issue" use="literal"/>
+				<soap:header message="tns:header" part="protocolVersion" use="literal"/>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:header message="tns:header" part="client" use="literal"/>
+				<soap:header message="tns:header" part="service" use="literal"/>
+				<soap:header message="tns:header" part="centralService" use="literal"/>
+				<soap:header message="tns:header" part="id" use="literal"/>
+				<soap:header message="tns:header" part="userId" use="literal"/>
+				<soap:header message="tns:header" part="requestHash" use="literal"/>
+				<soap:header message="tns:header" part="issue" use="literal"/>
+				<soap:header message="tns:header" part="protocolVersion" use="literal"/>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
         <operation name="kodOppur">
             <soap:operation soapAction=""/>
             <xroad:version>v1</xroad:version>
@@ -13633,6 +16612,32 @@
                 <soap:body use="literal"/>
             </output>
         </operation>
+		<operation name="oppuridV2">
+			<soap:operation soapAction=""/>
+			<xroad:version>v2</xroad:version>
+			<input>
+				<soap:header message="tns:header" part="client" use="literal"/>
+				<soap:header message="tns:header" part="service" use="literal"/>
+				<soap:header message="tns:header" part="centralService" use="literal"/>
+				<soap:header message="tns:header" part="id" use="literal"/>
+				<soap:header message="tns:header" part="userId" use="literal"/>
+				<soap:header message="tns:header" part="requestHash" use="literal"/>
+				<soap:header message="tns:header" part="issue" use="literal"/>
+				<soap:header message="tns:header" part="protocolVersion" use="literal"/>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:header message="tns:header" part="client" use="literal"/>
+				<soap:header message="tns:header" part="service" use="literal"/>
+				<soap:header message="tns:header" part="centralService" use="literal"/>
+				<soap:header message="tns:header" part="id" use="literal"/>
+				<soap:header message="tns:header" part="userId" use="literal"/>
+				<soap:header message="tns:header" part="requestHash" use="literal"/>
+				<soap:header message="tns:header" part="issue" use="literal"/>
+				<soap:header message="tns:header" part="protocolVersion" use="literal"/>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
         <operation name="oppuridKovPortaali">
             <soap:operation soapAction=""/>
             <xroad:version>v1</xroad:version>
@@ -13659,6 +16664,33 @@
                 <soap:body use="literal"/>
             </output>
         </operation>
+		<operation name="oppuridKovPortaaliV2">
+			<soap:operation soapAction=""/>
+			<xroad:version>v2</xroad:version>
+			<input>
+				<soap:header message="tns:header" part="client" use="literal"/>
+				<soap:header message="tns:header" part="service" use="literal"/>
+				<soap:header message="tns:header" part="representedParty" use="literal"/>
+				<soap:header message="tns:header" part="centralService" use="literal"/>
+				<soap:header message="tns:header" part="id" use="literal"/>
+				<soap:header message="tns:header" part="userId" use="literal"/>
+				<soap:header message="tns:header" part="requestHash" use="literal"/>
+				<soap:header message="tns:header" part="issue" use="literal"/>
+				<soap:header message="tns:header" part="protocolVersion" use="literal"/>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:header message="tns:header" part="client" use="literal"/>
+				<soap:header message="tns:header" part="service" use="literal"/>
+				<soap:header message="tns:header" part="centralService" use="literal"/>
+				<soap:header message="tns:header" part="id" use="literal"/>
+				<soap:header message="tns:header" part="userId" use="literal"/>
+				<soap:header message="tns:header" part="requestHash" use="literal"/>
+				<soap:header message="tns:header" part="issue" use="literal"/>
+				<soap:header message="tns:header" part="protocolVersion" use="literal"/>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
         <operation name="pankOppurLaenList">
             <soap:operation soapAction=""/>
             <xroad:version>v1</xroad:version>
@@ -13685,6 +16717,32 @@
                 <soap:body use="literal"/>
             </output>
         </operation>
+		<operation name="pankOppurLaenListV2">
+			<soap:operation soapAction=""/>
+			<xroad:version>v1</xroad:version>
+			<input>
+				<soap:header message="tns:header" part="client" use="literal"/>
+				<soap:header message="tns:header" part="service" use="literal"/>
+				<soap:header message="tns:header" part="centralService" use="literal"/>
+				<soap:header message="tns:header" part="id" use="literal"/>
+				<soap:header message="tns:header" part="userId" use="literal"/>
+				<soap:header message="tns:header" part="requestHash" use="literal"/>
+				<soap:header message="tns:header" part="issue" use="literal"/>
+				<soap:header message="tns:header" part="protocolVersion" use="literal"/>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:header message="tns:header" part="client" use="literal"/>
+				<soap:header message="tns:header" part="service" use="literal"/>
+				<soap:header message="tns:header" part="centralService" use="literal"/>
+				<soap:header message="tns:header" part="id" use="literal"/>
+				<soap:header message="tns:header" part="userId" use="literal"/>
+				<soap:header message="tns:header" part="requestHash" use="literal"/>
+				<soap:header message="tns:header" part="issue" use="literal"/>
+				<soap:header message="tns:header" part="protocolVersion" use="literal"/>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
         <operation name="pankOppelaenTase">
             <soap:operation soapAction=""/>
             <xroad:version>v1</xroad:version>
@@ -13737,7 +16795,33 @@
                 <soap:body use="literal"/>
             </output>
         </operation>
-        <operation name="polOppur">
+		<operation name="pedagoogAmetikohtV2">
+			<soap:operation soapAction=""/>
+			<xroad:version>v1</xroad:version>
+			<input>
+				<soap:header message="tns:header" part="client" use="literal"/>
+				<soap:header message="tns:header" part="service" use="literal"/>
+				<soap:header message="tns:header" part="centralService" use="literal"/>
+				<soap:header message="tns:header" part="id" use="literal"/>
+				<soap:header message="tns:header" part="userId" use="literal"/>
+				<soap:header message="tns:header" part="requestHash" use="literal"/>
+				<soap:header message="tns:header" part="issue" use="literal"/>
+				<soap:header message="tns:header" part="protocolVersion" use="literal"/>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:header message="tns:header" part="client" use="literal"/>
+				<soap:header message="tns:header" part="service" use="literal"/>
+				<soap:header message="tns:header" part="centralService" use="literal"/>
+				<soap:header message="tns:header" part="id" use="literal"/>
+				<soap:header message="tns:header" part="userId" use="literal"/>
+				<soap:header message="tns:header" part="requestHash" use="literal"/>
+				<soap:header message="tns:header" part="issue" use="literal"/>
+				<soap:header message="tns:header" part="protocolVersion" use="literal"/>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="polOppur">
             <soap:operation soapAction=""/>
             <xroad:version>v1</xroad:version>
             <input>
@@ -13919,6 +17003,32 @@
                 <soap:body use="literal"/>
             </output>
         </operation>
+		<operation name="saisPohiV2">
+			<soap:operation soapAction=""/>
+			<xroad:version>v2</xroad:version>
+			<input>
+				<soap:header message="tns:header" part="client" use="literal"/>
+				<soap:header message="tns:header" part="service" use="literal"/>
+				<soap:header message="tns:header" part="centralService" use="literal"/>
+				<soap:header message="tns:header" part="id" use="literal"/>
+				<soap:header message="tns:header" part="userId" use="literal"/>
+				<soap:header message="tns:header" part="requestHash" use="literal"/>
+				<soap:header message="tns:header" part="issue" use="literal"/>
+				<soap:header message="tns:header" part="protocolVersion" use="literal"/>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:header message="tns:header" part="client" use="literal"/>
+				<soap:header message="tns:header" part="service" use="literal"/>
+				<soap:header message="tns:header" part="centralService" use="literal"/>
+				<soap:header message="tns:header" part="id" use="literal"/>
+				<soap:header message="tns:header" part="userId" use="literal"/>
+				<soap:header message="tns:header" part="requestHash" use="literal"/>
+				<soap:header message="tns:header" part="issue" use="literal"/>
+				<soap:header message="tns:header" part="protocolVersion" use="literal"/>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
         <operation name="saisYldh">
             <soap:operation soapAction=""/>
             <xroad:version>v1</xroad:version>
@@ -13971,6 +17081,32 @@
                 <soap:body use="literal"/>
             </output>
         </operation>
+		<operation name="sotsList1V2">
+			<soap:operation soapAction=""/>
+			<xroad:version>v1</xroad:version>
+			<input>
+				<soap:header message="tns:header" part="client" use="literal"/>
+				<soap:header message="tns:header" part="service" use="literal"/>
+				<soap:header message="tns:header" part="centralService" use="literal"/>
+				<soap:header message="tns:header" part="id" use="literal"/>
+				<soap:header message="tns:header" part="userId" use="literal"/>
+				<soap:header message="tns:header" part="requestHash" use="literal"/>
+				<soap:header message="tns:header" part="issue" use="literal"/>
+				<soap:header message="tns:header" part="protocolVersion" use="literal"/>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:header message="tns:header" part="client" use="literal"/>
+				<soap:header message="tns:header" part="service" use="literal"/>
+				<soap:header message="tns:header" part="centralService" use="literal"/>
+				<soap:header message="tns:header" part="id" use="literal"/>
+				<soap:header message="tns:header" part="userId" use="literal"/>
+				<soap:header message="tns:header" part="requestHash" use="literal"/>
+				<soap:header message="tns:header" part="issue" use="literal"/>
+				<soap:header message="tns:header" part="protocolVersion" use="literal"/>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
         <operation name="sotsList2">
             <soap:operation soapAction=""/>
             <xroad:version>v1</xroad:version>
@@ -14127,6 +17263,32 @@
                 <soap:body use="literal"/>
             </output>
         </operation>
+		<operation name="tallhaOppimineListV2">
+			<soap:operation soapAction=""/>
+			<xroad:version>v1</xroad:version>
+			<input>
+				<soap:header message="tns:header" part="client" use="literal"/>
+				<soap:header message="tns:header" part="service" use="literal"/>
+				<soap:header message="tns:header" part="centralService" use="literal"/>
+				<soap:header message="tns:header" part="id" use="literal"/>
+				<soap:header message="tns:header" part="userId" use="literal"/>
+				<soap:header message="tns:header" part="requestHash" use="literal"/>
+				<soap:header message="tns:header" part="issue" use="literal"/>
+				<soap:header message="tns:header" part="protocolVersion" use="literal"/>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:header message="tns:header" part="client" use="literal"/>
+				<soap:header message="tns:header" part="service" use="literal"/>
+				<soap:header message="tns:header" part="centralService" use="literal"/>
+				<soap:header message="tns:header" part="id" use="literal"/>
+				<soap:header message="tns:header" part="userId" use="literal"/>
+				<soap:header message="tns:header" part="requestHash" use="literal"/>
+				<soap:header message="tns:header" part="issue" use="literal"/>
+				<soap:header message="tns:header" part="protocolVersion" use="literal"/>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
         <operation name="tervishoiuametileOppeasutused">
             <soap:operation soapAction=""/>
             <xroad:version>v1</xroad:version>
@@ -14179,6 +17341,32 @@
                 <soap:body use="literal"/>
             </output>
         </operation>
+		<operation name="oppuridKutseeksamiks">
+			<soap:operation soapAction=""/>
+			<xroad:version>v1</xroad:version>
+			<input>
+				<soap:header message="tns:header" part="client" use="literal"/>
+				<soap:header message="tns:header" part="service" use="literal"/>
+				<soap:header message="tns:header" part="centralService" use="literal"/>
+				<soap:header message="tns:header" part="id" use="literal"/>
+				<soap:header message="tns:header" part="userId" use="literal"/>
+				<soap:header message="tns:header" part="requestHash" use="literal"/>
+				<soap:header message="tns:header" part="issue" use="literal"/>
+				<soap:header message="tns:header" part="protocolVersion" use="literal"/>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:header message="tns:header" part="client" use="literal"/>
+				<soap:header message="tns:header" part="service" use="literal"/>
+				<soap:header message="tns:header" part="centralService" use="literal"/>
+				<soap:header message="tns:header" part="id" use="literal"/>
+				<soap:header message="tns:header" part="userId" use="literal"/>
+				<soap:header message="tns:header" part="requestHash" use="literal"/>
+				<soap:header message="tns:header" part="issue" use="literal"/>
+				<soap:header message="tns:header" part="protocolVersion" use="literal"/>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
 		<operation name="tootukassaleKehtivad">
 			<soap:operation soapAction=""/>
 			<xroad:version>v1</xroad:version>
@@ -14387,6 +17575,32 @@
                 <soap:body use="literal"/>
             </output>
         </operation>
+		<operation name="vpTaotlusSissetulekudV2">
+			<soap:operation soapAction=""/>
+			<xroad:version>v1</xroad:version>
+			<input>
+				<soap:header message="tns:header" part="client" use="literal"/>
+				<soap:header message="tns:header" part="service" use="literal"/>
+				<soap:header message="tns:header" part="centralService" use="literal"/>
+				<soap:header message="tns:header" part="id" use="literal"/>
+				<soap:header message="tns:header" part="userId" use="literal"/>
+				<soap:header message="tns:header" part="requestHash" use="literal"/>
+				<soap:header message="tns:header" part="issue" use="literal"/>
+				<soap:header message="tns:header" part="protocolVersion" use="literal"/>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:header message="tns:header" part="client" use="literal"/>
+				<soap:header message="tns:header" part="service" use="literal"/>
+				<soap:header message="tns:header" part="centralService" use="literal"/>
+				<soap:header message="tns:header" part="id" use="literal"/>
+				<soap:header message="tns:header" part="userId" use="literal"/>
+				<soap:header message="tns:header" part="requestHash" use="literal"/>
+				<soap:header message="tns:header" part="issue" use="literal"/>
+				<soap:header message="tns:header" part="protocolVersion" use="literal"/>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
         <operation name="vpTaotlusKontakt">
             <soap:operation soapAction=""/>
             <xroad:version>v1</xroad:version>
@@ -14413,6 +17627,32 @@
                 <soap:body use="literal"/>
             </output>
         </operation>
+		<operation name="vpTaotlusKontaktV2">
+			<soap:operation soapAction=""/>
+			<xroad:version>v1</xroad:version>
+			<input>
+				<soap:header message="tns:header" part="client" use="literal"/>
+				<soap:header message="tns:header" part="service" use="literal"/>
+				<soap:header message="tns:header" part="centralService" use="literal"/>
+				<soap:header message="tns:header" part="id" use="literal"/>
+				<soap:header message="tns:header" part="userId" use="literal"/>
+				<soap:header message="tns:header" part="requestHash" use="literal"/>
+				<soap:header message="tns:header" part="issue" use="literal"/>
+				<soap:header message="tns:header" part="protocolVersion" use="literal"/>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:header message="tns:header" part="client" use="literal"/>
+				<soap:header message="tns:header" part="service" use="literal"/>
+				<soap:header message="tns:header" part="centralService" use="literal"/>
+				<soap:header message="tns:header" part="id" use="literal"/>
+				<soap:header message="tns:header" part="userId" use="literal"/>
+				<soap:header message="tns:header" part="requestHash" use="literal"/>
+				<soap:header message="tns:header" part="issue" use="literal"/>
+				<soap:header message="tns:header" part="protocolVersion" use="literal"/>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
         <operation name="vpTaotlusEsitamine">
             <soap:operation soapAction=""/>
             <xroad:version>v1</xroad:version>
@@ -14465,6 +17705,32 @@
                 <soap:body use="literal"/>
             </output>
         </operation>
+		<operation name="vpTaotlusDokumentV2">
+			<soap:operation soapAction=""/>
+			<xroad:version>v1</xroad:version>
+			<input>
+				<soap:header message="tns:header" part="client" use="literal"/>
+				<soap:header message="tns:header" part="service" use="literal"/>
+				<soap:header message="tns:header" part="centralService" use="literal"/>
+				<soap:header message="tns:header" part="id" use="literal"/>
+				<soap:header message="tns:header" part="userId" use="literal"/>
+				<soap:header message="tns:header" part="requestHash" use="literal"/>
+				<soap:header message="tns:header" part="issue" use="literal"/>
+				<soap:header message="tns:header" part="protocolVersion" use="literal"/>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:header message="tns:header" part="client" use="literal"/>
+				<soap:header message="tns:header" part="service" use="literal"/>
+				<soap:header message="tns:header" part="centralService" use="literal"/>
+				<soap:header message="tns:header" part="id" use="literal"/>
+				<soap:header message="tns:header" part="userId" use="literal"/>
+				<soap:header message="tns:header" part="requestHash" use="literal"/>
+				<soap:header message="tns:header" part="issue" use="literal"/>
+				<soap:header message="tns:header" part="protocolVersion" use="literal"/>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
         <operation name="eeIsikukaart">
             <soap:operation soapAction=""/>
             <xroad:version>v1</xroad:version>
@@ -14657,7 +17923,7 @@
     <!--============================================== SERVICE ==============================================-->
     <service name="ehisService">
         <port binding="tns:ehisBinding" name="ehisPort">
-            <soap:address location="http://enda.ehis.ee:8080/cgi-bin/consumer_proxy"/>
+            <soap:address location="http://example.org/xroad-endpoint"/>
         </port>
     </service>
 

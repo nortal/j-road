@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:sch="http://producers.emkis.xtee.riik.ee/producer/emkis"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://emkis.x-road.eu"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xrd="http://x-road.eu/xsd/xroad.xsd"
+	targetNamespace="http://emkis.x-road.eu">
+	<wsdl:types>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema"
+			xmlns:tns="http://producers.emkis.xtee.riik.ee/producer/emkis"
+			elementFormDefault="qualified"
+			targetNamespace="http://producers.emkis.xtee.riik.ee/producer/emkis">
+			<import namespace="http://x-road.eu/xsd/xroad.xsd"
+				schemaLocation="http://x-road.eu/xsd/xroad.xsd" />
+
+			<complexType name="NaturaApplicationSearchRequest">
+				<sequence maxOccurs="1" minOccurs="1">
+					<element maxOccurs="1" minOccurs="1" name="AndmedAlates"
+						type="dateTime" />
+					<element maxOccurs="1" minOccurs="0" name="TaotluseId"
+						type="long" />
+				</sequence>
+			</complexType>
+
+			<complexType name="NaturaApplicationSearchResponse">
+				<sequence maxOccurs="1" minOccurs="1">
+					<element maxOccurs="1" minOccurs="0" name="veaKood" type="int" />
+					<element maxOccurs="1" minOccurs="0" name="veaKirjeldus"
+						type="string" />
+					<element maxOccurs="1" minOccurs="0" name="andmedKuni"
+						type="dateTime" />
+					<element maxOccurs="1" minOccurs="0" name="limiit" type="boolean" />
+					<element maxOccurs="unbounded" minOccurs="0" name="taotlus"
+						type="tns:NaturaApplicationDTO" />
+				</sequence>
+			</complexType>
+
+			<element name="NaturaApplicationSearchRequest" type="tns:NaturaApplicationSearchRequest" />
+
+			<element name="NaturaApplicationSearchResponse" type="tns:NaturaApplicationSearchResponse" />
+
+			<complexType name="NaturaApplicationDTO">
+				<sequence maxOccurs="1" minOccurs="0">
+					<element maxOccurs="1" minOccurs="1" name="id" type="long" />
+					<element maxOccurs="1" minOccurs="1" name="number" type="string" />
+					<element maxOccurs="1" minOccurs="0" name="klrId" type="long" />
+					<element maxOccurs="1" minOccurs="1" name="taotlusvoor"
+						type="date" />
+					<element maxOccurs="1" minOccurs="0" name="annulleerimiseKpv"
+						type="date" />
+					<element maxOccurs="1" minOccurs="0" name="kustutamiseKpv"
+						type="date" />
+					<element maxOccurs="1" minOccurs="1" name="toetusSumma"
+						type="decimal" />
+					<element maxOccurs="1" minOccurs="1" name="staatus" type="string" />
+					<element maxOccurs="unbounded" minOccurs="0" name="toetuseObj"
+						type="tns:NaturaSubsidyObjectDTO" />
+					<element maxOccurs="unbounded" minOccurs="0" name="kaasOmanik"
+						type="tns:NaturaApplicationClientDTO" />
+				</sequence>
+			</complexType>
+
+			<complexType name="NaturaSubsidyObjectDTO">
+				<sequence maxOccurs="1" minOccurs="1">
+					<element maxOccurs="1" minOccurs="0" name="objektiNr" type="string" />
+					<element maxOccurs="1" minOccurs="0" name="katastriNr"
+						type="string" />
+					<element maxOccurs="1" minOccurs="0" name="metsaalaNr"
+						type="string" />
+					<element maxOccurs="1" minOccurs="0" name="pindalaSKV"
+						type="decimal" />
+					<element maxOccurs="1" minOccurs="0" name="pindalaPV" type="decimal" />
+				</sequence>
+			</complexType>
+
+			<complexType name="NaturaApplicationClientDTO">
+				<sequence maxOccurs="1" minOccurs="1">
+					<element maxOccurs="1" minOccurs="0" name="nimi" type="string" />
+					<element maxOccurs="1" minOccurs="0" name="kood" type="string" />
+					<element maxOccurs="1" minOccurs="0" name="klrId" type="long" />
+					<element maxOccurs="1" minOccurs="0" name="onPolluMaad"
+						type="string" />
+				</sequence>
+			</complexType>
+
+		</schema>
+	</wsdl:types>
+	<wsdl:message name="NaturaApplicationSearchRequest">
+		<wsdl:part element="sch:NaturaApplicationSearchRequest"
+			name="NaturaApplicationSearchRequest" />
+	</wsdl:message>
+	<wsdl:message name="requestheader">
+		<wsdl:part element="xrd:client" name="client" />
+		<wsdl:part element="xrd:service" name="service" />
+		<wsdl:part element="xrd:id" name="id" />
+		<wsdl:part element="xrd:userId" name="userId" />
+		<wsdl:part element="xrd:protocolVersion" name="protocolVersion" />
+	</wsdl:message>
+	<wsdl:message name="NaturaApplicationSearchResponse">
+		<wsdl:part element="sch:NaturaApplicationSearchResponse"
+			name="NaturaApplicationSearchResponse" />
+	</wsdl:message>
+	<wsdl:portType name="xtee-natura">
+		<wsdl:operation name="NaturaApplicationSearch">
+			<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+				<xrd:title xmlns:xrd="http://x-road.eu/xsd/xroad.xsd">NaturaApplicationSearch</xrd:title>
+			</wsdl:documentation>
+			<wsdl:input message="tns:NaturaApplicationSearchRequest"
+				name="NaturaApplicationSearchRequest" />
+			<wsdl:output message="tns:NaturaApplicationSearchResponse"
+				name="NaturaApplicationSearchResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="xtee-naturaSoap11" type="tns:xtee-natura">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="NaturaApplicationSearch">
+			<soap:operation soapAction="" />
+			<xrd:version>v1</xrd:version>
+			<wsdl:input name="NaturaApplicationSearchRequest">
+				<soap:header message="tns:requestheader" namespace="http://x-road.eu/xsd/xroad.xsd"
+					part="client" use="literal">
+				</soap:header>
+				<soap:header message="tns:requestheader" namespace="http://x-road.eu/xsd/xroad.xsd"
+					part="service" use="literal">
+				</soap:header>
+				<soap:header message="tns:requestheader" namespace="http://x-road.eu/xsd/xroad.xsd"
+					part="userId" use="literal">
+				</soap:header>
+				<soap:header message="tns:requestheader" namespace="http://x-road.eu/xsd/xroad.xsd"
+					part="id" use="literal">
+				</soap:header>
+				<soap:header message="tns:requestheader" namespace="http://x-road.eu/xsd/xroad.xsd"
+					part="protocolVersion" use="literal">
+				</soap:header>
+				<soap:body namespace="http://emkis.x-road.eu" use="literal" />
+			</wsdl:input>
+			<wsdl:output name="NaturaApplicationSearchResponse">
+				<soap:header message="tns:requestheader" namespace="http://x-road.eu/xsd/xroad.xsd"
+					part="client" use="literal">
+				</soap:header>
+				<soap:header message="tns:requestheader" namespace="http://x-road.eu/xsd/xroad.xsd"
+					part="service" use="literal">
+				</soap:header>
+				<soap:header message="tns:requestheader" namespace="http://x-road.eu/xsd/xroad.xsd"
+					part="userId" use="literal">
+				</soap:header>
+				<soap:header message="tns:requestheader" namespace="http://x-road.eu/xsd/xroad.xsd"
+					part="id" use="literal">
+				</soap:header>
+				<soap:header message="tns:requestheader" namespace="http://x-road.eu/xsd/xroad.xsd"
+					part="protocolVersion" use="literal">
+				</soap:header>
+				<soap:body namespace="http://emkis.x-road.eu" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="xtee-naturaService">
+		<wsdl:port binding="tns:xtee-naturaSoap11" name="xtee-naturaSoap11">
+			<soap:address location="http://SECURITY_SERVER/cgi-bin/consumer_proxy" />
+			<xrd:address producer="emkis" xmlns:xrd="http://x-road.eu/xsd/xroad.xsd" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

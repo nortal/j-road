@@ -7,12 +7,12 @@ import java.math.BigInteger;
 import java.util.Calendar;
 import java.util.Date;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
-import org.apache.commons.lang.time.DateFormatUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.stereotype.Service;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.liiklusregister.database.LiiklusregisterXRoadDatabase;
 import com.nortal.jroad.client.liiklusregister.types.eu.x_road.liiklusregister.MuuDokParing;
 import com.nortal.jroad.client.liiklusregister.types.eu.x_road.liiklusregister.MuuDokVastus;
@@ -38,13 +38,13 @@ public class LiiklusregisterXRoadServiceImpl implements LiiklusregisterXRoadServ
   @Resource
   private LiiklusregisterXRoadDatabase liiklusregisterXRoadDatabase;
 
-  public PolJuhtoigusVastus polJuhtoigus(String isikukood) throws XTeeServiceConsumptionException {
+  public PolJuhtoigusVastus polJuhtoigus(String isikukood) throws XRoadServiceConsumptionException {
     PolJuhtoigusParing paring = PolJuhtoigusParing.Factory.newInstance();
     paring.setIsikukood(isikukood);
     return liiklusregisterXRoadDatabase.polJuhtoigusV1(paring);
   }
 
-  public PolSoidukVastus findPolSoiduk(PolSoidukParingCallback callback) throws XTeeServiceConsumptionException {
+  public PolSoidukVastus findPolSoiduk(PolSoidukParingCallback callback) throws XRoadServiceConsumptionException {
 
     PolSoidukParing request = PolSoidukParing.Factory.newInstance();
     callback.populate(request);
@@ -53,7 +53,7 @@ public class LiiklusregisterXRoadServiceImpl implements LiiklusregisterXRoadServ
   }
 
   public PolJuhtoigusVastus findPolJuhtoigus(String isikukood, Long identifikaator)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
     PolJuhtoigusParing paring = PolJuhtoigusParing.Factory.newInstance();
 
     if (isikukood != null)
@@ -64,7 +64,7 @@ public class LiiklusregisterXRoadServiceImpl implements LiiklusregisterXRoadServ
     return liiklusregisterXRoadDatabase.polJuhtoigusV1(paring);
   }
 
-  public PolYlevVastus findPolYlev(Long identifikaator, String vin) throws XTeeServiceConsumptionException {
+  public PolYlevVastus findPolYlev(Long identifikaator, String vin) throws XRoadServiceConsumptionException {
     PolYlevParing paring = PolYlevParing.Factory.newInstance();
 
     if (identifikaator != null)
@@ -76,7 +76,7 @@ public class LiiklusregisterXRoadServiceImpl implements LiiklusregisterXRoadServ
   }
 
   public PolIsikudVastus findPolIsiku(String isikukood, String eesnimi, String perenimi, Date synniaeg)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
     PolIsikudParing paring = PolIsikudParing.Factory.newInstance();
 
     if (isikukood != null)
@@ -93,7 +93,7 @@ public class LiiklusregisterXRoadServiceImpl implements LiiklusregisterXRoadServ
   }
 
   public VlaevResponse findVLaevAndmed(String regNr, String hinKood, String omaKood, String omaNimi, String omaEesnimi)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
     VlaevRequest paring = VlaevRequest.Factory.newInstance();
     if (regNr != null)
       paring.setLaevaRegnr(regNr);
@@ -113,7 +113,7 @@ public class LiiklusregisterXRoadServiceImpl implements LiiklusregisterXRoadServ
   }
 
   public VlaevTunnVastus findVlaevTunnistused(String tunnistusNr, String isikukood, String eesnimi, String perenimi)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
     VlaevTunnParing paring = VlaevTunnParing.Factory.newInstance();
     if (tunnistusNr != null) {
       try {
@@ -134,7 +134,7 @@ public class LiiklusregisterXRoadServiceImpl implements LiiklusregisterXRoadServ
   }
 
   public MuuDokVastus findMuuDok(String eesnimi, String perenimi, String kood, String loaNr)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
     MuuDokParing paring = MuuDokParing.Factory.newInstance();
 
     paring.setEesnimi(eesnimi);
@@ -146,7 +146,7 @@ public class LiiklusregisterXRoadServiceImpl implements LiiklusregisterXRoadServ
   }
 
   @Override
-  public MuuDokV2Vastus findMuuDokV2(String eesnimi, String perenimi, String kood, String loaNr) throws XTeeServiceConsumptionException {
+  public MuuDokV2Vastus findMuuDokV2(String eesnimi, String perenimi, String kood, String loaNr) throws XRoadServiceConsumptionException {
     MuuDokParing paring = MuuDokParing.Factory.newInstance();
 
     paring.setEesnimi(eesnimi);
@@ -158,7 +158,7 @@ public class LiiklusregisterXRoadServiceImpl implements LiiklusregisterXRoadServ
   }
 
   public TootukassaParingResponse tootukassaParing(String isikukood, String taotluseNr, Date alates, Date kuni)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
     TootukassaParingRequest paring = TootukassaParingRequest.Factory.newInstance();
 
     paring.setKood(isikukood);

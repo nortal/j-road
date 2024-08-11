@@ -2,18 +2,18 @@ package com.nortal.jroad.client.etoimik;
 
 import com.nortal.jroad.client.etoimik.types.eu.x_road.etoimik.LeiaToovoimetuteKaristusedDocument;
 import com.nortal.jroad.client.etoimik.types.eu.x_road.etoimik.LeiaToovoimetuteKaristusedResponseDocument;
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.service.callback.CustomCallback;
-import com.nortal.jroad.client.service.v4.XRoadDatabaseService;
-import com.nortal.jroad.model.XTeeMessage;
-import com.nortal.jroad.model.XmlBeansXTeeMessage;
+import com.nortal.jroad.client.service.XRoadDatabaseService;
+import com.nortal.jroad.model.XRoadMessage;
+import com.nortal.jroad.model.XmlBeansXRoadMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.ws.WebServiceMessage;
 import org.springframework.ws.soap.saaj.SaajSoapMessage;
 
-import javax.xml.soap.SOAPEnvelope;
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPMessage;
+import jakarta.xml.soap.SOAPEnvelope;
+import jakarta.xml.soap.SOAPException;
+import jakarta.xml.soap.SOAPMessage;
 import javax.xml.transform.TransformerException;
 import java.io.IOException;
 
@@ -30,11 +30,11 @@ public class EtoimikXRoadServiceImpl extends XRoadDatabaseService implements Eto
     }
 
     public LeiaToovoimetuteKaristusedResponseDocument.LeiaToovoimetuteKaristusedResponse leiaToovoimetuteKaristused(LeiaToovoimetuteKaristusedDocument.LeiaToovoimetuteKaristused request)
-            throws XTeeServiceConsumptionException {
+            throws XRoadServiceConsumptionException {
         Etoimikv6Callback callback = new Etoimikv6Callback();
         callback.setName(request.getRequest().getKasutaja().getKoosnimi());
-        XTeeMessage<LeiaToovoimetuteKaristusedResponseDocument.LeiaToovoimetuteKaristusedResponse> karrVastus =
-                send(new XmlBeansXTeeMessage<LeiaToovoimetuteKaristusedDocument.LeiaToovoimetuteKaristused>(request),
+        XRoadMessage<LeiaToovoimetuteKaristusedResponseDocument.LeiaToovoimetuteKaristusedResponse> karrVastus =
+                send(new XmlBeansXRoadMessage<LeiaToovoimetuteKaristusedDocument.LeiaToovoimetuteKaristused>(request),
                         "LeiaToovoimetuteKaristused", "v5", callback, null);
 
         return karrVastus.getContent();

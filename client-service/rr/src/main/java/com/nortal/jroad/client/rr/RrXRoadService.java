@@ -1,6 +1,6 @@
 package com.nortal.jroad.client.rr;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.IsikuStaatus;
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR40IsikTaielikIsikukoodResponseDocument.RR40IsikTaielikIsikukoodResponse;
 import com.nortal.jroad.client.rr.types.eu.x_road.rr.producer.RR41IsikPohiandmedResponseDocument.RR41IsikPohiandmedResponse;
@@ -23,34 +23,32 @@ import java.util.List;
 
 /**
  * <code>rr</code> (Rahvastikuregister) database X-tee service.
- * 
+ *
  * @author Roman Tekhov
  */
 public interface RrXRoadService {
 
-  Integer getState() throws XTeeServiceConsumptionException;
-
   /**
    * <code>rr.RR72_isik.v1</code> service.
    */
-  List<TtIsikud> findRR72Isik(String... idCodes) throws XTeeServiceConsumptionException;
+  List<TtIsikud> findRR72Isik(String... idCodes) throws XRoadServiceConsumptionException;
 
   /**
    * <code>rr.RR63isikAadrDok.v1</code> service.
    */
   RR63IsikAadrDokResponse findRR63IsikAadrDok(String surname, String firstName, String idCode, String birthDate)
-      throws XTeeServiceConsumptionException;
+      throws XRoadServiceConsumptionException;
 
   /**
    * <code>rr.RR40isikTaielikIsikukood.v1</code> service.
    */
   RR40IsikTaielikIsikukoodResponse findRR40isikTaielikIsikukood(String isikukood)
-      throws XTeeServiceConsumptionException;
+      throws XRoadServiceConsumptionException;
 
   /**
    * <code>rr.RR42isikAadressKood.v1</code> service.
    */
-  RR42IsikAadressKoodResponse findRR42isikAadressKood(RR42RequestCallback cb) throws XTeeServiceConsumptionException;
+  RR42IsikAadressKoodResponse findRR42isikAadressKood(RR42RequestCallback cb) throws XRoadServiceConsumptionException;
 
   interface RR42RequestCallback {
     void populate(RR42IsikAadressKood paring);
@@ -59,7 +57,7 @@ public interface RrXRoadService {
   /**
    * <code>rr.RR52.v1</code> service.
    */
-  RR52Response getRR52(String idCode, String forename, String surname) throws XTeeServiceConsumptionException;
+  RR52Response getRR52(String idCode, String forename, String surname) throws XRoadServiceConsumptionException;
 
   /**
    * <code>rr.RR96IsikDokElukSuhe_v1.v1</code> service.
@@ -68,20 +66,20 @@ public interface RrXRoadService {
                                                      String isikuperenimi,
                                                      String isikukood,
                                                      Long vastusteArv)
-      throws XTeeServiceConsumptionException;
+      throws XRoadServiceConsumptionException;
 
   /**
    * <code>rr.RR67MuutusV1.v1</code> service.
    */
-  List<TtKoodid> findRR67MuutusV1(Date algus, Date lopp, String... koodid) throws XTeeServiceConsumptionException;
+  List<TtKoodid> findRR67MuutusV1(Date algus, Date lopp, String... koodid) throws XRoadServiceConsumptionException;
 
-  RR67MuutusResponseDocument.RR67MuutusResponse findRR67MuutusV1Response(Date algus, Date lopp, String... koodid) throws XTeeServiceConsumptionException;
+  RR67MuutusResponseDocument.RR67MuutusResponse findRR67MuutusV1Response(Date algus, Date lopp, String... koodid) throws XRoadServiceConsumptionException;
 
 
   /**
    * <code>rr.RR84IsikuSeosed.v1</code> service.
    */
-  RR84IsikuSeosedResponse findRR84IsikuSeosed(String isikukood) throws XTeeServiceConsumptionException;
+  RR84IsikuSeosedResponse findRR84IsikuSeosed(String isikukood) throws XRoadServiceConsumptionException;
 
   /**
    * <code>rr.RR41isikPohiandmedV1.v1</code> service.
@@ -92,20 +90,20 @@ public interface RrXRoadService {
                                                       String vald,
                                                       IsikuStaatus staatus,
                                                       Long vastusteArv)
-      throws XTeeServiceConsumptionException;
+      throws XRoadServiceConsumptionException;
 
   /**
    * <code>rr.RR435.v1</code> service.
    */
-  RR435Response findRR435(String legalCode) throws XTeeServiceConsumptionException;
+  RR435Response findRR435(String legalCode) throws XRoadServiceConsumptionException;
 
   /**
    * <code>rr.RR436.v1</code> service.
    */
-  RR436Response findRR436(List<String> idCodes) throws XTeeServiceConsumptionException;
+  RR436Response findRR436(List<String> idCodes) throws XRoadServiceConsumptionException;
 
-  RR71FailDownloadResponse findRR71(String orderNr) throws XTeeServiceConsumptionException;
+  RR71FailDownloadResponse findRR71(String orderNr) throws XRoadServiceConsumptionException;
 
-  RR50SurnudIsikuteLeidmineResponse findRR50(Date date) throws XTeeServiceConsumptionException;
+  RR50SurnudIsikuteLeidmineResponse findRR50(Date date) throws XRoadServiceConsumptionException;
 
 }

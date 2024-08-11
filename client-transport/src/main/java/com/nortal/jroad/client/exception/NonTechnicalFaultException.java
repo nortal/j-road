@@ -6,7 +6,6 @@ import java.io.IOException;
  * @author Roman Tekhov
  */
 public class NonTechnicalFaultException extends IOException {
-
   private String faultCode;
   private String faultString;
 

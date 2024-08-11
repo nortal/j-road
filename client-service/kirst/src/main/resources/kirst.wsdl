@@ -8938,7 +8938,7 @@
                     <xsd:element name="item" type="ehk:tvlArstType" minOccurs="0" maxOccurs="unbounded">
                         <xsd:annotation>
                             <xsd:appinfo>
-                                <xroad:title><b>Töövõimetusleht</b></xroad:title>
+                                <xroad:title>&lt;b&gt;Töövõimetusleht&lt;/b&gt;</xroad:title>
                             </xsd:appinfo>
                         </xsd:annotation>
                     </xsd:element>
@@ -19620,7 +19620,7 @@
         <wsdl:operation name="proteesiravi">
             <wsdl:documentation>
                 <xroad:title xml:lang="et">Hambaproteesi hüvitise limiidi kontroll</xroad:title>
-                <xroad:notes xml:lang="et"><p><b>ENNE LIMIIDI KONTROLLI TEENUSE KASUTAMIST VEENDU KINDLUSTATUSE KONTROLLIST, KAS ISIKUL ON ÕIGUS HÜVITISELE.</b></p> <ul> <li>Limiidi kontrolli teenusest <b>saab</b> infot, kui suur on isiku limiidi jääk.</li> </ul> <ul> <li>Limiidi kontrolli teenusest <b>ei saa</b> infot: <ol> <li>Kas isikul on õigus hambaproteesihüvitisele</li> <li>Isiku limiidi perioodide kohta</li> </ol> </li> </ul> </xroad:notes>
+                <xroad:notes xml:lang="et">&lt;p&gt;&lt;b&gt;ENNE LIMIIDI KONTROLLI TEENUSE KASUTAMIST VEENDU KINDLUSTATUSE KONTROLLIST, KAS ISIKUL ON ÕIGUS HÜVITISELE.&lt;/b&gt;&lt;/p&gt; <ul> &lt;li&gt;Limiidi kontrolli teenusest &lt;b&gt;saab&lt;/b&gt; infot, kui suur on isiku limiidi jääk.&lt;/li&gt; </ul> <ul> &lt;li&gt;Limiidi kontrolli teenusest &lt;b&gt;ei saa&lt;/b&gt; infot: <ol> &lt;li&gt;Kas isikul on õigus hambaproteesihüvitisele&lt;/li&gt; &lt;li&gt;Isiku limiidi perioodide kohta&lt;/li&gt; </ol> &lt;/li&gt; </ul> </xroad:notes>
             </wsdl:documentation>
             <wsdl:input message="ehk:proteesiravi"/>
             <wsdl:output message="ehk:proteesiraviResponse"/>

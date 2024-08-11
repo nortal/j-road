@@ -1,17 +1,18 @@
 package com.nortal.jroad.client.pkr;
 
 import com.nortal.jroad.client.pkr.types.ee.riik.xtee.pkr.producers.producer.pkr.Tkis2Valjund;
-import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
-import junit.framework.Assert;
-import org.junit.Test;
 
-import javax.annotation.Resource;
+
+import jakarta.annotation.Resource;
 import java.util.Calendar;
+import com.nortal.jroad.client.test.BaseXRoadServiceImplTest;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Margus Hanni
  */
-public class PkrXTeeServiceImplTest extends BaseXTeeServiceImplTest {
+public class PkrXTeeServiceImplTest extends BaseXRoadServiceImplTest {
 
   private static final String TEST_ISIKUKOOD = "43108150028";
 
@@ -25,6 +26,6 @@ public class PkrXTeeServiceImplTest extends BaseXTeeServiceImplTest {
     Calendar end = Calendar.getInstance();
     end.set(2015, Calendar.DECEMBER, 31);
     Tkis2Valjund response = pkrXTeeServiceImpl.getTkis2V1(TEST_ISIKUKOOD, start.getTime(), end.getTime());
-    Assert.assertNotNull(response);
+    Assertions.assertNotNull(response);
   }
 }

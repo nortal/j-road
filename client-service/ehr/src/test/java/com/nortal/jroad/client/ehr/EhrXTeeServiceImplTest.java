@@ -3,30 +3,30 @@ package com.nortal.jroad.client.ehr;
 import java.math.BigInteger;
 import java.util.List;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
-import junit.framework.Assert;
+import org.junit.jupiter.api.Assertions;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.nortal.jroad.client.ehr.EhrXTeeServiceImpl;
 import com.nortal.jroad.client.ehr.types.ee.riik.xtee.ehr.producers.producer.ehr.ENEhitiseAndmedResponse;
 import com.nortal.jroad.client.ehr.types.ee.riik.xtee.ehr.producers.producer.ehr.ENOtsiAadressiAdrTxtQuery;
 import com.nortal.jroad.client.ehr.types.ee.riik.xtee.ehr.producers.producer.ehr.ENEhitiseOtsingResponse.ENEhitiseOtsing.Ehitised;
 import com.nortal.jroad.client.ehr.types.ee.riik.xtee.ehr.producers.producer.ehr.ENOtsiAadressiAdrTxtResponse.ENOtsiAadressiAdrTxt.Aadress;
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.test.BaseXTeeServiceImplTest;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
+import com.nortal.jroad.client.test.BaseXRoadServiceImplTest;
 
 /**
  * @author Tanel Tensing
  */
-public class EhrXTeeServiceImplTest extends BaseXTeeServiceImplTest {
+public class EhrXTeeServiceImplTest extends BaseXRoadServiceImplTest {
 
   @Resource
   private EhrXTeeServiceImpl ehrXTeeServiceImpl;
 
   @Test
-  public void findENOtsiAadressiAdrTxt() throws XTeeServiceConsumptionException {
+  public void findENOtsiAadressiAdrTxt() throws XRoadServiceConsumptionException {
 
     String tase1 = "Harjumaa";
 
@@ -39,22 +39,22 @@ public class EhrXTeeServiceImplTest extends BaseXTeeServiceImplTest {
 
     List<Aadress> response = ehrXTeeServiceImpl.findENOtsiAadressiAdrTxt(query);
 
-    Assert.assertNotNull(response);
-    Assert.assertFalse(response.isEmpty());
-    Assert.assertEquals(tase1, response.get(0).getTase1Nimetus());
+    Assertions.assertNotNull(response);
+    Assertions.assertFalse(response.isEmpty());
+    Assertions.assertEquals(tase1, response.get(0).getTase1Nimetus());
   }
 
   @Test
-  public void findENEhitiseOtsing() throws XTeeServiceConsumptionException {
+  public void findENEhitiseOtsing() throws XRoadServiceConsumptionException {
     List<Ehitised> response = ehrXTeeServiceImpl.findENEhitiseOtsing(BigInteger.valueOf(3374040));
-    Assert.assertNotNull(response);
-    Assert.assertFalse(response.isEmpty());
+    Assertions.assertNotNull(response);
+    Assertions.assertFalse(response.isEmpty());
   }
 
   @Test
-  public void findENEhitiseAndmed() throws XTeeServiceConsumptionException {
+  public void findENEhitiseAndmed() throws XRoadServiceConsumptionException {
     ENEhitiseAndmedResponse response = ehrXTeeServiceImpl.findENEhitiseAndmed(BigInteger.valueOf(3374040));
-    Assert.assertNotNull(response);
+    Assertions.assertNotNull(response);
   }
 
 }

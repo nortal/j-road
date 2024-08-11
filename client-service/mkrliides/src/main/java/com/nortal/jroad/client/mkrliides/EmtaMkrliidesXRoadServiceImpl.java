@@ -1,13 +1,13 @@
 package com.nortal.jroad.client.mkrliides;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.mkrliides.database.MkrliidesXRoadDatabase;
 import com.nortal.jroad.client.mkrliides.types.eu.x_road.emta_v6.*;
 
 import java.util.Calendar;
 import java.util.Date;
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.Resource;
 
 /**
  * @author Kauri Kägo <kauri.kago@nortal.com>
@@ -17,14 +17,9 @@ public class EmtaMkrliidesXRoadServiceImpl implements EmtaMkrliidesXRoadService 
     @Resource
     private MkrliidesXRoadDatabase mkrliidesXRoadDatabase;
 
-    @PostConstruct
-    public void init() {
-        mkrliidesXRoadDatabase.setDatabase("emta-v6");
-    }
-
     @Override
     public XteeFIEAKResponseDocument.XteeFIEAKResponse xteeFIEAKV1(String id, Date start, Date end)
-        throws XTeeServiceConsumptionException {
+        throws XRoadServiceConsumptionException {
         XteeFIEAKDocument.XteeFIEAK input = XteeFIEAKDocument.XteeFIEAK.Factory.newInstance();
         input.addNewRequest();
         input.getRequest().setId(id);
@@ -43,7 +38,7 @@ public class EmtaMkrliidesXRoadServiceImpl implements EmtaMkrliidesXRoadService 
     }
 
     @Override
-    public VptResponseDocument.VptResponse vptV1(String id, Date date) throws XTeeServiceConsumptionException {
+    public VptResponseDocument.VptResponse vptV1(String id, Date date) throws XRoadServiceConsumptionException {
         VptDocument.Vpt input = VptDocument.Vpt.Factory.newInstance();
 
         VptRequestType request = input.addNewKeha();

@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;
-import javax.xml.soap.SOAPElement;
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPFactory;
-import javax.xml.soap.SOAPMessage;
+import jakarta.annotation.Resource;
+import jakarta.xml.soap.SOAPElement;
+import jakarta.xml.soap.SOAPException;
+import jakarta.xml.soap.SOAPFactory;
+import jakarta.xml.soap.SOAPMessage;
 import javax.xml.transform.TransformerException;
 
 import org.apache.xmlbeans.impl.util.Base64;
@@ -16,15 +16,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.ws.WebServiceMessage;
 import org.w3c.dom.Node;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
-import com.nortal.jroad.client.service.v2.XTeeDatabaseService;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
+import com.nortal.jroad.client.service.XRoadDatabaseService;
 import com.nortal.jroad.client.service.callback.CustomCallback;
-import com.nortal.jroad.client.treasury.database.TreasuryXTeeDatabase;
+import com.nortal.jroad.client.treasury.database.TreasuryXRoadDatabase;
 import com.nortal.jroad.client.treasury.types.ee.riik.xtee.treasury.producers.producer.treasury.SendDocumentRequestType;
 import com.nortal.jroad.client.treasury.types.ee.riik.xtee.treasury.producers.producer.treasury.SendDocumentResponseType;
-import com.nortal.jroad.model.XTeeAttachment;
-import com.nortal.jroad.model.XTeeMessage;
-import com.nortal.jroad.model.XmlBeansXTeeMessage;
+import com.nortal.jroad.model.XRoadAttachment;
+import com.nortal.jroad.model.XRoadMessage;
+import com.nortal.jroad.model.XmlBeansXRoadMessage;
 import com.nortal.jroad.util.SOAPUtil;
 
 /**
@@ -37,26 +37,26 @@ import com.nortal.jroad.util.SOAPUtil;
  * @author Lauri Lättemäe <lauri.lattemae@nortal.com>
  */
 @Service("treasuryXTeeService")
-public class TreasuryXTeeServiceImpl extends XTeeDatabaseService implements TreasuryXTeeService {
+public class TreasuryXTeeServiceImpl extends XRoadDatabaseService implements TreasuryXTeeService {
   private static final String SEND_DOCUMENT = "sendDocument";
   private static final String VERSION = "v1";
 
   @Resource
-  private TreasuryXTeeDatabase treasuryXTeeDatabase;
+  private TreasuryXRoadDatabase treasuryXRoadDatabase;
 
   public SendDocumentResponseType sendDocument(String uniqueId, String type, byte[] manus)
-      throws XTeeServiceConsumptionException {
+      throws XRoadServiceConsumptionException {
     SendDocumentRequestType kassaReq = SendDocumentRequestType.Factory.newInstance();
 
     kassaReq.setUniqueId(uniqueId);
     kassaReq.setType(type);
     kassaReq.setManus("".getBytes());
 
-    List<XTeeAttachment> attachments = new ArrayList<XTeeAttachment>();
-    attachments.add(new XTeeAttachment("manus", "application/octet-stream", Base64.encode(manus)));
+    List<XRoadAttachment> attachments = new ArrayList<XRoadAttachment>();
+    attachments.add(new XRoadAttachment("manus", "application/octet-stream", Base64.encode(manus)));
 
-    XTeeMessage<SendDocumentResponseType> response =
-        send(new XmlBeansXTeeMessage<SendDocumentRequestType>(kassaReq, attachments),
+    XRoadMessage<SendDocumentResponseType> response =
+        send(new XmlBeansXRoadMessage<SendDocumentRequestType>(kassaReq, attachments),
              SEND_DOCUMENT,
              VERSION,
              new RmvikiCallback(),

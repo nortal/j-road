@@ -1,19 +1,19 @@
 package com.nortal.jroad.client.tor;
 
-import com.nortal.jroad.client.exception.XTeeServiceConsumptionException;
+import com.nortal.jroad.client.exception.XRoadServiceConsumptionException;
 import com.nortal.jroad.client.tor.database.TorXRoadDatabase;
 import com.nortal.jroad.client.tor.types.eu.x_road.emta_v6.TORIKDocument;
 import com.nortal.jroad.client.tor.types.eu.x_road.emta_v6.TORIKResponseDocument;
 import com.nortal.jroad.client.tor.types.eu.x_road.emta_v6.TorikRequestType;
 import java.util.Calendar;
 import java.util.Date;
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 /**
  * <code>TOR</code> database X-tee service implementation<br>
- * 
+ *
  * @author Kauri Kägo
  */
 @Service("torXRoadServiceImpl")
@@ -22,19 +22,13 @@ public class TorXRoadServiceImpl implements TorXRoadService {
   @Resource
   private TorXRoadDatabase torXRoadDatabase;
 
-  @PostConstruct
-  public void init() {
-    torXRoadDatabase.setDatabase("emta-v6");
-  }
-
   @Override
   public TORIKResponseDocument.TORIKResponse findTorik(String paringuLiik,
                                                        Date tootAlgusKp,
                                                        Date tootLoppKp,
                                                        Date muutAlgKp,
                                                        Date muutLoppKp,
-                                                       String isikukood)
-      throws XTeeServiceConsumptionException {
+                                                       String isikukood) throws XRoadServiceConsumptionException {
 
     TORIKDocument.TORIK torik = getTorikRequest(paringuLiik, tootAlgusKp, tootLoppKp, muutAlgKp, muutLoppKp, isikukood);
 
