@@ -6,7 +6,7 @@
   <artifactId>xtee-client-transport</artifactId>
   <name>x-tee client transport</name>
   <description>x-tee client API</description>
-  <version>4.3.1-SNAPSHOT</version>
+  <version>4.3.2-SNAPSHOT</version>
 
   <parent>
     <groupId>com.nortal.jroad</groupId>
