@@ -397,7 +397,7 @@ public class TypeGen {
             QName elementQName = messageMap.get(message);
 
             if (elementQName == null) {
-              System.out.println("WARNING: Did not find \"keha\" part in message \"" + message + "\" (operation \""
+              System.out.println("WARNING: Did not find \"body\" part in message \"" + message + "\" (operation \""
                   + opname + "\").");
               continue mainLoop;
             }

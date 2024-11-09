@@ -578,133 +578,126 @@
 
             <complexType name="TVHYhisTaotlus">
                 <sequence>
-                    <element minOccurs="0" name="tkTaotlusId" type="long">
+                    <element maxOccurs="1" minOccurs="0" name="tkTaotlusId" nillable="false" type="long">
                         <annotation>
                             <appinfo>
                                 <xrd:title xml:lang="et">Unikaalne viide TK taotluse kirjele</xrd:title>
                             </appinfo>
                         </annotation>
                     </element>
-                    <element minOccurs="0" name="skaTaotlusId" type="long">
+                    <element maxOccurs="1" minOccurs="0" name="skaTaotlusId" nillable="false" type="long">
                         <annotation>
                             <appinfo>
                                 <xrd:title xml:lang="et">Unikaalne viide SKA taotlusele</xrd:title>
                             </appinfo>
                         </annotation>
                     </element>
-                    <element minOccurs="0" name="tkTaotlusNumber" type="string">
+                    <element maxOccurs="1" minOccurs="0" name="tkTaotlusNumber" nillable="false" type="string">
                         <annotation>
                             <appinfo>
                                 <xrd:title xml:lang="et">Taotluse number</xrd:title>
                             </appinfo>
                         </annotation>
                     </element>
-                    <element minOccurs="0" name="skaTaotlusNumber" type="string">
+                    <element maxOccurs="1" minOccurs="0" name="skaTaotlusNumber" nillable="false" type="string">
                         <annotation>
                             <appinfo>
                                 <xrd:title xml:lang="et">Taotluse number</xrd:title>
                             </appinfo>
                         </annotation>
                     </element>
-                    <element minOccurs="0" name="onTvtTaotlusEsitatud" type="boolean">
+                    <element maxOccurs="1" minOccurs="0" name="onTvtTaotlusEsitatud" nillable="false" type="boolean">
                         <annotation>
                             <appinfo>
                                 <xrd:title xml:lang="et">On esitatud töövõimetoetuse taotlus</xrd:title>
                             </appinfo>
                         </annotation>
                     </element>
-                    <element minOccurs="0" name="onPISTaotlusEsitatud" type="boolean">
+                    <element maxOccurs="1" minOccurs="0" name="onPISTaotlusEsitatud" nillable="false" type="boolean">
                         <annotation>
                             <appinfo>
                                 <xrd:title xml:lang="et">On esitatud puudega isiku sotsiaaltoetuse taotlus</xrd:title>
                             </appinfo>
                         </annotation>
                     </element>
-                    <element name="taotleja" type="tns:TVHYhisTaotlusIsik">
+                    <element maxOccurs="1" minOccurs="1" name="taotleja" nillable="false" type="tns:TVHYhisTaotlusIsik">
                         <annotation>
                             <appinfo>
                                 <xrd:title xml:lang="et">Taotleja andmed</xrd:title>
                             </appinfo>
                         </annotation>
                     </element>
-                    <element maxOccurs="unbounded" minOccurs="0" name="esindaja" type="tns:TVHYhisTaotlusIsik">
+                    <element maxOccurs="unbounded" minOccurs="0" name="esindaja" nillable="false" type="tns:TVHYhisTaotlusIsik">
                         <annotation>
                             <appinfo>
                                 <xrd:title xml:lang="et">Taotleja esindaja andmed</xrd:title>
                             </appinfo>
                         </annotation>
                     </element>
-                    <element minOccurs="0" name="taotluseTaitja" type="tns:TVHYhisTaotluseTaitja">
+                    <element maxOccurs="1" minOccurs="0" name="taotluseTaitja" nillable="false" type="tns:TVHYhisTaotluseTaitja">
                         <annotation>
                             <appinfo>
                                 <xrd:title xml:lang="et">Taotluse tegelik täitja</xrd:title>
                             </appinfo>
                         </annotation>
                     </element>
-                    <element name="kysimustikuKp" type="date" minOccurs="1" maxOccurs="1" nillable="false">
-                        <annotation>
-                            <appinfo>
-                                <xrd:title xml:lang="et">Taotluse küsimustiku kp</xrd:title>
-                            </appinfo>
-                        </annotation>
-                    </element>
-                    <element name="esitamiseKp" type="date">
+                    <element maxOccurs="1" minOccurs="1" name="esitamiseKp" nillable="false" type="date">
                         <annotation>
                             <appinfo>
                                 <xrd:title xml:lang="et">Taotluse esitamise kp</xrd:title>
                             </appinfo>
                         </annotation>
                     </element>
-                    <element name="saabumiseKp" type="date">
+                    <element maxOccurs="1" minOccurs="1" name="saabumiseKp" nillable="false" type="date">
                         <annotation>
                             <appinfo>
                                 <xrd:title xml:lang="et">Taotluse saabumise kp</xrd:title>
                             </appinfo>
                         </annotation>
                     </element>
-                    <element name="saabumiseViisKood" type="tns:domeenVaartus">
+                    <element maxOccurs="1" minOccurs="1" name="saabumiseViisKood" nillable="false" type="tns:domeenVaartus">
                         <annotation>
                             <appinfo>
                                 <xrd:title xml:lang="et">Taotluse saabumise viis</xrd:title>
                             </appinfo>
                         </annotation>
                     </element>
-                    <element minOccurs="0" name="nkEsitamiseKp" type="date">
+                    <element maxOccurs="1" minOccurs="0" name="nkEsitamiseKp" nillable="false" type="date">
                         <annotation>
                             <appinfo>
                                 <xrd:title xml:lang="et">Nõuetekohase taotluse esitamise kp</xrd:title>
                             </appinfo>
                         </annotation>
                     </element>
-                    <element minOccurs="0" name="otsuseSaaja" type="tns:domeenVaartus">
+                    <element maxOccurs="1" minOccurs="0" name="otsuseSaaja" nillable="false" type="tns:domeenVaartus">
                         <annotation>
                             <appinfo>
                                 <xrd:title xml:lang="et">Hindamise otsuse saaja</xrd:title>
                             </appinfo>
                         </annotation>
                     </element>
-                    <element minOccurs="0" name="tkOtsuseSaamiseViisKood" type="tns:domeenVaartus">
+                    <element maxOccurs="1" minOccurs="0" name="tkOtsuseSaamiseViisKood" nillable="false" type="tns:domeenVaartus">
                         <annotation>
                             <appinfo>
                                 <xrd:title xml:lang="et">Hindamise otsuse saamise viis</xrd:title>
                             </appinfo>
                         </annotation>
                     </element>
-                    <element minOccurs="0" name="tkOtsusEelteavitusKood" type="tns:domeenVaartus">
+                    <element maxOccurs="1" minOccurs="0" name="tkOtsusEelteavitusKood" nillable="false" type="tns:domeenVaartus">
                         <annotation>
                             <appinfo>
                                 <xrd:title xml:lang="et">Hindamise otsuse eelteavitus</xrd:title>
                             </appinfo>
                         </annotation>
                     </element>
-                    <element minOccurs="0" name="klienditeenindusKood" type="tns:domeenVaartus">
+                    <element maxOccurs="1" minOccurs="0" name="klienditeenindusKood" nillable="false" type="tns:domeenVaartus">
                         <annotation>
                             <appinfo>
                                 <xrd:title xml:lang="et">TK klienditeenindus, kust otsust sooviti kätte saada</xrd:title>
                             </appinfo>
                         </annotation>
                     </element>
-                    <element name="nousolekSkaTootleb" type="tns:domeenVaartus">
+                    <element maxOccurs="1" minOccurs="1" name="nousolekSkaTootleb" nillable="false" type="tns:domeenVaartus">
                         <annotation>
                             <appinfo>
                                 <xrd:title xml:lang="et">Taotleja nõusolek, et SKA võib terviseandmeid pärida ja
@@ -712,7 +705,7 @@
                             </appinfo>
                         </annotation>
                     </element>
-                    <element name="nousolekTkTootleb" type="tns:domeenVaartus">
+                    <element maxOccurs="1" minOccurs="1" name="nousolekTkTootleb" nillable="false" type="tns:domeenVaartus">
                         <annotation>
                             <appinfo>
                                 <xrd:title xml:lang="et">Taotleja nõusolek, et TK võib terviseandmeid pärida ja
@@ -720,119 +713,112 @@
                             </appinfo>
                         </annotation>
                     </element>
-                    <element maxOccurs="unbounded" minOccurs="0" name="dokument" type="tns:TVHYhisDokument">
+                    <element maxOccurs="unbounded" minOccurs="0" name="dokument" nillable="false" type="tns:TVHYhisDokument">
                         <annotation>
                             <appinfo>
                                 <xrd:title xml:lang="et">Taotluse dokument</xrd:title>
                             </appinfo>
                         </annotation>
                     </element>
-                    <element maxOccurs="unbounded" name="hindamiseValik" type="tns:TVHYhisHindamiseValik">
+                    <element maxOccurs="unbounded" minOccurs="1" name="hindamiseValik" nillable="false" type="tns:TVHYhisHindamiseValik">
                         <annotation>
                             <appinfo>
                                 <xrd:title xml:lang="et">Näitab, millist hindamist taotleja soovib</xrd:title>
                             </appinfo>
                         </annotation>
                     </element>
-                    <element minOccurs="0" name="skaOtsuseEdastamiseViisKood" type="tns:domeenVaartus">
+                    <element maxOccurs="1" minOccurs="0" name="skaOtsuseEdastamiseViisKood" nillable="false" type="tns:domeenVaartus">
                         <annotation>
                             <appinfo>
                                 <xrd:title xml:lang="et">SKA otsuse edastamise viis</xrd:title>
                             </appinfo>
                         </annotation>
                     </element>
-                    <element minOccurs="0" name="skaOtsuseEelteavitus" type="tns:domeenVaartus">
+                    <element maxOccurs="1" minOccurs="0" name="skaOtsuseEelteavitus" nillable="false" type="tns:domeenVaartus">
                         <annotation>
                             <appinfo>
                                 <xrd:title xml:lang="et">SKA otsuse eelteavitus emailiga</xrd:title>
                             </appinfo>
                         </annotation>
                     </element>
-                    <element maxOccurs="2" minOccurs="0" name="puudeToetuseMakseviis" type="tns:TVHPuueMakseviis">
-                        <annotation>
-                            <appinfo>
-                                <xrd:title xml:lang="et">Puude toetuse kättesaamise viis</xrd:title>
-                            </appinfo>
-                        </annotation>
-                    </element>
-                    <element minOccurs="0" name="onTaitmisestLoobutud" type="boolean">
+                    <element maxOccurs="1" minOccurs="0" name="onTaitmisestLoobutud" nillable="false" type="boolean">
                         <annotation>
                             <appinfo>
                                 <xrd:title xml:lang="et">Süsteemi on sisestatud ainult taotluse üldanmded</xrd:title>
                             </appinfo>
                         </annotation>
                     </element>
-                    <element minOccurs="0" name="taotlejaVisiit" type="tns:TVHYhisKontroll">
+                    <element maxOccurs="1" minOccurs="0" name="taotlejaVisiit" nillable="false" type="tns:TVHYhisKontroll">
                         <annotation>
                             <appinfo>
                                 <xrd:title xml:lang="et">Taotleja 6 kuu visiit</xrd:title>
                             </appinfo>
                         </annotation>
                     </element>
-                    <element maxOccurs="unbounded" minOccurs="0" name="arst" type="tns:TVHYhisArstSpetsialist">
+                    <element maxOccurs="unbounded" minOccurs="0" name="arst" nillable="false" type="tns:TVHYhisArstSpetsialist">
                         <annotation>
                             <appinfo>
                                 <xrd:title xml:lang="et">Arst</xrd:title>
                             </appinfo>
                         </annotation>
                     </element>
-                    <element maxOccurs="unbounded" minOccurs="0" name="spetsialist" type="tns:TVHYhisArstSpetsialist">
+                    <element maxOccurs="unbounded" minOccurs="0" name="spetsialist" nillable="false" type="tns:TVHYhisArstSpetsialist">
                         <annotation>
                             <appinfo>
                                 <xrd:title xml:lang="et">Spetsialist</xrd:title>
                             </appinfo>
                         </annotation>
                     </element>
-                    <element minOccurs="0" name="omandatudHaridus" type="tns:TVHYhisHaridus">
+                    <element maxOccurs="1" minOccurs="0" name="omandatudHaridus" nillable="false" type="tns:TVHYhisHaridus">
                         <annotation>
                             <appinfo>
                                 <xrd:title xml:lang="et">Taotleja omandatud kõrgeim haridus</xrd:title>
                             </appinfo>
                         </annotation>
                     </element>
-                    <element minOccurs="0" name="oppimine" type="tns:TVHYhisKontroll">
+                    <element maxOccurs="1" minOccurs="0" name="oppimine" nillable="false" type="tns:TVHYhisKontroll">
                         <annotation>
                             <appinfo>
                                 <xrd:title xml:lang="et">Näitab, kas taotleja hetkel õpib</xrd:title>
                             </appinfo>
                         </annotation>
                     </element>
-                    <element minOccurs="0" name="omandamiselHaridus" type="tns:TVHYhisHaridus">
+                    <element maxOccurs="1" minOccurs="0" name="omandamiselHaridus" nillable="false" type="tns:TVHYhisHaridus">
                         <annotation>
                             <appinfo>
                                 <xrd:title xml:lang="et">Taotleja hetkel omandatav haridustase</xrd:title>
                             </appinfo>
                         </annotation>
                     </element>
-                    <element minOccurs="0" name="tootamine" type="tns:TVHYhisKontroll">
+                    <element maxOccurs="1" minOccurs="0" name="tootamine" nillable="false" type="tns:TVHYhisKontroll">
                         <annotation>
                             <appinfo>
                                 <xrd:title xml:lang="et">Näitab, kas taotleja hetkel töötab</xrd:title>
                             </appinfo>
                         </annotation>
                     </element>
-                    <element minOccurs="0" name="toovoimeValistamine" type="tns:TVHYhisKontroll">
+                    <element maxOccurs="1" minOccurs="0" name="toovoimeValistamine" nillable="false" type="tns:TVHYhisKontroll">
                         <annotation>
                             <appinfo>
                                 <xrd:title xml:lang="et">Taotlejal esineb töövõimet välistav seisund</xrd:title>
                             </appinfo>
                         </annotation>
                     </element>
-                    <element minOccurs="0" name="onOsaline" type="boolean">
+                    <element maxOccurs="1" minOccurs="0" name="onOsaline" nillable="false" type="boolean">
                         <annotation>
                             <appinfo>
                                 <xrd:title xml:lang="et">Taotleja on taotluse täitnud osaliselt</xrd:title>
                             </appinfo>
                         </annotation>
                     </element>
-                    <element minOccurs="0" name="tookogemus" type="tns:TVHYhisTookogemus">
+                    <element maxOccurs="1" minOccurs="0" name="tookogemus" nillable="false" type="tns:TVHYhisTookogemus">
                         <annotation>
                             <appinfo>
                                 <xrd:title xml:lang="et">Töökogemus</xrd:title>
                             </appinfo>
                         </annotation>
                     </element>
-                    <element maxOccurs="unbounded" minOccurs="0" name="vastus" type="tns:TVHYhisVastus">
+                    <element maxOccurs="unbounded" minOccurs="0" name="vastus" nillable="false" type="tns:TVHYhisVastus">
                         <annotation>
                             <appinfo>
                                 <xrd:title xml:lang="et">Taotlusel täidetud küsimuse vastus</xrd:title>
@@ -1008,31 +994,24 @@
 
             <complexType name="TVHYhisValismaalTooElu">
                 <sequence>
-                    <element name="riikIsoKood3" type="string">
+                    <element maxOccurs="1" minOccurs="1" name="riikIsoKood3" nillable="false" type="string">
                         <annotation>
                             <appinfo>
                                 <xrd:title xml:lang="et">Riigi ISO3 kood</xrd:title>
                             </appinfo>
                         </annotation>
                     </element>
-                    <element name="riikNimetus" type="string">
+                    <element maxOccurs="1" minOccurs="1" name="riikNimetus" nillable="false" type="string">
                         <annotation>
                             <appinfo>
                                 <xrd:title xml:lang="et">Riigi nimi</xrd:title>
                             </appinfo>
                         </annotation>
                     </element>
-                    <element minOccurs="0" name="periood" type="string">
+                    <element maxOccurs="1" minOccurs="0" name="periood" nillable="false" type="string">
                         <annotation>
                             <appinfo>
                                 <xrd:title xml:lang="et">Välismaal elamise periood</xrd:title>
-                            </appinfo>
-                        </annotation>
-                    </element>
-                    <element minOccurs="0" name="amet" type="string">
-                        <annotation>
-                            <appinfo>
-                                <xrd:title xml:lang="et">Kellena töötate või töötasite</xrd:title>
                             </appinfo>
                         </annotation>
                     </element>
@@ -1190,105 +1169,6 @@
                         <annotation>
                             <appinfo>
                                 <xrd:title xml:lang="et">Tase 8 nimi</xrd:title>
-                            </appinfo>
-                        </annotation>
-                    </element>
-                </sequence>
-            </complexType>
-
-            <complexType name="TVHPuueMakseviis">
-                <sequence>
-                    <element minOccurs="0" name="alternatiivneMakseviis" type="boolean">
-                        <annotation>
-                            <appinfo>
-                                <xrd:title xml:lang="et">Näitab kas tegemist on esmase või alternatiivse
-                                    makseviisiga</xrd:title>
-                            </appinfo>
-                        </annotation>
-                    </element>
-                    <element name="makseviis" type="tns:domeenVaartus">
-                        <annotation>
-                            <appinfo>
-                                <xrd:title xml:lang="et">Makseviis</xrd:title>
-                            </appinfo>
-                        </annotation>
-                    </element>
-                    <element minOccurs="0" name="iban" type="string">
-                        <annotation>
-                            <appinfo>
-                                <xrd:title xml:lang="et">Arvelduskonto number
-                                </xrd:title>
-                            </appinfo>
-                        </annotation>
-                    </element>
-                    <element minOccurs="0" name="bic" type="string">
-                        <annotation>
-                            <appinfo>
-                                <xrd:title xml:lang="et">Panga BIC</xrd:title>
-                            </appinfo>
-                        </annotation>
-                    </element>
-                    <element minOccurs="0" name="pangaNimi" type="string">
-                        <annotation>
-                            <appinfo>
-                                <xrd:title xml:lang="et">Panga nimi</xrd:title>
-                            </appinfo>
-                        </annotation>
-                    </element>
-                    <element minOccurs="0" name="kontoOmanikuNimi" type="string">
-                        <annotation>
-                            <appinfo>
-                                <xrd:title xml:lang="et">Pangakonto omaniku nimi</xrd:title>
-                            </appinfo>
-                        </annotation>
-                    </element>
-                    <element minOccurs="0" name="kontoOmanikuIsikukood" type="string">
-                        <annotation>
-                            <appinfo>
-                                <xrd:title xml:lang="et">Kontoomaniku isikukood</xrd:title>
-                            </appinfo>
-                        </annotation>
-                    </element>
-                    <element minOccurs="0" name="viitenumber" type="string">
-                        <annotation>
-                            <appinfo>
-                                <xrd:title xml:lang="et">Viitenumber</xrd:title>
-                            </appinfo>
-                        </annotation>
-                    </element>
-                    <element minOccurs="0" name="kojukanneIsikuKulul" type="boolean">
-                        <annotation>
-                            <appinfo>
-                                <xrd:title xml:lang="et">Kojukanne isiku kulul</xrd:title>
-                            </appinfo>
-                        </annotation>
-                    </element>
-                    <element minOccurs="0" name="kojukandeAadress" type="tns:TVHYhisAadress"
-                    >
-                        <annotation>
-                            <appinfo>
-                                <xrd:title xml:lang="et">Kojukande aadress</xrd:title>
-                            </appinfo>
-                        </annotation>
-                    </element>
-                    <element name="kojukandePohjusLiikumisTakistus" type="boolean">
-                        <annotation>
-                            <appinfo>
-                                <xrd:title xml:lang="et">Kojukande põhjus liikumistakistus</xrd:title>
-                            </appinfo>
-                        </annotation>
-                    </element>
-                    <element name="kojukandePohjusHajaAsustus" type="boolean">
-                        <annotation>
-                            <appinfo>
-                                <xrd:title xml:lang="et">Kojukande põhjus hajaasustus</xrd:title>
-                            </appinfo>
-                        </annotation>
-                    </element>
-                    <element minOccurs="0" name="kojukandePohjusLisainfo" type="string">
-                        <annotation>
-                            <appinfo>
-                                <xrd:title xml:lang="et">Kojukande põhjendus</xrd:title>
                             </appinfo>
                         </annotation>
                     </element>
@@ -1789,8 +1669,8 @@
         <wsdl:part name="protocolVersion" element="xrd:protocolVersion"/>
     </wsdl:message>
 
-    <wsdl:message name="TVHTaotlusYksUksRequest">
-        <wsdl:part name="body" element="tns:TVHYhisTaotlusRequest"/>
+    <wsdl:message name="TVHTaotlusYksUks">
+        <wsdl:part name="body" element="tns:TVHTaotlusYksUks"/>
     </wsdl:message>
     <wsdl:message name="TVHTaotlusYksUksResponse">
         <wsdl:part name="body" element="tns:TVHYhisTaotlusResponse"/>
@@ -1820,7 +1700,7 @@
             <wsdl:documentation>
                 <xrd:title>Töövõimehindamise taotlus - üks uks</xrd:title>
             </wsdl:documentation>
-            <wsdl:input message="tns:TVHTaotlusYksUksRequest"/>
+            <wsdl:input message="tns:TVHTaotlusYksUks"/>
             <wsdl:output message="tns:TVHTaotlusYksUksResponse"/>
         </wsdl:operation>
 		<wsdl:operation name="TKToovoimPuueHyvitised">
