@@ -36,11 +36,11 @@ public class KirstXRoadServiceImpl extends XRoadDatabaseService implements Kirst
                 , tvPohjused);
         TvlLoetelu2Document.TvlLoetelu2 request = TvlLoetelu2Document.TvlLoetelu2.Factory.newInstance();
         request.setRequest(requestBody);
+
         XRoadMessage<TvlLoetelu2ResponseDocument.TvlLoetelu2Response> response = send(
-                new XmlBeansXRoadMessage<TvlLoetelu2Document.TvlLoetelu2>(request),
+                new XmlBeansXRoadMessage<>(request),
                 "tvl_loetelu2",
                 "v1");
-
         return response.getContent();
 
     }
@@ -95,18 +95,17 @@ public class KirstXRoadServiceImpl extends XRoadDatabaseService implements Kirst
         Kindlustused paring = Kindlustused.Factory.newInstance();
 
         callback.populate(paring);
-        XRoadMessage<KindlustusedResponse> response = send(new XmlBeansXRoadMessage<Kindlustused>(paring),
+
+        XRoadMessage<KindlustusedResponse> response = send(new XmlBeansXRoadMessage<>(paring),
                 "kindlustused",
                 "v1");
-
         return response.getContent();
     }
 
     public Kindlustused2Response findKindlustus2(Kindlustused2 paring) throws XRoadServiceConsumptionException {
-        XRoadMessage<Kindlustused2Response> response = send(new XmlBeansXRoadMessage<Kindlustused2>(paring),
+        XRoadMessage<Kindlustused2Response> response = send(new XmlBeansXRoadMessage<>(paring),
                 "kindlustused2",
                 "v1");
-
         return response.getContent();
     }
 
@@ -117,12 +116,13 @@ public class KirstXRoadServiceImpl extends XRoadDatabaseService implements Kirst
         if (callback == null) {
             throw new IllegalArgumentException("Callback can not be null!");
         }
-        KindlustusalusRequestType keha = Kindlustusalus.Factory.newInstance().addNewRequest();
-        KanneJada kanneJada = keha.addNewKanneJada();
+        Kindlustusalus insuranceBasis = Kindlustusalus.Factory.newInstance();
+        KindlustusalusRequestType request = insuranceBasis.addNewRequest();
+        KanneJada entries = request.addNewKanneJada();
 
-        callback.populate(kanneJada);
+        callback.populate(entries);
 
-        XRoadMessage<KindlustusalusResponse> response = send(new XmlBeansXRoadMessage<KindlustusalusRequestType>(keha),
+        XRoadMessage<KindlustusalusResponse> response = send(new XmlBeansXRoadMessage<>(insuranceBasis),
                 "kindlustusalus",
                 "v2");
         return response.getContent();
