@@ -69,10 +69,9 @@ public class KirXRoadServiceImpl extends XRoadDatabaseService implements KirXRoa
         request.setPerioodiAlgusKp(toCalendar(start));
         request.setPerioodiLoppKp(toCalendar(end));
 
-        XmlBeansXRoadMessage<LeiaMuudetudAndmetegaKinnipeetavadRequest> xRoadMsg = new XmlBeansXRoadMessage<>(request);
+        XRoadMessage<LeiaMuudetudAndmetegaKinnipeetavad> xRoadMessage = new XmlBeansXRoadMessage<>(requestWrapper);
         XRoadMessage<LeiaMuudetudAndmetegaKinnipeetavadResponse> response =
-                send(xRoadMsg, "LeiaMuudetudAndmetegaKinnipeetavad", "v1", new KirCallback(), null);
-
+                send(xRoadMessage, "LeiaMuudetudAndmetegaKinnipeetavad", "v1", new KirCallback(), null);
         return response.getContent();
     }
 
@@ -93,8 +92,8 @@ public class KirXRoadServiceImpl extends XRoadDatabaseService implements KirXRoa
 
         private final Date startDate;
         private final Date endDate;
-        private SimpleDateFormat dateWithTimezone = new SimpleDateFormat("yyyy-MM-ddXXX");
-        private SimpleDateFormat dateWithoutTimezone = new SimpleDateFormat("yyyy-MM-dd");
+        private final SimpleDateFormat dateWithTimezone = new SimpleDateFormat("yyyy-MM-ddXXX");
+        private final SimpleDateFormat dateWithoutTimezone = new SimpleDateFormat("yyyy-MM-dd");
 
         private KirCallback() {
             this(null, null);
