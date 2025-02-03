@@ -50,7 +50,7 @@ public class StandardXRoadConsumerCallback implements WebServiceMessageCallback 
   protected Marshaller getMarshaller() {
     XmlBeansMarshaller marshaller = new XmlBeansMarshaller();
     marshaller.setXmlOptions(new XmlOptions().setSaveSyntheticDocumentElement(new QName(metadata.getRequestElementNs(),
-                                                                                        metadata.getOperationName(),
+                                                                                        metadata.getRequestElementName(),
                                                                                         StandardXRoadConsumer.ROOT_NS)));
     return marshaller;
   }
