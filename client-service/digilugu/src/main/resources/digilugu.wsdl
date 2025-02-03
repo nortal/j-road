@@ -2229,6 +2229,8 @@
               schemaLocation="http://pub.e-tervis.ee/standards2/Schema/V3/HL7-ORG-V3-2007-09/processable/multicacheschemas/QUQI_MT021001UV01.xsd"/>
       <xs:include
               schemaLocation="http://pub.e-tervis.ee/standards2/Schema/V3/HL7-ORG-V3-2007-09/processable/multicacheschemas/RCMR_MT000003UV.xsd"/>
+<!--      <xs:include schemaLocation="http://pub.e-tervis.ee/standards2/Schema/V3/HL7-ORG-V3-2005-NORMATIVE-EE-DL-Ext-V1/infrastructure/cda/POCD_MT000040_EE01.xsd"/>-->
+<!--      <xs:element name="ClinicalDocument" type="POCD_MT000040.ClinicalDocument"/>-->
       <xs:element name="RCMR_IN000029UV01">
         <xs:complexType>
           <xs:complexContent>

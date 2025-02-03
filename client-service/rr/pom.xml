@@ -2,13 +2,13 @@
 <project>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>xtee-client-rr</artifactId>
-  <version>4.3.2-SNAPSHOT</version>
+  <version>4.3.1</version>
   <name>RR client services</name>
 
   <parent>
     <groupId>com.nortal.jroad</groupId>
     <artifactId>xtee-client-service</artifactId>
-    <version>4.3.2-SNAPSHOT</version>
+    <version>4.3.1</version>
   </parent>
 
   <properties>
