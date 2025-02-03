@@ -93,61 +93,14 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
-        <version>3.5.0</version>
-        <executions>
-          <execution>
-            <phase>generate-sources</phase>
-            <goals>
-              <goal>exec</goal>
-            </goals>
-            <configuration>
-              <executable>java</executable>
-              <arguments>
-                <argument>-classpath</argument>
-                <classpath/>
-                <argument>com.nortal.jroad.typegen.TypeGen</argument>
-                <argument>wsdldir=${basedir}/src/main/resources</argument>
-                <argument>sourcedir=${basedir}/src/main/java</argument>
-                <argument>xsbdir=${basedir}/target/classes</argument>
-                <argument>basepackage=com.nortal.jroad.client.${package}.types</argument>
-                <argument>dbclassespackage=com.nortal.jroad.client.${package}.database</argument>
-              </arguments>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>3.4.2</version>
-        <executions>
-          <execution>
-            <id>default-jar</id>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-            <configuration>
-              <excludes>
-                <exclude>*.wsdl</exclude>
-              </excludes>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-clean-plugin</artifactId>
-        <version>3.4.0</version>
-        <configuration>
-          <filesets>
-            <fileset>
-              <directory>src/main/java/com/nortal/jroad/client/${package}/types</directory>
-            </fileset>
-            <fileset>
-              <directory>src/main/java/com/nortal/jroad/client/${package}/database</directory>
-            </fileset>
-          </filesets>
-        </configuration>
       </plugin>
     </plugins>
   </build>
