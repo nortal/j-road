@@ -60,32 +60,6 @@
     <module>tarn</module>
     <module>tor</module>
     <module>tsd</module>
-
-    <!-- Services currently not used by TK. May need revamp; therefore skipped -->
-    <!--    <module>rmviki</module>-->
-    <!--    <module>emtav5</module>-->
-    <!--    <module>aar</module>-->
-    <!--    <module>ads</module>-->
-    <!--    <module>ehr</module>-->
-    <!--    <module>emta</module>-->
-    <!--    <module>epria</module>-->
-    <!--    <module>esis</module>-->
-    <!--    <module>karis</module>-->
-    <!--    <module>koodikeskus</module>-->
-    <!--    <module>ljvis</module>-->
-    <!--    <module>lkf</module>-->
-    <!--    <module>mteenus</module>-->
-    <!--    <module>polis</module>-->
-    <!--    <module>rets</module>-->
-    <!--    <module>rmrk</module>-->
-    <!--    <module>tam</module>-->
-    <!--    <module>teavituskalender</module>-->
-    <!--    <module>trelvaregister</module>-->
-    <!--    <module>vangis</module>-->
-    <!--    <module>viisaregister</module>-->
-    <!--    <module>pria-toetusreg</module>-->
-    <!--    <module>treasury</module>-->
-
     <module>test</module>
   </modules>
   <build>
