@@ -48,6 +48,7 @@ It consists of two parts: the client, which is used for consuming services from 
 # Setting up the project
 * You need JDK 17 or higher 
 * Toolchains plugin is used so that developer does not need to tune JAVA_HOME. For toolchains plugin to work, jdk should be in a predictable location: ~/.jdks 
+  * To generate the toolchains xml run `mvn toolchains:generate-jdk-toolchains-xml`
 * Since artifacts are absent from central. You need to build them first (typegen, common, client-transport, client). The easiest solution is to run install on root and stop once you reach first service in client-service (currently arireg).
 
 # Versioning
