@@ -45,7 +45,6 @@
     <module>kir</module>
     <module>kirst</module>
     <module>kutseregister</module>
-    <module>kvkr</module>
     <module>kvkr3</module>
     <module>liiklusregister</module>
     <module>mkrliides</module>
@@ -55,39 +54,12 @@
     <module>raks</module>
     <module>rar</module>
     <module>rr</module>
-    <module>rrv5</module>
     <module>skais2</module>
     <module>star</module>
     <module>statistikaamet</module>
     <module>tarn</module>
     <module>tor</module>
     <module>tsd</module>
-
-    <!-- Services currently not used by TK. May need revamp; therefore skipped -->
-    <!--    <module>rmviki</module>-->
-    <!--    <module>emtav5</module>-->
-    <!--    <module>aar</module>-->
-    <!--    <module>ads</module>-->
-    <!--    <module>ehr</module>-->
-    <!--    <module>emta</module>-->
-    <!--    <module>epria</module>-->
-    <!--    <module>esis</module>-->
-    <!--    <module>karis</module>-->
-    <!--    <module>koodikeskus</module>-->
-    <!--    <module>ljvis</module>-->
-    <!--    <module>lkf</module>-->
-    <!--    <module>mteenus</module>-->
-    <!--    <module>polis</module>-->
-    <!--    <module>rets</module>-->
-    <!--    <module>rmrk</module>-->
-    <!--    <module>tam</module>-->
-    <!--    <module>teavituskalender</module>-->
-    <!--    <module>trelvaregister</module>-->
-    <!--    <module>vangis</module>-->
-    <!--    <module>viisaregister</module>-->
-    <!--    <module>pria-toetusreg</module>-->
-    <!--    <module>treasury</module>-->
-
     <module>test</module>
   </modules>
   <build>
@@ -95,61 +67,14 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
-        <version>3.5.0</version>
-        <executions>
-          <execution>
-            <phase>generate-sources</phase>
-            <goals>
-              <goal>exec</goal>
-            </goals>
-            <configuration>
-              <executable>java</executable>
-              <arguments>
-                <argument>-classpath</argument>
-                <classpath/>
-                <argument>com.nortal.jroad.typegen.TypeGen</argument>
-                <argument>wsdldir=${basedir}/src/main/resources</argument>
-                <argument>sourcedir=${basedir}/src/main/java</argument>
-                <argument>xsbdir=${basedir}/target/classes</argument>
-                <argument>basepackage=com.nortal.jroad.client.${package}.types</argument>
-                <argument>dbclassespackage=com.nortal.jroad.client.${package}.database</argument>
-              </arguments>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>3.4.2</version>
-        <executions>
-          <execution>
-            <id>default-jar</id>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-            <configuration>
-              <excludes>
-                <exclude>*.wsdl</exclude>
-              </excludes>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-clean-plugin</artifactId>
-        <version>3.4.0</version>
-        <configuration>
-          <filesets>
-            <fileset>
-              <directory>src/main/java/com/nortal/jroad/client/${package}/types</directory>
-            </fileset>
-            <fileset>
-              <directory>src/main/java/com/nortal/jroad/client/${package}/database</directory>
-            </fileset>
-          </filesets>
-        </configuration>
       </plugin>
     </plugins>
   </build>
