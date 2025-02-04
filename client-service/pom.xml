@@ -5,6 +5,11 @@
   <artifactId>xtee-client-service</artifactId>
   <name>X-Tee Client parent</name>
   <packaging>pom</packaging>
+  <properties>
+    <exec.classpathScope>
+      provided
+    </exec.classpathScope>
+  </properties>
 
   <parent>
     <groupId>com.nortal.jroad</groupId>
@@ -32,58 +37,61 @@
     </dependency>
   </dependencies>
   <modules>
-    <module>tor</module>
-    <module>rmviki</module>
-    <module>emtav5</module>
-    <module>aar</module>
-    <module>ads</module>
-    <module>adsv5</module>
     <module>arireg</module>
+    <module>digilugu</module>
+    <module>ehis</module>
+    <module>etoimik</module>
+    <module>kir</module>
+    <module>kirst</module>
+    <module>kutseregister</module>
     <module>kvkr</module>
     <module>kvkr3</module>
-    <module>star</module>
-
-    <!--  <module>dhl</module>-->
-    <module>ehis</module>
-    <module>ehr</module>
-    <module>emta</module>
+    <module>liiklusregister</module>
     <module>mkrliides</module>
     <module>mkrliides-uploader</module>
     <module>mrr</module>
-    <module>tsd</module>
-    <module>kutseregister</module>
-    <module>epria</module>
-    <module>esis</module>
-    <module>karis</module>
-    <module>kirst</module>
-<!--     <module>kmais</module> -->
-    <module>koodikeskus</module>
-<!--     <module>kr</module> -->
-    <module>liiklusregister</module>
-    <module>ljvis</module>
-    <module>lkf</module>
-    <module>mteenus</module>
     <module>pkr</module>
-    <module>polis</module>
-    <module>rets</module>
-    <module>rmrk</module>
+    <module>raks</module>
+    <module>rar</module>
     <module>rr</module>
     <module>rrv5</module>
     <module>skais2</module>
-    <module>tam</module>
-	<module>tarn</module>
-    <module>teavituskalender</module>
-    <module>test</module>
-    <module>trelvaregister</module>
-    <module>vangis</module>
-    <module>viisaregister</module>
-    <module>pria-toetusreg</module>
-    <module>treasury</module>
-    <module>rar</module>
-    <module>digilugu</module>
+    <module>star</module>
     <module>statistikaamet</module>
-    <module>kir</module>
-    <module>etoimik</module>
+    <module>tarn</module>
+    <module>tor</module>
+    <module>tsd</module>
+
+    <!-- Services currently not used by TK. May need revamp; therefore skipped -->
+    <!--    <module>emtav5</module>-->
+    <!--    <module>ads</module>-->
+    <!--    <module>ehr</module>-->
+    <!--    <module>emta</module>-->
+    <!--    <module>epria</module>-->
+    <!--    <module>esis</module>-->
+    <!--    <module>karis</module>-->
+    <!--    <module>koodikeskus</module>-->
+    <!--    <module>ljvis</module>-->
+    <!--    <module>lkf</module>-->
+    <!--    <module>mteenus</module>-->
+    <!--    <module>polis</module>-->
+    <!--    <module>rets</module>-->
+    <!--    <module>rmrk</module>-->
+    <!--    <module>tam</module>-->
+    <!--    <module>teavituskalender</module>-->
+    <!--    <module>trelvaregister</module>-->
+    <!--    <module>vangis</module>-->
+    <!--    <module>viisaregister</module>-->
+    <!--    <module>pria-toetusreg</module>-->
+    <!--    <module>treasury</module>-->
+
+    <!-- These modules are broken  -->
+    <!--     <module>adsv5</module> -->
+    <!--     <module>dhl</module> -->
+    <!--     <module>kmais</module> -->
+    <!--     <module>kr</module> -->
+
+    <module>test</module>
   </modules>
 
   <build>
@@ -92,7 +100,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
-        <version>1.1.1</version>
+        <version>3.5.0</version>
         <executions>
         <execution>
             <phase>generate-sources</phase>
@@ -135,7 +143,7 @@
     	<inherited>true</inherited>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>2.0.2</version>
+        <version>2.3.2</version>
         <configuration>
           <encoding>UTF-8</encoding>
           <source>1.6</source>

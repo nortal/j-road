@@ -39,7 +39,7 @@ public class AttachmentPostprocessor {
     chan.read(buf);
     chan.close();
     buf.rewind();
-    return new String(Charset.forName("UTF-8").newDecoder().decode(buf).array());
+    return Charset.forName("UTF-8").newDecoder().decode(buf).toString();
   }
 
   private static void writeFile(File file, String data) throws Exception {
