@@ -126,7 +126,8 @@
 		</schema>
 
 		<!--	5024.xsd	-->
-		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" version="5024_2017" id="stat.ee_questionnaire_5024_2017" targetNamespace="5024.xsd"  xmlns="5024.xsd" >
+		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" version="5024_2022"
+				   id="stat.ee_questionnaire_5024_2022" targetNamespace="5024.xsd" xmlns="5024.xsd">
 			<!--
 
       ==============================================================================
@@ -227,6 +228,13 @@
 							</xs:documentation>
 						</xs:annotation>
 					</xs:element>
+					<xs:element name="elementVIIMANE_ISCO_NIMETUS" type="typeVIIMANE_ISCO_NIMETUS" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="ET">Töötu viimane amet, 8-kohalise koodi tekstiline vaste
+
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="elementISIK_ID" type="typeISIK_ID" minOccurs="1" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation xml:lang="ET">Unikaalne isikut tuvastav ID, mis võimaldab üle erinevate töötukassa teenuste andmeid siduda
@@ -269,6 +277,20 @@
 							</xs:documentation>
 						</xs:annotation>
 					</xs:element>
+					<xs:element name="elementKUU" type="typeKUU" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="ET">Kuu, mille kohta andmed edastati
+
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="elementAASTA" type="typeAASTA" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation xml:lang="ET">Aasta, mille kohta andmed edastati
+
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="MUUT_KPV" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation xml:lang="ET">viimase muutuse tegemise aeg</xs:documentation>
@@ -277,7 +299,7 @@
 						</xs:annotation>
 						<xs:simpleType>
 							<xs:restriction base="xs:dateTime">
-								<xs:minInclusive value="1999-01-01T00:00:00"/>
+								<xs:minInclusive value="2014-01-01T00:00:00"/>
 							</xs:restriction>
 						</xs:simpleType>
 					</xs:element>
@@ -289,7 +311,7 @@
 						</xs:annotation>
 						<xs:simpleType>
 							<xs:restriction base="xs:dateTime">
-								<xs:minExclusive value="1999-01-01T00:00:00"/>
+								<xs:minExclusive value="2014-01-01T00:00:00"/>
 							</xs:restriction>
 						</xs:simpleType>
 					</xs:element>
@@ -320,7 +342,7 @@
 						</xs:annotation>
 						<xs:simpleType>
 							<xs:restriction base="xs:dateTime">
-								<xs:minInclusive value="1999-01-01T00:00:00"/>
+								<xs:minInclusive value="2014-01-01T00:00:00"/>
 							</xs:restriction>
 						</xs:simpleType>
 					</xs:element>
@@ -590,6 +612,28 @@
 					<xs:element name="AMET-Meta" type="elemendiKirjeldus" minOccurs="1" maxOccurs="1" />
 				</xs:sequence>
 			</xs:complexType>
+			<xs:complexType name="typeVIIMANE_ISCO_NIMETUS">
+				<xs:sequence>
+					<xs:element name="VIIMANE_ISCO_NIMETUS">
+						<xs:annotation>
+							<xs:documentation xml:lang="ET">Töötu viimane amet, 8-kohalise koodi tekstiline vaste</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:union>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:length value="0"/>
+									</xs:restriction>
+								</xs:simpleType>
+								<xs:simpleType>
+									<xs:restriction base="xs:string"></xs:restriction>
+								</xs:simpleType>
+							</xs:union>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="AMET-Meta" type="elemendiKirjeldus" minOccurs="1" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:complexType>
 			<xs:complexType name="typeTOOTAMISE_ALGKPV">
 				<xs:sequence>
 					<xs:element name="TOOTAMISE_ALGKPV">
@@ -627,6 +671,50 @@
 								</xs:simpleType>
 								<xs:simpleType>
 									<xs:restriction base="xs:dateTime"></xs:restriction>
+								</xs:simpleType>
+							</xs:union>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="AMET-Meta" type="elemendiKirjeldus" minOccurs="1" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="typeKUU">
+				<xs:sequence>
+					<xs:element name="KUU">
+						<xs:annotation>
+							<xs:documentation xml:lang="ET">Kuu, mille kohta andmed edastati</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:union>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:length value="0"/>
+									</xs:restriction>
+								</xs:simpleType>
+								<xs:simpleType>
+									<xs:restriction base="xs:integer"></xs:restriction>
+								</xs:simpleType>
+							</xs:union>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="AMET-Meta" type="elemendiKirjeldus" minOccurs="1" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="typeAASTA">
+				<xs:sequence>
+					<xs:element name="AASTA">
+						<xs:annotation>
+							<xs:documentation xml:lang="ET">Aasta, mille kohta andmed edastati</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:union>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:length value="0"/>
+									</xs:restriction>
+								</xs:simpleType>
+								<xs:simpleType>
+									<xs:restriction base="xs:integer"></xs:restriction>
 								</xs:simpleType>
 							</xs:union>
 						</xs:simpleType>
