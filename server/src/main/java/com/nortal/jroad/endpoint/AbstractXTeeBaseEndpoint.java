@@ -132,9 +132,9 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
 
   @SuppressWarnings("unchecked")
   private XRoadHeader parseXteeHeader(SOAPMessage paringMessage) throws SOAPException {
-    XRoadHeader pais = new XRoadHeader();
+    XRoadHeader xRoadHeader = new XRoadHeader();
     if (paringMessage.getSOAPHeader() == null) {
-      return pais;
+      return xRoadHeader;
     }
 
     SOAPHeader header = paringMessage.getSOAPHeader();
@@ -143,10 +143,19 @@ public abstract class AbstractXTeeBaseEndpoint implements MessageEndpoint {
       if (!SOAPUtil.isTextNode(headerElement) && headerElement.getFirstChild() != null) {
         String localName = headerElement.getLocalName();
         String value = headerElement.getFirstChild().getNodeValue();
-        pais.addElement(new QName(headerElement.getNamespaceURI(), localName), value);
+        NodeList childNodes = headerElement.getChildNodes();
+        if (childNodes.getLength() > 1) {
+          for (int i = 0; i < childNodes.getLength(); i++) {
+            Node item = childNodes.item(i);
+            if (item.getLocalName() != null) {
+              xRoadHeader.addElement(new QName(item.getNamespaceURI(), localName + "." + item.getLocalName()), item.getFirstChild().getNodeValue());
+            }
+          }
+        }
+        xRoadHeader.addElement(new QName(headerElement.getNamespaceURI(), localName), value);
       }
     }
-    return pais;
+    return xRoadHeader;
   }
 
   protected Document parseQuery(SOAPMessage queryMsg) throws Exception {
