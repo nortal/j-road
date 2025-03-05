@@ -6,7 +6,7 @@
 	<artifactId>xtee-server</artifactId>
 	<name>x-tee server</name>
 	<description>x-tee server API</description>
-    <version>4.3.1-SNAPSHOT</version>
+    <version>4.3.1.1</version>
 	<parent>
 		<groupId>com.nortal.jroad</groupId>
 		<artifactId>xtee-root</artifactId>
