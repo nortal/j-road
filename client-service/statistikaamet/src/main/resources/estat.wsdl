@@ -778,8 +778,7 @@
 		</xs:schema>
 
 		<!--	5145.xsd	-->
-		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" version="5145_2022"
-				   id="stat.ee_questionnaire_5145_2022" targetNamespace="5145.xsd" xmlns="5145.xsd">
+		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" version="5145_2022" id="stat.ee_questionnaire_5145_2022" targetNamespace="5145.xsd"  xmlns="5145.xsd" >
 			<!--
 
             ==============================================================================
@@ -820,16 +819,13 @@
 						<xs:annotation>
 							<xs:documentation xml:lang="ET">Andmerea järjekorranumber konkreetses sõnumis
 								Käitumine puudumisel: Andmerida ei võeta vastu, tagastatakse puuduva andmeelemendi kood ning veateade &quot;missing&quot;
-								Käitumine ebakorrektsusel: Andmerida ei võeta vastu, tagastatakse ebakorrektse andmeelemendi kood ning
-								veateade &quot;incorrect&quot;
-								Kasutusel järgnevates statistikatöödes: N/A
-							</xs:documentation>
+								Käitumine ebakorrektsusel: Andmerida ei võeta vastu, tagastatakse ebakorrektse andmeelemendi kood ning veateade &quot;incorrect&quot;
+								Kasutusel järgnevates statistikatöödes: N/A</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="elementISIK_ID" type="typeISIK_ID" minOccurs="1" maxOccurs="1">
 						<xs:annotation>
-							<xs:documentation xml:lang="ET">Unikaalne isikut tuvastav ID, mis võimaldab üle erinevate töötukassa teenuste
-								andmeid siduda
+							<xs:documentation xml:lang="ET">Unikaalne isikut tuvastav ID, mis võimaldab üle erinevate töötukassa teenuste andmeid siduda
 								Unikaalne isikut tuvastav ID, mis võimaldab üle erinevate töötukassa teenuste andmeid siduda
 							</xs:documentation>
 						</xs:annotation>
@@ -932,20 +928,6 @@
 							</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="elementLOPP_OTSUS_KPV" type="typeLOPP_OTSUS_KPV" minOccurs="1" maxOccurs="1">
-						<xs:annotation>
-							<xs:documentation xml:lang="ET">Arveloleku lõpetamise otsuse kinnitamise kuupäev
-
-							</xs:documentation>
-						</xs:annotation>
-					</xs:element>
-					<xs:element name="elementKUU" type="typeKUU" minOccurs="1" maxOccurs="1">
-						<xs:annotation>
-							<xs:documentation xml:lang="ET">Kuu, mille kohta andmed edastati
-
-							</xs:documentation>
-						</xs:annotation>
-					</xs:element>
 					<xs:element name="elementAASTA" type="typeAASTA" minOccurs="1" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation xml:lang="ET">Aasta, mille kohta andmed edastati
@@ -957,9 +939,7 @@
 						<xs:annotation>
 							<xs:documentation xml:lang="ET">viimase muutuse tegemise aeg</xs:documentation>
 							<xs:documentation xml:lang="ET">Käitumine puudumisel: Andmerida võetakse vastu
-								Käitumine ebakorrektsusel: Andmerida ei võeta vastu, tagastatakse ebakorrektse andmeelemendi kood ning
-								veateade &quot;incorrect&quot;
-							</xs:documentation>
+								Käitumine ebakorrektsusel: Andmerida ei võeta vastu, tagastatakse ebakorrektse andmeelemendi kood ning veateade &quot;incorrect&quot;</xs:documentation>
 						</xs:annotation>
 						<xs:simpleType>
 							<xs:restriction base="xs:dateTime">
@@ -968,12 +948,9 @@
 					</xs:element>
 					<xs:element name="SISESTAMISE_KPV" minOccurs="1" maxOccurs="1">
 						<xs:annotation>
-							<xs:documentation xml:lang="ET">kande tegemise aeg</xs:documentation>
-							<xs:documentation xml:lang="ET">Käitumine puudumisel: Andmerida ei võeta vastu, tagastatakse puuduva
-								andmeelemendi kood ning veateade &quot;missing&quot;
-								Käitumine ebakorrektsusel: Andmerida ei võeta vastu, tagastatakse ebakorrektse andmeelemendi kood ning
-								veateade &quot;incorrect&quot;
-							</xs:documentation>
+							<xs:documentation xml:lang="ET">kande tegemise aeg </xs:documentation>
+							<xs:documentation xml:lang="ET">Käitumine puudumisel: Andmerida ei võeta vastu, tagastatakse puuduva andmeelemendi kood ning veateade &quot;missing&quot;
+								Käitumine ebakorrektsusel: Andmerida ei võeta vastu, tagastatakse ebakorrektse andmeelemendi kood ning veateade &quot;incorrect&quot;</xs:documentation>
 						</xs:annotation>
 						<xs:simpleType>
 							<xs:restriction base="xs:dateTime">
@@ -1007,7 +984,6 @@
 						</xs:annotation>
 						<xs:simpleType>
 							<xs:restriction base="xs:dateTime">
-
 							</xs:restriction>
 						</xs:simpleType>
 					</xs:element>
@@ -1017,9 +993,7 @@
 				<xs:sequence>
 					<xs:element name="ISIK_ID">
 						<xs:annotation>
-							<xs:documentation xml:lang="ET">Unikaalne isikut tuvastav ID, mis võimaldab üle erinevate töötukassa teenuste
-								andmeid siduda
-							</xs:documentation>
+							<xs:documentation xml:lang="ET">Unikaalne isikut tuvastav ID, mis võimaldab üle erinevate töötukassa teenuste andmeid siduda</xs:documentation>
 						</xs:annotation>
 						<xs:simpleType>
 							<xs:union>
@@ -1034,7 +1008,7 @@
 							</xs:union>
 						</xs:simpleType>
 					</xs:element>
-					<xs:element name="AMET-Meta" type="elemendiKirjeldus" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="AMET-Meta" type="elemendiKirjeldus" minOccurs="1" maxOccurs="1" />
 				</xs:sequence>
 			</xs:complexType>
 			<xs:complexType name="typeISIKUKOOD">
@@ -1056,7 +1030,7 @@
 							</xs:union>
 						</xs:simpleType>
 					</xs:element>
-					<xs:element name="AMET-Meta" type="elemendiKirjeldus" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="AMET-Meta" type="elemendiKirjeldus" minOccurs="1" maxOccurs="1" />
 				</xs:sequence>
 			</xs:complexType>
 			<xs:complexType name="typeVALISMAALASE_IK">
@@ -1078,7 +1052,7 @@
 							</xs:union>
 						</xs:simpleType>
 					</xs:element>
-					<xs:element name="AMET-Meta" type="elemendiKirjeldus" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="AMET-Meta" type="elemendiKirjeldus" minOccurs="1" maxOccurs="1" />
 				</xs:sequence>
 			</xs:complexType>
 			<xs:complexType name="typeRIIK_IK">
@@ -1100,7 +1074,7 @@
 							</xs:union>
 						</xs:simpleType>
 					</xs:element>
-					<xs:element name="AMET-Meta" type="elemendiKirjeldus" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="AMET-Meta" type="elemendiKirjeldus" minOccurs="1" maxOccurs="1" />
 				</xs:sequence>
 			</xs:complexType>
 			<xs:complexType name="typeEESNIMI">
@@ -1122,7 +1096,7 @@
 							</xs:union>
 						</xs:simpleType>
 					</xs:element>
-					<xs:element name="AMET-Meta" type="elemendiKirjeldus" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="AMET-Meta" type="elemendiKirjeldus" minOccurs="1" maxOccurs="1" />
 				</xs:sequence>
 			</xs:complexType>
 			<xs:complexType name="typePERENIMI">
@@ -1144,7 +1118,7 @@
 							</xs:union>
 						</xs:simpleType>
 					</xs:element>
-					<xs:element name="AMET-Meta" type="elemendiKirjeldus" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="AMET-Meta" type="elemendiKirjeldus" minOccurs="1" maxOccurs="1" />
 				</xs:sequence>
 			</xs:complexType>
 			<xs:complexType name="typeSUGU">
@@ -1166,7 +1140,7 @@
 							</xs:union>
 						</xs:simpleType>
 					</xs:element>
-					<xs:element name="AMET-Meta" type="elemendiKirjeldus" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="AMET-Meta" type="elemendiKirjeldus" minOccurs="1" maxOccurs="1" />
 				</xs:sequence>
 			</xs:complexType>
 			<xs:complexType name="typeSYNNIKPV">
@@ -1188,7 +1162,7 @@
 							</xs:union>
 						</xs:simpleType>
 					</xs:element>
-					<xs:element name="AMET-Meta" type="elemendiKirjeldus" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="AMET-Meta" type="elemendiKirjeldus" minOccurs="1" maxOccurs="1" />
 				</xs:sequence>
 			</xs:complexType>
 			<xs:complexType name="typeLIIK">
@@ -1210,7 +1184,7 @@
 							</xs:union>
 						</xs:simpleType>
 					</xs:element>
-					<xs:element name="AMET-Meta" type="elemendiKirjeldus" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="AMET-Meta" type="elemendiKirjeldus" minOccurs="1" maxOccurs="1" />
 				</xs:sequence>
 			</xs:complexType>
 			<xs:complexType name="typeALG_KPV">
@@ -1232,7 +1206,7 @@
 							</xs:union>
 						</xs:simpleType>
 					</xs:element>
-					<xs:element name="AMET-Meta" type="elemendiKirjeldus" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="AMET-Meta" type="elemendiKirjeldus" minOccurs="1" maxOccurs="1" />
 				</xs:sequence>
 			</xs:complexType>
 			<xs:complexType name="typeLOPP_KPV">
@@ -1254,7 +1228,7 @@
 							</xs:union>
 						</xs:simpleType>
 					</xs:element>
-					<xs:element name="AMET-Meta" type="elemendiKirjeldus" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="AMET-Meta" type="elemendiKirjeldus" minOccurs="1" maxOccurs="1" />
 				</xs:sequence>
 			</xs:complexType>
 			<xs:complexType name="typeVIIMANE_ISCO">
@@ -1276,7 +1250,7 @@
 							</xs:union>
 						</xs:simpleType>
 					</xs:element>
-					<xs:element name="AMET-Meta" type="elemendiKirjeldus" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="AMET-Meta" type="elemendiKirjeldus" minOccurs="1" maxOccurs="1" />
 				</xs:sequence>
 			</xs:complexType>
 			<xs:complexType name="typeVIIMANE_ISCO_NIMETUS">
@@ -1298,7 +1272,7 @@
 							</xs:union>
 						</xs:simpleType>
 					</xs:element>
-					<xs:element name="AMET-Meta" type="elemendiKirjeldus" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="AMET-Meta" type="elemendiKirjeldus" minOccurs="1" maxOccurs="1" />
 				</xs:sequence>
 			</xs:complexType>
 			<xs:complexType name="typeTOOTAMISE_ALGKPV">
@@ -1320,7 +1294,7 @@
 							</xs:union>
 						</xs:simpleType>
 					</xs:element>
-					<xs:element name="AMET-Meta" type="elemendiKirjeldus" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="AMET-Meta" type="elemendiKirjeldus" minOccurs="1" maxOccurs="1" />
 				</xs:sequence>
 			</xs:complexType>
 			<xs:complexType name="typeTOOTAMISE_LOPPKPV">
@@ -1342,58 +1316,14 @@
 							</xs:union>
 						</xs:simpleType>
 					</xs:element>
-					<xs:element name="AMET-Meta" type="elemendiKirjeldus" minOccurs="1" maxOccurs="1"/>
-				</xs:sequence>
-			</xs:complexType>
-			<xs:complexType name="typeLOPP_OTSUS_KPV">
-				<xs:sequence>
-					<xs:element name="LOPP_OTSUS_KPV">
-						<xs:annotation>
-							<xs:documentation xml:lang="ET">Arveloleku lõpetamise otsuse kinnitamise kuupäev</xs:documentation>
-						</xs:annotation>
-						<xs:simpleType>
-							<xs:union>
-								<xs:simpleType>
-									<xs:restriction base="xs:string">
-										<xs:length value="0"/>
-									</xs:restriction>
-								</xs:simpleType>
-								<xs:simpleType>
-									<xs:restriction base="xs:dateTime"></xs:restriction>
-								</xs:simpleType>
-							</xs:union>
-						</xs:simpleType>
-					</xs:element>
-					<xs:element name="AMET-Meta" type="elemendiKirjeldus" minOccurs="1" maxOccurs="1"/>
-				</xs:sequence>
-			</xs:complexType>
-			<xs:complexType name="typeKUU">
-				<xs:sequence>
-					<xs:element name="KUU">
-						<xs:annotation>
-							<xs:documentation xml:lang="ET">Kuu, mille kohta andmed edastati</xs:documentation>
-						</xs:annotation>
-						<xs:simpleType>
-							<xs:union>
-								<xs:simpleType>
-									<xs:restriction base="xs:string">
-										<xs:length value="0"/>
-									</xs:restriction>
-								</xs:simpleType>
-								<xs:simpleType>
-									<xs:restriction base="xs:integer"></xs:restriction>
-								</xs:simpleType>
-							</xs:union>
-						</xs:simpleType>
-					</xs:element>
-					<xs:element name="AMET-Meta" type="elemendiKirjeldus" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="AMET-Meta" type="elemendiKirjeldus" minOccurs="1" maxOccurs="1" />
 				</xs:sequence>
 			</xs:complexType>
 			<xs:complexType name="typeAASTA">
 				<xs:sequence>
 					<xs:element name="AASTA">
 						<xs:annotation>
-							<xs:documentation xml:lang="ET">Aasta, mille kohta andmed edastati</xs:documentation>
+							<xs:documentation xml:lang="ET">Aasta, mille kohta andmed edastati </xs:documentation>
 						</xs:annotation>
 						<xs:simpleType>
 							<xs:union>
@@ -1408,7 +1338,7 @@
 							</xs:union>
 						</xs:simpleType>
 					</xs:element>
-					<xs:element name="AMET-Meta" type="elemendiKirjeldus" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="AMET-Meta" type="elemendiKirjeldus" minOccurs="1" maxOccurs="1" />
 				</xs:sequence>
 			</xs:complexType>
 			<xs:element name="report" type="reportType"/>
@@ -1423,13 +1353,12 @@
 						Leheküljede saatmise korral dokumendis peavad olema kõik antud grupis loetletud tunnused.
 						Kui kõik tunnused on kohal, siis süsteem eeldab, et tegemist on aruande leheküljega.
 						Kui üks või rohkem nendest puudub, siis süsteem eeldab, et on toimunud mingi viga.
-						Kui kõik selle tunnuste grupi elemendid on puudu, siis süsteem eeldab, et kohale on tulnud tavaline aruanne, mida
-						edastatakse ühe tervikuna.
+						Kui kõik selle tunnuste grupi elemendid on puudu, siis süsteem eeldab, et kohale on tulnud tavaline aruanne, mida edastatakse ühe tervikuna.
 						Reeglid:
 						id: täidetud tekst
-						totalCount: positiivne täisarv (ei saa olla nulliga võrdne)
+						totalCount: positiivne  täisarv (ei saa olla nulliga võrdne)
 						offset: mitte negatiivne täisarv (võib olla võrdne nulliga, kuid ei saa olla negatiivne)
-						limit: positiivne täisarv (ei saa olla nulliga võrdne)
+						limit: positiivne  täisarv (ei saa olla nulliga võrdne)
 
 						(offset + limit ) ;= totalCount
 					</xs:documentation>
@@ -1437,9 +1366,7 @@
 
 				<xs:attribute name="id" use="optional">
 					<xs:annotation>
-						<xs:documentation>Aruande id. Kõikidel aruande leheküljedel peab olema sama id väärtus. Erineva id väärtustega XML
-							dokumente peetakse eraldi aruandeks.
-						</xs:documentation>
+						<xs:documentation>Aruande id. Kõikidel aruande leheküljedel peab olema sama id väärtus. Erineva id väärtustega XML dokumente peetakse eraldi aruandeks.</xs:documentation>
 					</xs:annotation>
 					<xs:simpleType>
 						<xs:restriction base="xs:string">
@@ -1456,17 +1383,13 @@
 
 				<xs:attribute name="offset" use="optional" type="xs:nonNegativeInteger">
 					<xs:annotation>
-						<xs:documentation>Ridade nihe. Näitab mitu rida tuleb jätta vahele. Numeratsioon algab 0-st ( offset=&quot;9&quot;
-							tähendab, et tuleb jätta vahele 9 rida ning võtta 10 rida arvestuseks)
-						</xs:documentation>
+						<xs:documentation>Ridade nihe. Näitab mitu rida tuleb jätta vahele. Numeratsioon algab 0-st ( offset=&quot;9&quot; tähendab, et tuleb jätta vahele 9 rida ning võtta 10 rida arvestuseks)</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
 
 				<xs:attribute name="limit" use="optional" type="xs:positiveInteger">
 					<xs:annotation>
-						<xs:documentation>Ridade arv ühes leheküljes. Tunnuse väärtus peab olema võrdne AndmeRida elementide arvule ühes XML
-							dokumendis (XPath avaldis &quot;count(/report/AndmeRida)&quot;)
-						</xs:documentation>
+						<xs:documentation>Ridade arv ühes leheküljes. Tunnuse väärtus peab olema võrdne AndmeRida elementide arvule ühes XML dokumendis (XPath avaldis &quot;count(/report/AndmeRida)&quot;)</xs:documentation>
 					</xs:annotation>
 				</xs:attribute>
 
