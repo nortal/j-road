@@ -71,7 +71,7 @@ public class PkrXTeeServiceImpl extends XRoadDatabaseService implements PkrXTeeS
         erihk1.setPerAlgus(getCalendar(algusKuup));
         erihk1.setPerLopp(getCalendar(loppKuup));
 
-        XRoadMessage<ERIHK1ResponseDocument.ERIHK1Response> response = send(new XmlBeansXRoadMessage<ERIHK1Document>(erihk1Document), ERIHK1, "v1");
+        XRoadMessage<ERIHK1ResponseDocument.ERIHK1Response> response = send(new XmlBeansXRoadMessage<ERIHK1Document.ERIHK1>(erihk1), ERIHK1, "v1");
         return response.getContent();
     }
 
