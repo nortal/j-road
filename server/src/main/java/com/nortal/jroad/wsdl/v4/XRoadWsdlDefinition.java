@@ -44,6 +44,8 @@ public class XRoadWsdlDefinition implements Wsdl11Definition, InitializingBean {
   private String serviceName;
   private List<String> inputsWithRepresentedParty;
   private List<String> outputsWithRepresentedParty;
+  private List<String> inputsWithIssue;
+  private List<String> outputsWithIssue;
 
   @Resource(name = "database")
   private String database;
@@ -56,6 +58,7 @@ public class XRoadWsdlDefinition implements Wsdl11Definition, InitializingBean {
   public static final String XROAD_REPRESENTED_PARTY_NAMESPACE = "http://x-road.eu/xsd/representation.xsd";
   public static final String XROAD_REPRESENTED_PARTY_PREFIX = "repr";
   public static final QName REPRESENTED_PARTY = new QName(XROAD_REPRESENTED_PARTY_NAMESPACE, "representedParty");
+  public static final QName ISSUE = new QName(XROAD_NAMESPACE, "issue");
 
   public XRoadWsdlDefinition() {
     delegate.setTypesProvider(typesProvider);
@@ -130,6 +133,8 @@ public class XRoadWsdlDefinition implements Wsdl11Definition, InitializingBean {
     soapProvider.setXRoadEndpointMapping(xRoadEndpointMapping);
     soapProvider.setInputsWithRepresentedParty(inputsWithRepresentedParty);
     soapProvider.setOutputsWithRepresentedParty(outputsWithRepresentedParty);
+    soapProvider.setInputsWithIssue(inputsWithIssue);
+    soapProvider.setOutputsWithIssue(outputsWithIssue);
     portTypesProvider.setXRoadEndpointMapping(xRoadEndpointMapping);
 
     setRequestSuffix("Request");
@@ -167,6 +172,10 @@ public class XRoadWsdlDefinition implements Wsdl11Definition, InitializingBean {
     addXroadHeaderPart(definition, message, XRoadHeader.ID);
     addXroadHeaderPart(definition, message, XRoadHeader.USER_ID);
     addXroadHeaderPart(definition, message, XRoadHeader.PROTOCOL_VERSION);
+
+    if (!isEmpty(inputsWithIssue) || !isEmpty(outputsWithIssue)) {
+      addXroadHeaderPart(definition, message, ISSUE);
+    }
 
     if (!isEmpty(inputsWithRepresentedParty) || !isEmpty(outputsWithRepresentedParty)) {
       definition.addNamespace(XROAD_REPRESENTED_PARTY_PREFIX, XROAD_REPRESENTED_PARTY_NAMESPACE);
@@ -206,5 +215,13 @@ public class XRoadWsdlDefinition implements Wsdl11Definition, InitializingBean {
 
   public void setOutputsWithRepresentedParty(List<String> outputsWithRepresentedParty) {
     this.outputsWithRepresentedParty = outputsWithRepresentedParty;
+  }
+
+  public void setInputsWithIssue(List<String> inputsWithIssue) {
+    this.inputsWithIssue = inputsWithIssue;
+  }
+
+  public void setOutputsWithIssue(List<String> outputsWithIssue) {
+    this.outputsWithIssue = outputsWithIssue;
   }
 }

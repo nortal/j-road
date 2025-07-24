@@ -30,6 +30,7 @@ public class XRoadSoapProvider extends Soap11Provider {
   private static final String LITERAL = "literal";
   private static final String ENCODING = "http://schemas.xmlsoap.org/soap/encoding/";
   private static final String REPRESENTED_PARTY = "representedParty";
+  private static final String ISSUE = "issue";
 
   private String xRoadDatabase;
   private String use = LITERAL;
@@ -37,6 +38,8 @@ public class XRoadSoapProvider extends Soap11Provider {
   private XRoadEndpointMapping xRoadEndpointMapping;
   private List<String> inputsWithRepresentedParty;
   private List<String> outputsWithRepresentedParty;
+  private List<String> inputsWithIssue;
+  private List<String> outputsWithIssue;
 
   private List<SOAPHeader> makeHeaders(Definition definition) throws WSDLException {
     List<SOAPHeader> list = new ArrayList<SOAPHeader>();
@@ -77,6 +80,11 @@ public class XRoadSoapProvider extends Soap11Provider {
                                                       REPRESENTED_PARTY,
                                                       definition.getExtensionRegistry()));
     }
+    if (inputsWithIssue != null && inputsWithIssue.contains(input.getName())) {
+      bindingInput.addExtensibilityElement(makeHeader(definition.getTargetNamespace(),
+                                                      ISSUE,
+                                                      definition.getExtensionRegistry()));
+    }
     super.populateBindingInput(definition, bindingInput, input);
   }
 
@@ -89,6 +97,11 @@ public class XRoadSoapProvider extends Soap11Provider {
     if (outputsWithRepresentedParty != null && outputsWithRepresentedParty.contains(output.getName())) {
       bindingOutput.addExtensibilityElement(makeHeader(definition.getTargetNamespace(),
                                                        REPRESENTED_PARTY,
+                                                       definition.getExtensionRegistry()));
+    }
+    if (outputsWithIssue != null && outputsWithIssue.contains(output.getName())) {
+      bindingOutput.addExtensibilityElement(makeHeader(definition.getTargetNamespace(),
+                                                       ISSUE,
                                                        definition.getExtensionRegistry()));
     }
     super.populateBindingOutput(definition, bindingOutput, output);
@@ -188,5 +201,13 @@ public class XRoadSoapProvider extends Soap11Provider {
 
   public void setOutputsWithRepresentedParty(List<String> outputsWithRepresentedParty) {
     this.outputsWithRepresentedParty = outputsWithRepresentedParty;
+  }
+
+  public void setInputsWithIssue(List<String> inputsWithIssue) {
+    this.inputsWithIssue = inputsWithIssue;
+  }
+
+  public void setOutputsWithIssue(List<String> outputsWithIssue) {
+    this.outputsWithIssue = outputsWithIssue;
   }
 }
