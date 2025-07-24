@@ -2,6 +2,8 @@ package com.nortal.jroad.wsdl.v4;
 
 import com.nortal.jroad.mapping.v4.XRoadEndpointMapping;
 import com.nortal.jroad.model.v4.XRoadHeader;
+
+import java.util.List;
 import java.util.Properties;
 import javax.annotation.Resource;
 import javax.wsdl.Definition;
@@ -21,6 +23,8 @@ import org.springframework.xml.xsd.XsdSchema;
 import org.springframework.xml.xsd.XsdSchemaCollection;
 import org.w3c.dom.Element;
 
+import static org.springframework.util.CollectionUtils.isEmpty;
+
 /**
  * * Generates WSDL for XRoad services from a schema, much like Spring's WSDL generator it delegates to
  * <code>InliningXsdSchemaTypesProvider</code>, <code>DefaultMessagesProvider</code>,
@@ -38,6 +42,8 @@ public class XRoadWsdlDefinition implements Wsdl11Definition, InitializingBean {
   private final XRoadSoapProvider soapProvider = new XRoadSoapProvider();
   private final ProviderBasedWsdl4jDefinition delegate = new ProviderBasedWsdl4jDefinition();
   private String serviceName;
+  private List<String> inputsWithRepresentedParty;
+  private List<String> outputsWithRepresentedParty;
 
   @Resource(name = "database")
   private String database;
@@ -47,6 +53,9 @@ public class XRoadWsdlDefinition implements Wsdl11Definition, InitializingBean {
   public static final String XROAD_HEADER = "requestheader";
   public static final String XROAD_NAMESPACE = "http://x-road.eu/xsd/xroad.xsd";
   public static final String XROAD_PREFIX = "xrd";
+  public static final String XROAD_REPRESENTED_PARTY_NAMESPACE = "http://x-road.eu/xsd/representation.xsd";
+  public static final String XROAD_REPRESENTED_PARTY_PREFIX = "repr";
+  public static final QName REPRESENTED_PARTY = new QName(XROAD_REPRESENTED_PARTY_NAMESPACE, "representedParty");
 
   public XRoadWsdlDefinition() {
     delegate.setTypesProvider(typesProvider);
@@ -119,6 +128,8 @@ public class XRoadWsdlDefinition implements Wsdl11Definition, InitializingBean {
     soapProvider.setLocationUri("http://SECURITY_SERVER/cgi-bin/consumer_proxy");
     soapProvider.setXRoadDatabase(database);
     soapProvider.setXRoadEndpointMapping(xRoadEndpointMapping);
+    soapProvider.setInputsWithRepresentedParty(inputsWithRepresentedParty);
+    soapProvider.setOutputsWithRepresentedParty(outputsWithRepresentedParty);
     portTypesProvider.setXRoadEndpointMapping(xRoadEndpointMapping);
 
     setRequestSuffix("Request");
@@ -157,6 +168,11 @@ public class XRoadWsdlDefinition implements Wsdl11Definition, InitializingBean {
     addXroadHeaderPart(definition, message, XRoadHeader.USER_ID);
     addXroadHeaderPart(definition, message, XRoadHeader.PROTOCOL_VERSION);
 
+    if (!isEmpty(inputsWithRepresentedParty) || !isEmpty(outputsWithRepresentedParty)) {
+      definition.addNamespace(XROAD_REPRESENTED_PARTY_PREFIX, XROAD_REPRESENTED_PARTY_NAMESPACE);
+      addXroadHeaderPart(definition, message, REPRESENTED_PARTY);
+    }
+
     message.setUndefined(false);
     definition.addMessage(message);
 
@@ -184,4 +200,11 @@ public class XRoadWsdlDefinition implements Wsdl11Definition, InitializingBean {
     message.addPart(part);
   }
 
+  public void setInputsWithRepresentedParty(List<String> inputsWithRepresentedParty) {
+    this.inputsWithRepresentedParty = inputsWithRepresentedParty;
+  }
+
+  public void setOutputsWithRepresentedParty(List<String> outputsWithRepresentedParty) {
+    this.outputsWithRepresentedParty = outputsWithRepresentedParty;
+  }
 }
