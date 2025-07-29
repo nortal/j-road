@@ -11583,6 +11583,20 @@
 							</appinfo>
 						</annotation>
 					</element>
+					<element minOccurs="0" name="oppekavaryhmNimi" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppekava rühma nimetus</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
+					<element minOccurs="0" name="oppekavaryhmKood" type="string">
+						<annotation>
+							<appinfo>
+								<xroad:title xml:lang="et">Õppekava rühma kood</xroad:title>
+							</appinfo>
+						</annotation>
+					</element>
 					<element minOccurs="0" name="nomKestus" type="string">
 						<annotation>
 							<appinfo>
