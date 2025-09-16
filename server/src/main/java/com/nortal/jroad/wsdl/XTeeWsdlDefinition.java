@@ -9,6 +9,7 @@
 
 package com.nortal.jroad.wsdl;
 
+import java.util.List;
 import java.util.Properties;
 
 import jakarta.annotation.Resource;
@@ -33,6 +34,8 @@ import org.w3c.dom.Element;
 import com.nortal.jroad.mapping.XTeeEndpointMapping;
 import com.nortal.jroad.model.XRoadHeader;
 
+import static org.springframework.util.CollectionUtils.isEmpty;
+
 /**
  * Generates WSDL for X-Road services from a schema, much like Spring's WSDL generator it delegates to
  * <code>InliningXsdSchemaTypesProvider</code>, <code>DefaultMessagesProvider</code>,
@@ -51,6 +54,10 @@ public class XTeeWsdlDefinition implements Wsdl11Definition, InitializingBean {
   private final ProviderBasedWsdl4jDefinition delegate = new ProviderBasedWsdl4jDefinition();
 
   private String serviceName;
+  private List<String> inputsWithRepresentedParty;
+  private List<String> outputsWithRepresentedParty;
+  private List<String> inputsWithIssue;
+  private List<String> outputsWithIssue;
 
   @Resource(name = "xteeDatabase")
   private String xRoadDatabase;
@@ -64,6 +71,10 @@ public class XTeeWsdlDefinition implements Wsdl11Definition, InitializingBean {
   public static final String XROAD_NAMESPACE = "http://x-road.eu/xsd/xroad.xsd";
   public static final String XROAD_PREFIX = "xrd";
   public static final String XROAD_IDEN_NAMESPACE = "http://x-road.eu/xsd/identifiers";
+  public static final String XROAD_REPRESENTED_PARTY_NAMESPACE = "http://x-road.eu/xsd/representation.xsd";
+  public static final String XROAD_REPRESENTED_PARTY_PREFIX = "repr";
+  public static final QName REPRESENTED_PARTY = new QName(XROAD_REPRESENTED_PARTY_NAMESPACE, "representedParty");
+  public static final QName ISSUE = new QName(XROAD_NAMESPACE, "issue");
 
   public XTeeWsdlDefinition() {
     delegate.setTypesProvider(typesProvider);
@@ -136,6 +147,10 @@ public class XTeeWsdlDefinition implements Wsdl11Definition, InitializingBean {
     soapProvider.setLocationUri("http://SECURITY_SERVER/cgi-bin/consumer_proxy");
     soapProvider.setXRoadDatabase(xRoadDatabase);
     soapProvider.setXRoadEndpointMapping(xRoadEndpointMapping);
+    soapProvider.setInputsWithRepresentedParty(inputsWithRepresentedParty);
+    soapProvider.setOutputsWithRepresentedParty(outputsWithRepresentedParty);
+    soapProvider.setInputsWithIssue(inputsWithIssue);
+    soapProvider.setOutputsWithIssue(outputsWithIssue);
     portTypesProvider.setXRoadEndpointMapping(xRoadEndpointMapping);
 
     setRequestSuffix(SuffixBasedMessagesProvider.DEFAULT_REQUEST_SUFFIX);
@@ -178,6 +193,15 @@ public class XTeeWsdlDefinition implements Wsdl11Definition, InitializingBean {
     addXroadHeaderPart(definition, message, XRoadHeader.USER_ID);
     addXroadHeaderPart(definition, message, XRoadHeader.PROTOCOL_VERSION);
 
+    if (!isEmpty(inputsWithIssue) || !isEmpty(outputsWithIssue)) {
+      addXroadHeaderPart(definition, message, ISSUE);
+    }
+
+    if (!isEmpty(inputsWithRepresentedParty) || !isEmpty(outputsWithRepresentedParty)) {
+      definition.addNamespace(XROAD_REPRESENTED_PARTY_PREFIX, XROAD_REPRESENTED_PARTY_NAMESPACE);
+      addXroadHeaderPart(definition, message, REPRESENTED_PARTY);
+    }
+
     message.setUndefined(false);
     definition.addMessage(message);
 
@@ -207,5 +231,21 @@ public class XTeeWsdlDefinition implements Wsdl11Definition, InitializingBean {
 
   public void setxRoadTargetNamespace(String xRoadTargetNamespace) {
     this.xRoadTargetNamespace = xRoadTargetNamespace;
+  }
+
+  public void setInputsWithRepresentedParty(List<String> inputsWithRepresentedParty) {
+    this.inputsWithRepresentedParty = inputsWithRepresentedParty;
+  }
+
+  public void setOutputsWithRepresentedParty(List<String> outputsWithRepresentedParty) {
+    this.outputsWithRepresentedParty = outputsWithRepresentedParty;
+  }
+
+  public void setInputsWithIssue(List<String> inputsWithIssue) {
+    this.inputsWithIssue = inputsWithIssue;
+  }
+
+  public void setOutputsWithIssue(List<String> outputsWithIssue) {
+    this.outputsWithIssue = outputsWithIssue;
   }
 }

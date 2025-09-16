@@ -48,33 +48,44 @@ public class XTeeSoapProvider extends Soap11Provider {
   private static final String ENCODED = "encoded";
   private static final String LITERAL = "literal";
   private static final String ENCODING = "http://schemas.xmlsoap.org/soap/encoding/";
+  private static final String REPRESENTED_PARTY = "representedParty";
+  private static final String ISSUE = "issue";
 
   private String xRoadDatabase;
   private String use = LITERAL;
 
   private XTeeEndpointMapping xRoadEndpointMapping;
+  private List<String> inputsWithRepresentedParty;
+  private List<String> outputsWithRepresentedParty;
+  private List<String> inputsWithIssue;
+  private List<String> outputsWithIssue;
 
   private List<SOAPHeader> makeHeaders(Definition definition) throws WSDLException {
     List<SOAPHeader> list = new ArrayList<>();
     String[] parts = new String[] { XRoadHeader.CLIENT.getLocalPart(), XRoadHeader.SERVICE.getLocalPart(),
                                     XRoadHeader.USER_ID.getLocalPart(), XRoadHeader.ID.getLocalPart(),
                                     XRoadHeader.PROTOCOL_VERSION.getLocalPart() };
-    ExtensionRegistry extReg = definition.getExtensionRegistry();
-    for (int i = 0; i < parts.length; i++) {
-      SOAPHeader header =
-          (SOAPHeader) extReg.createExtension(BindingInput.class, new QName(SOAP_11_NAMESPACE_URI, "header"));
-      header.setMessage(new QName(definition.getTargetNamespace(), XTeeWsdlDefinition.XROAD_HEADER));
-      header.setPart(parts[i]);
-      if (use.equalsIgnoreCase(LITERAL)) {
-        header.setUse(LITERAL);
-      } else {
-        header.setUse(ENCODED);
-        header.setEncodingStyles(Arrays.asList(ENCODING));
-      }
+    for (String part : parts) {
+      SOAPHeader header = makeHeader(definition.getTargetNamespace(), part, definition.getExtensionRegistry());
       list.add(header);
     }
 
     return list;
+  }
+
+  private SOAPHeader makeHeader(String targetNamespace, String part, ExtensionRegistry extReg)
+          throws WSDLException {
+    SOAPHeader header =
+            (SOAPHeader) extReg.createExtension(BindingInput.class, new QName(SOAP_11_NAMESPACE_URI, "header"));
+    header.setMessage(new QName(targetNamespace, XTeeWsdlDefinition.XROAD_HEADER));
+    header.setPart(part);
+    if (use.equalsIgnoreCase(LITERAL)) {
+      header.setUse(LITERAL);
+    } else {
+      header.setUse(ENCODED);
+      header.setEncodingStyles(Arrays.asList(ENCODING));
+    }
+    return header;
   }
 
   @Override
@@ -82,6 +93,16 @@ public class XTeeSoapProvider extends Soap11Provider {
       throws WSDLException {
     for (SOAPHeader header : makeHeaders(definition)) {
       bindingInput.addExtensibilityElement(header);
+    }
+    if (inputsWithRepresentedParty != null && inputsWithRepresentedParty.contains(input.getName())) {
+      bindingInput.addExtensibilityElement(makeHeader(definition.getTargetNamespace(),
+                                                      REPRESENTED_PARTY,
+                                                      definition.getExtensionRegistry()));
+    }
+    if (inputsWithIssue != null && inputsWithIssue.contains(input.getName())) {
+      bindingInput.addExtensibilityElement(makeHeader(definition.getTargetNamespace(),
+                                                      ISSUE,
+                                                      definition.getExtensionRegistry()));
     }
     super.populateBindingInput(definition, bindingInput, input);
   }
@@ -91,6 +112,16 @@ public class XTeeSoapProvider extends Soap11Provider {
       throws WSDLException {
     for (SOAPHeader header : makeHeaders(definition)) {
       bindingOutput.addExtensibilityElement(header);
+    }
+    if (outputsWithRepresentedParty != null && outputsWithRepresentedParty.contains(output.getName())) {
+      bindingOutput.addExtensibilityElement(makeHeader(definition.getTargetNamespace(),
+                                                       REPRESENTED_PARTY,
+                                                       definition.getExtensionRegistry()));
+    }
+    if (outputsWithIssue != null && outputsWithIssue.contains(output.getName())) {
+      bindingOutput.addExtensibilityElement(makeHeader(definition.getTargetNamespace(),
+                                                       ISSUE,
+                                                       definition.getExtensionRegistry()));
     }
     super.populateBindingOutput(definition, bindingOutput, output);
   }
@@ -180,5 +211,21 @@ public class XTeeSoapProvider extends Soap11Provider {
       encStyles.add(ENCODING);
       soapBody.setEncodingStyles(encStyles);
     }
+  }
+
+  public void setInputsWithRepresentedParty(List<String> inputsWithRepresentedParty) {
+    this.inputsWithRepresentedParty = inputsWithRepresentedParty;
+  }
+
+  public void setOutputsWithRepresentedParty(List<String> outputsWithRepresentedParty) {
+    this.outputsWithRepresentedParty = outputsWithRepresentedParty;
+  }
+
+  public void setInputsWithIssue(List<String> inputsWithIssue) {
+    this.inputsWithIssue = inputsWithIssue;
+  }
+
+  public void setOutputsWithIssue(List<String> outputsWithIssue) {
+    this.outputsWithIssue = outputsWithIssue;
   }
 }
