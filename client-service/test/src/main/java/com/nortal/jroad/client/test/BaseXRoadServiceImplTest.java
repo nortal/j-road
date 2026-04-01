@@ -2,13 +2,15 @@ package com.nortal.jroad.client.test;
 
 import java.lang.reflect.Method;
 
-import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.ContextConfiguration;
 
 import com.nortal.jroad.model.XRoadElement;
 
+import javax.swing.*;
+
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.springframework.test.util.AssertionErrors.assertFalse;
 import static org.springframework.test.util.AssertionErrors.assertTrue;
 
 /**
@@ -17,8 +19,9 @@ import static org.springframework.test.util.AssertionErrors.assertTrue;
  * @author Roman Tekhov
  * @author margush
  */
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = { "classpath:client-test-common.xml" })
-public abstract class BaseXRoadServiceImplTest extends AbstractJUnit4SpringContextTests {
+public abstract class BaseXRoadServiceImplTest {
 
 	/**
 	 * Checks interface XRoadElement annotations<br>
