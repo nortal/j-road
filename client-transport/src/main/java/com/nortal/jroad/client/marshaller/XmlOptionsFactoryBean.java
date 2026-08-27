@@ -17,6 +17,7 @@
 
 package com.nortal.jroad.client.marshaller;
 
+import java.lang.reflect.Method;
 import java.util.Map;
 
 import org.apache.xmlbeans.XmlOptions;
@@ -44,17 +45,24 @@ public class XmlOptionsFactoryBean implements FactoryBean<XmlOptions> {
 
   /**
    * Set options on the underlying {@code XmlOptions} object.
-   * <p>The keys of the supplied map should be one of the String constants
-   * defined in {@code XmlOptions}, the values vary per option.
-   * @see XmlOptions#put(Object, Object)
-   * @see XmlOptions#SAVE_PRETTY_PRINT
-   * @see XmlOptions#LOAD_STRIP_COMMENTS
+   * <p>The keys of the supplied map should be names of the
+   * {@link XmlOptions.XmlOptionsKeys} enum constants (which match the String
+   * constants of XMLBeans 2.x, e.g. {@code SAVE_PRETTY_PRINT}), the values
+   * vary per option.
+   * @see XmlOptions.XmlOptionsKeys
    */
   public void setOptions(Map<String, ?> optionsMap) {
     this.xmlOptions = new XmlOptions();
     if (optionsMap != null) {
-      for (Map.Entry<String, ?> option : optionsMap.entrySet()) {
-        this.xmlOptions.put(option.getKey(), option.getValue());
+      try {
+        // XMLBeans 5 removed the public put(key, value) API; the enum-keyed setter is private
+        Method set = XmlOptions.class.getDeclaredMethod("set", XmlOptions.XmlOptionsKeys.class, Object.class);
+        set.setAccessible(true);
+        for (Map.Entry<String, ?> option : optionsMap.entrySet()) {
+          set.invoke(this.xmlOptions, XmlOptions.XmlOptionsKeys.valueOf(option.getKey()), option.getValue());
+        }
+      } catch (ReflectiveOperationException e) {
+        throw new IllegalStateException("Failed to set XmlOptions", e);
       }
     }
   }

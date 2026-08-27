@@ -84,7 +84,7 @@ public class DatabaseServiceMethod {
     }
 
     String typeLocation =
-        baseDirectory + "/schema" + SchemaTypeLoaderImpl.METADATA_PACKAGE_LOAD + "/type/"
+        baseDirectory + "/" + SchemaTypeLoaderImpl.METADATA_PACKAGE_LOAD + "/type/"
             + QNameHelper.hexsafedir(name) + ".xsb";
 
     File file = new File(typeLocation);
@@ -92,7 +92,7 @@ public class DatabaseServiceMethod {
     if (!file.exists()) {
       isTypeFile = false;
       String elementLocation =
-          baseDirectory + "/schema" + SchemaTypeLoaderImpl.METADATA_PACKAGE_LOAD + "/element/"
+          baseDirectory + "/" + SchemaTypeLoaderImpl.METADATA_PACKAGE_LOAD + "/element/"
               + QNameHelper.hexsafedir(name) + ".xsb";
       file = new File(elementLocation);
       if (!file.exists()) {

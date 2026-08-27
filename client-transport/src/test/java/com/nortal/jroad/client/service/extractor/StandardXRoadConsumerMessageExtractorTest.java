@@ -46,6 +46,43 @@ public class StandardXRoadConsumerMessageExtractorTest {
             "  </response>\n" +
             "</response>";
 
+    /**
+     * Variant for input files whose base64 text node starts with a newline (EarestFail3, EarestFail6).
+     * XMLBeans 2.x pretty-print trimmed leading/trailing whitespace of text nodes, so all PEM variants
+     * used to serialize identically; XMLBeans 5 preserves the whitespace and puts such text on its own
+     * lines, indenting the closing tag.
+     */
+    private final static String RESULT_PEM_FORMAT_LEADING_NEWLINE = "<response xmlns:era=\"http://earest.x-road.eu/\" xmlns=\"f\">\n" +
+            "  <request xmlns=\"\">\n" +
+            "    <ParinguKoostamiseAeg>2017-10-06T15:51:00</ParinguKoostamiseAeg>\n" +
+            "  </request>\n" +
+            "  <response xmlns=\"\">\n" +
+            "    <ArestiVastused>\n" +
+            "      <Vastus>\n" +
+            "        <IsikuOigusedKohustused>\n" +
+            "          <Akt>\n" +
+            "            <AlgParinguUnikaalneID>A801201702209240</AlgParinguUnikaalneID>\n" +
+            "            <VolitatudKasutajad>\n" +
+            "              <VolitatudKasutaja>\n" +
+            "                <VolituseLaad/>\n" +
+            "                <VolituseFailiNimi>jyritamm</VolituseFailiNimi>\n" +
+            "                <VolituseFail>\n" +
+            "JVBERi0xLjUNCiW1tbW1DQoxIDAgb2JqDQo8PC9UeXBlL0NhdGFsb2cvUGFnZXMgMiAwIFIvTGFu\n" +
+            "ZyhldC1FRSkgL1N0cnVjdFRyZWVSb290IDE1IDAgUi9NYXJrSW5mbzw8L01hcmtlZCB0cnVlPj4+\n" +
+            "CjE1MDc2Nw0KJSVFT0YNCnhyZWYNCjAgMA0KdHJhaWxlcg0KPDwvU2l6ZSAyNy9Sb290IDEgMCBS\n" +
+            "L0luZm8gMTQgMCBSL0lEWzxBNDQzRkEyNkVCQzM3RTRDODczOUFEQkYxNUEyRTZDRj48QTQ0M0ZB\n" +
+            "MjZFQkMzN0U0Qzg3MzlBREJGMTVBMkU2Q0Y+XSAvUHJldiAxNTA3NjcvWFJlZlN0bSAxNTA0NjM+\n" +
+            "Pg0Kc3RhcnR4cmVmDQoxNTE0NjUNCiUlRU9G\n" +
+            "                                        </VolituseFail>\n" +
+            "              </VolitatudKasutaja>\n" +
+            "            </VolitatudKasutajad>\n" +
+            "          </Akt>\n" +
+            "        </IsikuOigusedKohustused>\n" +
+            "      </Vastus>\n" +
+            "    </ArestiVastused>\n" +
+            "  </response>\n" +
+            "</response>";
+
 
     private final static String RESULT_SINGLE_ROW_FORMAT = "<response xmlns:era=\"http://earest.x-road.eu/\" xmlns=\"f\">\n" +
             "  <request xmlns=\"\">\n" +
@@ -96,7 +133,7 @@ public class StandardXRoadConsumerMessageExtractorTest {
     public void testExtractDataWithComment() throws IOException, SOAPException {
         // with comment
         XRoadMessage message = EXTRACTOR.extractData(new SaajSoapMessage(getMessageFromString("extractor/EarestFail6.xml")));
-        assertEquals(RESULT_PEM_FORMAT, message.getContent().toString());
+        assertEquals(RESULT_PEM_FORMAT_LEADING_NEWLINE, message.getContent().toString());
     }
 
 
@@ -119,7 +156,7 @@ public class StandardXRoadConsumerMessageExtractorTest {
 
         // menually formated file without whitespaces between elements and without new row (base64binary in PEM format)
         XRoadMessage message3 = EXTRACTOR.extractData(new SaajSoapMessage(getMessageFromString("extractor/EarestFail3.xml")));
-        assertEquals(RESULT_PEM_FORMAT, message3.getContent().toString());
+        assertEquals(RESULT_PEM_FORMAT_LEADING_NEWLINE, message3.getContent().toString());
 
         // menually formated file with whitespaces between elements and without new row (base64binary in PEM format)
         XRoadMessage message5 = EXTRACTOR.extractData(new SaajSoapMessage(getMessageFromString("extractor/EarestFail5.xml")));

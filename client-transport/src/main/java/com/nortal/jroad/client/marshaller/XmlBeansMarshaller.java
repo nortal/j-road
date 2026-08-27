@@ -30,7 +30,6 @@ import javax.xml.stream.XMLEventWriter;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
 
-import org.apache.xmlbeans.XMLStreamValidationException;
 import org.apache.xmlbeans.XmlError;
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlObject;
@@ -313,10 +312,8 @@ public class XmlBeansMarshaller extends AbstractMarshaller {
    * @return the corresponding {@code XmlMappingException}
    */
   protected XmlMappingException convertXmlBeansException(Exception ex, boolean marshalling) {
-    if (ex instanceof XMLStreamValidationException) {
-      return new ValidationFailureException("XMLBeans validation exception", ex);
-    }
-    else if (ex instanceof XmlException || ex instanceof SAXException) {
+    // XMLBeans 5 removed XMLStreamValidationException along with the old XML stream API
+    if (ex instanceof XmlException || ex instanceof SAXException) {
       if (marshalling) {
         return new MarshallingFailureException("XMLBeans marshalling exception",  ex);
       }

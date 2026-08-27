@@ -38,6 +38,8 @@ public class AttachmentPostProcessor {
         void set#{#propertyName}Handler(jakarta.activation.DataHandler handler);
         """
   );
+  // XMLBeans 5 emits @Override before impl methods; consume it so the accessors are inserted above it
+  private static final String OPTIONAL_OVERRIDE_ANNOTATION = "(?:@Override\\s+)?";
   private static final String OPTIONAL_PUBLIC_MODIFIER = "(?:public)?";
   private static final String SPACE = " +";
   private static final String SWAREF_TYPE = quote("org.ws_i.profiles.basic.x11.xsd.SwaRef");
@@ -55,7 +57,7 @@ public class AttachmentPostProcessor {
     this.pck = basepackage == null ? "" : basepackage + ".";
     String packagePrefix = quote(pck);
     this.attachmentTemplate = Pattern.compile(
-      OPTIONAL_PUBLIC_MODIFIER + SPACE + packagePrefix + SWAREF_TYPE + SPACE + X_GET_PATTERN + PARAMETER_LIST
+      OPTIONAL_OVERRIDE_ANNOTATION + OPTIONAL_PUBLIC_MODIFIER + SPACE + packagePrefix + SWAREF_TYPE + SPACE + X_GET_PATTERN + PARAMETER_LIST
     );
   }
 

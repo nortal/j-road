@@ -5,6 +5,8 @@
 *.ear
 client-service/**/src/main/java/com/nortal/jroad/client/**/types/**
 client-service/**/src/main/java/com/nortal/jroad/client/**/database/**
+# XMLBeans 5 generates TypeSystemHolder classes under org.apache.xmlbeans.metadata in the source dir
+**/src/main/java/org/apache/xmlbeans/**
 
 # eclipse specific git ignore
 .project

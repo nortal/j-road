@@ -155,8 +155,7 @@ public class TypeGen {
 
     XmlOptions options = new XmlOptions();
     options.setCompileDownloadUrls();
-    options.setGenerateJavaVersion("1.5");
-    options.setSchemaCodePrinter(new XteeSchemaCodePrinter(options));
+    options.setSchemaCodePrinter(new XteeSchemaCodePrinter());
 
     XmlBeans.compileXmlBeans(null,
                              null,
