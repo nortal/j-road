@@ -4,7 +4,7 @@
   <artifactId>xtee-client-service</artifactId>
   <name>X-Tee Client parent</name>
   <packaging>pom</packaging>
-  <version>4.3.1</version>
+  <version>5.0.3</version>
   <properties>
     <maven.compiler.release>17</maven.compiler.release>
     <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
@@ -15,7 +15,7 @@
   <parent>
     <groupId>com.nortal.jroad</groupId>
     <artifactId>xtee-root</artifactId>
-    <version>4.3.1</version>
+    <version>5.0.3</version>
   </parent>
 
   <dependencies>

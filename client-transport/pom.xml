@@ -6,12 +6,12 @@
   <artifactId>xtee-client-transport</artifactId>
   <name>x-tee client transport</name>
   <description>x-tee client API</description>
-  <version>4.3.1</version>
+  <version>5.0.3</version>
 
   <parent>
     <groupId>com.nortal.jroad</groupId>
     <artifactId>xtee-root</artifactId>
-    <version>4.3.1</version>
+    <version>5.0.3</version>
   </parent>
   <dependencies>
     <dependency>
