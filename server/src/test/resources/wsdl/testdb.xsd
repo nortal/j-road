@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://testdb.x-road.eu"
+           targetNamespace="http://testdb.x-road.eu"
+           elementFormDefault="unqualified">
+
+  <xs:complexType name="echoInput">
+    <xs:sequence>
+      <xs:element name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="echoOutput">
+    <xs:sequence>
+      <xs:element name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:element name="echoRequest" type="tns:echoInput"/>
+  <xs:element name="echoResponse" type="tns:echoOutput"/>
+</xs:schema>

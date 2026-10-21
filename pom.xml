@@ -9,7 +9,10 @@
   <version>4.3.1</version>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <spring.ws.version>4.0.10</spring.ws.version>
+    <spring.version>6.2.19</spring.version>
+    <spring.ws.version>4.1.4</spring.ws.version>
+    <xmlbeans.version>3.1.0</xmlbeans.version>
+    <commons-lang3.version>3.21.0</commons-lang3.version>
     <skipTests>true</skipTests>
     <maven.compiler.release>17</maven.compiler.release>
     <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
@@ -172,6 +175,17 @@
       </plugins>
     </pluginManagement>
   </build>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-framework-bom</artifactId>
+        <version>${spring.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
   <dependencies>
     <dependency>
       <groupId>javax.xml.parsers</groupId>
