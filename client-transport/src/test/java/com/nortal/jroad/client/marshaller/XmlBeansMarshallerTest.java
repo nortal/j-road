@@ -1,7 +1,6 @@
 package com.nortal.jroad.client.marshaller;
 
 import org.apache.xmlbeans.XmlObject;
-import org.apache.xmlbeans.XmlOptions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 import org.springframework.oxm.XmlMappingException;
@@ -23,7 +22,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class XmlBeansMarshallerTest {
 
@@ -65,8 +63,8 @@ public class XmlBeansMarshallerTest {
     @Test
     public void testOptionsFactoryBeanOptionsAreUsedForMarshalling() throws Exception {
         XmlOptionsFactoryBean optionsFactoryBean = new XmlOptionsFactoryBean();
-        optionsFactoryBean.setOptions(Map.of(XmlOptions.SAVE_PRETTY_PRINT, Boolean.TRUE));
-        assertTrue(optionsFactoryBean.getObject().hasOption(XmlOptions.SAVE_PRETTY_PRINT));
+        // keys by name, as in Spring XML config; XMLBeans 5 dropped the String constants in XmlOptions
+        optionsFactoryBean.setOptions(Map.of("SAVE_PRETTY_PRINT", Boolean.TRUE));
 
         XmlBeansMarshaller marshaller = new XmlBeansMarshaller();
         marshaller.setXmlOptions(optionsFactoryBean.getObject());
