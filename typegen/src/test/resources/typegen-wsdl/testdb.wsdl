@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  xmlns:tns="http://testdb.x-road.eu/producer/"
+                  xmlns:xrd="http://x-road.eu/xsd/xroad.xsd"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  targetNamespace="http://testdb.x-road.eu/producer/">
+  <wsdl:types>
+    <schema targetNamespace="http://testdb.x-road.eu/producer/"
+            xmlns="http://www.w3.org/2001/XMLSchema">
+
+      <complexType name="echo_input">
+        <sequence>
+          <element name="message" type="string">
+            <annotation>
+              <appinfo>
+                <xrd:title xml:lang="en">Message</xrd:title>
+              </appinfo>
+            </annotation>
+          </element>
+          <element name="repeat" type="int" minOccurs="0"/>
+        </sequence>
+      </complexType>
+
+      <complexType name="echo_output">
+        <sequence>
+          <element name="message" type="string" minOccurs="0" maxOccurs="unbounded"/>
+        </sequence>
+      </complexType>
+
+      <element name="echo">
+        <complexType>
+          <sequence>
+            <element name="request" type="tns:echo_input"/>
+          </sequence>
+        </complexType>
+      </element>
+
+      <element name="echoResponse">
+        <complexType>
+          <sequence>
+            <element name="request" type="tns:echo_input"/>
+            <element name="response" type="tns:echo_output"/>
+          </sequence>
+        </complexType>
+      </element>
+
+    </schema>
+  </wsdl:types>
+
+  <message name="echo">
+    <part name="body" element="tns:echo"/>
+  </message>
+
+  <message name="echoResponse">
+    <part name="body" element="tns:echoResponse"/>
+  </message>
+
+  <portType name="xporttype">
+    <operation name="echo">
+      <input message="tns:echo"/>
+      <output message="tns:echoResponse"/>
+    </operation>
+  </portType>
+
+  <binding name="xbinding" type="tns:xporttype">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="echo">
+      <xrd:version>v2</xrd:version>
+      <soap:operation soapAction="" style="document"/>
+      <input>
+        <soap:body parts="body" use="literal"/>
+      </input>
+      <output>
+        <soap:body parts="body" use="literal"/>
+      </output>
+    </operation>
+  </binding>
+
+  <service name="testdb">
+    <port name="xport" binding="tns:xbinding">
+      <soap:address location="http://localhost/testdb"/>
+    </port>
+  </service>
+</wsdl:definitions>
