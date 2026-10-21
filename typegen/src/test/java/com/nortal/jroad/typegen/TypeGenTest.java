@@ -48,10 +48,10 @@ public class TypeGenTest {
 
         String echoInput = Files.readString(sourceDir.resolve(TYPES_PACKAGE_DIR + "/EchoInput.java"));
         assertTrue(echoInput.contains("public interface EchoInput extends org.apache.xmlbeans.XmlObject"), echoInput);
-        assertTrue(echoInput.contains("    @com.nortal.jroad.model.XRoadElement(title=\"Message\", sequence=1)\n"
-                                      + "    java.lang.String getMessage();"), echoInput);
-        assertTrue(echoInput.contains("    @com.nortal.jroad.model.XRoadElement(title=\"Repeat\", sequence=2)\n"
-                                      + "    int getRepeat();"), echoInput);
+        assertAnnotatedGetter(echoInput, "@com.nortal.jroad.model.XRoadElement(title=\"Message\", sequence=1)",
+                              "java.lang.String getMessage();");
+        assertAnnotatedGetter(echoInput, "@com.nortal.jroad.model.XRoadElement(title=\"Repeat\", sequence=2)",
+                              "int getRepeat();");
         assertTrue(echoInput.contains("boolean isSetRepeat();"), echoInput);
 
         // compiled schema type system and serialized X-road metadata
@@ -81,6 +81,17 @@ public class TypeGenTest {
         assertTrue(databaseImpl.contains("XRoadMessage<" + outputClass + "> response = send(new XmlBeansXRoadMessage<"
                                          + inputClass + ">(input), \"echo\", \"v2\", userId);"), databaseImpl);
         assertEquals(2, countOccurrences(databaseImpl, "\"v1\""), databaseImpl);
+    }
+
+    /**
+     * Asserts that the annotation is directly followed by the getter declaration. XMLBeans 5 puts the getter's
+     * javadoc in between, older versions don't.
+     */
+    private static void assertAnnotatedGetter(String source, String annotation, String getter) {
+        int index = source.indexOf(annotation);
+        assertTrue(index >= 0, source);
+        String declaration = source.substring(index + annotation.length()).replaceFirst("(?s)^\\s*(/\\*\\*.*?\\*/\\s*)?", "");
+        assertTrue(declaration.startsWith(getter), source);
     }
 
     private static List<String> listFiles(Path root) throws Exception {
